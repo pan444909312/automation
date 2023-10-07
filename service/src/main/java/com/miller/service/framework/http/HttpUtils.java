@@ -9,9 +9,8 @@ import java.util.Map;
  * 发送HTTP请求工具
  *
  * @author Miller Shan
- * @since 2023-10-2 15:24:55
  * @version 1.0
- *
+ * @since 2023-10-2 15:24:55
  */
 public class HttpUtils {
     /**
@@ -42,7 +41,7 @@ public class HttpUtils {
     /**
      * 发送 GET 请求，返回响应体。
      *
-     * @param uri     请求的 url, 例如: http://localhost:1024
+     * @param uri     请求的 url, 例如: <a href="http://localhost:1024">http://localhost:1024</a>
      * @param params  url上的参数，例如: ?key1=value1&key2=value2
      * @param headers 请求头
      * @param cookies 请求 Cookie
@@ -57,7 +56,7 @@ public class HttpUtils {
     /**
      * 发送 POST 请求，返回响应体。
      *
-     * @param uri     请求的 url, 例如: http://localhost:1024
+     * @param uri     请求的 url, 例如: <a href="http://localhost:1024">http://localhost:1024</a>
      * @param params  url上的参数，例如: ?key1=value1&key2=value2
      * @param headers 请求头
      * @param body    请求体，可能存在多种类型，比如: form-data, x-www-form-urlencoded, raw(JSON)
@@ -95,7 +94,7 @@ public class HttpUtils {
     /**
      * 发送 GET 请求，将响应结果的 JSON 字符串映射成 Java 对象。
      *
-     * @param uri        请求的 url, 例如: http://localhost:1024
+     * @param uri        请求的 url, 例如: 例如: <a href="http://localhost:1024">http://localhost:1024</a>
      * @param params     url上的参数，例如: ?key1=value1&key2=value2
      * @param headers    请求头
      * @param cookies    请求Cookie
@@ -112,7 +111,7 @@ public class HttpUtils {
     /**
      * 发送 POST 请求，将响应结果的 JSON 字符串映射成 Java 对象。
      *
-     * @param uri        请求的 url, 例如: http://localhost:1024
+     * @param uri        请求的 url, 例如: 例如: <a href="http://localhost:1024">http://localhost:1024</a>
      * @param params     url上的参数，例如: ?key1=value1&key2=value2
      * @param headers    请求头
      * @param body       请求体，可能存在多种类型，比如: form-data, x-www-form-urlencoded, raw(JSON)

@@ -16,15 +16,15 @@ import static io.restassured.config.EncoderConfig.encoderConfig;
  * 通过 Rest-Assured 实现 发送 HTTP 请求
  *
  * @author Miller Shan
- * @since 2023-10-2 20:24:55
  * @version 1.0
+ * @since 2023-10-2 20:24:55
  */
 @Slf4j
 public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     /**
      * 发送 GET 请求
      *
-     * @param uri     请求的 url, 例如: http://localhost:1024
+     * @param uri     请求的 url, 例如: <a href="http://localhost:1024">http://localhost:1024</a>
      * @param params  请求的 Query Params，一般是 URI上的参数.例如: ?key1=value1&key2=value2
      * @param headers 请求头参数
      * @param cookies 请求携带的 Cookie
@@ -77,10 +77,9 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     /**
      * 发送 POST 请求
      *
-     * @param uri     请求的 url, 例如: http://localhost:1024
+     * @param uri     请求的 url, 例如: <a href="http://localhost:1024">http://localhost:1024</a>
      * @param params  请求的 Query Params，LinkedHashMap<String, Object> URL上的参数有顺序要求，所以必须要求加入时的map是有序的。
      *                params一般是URI上的参数，比如: ?key=value&key1=value2     * @param headers 请求头
-     * @param body    请求体，可能存在多种类型，比如: form-data, x-www-form-urlencoded, raw(JSON)
      * @param headers 请求头参数
      * @param body    请求体支持 application/json、application/x-www-form-urlencoded
      * @param cookies Cookie

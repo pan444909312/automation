@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -12,8 +13,8 @@ import java.util.Objects;
  * 基于Java原生包实现HTTP请求
  *
  * @author Miller Shan
- * @since 2023-10-2 19:24:55
  * @version 1.0
+ * @since 2023-10-2 19:24:55
  */
 public class HTTPUtilsByJava extends AbstractHTTPUtils {
 
@@ -57,18 +58,8 @@ public class HTTPUtilsByJava extends AbstractHTTPUtils {
 
         // 发送数据：请求参数。POST请求主要是这里不同，这里需要携带body到服务器
         // 获取URLConnection对象对应的输出流
-        OutputStreamWriter out = new OutputStreamWriter(httpURLConnection.getOutputStream(), "UTF-8");
-        String body = "{\n" +
-                "    \"name\": \"测试围栏名称\",\n" +
-                "    \"center\": \"115.672126,38.817129\",\n" +
-                "    \"radius\": \"1000\",\n" +
-                "    \"enable\": \"true\",\n" +
-                "    \"valid_time\": \"2020-05-19\",\n" +
-                "    \"repeat\": \"Mon,Tues,Wed,Thur,Fri,Sat,Sun\",\n" +
-                "    \"time\": \"00:00,11:59;13:00,20:59\",\n" +
-                "    \"desc\": \"测试围栏描述\",\n" +
-                "    \"alert_condition\": \"enter;leave\"\n" +
-                "}";
+        OutputStreamWriter out = new OutputStreamWriter(httpURLConnection.getOutputStream(), StandardCharsets.UTF_8);
+        String body = "{\n" + "    \"name\": \"测试围栏名称\",\n" + "    \"center\": \"115.672126,38.817129\",\n" + "    \"radius\": \"1000\",\n" + "    \"enable\": \"true\",\n" + "    \"valid_time\": \"2020-05-19\",\n" + "    \"repeat\": \"Mon,Tues,Wed,Thur,Fri,Sat,Sun\",\n" + "    \"time\": \"00:00,11:59;13:00,20:59\",\n" + "    \"desc\": \"测试围栏描述\",\n" + "    \"alert_condition\": \"enter;leave\"\n" + "}";
         out.write(body);
         // flush输出流的缓冲
         out.flush();
@@ -134,7 +125,7 @@ public class HTTPUtilsByJava extends AbstractHTTPUtils {
 
         // 获取响应体内容
         InputStream inputStream = httpURLConnection.getInputStream();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         int result;
         StringBuilder stringBuilder = new StringBuilder();
         while (-1 != (result = bufferedReader.read())) {
