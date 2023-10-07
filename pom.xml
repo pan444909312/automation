@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.miller</groupId>
+    <artifactId>automation</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>automation</name>
+    <description>automation</description>
+    <!-- 将此工程设置为聚合工程，pom -->
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>17</java.version>
+        <!-- Jupiter and platform version. 这两个依赖版本对应关系为后两位版本号相同，第一位不同 -->
+        <junit.jupiter.version>5.9.3</junit.jupiter.version>
+        <junit.platform.version>1.9.3</junit.platform.version>
+    </properties>
+
+    <!-- 模块说明:这里声明多个子模块 -->
+    <modules>
+        <module>web</module>
+        <module>service</module>
+        <module>mapper</module>
+        <module>entity</module>
+        <module>common</module>
+        <module>demo</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>common</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>entity</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>mapper</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>service</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>web</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>demo</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <!-- 统一管理 swagger 版本 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <!-- 统一管理 lombok 版本 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.30</version>
+            </dependency>
+            <!-- 统一管理 fastjson 版本。建议使用 jackson 替换 fastjson -->
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba</groupId>-->
+<!--                <artifactId>fastjson</artifactId>-->
+<!--                <version>1.2.78</version>-->
+<!--            </dependency>-->
+            <!-- 统一管理 jackson 版本. 保持与当前 SpringBoot 引用的 Jackson 版本相同 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.13.4.2</version>
+            </dependency>
+            <!-- 统一管理 commons-lang3 版本 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.12.0</version>
+            </dependency>
+            <!-- 统一管理 shiro 版本 -->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>1.8.0</version>
+            </dependency>
+            <!-- 统一管理 jwt 版本 -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>0.9.1</version>
+            </dependency>
+            <!-- 统一管理 aop 版本 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>2.5.5</version>
+            </dependency>
+            <!-- SpringBoot 整合 MyBatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>2.2.0</version>
+            </dependency>
+            <!-- SpringBoot 中测试 MyBatis Mapper -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter-test</artifactId>
+                <version>2.2.0</version>
+            </dependency>
+            <!-- 统一管理 mybatis-plus 版本 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.4.1</version>
+            </dependency>
+            <!-- 统一管理 mybatis-plus-generator 代码生成器版本 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>3.4.1</version>
+            </dependency>
+            <!-- 统一管理 freemarker 版本，代码生成器依赖的模板引擎 -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.31</version>
+            </dependency>
+            <!-- 添加 MyBatis-plus 的单元测试依赖。原生 MyBatis 的单元测试使用 @MybatisTest 注解 ，但是由于使用了 MybatisPlus，
+            所以需要添加 MybatisPlusTest 依赖，然后使用 @MybatisPlusTest 注解进行 Mapper 层的单元测试，否则会出现 xml 文件解析绑定参数错误。
+            org.apache.ibatis.binding.BindingException: Invalid bound statement (not found) -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter-test</artifactId>
+                <version>3.4.1</version>
+            </dependency>
+            <!-- 添加findbugs依赖用于忽略SpotBugs上报的错误 -->
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>annotations</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            <!-- 统一管理 JUnit 版本. 5.9.x 版本 Jupiter 已经包含了 api, engine, params相关依赖 -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.jupiter.version}</version>
+            </dependency>
+            <!-- 根据官网介绍在 IDEA 里运行 Platform-launcher 必须添加此依赖，
+            官网：https://junit.org/junit5/docs/current/user-guide/#running-tests -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 引入JUnit Platform-launcher 用于自定义运行器 -->
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-launcher</artifactId>
+                <version>${junit.platform.version}</version>
+            </dependency>
+            <!-- 引入JUnit-Platform-suite 进行组装tests -->
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-suite-api</artifactId>
+                <version>${junit.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-suite-engine</artifactId>
+                <version>${junit.platform.version}</version>
+            </dependency>
+
+            <!-- JUnit5 整合 Mockito, mockito-junit-jupiter 已经包含了Mockito的core所以不需要单独引入了 -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>4.4.0</version>
+            </dependency>
+            <!-- 引入 Mockito-inline 用于 Mock final、static 的类和方法 -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-inline</artifactId>
+                <version>4.4.0</version>
+            </dependency>
+            <!-- JUnit5 整合 Selenium -->
+            <dependency>
+                <groupId>io.github.bonigarcia</groupId>
+                <artifactId>selenium-jupiter</artifactId>
+                <version>3.4.0</version>
+            </dependency>
+            <!-- JUnit5 整合 hamcrest  -->
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>2.2</version>
+            </dependency>
+            <!-- 使用 rest-assured 做接口测试。 5.X 版本需要 Spring Boot 比较高的版本，比如 2.7.X 否则还是会加载低版本的依赖 -->
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>5.3.0</version>
+                <exclusions>
+                    <!-- 解决冲突 5.X 版本需要 groovy 4.X 版本-->
+                    <exclusion>
+                        <groupId>org.apache.groovy</groupId>
+                        <artifactId>groovy-xml</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <!-- add this dep which bring back the groovy-xml in a single and last version (4) -->
+                <groupId>io.rest-assured</groupId>
+                <artifactId>xml-path</artifactId>
+                <version>5.3.0</version>
+            </dependency>
+            <!-- SpringBoot 使用 H2 内存数据库隔离数据库 -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>2.1.212</version>
+            </dependency>
+            <!-- 数据库版本管理工具 Flyway。flyway >= 7.15.0 不兼容MySQL5.7 -->
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>7.15.0</version>
+            </dependency>
+            <!-- Mock Server 服务端、客户端依赖 -->
+            <dependency>
+                <groupId>org.mock-server</groupId>
+                <artifactId>mockserver-netty</artifactId>
+                <version>5.13.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mock-server</groupId>
+                <artifactId>mockserver-client-java</artifactId>
+                <version>5.13.2</version>
+            </dependency>
+            <!-- ULID 生成器 -->
+            <dependency>
+                <groupId>com.github.f4b6a3</groupId>
+                <artifactId>ulid-creator</artifactId>
+                <version>5.1.0</version>
+            </dependency>
+            <!-- 链接 MySql 驱动 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.26</version>
+            </dependency>
+            <!-- Spring JDBC 依赖, 由于项目使用的是JDK 8 所以只能使用 5.x版本，如果要使用6.x版本需要升级到 JDK 17 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>5.3.25</version>
+            </dependency>
+            <!-- 阿里巴巴数据库连接池工具 druid  -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.2.16</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!-- 添加 Maven 的 surefire插件用于管理 JUnit 测试用例，否则可能会出现 mvn test 的时候Tests run: 0的情况，新版本 2.20.1 以上已解决 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.jupiter.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>

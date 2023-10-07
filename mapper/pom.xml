@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>automation</artifactId>
+        <groupId>com.miller</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.miller</groupId>
+    <artifactId>mapper</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>mapper</name>
+    <description>mapper</description>
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>entity</artifactId>
+        </dependency>
+
+        <!-- java连接mysql驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- 代码生成器，mybatis-plus-generator -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+        <!-- 代码生成器模版引擎，freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+
+        <!-- 添加依赖 MyBatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- 添加 MyBatis 测试依赖 MyBatis Mapper
+         SpringBoot 中使用 @MybatisTest 测试 MyBatis Mapper。
+         需要注意如果你是想对 MyBatis-plu s的 Mapper 进行测试，那么需要使用 @MybatisPlusTest 注解
+         进行 Mapper 层的单元测试，否则会出现 xml 文件解析绑定参数错误。
+         org.apache.ibatis.binding.BindingException: Invalid bound statement (not found) 。
+         引入MyBatis-Plus的依赖 artifactId 为“<artifactId>mybatis-plus-boot-starter-test</artifactId>”
+         -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter-test</artifactId>
+        </dependency>
+        <!-- SpringBoot 使用 H2 内存数据库隔离数据库,使用 @MybatisTest 时也依赖了h2-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
+        <!-- 添加依赖 mybatis-plus  -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <!-- 添加 MyBatis-plus 的单元测试依赖。
+            原生 MyBatis 的单元测试使用 @MybatisTest 注解 ，但是由于使用了 MybatisPlus，所以需要添加 MybatisPlusTest 依赖，
+            然后使用 @MybatisPlusTest 注解进行 Mapper 层的单元测试，否则会出现 xml 文件解析绑定参数错误。
+            org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)
+        -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter-test</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>
