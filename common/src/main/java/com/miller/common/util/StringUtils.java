@@ -1,13 +1,13 @@
 package com.miller.common.util;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 字符串处理方法
  *
  * @author Miller Shan
- * @since 2023-09-28 09:26:20
+ * @version 1.0
+ * @since 2023/09/28 09:26:20
  */
 public class StringUtils {
     /**
@@ -18,13 +18,12 @@ public class StringUtils {
     }
 
     public static String replaceSpecialStr(String str, String regex) {
-        String repl = "";
+        var repl = "";
         if (str != null) {
-            Pattern p = Pattern.compile(regex);
-            Matcher m = p.matcher(str);
+            var p = Pattern.compile(regex);
+            var m = p.matcher(str);
             repl = m.replaceAll("");
         }
         return repl;
     }
-
 }

@@ -2,14 +2,14 @@ package com.miller.common.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 正则工具
  *
  * @author Miller Shan
- * @since 2023-09-28 09:26:20
+ * @version 1.0
+ * @since 2023/09/28 09:26:20
  */
 public class RegexUtils {
     /**
@@ -20,9 +20,9 @@ public class RegexUtils {
      * @return 找到的列表
      */
     public static List<String> getSubStringList(String text, String regexExpression) {
-        List<String> list = new ArrayList<>();
-        Pattern pattern = Pattern.compile(regexExpression);// 匹配的模式
-        Matcher m = pattern.matcher(text);
+        var list = new ArrayList<String>();
+        var pattern = Pattern.compile(regexExpression);// 匹配的模式
+        var m = pattern.matcher(text);
         while (m.find()) {
             int i = 1;
             list.add(m.group(i));
@@ -39,8 +39,8 @@ public class RegexUtils {
      * @return 找到的第一个匹配
      */
     public static String getFirstSubString(String text, String regexExpression) {
-        Pattern pattern = Pattern.compile(regexExpression);// 匹配的模式
-        Matcher matcher = pattern.matcher(text);
+        var pattern = Pattern.compile(regexExpression);// 匹配的模式
+        var matcher = pattern.matcher(text);
         if (matcher.find()) {
             return matcher.group(1);
         }

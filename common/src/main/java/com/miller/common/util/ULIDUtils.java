@@ -1,6 +1,5 @@
 package com.miller.common.util;
 
-import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;
 
 /**
@@ -8,7 +7,7 @@ import com.github.f4b6a3.ulid.UlidCreator;
  *
  * @author Miller Shan
  * @see <a href="https://www.crockford.com/base32.html">ULID</a>
- * @since 2023-09-28 11:17:07
+ * @since 2023/09/28 11:17:07
  */
 public class ULIDUtils {
     /**
@@ -17,7 +16,7 @@ public class ULIDUtils {
      * @return 26位的 ULID like {@code 01GK396NT61RY779VWJTG413JA}
      */
     public static String generateULID() {
-        Ulid monotonicUlid = UlidCreator.getMonotonicUlid();
+        var monotonicUlid = UlidCreator.getMonotonicUlid();
         return monotonicUlid.toString();
     }
 }

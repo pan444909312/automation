@@ -4,7 +4,8 @@ package com.miller.common.util;
  * 日期工具类
  *
  * @author Miller Shan
- * @since 2023-09-28 09:51:54
+ * @version 1.0
+ * @since 2023/09/28 09:51:54
  */
 public class DateUtils {
     /**
@@ -14,7 +15,6 @@ public class DateUtils {
      * @see System#currentTimeMillis()
      */
     public static Long generateTimestamp() {
-        Long timestamp = System.currentTimeMillis();
-        return timestamp;
+        return System.currentTimeMillis();
     }
 }
