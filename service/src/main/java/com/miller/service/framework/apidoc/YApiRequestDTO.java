@@ -13,11 +13,6 @@ import java.util.List;
  */
 @Data
 public class YApiRequestDTO {
-    private String token;
-    private String title;
-    private String status;
-    private String desc;
-    private String markdown;
-    private String id;
+    private String token, title, status, desc, markdown, id;
     private List<String> tag;
 }

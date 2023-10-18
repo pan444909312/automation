@@ -2,17 +2,11 @@ package com.miller.service.framework.apidoc;
 
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.aggregator.ArgumentAccessException;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * YApi Tools
@@ -22,8 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @since 2023/10/7 11:39:58
  */
 public class YApiUtils {
-
-    private static final String yApiDomain = "http://10.1.6.46:3000";
+    public static final String Y_API_DOMAIN = "http://10.1.6.46:3000";
 
     /**
      * 获取能用的token，YApi 不同项目的 token 不一样
@@ -32,7 +25,7 @@ public class YApiUtils {
      * @return 项目token
      */
     private static String getProjectToken(String yApiUri) {
-        Map<String, String> projectTokenMap = new HashMap<>();
+        var projectTokenMap = new HashMap<String, String>();
         /*
          * user-app-server
          */
@@ -54,19 +47,19 @@ public class YApiUtils {
      * @param yApiUri 完整的 YApi url 地址
      */
     public static void updateYApiData(String yApiUri) {
-        String uri = yApiDomain + "/api/interface/up";
-        YApiRequestDTO yApiRequestDTO = new YApiRequestDTO();
-        YApiAPIInfoDTO yApiAPIInfoDTO = getYApiInfoByID(yApiUri);
+        var uri = Y_API_DOMAIN + "/api/interface/up";
+        var yApiRequestDTO = new YApiRequestDTO();
+        var yApiAPIInfoDTO = getYApiInfoByID(yApiUri);
 
         yApiRequestDTO.setToken(getProjectToken(yApiUri));
 
         // 更新 YApi 接口状态，暂不修改状态
         yApiRequestDTO.setStatus(yApiAPIInfoDTO.getData().getStatus());
         // 更新 YApi 中的备注
-        String qaDescription = "<h3><strong>请注意，接口ID请不要变更，此备注也不要修改，可以追加备注</strong>。</h3>\n<p>这是通过自动化测试自动更新的记录，<strong>测试用例执行成功之后会自动追加Tag(\"自动化\")</strong>，表示此接口已经被自动化测试覆盖，<strong>如果更新接口需要通知QA人员</strong>。</p>\n<hr>\n";
-        String qaMarkdown = "### **请注意，接口ID请不要变更，此备注也不要修改，可以追加备注**。\n\n这是通过自动化测试自动更新的记录，**测试用例执行成功之后会自动追加Tag(\"自动化\")**，表示此接口已经被自动化测试覆盖，**如果更新接口需要通知QA人员**。\n\n- - -\n\n### #发送GET请求示例\n\n```\ncurl--requestGET'http://192.168.9.77:7080/api/calc/add/1/2'\n#发送POST请求\ncurl-XPOSThttp://192.168.9.77:7080/api/calc/testPostMethod-H\"Content-type:application/json\"-d'{\"firstNumber\":\"1.0\",\"secondNumber\":2.0}'\n```";
+        var qaDescription = "<h3><strong>请注意，接口ID请不要变更，此备注也不要修改，可以追加备注</strong>。</h3>\n<p>这是通过自动化测试自动更新的记录，<strong>测试用例执行成功之后会自动追加Tag(\"自动化\")</strong>，表示此接口已经被自动化测试覆盖，<strong>如果更新接口需要通知QA人员</strong>。</p>\n<hr>\n";
+        var qaMarkdown = "### **请注意，接口ID请不要变更，此备注也不要修改，可以追加备注**。\n\n这是通过自动化测试自动更新的记录，**测试用例执行成功之后会自动追加Tag(\"自动化\")**，表示此接口已经被自动化测试覆盖，**如果更新接口需要通知QA人员**。\n\n- - -\n\n### #发送GET请求示例\n\n```\ncurl--requestGET'http://192.168.9.77:7080/api/calc/add/1/2'\n#发送POST请求\ncurl-XPOSThttp://192.168.9.77:7080/api/calc/testPostMethod-H\"Content-type:application/json\"-d'{\"firstNumber\":\"1.0\",\"secondNumber\":2.0}'\n```";
 
-        String yApiDesc = yApiAPIInfoDTO.getData().getDesc();
+        var yApiDesc = yApiAPIInfoDTO.getData().getDesc();
         if (null == yApiDesc || yApiDesc.length() < 1) {
             yApiRequestDTO.setDesc(qaDescription);
             yApiRequestDTO.setMarkdown(qaMarkdown);
@@ -99,7 +92,7 @@ public class YApiUtils {
             }
         });
 
-        Map<String, Object> headers = new HashMap<>();
+        var headers = new HashMap<String, Object>();
         headers.put("Content-Type", "application/json");
         HttpUtils.sendPostRequestReturnBody(uri, null, headers, JSONUtils.toJSONString(yApiRequestDTO), null);
     }
@@ -111,7 +104,7 @@ public class YApiUtils {
      * @return api ID
      */
     public static String getYApiId(String url) {
-        return url = url.split("/interface/api/")[1];
+        return url.split("/interface/api/")[1];
     }
 
     /**
@@ -121,21 +114,11 @@ public class YApiUtils {
      * @return 自己封装的 YApi 实体类，字段不全。{@link YApiAPIInfoDTO}
      */
     public static YApiAPIInfoDTO getYApiInfoByID(String yApiUri) {
-        String uri = yApiDomain + "/api/interface/get";
-        HashMap<String, Object> params = new HashMap<>();
+        var uri = Y_API_DOMAIN + "/api/interface/get";
+        var params = new HashMap<String, Object>();
         params.put("token", getProjectToken(yApiUri));
         params.put("id", getYApiId(yApiUri));
         return HttpUtils.sendGetRequestReturnJavaObject(uri, params, null, null, YApiAPIInfoDTO.class);
-    }
-
-    @Disabled
-    @Test
-    public void testYApiUtils() {
-        String yApiUri = yApiDomain + "/project/60/interface/api/3040";
-        YApiAPIInfoDTO yApiAPIInfoDTO = YApiUtils.getYApiInfoByID(yApiUri);
-        Integer id = yApiAPIInfoDTO.getData().getId();
-        assertThat(id, Matchers.notNullValue());
-        YApiUtils.updateYApiData(yApiUri);
     }
 }
 
