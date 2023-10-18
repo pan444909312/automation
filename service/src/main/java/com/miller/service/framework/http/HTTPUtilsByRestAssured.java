@@ -17,7 +17,7 @@ import static io.restassured.config.EncoderConfig.encoderConfig;
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023-10-2 20:24:55
+ * @since 2023/10/2 20:24:55
  */
 @Slf4j
 public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {

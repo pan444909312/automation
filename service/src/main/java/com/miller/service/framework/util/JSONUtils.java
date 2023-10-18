@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023-10-2 10:39:13
+ * @since 2023/10/2 10:39:13
  */
 public class JSONUtils {
     private JSONUtils() {

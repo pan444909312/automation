@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023-10-2 15:24:55
+ * @since 2023/10/2 15:24:55
  */
 public class HttpUtils {
     /**

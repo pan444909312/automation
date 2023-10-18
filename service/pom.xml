@@ -8,7 +8,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.miller</groupId>
     <artifactId>service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>service</name>
