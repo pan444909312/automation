@@ -1,0 +1,139 @@
+package com.miller.service.framework.listenner;
+
+import com.miller.service.framework.annotation.ApiDoc;
+import com.miller.service.framework.annotation.ApiDocs;
+import com.miller.service.framework.depend.DependsOnClass;
+import com.miller.service.framework.depend.DependsOnMethod;
+import org.junit.jupiter.api.extension.ConditionEvaluationResult;
+import org.junit.jupiter.api.extension.ExecutionCondition;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestWatcher;
+
+import java.lang.reflect.Method;
+import java.util.*;
+
+/**
+ * 测试执行结果观察者
+ *
+ * <p>
+ * 监听{@link org.junit.jupiter.api.Test @Test}, {@link org.junit.jupiter.api.TestTemplate @TestTemplate}方法，
+ * 比如{@link org.junit.jupiter.api.RepeatedTest @RepeatedTest},
+ * {@link org.junit.jupiter.params.ParameterizedTest @ParameterizedTest},
+ * 监听结果结果包括{@link org.junit.jupiter.api.Disabled}, Successful, Aborted, Failed
+ * </p>
+ *
+ * @author Miller Shan
+ * @version 1.0
+ * @see ApiDoc
+ * @see DependsOnMethod
+ * @see DependsOnClass
+ * @since 2023/10/16 21:22:41
+ */
+public class TestResultWatcher implements TestWatcher, ExecutionCondition {
+    /**
+     * 存储成功的测试方法
+     */
+    private Set<String> successfulTestMethods = new HashSet<>();
+    /**
+     * 存储失败的类
+     */
+    private static Set<String> failedTestClasses = new HashSet<>();
+
+    /**
+     * 存储所有测试类上的{@link ApiDoc @ApiDoc} 上的 value。用于测试执行完成之后更新平台的状态.
+     *
+     * @see com.miller.service.framework.lifecycle.LifecycleCallback
+     */
+    public static Set<String> apiDocsValues = new HashSet<>();
+
+    @Override
+    public void testDisabled(ExtensionContext context, Optional<String> reason) {
+        System.out.println(this.getClass().getName() + " testDisabled method invoked...");
+    }
+
+    @Override
+    public void testSuccessful(ExtensionContext context) {
+        System.out.println(this.getClass().getName() + " testSuccessful method invoked...");
+        // 记录成功的方法
+        context.getTestMethod().ifPresent(method -> successfulTestMethods.add(method.getName()));
+
+        // 执行成功更新平台中接口的状态
+        processApiDoc(context);
+    }
+
+    @Override
+    public void testAborted(ExtensionContext context, Throwable cause) {
+        System.out.println(this.getClass().getName() + " testAborted method invoked...");
+    }
+
+    @Override
+    public void testFailed(ExtensionContext context, Throwable cause) {
+        System.out.println(this.getClass().getName() + " testFailed method invoked...");
+        // 如果类中的某一个方法失败了，那么认为这个类也执行失败了
+        String failedClassName = context.getTestClass().orElse(null).getName();
+        failedTestClasses.add(failedClassName);
+    }
+
+    /**
+     * 处理{@link  ApiDoc @ApiDoc}注解
+     */
+    private void processApiDoc(ExtensionContext context) {
+        // 处理方法上的注解
+        // ApiDoc apiDocAnnotation = context.getTestMethod().get().getDeclaredAnnotation(ApiDoc.class);
+        // 处理类上的注解
+        ApiDoc apiDocAnnotation = context.getTestClass().get().getDeclaredAnnotation(ApiDoc.class);
+        if (Objects.nonNull(apiDocAnnotation)) {
+            apiDocsValues.add(apiDocAnnotation.value());
+        }
+        ApiDocs apiDocsAnnotation = context.getTestClass().get().getDeclaredAnnotation(ApiDocs.class);
+        if (Objects.nonNull(apiDocsAnnotation)) {
+            ApiDoc[] apiDocs = apiDocsAnnotation.value();
+            for (ApiDoc apiDoc : apiDocs) {
+                apiDocsValues.add(apiDoc.value());
+            }
+        }
+    }
+
+    /**
+     * 处理{@link DependsOnMethod @DependsOnMethod} 和 {@link DependsOnClass @DependsOnClass} 在依赖的链中，中间有一个失败则后面都标识为禁用。
+     */
+    @Override
+    public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        // 处理测试方法依赖
+        Method method = context.getTestMethod().orElse(null);
+        if (method != null) {
+            DependsOnMethod annotation = method.getAnnotation(DependsOnMethod.class);
+            if (annotation != null) {
+                // 执行失败的方法
+                Optional<String> unsuccessfulMethod = Arrays.stream(annotation.value()).filter(name -> !successfulTestMethods.contains(name)).findAny();
+                if (unsuccessfulMethod.isPresent()) {
+                    // 标识方法为 disabled
+                    return ConditionEvaluationResult.disabled(String.format("'%s()' 不能执行，因为它依赖的测试方法 '%s()' 执行失败或者未执行!", method.getName(), unsuccessfulMethod.get()));
+                }
+            }
+        }
+
+        // 处理测试类依赖
+        Class<?> currentExecuteClass = context.getTestClass().orElse(null);
+        if (currentExecuteClass != null) {
+            // 获取当前执行类上的 DependsOnClass 注解
+            DependsOnClass annotation = currentExecuteClass.getAnnotation(DependsOnClass.class);
+            if (annotation != null) {
+                // 获取注解上的所有类
+                Class[] classes = annotation.value();
+                // 遍历注解里面的类
+                for (Class classInAnnotation : classes) {
+                    // 如果失败类集合中包含了当前依赖的类，则将此类设置为 disabled
+                    if (failedTestClasses.contains(classInAnnotation.getName())) {
+                        // 将不能执行的类添加到失败类的集合当中
+                        failedTestClasses.add(currentExecuteClass.getName());
+                        return ConditionEvaluationResult.disabled(String.format("'%s()' 不能执行，因为它依赖的测试类 '%s()' 执行失败或者未执行!", currentExecuteClass.getName(), classInAnnotation.getName()));
+                    }
+                }
+            }
+        }
+        // 继续执行
+        return ConditionEvaluationResult.enabled("Enable by Default");
+    }
+
+}
