@@ -12,9 +12,12 @@ class YApiUtilsTest {
     @Test
     @DisplayName("Should be updated website field values successfully.")
     void testYApiUtils() {
+        // Given
         var yApiUri = YApiUtils.Y_API_DOMAIN + "/project/60/interface/api/3040";
         var yApiAPIInfoDTO = YApiUtils.getYApiInfoByID(yApiUri);
+        // When
         var id = yApiAPIInfoDTO.getData().getId();
+        // Then
         assertThat(id, Matchers.notNullValue());
         YApiUtils.updateYApiData(yApiUri);
     }
