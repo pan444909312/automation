@@ -1,0 +1,32 @@
+package com.miller.service.framework.asserts;
+
+import com.miller.service.framework.action.Actions;
+import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.MatcherAssert;
+
+import static org.hamcrest.Matchers.is;
+
+/**
+ * 封装断言
+ *
+ * @author Miller Shan
+ * @version 1.0.0
+ * @see Actions
+ */
+@Slf4j
+public class AssertUtils {
+    public static Boolean assertThat(Object actual, Object expected) {
+        log.debug("开始断言: {} 与 {} 是否相等", actual, expected);
+        boolean result = false;
+        try {
+            MatcherAssert.assertThat(actual, is(expected));
+            result = true;
+        } catch (AssertionError e) {
+            log.error("期望与实际不符，期望的是 [" + expected + "] 但是找到了 [" + actual + "]");
+            result = false;
+        } finally {
+            log.debug("结束断言:{} 与 {} 是否相等, 断言结果为:{}", actual, expected, result);
+            return result;
+        }
+    }
+}
