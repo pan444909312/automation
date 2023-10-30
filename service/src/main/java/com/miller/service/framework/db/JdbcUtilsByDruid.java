@@ -15,7 +15,7 @@ public class JdbcUtilsByDruid {
      * 获取连接池对象
      *
      * @param driverClassName 驱动名称，比如MySQL为: com.mysql.jdbc.Driver
-     * @param mySqlUrl        链接的数据库名称，比如: jdbc:mysql://192.168.9.43:3306/ct_dev
+     * @param mySqlUrl        链接的数据库名称，比如: jdbc:mysql://127.0.0.1:3306/ct_dev
      * @param userName        账号
      * @param passWord        密码
      * @param initialSize     连接池初始化大小
@@ -61,7 +61,7 @@ public class JdbcUtilsByDruid {
     /**
      * 获取连接池对象
      *
-     * @param mySqlUrl 链接的数据库名称，比如: jdbc:mysql://192.168.9.43:3306/ct_dev
+     * @param mySqlUrl 链接的数据库名称，比如: jdbc:mysql://127.0.0.1:3306/ct_dev
      * @param userName 账号
      * @param passWord 密码
      * @return 数据源对象

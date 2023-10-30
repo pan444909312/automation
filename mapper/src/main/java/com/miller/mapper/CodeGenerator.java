@@ -28,7 +28,7 @@ import java.util.Scanner;
  * <p>
  * <ur>
  * <li>
- * 测试环境: 192.168.210.201:3306
+ * 测试环境: 127.0.0.1:3306
  * </li>
  * <li>
  * username:xxx
@@ -57,7 +57,7 @@ public class CodeGenerator {
     private static String dbName = "xxx_" + packageName;
 
 
-    private static String jdbcUrl = "jdbc:mysql://192.168.210.201:3306/" + dbName + "?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
+    private static String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/" + dbName + "?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
     private static final String username = "xxx";
     // xxxDB密码：RQqedQ&GLW
     private static final String password = "xxx";
