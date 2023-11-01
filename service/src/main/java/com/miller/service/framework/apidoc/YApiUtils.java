@@ -57,7 +57,7 @@ public class YApiUtils {
         yApiRequestDTO.setStatus(yApiAPIInfoDTO.getData().getStatus());
         // 更新 YApi 中的备注
         var qaDescription = "<h3><strong>请注意，接口ID请不要变更，此备注也不要修改，可以追加备注</strong>。</h3>\n<p>这是通过自动化测试自动更新的记录，<strong>测试用例执行成功之后会自动追加Tag(\"自动化\")</strong>，表示此接口已经被自动化测试覆盖，<strong>如果更新接口需要通知QA人员</strong>。</p>\n<hr>\n";
-        var qaMarkdown = "### **请注意，接口ID请不要变更，此备注也不要修改，可以追加备注**。\n\n这是通过自动化测试自动更新的记录，**测试用例执行成功之后会自动追加Tag(\"自动化\")**，表示此接口已经被自动化测试覆盖，**如果更新接口需要通知QA人员**。\n\n- - -\n\n### #发送GET请求示例\n\n```\ncurl--requestGET'http://192.168.9.77:7080/api/calc/add/1/2'\n#发送POST请求\ncurl-XPOSThttp://192.168.9.77:7080/api/calc/testPostMethod-H\"Content-type:application/json\"-d'{\"firstNumber\":\"1.0\",\"secondNumber\":2.0}'\n```";
+        var qaMarkdown = "### **请注意，接口ID请不要变更，此备注也不要修改，可以追加备注**。\n\n这是通过自动化测试自动更新的记录，**测试用例执行成功之后会自动追加Tag(\"自动化\")**，表示此接口已经被自动化测试覆盖，**如果更新接口需要通知QA人员**。\n\n- - -\n\n### #发送GET请求示例\n\n```\ncurl--requestGET'http://127.0.0.1:7080/api/calc/add/1/2'\n#发送POST请求\ncurl-XPOSThttp://127.0.0.1:7080/api/calc/testPostMethod-H\"Content-type:application/json\"-d'{\"firstNumber\":\"1.0\",\"secondNumber\":2.0}'\n```";
 
         var yApiDesc = yApiAPIInfoDTO.getData().getDesc();
         if (null == yApiDesc || yApiDesc.length() < 1) {

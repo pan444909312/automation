@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
  * @since 2023/11/1 17:22:58
  */
 public class Test02 {
-    @Tag("test")
+    @EnvTag.Test
     @Test
     void test01() {
         System.out.println("@EnvTag.Test");
     }
 
-    @Tag("prod")
+    @EnvTag.Prod
     @Test
     void test02() {
         System.out.println("@EnvTag.Prod");

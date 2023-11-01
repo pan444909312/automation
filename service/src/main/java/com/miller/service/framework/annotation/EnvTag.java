@@ -20,27 +20,27 @@ import java.lang.annotation.Target;
  */
 public interface EnvTag {
     /**
-     * 自定义注解 Dev
+     * 自定义注解 DEV, 必须大写，在 Launcher 里做了强制转换为大写
      */
-    @Tag("dev")
+    @Tag("DEV")
     @Target({ElementType.TYPE, ElementType.METHOD})
     @Retention(RetentionPolicy.RUNTIME)
     @interface Dev {
     }
 
-    @Tag("test")
+    @Tag("TEST")
     @Target({ElementType.TYPE, ElementType.METHOD})
     @Retention(RetentionPolicy.RUNTIME)
     @interface Test {
     }
 
-    @Tag("prod")
+    @Tag("PROD")
     @Target({ElementType.TYPE, ElementType.METHOD})
     @Retention(RetentionPolicy.RUNTIME)
     @interface Prod {
     }
 
-    //    @Tag("all")
+    //    @Tag("ALL")
     @Target({ElementType.TYPE, ElementType.METHOD})
     @Retention(RetentionPolicy.RUNTIME)
     @Dev
