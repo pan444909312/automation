@@ -1,33 +1,23 @@
 package com.miller.demo.login;
 
-import com.miller.demo.login.flow.LoginFlow;
-import com.miller.demo.login.flow.LogoutFlow;
-import com.miller.demo.login.request.LoginRequestDTO;
-import com.miller.demo.login.response.LoginResponseDTO;
-import com.miller.service.framework.annotation.EnvTag;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
+import org.junit.platform.suite.api.SuiteDisplayName;
 
 /**
  * 场景: 登入->登出
+ * <p>
+ *     简单场景：通过 Suite 组装成场景比较适合相对而言业务本身闭环，测试用例设计时已经考虑场景闭环，
+ *     且用例之间无序额外的操作，业务之间相对独立没有混合在一起的情况。
+ * </p>
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023/11/01 20:11:12
+ * @since 2023/11/01 19:10:12
  */
-@DisplayName("登陆场景_登入->登出")
+@SuiteDisplayName("登陆场景_登入->登出")
+@SelectClasses({LoginTests.class, LogoutTests.class})
+@Suite
 public class SimpleLoginThenLogoutScenarioTests {
 
-    @MethodSource("com.miller.demo.login.provider.LoginDataProvider#loginScenarioDataProvider")
-    @ParameterizedTest
-    @EnvTag.Test
-    @DisplayName("登入->登出")
-    void loginThenLogout(LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO responseUser =
-                LoginFlow.loginReturnJavaObject(loginRequestDTO.getEmail(), loginRequestDTO.getPassword());
-        // 比如：提取数据给下一个流程使用
-        responseUser.getData().getToken();
-        LogoutFlow.shouldLogoutSuccessful();
-    }
 }
