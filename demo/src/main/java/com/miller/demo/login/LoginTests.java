@@ -25,6 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @DisplayName("登录")
 public class LoginTests {
 
+    @Deprecated
     @MethodSource("com.miller.demo.login.provider.LoginDataProvider#loginDataProvider")
     @ParameterizedTest
     @DisplayName("login testing by data provider")
