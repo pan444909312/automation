@@ -84,7 +84,23 @@ public class LoginFlow {
 
     public static Map<String, Object> loginReturnHeaders(String username, String password) {
         Map<String, Object> loginMap = login(username, password);
-        Map<String, Object> cookies = (HashMap<String, Object>) loginMap.get("headers");
-        return cookies;
+        Map<String, Object> headers = (HashMap<String, Object>) loginMap.get("headers");
+        return headers;
+    }
+
+    /**
+     * 这个方法是登陆的一种特化，意在简化登陆并且将token放置请求的过程
+     *
+     * @param username 账号
+     * @param password 密码
+     * @return Map中的key包含Authorization
+     */
+    public static Map<String, Object> loginAndPutToken(String username, String password) {
+        LoginResponseDTO loginResponseDTO = loginReturnJavaObject(username, password);
+        // 从请求体获取 token 字段
+        String token = loginResponseDTO.getData().getToken();
+        var headers = new HashMap<String, Object>();
+        headers.put("Authorization", token);
+        return headers;
     }
 }
