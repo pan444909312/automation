@@ -1,13 +1,10 @@
 package com.miller.demo.menu;
 
 import com.miller.demo.constants.BusinessConstant;
-import com.miller.demo.constants.SystemConfigConstant;
 import com.miller.demo.login.flow.LoginFlow;
 import com.miller.demo.menu.flow.MenuInfoFlow;
 import com.miller.demo.menu.response.UserGetMenuListResponseDTO;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.http.HttpUtils;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

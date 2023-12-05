@@ -1,11 +1,9 @@
 package com.miller.demo.login;
 
 
-import com.miller.demo.constants.SystemConfigConstant;
 import com.miller.demo.login.flow.LogoutFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.http.HttpUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
