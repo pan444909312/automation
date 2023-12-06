@@ -1,7 +1,7 @@
 package com.miller.demo.login;
 
+import com.alibaba.fastjson2.JSONPath;
 import com.miller.demo.login.flow.LoginFlow;
-import com.miller.service.framework.util.JSONPathUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +31,7 @@ class LoginTest {
         //  获取响应 Body
         var responseBodyMap = (HashMap<String, Object>) responseMap.get("body");
         var responseBody = String.valueOf(responseBodyMap.get("body"));
-        var code = JSONPathUtils.parseJsonStringToInteger(responseBody, "code");
+        var code = Integer.parseInt(JSONPath.extract(responseBody, "code").toString());
         assertThat(code, is(0));
         // 获取响应 headers
         var cookies = (HashMap<String, Object>) responseMap.get("headers");

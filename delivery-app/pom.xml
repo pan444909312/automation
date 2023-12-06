@@ -23,6 +23,12 @@
             <artifactId>erp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- 骑手端验签需要依赖公共服务，加密、解密等需要用到 -->
+        <dependency>
+            <groupId>com.panda.delivery.app.server</groupId>
+            <artifactId>delivery-app-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,11 +1,11 @@
 package com.miller.demo.login;
 
+import com.alibaba.fastjson2.JSONPath;
 import com.miller.demo.login.flow.LoginFlow;
 import com.miller.demo.login.request.LoginRequestDTO;
 import com.miller.demo.login.response.LoginResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.JSONPathUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,8 +37,8 @@ public class LoginTests {
         String returnBody = LoginFlow.loginReturnBody(username, password);
 
         // Then. 通过 JSON Path 解析响应结果
-        Integer returnCode = JSONPathUtils.parseJsonStringToInteger(returnBody, "code");
-        String returnMessage = JSONPathUtils.parseJsonStringToString(returnBody, "message");
+        Integer returnCode = Integer.parseInt(JSONPath.extract(returnBody, "code").toString());
+        String returnMessage = JSONPath.extract(returnBody, "message").toString();
         assertThat(returnCode, Matchers.is(code));
         assertThat(returnMessage, Matchers.is(message));
     }

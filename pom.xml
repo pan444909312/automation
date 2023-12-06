@@ -79,12 +79,12 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.30</version>
             </dependency>
-            <!-- 统一管理 fastjson 版本。建议使用 jackson 替换 fastjson -->
-<!--            <dependency>-->
-<!--                <groupId>com.alibaba</groupId>-->
-<!--                <artifactId>fastjson</artifactId>-->
-<!--                <version>1.2.78</version>-->
-<!--            </dependency>-->
+            <!-- 统一管理 fastjson2 版本-->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>2.0.43</version>
+            </dependency>
             <!-- 统一管理 jackson 版本. 保持与当前 SpringBoot 引用的 Jackson 版本相同 -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>

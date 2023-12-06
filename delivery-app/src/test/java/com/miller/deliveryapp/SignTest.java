@@ -2,10 +2,9 @@ package com.miller.deliveryapp;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
+import com.alibaba.fastjson2.JSONPath;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.http.HttpUtils;
-import com.miller.service.framework.util.JSONPathUtils;
 import com.panda.delivery.app.server.common.util.SignGenerateUtil;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
@@ -55,7 +54,7 @@ public class SignTest {
         System.out.println(requestJsonObject.getInnerMap());
         String body = "{\n" + "\t\"areaCode\": \"86\",\n" + "\t\"password\":\"" + SignGenerateUtil.encrypt("Test123456", "MD5") + "\",\"account\": \"18733330001\"\n" + "}";
         String responseBody = HttpUtils.sendPostRequestReturnBody(uri + "/api/delivery/app/auth/login", null, headers, body, null);
-        token = JSONPathUtils.parseJsonStringToString(responseBody, "result.accessToken");
+        token = JSONPath.extract(responseBody, "result.accessToken").toString();
         System.out.println("token:" + token);
     }
 
@@ -113,7 +112,7 @@ public class SignTest {
         // 发送请求
         String returnBody = HttpUtils.sendPostRequestReturnBody(uri + "/api/delivery/app/driver/onOffline", null, headers, body, null);
         System.out.println(returnBody);
-        assertThat(JSONPathUtils.parseJsonStringToString(returnBody, "resultCode"), Matchers.is("1000"));
+        assertThat(JSONPath.extract(returnBody, "resultCode"), Matchers.is(1000));
     }
 
 }
