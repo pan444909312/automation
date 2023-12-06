@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Miller Shan
  * @version 1.0
- * @sine 2023/11/1 16:57:00
+ * @since 2023/11/1 16:57:00
  */
 @SelectPackages("com.miller.demo")
 @SelectClasses({CreateThenUpdateAndDeleteIssuesScenarioTests.class, CreateThenDeleteIssuesScenarioTests.class})
