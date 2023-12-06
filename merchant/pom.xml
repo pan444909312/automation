@@ -9,9 +9,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>delivery-app</artifactId>
-    <name>delivery-app</name>
-    <description>delivery-app</description>
+    <artifactId>merchant</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>merchant</name>
+    <description>merchant</description>
 
     <properties>
         <java.version>17</java.version>

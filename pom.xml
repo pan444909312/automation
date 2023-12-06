@@ -274,7 +274,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.26</version>
+                <version>8.0.28</version>
             </dependency>
             <!-- Spring JDBC 依赖, 由于项目使用的是JDK 8 所以只能使用 5.x版本，如果要使用6.x版本需要升级到 JDK 17 -->
             <dependency>
