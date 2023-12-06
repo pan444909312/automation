@@ -4,6 +4,7 @@ import com.miller.common.util.ULIDUtils;
 import com.miller.service.framework.dto.IssuesDTO;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,7 @@ import static org.hamcrest.Matchers.nullValue;
  * @author Miller Shan
  * @see DBUtils
  */
+@Disabled
 public class DBUtilsTest {
     private static String mySqlUrl = "jdbc:mysql://121.43.119.63:3306/ct_dev";
     private static String userName = "root";

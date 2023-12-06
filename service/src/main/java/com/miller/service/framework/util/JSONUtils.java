@@ -1,6 +1,8 @@
 package com.miller.service.framework.util;
 
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,8 +11,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.util.Map;
+
 /**
- * HTTP 请求的抽象类
+ * JSON 工具类
  *
  * @author Miller Shan
  * @version 1.0
@@ -63,15 +67,23 @@ public class JSONUtils {
      * @return Boolean
      */
     public static Boolean isJSONFormat(String text) {
-        ObjectMapper objectMapper = defaultMapperCreator();
+//        ObjectMapper objectMapper = defaultMapperCreator();
+//        try {
+//            objectMapper.readTree(text);
+//            return true;
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            throw new IllegalArgumentException("不是一个合格的JSON格式:" + text);
+//            //return false;
+//        }
+        JSON.parse(text);
         try {
-            objectMapper.readTree(text);
+            JSON.parse(text);
             return true;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("不是一个合格的JSON格式:" + text);
-            //return false;
+        } catch (JSONException e) {
+            return false;
         }
+
     }
 
     /**
@@ -84,13 +96,14 @@ public class JSONUtils {
      */
     public static <T> T jsonToObject(String json, Class<T> valueType) {
         isJSONFormat(json);
-        ObjectMapper objectMapper = defaultMapperCreator();
-        try {
-            return objectMapper.readValue(json, valueType);
-        } catch (JsonProcessingException jsonProcessingException) {
-            System.err.format("String to Java Object failure, because %s not to transform %s. Error Message: %s", json, valueType, jsonProcessingException);
-            throw new UnsupportedOperationException("String to Java Object failure, because " + json + " not to transform " + valueType + ". Error Message:", jsonProcessingException);
-        }
+        return JSON.parseObject(json, valueType);
+//        ObjectMapper objectMapper = defaultMapperCreator();
+//        try {
+//            return objectMapper.readValue(json, valueType);
+//        } catch (JsonProcessingException jsonProcessingException) {
+//            System.err.format("String to Java Object failure, because %s not to transform %s. Error Message: %s", json, valueType, jsonProcessingException);
+//            throw new UnsupportedOperationException("String to Java Object failure, because " + json + " not to transform " + valueType + ". Error Message:", jsonProcessingException);
+//        }
     }
 
     /**
@@ -100,23 +113,13 @@ public class JSONUtils {
      * @return JSON 字符串
      */
     public static String toJSONString(Object value) {
-        ObjectMapper objectMapper = defaultMapperCreator();
-        try {
-            return objectMapper.writeValueAsString(value);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            throw new UnsupportedOperationException("Object to JSON String failure.", e);
-        }
-    }
-
-    public static JsonNode parseObject(String json) {
-        isJSONFormat(json);
-        ObjectMapper objectMapper = defaultMapperCreator();
-        try {
-            return objectMapper.readTree(json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            throw new UnsupportedOperationException("String to JsonNode failure.", e);
-        }
+        return JSON.toJSONString(value);
+//        ObjectMapper objectMapper = defaultMapperCreator();
+//        try {
+//            return objectMapper.writeValueAsString(value);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            throw new UnsupportedOperationException("Object to JSON String failure.", e);
+//        }
     }
 }

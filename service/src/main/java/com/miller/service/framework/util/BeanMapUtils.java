@@ -1,5 +1,6 @@
 package com.miller.service.framework.util;
 
+import com.alibaba.fastjson2.JSON;
 import org.springframework.cglib.beans.BeanMap;
 
 import java.util.ArrayList;
@@ -37,10 +38,9 @@ public class BeanMapUtils {
      */
     public static <T> Map<String, Object> beanToMap(T bean, Boolean isContainJSONField) {
         if (isContainJSONField) {
-            // String jsonString = JSON.toJSONString(bean);
-            // Map map = JSON.parseObject(jsonString, Map.class);
-            String jsonString = JSONUtils.toJSONString(bean);
-            Map map = JSONUtils.jsonToObject(jsonString, Map.class);
+            // 替换为使用 fastjson2 方案
+            String jsonString = JSON.toJSONString(bean);
+            Map map = JSON.parseObject(jsonString, Map.class);
             return map;
         } else {
             BeanMap beanMap = BeanMap.create(bean);
