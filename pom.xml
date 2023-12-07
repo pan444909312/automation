@@ -216,11 +216,17 @@
                 <artifactId>selenium-jupiter</artifactId>
                 <version>3.4.0</version>
             </dependency>
-            <!-- JUnit5 整合 hamcrest  -->
+            <!-- 引入断言工具 hamcrest -->
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-core</artifactId>
                 <version>2.2</version>
+            </dependency>
+            <!-- 引入流式断言工具 assertj -->
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.24.2</version>
             </dependency>
             <!-- 使用 rest-assured 做接口测试。 5.X 版本需要 Spring Boot 比较高的版本，比如 2.7.X 否则还是会加载低版本的依赖 -->
             <dependency>

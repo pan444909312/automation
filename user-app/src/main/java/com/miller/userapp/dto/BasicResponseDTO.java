@@ -1,6 +1,5 @@
 package com.miller.userapp.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**

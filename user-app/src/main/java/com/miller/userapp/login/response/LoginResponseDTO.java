@@ -14,165 +14,86 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class LoginResponseDTO {
-    /**
-     * resultCode
-     */
+    @JSONField(name = "resultCode")
     private Integer resultCode;
-    /**
-     * error
-     */
+    @JSONField(name = "error")
     private String error;
-    /**
-     * reason
-     */
+    @JSONField(name = "reason")
     private String reason;
-    /**
-     * result
-     */
+    @JSONField(name = "result")
     private ResultDTO result;
-    /**
-     * currency
-     */
+    @JSONField(name = "currency")
     private String currency;
-    /**
-     * success
-     */
+    @JSONField(name = "success")
     private Boolean success;
-    /**
-     * nowTime
-     */
+    @JSONField(name = "nowTime")
     private Long nowTime;
-    /**
-     * queryList
-     */
+    @JSONField(name = "queryList")
     private QueryListDTO queryList;
 
-    /**
-     * ResultDTO
-     */
     @NoArgsConstructor
     @Data
     public static class ResultDTO {
-        /**
-         * accessToken
-         */
+        @JSONField(name = "accessToken")
         private String accessToken;
-        /**
-         * expiresIn
-         */
+        @JSONField(name = "expiresIn")
         private Integer expiresIn;
-        /**
-         * refreshToken
-         */
+        @JSONField(name = "refresh_token")
         private String refreshToken;
-        /**
-         * userPushToken
-         */
+        @JSONField(name = "userPushToken")
         private String userPushToken;
-        /**
-         * marketToken
-         */
+        @JSONField(name = "marketToken")
         private String marketToken;
-        /**
-         * shopId
-         */
+        @JSONField(name = "shopId")
         private Object shopId;
-        /**
-         * userId
-         */
+        @JSONField(name = "userId")
         private Integer userId;
-        /**
-         * userName
-         */
+        @JSONField(name = "userName")
         private String userName;
-        /**
-         * userPhone
-         */
+        @JSONField(name = "userPhone")
         private String userPhone;
-        /**
-         * aliPaymentUserId
-         */
+        @JSONField(name = "aliPaymentUserId")
         private Object aliPaymentUserId;
-        /**
-         * isGive
-         */
+        @JSONField(name = "isGive")
         private Object isGive;
-        /**
-         * isRegister
-         */
+        @JSONField(name = "isRegister")
         private Integer isRegister;
-        /**
-         * bioAuthToken
-         */
+        @JSONField(name = "bioAuthToken")
         private String bioAuthToken;
-        /**
-         * isOldUser
-         */
+        @JSONField(name = "isOldUser")
         private Integer isOldUser;
-        /**
-         * isMember
-         */
+        @JSONField(name = "isMember")
         private Integer isMember;
-        /**
-         * tokenSrc
-         */
+        @JSONField(name = "tokenSrc")
         private String tokenSrc;
-        /**
-         * thirdRefreshToken
-         */
+        @JSONField(name = "thirdRefreshToken")
         private Object thirdRefreshToken;
     }
 
-    /**
-     * QueryListDTO
-     */
     @NoArgsConstructor
     @Data
     public static class QueryListDTO {
-        /**
-         * 使用字段别名
-         */
-        @JSONField(name = "$1")
+        @JSONField(name = "1")
         private String $1;
-        /**
-         * $2
-         */
+        @JSONField(name = "2")
         private String $2;
-        /**
-         * $3
-         */
+        @JSONField(name = "3")
         private String $3;
-        /**
-         * $4
-         */
+        @JSONField(name = "4")
         private String $4;
-        /**
-         * $5
-         */
+        @JSONField(name = "5")
         private String $5;
-        /**
-         * $6
-         */
+        @JSONField(name = "6")
         private String $6;
-        /**
-         * $7
-         */
+        @JSONField(name = "7")
         private String $7;
-        /**
-         * $8
-         */
+        @JSONField(name = "8")
         private String $8;
-        /**
-         * $9
-         */
+        @JSONField(name = "9")
         private String $9;
-        /**
-         * $10
-         */
+        @JSONField(name = "10")
         private String $10;
-        /**
-         * $11
-         */
+        @JSONField(name = "11")
         private String $11;
     }
 }
