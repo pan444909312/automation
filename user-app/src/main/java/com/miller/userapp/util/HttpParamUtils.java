@@ -1,6 +1,7 @@
 package com.miller.userapp.util;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.miller.userapp.constants.BusinessConstant;
 
 import java.util.HashMap;
@@ -45,6 +46,7 @@ public class HttpParamUtils {
         headers.put("testGroup", BusinessConstant.testGroup);
         return headers;
     }
+
     /**
      * 请求头参数，携带自定义请求头键值，一般用于区分用户
      *
@@ -64,9 +66,31 @@ public class HttpParamUtils {
      * @return 请求体字符串
      */
     public static <T> String putBody(T t) {
-        String jsonString = JSON.toJSONString(t);
-        // 对请求参数的额外操作
-        return jsonString;
+        String body2 = JSON.toJSONString(t);
+        // 对请求参数的额外操作。一下代码是为代码因为现在还没有用到对请求体加密。
+        /*
+        验签规则：
+        1. 获取所有请求体内容，放入到 JSONObject 对象中。
+        2. 将 ：authorization， _ts 添加到 JSONObject。
+        3. 调用 SignGenerateUtil.getSign（）方法获取 _sign。
+        4. 将 _sign和_ts放到请求头发送给服务端。
+         */
+        String body = "{\"isOnline\":1}";
+        JSONObject jsonObjectBody = new JSONObject();
+        // 使用 fastjson 工具类，因为其他工具可能会出现转换之后类型变了的问题。比如：1 变成 1.0
+
+        Map requestBody = JSON.parseObject(body, Map.class);
+        jsonObjectBody.putAll(requestBody);
+        var time = System.currentTimeMillis();
+        jsonObjectBody.put("_ts", time);
+        String token = HttpParamUtils.headers.get("authorization").toString();
+        jsonObjectBody.put("authorization", token);
+        var requestSignatureKey = "ldkai_1ldal#nvhsl*afl3g2akgbvsa";
+        var signReal = SignGenerateUtil.getSign(jsonObjectBody, requestSignatureKey);
+        headers.put("_sign", signReal);
+        headers.put("_ts", time);
+
+        return body2;
     }
 
     /**
