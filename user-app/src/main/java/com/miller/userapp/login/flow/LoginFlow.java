@@ -5,7 +5,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.login.request.LoginRequestDTO;
 import com.miller.userapp.login.response.LoginResponseDTO;
-import com.miller.userapp.util.HttpParamUtils;
+import com.miller.userapp.util.RequestUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ public class LoginFlow {
      */
     private static Map<String, Object> login(LoginRequestDTO loginRequestDTO) {
         return HttpUtils.sendPostRequest(uri, null,
-                HttpParamUtils.getDefaultHeaders(), HttpParamUtils.putBody(loginRequestDTO), null);
+                RequestUtils.getDefaultHeaders(), RequestUtils.putBody(loginRequestDTO), null);
     }
 
     /**
@@ -82,7 +82,7 @@ public class LoginFlow {
         headers.put("authorization", token);
 
         // 更新全局请求头参数。设置测试用例的默认用户。
-        HttpParamUtils.putHeaders(headers);
+        RequestUtils.putHeaders(headers);
         return loginResponseDTO;
     }
 

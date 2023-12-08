@@ -6,7 +6,7 @@ import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.login.flow.LoginFlow;
 import com.miller.userapp.login.request.LoginRequestDTO;
 import com.miller.userapp.login.response.LoginResponseDTO;
-import com.miller.userapp.util.HttpParamUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,7 +38,7 @@ public class LoginTests {
         headers.put("authorization", token);
 
         // 更新全局请求头参数。设置测试用例的默认用户。
-        HttpParamUtils.putHeaders(headers);
+        RequestUtils.putHeaders(headers);
     }
 
     @MethodSource("com.miller.userapp.login.provider.LoginDataProvider#loginDataProviderFromDB")

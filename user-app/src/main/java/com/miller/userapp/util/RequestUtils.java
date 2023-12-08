@@ -15,7 +15,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2023/12/7 16:08:37
  */
-public class HttpParamUtils {
+public class RequestUtils {
     private static Map<String, Object> headers = null;
 
     /**
@@ -83,7 +83,7 @@ public class HttpParamUtils {
         jsonObjectBody.putAll(requestBody);
         var time = System.currentTimeMillis();
         jsonObjectBody.put("_ts", time);
-        String token = HttpParamUtils.headers.get("authorization").toString();
+        String token = RequestUtils.headers.get("authorization").toString();
         jsonObjectBody.put("authorization", token);
         var requestSignatureKey = "ldkai_1ldal#nvhsl*afl3g2akgbvsa";
         var signReal = SignGenerateUtil.getSign(jsonObjectBody, requestSignatureKey);
