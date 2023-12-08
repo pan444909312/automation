@@ -1,5 +1,8 @@
 package com.miller.service.framework.http;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONException;
+import com.miller.service.framework.util.JSONUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
@@ -173,23 +176,37 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             }
             request.headers(headers);
             request.queryParams(params);
-            // 请求体不为空,并且长度大于0才处理
-            if (body instanceof String && ((String) body).length() > 0) {
-                request.body(body);
-            } else if (body instanceof Map) {
-                // body中的数据为键值对
+            // body中的数据为键值对
+            if (body instanceof Map) {
                 request.formParams((Map<String, ?>) body);
             }
             request.cookies(cookies);
         }
-        // 请求头中没有写Content-Type就当json处理
+        // 请求头中没有写 Content-Type 则无法判断类型
         else {
-            // log.warn("不支持的请求体, Content-Type= {}", headers.get("Content-Type"));
-            headers.put("Content-Type", "application/json");
-            request.headers(headers);
-            request.queryParams(params);
-            request.body(body);
-            request.cookies(cookies);
+            // 智能判断，如果请求体是 Map 则认为可能是 application/x-www-form-urlencoded
+            if (body instanceof Map) {
+                log.warn("系统预测请求体可能为 application/x-www-form-urlencoded 尝试处理");
+                // body中的数据为键值对
+                headers.put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+                request.headers(headers);
+                request.queryParams(params);
+                request.formParams((Map<String, ?>) body);
+            }
+            // 兜底的处理逻辑
+            else {
+                log.warn("可能不支持的请求体, 因为Content-Type= {}", headers.get("Content-Type"));
+                // headers.put("Content-Type", "application/json");
+                request.headers(headers);
+                request.queryParams(params);
+                // 自动识别请求体类型
+                request.body(body);
+                request.cookies(cookies);
+                // 请求体不为空,并且长度大于0才处理
+                // if (body instanceof String && ((String) body).length() > 0) {
+                //     request.body(body);
+                // }
+            }
         }
         Response response = null;
         // System.out.println(Method.POST.name());
