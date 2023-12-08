@@ -35,10 +35,12 @@ public class LoginTests {
     static void afterAll() {
         // 获取token
         var headers = new HashMap<String, Object>();
+        headers.put("Content-Type", "application/json");
         headers.put("authorization", token);
 
         // 更新全局请求头参数。设置测试用例的默认用户。
-        RequestUtils.putHeaders(headers);
+        RequestUtils.setHeaders(headers);
+        assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
     @MethodSource("com.miller.userapp.login.provider.LoginDataProvider#loginDataProviderFromDB")

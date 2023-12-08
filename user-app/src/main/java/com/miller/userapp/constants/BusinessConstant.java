@@ -57,7 +57,8 @@ public class BusinessConstant {
     public static String uniqueToken;
     public static String unionId;
     public static String pandaAppId = "com.hungrypanda.waimai";
-    public static String authorization;
+    // 默认给个空字符串
+    public static String authorization = "";
     public static String testGroup = "I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP," +
             "S_H_R_L_TEST_GROUP_7,22,23,31,32,NUMBER_MASKING_00,33,34,35,40,39,45,52,54," +
             "TESTE02,FASTD01,YSDCS02,YYYZM01,IST01,HYBQ01,SKEQ01,XRJ01,TJBQ01,JSYZQ02,HYXBQ01," +
