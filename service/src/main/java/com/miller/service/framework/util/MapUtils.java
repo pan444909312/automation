@@ -62,14 +62,14 @@ public class MapUtils {
      * 将 Bean 对象序列化为 JSON 之后在转成 Map。一般出现这种是因为需要使用 JSON key名称作为 Map 的Key，比如：
      * 字段名称为 toUserIds[0] 在Java中值不支持这种属性名的，则需要先转换为JSON，然后在转成Map的key。
      *
-     * @param bean               Java Bean
+     * @param bean               Java Bean，通常是键值对对象
      * @param isContainJSONField 字段名称使用 JSON 映射的名称则需要设置为 true.
-     * @param <T>                泛型
-     * @return Map
+     * @param <T>                标识参数可以接受泛型
+     * @return Map  Map<String, Object>
      */
     public static <T> Map<String, Object> beanToMap(T bean, Boolean isContainJSONField) {
         if (isContainJSONField) {
-            // 替换为使用 fastjson2 方案
+            // 先将对象转换为字符串，然后在转换为Map，这种一般是key：value的对象
             String jsonString = JSON.toJSONString(bean);
             Map map = JSON.parseObject(jsonString, Map.class);
             return map;
