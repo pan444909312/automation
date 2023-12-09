@@ -1,0 +1,38 @@
+package com.miller.userapp.order.create;
+
+import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.depend.DependsOnClass;
+import com.miller.userapp.login.LoginTests;
+import com.miller.userapp.order.create.flow.CreateOrderFlow;
+import com.miller.userapp.order.create.request.CreateOrderRequestDTO;
+import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * 创建订单接口测试用例
+ *
+ * @author Miller Shan
+ * @version 1.0
+ * @since 2023/12/9 18:07:44
+ */
+@EnvTag.Test
+@TestFramework
+@DisplayName("创建订单")
+public class CreateOrderTests {
+
+    @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderDataProviderFromDB")
+    @ParameterizedTest
+    @DisplayName("创建订单-正常流程")
+    void shouldCreateOrderSuccessfully(CreateOrderRequestDTO createOrderRequestDTO) {
+        CreateOrderResponseDTO createOrderResponseDTO = CreateOrderFlow.createOrder(createOrderRequestDTO);
+        assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(1000);
+        assertThat(createOrderResponseDTO.getSuccess()).isTrue();
+        assertThat(createOrderResponseDTO.getResult().getOrderSn()).isNotNull();
+
+    }
+}
