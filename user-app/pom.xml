@@ -24,6 +24,12 @@
             <artifactId>erp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- 直接使用研发的请求、响应工具类 -->
+        <dependency>
+            <groupId>com.hungrypanda</groupId>
+            <artifactId>app-server-api</artifactId>
+            <version>1.10.5-RELEASE</version>
+        </dependency>
     </dependencies>
 
 </project>
