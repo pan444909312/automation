@@ -1,7 +1,7 @@
 package com.miller.userapp.util;
 
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
+import com.miller.service.framework.util.MapUtils;
 import com.miller.userapp.constants.BusinessConstant;
 
 import java.util.HashMap;
@@ -117,9 +117,11 @@ public class RequestUtils {
      * @param formBody 请求体中的 form 参数
      * @return 处理之后的请求体参数
      */
-    public static Map<String, Object> putBodyOfForm(Map<String, Object> formBody) {
+    public static <T> Map<String, Object> putBodyOfForm(T formBody) {
+        // 将Java Bean 对象转换为Map
+        Map<String, Object> stringObjectMap = MapUtils.beanToMap(formBody);
         // 求参数的额外操作
-        return formBody;
+        return stringObjectMap;
     }
 
     /**
