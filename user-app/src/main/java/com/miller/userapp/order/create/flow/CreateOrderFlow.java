@@ -20,6 +20,12 @@ public class CreateOrderFlow {
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/order/create";
 
     /**
+     * TODO: 先简单的实现一下，将订单信息存储到变量中，后续考虑放到 Redis 中，进行测试场景的解耦。
+     * 订单相关数据，包含最重要的订单 ID 字段 orderSn
+     */
+    public static CreateOrderResponseDTO createOrderResponseDTO;
+
+    /**
      * 创建订单流程
      *
      * @param createOrderRequestDTO 创建订单请求DTO
@@ -31,6 +37,8 @@ public class CreateOrderFlow {
         CreateOrderResponseDTO createOrderResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(createOrderRequestDTO),
                 null, CreateOrderResponseDTO.class);
+        // 设置订单响应对象
+        CreateOrderFlow.createOrderResponseDTO = createOrderResponseDTO;
         return createOrderResponseDTO;
     }
 

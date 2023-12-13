@@ -2,8 +2,7 @@ package com.miller.userapp.order.create;
 
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.depend.DependsOnClass;
-import com.miller.userapp.login.LoginTests;
+import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
@@ -30,9 +29,8 @@ public class CreateOrderTests {
     @DisplayName("创建订单-正常流程")
     void shouldCreateOrderSuccessfully(CreateOrderRequestDTO createOrderRequestDTO) {
         CreateOrderResponseDTO createOrderResponseDTO = CreateOrderFlow.createOrder(createOrderRequestDTO);
-        assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(1000);
+        assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(createOrderResponseDTO.getSuccess()).isTrue();
         assertThat(createOrderResponseDTO.getResult().getOrderSn()).isNotNull();
-
     }
 }

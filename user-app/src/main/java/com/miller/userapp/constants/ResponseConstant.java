@@ -1,0 +1,20 @@
+package com.miller.userapp.constants;
+
+
+import com.hungrypanda.app.server.api.common.ResultCode;
+
+/**
+ * 响应对象的常量
+ *
+ * @author Miller Shan
+ * @version 1.0
+ * @since 2023/12/13 18:32:00
+ * @see com.hungrypanda.app.server.api.common.ResultCode
+ */
+public class ResponseConstant {
+    /**
+     * 业务响应的状态码
+     */
+    public static final Integer resultCode = ResultCode.SUCCESS.getCode();
+
+}
