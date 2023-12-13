@@ -24,7 +24,8 @@
             <artifactId>erp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- 直接使用研发的请求、响应工具类 -->
+        <!-- 直接使用研发的请求、响应类。私服仓库一般开发只推 api 相关的jar包，具体实现 impl 不推送到仓库。
+        如果一定要用 impl 那么自己本地 install 吧 -->
         <dependency>
             <groupId>com.hungrypanda</groupId>
             <artifactId>app-server-api</artifactId>
