@@ -1,5 +1,6 @@
 package com.miller.userapp.pay.balance.request;
 
+import com.hungrypanda.app.server.service.pay.pandapay.dto.AppBalancePaymentRequestDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,19 +15,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 @NoArgsConstructor
 @Data
-public class PayByBalanceRequestDTO // extends AppBalancePaymentRequestDTO
-{
-    /**
-     * 外卖订单号、会员订单号、合单单号
-     */
-    private String orderSn;
-    /**
-     * 余额支付密码
-     */
-    private String password;
-
-    /**
-     * 前端传递的数值 支付类型
-     */
-    private String paymentType;
+public class PayByBalanceRequestDTO extends AppBalancePaymentRequestDTO {
 }

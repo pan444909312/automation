@@ -1,6 +1,6 @@
 package com.miller.userapp.dto;
 
-import com.hungrypanda.app.server.api.common.Result;
+import com.hungrypanda.app.server.common.result.Result;
 import lombok.Data;
 
 /**
@@ -19,5 +19,5 @@ public class BasicResponseDTO<T> extends Result<T> {
      * com.hungrypanda.starter.datasource.interceptor.MybatisSqlInterceptor implements InnerInterceptor
      * 只有在 dev, test, beta 环境才会注入这个字段的值
      */
-    private Object queryList;
+    // private Object queryList;
 }
