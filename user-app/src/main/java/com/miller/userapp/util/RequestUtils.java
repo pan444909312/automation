@@ -51,7 +51,7 @@ public class RequestUtils {
     }
 
     /**
-     * 获取请求体为 application/json 的请求头参数
+     * 获取请求头参数
      */
     public static Map<String, Object> getHeaders() {
         checkHeaders(headers);
@@ -59,7 +59,7 @@ public class RequestUtils {
     }
 
     /**
-     * 设置请求体为 application/json 的请求头参数
+     * 设置请求头参数
      *
      * @param myHeaders 自定义请求头键值对，一般在登录之后设置此参数
      */
