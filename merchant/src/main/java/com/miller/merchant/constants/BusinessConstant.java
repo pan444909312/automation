@@ -5,7 +5,7 @@ package com.miller.merchant.constants;
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023/12/06 20:27:34
+ * @since 2023/12/14 20:27:34
  */
 public class BusinessConstant {
     /**
@@ -14,11 +14,28 @@ public class BusinessConstant {
     public static final String DOMAIN = "https://app-merchantest.hungrypanda.cn";
 
     /**
-     * 账号
+     * 请求头公共参数.
      */
-    public static final String USERNAME_ADMIN = "";
+    public static String localshopid = "59750820";
     /**
-     * 密码
+     * 纬度
      */
-    public static final String PASSWORD_ADMIN = "Test123456";
+    public static String latitude = "30.20353";
+    /**
+     * 经度
+     */
+    public static String longitude = "120.216552";
+    public static String userAgent = "4.12.15";
+    public static String locale = "zh-CN";
+    public static String version = "4.12.15";
+    public static String systemversion = "12";
+    public static String devicesn = "unknown";
+    public static String platform = "ANDROID";
+    public static String countryCode = "CN";
+    public static String appTypeId = "1";
+    public static String uniqueToken = "381bb9f0ec5f3988";
+    public static String devicemodel = "TAS-AN00";
+    public static String devicebrand = "HUAWEI";
+    // 默认给个空字符串
+    public static String authorization = "";
 }

@@ -1,5 +1,6 @@
 package com.miller.merchant.dto;
 
+import com.panda.common.base.AppResult;
 import lombok.Data;
 
 /**
@@ -10,29 +11,8 @@ import lombok.Data;
  * @since 2023/12/6 18:15:26
  */
 @Data
-public class BasicResponseDTO<T> {
-    /**
-     * 结果状态码
-     */
-    private int resultCode;
-    /**
-     * 异常信息
-     */
-    private String error;
-    /**
-     * 原因
-     */
-    private String reason;
-
-    /**
-     * 结果数据
-     */
-    private T result;
-
-    /**
-     * 货币符号
-     */
-    private String currency;
+public class BasicResponseDTO<T> extends AppResult<T> {
+    // AppResult 对象内部额外的字段
 
     /**
      * 老版本接口迁过来需要使用
