@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-12-06T02:21:46.260Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.5.1 Chrome/112.0.5615.204 Electron/24.6.0 Safari/537.36" etag="C5KRNcNi0b8AS07Egb2R" version="21.5.1" type="device" pages="6">
+<mxfile host="Electron" modified="2023-12-15T09:08:35.889Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.5.1 Chrome/112.0.5615.204 Electron/24.6.0 Safari/537.36" etag="Ql3MVyHqagcevBEUFzle" version="21.5.1" type="device" pages="6">
   <diagram name="订单状态流程-主" id="f5dGeiTARa9hCnqQ5rgv">
     <mxGraphModel dx="954" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -903,6 +903,9 @@
         <mxCell id="MUaqJy7GZ8mH57wd4cbI-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-32" target="MUaqJy7GZ8mH57wd4cbI-37" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="KxbNv_3i_nEry7zljthC-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="MUaqJy7GZ8mH57wd4cbI-32" target="KxbNv_3i_nEry7zljthC-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="MUaqJy7GZ8mH57wd4cbI-32" value="erp" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="280" y="640" width="120" height="40" as="geometry" />
         </mxCell>
@@ -951,6 +954,12 @@
           <mxGeometry y="1" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="KxbNv_3i_nEry7zljthC-1" value="local-cache" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="760" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KxbNv_3i_nEry7zljthC-3" value="local-cache：全局的变量池，后续考虑用Redis" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="880" width="360" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
