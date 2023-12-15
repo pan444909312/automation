@@ -1,7 +1,7 @@
 package com.miller.userapp.order.create.response;
 
-import com.hungrypanda.app.server.api.common.Result;
 import com.hungrypanda.app.server.api.res.order.OrderReturnVO;
+import com.miller.userapp.dto.BasicResponseDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 @Data
-public class CreateOrderResponseDTO extends Result<OrderReturnVO> {
+public class CreateOrderResponseDTO extends BasicResponseDTO<OrderReturnVO> {
 //public class CreateOrderResponseDTO extends BasicResponseDTO<OrderReturnVO> {
     // 测试用例应该基本不需要添加额外的响应信息
 }

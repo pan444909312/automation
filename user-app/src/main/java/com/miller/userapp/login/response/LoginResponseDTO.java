@@ -1,7 +1,7 @@
 package com.miller.userapp.login.response;
 
-import com.hungrypanda.app.server.common.result.Result;
 import com.hungrypanda.app.server.vo.user.UserTokenSimpleVO;
+import com.miller.userapp.dto.BasicResponseDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 @Data
-public class LoginResponseDTO extends Result<UserTokenSimpleVO>
+public class LoginResponseDTO extends BasicResponseDTO<UserTokenSimpleVO>
 {
     // Result 对象内部额外的字段
     private String tokenSrc;

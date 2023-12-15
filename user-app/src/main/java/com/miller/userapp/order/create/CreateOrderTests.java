@@ -32,5 +32,6 @@ public class CreateOrderTests {
         assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(createOrderResponseDTO.getSuccess()).isTrue();
         assertThat(createOrderResponseDTO.getResult().getOrderSn()).isNotNull();
+        // TODO 订单数据校验
     }
 }
