@@ -1,4 +1,4 @@
-package com.miller.service.framework.redis;
+package com.miller.service.framework.cache.remote.redis;
 
 import lombok.Data;
 

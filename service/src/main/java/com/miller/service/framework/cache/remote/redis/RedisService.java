@@ -1,5 +1,7 @@
-package com.miller.service.framework.redis;
+package com.miller.service.framework.cache.remote.redis;
 
+import com.alibaba.fastjson2.JSON;
+import com.miller.service.framework.cache.AbstractCacheService;
 import lombok.Data;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisNode;
@@ -13,15 +15,25 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis 工具，使用方法参考单元测试.
+ * Redis 服务，使用方法参考单元测试.
  *
  * @author Miller Shan
  * @version 1.0.0
  * @see <a href="https://spring.io/projects/spring-data-redis">spring-data-redis</a>
  */
 @Data
-public class RedisUtils {
+public class RedisService extends AbstractCacheService {
+    private RedisService() {}
+
     private RedisTemplate<String, Object> redisTemplate;
+    private static RedisService redisService;
+
+    public static synchronized RedisService getRedisServiceInstance() {
+        if (Objects.isNull(redisService)) {
+            redisService = new RedisService();
+        }
+        return redisService;
+    }
 
     /**
      * 连接集群中的单个 Redis slave
@@ -168,7 +180,6 @@ public class RedisUtils {
     public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
-
     /**
      * 将值放入缓存
      *
@@ -509,5 +520,20 @@ public class RedisUtils {
      */
     public void rightPop(String key, long timeout, TimeUnit unit) {
         redisTemplate.opsForList().rightPop(key, timeout, unit);
+    }
+    /**
+     * 获取制定 key 的自定义对象，并转换为指定类型。
+     * <p>
+     * 1. 先查找出指定 key 的值，这个值一定要是一个对象类型。
+     * 2. 将这个对象值序列化为json之后转换为指定类型，并返回。
+     * </p>
+     *
+     * @param key       键
+     * @param classType 参数类型，也是返回类型
+     * @param <T>       泛型占位符
+     * @return T 泛型类型
+     */
+    public <T> T get(String key, Class<T> classType) {
+        return JSON.parseObject(JSON.toJSONString(redisService.get(key)), classType);
     }
 }

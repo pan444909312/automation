@@ -1,4 +1,4 @@
-package com.miller.service.framework.redis;
+package com.miller.service.framework.cache.remote.redis;
 
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.depend.DependsOnMethod;
@@ -19,21 +19,21 @@ import static org.hamcrest.Matchers.equalToIgnoringCase;
  */
 @Disabled
 @TestFramework
-@DisplayName("RedisUtils TestCase")
-class RedisUtilsTest {
-    static RedisUtils redisUtils;
+@DisplayName("RedisService TestCase")
+class RedisServiceTest {
+    static RedisService redisService;
 
     @BeforeAll
     static void beforeAll() {
-        redisUtils = new RedisUtils();
-        redisUtils.connectionSlave("47.242.73.37", 6379, "Autotest#1024");
+        redisService = RedisService.getRedisServiceInstance();
+        redisService.connectionSlave("r-1udjtdncdilouvmf23pd.redis.rds.aliyuncs.com", 6379, "xVGrf4upEgRXFmUO");
     }
 
     @Test
     @DisplayName("Java operator String")
     void operateString() {
-        redisUtils.set("name", "Miller");
-        String key = String.valueOf(redisUtils.get("name"));
+        redisService.set("name", "Miller");
+        String key = String.valueOf(redisService.get("name"));
         assertThat(key, equalToIgnoringCase("Miller"));
     }
 
@@ -44,17 +44,17 @@ class RedisUtilsTest {
         issuesDTO.setIssueId("Test for redis");
         issuesDTO.setCreateTime(System.currentTimeMillis());
         // 将对象类型数据序列化存放
-        redisUtils.set("testSerializer:testStringRedisSerializer", issuesDTO);
+        redisService.set("testSerializer:testStringRedisSerializer", issuesDTO);
         // List 类型序列化
-        redisUtils.set("testSerializer:list:testStringRedisSerializer", Arrays.asList(issuesDTO));
+        redisService.set("testSerializer:list:testStringRedisSerializer", Arrays.asList(issuesDTO));
     }
 
     @Test
     @DisplayName("Java operator String by Spring RedisTemplate")
     void operateStringBySpringRedisTemplate() {
         // 获取 Spring redisTemplate
-        redisUtils.getRedisTemplate().opsForValue().set("name", "Miller");
-        String key = String.valueOf(redisUtils.getRedisTemplate().opsForValue().get("name"));
+        redisService.getRedisTemplate().opsForValue().set("name", "Miller");
+        String key = String.valueOf(redisService.getRedisTemplate().opsForValue().get("name"));
         assertThat(key, equalToIgnoringCase("Miller"));
     }
 
@@ -63,7 +63,7 @@ class RedisUtilsTest {
     @DisplayName("Query Keys from Redis")
     void queryKey() {
         // 查询所有key
-        Set keys = redisUtils.getKey("*");
+        Set keys = redisService.getKey("*");
         keys.forEach(System.out::println);
     }
 }
