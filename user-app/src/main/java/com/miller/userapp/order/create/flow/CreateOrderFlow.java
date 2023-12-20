@@ -1,7 +1,9 @@
 package com.miller.userapp.order.create.flow;
 
+import com.miller.service.framework.cache.CacheUtils;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
+import com.miller.userapp.constants.TestCaseDataConstant;
 import com.miller.userapp.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.util.RequestUtils;
@@ -20,12 +22,6 @@ public class CreateOrderFlow {
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/order/create";
 
     /**
-     * TODO: 先简单的实现一下，将订单信息存储到变量中，后续考虑放到 Redis 中，进行测试场景的解耦。
-     * 订单相关数据，包含最重要的订单 ID 字段 orderSn
-     */
-    public static CreateOrderResponseDTO createOrderResponseDTO;
-
-    /**
      * 创建订单流程
      *
      * @param createOrderRequestDTO 创建订单请求DTO
@@ -37,8 +33,8 @@ public class CreateOrderFlow {
         CreateOrderResponseDTO createOrderResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(createOrderRequestDTO),
                 null, CreateOrderResponseDTO.class);
-        // 设置订单响应对象
-        CreateOrderFlow.createOrderResponseDTO = createOrderResponseDTO;
+        // 将订单响应对象存储到缓存中, 包含最重要的订单 ID 字段 orderSn
+        CacheUtils.set(TestCaseDataConstant.ORDER_OBJECT_KEY, createOrderResponseDTO);
         return createOrderResponseDTO;
     }
 
