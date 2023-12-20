@@ -294,6 +294,28 @@
                 <artifactId>druid</artifactId>
                 <version>1.2.16</version>
             </dependency>
+            <!--Spring Data Redis 客户端，配合 pool2 连接池一起用-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <!-- 版本号必需用3.1.4 -->
+                <version>3.1.4</version>
+            </dependency>
+            <!-- Spring Data Redis lettuce 连接池需要添加此依赖
+                 fix start java.lang.ClassNotFoundException: io.lettuce.core.AbstractRedisClient -->
+            <dependency>
+                <groupId>io.lettuce</groupId>
+                <artifactId>lettuce-core</artifactId>
+                <version>6.2.3.RELEASE</version>
+            </dependency>
+            <!-- fix end java.lang.ClassNotFoundException: io.lettuce.core.AbstractRedisClient -->
+
+            <!-- Ehcache 本地缓存服务 -->
+            <dependency>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>3.10.8</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
