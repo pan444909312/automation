@@ -116,7 +116,7 @@ public class RequestUtils {
     public static <T> Map<String, Object> putBodyOfForm(T formBody) {
         // 将Java Bean 对象转换为Map
         Map<String, Object> stringObjectMap = MapUtils.beanToMap(formBody);
-        // 求参数的额外操作
+        // 请求参数的额外操作
         return stringObjectMap;
     }
 
@@ -127,7 +127,7 @@ public class RequestUtils {
      * @return 请求参数
      */
     public static Map<String, Object> putParams(Map<String, Object> params) {
-        // 求参数的额外操作
+        // 请求参数的额外操作
         return params;
     }
 }

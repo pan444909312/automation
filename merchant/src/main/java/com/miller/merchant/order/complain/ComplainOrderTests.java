@@ -1,0 +1,36 @@
+package com.miller.merchant.order.complain;
+
+import com.miller.merchant.constants.ResponseConstant;
+import com.miller.merchant.order.complain.flow.ComplainOrderFlow;
+import com.miller.merchant.order.complain.request.ComplainOrderRequestDTO;
+import com.miller.merchant.order.complain.response.ComplainOrderResponseDTO;
+import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.TestFramework;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * 商家出餐接口测试用例
+ *
+ * @author Miller Shan
+ * @version 1.0
+ * @since 2023/12/21 20:07:44
+ */
+@EnvTag.Test
+@TestFramework
+@DisplayName("商家催骑手测试用例")
+public class ComplainOrderTests {
+
+    @MethodSource("com.miller.merchant.order.complain.provider.ComplainOrderDataProvider#complainOrder")
+    @ParameterizedTest
+    @DisplayName("商家催骑手-正常流程")
+    void shouldComplainOrderSuccessfully(ComplainOrderRequestDTO complainOrderRequestDTO) {
+        ComplainOrderResponseDTO complainOrderResponseDTO = ComplainOrderFlow.complainOrder(complainOrderRequestDTO);
+        assertThat(complainOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(complainOrderResponseDTO.getSuccess()).isTrue();
+        // TODO 订单数据校验
+    }
+}

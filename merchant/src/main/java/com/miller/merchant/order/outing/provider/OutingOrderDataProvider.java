@@ -29,10 +29,7 @@ public class OutingOrderDataProvider {
          * false: 直接出餐不校验异常信息
          */
         outingOrderRequestDTO.setIsNeedVerifyException(false);
-        return Stream.of(
-                Arguments.of(outingOrderRequestDTO)
-
-
+        return Stream.of(Arguments.of(outingOrderRequestDTO)
         );
     }
 }
