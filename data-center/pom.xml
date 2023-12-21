@@ -40,6 +40,16 @@
             <artifactId>merchant-api</artifactId>
             <version>1.1.61-RELEASE</version>
         </dependency>
+
+        <!-- hp-delivery-app-server
+        骑手端请求、响应对象
+        -->
+        <dependency>
+            <groupId>com.panda.delivery.app.server</groupId>
+            <artifactId>delivery-app-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 </project>
