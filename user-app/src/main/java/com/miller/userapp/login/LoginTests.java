@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("登录")
+@DisplayName("登录-商家")
 public class LoginTests {
     private static String token;
 

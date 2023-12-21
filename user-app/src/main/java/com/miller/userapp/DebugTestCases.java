@@ -15,7 +15,14 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * @version 1.0
  * @since 2023/12/06 16:57:00
  */
-@SelectClasses({LoginTests.class, CreateOrderTests.class, PayByBalanceTests.class})
+@SelectClasses({
+        // 用户登录
+        LoginTests.class,
+        // 创建订单
+        CreateOrderTests.class,
+        // 支付订单
+        PayByBalanceTests.class
+})
 //@SelectPackages("com.miller.userapp")
 @SuiteDisplayName("调试多个测试用例")
 @Suite
