@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  * @since 2023/12/15 19:59:18
  */
-@NoArgsConstructor
-@Data
 public class ReceivingOrderResponseDTO extends BasicResponseDTO<OrderBlockDataRespDTO> {
     // 测试用例应该基本不需要添加额外的响应信息
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>automation</artifactId>
+        <groupId>com.miller</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>data-center</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>data-center</name>
+    <description>存储多个测试用例模块之间的公共数据</description>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <!-- user-app-server 中的请求、响应类。
+        直接使用研发的请求、响应类。私服仓库一般开发只推 -api 相关的jar包，具体实现 -impl 不推送到仓库。
+        如果一定要用 impl 那么自己本地 install 吧 -->
+        <dependency>
+            <groupId>com.hungrypanda</groupId>
+            <artifactId>app-server-api</artifactId>
+            <version>1.10.5-RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hungrypanda</groupId>
+            <artifactId>app-server-impl</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- merchant-server 中的请求、响应类。
+        商家端请求、响应对象 -->
+        <dependency>
+            <groupId>com.panda.merchant.server</groupId>
+            <artifactId>merchant-api</artifactId>
+            <version>1.1.61-RELEASE</version>
+        </dependency>
+    </dependencies>
+
+</project>

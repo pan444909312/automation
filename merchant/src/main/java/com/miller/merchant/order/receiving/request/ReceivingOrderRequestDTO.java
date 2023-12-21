@@ -16,8 +16,6 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  * @since 2023/12/15 19:59:02
  */
-@NoArgsConstructor
-@Data
 public class ReceivingOrderRequestDTO extends OrderTerminalStatusUpdateQueryReqVO {
     // 测试用例需要使用的额外字段可以补充在这里。
 }

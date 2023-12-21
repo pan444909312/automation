@@ -24,13 +24,12 @@
             <artifactId>erp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
-        <!-- 商家端请求、响应对象 -->
         <dependency>
-            <groupId>com.panda.merchant.server</groupId>
-            <artifactId>merchant-api</artifactId>
-            <version>1.1.61-RELEASE</version>
+            <groupId>com.miller</groupId>
+            <artifactId>data-center</artifactId>
         </dependency>
+
+
     </dependencies>
 
 </project>

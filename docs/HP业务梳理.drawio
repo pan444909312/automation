@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-12-18T11:14:48.265Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.5.1 Chrome/112.0.5615.204 Electron/24.6.0 Safari/537.36" etag="KrvyRDGbC7NrShl9uVDp" version="21.5.1" type="device" pages="6">
+<mxfile host="Electron" modified="2023-12-21T02:30:51.526Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.5.1 Chrome/112.0.5615.204 Electron/24.6.0 Safari/537.36" etag="JMYreXAzP6ozol8FD7dT" version="21.5.1" type="device" pages="6">
   <diagram name="订单状态流程-主" id="f5dGeiTARa9hCnqQ5rgv">
-    <mxGraphModel dx="954" dy="605" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="954" dy="607" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -875,7 +875,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="qKEZjSbZ0-ggd2vpKelr" name="测试用例依赖关系图">
-    <mxGraphModel dx="954" dy="594" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="954" dy="592" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -925,7 +925,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="MUaqJy7GZ8mH57wd4cbI-43" value="delivery-admin" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="620" y="760" width="120" height="40" as="geometry" />
+          <mxGeometry x="640" y="760" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="MUaqJy7GZ8mH57wd4cbI-46" value="&lt;ul&gt;&lt;li&gt;takeaway：外卖业务。这个模块需要用到所有的外卖能力， 比如用户下单、商家接单、骑手配送。&lt;/li&gt;&lt;li&gt;user-app: 用户端。下单，加购物车、结算、支付、评价&lt;/li&gt;&lt;li&gt;merchant：商家端。接单，出餐。&lt;/li&gt;&lt;li&gt;delivery-app：骑手端。抢单，配送。&lt;/li&gt;&lt;li&gt;ERP：运营后台，用于支持用户端、商家端、骑手端。比如：造数据、修改数据、配置数据等。&lt;/li&gt;&lt;li&gt;delivery-admin：司官后台。主要为骑手app提供支撑服务。&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;li&gt;用户&amp;amp;商家&amp;amp;骑手之间互相调用需要使用Mock挡板隔离/数数据库脚本进行隔离，单独验证服务内部的逻辑正确性。&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="40" y="40" width="760" height="160" as="geometry" />
@@ -952,8 +952,8 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="KxbNv_3i_nEry7zljthC-3" value="local-cache：全局的变量池，后续考虑用Redis" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;align=left;" parent="1" vertex="1">
-          <mxGeometry x="40" y="880" width="360" height="80" as="geometry" />
+        <mxCell id="Vu2ow6_wn3Q3U0-Ko19R-2" value="data-center" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="360" width="120" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

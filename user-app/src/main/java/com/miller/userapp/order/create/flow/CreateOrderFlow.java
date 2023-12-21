@@ -1,9 +1,9 @@
 package com.miller.userapp.order.create.flow;
 
+import com.miller.data.center.user.TestCaseDataConstant;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.constants.TestCaseDataConstant;
 import com.miller.userapp.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.util.RequestUtils;
@@ -34,7 +34,7 @@ public class CreateOrderFlow {
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(createOrderRequestDTO),
                 null, CreateOrderResponseDTO.class);
         // 将订单响应对象存储到缓存中, 包含最重要的订单 ID 字段 orderSn
-        CacheUtils.set(TestCaseDataConstant.ORDER_OBJECT_KEY, createOrderResponseDTO);
+        CacheUtils.set(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, createOrderResponseDTO);
         return createOrderResponseDTO;
     }
 

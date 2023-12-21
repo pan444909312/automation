@@ -23,7 +23,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Data
 public class RedisService extends AbstractCacheService {
-    private RedisService() {}
+    private RedisService() {
+    }
 
     private RedisTemplate<String, Object> redisTemplate;
     private static RedisService redisService;
@@ -180,6 +181,7 @@ public class RedisService extends AbstractCacheService {
     public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
+
     /**
      * 将值放入缓存
      *
@@ -237,6 +239,27 @@ public class RedisService extends AbstractCacheService {
     public Double increment(String key, double number) {
         return redisTemplate.opsForValue().increment(key, number);
     }
+
+    /**
+     * 删除一个key
+     *
+     * @param key Key
+     * @return true:成功; false 失败
+     */
+    public Boolean delete(String key) {
+        return redisTemplate.delete(key);
+    }
+
+    /**
+     * 批量删除key
+     *
+     * @param keys key集合
+     * @return 删除keys的数量
+     */
+    public Long delete(Collection<String> keys) {
+        return redisTemplate.delete(keys);
+    }
+
 
     //- - - - - - - - - - - - - - - - - - - - -  set类型 - - - - - - - - - - - - - - - - - - - -
 
@@ -521,6 +544,7 @@ public class RedisService extends AbstractCacheService {
     public void rightPop(String key, long timeout, TimeUnit unit) {
         redisTemplate.opsForList().rightPop(key, timeout, unit);
     }
+
     /**
      * 获取制定 key 的自定义对象，并转换为指定类型。
      * <p>

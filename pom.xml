@@ -32,6 +32,7 @@
         <module>entity</module>
         <module>common</module>
         <module>demo</module>
+        <module>data-center</module>
     </modules>
 
     <dependencyManagement>
@@ -64,6 +65,11 @@
             <dependency>
                 <groupId>com.miller</groupId>
                 <artifactId>demo</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>data-center</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 

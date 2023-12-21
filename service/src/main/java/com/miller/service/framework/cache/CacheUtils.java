@@ -2,6 +2,8 @@ package com.miller.service.framework.cache;
 
 import com.miller.service.framework.cache.remote.redis.RedisService;
 
+import java.util.Collection;
+
 /**
  * 统一的缓存工具类
  *
@@ -12,9 +14,10 @@ import com.miller.service.framework.cache.remote.redis.RedisService;
 public class CacheUtils {
 
     private static AbstractCacheService cacheService;
+    private static RedisService redisService;
 
     static {
-        RedisService redisService = RedisService.getRedisServiceInstance();
+        redisService = RedisService.getRedisServiceInstance();
         redisService.connectionSlave("r-1udjtdncdilouvmf23pd.redis.rds.aliyuncs.com", 6379, "xVGrf4upEgRXFmUO");
         CacheUtils.cacheService = redisService;
     }
@@ -32,5 +35,13 @@ public class CacheUtils {
      */
     public static <T> T get(String key, Class<T> classType) {
         return cacheService.get(key, classType);
+    }
+
+    public static Boolean delete(String key) {
+        return cacheService.delete(key);
+    }
+
+    public static Long delete(Collection<String> keys) {
+        return cacheService.delete(keys);
     }
 }

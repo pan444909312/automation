@@ -24,17 +24,10 @@
             <artifactId>erp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- 直接使用研发的请求、响应类。私服仓库一般开发只推 -api 相关的jar包，具体实现 -impl 不推送到仓库。
-        如果一定要用 impl 那么自己本地 install 吧 -->
+        <!-- 测试用例之间的公共数据；请求、响应对象使用研发仓库中的数据-->
         <dependency>
-            <groupId>com.hungrypanda</groupId>
-            <artifactId>app-server-api</artifactId>
-            <version>1.10.5-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hungrypanda</groupId>
-            <artifactId>app-server-impl</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.miller</groupId>
+            <artifactId>data-center</artifactId>
         </dependency>
 
     </dependencies>

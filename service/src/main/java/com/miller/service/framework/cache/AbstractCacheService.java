@@ -1,5 +1,7 @@
 package com.miller.service.framework.cache;
 
+import java.util.Collection;
+
 /**
  * 抽象缓存服务
  *
@@ -25,4 +27,7 @@ public abstract class AbstractCacheService {
      * @return T        泛型类型
      */
     public abstract <T> T get(String key, Class<T> classType);
+
+    public abstract Boolean delete(String key);
+    public abstract Long delete(Collection<String> keys);
 }

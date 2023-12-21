@@ -66,4 +66,9 @@ class RedisServiceTest {
         Set keys = redisService.getKey("*");
         keys.forEach(System.out::println);
     }
+    @Test
+    @DisplayName("Delete key from Redis")
+    void deleteKey() {
+        redisService.getRedisTemplate().delete("name");
+    }
 }
