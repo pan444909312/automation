@@ -35,8 +35,9 @@ public class LoginFlow {
         RequestUtils.setHeaders(header);
         return HttpUtils.sendPostRequest(uri, null,
                 RequestUtils.getHeaders(),
-                // 特殊处理，不加密。后续所有的请求体请使用带加密的请求体{@code RequestUtils.putBodyOfJson(Object)}
-                JSON.toJSONString(loginRequestDTO), null);
+                // 所有的请求体请使用带加密的请求体{@code RequestUtils.putBodyOfJson(Object)}
+                RequestUtils.putBodyOfJson(loginRequestDTO),
+                null);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.miller.deliveryapp.util;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.miller.deliveryapp.constants.BusinessConstant;
 import com.miller.service.framework.util.MapUtils;
 
@@ -78,19 +79,14 @@ public class RequestUtils {
      * @return 请求体字符串
      */
     public static <T> String putBodyOfJson(T t) {
-        return JSON.toJSONString(t);
-        /*
-        // 对请求参数的额外操作。以下代码是为代码因为现在还没有用到对请求体加密。
-
         //        验签规则：
         //        1. 获取所有请求体内容，放入到 JSONObject 对象中。
         //        2. 将 ：authorization， _ts 添加到 JSONObject。
         //        3. 调用 SignGenerateUtil.getSign（）方法获取 _sign。
         //        4. 将 _sign和_ts放到请求头发送给服务端。
-        String body = "{\"isOnline\":1}";
+        String body = JSON.toJSONString(t);
         JSONObject jsonObjectBody = new JSONObject();
         // 使用 fastjson 工具类，因为其他工具可能会出现转换之后类型变了的问题。比如：1 变成 1.0
-
         Map requestBody = JSON.parseObject(body, Map.class);
         jsonObjectBody.putAll(requestBody);
         var time = System.currentTimeMillis();
@@ -99,11 +95,11 @@ public class RequestUtils {
         jsonObjectBody.put("authorization", token);
         var requestSignatureKey = "ldkai_1ldal#nvhsl*afl3g2akgbvsa";
         var signReal = SignGenerateUtil.getSign(jsonObjectBody, requestSignatureKey);
+
         // 给请求头添加验签参数
         RequestUtils.getHeaders().put("_sign", signReal);
         RequestUtils.getHeaders().put("_ts", time);
         return body;
-        */
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.miller.deliveryapp;
 
+import com.miller.deliveryapp.driver.online.DriverOnlineTests;
 import com.miller.deliveryapp.login.LoginTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.SelectPackages;
@@ -14,7 +15,10 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * @since 2023/12/06 18:57:00
  */
 @SelectClasses({
-        LoginTests.class
+        // 骑手登录
+        LoginTests.class,
+        // 上线
+        DriverOnlineTests.class
 })
 //@SelectPackages("com.miller.deliveryapp")
 @SuiteDisplayName("调试多个测试用例")
