@@ -21,7 +21,7 @@ public class BusinessConstant {
      * 经度
      */
     public static String longitude = "120.216552";
-    public static String version = "5.19.0";
+    public static String version = "5.23.0";
     public static String platform = "ANDROID_DELIVERY";
     public static String type = "3";
     public static String userAgent = "5.19.0";

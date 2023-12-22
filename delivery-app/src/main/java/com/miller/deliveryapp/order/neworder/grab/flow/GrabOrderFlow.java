@@ -15,9 +15,6 @@ import com.miller.service.framework.http.HttpUtils;
  * @since 2023/12/22 13:45:30
  */
 public class GrabOrderFlow {
-    /**
-     * 待取餐列表
-     */
     private static final String uri = BusinessConstant.DOMAIN + "/api/delivery/app/order/grabOrder";
 
     public static GrabOrderResponseDTO grabOrder(GrabOrderRequestDTO grabOrderRequestDTO) {
