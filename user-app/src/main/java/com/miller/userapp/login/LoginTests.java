@@ -1,6 +1,5 @@
 package com.miller.userapp.login;
 
-import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.ResponseConstant;
@@ -27,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("登录-商家")
+@DisplayName("用户-登录")
 public class LoginTests {
     private static String token;
 

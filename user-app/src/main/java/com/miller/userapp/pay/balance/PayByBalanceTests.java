@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("支付-余额支付")
+@DisplayName("用户-支付-余额支付")
 public class PayByBalanceTests {
 
     @MethodSource("com.miller.userapp.pay.balance.provider.PayByBalanceDataProvider#payByBalanceDataProviderFromDB")

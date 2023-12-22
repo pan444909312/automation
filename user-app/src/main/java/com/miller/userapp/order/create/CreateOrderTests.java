@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("创建订单")
+@DisplayName("用户-创建订单")
 public class CreateOrderTests {
 
     @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderDataProviderFromDB")

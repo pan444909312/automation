@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家出餐测试用例")
+@DisplayName("商家-出餐测试用例")
 public class OutingOrderTests {
 
     @MethodSource("com.miller.merchant.order.outing.provider.OutingOrderDataProvider#outingOrder")

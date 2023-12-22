@@ -1,6 +1,5 @@
 package com.miller.merchant.login;
 
-import com.miller.merchant.constants.BusinessConstant;
 import com.miller.merchant.constants.ResponseConstant;
 import com.miller.merchant.login.flow.LoginFlow;
 import com.miller.merchant.login.request.LoginRequestDTO;
@@ -29,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ApiDoc(value = "http://10.1.6.46:3000/project/60/interface/api/3288")
 @EnvTag.Test
 @TestFramework
-@DisplayName("登录-用户")
+@DisplayName("商家-登录")
 public class LoginTests {
     private static String token;
 

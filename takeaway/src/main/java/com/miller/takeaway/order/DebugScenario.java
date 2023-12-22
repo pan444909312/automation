@@ -1,5 +1,9 @@
 package com.miller.takeaway.order;
 
+import com.miller.deliveryapp.driver.online.DriverOnlineTests;
+import com.miller.deliveryapp.order.delivery.list.DeliveryListTests;
+import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
+import com.miller.deliveryapp.order.pickup.list.PickUpListTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
@@ -35,6 +39,16 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         OutingOrderTests.class,
         // 商家催骑手
         ComplainOrderTests.class,
+        // 骑手登录
+        com.miller.deliveryapp.login.LoginTests.class,
+        // 上线
+        DriverOnlineTests.class,
+        // 新订单列表
+        NewOrderListTests.class,
+        // 待取餐列表
+        PickUpListTests.class,
+        // 待配送列表
+        DeliveryListTests.class
 })
 @Suite
 @SuiteDisplayName("测试订单场景")

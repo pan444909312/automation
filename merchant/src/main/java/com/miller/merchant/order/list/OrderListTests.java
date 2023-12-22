@@ -20,7 +20,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家订单列表测试用例")
+@DisplayName("商家-订单列表测试用例")
 public class OrderListTests {
     @MethodSource("com.miller.merchant.order.list.provider.OrderListDataProvider#orderListOfStatus")
     @ParameterizedTest
