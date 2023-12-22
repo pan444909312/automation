@@ -2,8 +2,10 @@ package com.miller.deliveryapp;
 
 import com.miller.deliveryapp.driver.online.DriverOnlineTests;
 import com.miller.deliveryapp.login.LoginTests;
+import com.miller.deliveryapp.order.delivery.list.DeliveryListTests;
+import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
+import com.miller.deliveryapp.order.pickup.list.PickUpListTests;
 import org.junit.platform.suite.api.SelectClasses;
-import org.junit.platform.suite.api.SelectPackages;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
@@ -18,7 +20,13 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 骑手登录
         LoginTests.class,
         // 上线
-        DriverOnlineTests.class
+        DriverOnlineTests.class,
+        // 新订单列表
+        NewOrderListTests.class,
+        // 待取餐列表
+        PickUpListTests.class,
+        // 待配送列表
+        DeliveryListTests.class
 })
 //@SelectPackages("com.miller.deliveryapp")
 @SuiteDisplayName("调试多个测试用例")

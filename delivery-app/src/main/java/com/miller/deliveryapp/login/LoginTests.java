@@ -5,7 +5,6 @@ import com.miller.deliveryapp.login.flow.LoginFlow;
 import com.miller.deliveryapp.login.request.LoginRequestDTO;
 import com.miller.deliveryapp.login.response.LoginResponseDTO;
 import com.miller.deliveryapp.util.RequestUtils;
-import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import org.junit.jupiter.api.AfterAll;
@@ -28,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 // @ApiDoc(value = "http://10.1.6.46:3000/project/60/interface/api/3288")
 @EnvTag.Test
 @TestFramework
-@DisplayName("登录-骑手")
+@DisplayName("骑手-登录")
 public class LoginTests {
     private static String token;
 

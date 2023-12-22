@@ -16,7 +16,7 @@ import com.miller.service.framework.http.HttpUtils;
  */
 public class DriverOnlineFlow {
     /**
-     * 商家接单并备餐接口
+     * 骑手上线、下线接口
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/delivery/app/driver/onOffline";
 
@@ -26,10 +26,9 @@ public class DriverOnlineFlow {
     public static DriverOnlineResponseDTO driverOnline(DriverOnlineRequestDTO driverOnlineRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
         RequestUtils.getHeaders().put("Content-Type", "application/json");
-        DriverOnlineResponseDTO driverOnlineResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(uri, null,
+        return HttpUtils.sendPostRequestReturnJavaObject(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(driverOnlineRequestDTO),
                 null, DriverOnlineResponseDTO.class);
-        return driverOnlineResponseDTO;
     }
 
 }
