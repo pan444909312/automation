@@ -3,6 +3,7 @@ package com.miller.deliveryapp;
 import com.miller.deliveryapp.driver.online.DriverOnlineTests;
 import com.miller.deliveryapp.login.LoginTests;
 import com.miller.deliveryapp.order.delivery.list.DeliveryListTests;
+import com.miller.deliveryapp.order.neworder.grab.GrabOrderTests;
 import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
 import com.miller.deliveryapp.order.pickup.list.PickUpListTests;
 import org.junit.platform.suite.api.SelectClasses;
@@ -23,6 +24,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         DriverOnlineTests.class,
         // 新订单列表
         NewOrderListTests.class,
+        // 骑手抢单
+        GrabOrderTests.class,
         // 待取餐列表
         PickUpListTests.class,
         // 待配送列表
