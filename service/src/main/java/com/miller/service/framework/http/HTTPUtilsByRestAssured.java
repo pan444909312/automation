@@ -167,7 +167,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             request.cookies(cookies);
         }
         // 处理 application/x-www-form-urlencoded 格式
-        else if (contentType.toLowerCase(Locale.ROOT).contains("application/x-www-form-urlencoded")) {
+        else if (contentType.toLowerCase(Locale.ROOT).contains("x-www-form-urlencoded")) {
             log.info("处理Content-Type为:{} 的请求body.", contentType);
             // 参数包含中文需要添加 charset=UTF-8 ，不在框架层处理这个逻辑了，在业务层处理
             if (!contentType.toLowerCase(Locale.ROOT).contains("charset=UTF-8")) {
@@ -192,6 +192,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
                 request.headers(headers);
                 request.queryParams(params);
                 request.formParams((Map<String, ?>) body);
+                request.cookies(cookies);
             }
             // 兜底的处理逻辑
             else {

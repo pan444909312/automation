@@ -10,8 +10,9 @@ import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.receiving.ReceivingOrderTests;
-import com.miller.userapp.login.LoginTests;
+import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderTests;
+import com.miller.userapp.order.evaluate.EvaluateOrderTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -26,11 +27,12 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        LoginTests.class,
+        com.miller.userapp.login.LoginTests.class,
         // 创建订单
         CreateOrderTests.class,
         // 支付订单
         PayByBalanceTests.class,
+
         // 商家登录APP
         com.miller.merchant.login.LoginTests.class,
         // 订单列表
@@ -41,6 +43,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         OutingOrderTests.class,
         // 商家催骑手
         ComplainOrderTests.class,
+
         // 骑手登录
         com.miller.deliveryapp.login.LoginTests.class,
         // 上线
@@ -54,7 +57,13 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 待配送列表
         DeliveryListTests.class,
         // 骑手-已到店->等待商家出餐->正在取餐->已完成送餐并拍照送达
-        ModifyOrderStatusTests.class,})
+        ModifyOrderStatusTests.class,
+
+        // 用户确认订单已送达。注意：需要订单被骑手派送完成之后执行
+        ConfirmOrderStatusTests.class,
+        // 用户评价订单
+//        EvaluateOrderTests.class,
+})
 @Suite
 @SuiteDisplayName("测试订单场景")
 public class DebugScenario {

@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
 
 /**
- * 余额支付数据提供者
+ * 数据提供者-余额支付
  *
  * @author Miller Shan
  * @version 1.0

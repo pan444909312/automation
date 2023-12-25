@@ -3,7 +3,7 @@ package com.miller.userapp.pay.balance.response;
 import com.hungrypanda.app.server.api.common.Result;
 
 /**
- * 余额(礼品卡)支付响应对象
+ * 响应对象-余额(礼品卡)支付
  *
  * @author Miller Shan
  * @version 1.0

@@ -7,7 +7,7 @@ import com.miller.userapp.pay.balance.response.PayByBalanceResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 余额支付流程
+ * 流程-余额支付
  *
  * @author Miller Shan
  * @version 1.0
@@ -24,7 +24,7 @@ public class PayByBalanceFlow {
      */
     public static PayByBalanceResponseDTO payByBalance(PayByBalanceRequestDTO payByBalanceRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
-        RequestUtils.getHeaders().put("Content-Type", "x-www-form-urlencoded");
+        RequestUtils.getHeaders().put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         PayByBalanceResponseDTO payByBalanceResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
                 RequestUtils.putBodyOfForm(payByBalanceRequestDTO), null, PayByBalanceResponseDTO.class);
         return payByBalanceResponseDTO;

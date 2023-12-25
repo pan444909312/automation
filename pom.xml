@@ -238,7 +238,7 @@
             <dependency>
                 <groupId>io.rest-assured</groupId>
                 <artifactId>rest-assured</artifactId>
-                <version>5.3.0</version>
+                <version>5.4.0</version>
                 <exclusions>
                     <!-- 解决冲突 5.X 版本需要 groovy 4.X 版本-->
                     <exclusion>

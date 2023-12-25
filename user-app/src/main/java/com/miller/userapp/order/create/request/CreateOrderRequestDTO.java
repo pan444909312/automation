@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 创建订单请求对象
+ * 请求对象-创建订单
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一请求对象。
  * 这里之所以包装了一层是因为对请求字段可能需要二次处理，比如：加密、验签等.
@@ -16,8 +16,6 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  * @since 2023/12/9 09:59:02
  */
-@NoArgsConstructor
-@Data
 public class CreateOrderRequestDTO extends CreatOrderReq {
     // 测试用例需要使用的额外字段可以补充在这里。
 }

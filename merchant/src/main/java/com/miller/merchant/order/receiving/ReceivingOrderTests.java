@@ -21,12 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-接单测试用例")
+@DisplayName("商家-接单并备餐测试用例")
 public class ReceivingOrderTests {
 
     @MethodSource("com.miller.merchant.order.receiving.provider.ReceivingOrderDataProvider#receivingOrder")
     @ParameterizedTest
-    @DisplayName("商家接单-正常流程")
+    @DisplayName("商家接单并备餐-正常流程")
     void shouldReceivingOrderSuccessfully(ReceivingOrderRequestDTO receivingOrderRequestDTO) {
         ReceivingOrderResponseDTO receivingOrderResponseDTO = ReceivingOrderFlow.receivingOrder(receivingOrderRequestDTO);
         assertThat(receivingOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

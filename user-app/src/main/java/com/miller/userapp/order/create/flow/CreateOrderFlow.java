@@ -9,7 +9,7 @@ import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 创建订单流程
+ * 流程-创建订单
  *
  * @author Miller Shan
  * @version 1.0
@@ -29,7 +29,7 @@ public class CreateOrderFlow {
      */
     public static CreateOrderResponseDTO createOrder(CreateOrderRequestDTO createOrderRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
-        RequestUtils.getHeaders().put("Content-Type", "x-www-form-urlencoded");
+        RequestUtils.getHeaders().put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         CreateOrderResponseDTO createOrderResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(createOrderRequestDTO),
                 null, CreateOrderResponseDTO.class);

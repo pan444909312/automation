@@ -27,7 +27,7 @@ public class ConfirmOrderStatusFlow {
      */
     public static ConfirmOrderStatusResponseDTO confirmOrderIsReceived(ConfirmOrderStatusRequestDTO confirmOrderStatusRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
-        RequestUtils.getHeaders().put("Content-Type", "x-www-form-urlencoded");
+        RequestUtils.getHeaders().put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(confirmOrderStatusRequestDTO),
                 null, ConfirmOrderStatusResponseDTO.class);

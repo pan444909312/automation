@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 余额支付测试用例
+ * 测试用例-余额支付
  *
  * @author Miller Shan
  * @version 1.0

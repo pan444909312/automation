@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 登录响应对象
+ * 响应对象-登录
  *
  * <p>
  * app-server-impl/src/main/java/com/hungrypanda/app/server/controller/UserController.java

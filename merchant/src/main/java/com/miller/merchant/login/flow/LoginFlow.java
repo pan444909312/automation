@@ -31,7 +31,7 @@ public class LoginFlow {
      */
     private static Map<String, Object> login(LoginRequestDTO loginRequestDTO) {
         var header = new HashMap<String, Object>();
-        header.put("Content-Type", "x-www-form-urlencoded");
+        header.put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         RequestUtils.setHeaders(header);
         return HttpUtils.sendPostRequest(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(loginRequestDTO), null);

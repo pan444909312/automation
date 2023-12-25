@@ -17,7 +17,7 @@ class HTTPUtilsByRestAssuredTest {
         var uri = "http://www.baidu.com";
         var params = new HashMap<String, Object>();
         var headers = new HashMap<String, Object>();
-        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        headers.put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         var body = new HashMap<String, Object>();
         body.put("name", "Miller");
         var cookies = new HashMap<String, Object>();

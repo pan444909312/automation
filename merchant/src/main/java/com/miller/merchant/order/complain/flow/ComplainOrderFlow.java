@@ -25,7 +25,7 @@ public class ComplainOrderFlow {
      */
     public static ComplainOrderResponseDTO complainOrder(ComplainOrderRequestDTO complainOrderRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
-        RequestUtils.getHeaders().put("Content-Type", "x-www-form-urlencoded");
+        RequestUtils.getHeaders().put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         ComplainOrderResponseDTO complainOrderResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(complainOrderRequestDTO),
                 null, ComplainOrderResponseDTO.class);
