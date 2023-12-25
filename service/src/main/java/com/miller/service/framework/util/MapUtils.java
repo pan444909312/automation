@@ -55,7 +55,7 @@ public class MapUtils {
      * @see #beanToMap(Object, Boolean)
      */
     public static <T> Map<String, Object> beanToMap(T bean) {
-        return beanToMap(bean, false);
+        return beanToMap(bean, true);
     }
 
     /**

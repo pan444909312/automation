@@ -119,9 +119,9 @@ public class RequestUtils {
      */
     public static <T> Map<String, Object> putBodyOfForm(T formBody) {
         // 将Java Bean 对象转换为Map
-        Map<String, Object> stringObjectMap = MapUtils.beanToMap(formBody);
-        // 求参数的额外操作
-        return stringObjectMap;
+        Map<String, Object> objectMap = MapUtils.beanToMap(formBody);
+        // 对参数的额外操作
+        return objectMap;
     }
 
     /**
