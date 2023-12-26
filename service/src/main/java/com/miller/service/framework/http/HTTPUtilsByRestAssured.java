@@ -1,8 +1,5 @@
 package com.miller.service.framework.http;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONException;
-import com.miller.service.framework.util.JSONUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
@@ -152,7 +149,6 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         // 打印请求日志
         request.log().all();
 
-
         // 根据请求头的Content-type来区分不同body
         String contentType = String.valueOf(headers.get("Content-Type"));
         // 处理 application/json 格式直接将body中的内容当做字符串形式发送即可
@@ -178,7 +174,21 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             request.queryParams(params);
             // body中的数据为键值对
             if (body instanceof Map) {
-                request.formParams((Map<String, ?>) body);
+                try {
+                    /*
+                    接受键值对请求体时，如果将Java Bean 对象转换为 Map 可能会抛出异常，比如 Java Bean 对象中包含字段 String[] 数组时。
+                    java.lang.IllegalArgumentException: Cannot serialize because
+                    cannot determine how to serialize content-type application/x-www-form-urlencoded;charset=UTF-8
+                    解决方案: 将对象序列化为 JSON 字符串，然后再转换为 Map 对象。
+                    <pre>
+                        String jsonString = JSON.toJSONString(bean);
+                        Map map = JSON.parseObject(jsonString, Map.class);
+                    </pre>
+                     */
+                    request.formParams((Map<String, ?>) body);
+                } catch (IllegalArgumentException illegalArgumentException) {
+                    log.error("Please serialize body to JSON then convert to Map");
+                }
             }
             request.cookies(cookies);
         }
@@ -191,7 +201,11 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
                 headers.put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
                 request.headers(headers);
                 request.queryParams(params);
-                request.formParams((Map<String, ?>) body);
+                try {
+                    request.formParams((Map<String, ?>) body);
+                } catch (IllegalArgumentException illegalArgumentException) {
+                    log.error("Please serialize body to JSON then convert to Map");
+                }
                 request.cookies(cookies);
             }
             // 兜底的处理逻辑
@@ -200,7 +214,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
                 // headers.put("Content-Type", "application/json");
                 request.headers(headers);
                 request.queryParams(params);
-                // 自动识别请求体类型
+                // 自动识别请求体类型，丢给 REST-Assured 框架自身去处理
                 request.body(body);
                 request.cookies(cookies);
                 // 请求体不为空,并且长度大于0才处理
@@ -238,6 +252,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         }
         // 记录响应日志中的所有内容
         log.info("========================= 输出响应日志 ==============================");
+        assert response != null;
         response.then().log().all();
         log.info("========================= 结束记录HTTP 日志 =========================");
         return processResponseResult(response, request);
