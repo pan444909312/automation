@@ -39,6 +39,11 @@
             <artifactId>assertj-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>data-center</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
