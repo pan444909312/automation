@@ -19,8 +19,8 @@
     </properties>
 
     <dependencies>
-        <!-- user-app-server 中的请求、响应类。
-        直接使用研发的请求、响应类。私服仓库一般开发只推 -api 相关的jar包，具体实现 -impl 不推送到仓库。
+        <!-- user-app-server
+        用户端请求、响应对象。直接使用研发的请求、响应类。私服仓库一般开发只推 -api 相关的jar包，具体实现 -impl 不推送到仓库。
         如果一定要用 impl 那么自己本地 install 吧 -->
         <dependency>
             <groupId>com.hungrypanda</groupId>
@@ -33,13 +33,20 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!-- merchant-server 中的请求、响应类。
-        商家端请求、响应对象 -->
+        <!-- merchant-server
+        商家端请求、响应对象。商家端接口有两个工程 merchant、app-server。
+        但是app-server是一个 war 包，而且请求居然是用 HttpServletRequest 来获取参数，响应 result 基本为null，没有引入的必要了。
+         -->
         <dependency>
             <groupId>com.panda.merchant.server</groupId>
             <artifactId>merchant-api</artifactId>
             <version>1.1.61-RELEASE</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.haya.panda.platform</groupId>-->
+<!--            <artifactId>haya-panda-app</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
         <!-- hp-delivery-app-server
         骑手端请求、响应对象
