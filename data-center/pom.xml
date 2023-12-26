@@ -57,6 +57,15 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!-- erp
+        后台涉及多个服务
+        -->
+        <dependency>
+            <groupId>com.panda.erp.server</groupId>
+            <artifactId>erp-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 </project>

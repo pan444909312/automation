@@ -121,8 +121,10 @@ public class RequestUtils {
      * @param params 请求参数
      * @return 请求参数
      */
-    public static Map<String, Object> putParams(Map<String, Object> params) {
+    public static <T> Map<String, Object> putParams(T params) {
+        // 将Java Bean 对象转换为Map
+        Map<String, Object> stringObjectMap = MapUtils.beanToMap(params);
         // 请求参数的额外操作
-        return params;
+        return stringObjectMap;
     }
 }
