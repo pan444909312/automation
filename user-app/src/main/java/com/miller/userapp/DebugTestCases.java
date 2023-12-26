@@ -21,9 +21,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         LoginTests.class,
         // 创建订单
-        CreateOrderTests.class,
+//        CreateOrderTests.class,
 //        // 支付订单
-        PayByBalanceTests.class,
+//        PayByBalanceTests.class,
         // 用户确认订单已送达。注意：需要订单被骑手派送完成之后执行
 //        ConfirmOrderStatusTests.class,
         // 用户评价订单

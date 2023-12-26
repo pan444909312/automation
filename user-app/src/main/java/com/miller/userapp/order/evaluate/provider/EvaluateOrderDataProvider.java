@@ -31,13 +31,13 @@ public class EvaluateOrderDataProvider {
         evaluateOrderRequestDTOByDelivery.setComposite(100);
         evaluateOrderRequestDTOByDelivery.setDriverEvaluate(1);
         evaluateOrderRequestDTOByDelivery.setDeliveryRemark("【自动化测试】骑手评价语");
-        String[] strings = {
+        evaluateOrderRequestDTOByDelivery.setDriverTagIdList(new String[]{
                 SATISFY_HANDOVER_PERFECT.name(),
                 SATISFY_FAST_EFFICIENT.name(),
-                SATISFY_SERVICE_FRIENDLY.toString(),
-                SATISFY_WEAR_WORK_CLOTHES.toString(),
-                SATISFY_OTHER.toString()};
-        evaluateOrderRequestDTOByDelivery.setDriverTagIdList(strings);
+                SATISFY_SERVICE_FRIENDLY.name(),
+                SATISFY_WEAR_WORK_CLOTHES.name(),
+                SATISFY_OTHER.name()
+        });
         evaluateOrderRequestDTOByDelivery.setManner(100);
         evaluateOrderRequestDTOByDelivery.setRemark("【自动化测试】对订单的评价，五星好评，非匿名提交");
         evaluateOrderRequestDTOByDelivery.setTaste(100);

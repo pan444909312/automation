@@ -217,11 +217,11 @@
                 <version>4.4.0</version>
             </dependency>
             <!-- JUnit5 整合 Selenium -->
-            <dependency>
-                <groupId>io.github.bonigarcia</groupId>
-                <artifactId>selenium-jupiter</artifactId>
-                <version>3.4.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.github.bonigarcia</groupId>-->
+<!--                <artifactId>selenium-jupiter</artifactId>-->
+<!--                <version>3.4.0</version>-->
+<!--            </dependency>-->
             <!-- 引入断言工具 hamcrest -->
             <dependency>
                 <groupId>org.hamcrest</groupId>
