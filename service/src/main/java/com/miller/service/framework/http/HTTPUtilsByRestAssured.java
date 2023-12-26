@@ -187,7 +187,8 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
                      */
                     request.formParams((Map<String, ?>) body);
                 } catch (IllegalArgumentException illegalArgumentException) {
-                    log.error("Please serialize body to JSON then convert to Map");
+                    log.error("Please serialize body {} to JSON then convert to Map", body);
+                    throw illegalArgumentException;
                 }
             }
             request.cookies(cookies);
@@ -204,7 +205,8 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
                 try {
                     request.formParams((Map<String, ?>) body);
                 } catch (IllegalArgumentException illegalArgumentException) {
-                    log.error("Please serialize body to JSON then convert to Map");
+                    log.error("Please serialize body {} to JSON then convert to Map", body);
+                    throw illegalArgumentException;
                 }
                 request.cookies(cookies);
             }
