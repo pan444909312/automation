@@ -1,6 +1,7 @@
 package com.miller.erp;
 
 import com.miller.erp.login.LoginTests;
+import com.miller.erp.manage.merchant.edit.businessinfo.BusinessInfoEditTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -15,6 +16,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SelectClasses({
         // ERP-登录
         LoginTests.class,
+
+        // ERP-编辑商家经营信息
+        BusinessInfoEditTests.class,
 
 })
 //@SelectPackages("com.miller.erp")
