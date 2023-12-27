@@ -93,4 +93,16 @@ public class LoginFlow {
         return loginResponseDTO;
     }
 
+    /**
+     * ERP-登录，通过默认的 dongdong_test 账号
+     */
+    public static LoginResponseDTO loginByDefaultUser() {
+        LoginRequestDTO user = new LoginRequestDTO();
+        user.setUserName(BusinessConstant.USERNAME);
+        // ERP 个人账号，不使用明文
+        user.setPassword(BusinessConstant.PASSWORD);
+        return loginReturnBodyObject(user);
+    }
+
+
 }

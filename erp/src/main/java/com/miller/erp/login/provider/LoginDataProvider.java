@@ -1,6 +1,6 @@
 package com.miller.erp.login.provider;
 
-import com.miller.common.util.MD5Util;
+import com.miller.erp.constants.BusinessConstant;
 import com.miller.erp.login.request.LoginRequestDTO;
 import org.junit.jupiter.params.provider.Arguments;
 
@@ -22,9 +22,9 @@ public class LoginDataProvider {
      */
     static Stream<Arguments> loginDataProviderFromDB() {
         LoginRequestDTO user = new LoginRequestDTO();
-        user.setUserName("dongdong_test");
+        user.setUserName(BusinessConstant.USERNAME);
         // ERP 个人账号，不使用明文
-        user.setPassword("9078a56f98d2ac683c8720570c829ac9");
+        user.setPassword(BusinessConstant.PASSWORD);
         return Stream.of(
                 arguments(user)
         );
