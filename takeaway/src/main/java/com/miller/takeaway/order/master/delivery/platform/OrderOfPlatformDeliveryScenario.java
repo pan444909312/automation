@@ -6,7 +6,7 @@ import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
 import com.miller.merchant.order.receiving.ReceivingOrderTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
-import com.miller.userapp.order.create.CreateOrderTests;
+import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -34,7 +34,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         com.miller.userapp.login.LoginTests.class,
         // 创建订单
-        CreateOrderTests.class,
+        CreateOrderByPlatformDeliveryTests.class,
         // 支付订单
         PayByBalanceTests.class,
 

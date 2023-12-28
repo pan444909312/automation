@@ -1,6 +1,6 @@
 package com.miller.erp.manage.merchant.edit.businessinfo.flow;
 
-import com.miller.erp.constants.BusinessConstant;
+import com.miller.erp.constants.BusinessConstantOfERP;
 import com.miller.erp.manage.merchant.edit.businessinfo.request.BusinessInfoEditRequestDTO;
 import com.miller.erp.manage.merchant.edit.businessinfo.response.BusinessInfoEditResponseDTO;
 import com.miller.erp.util.RequestUtils;
@@ -17,7 +17,7 @@ public class BusinessInfoEditFlow {
     /**
      * 接口-编辑商家经营信息
      */
-    private static final String uri = BusinessConstant.DOMAIN_TEST_GATEWAY + "/api/erp/module/business/info/edit";
+    private static final String uri = BusinessConstantOfERP.DOMAIN_TEST_GATEWAY + "/api/erp/module/business/info/edit";
 
     /**
      * 流程-编辑商家经营信息

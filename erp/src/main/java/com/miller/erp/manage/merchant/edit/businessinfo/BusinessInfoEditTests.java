@@ -1,6 +1,6 @@
 package com.miller.erp.manage.merchant.edit.businessinfo;
 
-import com.miller.erp.constants.ResponseConstant;
+import com.miller.erp.constants.ResponseConstantOfERP;
 import com.miller.erp.manage.merchant.edit.businessinfo.flow.BusinessInfoEditFlow;
 import com.miller.erp.manage.merchant.edit.businessinfo.request.BusinessInfoEditRequestDTO;
 import com.miller.erp.manage.merchant.edit.businessinfo.response.BusinessInfoEditResponseDTO;
@@ -29,7 +29,7 @@ public class BusinessInfoEditTests {
     @DisplayName("编辑商家经营信息流程-正常流程")
     void shouldBusinessInfoEditSuccessfully(BusinessInfoEditRequestDTO businessInfoEditRequestDTO) {
         BusinessInfoEditResponseDTO businessInfoEditResponseDTO = BusinessInfoEditFlow.businessInfoEdit(businessInfoEditRequestDTO);
-        assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 
 }

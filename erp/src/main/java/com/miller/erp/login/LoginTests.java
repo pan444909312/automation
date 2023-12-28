@@ -1,6 +1,6 @@
 package com.miller.erp.login;
 
-import com.miller.erp.constants.ResponseConstant;
+import com.miller.erp.constants.ResponseConstantOfERP;
 import com.miller.erp.login.flow.LoginFlow;
 import com.miller.erp.login.request.LoginRequestDTO;
 import com.miller.erp.login.response.LoginResponseDTO;
@@ -48,7 +48,7 @@ public class LoginTests {
     void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
         LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
 
-        assertThat(loginResponseDTO.getCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(loginResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
         assertThat(loginResponseDTO.getData().getToken()).isNotNull();
         // 获取token
         token = loginResponseDTO.getData().getToken();

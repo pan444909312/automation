@@ -7,7 +7,7 @@ package com.miller.erp.constants;
  * @version 1.0
  * @since 2023/12/26 16:32:00
  */
-public class ResponseConstant {
+public class ResponseConstantOfERP {
     /**
      * 业务响应的状态码
      */

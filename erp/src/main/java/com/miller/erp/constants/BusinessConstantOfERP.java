@@ -7,7 +7,7 @@ package com.miller.erp.constants;
  * @version 1.0
  * @since 2023/12/26 17:27:34
  */
-public class BusinessConstant {
+public class BusinessConstantOfERP {
     /**
      * 接口请求的域名
      */

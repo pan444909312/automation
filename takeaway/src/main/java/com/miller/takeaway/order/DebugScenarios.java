@@ -7,11 +7,11 @@ import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
 /**
- * 场景调试
+ * 调试场景集
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023/12/21 16:21:53
+ * @since 2023/12/28 16:21:53
  */
 @SelectClasses({
         OrderOfPlatformDeliveryScenario.class,

@@ -1,7 +1,7 @@
 package com.miller.erp.util;
 
 import com.alibaba.fastjson2.JSON;
-import com.miller.erp.constants.BusinessConstant;
+import com.miller.erp.constants.BusinessConstantOfERP;
 import com.miller.service.framework.util.MapUtils;
 
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class RequestUtils {
     private static Map<String, Object> commonHeaders() {
         // 公共请求头。每次获取都用新的对象，避免多用户冲突。
         var headers = new HashMap<String, Object>();
-        headers.put("token", BusinessConstant.TOKEN);
+        headers.put("token", BusinessConstantOfERP.TOKEN);
         return headers;
     }
 
