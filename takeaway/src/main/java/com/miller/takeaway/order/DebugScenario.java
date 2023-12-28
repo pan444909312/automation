@@ -65,6 +65,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 商家回复评论
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
+        // 订单流程结束
+        // do something...
 })
 @Suite
 @SuiteDisplayName("测试订单场景")

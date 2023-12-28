@@ -19,7 +19,11 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * 骑手接单（32）->到店取餐->商家未出餐，骑手在店等商家出餐->商家已出餐->骑手配送->拍照完成配送->确认送达->订单主流程结束
  * </p>
  * <p>
- * 覆盖：1， 2， 4， 5， 7， 9， 10， 12， 29， 32， 33， 34， 35， 36， 37， 38， 20， 22
+ *     <ul>覆盖路径
+ *         <li>覆盖: 1，2，4，5，7，9，10，12，29，32，33，34，35，36，37，38，20，22</li>
+ *         <li>覆盖: 1，3，4，5，7，9，10，11，12，13，14，16，17，18，20，22，39，25</li>
+ *         <li>覆盖: 1，3，4，5，7，9，10，11，12，13，14，16，17，18，20，22，39，40，25</li>
+ *     </ul>
  * </p>
  *
  * @author Miller Shan
@@ -58,7 +62,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 订单流程结束
 })
 @Suite
-@SuiteDisplayName("【主干场景】【平台配送】商家出餐后骑手直接抢单")
+@SuiteDisplayName("【主干场景】【平台配送】用户选择配送方式为配送，商家出餐、崔骑手，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束")
 @TestCase(testCaseID = "01HJQH3Y82QYNFVEVCWQQQ93FG", name = "【主干场景】【平台配送】用户选择配送方式为配送，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束")
 public class OrderOfPlatformDeliveryScenario {
 }
