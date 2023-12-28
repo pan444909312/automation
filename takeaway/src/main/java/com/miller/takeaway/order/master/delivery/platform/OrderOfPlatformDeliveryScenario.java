@@ -33,7 +33,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SelectClasses({
         // 用户登录
         com.miller.userapp.login.LoginTests.class,
-        // 创建订单
+        // 创建订单-平台配送
         CreateOrderByPlatformDeliveryTests.class,
         // 支付订单
         PayByBalanceTests.class,

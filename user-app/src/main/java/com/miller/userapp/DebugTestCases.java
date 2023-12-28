@@ -1,6 +1,7 @@
 package com.miller.userapp;
 
 import com.miller.userapp.login.LoginTests;
+import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.order.evaluate.EvaluateOrderTests;
@@ -22,14 +23,14 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 创建订单-平台配送
 //        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
-        CreateOrderByMerchantDeliveryTests.class,
+//        CreateOrderByMerchantDeliveryTests.class,
 //        // 支付订单
-        PayByBalanceTests.class,
+//        PayByBalanceTests.class,
 
         // 用户确认订单已送达。注意：需要订单被骑手派送完成之后执行
-//        ConfirmOrderStatusTests.class,
+        ConfirmOrderStatusTests.class,
         // 用户评价订单
-        // EvaluateOrderTests.class,
+        EvaluateOrderTests.class,
 })
 //@SelectPackages("com.miller.userapp")
 @SuiteDisplayName("调试多个测试用例")
