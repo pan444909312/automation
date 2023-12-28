@@ -2,6 +2,7 @@ package com.miller.merchant;
 
 import com.miller.merchant.login.LoginTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
+import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
 import com.miller.merchant.order.evaluate.EvaluateOrderTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
@@ -23,11 +24,14 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 订单列表
         OrderListTests.class,
         // 接单
-        ReceivingOrderTests.class,
+//        ReceivingOrderTests.class,
         // 出餐
-        OutingOrderTests.class,
+//        OutingOrderTests.class,
         // 商家催骑手
-        ComplainOrderTests.class,
+//        ComplainOrderTests.class,
+
+        // 配送中列表-商家点击"用户已取餐"
+        MerchantConfirmUserReceivedOrderTests.class,
         // 商家回复评论
         // EvaluateOrderTests.class,
 })
