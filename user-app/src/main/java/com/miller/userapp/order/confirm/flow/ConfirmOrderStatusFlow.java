@@ -7,7 +7,7 @@ import com.miller.userapp.order.confirm.response.ConfirmOrderStatusResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 流程：用户确认订单已送到
+ * 流程-用户确认订单已送到
  *
  * @author Miller Shan
  * @version 1.0

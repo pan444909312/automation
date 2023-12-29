@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
 
 /**
- * 数据提供者：用户确认订单已送到
+ * 数据提供者-用户确认订单已送到
  *
  * @author Miller Shan
  * @version 1.0

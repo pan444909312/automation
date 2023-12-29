@@ -12,20 +12,20 @@ import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
 /**
- * 【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束
+ * 【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，申请售后，订单结束
  * <p>
  * 流程：用户下单->配送->支付成功->待接单->等待商家接单->接单并备餐->备餐中->商家配送（26）->出餐（27）->商家点击用户已取餐->用户确认取餐（18）
- * ->确认送到（20）->订单主流程结束（22）
+ * ->申请售后（21）->订单结束
  * </p>
  * <p>
  *     <ul>覆盖路径
- *         <li>路径: 1， 2， 4， 5， 7， 9， 10， 12， 26， 27， 28， 20， 22</li>
+ *         <li>路径: 1， 2， 4， 5， 7， 9， 10， 12， 26， 27， 28， 21</li>
  *     </ul>
  * </p>
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023/12/28 18:05:28
+ * @since 2023/12/28 21:05:28
  */
 @SelectClasses({
         // 用户登录
@@ -45,16 +45,20 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         MerchantConfirmUserReceivedOrderTests.class,
 
         // 用户确认订单已送达。注意：需要订单被【骑手/商家】派送完成之后执行
-         ConfirmOrderStatusTests.class,
+        ConfirmOrderStatusTests.class,
         // 用户评价订单
-         com.miller.userapp.order.evaluate.EvaluateOrderTests.class,
+        com.miller.userapp.order.evaluate.EvaluateOrderTests.class,
 
         // 商家回复评论
-         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
+        com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
+        // 用户-申请售后->申请退款
+
+        // ERP 后台定责，等待30秒退款成功
+
         // 订单流程结束
 })
 @Suite
 @SuiteDisplayName("【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
 @TestCase(testCaseID = "01HJQY9HH260WG8SH4S19CQY4Q", name = "【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
-public class OrderOfMerchantDeliveryScenario {
+public class OrderOfMerchantDeliveryThenRefundScenario {
 }
