@@ -5,6 +5,7 @@ import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.order.evaluate.EvaluateOrderTests;
+import com.miller.userapp.order.refund.apply.ApplyRefundTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -28,9 +29,11 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        PayByBalanceTests.class,
 
         // 用户确认订单已送达。注意：需要订单被骑手派送完成之后执行
-        ConfirmOrderStatusTests.class,
+//        ConfirmOrderStatusTests.class,
         // 用户评价订单
-        EvaluateOrderTests.class,
+//        EvaluateOrderTests.class,
+        // 用户预申请退款
+        ApplyRefundTests.class,
 })
 //@SelectPackages("com.miller.userapp")
 @SuiteDisplayName("调试多个测试用例")
