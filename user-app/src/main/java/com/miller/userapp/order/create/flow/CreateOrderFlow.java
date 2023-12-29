@@ -17,7 +17,7 @@ import com.miller.userapp.util.RequestUtils;
  */
 public class CreateOrderFlow {
     /**
-     * 创建订单接口
+     * 接口-创建订单
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/order/create";
 
