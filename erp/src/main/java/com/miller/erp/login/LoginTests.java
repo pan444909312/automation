@@ -44,7 +44,7 @@ public class LoginTests {
 
     @MethodSource("com.miller.erp.login.provider.LoginDataProvider#loginDataProviderFromDB")
     @ParameterizedTest
-    @DisplayName("登录流程-正常登录正常")
+    @DisplayName("正常流程-登录成功")
     void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
         LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
 

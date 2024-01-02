@@ -1,7 +1,7 @@
 package com.miller.erp;
 
 import com.miller.erp.login.LoginTests;
-import com.miller.erp.manage.merchant.edit.businessinfo.BusinessInfoEditTests;
+import com.miller.erp.service.customer.refund.RefundListTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -18,7 +18,10 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         LoginTests.class,
 
         // ERP-编辑商家经营信息
-        BusinessInfoEditTests.class,
+//         BusinessInfoEditTests.class,
+
+        // 客户服务-退款审核-根据订单查询特殊单ID
+        RefundListTests.class,
 
 })
 //@SelectPackages("com.miller.erp")
