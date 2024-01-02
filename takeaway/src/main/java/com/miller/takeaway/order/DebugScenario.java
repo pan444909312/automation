@@ -6,9 +6,7 @@ import com.miller.deliveryapp.order.neworder.grab.GrabOrderTests;
 import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
 import com.miller.deliveryapp.order.pickup.list.PickUpListTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
-import com.miller.erp.login.LoginTests;
 import com.miller.erp.service.customer.refund.duty.DutyTests;
-import com.miller.erp.service.customer.refund.list.RefundListTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
@@ -74,7 +72,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
         // 订单主流程结束
 
-        // 用户申请退款-提交
+        // 用户-申请售后->申请退款-提交
         SubmitRefundTests.class,
         // ERP-登录
         com.miller.erp.login.LoginTests.class,

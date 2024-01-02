@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例_申请退款-提交
+ * 测试用例_用户-申请售后->申请退款-提交
  *
  * @author Miller Shan
  * @version 1.0
@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-申请退款-提交")
+@DisplayName("用户-申请售后-申请退款-提交")
 public class SubmitRefundTests {
 
     @MethodSource("com.miller.userapp.order.refund.submit.provider.SubmitRefundDataProvider#submitRefund")

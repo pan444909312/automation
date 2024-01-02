@@ -1,11 +1,13 @@
 package com.miller.takeaway.order.master.delivery.merchant;
 
+import com.miller.erp.service.customer.refund.duty.DutyTests;
 import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.receiving.ReceivingOrderTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
+import com.miller.userapp.order.refund.submit.SubmitRefundTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -51,11 +53,14 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 商家回复评论
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
-        // 用户-申请售后->申请退款
 
-        // ERP 后台定责，等待30秒退款成功
+        // 用户-申请售后->申请退款-提交
+        SubmitRefundTests.class,
+        // ERP-登录
+        com.miller.erp.login.LoginTests.class,
+        // ERP-客户服务-退款审核-定责
+        DutyTests.class,
 
-        // 订单流程结束
 })
 @Suite
 @SuiteDisplayName("【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
