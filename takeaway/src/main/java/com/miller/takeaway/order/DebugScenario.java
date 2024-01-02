@@ -6,13 +6,16 @@ import com.miller.deliveryapp.order.neworder.grab.GrabOrderTests;
 import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
 import com.miller.deliveryapp.order.pickup.list.PickUpListTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
+import com.miller.erp.login.LoginTests;
+import com.miller.erp.service.customer.refund.duty.DutyTests;
+import com.miller.erp.service.customer.refund.list.RefundListTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
-import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.receiving.ReceivingOrderTests;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
+import com.miller.userapp.order.refund.submit.SubmitRefundTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -69,8 +72,15 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 商家回复评论
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
-        // 订单流程结束
-        // do something...
+        // 订单主流程结束
+
+        // 用户申请退款-提交
+        SubmitRefundTests.class,
+        // ERP-登录
+        LoginTests.class,
+        // ERP-客户服务-退款审核-定责
+        DutyTests.class,
+
 })
 @Suite
 @SuiteDisplayName("测试订单场景")

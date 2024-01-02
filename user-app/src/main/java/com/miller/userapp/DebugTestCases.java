@@ -34,7 +34,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户评价订单
 //        EvaluateOrderTests.class,
         // 用户预申请退款。这个是一个流程提供者，场景中用不上，直接使用 SubmitRefundTests 即可，已经包含了申请退款流程
-        ApplyRefundTests.class,
+        // ApplyRefundTests.class,
         // 用户申请退款-提交
         SubmitRefundTests.class,
 })
