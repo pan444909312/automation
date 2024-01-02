@@ -1,6 +1,7 @@
 package com.miller.erp;
 
 import com.miller.erp.login.LoginTests;
+import com.miller.erp.service.customer.refund.duty.DutyTests;
 import com.miller.erp.service.customer.refund.list.RefundListTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -22,6 +23,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 客户服务-退款审核-根据订单查询特殊单ID
         RefundListTests.class,
+
+        // ERP-客户服务-退款审核-定责
+        DutyTests.class,
 
 })
 //@SelectPackages("com.miller.erp")
