@@ -1,6 +1,7 @@
 package com.miller.merchant;
 
 import com.miller.merchant.login.LoginTests;
+import com.miller.merchant.manage.product.ProductOnOrOffTests;
 import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
 import com.miller.merchant.order.details.OrderDetailsTests;
 import com.miller.merchant.order.list.OrderListTests;
@@ -26,6 +27,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 商家选择缺菜-换菜-下架一小时
         OrderLackProductTests.class,
+        // 上架商品
+//        ProductOnOrOffTests.class,
         // 接单
 //        ReceivingOrderTests.class,
         // 出餐

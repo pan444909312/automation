@@ -13,4 +13,11 @@ public class TestCaseDataConstant {
      * 订单响应对象的 Key， 用于从缓存中读取数据
      */
     public static final String ORDER_ID_OBJECT_KEY = "ORDER_ID_OBJECT_KEY";
+
+    /**
+     * 自动化测试专用商品ID
+     */
+    public static Long productId = 81669204L;
+
+    public static Long shopId = 59750820L;
 }

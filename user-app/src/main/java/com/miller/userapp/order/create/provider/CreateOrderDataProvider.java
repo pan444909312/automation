@@ -31,7 +31,7 @@ public class CreateOrderDataProvider {
         createOrderByPlatformDelivery.setPayType(16);
         createOrderByPlatformDelivery.setPlatform("2");
         // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
-        createOrderByPlatformDelivery.setProductCartList("[{\"skuId\":0,\"purchaseTime\":1701350720797,\"productId\":81669204}]");
+        createOrderByPlatformDelivery.setProductCartList("[{\"skuId\":0,\"productId\": 81669204}]");
         createOrderByPlatformDelivery.setShopId(59750820L);
         createOrderByPlatformDelivery.setUseVoucherTemplate(0);
         createOrderByPlatformDelivery.setRemark("自动化测试创建订单");
