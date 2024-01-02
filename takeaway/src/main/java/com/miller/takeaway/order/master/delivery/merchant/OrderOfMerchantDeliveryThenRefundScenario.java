@@ -3,7 +3,7 @@ package com.miller.takeaway.order.master.delivery.merchant;
 import com.miller.erp.service.customer.refund.duty.DutyTests;
 import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
-import com.miller.merchant.order.receiving.ReceivingOrderTests;
+import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;

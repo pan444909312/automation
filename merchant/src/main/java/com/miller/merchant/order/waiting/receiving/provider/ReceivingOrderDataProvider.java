@@ -1,8 +1,8 @@
-package com.miller.merchant.order.receiving.provider;
+package com.miller.merchant.order.waiting.receiving.provider;
 
 import com.miller.data.center.user.CreateOrderResponseDTO;
 import com.miller.data.center.user.TestCaseDataConstant;
-import com.miller.merchant.order.receiving.request.ReceivingOrderRequestDTO;
+import com.miller.merchant.order.waiting.receiving.request.ReceivingOrderRequestDTO;
 import com.miller.service.framework.cache.CacheUtils;
 import org.junit.jupiter.params.provider.Arguments;
 

@@ -1,12 +1,8 @@
 package com.miller.merchant;
 
 import com.miller.merchant.login.LoginTests;
-import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
-import com.miller.merchant.order.evaluate.EvaluateOrderTests;
-import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
-import com.miller.merchant.order.receiving.ReceivingOrderTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;

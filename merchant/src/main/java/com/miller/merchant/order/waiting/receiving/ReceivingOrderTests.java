@@ -1,9 +1,9 @@
-package com.miller.merchant.order.receiving;
+package com.miller.merchant.order.waiting.receiving;
 
 import com.miller.merchant.constants.ResponseConstant;
-import com.miller.merchant.order.receiving.flow.ReceivingOrderFlow;
-import com.miller.merchant.order.receiving.request.ReceivingOrderRequestDTO;
-import com.miller.merchant.order.receiving.response.ReceivingOrderResponseDTO;
+import com.miller.merchant.order.waiting.receiving.flow.ReceivingOrderFlow;
+import com.miller.merchant.order.waiting.receiving.request.ReceivingOrderRequestDTO;
+import com.miller.merchant.order.waiting.receiving.response.ReceivingOrderResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("商家-接单并备餐")
 public class ReceivingOrderTests {
 
-    @MethodSource("com.miller.merchant.order.receiving.provider.ReceivingOrderDataProvider#receivingOrder")
+    @MethodSource("com.miller.merchant.order.waiting.receiving.provider.ReceivingOrderDataProvider#receivingOrder")
     @ParameterizedTest
     @DisplayName("正常流程-商家接单并备餐")
     void shouldReceivingOrderSuccessfully(ReceivingOrderRequestDTO receivingOrderRequestDTO) {

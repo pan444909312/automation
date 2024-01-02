@@ -1,4 +1,4 @@
-package com.miller.merchant.order.receiving.request;
+package com.miller.merchant.order.waiting.receiving.request;
 
 import com.panda.merchant.server.api.vo.app.merchant.req.OrderTerminalStatusUpdateQueryReqVO;
 import lombok.Data;

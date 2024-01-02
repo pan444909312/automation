@@ -1,5 +1,6 @@
 package com.miller.takeaway.order;
 
+import com.miller.takeaway.order.branch.refund.OrderOfPlatformDeliveryAutoRefundScenario;
 import com.miller.takeaway.order.master.delivery.merchant.OrderOfMerchantDeliveryScenario;
 import com.miller.takeaway.order.master.delivery.merchant.OrderOfMerchantDeliveryThenRefundScenario;
 import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenario;
@@ -20,6 +21,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenario.class,
         OrderOfMerchantDeliveryScenario.class,
         OrderOfMerchantDeliveryThenRefundScenario.class,
+        OrderOfPlatformDeliveryAutoRefundScenario.class,
 })
 @Suite
 @SuiteDisplayName("调试场景集")

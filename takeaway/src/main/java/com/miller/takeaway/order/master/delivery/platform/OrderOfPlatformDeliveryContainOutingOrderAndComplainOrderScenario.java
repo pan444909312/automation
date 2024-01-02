@@ -5,7 +5,7 @@ import com.miller.deliveryapp.order.neworder.grab.GrabOrderTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
-import com.miller.merchant.order.receiving.ReceivingOrderTests;
+import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;

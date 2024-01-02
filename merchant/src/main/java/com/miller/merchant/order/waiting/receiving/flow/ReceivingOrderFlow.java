@@ -1,8 +1,8 @@
-package com.miller.merchant.order.receiving.flow;
+package com.miller.merchant.order.waiting.receiving.flow;
 
 import com.miller.merchant.constants.BusinessConstant;
-import com.miller.merchant.order.receiving.request.ReceivingOrderRequestDTO;
-import com.miller.merchant.order.receiving.response.ReceivingOrderResponseDTO;
+import com.miller.merchant.order.waiting.receiving.request.ReceivingOrderRequestDTO;
+import com.miller.merchant.order.waiting.receiving.response.ReceivingOrderResponseDTO;
 import com.miller.merchant.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 

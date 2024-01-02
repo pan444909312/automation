@@ -10,7 +10,7 @@ import com.miller.erp.service.customer.refund.duty.DutyTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
-import com.miller.merchant.order.receiving.ReceivingOrderTests;
+import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.order.refund.submit.SubmitRefundTests;

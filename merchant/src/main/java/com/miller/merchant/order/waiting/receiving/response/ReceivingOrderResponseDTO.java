@@ -1,4 +1,4 @@
-package com.miller.merchant.order.receiving.response;
+package com.miller.merchant.order.waiting.receiving.response;
 
 import com.miller.merchant.dto.BasicResponseDTO;
 import com.panda.merchant.server.api.vo.app.merchant.resp.OrderBlockDataRespDTO;
