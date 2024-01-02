@@ -70,7 +70,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 商家回复评论
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
-        // 订单主流程结束
 
         // 用户-申请售后->申请退款-提交
         SubmitRefundTests.class,
