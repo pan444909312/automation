@@ -26,8 +26,8 @@ public class EvaluateOrderDataProvider {
         String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         evaluateOrderRequestDTOByDelivery.setOrderSn(orderSn);
 
-        // 0/true：非匿名评价；1/false:匿名评价
-        evaluateOrderRequestDTOByDelivery.setAnonymousFlag(true);
+        // 是否匿名评价。0/true：匿名评价；1/false:非匿名评价
+        evaluateOrderRequestDTOByDelivery.setAnonymousFlag(false);
         evaluateOrderRequestDTOByDelivery.setComposite(100);
         evaluateOrderRequestDTOByDelivery.setDriverEvaluate(1);
         evaluateOrderRequestDTOByDelivery.setDeliveryRemark("【自动化测试】骑手评价语");

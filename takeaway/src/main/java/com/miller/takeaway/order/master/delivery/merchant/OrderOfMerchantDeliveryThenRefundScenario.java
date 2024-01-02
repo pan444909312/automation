@@ -22,6 +22,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * <p>
  *     <ul>覆盖路径
  *         <li>路径: 1， 2， 4， 5， 7， 9， 10， 12， 26， 27， 28， 21</li>
+ *         <li>路径: R1, R4, R5, R6, R7</li>
  *     </ul>
  * </p>
  *
