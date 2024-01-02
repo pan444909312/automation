@@ -3,6 +3,7 @@ package com.miller.userapp;
 import com.miller.userapp.login.LoginTests;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
+import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.order.evaluate.EvaluateOrderTests;
 import com.miller.userapp.order.refund.apply.ApplyRefundTests;
@@ -26,8 +27,10 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
 //        CreateOrderByMerchantDeliveryTests.class,
+        // 创建订单-用户自取
+        CreateOrderByMyselfDeliveryTests.class,
 //        // 支付订单
-//        PayByBalanceTests.class,
+        PayByBalanceTests.class,
 
         // 用户确认订单已送达。注意：需要订单被骑手派送完成之后执行
 //        ConfirmOrderStatusTests.class,
@@ -36,7 +39,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户预申请退款。这个是一个流程提供者，场景中用不上，直接使用 SubmitRefundTests 即可，已经包含了申请退款流程
         // ApplyRefundTests.class,
         // 用户申请退款-提交
-        SubmitRefundTests.class,
+//        SubmitRefundTests.class,
 })
 //@SelectPackages("com.miller.userapp")
 @SuiteDisplayName("调试多个测试用例")
