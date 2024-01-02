@@ -1,7 +1,7 @@
 package com.miller.erp;
 
 import com.miller.erp.login.LoginTests;
-import com.miller.erp.service.customer.refund.RefundListTests;
+import com.miller.erp.service.customer.refund.list.RefundListTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;

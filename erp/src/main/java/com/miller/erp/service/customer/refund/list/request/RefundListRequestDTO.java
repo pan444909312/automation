@@ -1,4 +1,4 @@
-package com.miller.erp.service.customer.refund.request;
+package com.miller.erp.service.customer.refund.list.request;
 
 
 import com.panda.erp.server.common.dto.refund.req.RefundQuery;

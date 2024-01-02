@@ -1,8 +1,8 @@
-package com.miller.erp.service.customer.refund.flow;
+package com.miller.erp.service.customer.refund.list.flow;
 
 import com.miller.erp.constants.BusinessConstantOfERP;
-import com.miller.erp.service.customer.refund.request.RefundListRequestDTO;
-import com.miller.erp.service.customer.refund.response.RefundListResponseDTO;
+import com.miller.erp.service.customer.refund.list.request.RefundListRequestDTO;
+import com.miller.erp.service.customer.refund.list.response.RefundListResponseDTO;
 import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 

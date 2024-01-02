@@ -1,4 +1,4 @@
-package com.miller.erp.service.customer.refund.response;
+package com.miller.erp.service.customer.refund.list.response;
 
 
 import com.miller.erp.dto.BasicResponseDTO;
