@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 骑手上线测试用例
+ * 测试用例_骑手上线
  *
  * @author Miller Shan
  * @version 1.0
@@ -27,7 +27,7 @@ public class NewOrderListTests {
 
     @MethodSource("com.miller.deliveryapp.order.neworder.list.provider.NewOrderListDataProvider#newOrderListDataProvider")
     @ParameterizedTest
-    @DisplayName("新订单列表-正常流程")
+    @DisplayName("正常流程-新订单列表")
     void shouldGetNewOrderListSuccessfully(NewOrderListRequestDTO newOrderListRequestDTO) {
         NewOrderListResponseDTO newOrderListResponseDTO = NewOrderListFlow.newOrderList(newOrderListRequestDTO);
 

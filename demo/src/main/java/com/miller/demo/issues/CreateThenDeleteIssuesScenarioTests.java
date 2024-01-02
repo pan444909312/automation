@@ -5,7 +5,7 @@ import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
 /**
- * 场景: 新增一个缺陷，然后删除
+ * 场景_新增一个缺陷，然后删除
  *
  * <p>
  * Step1: Create issue <br>

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * 登出接口测试用例
+ * 测试用例_登出
  *
  * @author Miller Shan
  * @version 1.0

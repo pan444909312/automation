@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
 /**
- * 缺陷删除测试用例
+ * 测试用例_缺陷删除
  *
  * <p>
  * 由于这里我使用的是调用 Flow 层，所以这个用例可以不用依赖 {@link  IssueCreateTests}, 自己独立就能完成删除缺陷的流程。

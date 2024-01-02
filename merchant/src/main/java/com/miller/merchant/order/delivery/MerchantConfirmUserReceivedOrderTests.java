@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例-配送中列表-商家点击"用户已取餐"
+ * 测试用例_配送中列表-商家点击"用户已取餐"
  *
  * @author Miller Shan
  * @version 1.0

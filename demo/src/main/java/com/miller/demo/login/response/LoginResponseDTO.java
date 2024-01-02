@@ -3,7 +3,7 @@ package com.miller.demo.login.response;
 import lombok.Data;
 
 /**
- * 登录_响应对象
+ * 登录-响应对象
  *
  * <p>
  * 可借助 IDEA 插件"GsonFormatPlus"自动将json字符串生成java类。<br>

@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例-创建订单-平台配送，也叫Panda配送
+ * 测试用例_创建订单-平台配送，也叫Panda配送
  *
  * @author Miller Shan
  * @version 1.0
@@ -26,7 +26,7 @@ public class CreateOrderByPlatformDeliveryTests {
 
     @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderByPlatformDelivery")
     @ParameterizedTest
-    @DisplayName("创建订单-正常流程-平台配送")
+    @DisplayName("正常流程-创建订单-平台配送")
     void shouldCreateOrderSuccessfully(CreateOrderRequestDTO createOrderRequestDTO) {
         CreateOrderResponseDTO createOrderResponseDTO = CreateOrderFlow.createOrder(createOrderRequestDTO);
         assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

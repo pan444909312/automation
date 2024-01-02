@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例-申请退款-提交
+ * 测试用例_申请退款-提交
  *
  * @author Miller Shan
  * @version 1.0

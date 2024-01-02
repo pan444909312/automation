@@ -12,7 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * 订单列表测试用例
+ * 测试用例_订单列表
  *
  * @author Miller Shan
  * @version 1.0
@@ -20,11 +20,11 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-订单列表测试用例")
+@DisplayName("商家-订单列表")
 public class OrderListTests {
     @MethodSource("com.miller.merchant.order.list.provider.OrderListDataProvider#orderListOfStatus")
     @ParameterizedTest
-    @DisplayName("订单列表-正常流程")
+    @DisplayName("正常流程-订单列表")
     void shouldGetOrderListSuccessfully(OrderListRequestDTO orderListRequestDTO) {
         OrderListResponseDTO orderListResponseDTO = OrderListFlow.orderList(orderListRequestDTO);
         Assertions.assertThat(orderListResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

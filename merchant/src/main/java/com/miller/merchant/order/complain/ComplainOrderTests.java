@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 商家出餐接口测试用例
+ * 测试用例_商家崔骑手
  *
  * @author Miller Shan
  * @version 1.0
@@ -21,12 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-催骑手测试用例")
+@DisplayName("商家-催骑手")
 public class ComplainOrderTests {
 
     @MethodSource("com.miller.merchant.order.complain.provider.ComplainOrderDataProvider#complainOrder")
     @ParameterizedTest
-    @DisplayName("商家催骑手-正常流程")
+    @DisplayName("正常流程-商家催骑手")
     void shouldComplainOrderSuccessfully(ComplainOrderRequestDTO complainOrderRequestDTO) {
         ComplainOrderResponseDTO complainOrderResponseDTO = ComplainOrderFlow.complainOrder(complainOrderRequestDTO);
         assertThat(complainOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

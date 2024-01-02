@@ -12,7 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * 测试用例-客户服务-退款审核-定责
+ * 测试用例_客户服务-退款审核-定责
  *
  * @author Miller Shan
  * @version 1.0

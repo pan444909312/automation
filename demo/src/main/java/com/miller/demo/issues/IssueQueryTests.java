@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.not;
 
 /**
- * 缺陷查询接口
+ * 测试用例_缺陷查询
  * <p>
  * 缺陷管理平台，可用于测试基本的增、删、改、查*
  *  <ul>

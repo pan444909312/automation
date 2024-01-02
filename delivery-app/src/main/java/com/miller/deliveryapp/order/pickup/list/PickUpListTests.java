@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 骑手-待取餐列表
+ * 测试用例_骑手-待取餐列表
  *
  * @author Miller Shan
  * @version 1.0
@@ -27,7 +27,7 @@ public class PickUpListTests {
 
     @MethodSource("com.miller.deliveryapp.order.pickup.list.provider.PickUpListDataProvider#pickUpListDataProvider")
     @ParameterizedTest
-    @DisplayName("待取餐列表-正常流程")
+    @DisplayName("正常流程-待取餐列表")
     void shouldGetPickUpListSuccessfully(PickUpListRequestDTO pickUpListRequestDTO) {
         PickUpListResponseDTO pickUpListResponseDTO = PickUpListFlow.pickUpList(pickUpListRequestDTO);
 

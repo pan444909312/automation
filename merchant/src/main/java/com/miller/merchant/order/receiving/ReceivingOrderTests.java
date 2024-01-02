@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 商家接单接口测试用例
+ * 测试用例_商家接单并备餐
  *
  * @author Miller Shan
  * @version 1.0
@@ -21,12 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-接单并备餐测试用例")
+@DisplayName("商家-接单并备餐")
 public class ReceivingOrderTests {
 
     @MethodSource("com.miller.merchant.order.receiving.provider.ReceivingOrderDataProvider#receivingOrder")
     @ParameterizedTest
-    @DisplayName("商家接单并备餐-正常流程")
+    @DisplayName("正常流程-商家接单并备餐")
     void shouldReceivingOrderSuccessfully(ReceivingOrderRequestDTO receivingOrderRequestDTO) {
         ReceivingOrderResponseDTO receivingOrderResponseDTO = ReceivingOrderFlow.receivingOrder(receivingOrderRequestDTO);
         assertThat(receivingOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

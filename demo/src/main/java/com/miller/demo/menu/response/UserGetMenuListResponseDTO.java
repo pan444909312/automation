@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 菜单栏_查询_响应实体类
+ * 响应对象_菜单栏查询
  * <p>
  * 可借助 IDEA 插件"GsonFormatPlus"自动将json字符串生成java类。<br>
  * 命名规则: 接口名+ResponseDTO， 比如: /user/getMenuList/ 命名为 {@link UserGetMenuListResponseDTO}

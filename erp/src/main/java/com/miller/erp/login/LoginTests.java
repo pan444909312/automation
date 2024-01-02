@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 登录接口测试用例
+ * 测试用例_ERP登录
  *
  * @author Miller Shan
  * @version 1.0

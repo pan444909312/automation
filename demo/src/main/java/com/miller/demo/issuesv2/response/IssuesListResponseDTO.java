@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 缺陷_查询_响应实体类
+ * 响应对象_查询
  * <p>
  * 可借助 IDEA 插件"GsonFormatPlus"自动将json字符串生成java类。<br>
  * 命名规则: 接口名+ResponseDTO， 比如: /issues/list/ 命名为 {@link IssuesListResponseDTO}.

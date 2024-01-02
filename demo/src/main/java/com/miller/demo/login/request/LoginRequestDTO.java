@@ -3,7 +3,7 @@ package com.miller.demo.login.request;
 import lombok.Data;
 
 /**
- * 登录_请求对象
+ * 登录-请求对象
  *
  * @author Miller Shan
  * @version 1.0

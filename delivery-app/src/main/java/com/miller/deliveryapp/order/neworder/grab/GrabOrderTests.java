@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 骑手-新订单-抢单
+ * 测试用例_骑手-新订单-抢单
  *
  * @author Miller Shan
  * @version 1.0
@@ -27,7 +27,7 @@ public class GrabOrderTests {
 
     @MethodSource("com.miller.deliveryapp.order.neworder.grab.provider.GrabOrderDataProvider#grabOrderDataProvider")
     @ParameterizedTest
-    @DisplayName("骑手抢单-正常流程")
+    @DisplayName("正常流程-骑手抢单")
     void shouldGrabOrderSuccessfully(GrabOrderRequestDTO grabOrderRequestDTO) {
         GrabOrderResponseDTO grabOrderResponseDTO = GrabOrderFlow.grabOrder(grabOrderRequestDTO);
 

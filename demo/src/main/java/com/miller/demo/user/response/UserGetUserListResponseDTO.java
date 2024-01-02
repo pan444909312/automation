@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 用户_查询用户列表_响应实体类
+ * 响应对象_查询用户列表
  * <p>
  * 可借助 IDEA 插件"GsonFormatPlus"自动将json字符串生成java类。<br>
  * 命名规则: 接口名+ResponseDTO， 比如: /user/getUserList 命名为{@link UserGetUserListResponseDTO}

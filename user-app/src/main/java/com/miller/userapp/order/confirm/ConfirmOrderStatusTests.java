@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例-用户确认订单已送达
+ * 测试用例_用户确认订单已送达
  *
  * @author Miller Shan
  * @version 1.0
@@ -26,7 +26,7 @@ public class ConfirmOrderStatusTests {
 
     @MethodSource("com.miller.userapp.order.confirm.provider.ConfirmOrderStatusDataProvider#confirmOrderStatusIsReceived")
     @ParameterizedTest
-    @DisplayName("用户确认订单已送达-正常流程")
+    @DisplayName("正常流程-用户确认订单已送达")
     void shouldConfirmOrderStatusSuccessfully(ConfirmOrderStatusRequestDTO confirmOrderStatusRequestDTO) {
         ConfirmOrderStatusResponseDTO confirmOrderStatusResponseDTO = ConfirmOrderStatusFlow.confirmOrderIsReceived(confirmOrderStatusRequestDTO);
         assertThat(confirmOrderStatusResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

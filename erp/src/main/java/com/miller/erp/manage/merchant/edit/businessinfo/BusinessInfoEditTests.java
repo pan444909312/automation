@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 测试用例-编辑商家经营信息
+ * 测试用例_编辑商家经营信息
  *
  * @author Miller Shan
  * @version 1.0

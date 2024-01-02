@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 测试用例-登录接口
+ * 测试用例_用户登录
  *
  * @author Miller Shan
  * @version 1.0
@@ -44,7 +44,7 @@ public class LoginTests {
 
     @MethodSource("com.miller.userapp.login.provider.LoginDataProvider#loginDataProviderFromDB")
     @ParameterizedTest
-    @DisplayName("登录流程-正常登录正常")
+    @DisplayName("正常流程-用户登录")
     void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
         LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
 

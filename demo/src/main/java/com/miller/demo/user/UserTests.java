@@ -16,7 +16,7 @@ import static com.miller.service.framework.asserts.AssertUtils.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 /**
- * 用户管理用例集
+ * 测试用例_用户管理
  * <p>
  * 测试用例中使用{@link BeforeAll @BeforeAll}注解完成前置条件，而不是通过继承父类的方式获取cookies。
  * </p>

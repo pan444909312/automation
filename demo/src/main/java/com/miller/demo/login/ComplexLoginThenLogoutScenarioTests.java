@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 场景: 登入->登出
+ * 场景_登入->登出
  *
  * <p>
  * 复杂场景。用例之间需要额外操作，或用例无法组成一个闭环的场景等，那就需要通过FLow层组装成新的测试用例。

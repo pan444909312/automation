@@ -7,7 +7,7 @@ import org.hamcrest.Matchers;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * 退出登陆
+ * 流程-退出登陆
  *
  * @author Miller Shan
  * @version 1.0

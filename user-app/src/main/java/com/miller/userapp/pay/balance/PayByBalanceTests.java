@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例-余额支付
+ * 测试用例_余额支付
  *
  * @author Miller Shan
  * @version 1.0
@@ -26,7 +26,7 @@ public class PayByBalanceTests {
 
     @MethodSource("com.miller.userapp.pay.balance.provider.PayByBalanceDataProvider#payByBalanceDataProviderFromDB")
     @ParameterizedTest
-    @DisplayName("余额支付-正常流程")
+    @DisplayName("正常流程-余额支付")
     void shouldPayByBalanceSuccessfully(PayByBalanceRequestDTO payByBalanceRequestDTO) {
         PayByBalanceResponseDTO payByBalanceResponseDTO = PayByBalanceFlow.payByBalance(payByBalanceRequestDTO);
         assertThat(payByBalanceResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

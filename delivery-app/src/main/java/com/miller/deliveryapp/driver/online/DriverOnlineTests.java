@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 骑手上线测试用例
+ * 测试用例_骑手上线
  *
  * @author Miller Shan
  * @version 1.0
@@ -27,7 +27,7 @@ public class DriverOnlineTests {
 
     @MethodSource("com.miller.deliveryapp.driver.online.provider.DriverOnlineDataProvider#driverOnlineDataProvider")
     @ParameterizedTest
-    @DisplayName("骑手上线-正常流程")
+    @DisplayName("正常流程-骑手上线")
     void shouldOnlineSuccessfully(DriverOnlineRequestDTO loginRequestDTO) {
         DriverOnlineResponseDTO driverOnlineResponseDTO = DriverOnlineFlow.driverOnline(loginRequestDTO);
 

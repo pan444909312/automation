@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 商家出餐接口测试用例
+ * 测试用例_商家出餐
  *
  * @author Miller Shan
  * @version 1.0
@@ -21,12 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-出餐测试用例")
+@DisplayName("商家-出餐")
 public class OutingOrderTests {
 
     @MethodSource("com.miller.merchant.order.outing.provider.OutingOrderDataProvider#outingOrder")
     @ParameterizedTest
-    @DisplayName("商家出餐-正常流程")
+    @DisplayName("正常流程-商家出餐")
     void shouldOutingOrderSuccessfully(OutingOrderRequestDTO outingOrderRequestDTO) {
         OutingOrderResponseDTO outingOrderResponseDTO = OutingOrderFlow.outingOrder(outingOrderRequestDTO);
         assertThat(outingOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

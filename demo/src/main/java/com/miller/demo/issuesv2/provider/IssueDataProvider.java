@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * 缺陷数据提供者
+ * 数据提供者-缺陷
  *
  * @author Miller Shan
  * @version 1.0

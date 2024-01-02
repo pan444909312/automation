@@ -5,7 +5,7 @@ import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
 /**
- * 场景集: 组装多个测试场景。可以通过{@link SelectClasses @SelectClasses}注解控制场景执行顺序，默认按照数组顺序执行
+ * 场景集_组装多个测试场景。可以通过{@link SelectClasses @SelectClasses}注解控制场景执行顺序，默认按照数组顺序执行
  *
  * @author Miller Shan
  * @version 1.0

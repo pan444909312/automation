@@ -77,7 +77,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户申请退款-提交
         SubmitRefundTests.class,
         // ERP-登录
-        LoginTests.class,
+        com.miller.erp.login.LoginTests.class,
         // ERP-客户服务-退款审核-定责
         DutyTests.class,
 

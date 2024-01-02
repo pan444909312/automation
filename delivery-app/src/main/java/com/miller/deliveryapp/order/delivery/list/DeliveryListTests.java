@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 骑手-待配送列表
+ * 测试用例_骑手-待配送列表
  *
  * @author Miller Shan
  * @version 1.0
@@ -27,7 +27,7 @@ public class DeliveryListTests {
 
     @MethodSource("com.miller.deliveryapp.order.delivery.list.provider.DeliveryListDataProvider#deliveryListDataProvider")
     @ParameterizedTest
-    @DisplayName("待配送列表-正常流程")
+    @DisplayName("正常流程-待配送列表")
     void shouldGetDeliveryListSuccessfully(DeliveryListRequestDTO deliveryListRequestDTO) {
         DeliveryListResponseDTO deliveryListResponseDTO = DeliveryListFlow.deliveryList(deliveryListRequestDTO);
 

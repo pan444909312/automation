@@ -21,7 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 /**
- * 缺陷删除接口对应的测试用例
+ * 测试用例_缺陷删除
  * <p>
  * 缺陷管理平台，可用于测试基本的增、删、改、查*
  *  <ul>

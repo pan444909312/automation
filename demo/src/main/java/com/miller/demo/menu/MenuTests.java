@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 /**
- * 菜单栏测试用例集
+ * 测试用例_菜单栏
  * <p>
  * 使用{@link TestFramework @TestFramework}注解.
  * </p>
