@@ -5,6 +5,7 @@ import com.miller.takeaway.order.master.delivery.merchant.OrderOfMerchantDeliver
 import com.miller.takeaway.order.master.delivery.merchant.OrderOfMerchantDeliveryThenRefundScenario;
 import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenario;
 import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliveryScenario;
+import com.miller.takeaway.order.master.delivery.yourself.*;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -17,10 +18,24 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * @since 2023/12/28 16:21:53
  */
 @SelectClasses({
-        OrderOfPlatformDeliveryScenario.class,
-        OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenario.class,
+        // 主干场景-商家配送
         OrderOfMerchantDeliveryScenario.class,
         OrderOfMerchantDeliveryThenRefundScenario.class,
+
+        // 主干场景-平台配送
+        OrderOfPlatformDeliveryScenario.class,
+        OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenario.class,
+
+        // 主干场景-用户自取
+        OrderOfMyselfDeliveryThenMerchantConfirmOrderAndUserConfirmOrderScenario.class,
+        OrderOfMyselfDeliveryThenMerchantOutOrderAndConfirmOrderScenario.class,
+        OrderOfMyselfDeliveryThenMerchantOutOrderAndUserConfirmOrderAndRefundScenario.class,
+        OrderOfMyselfDeliveryThenMerchantReceivingOrderAndRefundScenario.class,
+        OrderOfMyselfDeliveryThenMerchantRefundScenario.class,
+        OrderOfMyselfDeliveryThenRefundScenario.class,
+        OrderOfMyselfDeliveryThenUserConfirmOrderScenario.class,
+
+        // 分支场景-平台配送
         OrderOfPlatformDeliveryAutoRefundScenario.class,
 })
 @Suite

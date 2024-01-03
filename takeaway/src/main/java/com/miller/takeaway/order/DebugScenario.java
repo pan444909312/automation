@@ -38,14 +38,16 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         com.miller.merchant.login.LoginTests.class,
         // 订单列表
         OrderListTests.class,
-        // 接单
+        // 商家-待接单-缺菜-退菜-下架一小时
+//         OrderLackProductTests.class,
+        // 接单并备餐
         ReceivingOrderTests.class,
         // 出餐
         OutingOrderTests.class,
         // 商家催骑手
         ComplainOrderTests.class,
 
-        // 商家配送。商家-配送中列表-商家点击用户已取餐
+        // 商家配送/用户自取。商家-配送中列表-商家点击用户已取餐
         // MerchantConfirmUserReceivedOrderTests.class,
 
         // 骑手登录
@@ -63,7 +65,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 骑手-已到店->等待商家出餐->正在取餐->已完成送餐并拍照送达
         ModifyOrderStatusTests.class,
 
-        // 用户确认订单已送达。注意：需要订单被【骑手/商家】派送完成之后执行
+        // 用户确认订单已送达。注意：需要订单被【骑手/商家】派送完成之后执行，用户自取除外。
         ConfirmOrderStatusTests.class,
         // 用户评价订单
         com.miller.userapp.order.evaluate.EvaluateOrderTests.class,
