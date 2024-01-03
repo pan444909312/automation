@@ -19,7 +19,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例_缺菜-换菜-商品下架一小时
+ * 测试用例_商家-待接单-缺菜-换菜-下架一小时并退款x金额
  *
  * @author Miller Shan
  * @version 1.0
@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-待接单-缺菜-换菜-下架一小时")
+@DisplayName("商家-待接单-缺菜-换菜-下架一小时并退款x金额")
 public class OrderChangeMenuTests {
 
     /**
