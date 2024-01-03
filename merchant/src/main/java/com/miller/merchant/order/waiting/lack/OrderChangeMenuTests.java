@@ -19,16 +19,16 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 商家-待接单-缺菜-退菜-下架一小时"
+ * 测试用例_缺菜-换菜-商品下架一小时
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2024/1/2 16:37:44
+ * @since 2024/1/3 10:37:44
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-待接单-缺菜-退菜-下架一小时")
-public class OrderLackProductTests {
+@DisplayName("商家-待接单-缺菜-换菜-下架一小时")
+public class OrderChangeMenuTests {
 
     /**
      * 上架商品。每个测试用例执行完毕后，都要执行该方法
@@ -41,9 +41,9 @@ public class OrderLackProductTests {
         ProductOnOrOffFlow.productOnOrOff(productOnOrOffRequestDTO);
     }
 
-    @MethodSource("com.miller.merchant.order.waiting.lack.provider.OrderLackProductDataProvider#orderLackProduct")
+    @MethodSource("com.miller.merchant.order.waiting.lack.provider.OrderLackProductDataProvider#orderChangeMenu")
     @ParameterizedTest
-    @DisplayName("正常流程-商家缺菜-换菜-商品下架一小时")
+    @DisplayName("商家-待接单-缺菜-换菜-下架一小时")
     void shouldLackProductSuccessfully(OrderLackProductRequestDTO orderLackProductRequestDTO) {
         OrderLackProductResponseDTO orderLackProductResponseDTO = OrderLackProductFlow.orderLackProduct(orderLackProductRequestDTO);
         assertThat(orderLackProductResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

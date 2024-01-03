@@ -9,8 +9,10 @@ import com.miller.merchant.order.waiting.lack.request.OrderLackProductRequestDTO
 import com.miller.service.framework.cache.CacheUtils;
 import com.panda.merchant.server.api.vo.app.merchant.resp.ProductInfoRespDTO;
 import com.panda.merchant.server.api.vo.app.merchant.resp.ProductRespDTO;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.params.provider.Arguments;
 
+import java.math.BigDecimal;
 import java.util.StringJoiner;
 import java.util.stream.Stream;
 
@@ -23,7 +25,31 @@ import java.util.stream.Stream;
  */
 @SuppressWarnings("unused")
 public class OrderLackProductDataProvider {
+    /**
+     * 缺菜-退菜-下架1小时
+     */
     static Stream<Arguments> orderLackProduct() {
+        OrderLackProductRequestDTO orderLackProductRequestDTO = getOrderLackProductRequestDTO(0);
+        return Stream.of(Arguments.of(orderLackProductRequestDTO));
+    }
+    /**
+     * 缺菜-换菜-下架1小时-退款x金额
+     */
+    static Stream<Arguments> orderChangeMenu() {
+        OrderLackProductRequestDTO orderLackProductRequestDTO = getOrderLackProductRequestDTO(1);
+        // 换菜可能会涉及到部分菜的金额退款
+        orderLackProductRequestDTO.setReturnAmount(BigDecimal.ONE);
+
+        return Stream.of(Arguments.of(orderLackProductRequestDTO));
+    }
+
+    /**
+     * 商家退菜或换菜
+     * @param operateType 操作类型，0-退菜 1-换菜
+     * @return OrderLackProductRequestDTO
+     */
+    @NotNull
+    private static OrderLackProductRequestDTO getOrderLackProductRequestDTO(Integer operateType) {
         // 从缓存中获取订单ID
         String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
 
@@ -46,10 +72,9 @@ public class OrderLackProductDataProvider {
         // 订单详情id+商品缺菜数量（用"#"隔开）
         String orderDetailIdsAndNum = orderDetailId + "#" + productCount;
         orderLackProductRequestDTO.setOrderDetailIdsAndNum(orderDetailIdsAndNum);
-        orderLackProductRequestDTO.setOperateType(0);
+        orderLackProductRequestDTO.setOperateType(operateType);
         orderLackProductRequestDTO.setProductStatus(1);
         orderLackProductRequestDTO.setTimeMode(1);
-
-        return Stream.of(Arguments.of(orderLackProductRequestDTO));
+        return orderLackProductRequestDTO;
     }
 }
