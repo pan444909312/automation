@@ -1,7 +1,7 @@
 package com.miller.deliveryapp.order.status.provider;
 
 import com.miller.data.center.user.CreateOrderResponseDTO;
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.deliveryapp.order.status.request.ModifyOrderStatusRequestDTO;
 import com.miller.service.framework.cache.CacheUtils;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * 数据提供者-修改订单状态
+ * 数据提供者_修改订单状态
  *
  * @author Miller Shan
  * @version 1.0
@@ -70,7 +70,7 @@ public class ModifyOrderStatusDataProvider {
     private static ModifyOrderStatusRequestDTO modifyDeliveryStatus(Byte operationType) {
         ModifyOrderStatusRequestDTO modifyOrderStatusRequestDTO = new ModifyOrderStatusRequestDTO();
         // 从缓存中获取订单ID
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         modifyOrderStatusRequestDTO.setOrderSnList(List.of(orderSn));
         // 订单状态
         modifyOrderStatusRequestDTO.setOperationType(operationType);

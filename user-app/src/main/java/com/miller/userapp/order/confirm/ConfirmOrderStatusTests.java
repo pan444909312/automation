@@ -26,11 +26,10 @@ public class ConfirmOrderStatusTests {
 
     @MethodSource("com.miller.userapp.order.confirm.provider.ConfirmOrderStatusDataProvider#confirmOrderStatusIsReceived")
     @ParameterizedTest
-    @DisplayName("正常流程-用户确认订单已送达")
+    @DisplayName("正常流程_用户确认订单已送达")
     void shouldConfirmOrderStatusSuccessfully(ConfirmOrderStatusRequestDTO confirmOrderStatusRequestDTO) {
         ConfirmOrderStatusResponseDTO confirmOrderStatusResponseDTO = ConfirmOrderStatusFlow.confirmOrderIsReceived(confirmOrderStatusRequestDTO);
         assertThat(confirmOrderStatusResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(confirmOrderStatusResponseDTO.getSuccess()).isTrue();
-        // TODO 订单数据校验
     }
 }

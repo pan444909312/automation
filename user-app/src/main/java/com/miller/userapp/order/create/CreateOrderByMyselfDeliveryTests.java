@@ -26,12 +26,12 @@ public class CreateOrderByMyselfDeliveryTests {
 
     @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderByMyselfDelivery")
     @ParameterizedTest
-    @DisplayName("正常流程-创建订单-用户自取")
+    @DisplayName("正常流程_创建订单-用户自取")
     void shouldCreateOrderSuccessfully(CreateOrderRequestDTO createOrderRequestDTO) {
         CreateOrderResponseDTO createOrderResponseDTO = CreateOrderFlow.createOrder(createOrderRequestDTO);
+
         assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(createOrderResponseDTO.getSuccess()).isTrue();
         assertThat(createOrderResponseDTO.getResult().getOrderSn()).isNotNull();
-        // TODO 订单数据校验
     }
 }

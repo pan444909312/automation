@@ -5,7 +5,7 @@ import com.miller.erp.dto.BasicResponseDTO;
 import com.panda.merchant.server.api.dto.merchant.module.MerchantModuleOperationInfoDTO;
 
 /**
- * 响应对象-编辑商家经营信息
+ * 响应对象_编辑商家经营信息
  *
  * <p>
  * 需要注意的是，虽然这个接口代码是在 hp-erp-server 中，但是实际上接口的定义和实现是在 hp-merchant-server 中

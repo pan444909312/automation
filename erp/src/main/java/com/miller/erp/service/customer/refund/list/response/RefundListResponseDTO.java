@@ -7,7 +7,7 @@ import com.panda.erp.server.common.dto.refund.resp.RefundRecordVo;
 import java.util.List;
 
 /**
- * 响应对象-客户服务-退款审核-根据订单查询特殊单ID
+ * 响应对象_客户服务-退款审核-根据订单查询特殊单ID
  *
  * @author Miller Shan
  * @version 1.0

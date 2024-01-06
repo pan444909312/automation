@@ -26,7 +26,7 @@ public class OrderDetailsTests {
 
     @MethodSource("com.miller.merchant.order.details.provider.OrderDetailsDataProvider#getOrderDetails")
     @ParameterizedTest
-    @DisplayName("正常流程-获取订单详情")
+    @DisplayName("正常流程_获取订单详情")
     void shouldGetOrderDetailsSuccessfully(OrderDetailsRequestDTO orderDetailsRequestDTO) {
         OrderDetailsResponseDTO orderDetailsResponseDTO = OrderDetailsFlow.getOrderDetails(orderDetailsRequestDTO);
         assertThat(orderDetailsResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

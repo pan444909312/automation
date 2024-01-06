@@ -26,7 +26,7 @@ public class OutingOrderTests {
 
     @MethodSource("com.miller.merchant.order.outing.provider.OutingOrderDataProvider#outingOrder")
     @ParameterizedTest
-    @DisplayName("正常流程-商家出餐")
+    @DisplayName("正常流程_商家出餐")
     void shouldOutingOrderSuccessfully(OutingOrderRequestDTO outingOrderRequestDTO) {
         OutingOrderResponseDTO outingOrderResponseDTO = OutingOrderFlow.outingOrder(outingOrderRequestDTO);
         assertThat(outingOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

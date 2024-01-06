@@ -3,7 +3,7 @@ package com.miller.userapp.order.confirm.request;
 import lombok.Data;
 
 /**
- * 请求对象-用户确认订单已送到
+ * 请求对象_用户确认订单已送到
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一请求对象。
  * 这里之所以包装了一层是因为对请求字段可能需要二次处理，比如：加密、验签等.

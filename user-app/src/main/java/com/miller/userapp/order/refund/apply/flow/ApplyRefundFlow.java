@@ -7,7 +7,7 @@ import com.miller.userapp.order.refund.apply.response.ApplyRefundResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 流程-申请退款
+ * 流程_申请退款
  *
  * @author Miller Shan
  * @version 1.0
@@ -15,12 +15,12 @@ import com.miller.userapp.util.RequestUtils;
  */
 public class ApplyRefundFlow {
     /**
-     * 接口-申请退款
+     * 接口_申请退款
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/app/user/order/refund";
 
     /**
-     * 流程-申请退款
+     * 流程_申请退款
      */
     public static ApplyRefundResponseDTO applyRefund(ApplyRefundRequestDTO applyRefundRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token

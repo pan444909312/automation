@@ -7,7 +7,7 @@ import com.miller.userapp.order.evaluate.response.EvaluateOrderResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 流程-用户评价订单
+ * 流程_用户评价订单
  *
  * @author Miller Shan
  * @version 1.0
@@ -20,7 +20,7 @@ public class EvaluateOrderFlow {
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/order/toEvaluate";
 
     /**
-     * 流程-用户评价订单
+     * 流程_用户评价订单
      */
     public static EvaluateOrderResponseDTO evaluateOrder(EvaluateOrderRequestDTO evaluateOrderRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token

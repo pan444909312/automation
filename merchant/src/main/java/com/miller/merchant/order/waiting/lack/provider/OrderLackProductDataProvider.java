@@ -1,7 +1,7 @@
 package com.miller.merchant.order.waiting.lack.provider;
 
 import com.miller.data.center.user.CreateOrderResponseDTO;
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.order.details.flow.OrderDetailsFlow;
 import com.miller.merchant.order.details.request.OrderDetailsRequestDTO;
 import com.miller.merchant.order.details.response.OrderDetailsResponseDTO;
@@ -17,7 +17,7 @@ import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 /**
- * 数据提供者-缺菜-退菜
+ * 数据提供者_缺菜-退菜
  *
  * @author Miller Shan
  * @version 1.0
@@ -51,7 +51,7 @@ public class OrderLackProductDataProvider {
     @NotNull
     private static OrderLackProductRequestDTO getOrderLackProductRequestDTO(Integer operateType) {
         // 从缓存中获取订单ID
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
 
         OrderDetailsRequestDTO orderDetailsRequestDTO = new OrderDetailsRequestDTO();
         orderDetailsRequestDTO.setOrderSn(orderSn);

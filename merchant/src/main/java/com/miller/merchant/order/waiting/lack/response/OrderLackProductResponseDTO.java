@@ -3,7 +3,7 @@ package com.miller.merchant.order.waiting.lack.response;
 import com.miller.merchant.dto.BasicResponseDTO;
 
 /**
- * 响应对象-缺菜-退菜
+ * 响应对象_缺菜-退菜
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一响应对象。
  * </p>

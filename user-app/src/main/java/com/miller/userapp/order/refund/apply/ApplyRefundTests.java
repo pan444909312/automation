@@ -32,7 +32,7 @@ public class ApplyRefundTests {
 
     @MethodSource("com.miller.userapp.order.refund.apply.provider.ApplyRefundDataProvider#applyRefund")
     @ParameterizedTest
-    @DisplayName("正常流程-申请退款")
+    @DisplayName("正常流程_申请退款")
     void shouldApplyRefundSuccessfully(ApplyRefundRequestDTO applyRefundRequestDTO) {
         ApplyRefundResponseDTO applyRefundResponseDTO = ApplyRefundFlow.applyRefund(applyRefundRequestDTO);
         assertThat(applyRefundResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

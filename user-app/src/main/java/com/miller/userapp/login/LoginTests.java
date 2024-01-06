@@ -1,5 +1,6 @@
 package com.miller.userapp.login;
 
+import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.ResponseConstant;
@@ -24,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2023/12/7 20:31:39
  */
+@ApiDoc("http://10.1.6.46:3000/project/60/interface/api/3288")
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-登录")
@@ -42,15 +44,19 @@ public class LoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.userapp.login.provider.LoginDataProvider#loginDataProviderFromDB")
+    @MethodSource("com.miller.userapp.login.provider.LoginDataProvider#loginData")
     @ParameterizedTest
-    @DisplayName("正常流程-用户登录")
+    @DisplayName("正常流程_用户登录")
     void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
         LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
 
         assertThat(loginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(loginResponseDTO.getResult().getAccessToken()).isNotNull();
         assertThat(loginResponseDTO.getSuccess()).isTrue();
+        assertThat(loginResponseDTO.getResult().getUserName())
+                .isNotNull()
+                .isEqualTo(loginRequestDTO.getAccount());
+
         // 获取token
         token = loginResponseDTO.getResult().getAccessToken();
     }

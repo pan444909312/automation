@@ -8,7 +8,7 @@ import com.miller.service.framework.http.HttpUtils;
 
 
 /**
- * 流程-商品上架、下架
+ * 流程_商品上架、下架
  *
  * @author Miller Shan
  * @version 1.0

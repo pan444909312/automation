@@ -27,7 +27,7 @@ public class DeliveryListTests {
 
     @MethodSource("com.miller.deliveryapp.order.delivery.list.provider.DeliveryListDataProvider#deliveryListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程-待配送列表")
+    @DisplayName("正常流程_待配送列表")
     void shouldGetDeliveryListSuccessfully(DeliveryListRequestDTO deliveryListRequestDTO) {
         DeliveryListResponseDTO deliveryListResponseDTO = DeliveryListFlow.deliveryList(deliveryListRequestDTO);
 

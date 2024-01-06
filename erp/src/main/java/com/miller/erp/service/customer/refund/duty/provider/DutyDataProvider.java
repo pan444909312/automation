@@ -1,7 +1,7 @@
 package com.miller.erp.service.customer.refund.duty.provider;
 
 import com.miller.data.center.user.CreateOrderResponseDTO;
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.erp.service.customer.refund.duty.request.DutyRequestDTO;
 import com.miller.erp.service.customer.refund.list.flow.RefundListFlow;
 import com.miller.erp.service.customer.refund.list.request.RefundListRequestDTO;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * 数据提供者-客户服务-退款审核-定责
+ * 数据提供者_客户服务-退款审核-定责
  *
  * @author Miller Shan
  * @version 1.0
@@ -27,7 +27,7 @@ public class DutyDataProvider {
     static Stream<Arguments> duty() {
         // 根据订单ID查询特殊单ID
         RefundListRequestDTO refundListRequestDTO = new RefundListRequestDTO();
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         refundListRequestDTO.setOrderSn(orderSn);
         RefundListResponseDTO refundListResponseDTO = RefundListFlow.queryRefundList(refundListRequestDTO);
 

@@ -26,7 +26,7 @@ public class SubmitRefundTests {
 
     @MethodSource("com.miller.userapp.order.refund.submit.provider.SubmitRefundDataProvider#submitRefund")
     @ParameterizedTest
-    @DisplayName("正常流程-申请退款-提交")
+    @DisplayName("正常流程_申请退款-提交")
     void shouldSubmitRefundSuccessfully(SubmitRefundRequestDTO submitRefundRequestDTO) {
         SubmitRefundResponseDTO submitRefundResponseDTO = SubmitRefundFlow.applyRefund(submitRefundRequestDTO);
         assertThat(submitRefundResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

@@ -1,6 +1,7 @@
 package com.miller.merchant.order.waiting.lack;
 
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.constants.ResponseConstant;
 import com.miller.merchant.manage.product.flow.ProductOnOrOffFlow;
 import com.miller.merchant.manage.product.request.ProductOnOrOffRequestDTO;
@@ -36,14 +37,14 @@ public class OrderLackProductTests {
     @AfterEach
     void afterEach() {
         ProductOnOrOffRequestDTO productOnOrOffRequestDTO = new ProductOnOrOffRequestDTO();
-        productOnOrOffRequestDTO.setProductIds(List.of(TestCaseDataConstant.productId));
+        productOnOrOffRequestDTO.setProductIds(List.of(TestCaseDataForMerchantConstant.productId));
         productOnOrOffRequestDTO.setStatus(0);
         ProductOnOrOffFlow.productOnOrOff(productOnOrOffRequestDTO);
     }
 
     @MethodSource("com.miller.merchant.order.waiting.lack.provider.OrderLackProductDataProvider#orderLackProduct")
     @ParameterizedTest
-    @DisplayName("正常流程-商家缺菜-换菜-商品下架一小时")
+    @DisplayName("正常流程_商家缺菜-换菜-商品下架一小时")
     void shouldLackProductSuccessfully(OrderLackProductRequestDTO orderLackProductRequestDTO) {
         OrderLackProductResponseDTO orderLackProductResponseDTO = OrderLackProductFlow.orderLackProduct(orderLackProductRequestDTO);
         assertThat(orderLackProductResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

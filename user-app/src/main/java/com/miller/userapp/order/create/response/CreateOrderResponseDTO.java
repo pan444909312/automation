@@ -4,7 +4,7 @@ import com.hungrypanda.app.server.api.res.order.OrderReturnVO;
 import com.miller.userapp.dto.BasicResponseDTO;
 
 /**
- * 响应对象-创建订单
+ * 响应对象_创建订单
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一响应对象。
  * </p>

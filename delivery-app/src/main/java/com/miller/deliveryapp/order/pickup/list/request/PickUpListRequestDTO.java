@@ -4,7 +4,7 @@ import com.panda.delivery.app.server.domain.dto.order.OrderListPageReq;
 
 
 /**
- * 请求对象-待取餐列表
+ * 请求对象_待取餐列表
  *
  * @author Miller Shan
  * @version 1.0

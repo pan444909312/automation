@@ -27,7 +27,7 @@ public class PickUpListTests {
 
     @MethodSource("com.miller.deliveryapp.order.pickup.list.provider.PickUpListDataProvider#pickUpListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程-待取餐列表")
+    @DisplayName("正常流程_待取餐列表")
     void shouldGetPickUpListSuccessfully(PickUpListRequestDTO pickUpListRequestDTO) {
         PickUpListResponseDTO pickUpListResponseDTO = PickUpListFlow.pickUpList(pickUpListRequestDTO);
 

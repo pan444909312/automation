@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MerchantConfirmUserReceivedOrderTests {
     @MethodSource("com.miller.merchant.order.delivery.provider.MerchantConfirmUserReceivedOrderDataProvider#merchantConfirmUserReceivedOrder")
     @ParameterizedTest
-    @DisplayName("正常流程-配送中列表-商家点击用户已取餐")
+    @DisplayName("正常流程_配送中列表-商家点击用户已取餐")
     void shouldConfirmUserReceivedOSuccessfully(MerchantConfirmUserReceivedOrderRequestDTO merchantConfirmUserReceivedOrderRequestDTO) {
         MerchantConfirmUserReceivedOrderResponseDTO merchantConfirmUserReceivedOrderResponseDTO =
                 MerchantConfirmUserReceivedOrderFlow.merchantConfirmUserReceivedOrderFlow(merchantConfirmUserReceivedOrderRequestDTO);

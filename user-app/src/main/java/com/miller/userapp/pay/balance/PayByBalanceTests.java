@@ -26,7 +26,7 @@ public class PayByBalanceTests {
 
     @MethodSource("com.miller.userapp.pay.balance.provider.PayByBalanceDataProvider#payByBalanceDataProviderFromDB")
     @ParameterizedTest
-    @DisplayName("正常流程-余额支付")
+    @DisplayName("正常流程_余额支付")
     void shouldPayByBalanceSuccessfully(PayByBalanceRequestDTO payByBalanceRequestDTO) {
         PayByBalanceResponseDTO payByBalanceResponseDTO = PayByBalanceFlow.payByBalance(payByBalanceRequestDTO);
         assertThat(payByBalanceResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

@@ -1,6 +1,6 @@
 package com.miller.userapp.pay.balance.provider;
 
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.pay.balance.request.PayByBalanceRequestDTO;
@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
 
 /**
- * 数据提供者-余额支付
+ * 数据提供者_余额支付
  *
  * @author Miller Shan
  * @version 1.0
@@ -28,7 +28,7 @@ public class PayByBalanceDataProvider {
         PayByBalanceRequestDTO payOfOrder = new PayByBalanceRequestDTO();
         // String orderSn = CreateOrderFlow.createOrderResponseDTO.getResult().getOrderSn();
         // 从缓存中获取订单ID
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         payOfOrder.setOrderSn(orderSn);   // 订单 ID
         payOfOrder.setPassword("123456"); // 支付密码
         payOfOrder.setPaymentType("2");   // 类型：2:订单；1:会员支付；3:余额充值

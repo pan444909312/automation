@@ -1,11 +1,9 @@
 package com.miller.userapp.order.create.request;
 
 import com.hungrypanda.app.server.api.req.order.CreatOrderReq;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
- * 请求对象-创建订单
+ * 请求对象_创建订单
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一请求对象。
  * 这里之所以包装了一层是因为对请求字段可能需要二次处理，比如：加密、验签等.

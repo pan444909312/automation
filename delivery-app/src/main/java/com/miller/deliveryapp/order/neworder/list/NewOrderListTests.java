@@ -27,7 +27,7 @@ public class NewOrderListTests {
 
     @MethodSource("com.miller.deliveryapp.order.neworder.list.provider.NewOrderListDataProvider#newOrderListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程-新订单列表")
+    @DisplayName("正常流程_新订单列表")
     void shouldGetNewOrderListSuccessfully(NewOrderListRequestDTO newOrderListRequestDTO) {
         NewOrderListResponseDTO newOrderListResponseDTO = NewOrderListFlow.newOrderList(newOrderListRequestDTO);
 

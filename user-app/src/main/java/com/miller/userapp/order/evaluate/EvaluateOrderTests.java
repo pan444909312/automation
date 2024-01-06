@@ -26,7 +26,7 @@ public class EvaluateOrderTests {
 
     @MethodSource("com.miller.userapp.order.evaluate.provider.EvaluateOrderDataProvider#evaluateOrder")
     @ParameterizedTest
-    @DisplayName("正常流程-用户评价订单")
+    @DisplayName("正常流程_用户评价订单")
     void shouldEvaluateOrderSuccessfully(EvaluateOrderRequestDTO evaluateOrderRequestDTO) {
         EvaluateOrderResponseDTO evaluateOrderResponseDTO = EvaluateOrderFlow.evaluateOrder(evaluateOrderRequestDTO);
         assertThat(evaluateOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

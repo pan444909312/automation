@@ -30,7 +30,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 创建订单-用户自取
         CreateOrderByMyselfDeliveryTests.class,
 //        // 支付订单
-        PayByBalanceTests.class,
+//        PayByBalanceTests.class,
 
         // 用户确认订单已送达。注意：需要订单被骑手派送完成之后执行
 //        ConfirmOrderStatusTests.class,

@@ -1,6 +1,7 @@
 package com.miller.merchant.order.waiting.lack;
 
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.constants.ResponseConstant;
 import com.miller.merchant.manage.product.flow.ProductOnOrOffFlow;
 import com.miller.merchant.manage.product.request.ProductOnOrOffRequestDTO;
@@ -36,7 +37,7 @@ public class OrderChangeMenuTests {
     @AfterEach
     void afterEach() {
         ProductOnOrOffRequestDTO productOnOrOffRequestDTO = new ProductOnOrOffRequestDTO();
-        productOnOrOffRequestDTO.setProductIds(List.of(TestCaseDataConstant.productId));
+        productOnOrOffRequestDTO.setProductIds(List.of(TestCaseDataForMerchantConstant.productId));
         productOnOrOffRequestDTO.setStatus(0);
         ProductOnOrOffFlow.productOnOrOff(productOnOrOffRequestDTO);
     }

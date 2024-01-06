@@ -1,7 +1,7 @@
 package com.miller.merchant.order.delivery.provider;
 
 import com.miller.data.center.user.CreateOrderResponseDTO;
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.order.delivery.request.MerchantConfirmUserReceivedOrderRequestDTO;
 import com.miller.service.framework.cache.CacheUtils;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
 
 /**
- * 数据提供者-配送中列表-商家点击"用户已取餐"
+ * 数据提供者_配送中列表-商家点击"用户已取餐"
  *
  * @author Miller Shan
  * @version 1.0
@@ -24,7 +24,7 @@ public class MerchantConfirmUserReceivedOrderDataProvider {
         MerchantConfirmUserReceivedOrderRequestDTO merchantConfirmUserReceivedOrderRequestDTO = new MerchantConfirmUserReceivedOrderRequestDTO();
 
         // 从缓存中获取订单ID
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         merchantConfirmUserReceivedOrderRequestDTO.setOrderSn(orderSn);
         /*
          * 是否是否需要校验异常，默认服务端是 false。

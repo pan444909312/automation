@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BusinessInfoEditTests {
     @MethodSource("com.miller.erp.manage.merchant.edit.businessinfo.provider.BusinessInfoEditDataProvider#businessInfoEdit")
     @ParameterizedTest
-    @DisplayName("编辑商家经营信息流程-正常流程")
+    @DisplayName("编辑商家经营信息流程_正常流程")
     void shouldBusinessInfoEditSuccessfully(BusinessInfoEditRequestDTO businessInfoEditRequestDTO) {
         BusinessInfoEditResponseDTO businessInfoEditResponseDTO = BusinessInfoEditFlow.businessInfoEdit(businessInfoEditRequestDTO);
         assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);

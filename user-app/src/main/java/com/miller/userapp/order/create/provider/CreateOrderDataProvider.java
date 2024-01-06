@@ -1,12 +1,18 @@
 package com.miller.userapp.order.create.provider;
 
+import com.alibaba.fastjson.JSON;
+import com.hungrypanda.app.server.api.req.order.ProductCart;
+import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.userapp.order.create.request.CreateOrderRequestDTO;
 import org.junit.jupiter.params.provider.Arguments;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * 数据提供者-创建订单
+ * 数据提供者_创建订单
  *
  * @author Miller Shan
  * @version 1.0
@@ -15,15 +21,16 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class CreateOrderDataProvider {
     /**
-     * 创建订单数据提供者-平台配送
+     * 创建订单数据提供者_平台配送
      */
     static Stream<Arguments> createOrderByPlatformDelivery() {
         // 1. 选择配送方式数据
         CreateOrderRequestDTO createOrderByPlatformDelivery = new CreateOrderRequestDTO();
-        createOrderByPlatformDelivery.setAddressId(1398663384L);
+        createOrderByPlatformDelivery.setAddressId(TestCaseDataForUserConstant.addressId);
         // 0=商家配送；1=平台配送；2=自取
         createOrderByPlatformDelivery.setDeliveryType("1");
         createOrderByPlatformDelivery.setDeliveryTime("尽快送达");
+        // 商品价格
         createOrderByPlatformDelivery.setFixedPrice(12000);
         createOrderByPlatformDelivery.setIsOnlinePay(true);
         // 为什么前端传的是1，服务器用的是  boolean
@@ -42,10 +49,9 @@ public class CreateOrderDataProvider {
     }
 
     /**
-     * 创建订单数据提供者-商家配送
+     * 创建订单数据提供者_商家配送
      */
     static Stream<Arguments> createOrderByMerchantDelivery() {
-        // 1. 选择配送方式数据
         CreateOrderRequestDTO createOrderByMerchantDelivery = new CreateOrderRequestDTO();
         createOrderByMerchantDelivery.setAddressId(1398663384L);
         // 0=商家配送；1=平台配送；2=自取
@@ -70,11 +76,9 @@ public class CreateOrderDataProvider {
     }
 
     /**
-     * 创建订单数据提供者-用户自取
+     * 创建订单数据提供者_用户自取
      */
     static Stream<Arguments> createOrderByMyselfDelivery() {
-        // 1. 选择配送方式数据
-
         CreateOrderRequestDTO createOrderByMyselfDelivery = new CreateOrderRequestDTO();
         createOrderByMyselfDelivery.setDeliveryTime("尽快取餐");
         // 0=商家配送；1=平台配送；2=自取
@@ -88,11 +92,19 @@ public class CreateOrderDataProvider {
         createOrderByMyselfDelivery.setRemark("【自动化测试】创建订单,用户自取");
         createOrderByMyselfDelivery.setPlatform("1");
         createOrderByMyselfDelivery.setAddressId(0L);
+
         // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
-        createOrderByMyselfDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
+        List<ProductCart> productCarts = new ArrayList<>();
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(0L);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCarts.add(productCart);
+        createOrderByMyselfDelivery.setProductCartList(JSON.toJSONString(productCarts));
+        //createOrderByMyselfDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
+
         createOrderByMyselfDelivery.setPayType(16);
         createOrderByMyselfDelivery.setVerify("0");
-        createOrderByMyselfDelivery.setShopId(59750820L);
+        createOrderByMyselfDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
         createOrderByMyselfDelivery.setNeedNumberMasking(false);
         createOrderByMyselfDelivery.setIsOnlinePay(true);
         return Stream.of(Arguments.of(createOrderByMyselfDelivery));

@@ -7,7 +7,7 @@ import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
 /**
- * 流程-编辑商家经营信息
+ * 流程_编辑商家经营信息
  *
  * @author Miller Shan
  * @version 1.0
@@ -15,12 +15,12 @@ import com.miller.service.framework.http.HttpUtils;
  */
 public class BusinessInfoEditFlow {
     /**
-     * 接口-编辑商家经营信息
+     * 接口_编辑商家经营信息
      */
     private static final String uri = BusinessConstantOfERP.DOMAIN_TEST_GATEWAY + "/api/erp/module/business/info/edit";
 
     /**
-     * 流程-编辑商家经营信息
+     * 流程_编辑商家经营信息
      *
      * @see com.panda.merchant.server.api.dto.merchant.module.MerchantModuleDTO
      */

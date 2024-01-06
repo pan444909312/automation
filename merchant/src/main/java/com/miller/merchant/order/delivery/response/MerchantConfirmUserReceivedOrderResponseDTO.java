@@ -4,7 +4,7 @@ import com.miller.merchant.dto.BasicResponseDTO;
 import com.panda.merchant.server.api.vo.app.merchant.resp.OrderBlockDataRespDTO;
 
 /**
- * 响应对象-配送中列表-商家点击"用户已取餐"
+ * 响应对象_配送中列表-商家点击"用户已取餐"
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一响应对象。
  * </p>

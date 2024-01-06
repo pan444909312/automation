@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * 数据提供者-登录
+ * 数据提供者_登录
  *
  * @author Miller Shan
  * @version 1.0
@@ -20,7 +20,7 @@ public class LoginDataProvider {
     /**
      * 登陆测试用例数据提供者，数据来自于DB
      */
-    static Stream<Arguments> loginDataProviderFromDB() {
+    static Stream<Arguments> loginData() {
         // TODO 假设这里的数据是从数据库或Redis查询出来的数据。后续会提供数据自动注入，这样就不用自己set数据了。
         LoginRequestDTO user1 = new LoginRequestDTO();
         user1.setAreaCode("86");

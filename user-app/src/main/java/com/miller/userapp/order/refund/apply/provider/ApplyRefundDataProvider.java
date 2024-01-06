@@ -1,7 +1,7 @@
 package com.miller.userapp.order.refund.apply.provider;
 
 import com.miller.data.center.user.CreateOrderResponseDTO;
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.order.refund.apply.request.ApplyRefundRequestDTO;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
 
 /**
- * 数据提供者-申请退款
+ * 数据提供者_申请退款
  *
  * @author Miller Shan
  * @version 1.0
@@ -23,7 +23,7 @@ public class ApplyRefundDataProvider {
         ApplyRefundRequestDTO applyRefundRequestDTOByDelivery = new ApplyRefundRequestDTO();
         applyRefundRequestDTOByDelivery.setOrderType(1);
         // 从缓存中获取订单ID
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         applyRefundRequestDTOByDelivery.setOrderSn(orderSn);
 
         return Stream.of(Arguments.of(applyRefundRequestDTOByDelivery));

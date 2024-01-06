@@ -4,7 +4,7 @@ import com.panda.delivery.app.server.domain.dto.order.OrderModifyDeliveryReq;
 
 
 /**
- * 请求对象-修改订单状态
+ * 请求对象_修改订单状态
  *
  * @author Miller Shan
  * @version 1.0

@@ -7,7 +7,7 @@ import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
 /**
- * 流程-客户服务-退款审核-根据订单查询特殊单ID
+ * 流程_客户服务-退款审核-根据订单查询特殊单ID
  *
  * @author Miller Shan
  * @version 1.0
@@ -15,12 +15,12 @@ import com.miller.service.framework.http.HttpUtils;
  */
 public class RefundListFlow {
     /**
-     * 接口-客户服务-退款审核-根据订单查询特殊单ID
+     * 接口_客户服务-退款审核-根据订单查询特殊单ID
      */
     private static final String uri = BusinessConstantOfERP.DOMAIN_TEST_GATEWAY + "/api/erp/order/refund/list";
 
     /**
-     * 流程-客户服务-退款审核-根据订单查询特殊单ID
+     * 流程_客户服务-退款审核-根据订单查询特殊单ID
      */
     public static RefundListResponseDTO queryRefundList(RefundListRequestDTO refundListRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token

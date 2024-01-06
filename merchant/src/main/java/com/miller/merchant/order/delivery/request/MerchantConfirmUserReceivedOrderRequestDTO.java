@@ -3,7 +3,7 @@ package com.miller.merchant.order.delivery.request;
 import com.panda.merchant.server.api.vo.app.merchant.req.OrderTerminalStatusUpdateQueryReqVO;
 
 /**
- * 请求对象-配送中列表-商家点击"用户已取餐"
+ * 请求对象_配送中列表-商家点击"用户已取餐"
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一请求对象。
  * 这里之所以包装了一层是因为对请求字段可能需要二次处理，比如：加密、验签等.

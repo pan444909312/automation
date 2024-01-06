@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 请求对象-余额(礼品卡)支付
+ * 请求对象_余额(礼品卡)支付
  *
  * @author Miller Shan
  * @version 1.0

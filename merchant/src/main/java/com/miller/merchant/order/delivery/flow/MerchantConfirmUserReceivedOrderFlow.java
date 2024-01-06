@@ -8,7 +8,7 @@ import com.miller.service.framework.http.HttpUtils;
 
 
 /**
- * 流程-配送中列表-商家点击"用户已取餐"
+ * 流程_配送中列表-商家点击"用户已取餐"
  *
  * @author Miller Shan
  * @version 1.0
@@ -16,7 +16,7 @@ import com.miller.service.framework.http.HttpUtils;
  */
 public class MerchantConfirmUserReceivedOrderFlow {
     /**
-     * 接口-配送中列表-商家点击"用户已取餐"
+     * 接口_配送中列表-商家点击"用户已取餐"
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/merchantTerminal/order/updateUndoneOrder";
 

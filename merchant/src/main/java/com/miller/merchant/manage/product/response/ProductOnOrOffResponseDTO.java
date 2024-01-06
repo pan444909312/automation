@@ -3,7 +3,7 @@ package com.miller.merchant.manage.product.response;
 import com.miller.merchant.dto.BasicResponseDTO;
 
 /**
- * 响应对象-商品上架、下架
+ * 响应对象_商品上架、下架
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一响应对象。
  * </p>

@@ -24,7 +24,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class RefundListTests {
     @MethodSource("com.miller.erp.service.customer.refund.list.provider.RefundListDataProvider#refundList")
     @ParameterizedTest
-    @DisplayName("正常流程-客户服务-退款审核-根据订单查询特殊单ID")
+    @DisplayName("正常流程_客户服务-退款审核-根据订单查询特殊单ID")
     void shouldQueryRefundListSuccessfully(RefundListRequestDTO refundListRequestDTO) {
         RefundListResponseDTO refundListResponseDTO = RefundListFlow.queryRefundList(refundListRequestDTO);
         Assertions.assertThat(refundListResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);

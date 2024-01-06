@@ -26,7 +26,7 @@ public class ProductOnOrOffTests {
 
     @MethodSource("com.miller.merchant.manage.product.provider.ProductOnOrOffDataProvider#productOnOrOff")
     @ParameterizedTest
-    @DisplayName("正常流程-上架商品")
+    @DisplayName("正常流程_上架商品")
     void shouldProductOnOrOfSuccessfully(ProductOnOrOffRequestDTO productOnOrOffRequestDTO) {
         ProductOnOrOffResponseDTO productOnOrOffResponseDTO = ProductOnOrOffFlow.productOnOrOff(productOnOrOffRequestDTO);
         assertThat(productOnOrOffResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

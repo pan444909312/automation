@@ -26,7 +26,7 @@ public class ReceivingOrderTests {
 
     @MethodSource("com.miller.merchant.order.waiting.receiving.provider.ReceivingOrderDataProvider#receivingOrder")
     @ParameterizedTest
-    @DisplayName("正常流程-商家接单并备餐")
+    @DisplayName("正常流程_商家接单并备餐")
     void shouldReceivingOrderSuccessfully(ReceivingOrderRequestDTO receivingOrderRequestDTO) {
         ReceivingOrderResponseDTO receivingOrderResponseDTO = ReceivingOrderFlow.receivingOrder(receivingOrderRequestDTO);
         assertThat(receivingOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

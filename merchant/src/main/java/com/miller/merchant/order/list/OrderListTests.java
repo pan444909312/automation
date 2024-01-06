@@ -24,7 +24,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class OrderListTests {
     @MethodSource("com.miller.merchant.order.list.provider.OrderListDataProvider#orderListOfStatus")
     @ParameterizedTest
-    @DisplayName("正常流程-订单列表")
+    @DisplayName("正常流程_订单列表")
     void shouldGetOrderListSuccessfully(OrderListRequestDTO orderListRequestDTO) {
         OrderListResponseDTO orderListResponseDTO = OrderListFlow.orderList(orderListRequestDTO);
         Assertions.assertThat(orderListResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

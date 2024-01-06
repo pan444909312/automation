@@ -24,7 +24,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class DutyTests {
     @MethodSource("com.miller.erp.service.customer.refund.duty.provider.DutyDataProvider#duty")
     @ParameterizedTest
-    @DisplayName("正常流程-退款核实责任方")
+    @DisplayName("正常流程_退款核实责任方")
     void shouldConfirmDutySuccessfully(DutyRequestDTO dutyRequestDTO) {
         DutyResponseDTO dutyResponseDTO = DutyFlow.confirmDuty(dutyRequestDTO);
         Assertions.assertThat(dutyResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);

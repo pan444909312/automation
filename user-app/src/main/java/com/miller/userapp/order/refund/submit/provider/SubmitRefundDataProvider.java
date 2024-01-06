@@ -3,7 +3,7 @@ package com.miller.userapp.order.refund.submit.provider;
 import com.hungrypanda.app.server.vo.order.RefundDetailVO;
 import com.hungrypanda.app.server.vo.order.req.RefundProductReq;
 import com.miller.data.center.user.CreateOrderResponseDTO;
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.order.refund.apply.flow.ApplyRefundFlow;
 import com.miller.userapp.order.refund.apply.request.ApplyRefundRequestDTO;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * 数据提供者-申请退款-提交
+ * 数据提供者_申请退款-提交
  *
  * @author Miller Shan
  * @version 1.0
@@ -31,7 +31,7 @@ public class SubmitRefundDataProvider {
     static Stream<Arguments> submitRefund() {
         SubmitRefundRequestDTO submitRefundRequestDTO = new SubmitRefundRequestDTO();
         // 从缓存中获取订单ID
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
 
         // 提交退款申请之前需要先发起退款申请，然后从申请的响应结果中获取数据
         ApplyRefundRequestDTO applyRefundRequestDTO = new ApplyRefundRequestDTO();

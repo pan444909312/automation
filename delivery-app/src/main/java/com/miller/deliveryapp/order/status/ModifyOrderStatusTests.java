@@ -28,7 +28,7 @@ public class ModifyOrderStatusTests {
 
     @MethodSource("com.miller.deliveryapp.order.status.provider.ModifyOrderStatusDataProvider#modifyOrderStatusToDriverArrivedTheRestaurant")
     @ParameterizedTest
-    @DisplayName("正常流程-骑手-已到店")
+    @DisplayName("正常流程_骑手-已到店")
     void shouldModifyOrderStatusToDriverArrivedTheRestaurantSuccessfully(ModifyOrderStatusRequestDTO modifyOrderStatusRequestDTO) {
         ModifyOrderStatusResponseDTO modifyOrderStatusResponseDTO = ModifyOrderStatusFlow.modifyOrderStatus(modifyOrderStatusRequestDTO);
 
@@ -39,7 +39,7 @@ public class ModifyOrderStatusTests {
     @DependsOnMethod("shouldModifyOrderStatusToDriverArrivedTheRestaurantSuccessfully")
     @MethodSource("com.miller.deliveryapp.order.status.provider.ModifyOrderStatusDataProvider#modifyOrderStatusToDriverArrivedTheRestaurantButWaitingOrder")
     @ParameterizedTest
-    @DisplayName("正常流程-骑手-等待商家出餐")
+    @DisplayName("正常流程_骑手-等待商家出餐")
     void shouldModifyOrderStatusToDriverArrivedTheRestaurantButWaitingOrderSuccessfully(ModifyOrderStatusRequestDTO modifyOrderStatusRequestDTO) {
         ModifyOrderStatusResponseDTO modifyOrderStatusResponseDTO = ModifyOrderStatusFlow.modifyOrderStatus(modifyOrderStatusRequestDTO);
 
@@ -50,7 +50,7 @@ public class ModifyOrderStatusTests {
     @DependsOnMethod("shouldModifyOrderStatusToDriverArrivedTheRestaurantButWaitingOrderSuccessfully")
     @MethodSource("com.miller.deliveryapp.order.status.provider.ModifyOrderStatusDataProvider#modifyOrderStatusToDriverArrivedTheRestaurantAndTakingOrder")
     @ParameterizedTest
-    @DisplayName("正常流程-骑手-正在取餐")
+    @DisplayName("正常流程_骑手-正在取餐")
     void shouldModifyOrderStatusToDriverArrivedTheRestaurantAndTakingOrderSuccessfully(ModifyOrderStatusRequestDTO modifyOrderStatusRequestDTO) {
         ModifyOrderStatusResponseDTO modifyOrderStatusResponseDTO = ModifyOrderStatusFlow.modifyOrderStatus(modifyOrderStatusRequestDTO);
 
@@ -61,7 +61,7 @@ public class ModifyOrderStatusTests {
     @DependsOnMethod("shouldModifyOrderStatusToDriverArrivedTheRestaurantAndTakingOrderSuccessfully")
     @MethodSource("com.miller.deliveryapp.order.status.provider.ModifyOrderStatusDataProvider#modifyOrderStatusToDriverFinishedOrder")
     @ParameterizedTest
-    @DisplayName("正常流程-骑手-已完成送餐并拍照送达")
+    @DisplayName("正常流程_骑手-已完成送餐并拍照送达")
     void shouldModifyOrderStatusToDriverFinishedOrderSuccessfully(ModifyOrderStatusRequestDTO modifyOrderStatusRequestDTO) {
         ModifyOrderStatusResponseDTO modifyOrderStatusResponseDTO = ModifyOrderStatusFlow.modifyOrderStatus(modifyOrderStatusRequestDTO);
 

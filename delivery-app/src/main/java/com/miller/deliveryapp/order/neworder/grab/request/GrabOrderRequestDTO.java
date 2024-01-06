@@ -4,7 +4,7 @@ import com.panda.delivery.app.server.domain.dto.order.RiderGrapsOrdersReq;
 
 
 /**
- * 请求对象-骑手抢新订单
+ * 请求对象_骑手抢新订单
  *
  * @author Miller Shan
  * @version 1.0

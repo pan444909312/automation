@@ -3,7 +3,7 @@ package com.miller.erp.service.customer.refund.duty.request;
 import com.panda.order.server.api.dto.specialOrder.req.RefundDutyReq;
 
 /**
- * 请求对象-客户服务-退款审核-定责
+ * 请求对象_客户服务-退款审核-定责
  *
  * @author Miller Shan
  * @version 1.0

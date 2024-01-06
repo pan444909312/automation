@@ -27,7 +27,7 @@ public class GrabOrderTests {
 
     @MethodSource("com.miller.deliveryapp.order.neworder.grab.provider.GrabOrderDataProvider#grabOrderDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程-骑手抢单")
+    @DisplayName("正常流程_骑手抢单")
     void shouldGrabOrderSuccessfully(GrabOrderRequestDTO grabOrderRequestDTO) {
         GrabOrderResponseDTO grabOrderResponseDTO = GrabOrderFlow.grabOrder(grabOrderRequestDTO);
 

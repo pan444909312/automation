@@ -7,7 +7,7 @@ import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
 /**
- * 流程-客户服务-退款审核-定责
+ * 流程_客户服务-退款审核-定责
  *
  * @author Miller Shan
  * @version 1.0
@@ -15,12 +15,12 @@ import com.miller.service.framework.http.HttpUtils;
  */
 public class DutyFlow {
     /**
-     * 接口-客户服务-退款审核-定责
+     * 接口_客户服务-退款审核-定责
      */
     private static final String uri = BusinessConstantOfERP.DOMAIN_TEST_GATEWAY + "/api/erp/refund/confirm/duty";
 
     /**
-     * 流程-根据订单查询出需要定责的数据进行定责。
+     * 流程_根据订单查询出需要定责的数据进行定责。
      * 注意: 定责之后是异步完成
      */
     public static DutyResponseDTO confirmDuty(DutyRequestDTO dutyRequestDTO) {

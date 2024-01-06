@@ -4,7 +4,7 @@ import com.miller.deliveryapp.dto.BasicResponseDTO;
 import com.panda.delivery.app.server.domain.dto.order.DeliveringOrderListResp;
 
 /**
- * 响应对象-待取餐列表
+ * 响应对象_待取餐列表
  *
  * @author Miller Shan
  * @version 1.0

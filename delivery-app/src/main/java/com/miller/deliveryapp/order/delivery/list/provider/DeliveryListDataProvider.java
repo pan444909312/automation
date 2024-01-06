@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * 数据提供者-待配送列表
+ * 数据提供者_待配送列表
  *
  * @author Miller Shan
  * @version 1.0

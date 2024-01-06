@@ -7,7 +7,7 @@ import com.miller.userapp.pay.balance.response.PayByBalanceResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 流程-余额支付
+ * 流程_余额支付
  *
  * @author Miller Shan
  * @version 1.0

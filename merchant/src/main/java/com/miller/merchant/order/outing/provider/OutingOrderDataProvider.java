@@ -1,7 +1,7 @@
 package com.miller.merchant.order.outing.provider;
 
 import com.miller.data.center.user.CreateOrderResponseDTO;
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.order.outing.request.OutingOrderRequestDTO;
 import com.miller.service.framework.cache.CacheUtils;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,7 +21,7 @@ public class OutingOrderDataProvider {
         OutingOrderRequestDTO outingOrderRequestDTO = new OutingOrderRequestDTO();
 
         // 从缓存中获取订单ID
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         outingOrderRequestDTO.setOrderSn(orderSn);
         /*
          * 是否是否需要校验异常，默认服务端是 false。

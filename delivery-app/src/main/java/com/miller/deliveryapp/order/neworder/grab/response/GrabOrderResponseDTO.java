@@ -4,7 +4,7 @@ import com.miller.deliveryapp.dto.BasicResponseDTO;
 import com.panda.delivery.app.server.domain.dto.order.OrderGrabDeliveryResp;
 
 /**
- * 响应对象-骑手抢新订单
+ * 响应对象_骑手抢新订单
  *
  * @author Miller Shan
  * @version 1.0

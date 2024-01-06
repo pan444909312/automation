@@ -59,7 +59,7 @@ public class CreateOrderByMerchantDeliveryTests {
 
     @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderByMerchantDelivery")
     @ParameterizedTest
-    @DisplayName("创建订单-正常流程-商家配送")
+    @DisplayName("创建订单-正常流程_商家配送")
     void shouldCreateOrderSuccessfully(CreateOrderRequestDTO createOrderRequestDTO) {
         CreateOrderResponseDTO createOrderResponseDTO = CreateOrderFlow.createOrder(createOrderRequestDTO);
         assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

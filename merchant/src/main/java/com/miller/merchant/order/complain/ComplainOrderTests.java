@@ -26,7 +26,7 @@ public class ComplainOrderTests {
 
     @MethodSource("com.miller.merchant.order.complain.provider.ComplainOrderDataProvider#complainOrder")
     @ParameterizedTest
-    @DisplayName("正常流程-商家催骑手")
+    @DisplayName("正常流程_商家催骑手")
     void shouldComplainOrderSuccessfully(ComplainOrderRequestDTO complainOrderRequestDTO) {
         ComplainOrderResponseDTO complainOrderResponseDTO = ComplainOrderFlow.complainOrder(complainOrderRequestDTO);
         assertThat(complainOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

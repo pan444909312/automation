@@ -27,7 +27,7 @@ public class DriverOnlineTests {
 
     @MethodSource("com.miller.deliveryapp.driver.online.provider.DriverOnlineDataProvider#driverOnlineDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程-骑手上线")
+    @DisplayName("正常流程_骑手上线")
     void shouldOnlineSuccessfully(DriverOnlineRequestDTO loginRequestDTO) {
         DriverOnlineResponseDTO driverOnlineResponseDTO = DriverOnlineFlow.driverOnline(loginRequestDTO);
 

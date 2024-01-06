@@ -4,7 +4,7 @@ import com.panda.delivery.app.server.domain.dto.order.NewOrderListPageReq;
 
 
 /**
- * 请求对象-新订单列表
+ * 请求对象_新订单列表
  *
  * @author Miller Shan
  * @version 1.0

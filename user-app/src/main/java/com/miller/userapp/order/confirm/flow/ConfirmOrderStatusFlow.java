@@ -7,7 +7,7 @@ import com.miller.userapp.order.confirm.response.ConfirmOrderStatusResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 流程-用户确认订单已送到
+ * 流程_用户确认订单已送到
  *
  * @author Miller Shan
  * @version 1.0
@@ -15,7 +15,7 @@ import com.miller.userapp.util.RequestUtils;
  */
 public class ConfirmOrderStatusFlow {
     /**
-     * 更新订单状态
+     * 接口_更新订单状态
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/order/status/update";
 

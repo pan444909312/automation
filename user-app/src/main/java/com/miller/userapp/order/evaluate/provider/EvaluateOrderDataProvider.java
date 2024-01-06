@@ -1,6 +1,6 @@
 package com.miller.userapp.order.evaluate.provider;
 
-import com.miller.data.center.user.TestCaseDataConstant;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.order.evaluate.request.EvaluateOrderRequestDTO;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import static com.hungrypanda.common.enums.order.EvaluateTagEnum.*;
 
 /**
- * 数据提供者-订单评价
+ * 数据提供者_订单评价
  *
  * @author Miller Shan
  * @version 1.0
@@ -23,7 +23,7 @@ public class EvaluateOrderDataProvider {
     static Stream<Arguments> evaluateOrder() {
         EvaluateOrderRequestDTO evaluateOrderRequestDTOByDelivery = new EvaluateOrderRequestDTO();
 
-        String orderSn = CacheUtils.get(TestCaseDataConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         evaluateOrderRequestDTOByDelivery.setOrderSn(orderSn);
 
         // 是否匿名评价。0/true：匿名评价；1/false:非匿名评价

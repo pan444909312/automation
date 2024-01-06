@@ -45,7 +45,7 @@ public class LoginTests {
 
     @MethodSource("com.miller.deliveryapp.login.provider.LoginDataProvider#loginDataProviderFromDB")
     @ParameterizedTest
-    @DisplayName("正常流程-骑手登录")
+    @DisplayName("正常流程_骑手登录")
     void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
         LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
 
