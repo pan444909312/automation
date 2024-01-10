@@ -9,6 +9,7 @@ import com.miller.userapp.order.evaluate.EvaluateOrderTests;
 import com.miller.userapp.order.refund.apply.ApplyRefundTests;
 import com.miller.userapp.order.refund.submit.SubmitRefundTests;
 import com.miller.userapp.order.shopping.car.ShoppingCarTests;
+import com.miller.userapp.order.shopping.settlement.SettlementCarTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -26,6 +27,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         LoginTests.class,
         // 添加商品到购物车
         ShoppingCarTests.class,
+        // 创建订单-结算
+        SettlementCarTests.class,
         // 创建订单-平台配送
 //        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
