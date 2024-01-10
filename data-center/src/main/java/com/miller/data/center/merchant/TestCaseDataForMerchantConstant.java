@@ -11,14 +11,15 @@ package com.miller.data.center.merchant;
 public class TestCaseDataForMerchantConstant {
 
     /**
-     * 自动化测试专用店铺ID
+     * 自动化测试专用，店铺ID
      */
     public static Long shopId = 59750820L;
 
     /**
-     * 自动化测试专用商品ID
+     * 自动化测试专用，商品ID和对应的skuID
      */
     public static Long productId = 81669204L;
+    public static Long skuId = 0L;
 
 
 }

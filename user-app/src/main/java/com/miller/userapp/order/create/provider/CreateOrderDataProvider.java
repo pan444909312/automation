@@ -42,7 +42,7 @@ public class CreateOrderDataProvider {
         // createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
         List<ProductCart> productCarts = new ArrayList<>();
         ProductCart productCart = new ProductCart();
-        productCart.setSkuId(0L);
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
         productCart.setProductId(TestCaseDataForMerchantConstant.productId);
         productCarts.add(productCart);
         createOrderByPlatformDelivery.setProductCartList(JSON.toJSONString(productCarts));
@@ -77,7 +77,7 @@ public class CreateOrderDataProvider {
         // createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
         List<ProductCart> productCarts = new ArrayList<>();
         ProductCart productCart = new ProductCart();
-        productCart.setSkuId(0L);
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
         productCart.setProductId(TestCaseDataForMerchantConstant.productId);
         productCarts.add(productCart);
         createOrderByMerchantDelivery.setProductCartList(JSON.toJSONString(productCarts));
@@ -115,7 +115,7 @@ public class CreateOrderDataProvider {
         //createOrderByMyselfDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
         List<ProductCart> productCarts = new ArrayList<>();
         ProductCart productCart = new ProductCart();
-        productCart.setSkuId(0L);
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
         productCart.setProductId(TestCaseDataForMerchantConstant.productId);
         productCarts.add(productCart);
         createOrderByMyselfDelivery.setProductCartList(JSON.toJSONString(productCarts));
