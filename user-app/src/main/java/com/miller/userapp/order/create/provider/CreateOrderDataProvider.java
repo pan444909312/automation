@@ -30,16 +30,25 @@ public class CreateOrderDataProvider {
         // 0=商家配送；1=平台配送；2=自取
         createOrderByPlatformDelivery.setDeliveryType("1");
         createOrderByPlatformDelivery.setDeliveryTime("尽快送达");
-        // 商品价格
+        // 商品价格。无需动态查询，初始化数据时就应当指定好的值
         createOrderByPlatformDelivery.setFixedPrice(12000);
         createOrderByPlatformDelivery.setIsOnlinePay(true);
         // 为什么前端传的是1，服务器用的是  boolean
         createOrderByPlatformDelivery.setNeedNumberMasking(true);
         createOrderByPlatformDelivery.setPayType(16);
         createOrderByPlatformDelivery.setPlatform("2");
+
         // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
-        createOrderByPlatformDelivery.setProductCartList("[{\"skuId\":0,\"productId\": 81669204}]");
-        createOrderByPlatformDelivery.setShopId(59750820L);
+        // createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
+        List<ProductCart> productCarts = new ArrayList<>();
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(0L);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCarts.add(productCart);
+        createOrderByPlatformDelivery.setProductCartList(JSON.toJSONString(productCarts));
+        createOrderByPlatformDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
+
+
         createOrderByPlatformDelivery.setUseVoucherTemplate(0);
         createOrderByPlatformDelivery.setRemark("自动化测试创建订单");
         // 选择自取时需要传联系电话。但是我发现配送传这个字段也没关系
@@ -53,18 +62,27 @@ public class CreateOrderDataProvider {
      */
     static Stream<Arguments> createOrderByMerchantDelivery() {
         CreateOrderRequestDTO createOrderByMerchantDelivery = new CreateOrderRequestDTO();
-        createOrderByMerchantDelivery.setAddressId(1398663384L);
+        createOrderByMerchantDelivery.setAddressId(TestCaseDataForUserConstant.addressId);
         // 0=商家配送；1=平台配送；2=自取
         createOrderByMerchantDelivery.setDeliveryType("0");
         createOrderByMerchantDelivery.setDeliveryTime("尽快送达");
+        // 商品价格。无需动态查询，初始化数据时就应当指定好的值
         createOrderByMerchantDelivery.setFixedPrice(12000);
         createOrderByMerchantDelivery.setIsOnlinePay(true);
 
         createOrderByMerchantDelivery.setPayType(16);
         createOrderByMerchantDelivery.setPlatform("1");
+
         // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
-        createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
-        createOrderByMerchantDelivery.setShopId(59750820L);
+        // createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
+        List<ProductCart> productCarts = new ArrayList<>();
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(0L);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCarts.add(productCart);
+        createOrderByMerchantDelivery.setProductCartList(JSON.toJSONString(productCarts));
+        createOrderByMerchantDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
+
         createOrderByMerchantDelivery.setUseVoucherTemplate(0);
         createOrderByMerchantDelivery.setRemark("自动化测试创建订单");
         // 选择自取/商家配送时需要传联系电话
@@ -83,7 +101,7 @@ public class CreateOrderDataProvider {
         createOrderByMyselfDelivery.setDeliveryTime("尽快取餐");
         // 0=商家配送；1=平台配送；2=自取
         createOrderByMyselfDelivery.setDeliveryType("2");
-        // 用户自取的价格是不一样的
+        // 商品价格。用户自取的价格是不一样的。无需动态查询，初始化数据时就应当指定好的值
         createOrderByMyselfDelivery.setFixedPrice(9900);
         // 选择自取/商家配送时需要传联系电话
         createOrderByMyselfDelivery.setUserPhone("86 18711110002");
@@ -94,17 +112,17 @@ public class CreateOrderDataProvider {
         createOrderByMyselfDelivery.setAddressId(0L);
 
         // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
+        //createOrderByMyselfDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
         List<ProductCart> productCarts = new ArrayList<>();
         ProductCart productCart = new ProductCart();
         productCart.setSkuId(0L);
         productCart.setProductId(TestCaseDataForMerchantConstant.productId);
         productCarts.add(productCart);
         createOrderByMyselfDelivery.setProductCartList(JSON.toJSONString(productCarts));
-        //createOrderByMyselfDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
+        createOrderByMyselfDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
 
         createOrderByMyselfDelivery.setPayType(16);
         createOrderByMyselfDelivery.setVerify("0");
-        createOrderByMyselfDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
         createOrderByMyselfDelivery.setNeedNumberMasking(false);
         createOrderByMyselfDelivery.setIsOnlinePay(true);
         return Stream.of(Arguments.of(createOrderByMyselfDelivery));

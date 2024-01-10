@@ -16,7 +16,10 @@ public class TestCaseDataForUserConstant {
     public static final String ORDER_ID_OBJECT_KEY = "ORDER_ID_OBJECT_KEY";
 
     /**
-     * 用户收获地址ID
+     * 自动化测试专用，用户收货地址ID
      */
-    public static final Long addressId = 1398663384L;
+    public static Long addressId = 1398663384L;
+
+
 }
+

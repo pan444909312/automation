@@ -1,7 +1,6 @@
 package com.miller.merchant.manage.product.provider;
 
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
-import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.manage.product.request.ProductOnOrOffRequestDTO;
 import org.junit.jupiter.params.provider.Arguments;
 

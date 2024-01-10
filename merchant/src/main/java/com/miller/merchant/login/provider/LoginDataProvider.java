@@ -21,7 +21,6 @@ public class LoginDataProvider {
      * 登陆测试用例数据提供者，数据来自于DB
      */
     static Stream<Arguments> loginDataProviderFromDB() {
-        // TODO 假设这里的数据是从数据库或Redis查询出来的数据。后续会提供数据自动注入，这样就不用自己set数据了。
         LoginRequestDTO user1 = new LoginRequestDTO();
         user1.setAreaCode("86");
         user1.setAccount("18722220001");
