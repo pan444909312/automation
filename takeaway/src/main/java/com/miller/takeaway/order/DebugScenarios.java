@@ -1,6 +1,7 @@
 package com.miller.takeaway.order;
 
 import com.miller.takeaway.order.branch.refund.OrderOfPlatformDeliveryAutoRefundScenario;
+import com.miller.takeaway.order.branch.settlement.SettlementContainPackageDeliveryFee;
 import com.miller.takeaway.order.master.delivery.merchant.OrderOfMerchantDeliveryScenario;
 import com.miller.takeaway.order.master.delivery.merchant.OrderOfMerchantDeliveryThenRefundScenario;
 import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenario;
@@ -37,6 +38,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 分支场景-平台配送
         OrderOfPlatformDeliveryAutoRefundScenario.class,
+        // 分支场景-订单结算
+        SettlementContainPackageDeliveryFee.class,
 })
 @Suite
 @SuiteDisplayName("调试场景集")

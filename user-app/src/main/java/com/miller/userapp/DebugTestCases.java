@@ -1,6 +1,5 @@
 package com.miller.userapp;
 
-import com.miller.userapp.login.LoginTests;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
 import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
@@ -24,7 +23,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        LoginTests.class,
+        com.miller.userapp.login.LoginTests.class,
         // 添加商品到购物车
         ShoppingCarTests.class,
         // 创建订单-结算
