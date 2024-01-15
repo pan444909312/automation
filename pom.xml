@@ -33,6 +33,11 @@
         <module>common</module>
         <module>demo</module>
         <module>data-center</module>
+        <module>user-app</module>
+        <module>merchant</module>
+        <module>delivery-app</module>
+        <module>erp</module>
+        <module>takeaway</module>
     </modules>
 
     <dependencyManagement>
