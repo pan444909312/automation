@@ -3,7 +3,7 @@ package com.miller.data.center.user;
 import com.hungrypanda.app.server.api.res.order.OrderReturnVO;
 
 /**
- * 创建订单响应对象
+ * 创建订单响应对象，用于存储数据结构。订单数据是多个业务域都需要使用的公共数据。
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一响应对象。
  * </p>

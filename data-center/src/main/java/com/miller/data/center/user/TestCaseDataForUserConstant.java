@@ -1,7 +1,7 @@
 package com.miller.data.center.user;
 
 /**
- * 多个测试用例之间的共享数据.
+ * 用户基本信息数据。
  * 测试用例需要用到的数据直接通过初始化脚本完成，而在代码中仅保存最少需要的关键数据ID。
  *
  * @author Miller Shan

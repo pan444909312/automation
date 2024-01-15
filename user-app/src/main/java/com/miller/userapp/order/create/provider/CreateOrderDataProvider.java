@@ -24,7 +24,7 @@ public class CreateOrderDataProvider {
      * 创建订单数据提供者_平台配送
      */
     static Stream<Arguments> createOrderByPlatformDelivery() {
-        // 1. 选择配送方式数据
+        // 选择配送方式数据
         CreateOrderRequestDTO createOrderByPlatformDelivery = new CreateOrderRequestDTO();
         createOrderByPlatformDelivery.setAddressId(TestCaseDataForUserConstant.addressId);
         // 0=商家配送；1=平台配送；2=自取
@@ -126,5 +126,46 @@ public class CreateOrderDataProvider {
         createOrderByMyselfDelivery.setNeedNumberMasking(false);
         createOrderByMyselfDelivery.setIsOnlinePay(true);
         return Stream.of(Arguments.of(createOrderByMyselfDelivery));
+    }
+
+    /**
+     * 创建订单数据提供者_美食城多档口订单
+     */
+    static Stream<Arguments> createOrderByBigCity() {
+        CreateOrderRequestDTO createOrderByBigCity = new CreateOrderRequestDTO();
+        createOrderByBigCity.setDeliveryTime("尽快送达");
+        createOrderByBigCity.setTablewareCount(1);
+        createOrderByBigCity.setUserPhone("86 18711110002");
+        createOrderByBigCity.setOrderReqType(1);
+        // 0=商家配送；1=平台配送；2=自取。美食城仅支持平台配送
+        createOrderByBigCity.setDeliveryType("1");
+        // 商品价格。无需动态查询，初始化数据时就应当指定好的值。每件商品价格100元，共2件商品，覆盖2个档口。
+        createOrderByBigCity.setFixedPrice(23000);
+        createOrderByBigCity.setPlatform("1");
+        createOrderByBigCity.setAddressId(TestCaseDataForUserConstant.addressId);
+        createOrderByBigCity.setPayType(16);
+        createOrderByBigCity.setShopId(TestCaseDataForMerchantConstant.shopIdOfBigCity);
+        createOrderByBigCity.setIsOnlinePay(true);
+        // 为什么前端传的是1，服务器用的是  boolean
+        createOrderByBigCity.setNeedNumberMasking(true);
+
+
+        // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
+        // createOrderByBigCity.setProductCartList("[{"productId":81742258,"skuId":0,"tagId":[]},{"productId":81744208,"skuId":0,"tagId":[]}]");
+        List<ProductCart> productCarts = new ArrayList<>();
+        // 商品1
+        ProductCart productCart1 = new ProductCart();
+        productCart1.setProductId(TestCaseDataForMerchantConstant.productIdOfBigCity1);
+        productCart1.setSkuId(TestCaseDataForMerchantConstant.skuIdOfBigCity1);
+        // 商品2
+        ProductCart productCart2 = new ProductCart();
+        productCart2.setProductId(TestCaseDataForMerchantConstant.productIdOfBigCity2);
+        productCart2.setSkuId(TestCaseDataForMerchantConstant.skuIdOfBigCity2);
+        // 添加商品1、商品2
+        productCarts.add(productCart1);
+        productCarts.add(productCart2);
+        createOrderByBigCity.setProductCartList(JSON.toJSONString(productCarts));
+
+        return Stream.of(Arguments.of(createOrderByBigCity));
     }
 }

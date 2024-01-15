@@ -1,6 +1,7 @@
 package com.miller.userapp;
 
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
+import com.miller.userapp.order.create.CreateOrderByBigCityTests;
 import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
 import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
@@ -25,17 +26,19 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         com.miller.userapp.login.LoginTests.class,
         // 添加商品到购物车
-        ShoppingCarTests.class,
+//        ShoppingCarTests.class,
         // 创建订单-结算
-        SettlementCarTests.class,
+//        SettlementCarTests.class,
         // 创建订单-平台配送
 //        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
 //        CreateOrderByMerchantDeliveryTests.class,
         // 创建订单-用户自取
 //        CreateOrderByMyselfDeliveryTests.class,
+        // 创建订单-美食城订单
+        CreateOrderByBigCityTests.class,
 //        // 支付订单
-//        PayByBalanceTests.class,
+        PayByBalanceTests.class,
 
         // 用户确认订单已送达。注意：需要订单被骑手派送完成之后执行
 //        ConfirmOrderStatusTests.class,
