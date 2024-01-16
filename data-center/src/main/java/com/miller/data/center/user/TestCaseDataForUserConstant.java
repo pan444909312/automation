@@ -20,6 +20,11 @@ public class TestCaseDataForUserConstant {
      */
     public static Long addressId = 1398663384L;
 
+    /**
+     * 用户余额支付密码
+     */
+    public static final String payPassword = "123456";
+
 
 }
 

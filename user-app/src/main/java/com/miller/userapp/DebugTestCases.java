@@ -1,7 +1,7 @@
 package com.miller.userapp;
 
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
-import com.miller.userapp.order.create.CreateOrderByBigCityTests;
+import com.miller.userapp.order.create.CreateOrderByFoodCityTests;
 import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
 import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
@@ -36,7 +36,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 创建订单-用户自取
 //        CreateOrderByMyselfDeliveryTests.class,
         // 创建订单-美食城订单
-        CreateOrderByBigCityTests.class,
+        CreateOrderByFoodCityTests.class,
 //        // 支付订单
         PayByBalanceTests.class,
 

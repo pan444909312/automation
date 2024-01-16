@@ -1,7 +1,7 @@
 package com.miller.deliveryapp.order.delivery.details.response;
 
 import com.miller.deliveryapp.dto.BasicResponseDTO;
-import com.panda.merchant.server.api.vo.app.merchant.resp.OrderDetailRespDTO;
+import com.panda.delivery.app.server.domain.dto.order.DeliveringOrderDetailResp;
 
 /**
  * 响应对象_订单详情
@@ -14,6 +14,6 @@ import com.panda.merchant.server.api.vo.app.merchant.resp.OrderDetailRespDTO;
  * @version 1.0
  * @since 2024/1/16 14:39:18
  */
-public class OrderDetailsResponseDTO extends BasicResponseDTO<OrderDetailRespDTO> {
+public class OrderDetailsResponseDTO extends BasicResponseDTO<DeliveringOrderDetailResp> {
     // 测试用例应该基本不需要添加额外的响应信息
 }

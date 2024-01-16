@@ -33,7 +33,6 @@ public class ModifyOrderStatusTests {
         ModifyOrderStatusResponseDTO modifyOrderStatusResponseDTO = ModifyOrderStatusFlow.modifyOrderStatus(modifyOrderStatusRequestDTO);
 
         assertThat(modifyOrderStatusResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        // TODO 订单数据校验
     }
 
     @DependsOnMethod("shouldModifyOrderStatusToDriverArrivedTheRestaurantSuccessfully")
@@ -44,7 +43,6 @@ public class ModifyOrderStatusTests {
         ModifyOrderStatusResponseDTO modifyOrderStatusResponseDTO = ModifyOrderStatusFlow.modifyOrderStatus(modifyOrderStatusRequestDTO);
 
         assertThat(modifyOrderStatusResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        // TODO 订单数据校验
     }
 
     @DependsOnMethod("shouldModifyOrderStatusToDriverArrivedTheRestaurantButWaitingOrderSuccessfully")
@@ -55,7 +53,6 @@ public class ModifyOrderStatusTests {
         ModifyOrderStatusResponseDTO modifyOrderStatusResponseDTO = ModifyOrderStatusFlow.modifyOrderStatus(modifyOrderStatusRequestDTO);
 
         assertThat(modifyOrderStatusResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        // TODO 订单数据校验
     }
 
     @DependsOnMethod("shouldModifyOrderStatusToDriverArrivedTheRestaurantAndTakingOrderSuccessfully")
@@ -66,7 +63,6 @@ public class ModifyOrderStatusTests {
         ModifyOrderStatusResponseDTO modifyOrderStatusResponseDTO = ModifyOrderStatusFlow.modifyOrderStatus(modifyOrderStatusRequestDTO);
 
         assertThat(modifyOrderStatusResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        // TODO 订单数据校验
     }
 
 }

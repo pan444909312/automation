@@ -1,9 +1,6 @@
 package com.miller.merchant.login.request;
 
 import com.panda.merchant.server.api.vo.webApp.BaseMerchantLoginReqVO;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 /**
  * 登录请求数据
@@ -12,7 +9,5 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  * @since 2023/12/6 19:49:23
  */
-@NoArgsConstructor
-@Data
 public class LoginRequestDTO extends BaseMerchantLoginReqVO {
 }

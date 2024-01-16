@@ -35,7 +35,7 @@ public class TestCaseDataForMerchantConstant {
      * "shopId": 638845643,
      * "shopName": "东东测试美食城·玩具屋·自动化测试·勿动",
      */
-    public static Long shopIdOfBigCity = 638845643L;
+    public static Long shopIdOfFoodCity = 638845643L;
 
     /**
      * 美食城，东东测试·档口1，商品1信息
@@ -49,8 +49,8 @@ public class TestCaseDataForMerchantConstant {
      * "totalOriginalPrice": 10000,
      * "minProductPrice": 10000,
      */
-    public static Long productIdOfBigCity1 = 81742258L;
-    public static Long skuIdOfBigCity1 = 0L;
+    public static Long productIdOfFoodCity1 = 81742258L;
+    public static Long skuIdOfFoodCity1 = 0L;
     /**
      * 美食城，东东测试·档口2，商品2信息
      * "productId": "81744208",
@@ -63,8 +63,8 @@ public class TestCaseDataForMerchantConstant {
      * "totalOriginalPrice": 10000,
      * "minProductPrice": 10000,
      */
-    public static Long productIdOfBigCity2 = 81744208L;
-    public static Long skuIdOfBigCity2 = 0L;
+    public static Long productIdOfFoodCity2 = 81744208L;
+    public static Long skuIdOfFoodCity2 = 0L;
 
 
 }

@@ -50,7 +50,7 @@ public class CreateOrderDataProvider {
 
 
         createOrderByPlatformDelivery.setUseVoucherTemplate(0);
-        createOrderByPlatformDelivery.setRemark("自动化测试创建订单");
+        createOrderByPlatformDelivery.setRemark("【自动化测试】创建订单");
         // 选择自取时需要传联系电话。但是我发现配送传这个字段也没关系
         createOrderByPlatformDelivery.setUserPhone("86 18711110002");
 
@@ -84,7 +84,7 @@ public class CreateOrderDataProvider {
         createOrderByMerchantDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
 
         createOrderByMerchantDelivery.setUseVoucherTemplate(0);
-        createOrderByMerchantDelivery.setRemark("自动化测试创建订单");
+        createOrderByMerchantDelivery.setRemark("【自动化测试】创建订单");
         // 选择自取/商家配送时需要传联系电话
         createOrderByMerchantDelivery.setUserPhone("86 18711110002");
         createOrderByMerchantDelivery.setTablewareCount(1);
@@ -131,41 +131,42 @@ public class CreateOrderDataProvider {
     /**
      * 创建订单数据提供者_美食城多档口订单
      */
-    static Stream<Arguments> createOrderByBigCity() {
-        CreateOrderRequestDTO createOrderByBigCity = new CreateOrderRequestDTO();
-        createOrderByBigCity.setDeliveryTime("尽快送达");
-        createOrderByBigCity.setTablewareCount(1);
-        createOrderByBigCity.setUserPhone("86 18711110002");
-        createOrderByBigCity.setOrderReqType(1);
+    static Stream<Arguments> createOrderByFoodCity() {
+        CreateOrderRequestDTO createOrderByFoodCity = new CreateOrderRequestDTO();
+        createOrderByFoodCity.setRemark("【自动化测试】创建美食城订单");
+        createOrderByFoodCity.setDeliveryTime("尽快送达");
+        createOrderByFoodCity.setTablewareCount(1);
+        createOrderByFoodCity.setUserPhone("86 18711110002");
+        createOrderByFoodCity.setOrderReqType(1);
         // 0=商家配送；1=平台配送；2=自取。美食城仅支持平台配送
-        createOrderByBigCity.setDeliveryType("1");
+        createOrderByFoodCity.setDeliveryType("1");
         // 商品价格。无需动态查询，初始化数据时就应当指定好的值。每件商品价格100元，共2件商品，覆盖2个档口。
-        createOrderByBigCity.setFixedPrice(23000);
-        createOrderByBigCity.setPlatform("1");
-        createOrderByBigCity.setAddressId(TestCaseDataForUserConstant.addressId);
-        createOrderByBigCity.setPayType(16);
-        createOrderByBigCity.setShopId(TestCaseDataForMerchantConstant.shopIdOfBigCity);
-        createOrderByBigCity.setIsOnlinePay(true);
+        createOrderByFoodCity.setFixedPrice(23000);
+        createOrderByFoodCity.setPlatform("1");
+        createOrderByFoodCity.setAddressId(TestCaseDataForUserConstant.addressId);
+        createOrderByFoodCity.setPayType(16);
+        createOrderByFoodCity.setShopId(TestCaseDataForMerchantConstant.shopIdOfFoodCity);
+        createOrderByFoodCity.setIsOnlinePay(true);
         // 为什么前端传的是1，服务器用的是  boolean
-        createOrderByBigCity.setNeedNumberMasking(true);
+        createOrderByFoodCity.setNeedNumberMasking(true);
 
 
         // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
-        // createOrderByBigCity.setProductCartList("[{"productId":81742258,"skuId":0,"tagId":[]},{"productId":81744208,"skuId":0,"tagId":[]}]");
+        // createOrderByFoodCity.setProductCartList("[{"productId":81742258,"skuId":0,"tagId":[]},{"productId":81744208,"skuId":0,"tagId":[]}]");
         List<ProductCart> productCarts = new ArrayList<>();
         // 商品1
         ProductCart productCart1 = new ProductCart();
-        productCart1.setProductId(TestCaseDataForMerchantConstant.productIdOfBigCity1);
-        productCart1.setSkuId(TestCaseDataForMerchantConstant.skuIdOfBigCity1);
+        productCart1.setProductId(TestCaseDataForMerchantConstant.productIdOfFoodCity1);
+        productCart1.setSkuId(TestCaseDataForMerchantConstant.skuIdOfFoodCity1);
         // 商品2
         ProductCart productCart2 = new ProductCart();
-        productCart2.setProductId(TestCaseDataForMerchantConstant.productIdOfBigCity2);
-        productCart2.setSkuId(TestCaseDataForMerchantConstant.skuIdOfBigCity2);
+        productCart2.setProductId(TestCaseDataForMerchantConstant.productIdOfFoodCity2);
+        productCart2.setSkuId(TestCaseDataForMerchantConstant.skuIdOfFoodCity2);
         // 添加商品1、商品2
         productCarts.add(productCart1);
         productCarts.add(productCart2);
-        createOrderByBigCity.setProductCartList(JSON.toJSONString(productCarts));
+        createOrderByFoodCity.setProductCartList(JSON.toJSONString(productCarts));
 
-        return Stream.of(Arguments.of(createOrderByBigCity));
+        return Stream.of(Arguments.of(createOrderByFoodCity));
     }
 }

@@ -22,9 +22,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-创建订单-美食城订单")
-public class CreateOrderByBigCityTests {
+public class CreateOrderByFoodCityTests {
 
-    @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderByBigCity")
+    @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderByFoodCity")
     @ParameterizedTest
     @DisplayName("正常流程_创建订单-美食城订单")
     void shouldCreateOrderSuccessfully(CreateOrderRequestDTO createOrderRequestDTO) {

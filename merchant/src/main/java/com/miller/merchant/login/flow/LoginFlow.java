@@ -1,6 +1,7 @@
 package com.miller.merchant.login.flow;
 
 import com.alibaba.fastjson2.JSON;
+import com.miller.common.util.MD5Util;
 import com.miller.merchant.constants.BusinessConstant;
 import com.miller.merchant.login.request.LoginRequestDTO;
 import com.miller.merchant.login.response.LoginResponseDTO;
@@ -33,8 +34,17 @@ public class LoginFlow {
         var header = new HashMap<String, Object>();
         header.put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         RequestUtils.setHeaders(header);
-        return HttpUtils.sendPostRequest(uri, null,
-                RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(loginRequestDTO), null);
+        return HttpUtils.sendPostRequest(uri, null, RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(loginRequestDTO), null);
+    }
+
+    /**
+     * 登录返回响应体对象
+     *
+     * @param loginRequestDTO {@link LoginRequestDTO}
+     * @return 响应体对象
+     */
+    public static LoginResponseDTO loginReturnBodyObject(LoginRequestDTO loginRequestDTO) {
+        return JSON.parseObject(loginReturnBodyString(loginRequestDTO), LoginResponseDTO.class);
     }
 
     /**
@@ -49,15 +59,6 @@ public class LoginFlow {
         return String.valueOf(responseBodyMap.get("body"));
     }
 
-    /**
-     * 登录返回响应体对象
-     *
-     * @param loginRequestDTO {@link LoginRequestDTO}
-     * @return 响应体对象
-     */
-    public static LoginResponseDTO loginReturnBodyObject(LoginRequestDTO loginRequestDTO) {
-        return JSON.parseObject(loginReturnBodyString(loginRequestDTO), LoginResponseDTO.class);
-    }
 
     /**
      * 登录返回响应头
@@ -90,4 +91,33 @@ public class LoginFlow {
         return loginResponseDTO;
     }
 
+    /**
+     * 切换当前用户
+     *
+     * @param areaCode 国家区号
+     * @param username 用户名
+     * @param password 密码
+     */
+    public static void switchUser(String areaCode, String username, String password) {
+        LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
+        loginRequestDTO.setAreaCode(areaCode);
+        loginRequestDTO.setAccount(username);
+        loginRequestDTO.setPassword(MD5Util.string2MD5(password));
+        LoginResponseDTO loginResponseDTO = loginReturnBodyObject(loginRequestDTO);
+        var token = loginResponseDTO.getResult().getAccessToken();
+        var headers = new HashMap<String, Object>();
+        headers.put("Content-Type", RequestUtils.getHeaders().get("Content-Type"));
+        headers.put(BusinessConstant.authorization, token);
+        // 更新全局请求头参数。设置测试用例的用户。
+        RequestUtils.setHeaders(headers);
+    }
+
+    /**
+     * 切换当前用户，使用默认的区号86
+     *
+     * @see #switchUser(String, String, String)
+     */
+    public static void switchUser(String username, String password) {
+        switchUser("86", username, password);
+    }
 }

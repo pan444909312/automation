@@ -30,7 +30,7 @@ public class PayByBalanceDataProvider {
         // 从缓存中获取订单ID
         String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         payOfOrder.setOrderSn(orderSn);   // 订单 ID
-        payOfOrder.setPassword("123456"); // 支付密码
+        payOfOrder.setPassword(TestCaseDataForUserConstant.payPassword); // 支付密码
         payOfOrder.setPaymentType("2");   // 类型：2:订单；1:会员支付；3:余额充值
         return Stream.of(
                 Arguments.of(

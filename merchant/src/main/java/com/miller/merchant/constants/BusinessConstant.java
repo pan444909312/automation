@@ -36,6 +36,6 @@ public class BusinessConstant {
     public static String uniqueToken = "381bb9f0ec5f3988";
     public static String devicemodel = "TAS-AN00";
     public static String devicebrand = "HUAWEI";
-    // 默认给个空字符串
-    public static String authorization = "";
+    // 默认值为请求头需要的名称，方便以后修改，不要修改默认值。
+    public static String authorization = "authorization";
 }

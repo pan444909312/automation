@@ -1,5 +1,6 @@
 package com.miller.userapp.order.evaluate.provider;
 
+import com.hungrypanda.app.server.common.enums.product.ProductLabelEnum;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
