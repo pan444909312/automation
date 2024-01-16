@@ -4,6 +4,7 @@ import com.miller.erp.service.customer.refund.duty.DutyTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
 import com.miller.service.framework.annotation.TestCase;
+import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
 import com.miller.userapp.order.refund.submit.SubmitRefundTests;
@@ -31,7 +32,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        com.miller.userapp.login.LoginTests.class,
+        UserLoginTests.class,
         // 创建订单-用户自取
         CreateOrderByMyselfDeliveryTests.class,
         // 支付订单

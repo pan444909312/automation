@@ -9,5 +9,5 @@ import com.hungrypanda.app.server.api.req.user.UserLoginReq;
  * @version 1.0
  * @since 2023/12/6 19:49:23
  */
-public class LoginRequestDTO extends UserLoginReq {
+public class UserLoginRequestDTO extends UserLoginReq {
 }

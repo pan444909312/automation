@@ -16,7 +16,7 @@ import lombok.Data;
  * @since 2023/12/6 20:56:16
  */
 @Data
-public class LoginResponseDTO extends BasicResponseDTO<UserTokenSimpleVO>
+public class UserLoginResponseDTO extends BasicResponseDTO<UserTokenSimpleVO>
 {
     // Result 对象内部额外的字段
     private String tokenSrc;

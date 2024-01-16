@@ -1,6 +1,7 @@
 package com.miller.takeaway.order.branch.settlement;
 
 import com.miller.service.framework.annotation.TestCase;
+import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.shopping.car.ShoppingCarTests;
 import com.miller.userapp.order.shopping.settlement.SettlementCarTests;
 import org.junit.platform.suite.api.SelectClasses;
@@ -16,7 +17,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        com.miller.userapp.login.LoginTests.class,
+        UserLoginTests.class,
         // 添加商品到购物车
         ShoppingCarTests.class,
         // 创建订单-结算

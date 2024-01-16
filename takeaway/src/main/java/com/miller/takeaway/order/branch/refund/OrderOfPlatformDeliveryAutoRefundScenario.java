@@ -1,6 +1,7 @@
 package com.miller.takeaway.order.branch.refund;
 
 import com.miller.service.framework.annotation.TestCase;
+import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.order.refund.submit.SubmitRefundTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
@@ -25,7 +26,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        com.miller.userapp.login.LoginTests.class,
+        UserLoginTests.class,
         // 创建订单-平台配送
         CreateOrderByPlatformDeliveryTests.class,
         // 支付订单

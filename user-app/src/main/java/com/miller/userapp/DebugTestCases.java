@@ -1,15 +1,7 @@
 package com.miller.userapp;
 
-import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
+import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.create.CreateOrderByFoodCityTests;
-import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
-import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
-import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
-import com.miller.userapp.order.evaluate.EvaluateOrderTests;
-import com.miller.userapp.order.refund.apply.ApplyRefundTests;
-import com.miller.userapp.order.refund.submit.SubmitRefundTests;
-import com.miller.userapp.order.shopping.car.ShoppingCarTests;
-import com.miller.userapp.order.shopping.settlement.SettlementCarTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -24,7 +16,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        com.miller.userapp.login.LoginTests.class,
+        UserLoginTests.class,
         // 添加商品到购物车
 //        ShoppingCarTests.class,
         // 创建订单-结算

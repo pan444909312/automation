@@ -2,6 +2,7 @@ package com.miller.takeaway.order.master.delivery.yourself;
 
 import com.miller.erp.service.customer.refund.duty.DutyTests;
 import com.miller.service.framework.annotation.TestCase;
+import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
 import com.miller.userapp.order.refund.submit.SubmitRefundTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
@@ -26,7 +27,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        com.miller.userapp.login.LoginTests.class,
+        UserLoginTests.class,
         // 创建订单-用户自取
         CreateOrderByMyselfDeliveryTests.class,
         // 支付订单

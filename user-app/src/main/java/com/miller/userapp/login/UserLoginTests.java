@@ -4,9 +4,9 @@ import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.login.flow.LoginFlow;
-import com.miller.userapp.login.request.LoginRequestDTO;
-import com.miller.userapp.login.response.LoginResponseDTO;
+import com.miller.userapp.login.flow.UserLoginFlow;
+import com.miller.userapp.login.request.UserLoginRequestDTO;
+import com.miller.userapp.login.response.UserLoginResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-登录")
-public class LoginTests {
+public class UserLoginTests {
     private static String token;
 
     @AfterAll
@@ -44,21 +44,21 @@ public class LoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.userapp.login.provider.LoginDataProvider#loginData")
+    @MethodSource("com.miller.userapp.login.provider.UserLoginDataProvider#loginData")
     @ParameterizedTest
     @DisplayName("正常流程_用户登录")
-    void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
+    void shouldLoginSuccessfully(UserLoginRequestDTO userLoginRequestDTO) {
+        UserLoginResponseDTO userLoginResponseDTO = UserLoginFlow.loginReturnBodyObject(userLoginRequestDTO);
 
-        assertThat(loginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        assertThat(loginResponseDTO.getResult().getAccessToken()).isNotNull();
-        assertThat(loginResponseDTO.getSuccess()).isTrue();
-        assertThat(loginResponseDTO.getResult().getUserName())
+        assertThat(userLoginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(userLoginResponseDTO.getResult().getAccessToken()).isNotNull();
+        assertThat(userLoginResponseDTO.getSuccess()).isTrue();
+        assertThat(userLoginResponseDTO.getResult().getUserName())
                 .isNotNull()
-                .isEqualTo(loginRequestDTO.getAccount());
+                .isEqualTo(userLoginRequestDTO.getAccount());
 
         // 获取token
-        token = loginResponseDTO.getResult().getAccessToken();
+        token = userLoginResponseDTO.getResult().getAccessToken();
     }
 
 }
