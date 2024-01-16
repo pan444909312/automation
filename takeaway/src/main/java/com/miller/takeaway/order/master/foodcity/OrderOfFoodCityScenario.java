@@ -1,6 +1,7 @@
 package com.miller.takeaway.order.master.foodcity;
 
 import com.miller.deliveryapp.driver.online.DriverOnlineTests;
+import com.miller.deliveryapp.login.DeliveryLoginTests;
 import com.miller.deliveryapp.order.neworder.grab.GrabOrderOfFoodCityTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
@@ -35,7 +36,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         OutingOrderTests.class,
 
         // 骑手登录
-        com.miller.deliveryapp.login.LoginTests.class,
+        DeliveryLoginTests.class,
         // 上线
         DriverOnlineTests.class,
         // 骑手抢单-美食城订单

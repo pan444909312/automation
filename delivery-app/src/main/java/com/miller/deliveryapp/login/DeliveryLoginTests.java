@@ -1,9 +1,9 @@
 package com.miller.deliveryapp.login;
 
 import com.miller.deliveryapp.constants.ResponseConstant;
-import com.miller.deliveryapp.login.flow.LoginFlow;
-import com.miller.deliveryapp.login.request.LoginRequestDTO;
-import com.miller.deliveryapp.login.response.LoginResponseDTO;
+import com.miller.deliveryapp.login.flow.DeliveryLoginFlow;
+import com.miller.deliveryapp.login.request.DeliveryLoginRequestDTO;
+import com.miller.deliveryapp.login.response.DeliveryLoginResponseDTO;
 import com.miller.deliveryapp.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("骑手-登录")
-public class LoginTests {
+public class DeliveryLoginTests {
     private static String token;
 
     @AfterAll
@@ -43,16 +43,16 @@ public class LoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.deliveryapp.login.provider.LoginDataProvider#loginDataProviderFromDB")
+    @MethodSource("com.miller.deliveryapp.login.provider.DeliveryLoginDataProvider#loginDataProviderFromDB")
     @ParameterizedTest
     @DisplayName("正常流程_骑手登录")
-    void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
+    void shouldLoginSuccessfully(DeliveryLoginRequestDTO deliveryLoginRequestDTO) {
+        DeliveryLoginResponseDTO deliveryLoginResponseDTO = DeliveryLoginFlow.loginReturnBodyObject(deliveryLoginRequestDTO);
 
-        assertThat(loginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        assertThat(loginResponseDTO.getResult().getAccessToken()).isNotNull();
+        assertThat(deliveryLoginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(deliveryLoginResponseDTO.getResult().getAccessToken()).isNotNull();
         // 获取token
-        token = loginResponseDTO.getResult().getAccessToken();
+        token = deliveryLoginResponseDTO.getResult().getAccessToken();
     }
 
 }

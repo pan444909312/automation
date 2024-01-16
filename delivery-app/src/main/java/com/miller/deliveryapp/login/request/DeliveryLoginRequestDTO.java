@@ -10,5 +10,5 @@ import com.panda.delivery.app.server.domain.dto.auth.DriverLoginReq;
  * @version 1.0
  * @since 2023/12/21 19:49:23
  */
-public class LoginRequestDTO extends DriverLoginReq {
+public class DeliveryLoginRequestDTO extends DriverLoginReq {
 }

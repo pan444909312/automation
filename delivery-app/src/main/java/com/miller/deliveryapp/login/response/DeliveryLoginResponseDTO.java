@@ -14,5 +14,5 @@ import com.panda.delivery.app.server.domain.dto.auth.UserLoginResp;
  * @version 1.0
  * @since 2023/12/21 20:56:16
  */
-public class LoginResponseDTO extends BasicResponseDTO<UserLoginResp> {
+public class DeliveryLoginResponseDTO extends BasicResponseDTO<UserLoginResp> {
 }

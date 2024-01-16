@@ -1,6 +1,7 @@
 package com.miller.takeaway.order;
 
 import com.miller.deliveryapp.driver.online.DriverOnlineTests;
+import com.miller.deliveryapp.login.DeliveryLoginTests;
 import com.miller.deliveryapp.order.delivery.list.DeliveryListTests;
 import com.miller.deliveryapp.order.neworder.grab.GrabOrderTests;
 import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
@@ -53,7 +54,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // MerchantConfirmUserReceivedOrderTests.class,
 
         // 骑手登录
-        com.miller.deliveryapp.login.LoginTests.class,
+        DeliveryLoginTests.class,
         // 上线
         DriverOnlineTests.class,
         // 新订单列表
