@@ -3,7 +3,7 @@ package com.miller.merchant.order.waiting.receiving;
 import com.miller.data.center.user.CreateOrderResponseDTO;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.constants.ResponseConstant;
-import com.miller.merchant.login.flow.LoginFlow;
+import com.miller.merchant.login.flow.MerchantLoginFlow;
 import com.miller.merchant.order.details.flow.OrderDetailsFlow;
 import com.miller.merchant.order.details.request.OrderDetailsRequestDTO;
 import com.miller.merchant.order.details.response.OrderDetailsResponseDTO;
@@ -38,7 +38,7 @@ public class ReceivingOrderOfFoodCityTests {
     @BeforeEach
     void beforeEach() {
         // 美食城账号登录
-        LoginFlow.switchUser("18722220002", "7R55iFbbd");
+        MerchantLoginFlow.switchUser("18722220002", "7R55iFbbd");
     }
 
     @MethodSource("com.miller.merchant.order.waiting.receiving.provider.ReceivingOrderDataProvider#receivingOrder")
@@ -59,11 +59,11 @@ public class ReceivingOrderOfFoodCityTests {
         orderDetailsRequestDTO.setOrderSn(orderSn);
 
         // 美食城下的档口1账号登录, 并校验订单状态为2
-        LoginFlow.switchUser("18722220003", "HmCGrF8c9");
+        MerchantLoginFlow.switchUser("18722220003", "HmCGrF8c9");
         OrderDetailsResponseDTO orderDetails1 = OrderDetailsFlow.getOrderDetails(orderDetailsRequestDTO);
         assertThat(orderDetails1.getResult().getOrderInfoData().getMerchantOrderStatus()).isEqualTo(2);
         // 美食城下的档口2账号登录, 并校验订单状态为2
-        LoginFlow.switchUser("18722220004", "Lfm9og6Jj");
+        MerchantLoginFlow.switchUser("18722220004", "Lfm9og6Jj");
         OrderDetailsResponseDTO orderDetails2 = OrderDetailsFlow.getOrderDetails(orderDetailsRequestDTO);
         assertThat(orderDetails2.getResult().getOrderInfoData().getMerchantOrderStatus()).isEqualTo(2);
     }

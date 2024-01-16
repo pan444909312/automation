@@ -3,6 +3,7 @@ package com.miller.takeaway.order.master.delivery.platform;
 import com.miller.deliveryapp.driver.online.DriverOnlineTests;
 import com.miller.deliveryapp.order.neworder.grab.GrabOrderTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
+import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.login.UserLoginTests;
@@ -40,7 +41,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         PayByBalanceTests.class,
 
         // 商家登录APP
-        com.miller.merchant.login.LoginTests.class,
+        MerchantLoginTests.class,
         // 商家接单
         ReceivingOrderTests.class,
 

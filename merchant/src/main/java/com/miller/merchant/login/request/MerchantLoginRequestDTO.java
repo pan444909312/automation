@@ -9,5 +9,5 @@ import com.panda.merchant.server.api.vo.webApp.BaseMerchantLoginReqVO;
  * @version 1.0
  * @since 2023/12/6 19:49:23
  */
-public class LoginRequestDTO extends BaseMerchantLoginReqVO {
+public class MerchantLoginRequestDTO extends BaseMerchantLoginReqVO {
 }

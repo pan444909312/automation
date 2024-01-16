@@ -1,9 +1,9 @@
 package com.miller.merchant.login;
 
 import com.miller.merchant.constants.ResponseConstant;
-import com.miller.merchant.login.flow.LoginFlow;
-import com.miller.merchant.login.request.LoginRequestDTO;
-import com.miller.merchant.login.response.LoginResponseDTO;
+import com.miller.merchant.login.flow.MerchantLoginFlow;
+import com.miller.merchant.login.request.MerchantLoginRequestDTO;
+import com.miller.merchant.login.response.MerchantLoginResponseDTO;
 import com.miller.merchant.util.RequestUtils;
 import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("商家-登录")
-public class LoginTests {
+public class MerchantLoginTests {
     private static String token;
 
     @AfterAll
@@ -44,17 +44,17 @@ public class LoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.merchant.login.provider.LoginDataProvider#loginDataProviderFromDB")
+    @MethodSource("com.miller.merchant.login.provider.MerchantLoginDataProvider#loginDataProviderFromDB")
     @ParameterizedTest
     @DisplayName("正常流程_商家登录")
-    void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
+    void shouldLoginSuccessfully(MerchantLoginRequestDTO merchantLoginRequestDTO) {
+        MerchantLoginResponseDTO merchantLoginResponseDTO = MerchantLoginFlow.loginReturnBodyObject(merchantLoginRequestDTO);
 
-        assertThat(loginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        assertThat(loginResponseDTO.getResult().getAccessToken()).isNotNull();
-        assertThat(loginResponseDTO.getSuccess()).isTrue();
+        assertThat(merchantLoginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(merchantLoginResponseDTO.getResult().getAccessToken()).isNotNull();
+        assertThat(merchantLoginResponseDTO.getSuccess()).isTrue();
         // 获取token
-        token = loginResponseDTO.getResult().getAccessToken();
+        token = merchantLoginResponseDTO.getResult().getAccessToken();
     }
 
 }

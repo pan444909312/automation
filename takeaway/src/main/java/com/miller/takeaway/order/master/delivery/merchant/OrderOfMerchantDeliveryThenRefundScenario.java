@@ -1,6 +1,7 @@
 package com.miller.takeaway.order.master.delivery.merchant;
 
 import com.miller.erp.service.customer.refund.duty.DutyTests;
+import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
@@ -40,7 +41,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         PayByBalanceTests.class,
 
         // 商家登录APP
-        com.miller.merchant.login.LoginTests.class,
+        MerchantLoginTests.class,
         // 商家接单
         ReceivingOrderTests.class,
         // 商家-出餐

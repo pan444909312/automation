@@ -7,6 +7,7 @@ import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
 import com.miller.deliveryapp.order.pickup.list.PickUpListTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
 import com.miller.erp.service.customer.refund.duty.DutyTests;
+import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
@@ -36,7 +37,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         PayByBalanceTests.class,
 
         // 商家登录APP
-        com.miller.merchant.login.LoginTests.class,
+        MerchantLoginTests.class,
         // 订单列表
         OrderListTests.class,
         // 商家-待接单-缺菜-退菜-下架一小时

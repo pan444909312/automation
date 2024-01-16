@@ -1,5 +1,6 @@
 package com.miller.takeaway.order.master.delivery.yourself;
 
+import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.waiting.lack.OrderLackProductTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.login.UserLoginTests;
@@ -34,7 +35,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         PayByBalanceTests.class,
 
         // 商家登录APP
-        com.miller.merchant.login.LoginTests.class,
+        MerchantLoginTests.class,
         // 商家-待接单-缺菜-退菜-下架一小时
         OrderLackProductTests.class,
 
