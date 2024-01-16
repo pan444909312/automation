@@ -26,5 +26,5 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @TestCase(testCaseID = "01HK72EK733AS48DCMJ8MCRGCM", name = "【分支场景】【订单结算】订单金额=商品小记+打包费+配送费")
 @SuiteDisplayName("【分支场景】【订单结算】订单金额=商品小计+打包费+配送费")
 @Suite
-public class SettlementContainPackageDeliveryFee {
+public class SettlementContainPackageDeliveryFeeScenario {
 }
