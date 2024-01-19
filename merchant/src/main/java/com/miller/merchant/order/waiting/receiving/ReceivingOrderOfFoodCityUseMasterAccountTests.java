@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("商家-接单并备餐-美食城订单-美食城账号接单")
-public class ReceivingOrderOfFoodCityTests {
+public class ReceivingOrderOfFoodCityUseMasterAccountTests {
     @BeforeEach
     void beforeEach() {
         // 美食城账号登录

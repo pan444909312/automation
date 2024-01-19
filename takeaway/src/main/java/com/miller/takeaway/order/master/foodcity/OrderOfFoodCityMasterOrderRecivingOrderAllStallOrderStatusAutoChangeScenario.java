@@ -5,7 +5,7 @@ import com.miller.deliveryapp.login.DeliveryLoginTests;
 import com.miller.deliveryapp.order.neworder.grab.GrabOrderOfFoodCityTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
-import com.miller.merchant.order.waiting.receiving.ReceivingOrderOfFoodCityTests;
+import com.miller.merchant.order.waiting.receiving.ReceivingOrderOfFoodCityUseMasterAccountTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
@@ -31,7 +31,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         PayByBalanceTests.class,
 
         // 商家-接单并备餐-美食城订单-美食城账号接单
-        ReceivingOrderOfFoodCityTests.class,
+        ReceivingOrderOfFoodCityUseMasterAccountTests.class,
         // 商家出餐
         OutingOrderTests.class,
 
