@@ -13,6 +13,13 @@ import org.hamcrest.Matchers;
  */
 @Slf4j
 public class AssertUtils {
+    /**
+     * 已废弃，没必要自己实现一套断言
+     * @param actual 实际结果
+     * @param expected 期望结果
+     * @return 断言结果
+     */
+    @Deprecated
     public static Boolean assertThat(Object actual, Object expected) {
         log.debug("开始断言: {} 与 {} 是否相等", actual, expected);
         boolean result = false;

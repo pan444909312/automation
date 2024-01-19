@@ -7,7 +7,7 @@ import com.miller.takeaway.order.master.delivery.merchant.OrderOfMerchantDeliver
 import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenario;
 import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliveryScenario;
 import com.miller.takeaway.order.master.delivery.yourself.*;
-import com.miller.takeaway.order.master.foodcity.OrderOfFoodCityScenario;
+import com.miller.takeaway.order.master.foodcity.OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenario;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -43,7 +43,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         SettlementContainPackageDeliveryFeeScenario.class,
 
         // 【主干场景】【美食城订单】用户在美食城下单,美食城账号接单
-        OrderOfFoodCityScenario.class,
+        OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenario.class,
 })
 @Suite
 @SuiteDisplayName("调试场景集")
