@@ -61,5 +61,5 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @Suite
 @SuiteDisplayName("【主干场景】【用户自取】用户选择配送方式为自取，支付成功，商家出餐，用户确认已取餐并申请售后，订单结束")
 @TestCase(testCaseID = "01HK72EK70TPJVRYYZSS1V9AZ5", name = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功，商家出餐，用户确认已取餐并申请售后，订单结束")
-public class OrderOfMyselfDeliveryThenMerchantOutOrderAndUserConfirmOrderAndRefundScenario {
+public class OrderOfMyselfDeliveryThenMerchantOutOrderAndUserConfirmOrderAndRefundScenarioTests {
 }

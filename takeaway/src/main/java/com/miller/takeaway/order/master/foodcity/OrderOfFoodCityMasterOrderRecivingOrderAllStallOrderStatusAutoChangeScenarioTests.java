@@ -5,7 +5,7 @@ import com.miller.deliveryapp.login.DeliveryLoginTests;
 import com.miller.deliveryapp.order.neworder.grab.GrabOrderOfFoodCityTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
-import com.miller.merchant.order.waiting.receiving.ReceivingOrderOfFoodCityUseStallAccountTests;
+import com.miller.merchant.order.waiting.receiving.ReceivingOrderOfFoodCityUseMasterAccountTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
@@ -16,11 +16,11 @@ import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
 /**
- * 【主干场景】【美食城订单】美食城下的所有档口账号接单之后，美食城订单状态更新为完成
+ * 【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2024/1/19 15:48:13
+ * @since 2024/1/15 21:03:13
  */
 @SelectClasses({
         // 用户登录
@@ -30,8 +30,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 支付订单
         PayByBalanceTests.class,
 
-        // 商家-接单并备餐-美食城订单-美食城档口账号接单
-        ReceivingOrderOfFoodCityUseStallAccountTests.class,
+        // 商家-接单并备餐-美食城订单-美食城账号接单
+        ReceivingOrderOfFoodCityUseMasterAccountTests.class,
         // 商家出餐
         OutingOrderTests.class,
 
@@ -53,8 +53,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
         // 订单流程结束
 })
-@TestCase(testCaseID = "01HK72EK76QYGFPH5W6KQJ5VNZ", name = "【主干场景】【美食城订单】美食城下的所有档口账号接单之后，美食城订单状态更新为完成")
-@SuiteDisplayName("【主干场景】【美食城订单】美食城下的所有档口账号接单之后，美食城订单状态更新为完成")
+@TestCase(testCaseID = "01HK72EK76QYGFPH5W6KQJ5VNZ", name = "【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新")
+@SuiteDisplayName("【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新")
 @Suite
-public class OrderOfFoodCityAllStallReceivingOrderThenMasterOrderStatusIsDoneScenario {
+public class OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenarioTests {
 }
