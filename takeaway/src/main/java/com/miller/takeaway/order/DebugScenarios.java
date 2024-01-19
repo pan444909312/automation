@@ -7,6 +7,7 @@ import com.miller.takeaway.order.master.delivery.merchant.OrderOfMerchantDeliver
 import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenarioTests;
 import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliveryScenarioTests;
 import com.miller.takeaway.order.master.delivery.yourself.*;
+import com.miller.takeaway.order.master.foodcity.OrderOfFoodCityAllStallReceivingOrderThenMasterOrderStatusIsDoneScenarioTests;
 import com.miller.takeaway.order.master.foodcity.OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenarioTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -42,8 +43,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 分支场景-订单结算
         SettlementContainPackageDeliveryFeeScenarioTests.class,
 
-        // 【主干场景】【美食城订单】用户在美食城下单,美食城账号接单
+        // 【主干场景】【美食城订单】
         OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenarioTests.class,
+        OrderOfFoodCityAllStallReceivingOrderThenMasterOrderStatusIsDoneScenarioTests.class,
 })
 @Suite
 @SuiteDisplayName("调试场景集")
