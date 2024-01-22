@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例_结算-会员结算
+ * 测试用例_结算-会员结算，不使用红包
  *
  * @author Miller Shan
  * @version 1.0
@@ -22,12 +22,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-结算-会员结算")
+@DisplayName("用户-结算-会员结算-不使用红包")
 public class SettlementWithMemberTests {
 
     @MethodSource("com.miller.userapp.order.shopping.settlement.provider.SettlementDataProvider#settlementProductWithMember")
     @ParameterizedTest
-    @DisplayName("正常流程_会员结算")
+    @DisplayName("正常流程_会员结算-不使用红包")
     void shouldSettlementProductSuccessfully(SettlementRequestDTO settlementRequestDTO) {
         SettlementResponseDTO settlementResponseDTO = SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
@@ -58,22 +58,13 @@ public class SettlementWithMemberTests {
         // 校验配送费折扣价
         assertThat(discountDelivery).isEqualTo(deliveryItemAmount - memberDeliveryDiscount);
 
-        // 红包优惠金额
-        Integer redPacketDiscount = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
-                .filter(value -> value.getItemKey().equalsIgnoreCase("redPacketDiscount"))
-                .findFirst().get().getItemAmount();
         // 开通会员费用
         Integer buyMember = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
                 .filter(value -> value.getItemKey().equalsIgnoreCase("buyMember"))
                 .findFirst().get().getItemAmount();
 
-        // 订单金额 = 商品小计 + 打包费 + 原配送费 + 开通会员价格 - 配送费VIP优惠金额 - 红包优惠金额。100+10+10+10-5-6
-        assertThat(11900).isEqualTo(product + packaging + deliveryItemAmount + buyMember - memberDeliveryDiscount - redPacketDiscount);
+        // 订单金额 = 商品小计 + 打包费 + 原配送费 + 开通会员价格 - 配送费VIP优惠金额。100+10+10+10-5-6
+        assertThat(12500).isEqualTo(product + packaging + deliveryItemAmount + buyMember - memberDeliveryDiscount);
 
-    }
-
-    @AfterEach
-    void afterEach() {
-        // 由于没有生成真正的订单，所以不需要手动删除开通的会员信息，如果提交订单那么需要通过后台ERP删除此用户的会员信息
     }
 }

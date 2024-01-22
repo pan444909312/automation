@@ -21,7 +21,6 @@ public class TestCaseDataForUserConstant {
     public static final String payPassword = "123456";
 
     /**
-     *
      * 用户收货地址ID。
      * 地址: China, 江西省九江市浔阳区 Lufeng Road, 九江学院
      * 纬度: 29.720049
@@ -38,6 +37,11 @@ public class TestCaseDataForUserConstant {
      * 自动续费-续费价：10元。
      */
     public static final Long memberCityId = 1111378L;
+    /**
+     * 会员合单红包ID
+     */
+    public static final Long memberRedPacketId = 10097316L;
+
 
 }
 

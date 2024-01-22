@@ -47,9 +47,7 @@ public class SettlementDataProvider {
     static Stream<Arguments> settlementProductWithMember() {
         SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
         settlementRequestDTO.setOrderType(1);
-        settlementRequestDTO.setMemberCityId(TestCaseDataForUserConstant.memberCityId);
         settlementRequestDTO.setTablewareCount(1);
-        settlementRequestDTO.setAutoUseRedPacketStatus(1);
         settlementRequestDTO.setOrderReqType(1);
         settlementRequestDTO.setDeliveryType(1);
         settlementRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
@@ -58,10 +56,16 @@ public class SettlementDataProvider {
         settlementRequestDTO.setPayType(16);
         settlementRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
 
+        // 会员城市ID
+        settlementRequestDTO.setMemberCityId(TestCaseDataForUserConstant.memberCityId);
+        // 不使用红包
+        settlementRequestDTO.setAutoUseRedPacketStatus(0);
+
+
         // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
         //createOrderByMyselfDelivery.setProductCartList("[{\"productId\":81669204,\"skuId\":0,\"tagId\":[]}]");
-        List<ProductCart> productCartList = new ArrayList<>();
-        ProductCart productCart = new ProductCart();
+        var productCartList = new ArrayList<ProductCart>();
+        var productCart = new ProductCart();
         productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
         productCart.setProductId(TestCaseDataForMerchantConstant.productId);
         productCartList.add(productCart);
