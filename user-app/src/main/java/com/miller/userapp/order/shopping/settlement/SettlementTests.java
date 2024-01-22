@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-结算")
-public class SettlementCarTests {
+public class SettlementTests {
 
     @MethodSource("com.miller.userapp.order.shopping.settlement.provider.SettlementDataProvider#settlementProduct")
     @ParameterizedTest

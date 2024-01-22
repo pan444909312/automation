@@ -2,6 +2,7 @@ package com.miller.userapp;
 
 import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.create.CreateOrderByFoodCityTests;
+import com.miller.userapp.order.shopping.settlement.SettlementWithMemberTests;
 import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -21,6 +22,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        ShoppingCarTests.class,
         // 创建订单-结算
 //        SettlementCarTests.class,
+        // 创建订单-结算-会员结算
+        SettlementWithMemberTests.class,
         // 创建订单-平台配送
 //        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
@@ -28,9 +31,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 创建订单-用户自取
 //        CreateOrderByMyselfDeliveryTests.class,
         // 创建订单-美食城订单
-        CreateOrderByFoodCityTests.class,
+//        CreateOrderByFoodCityTests.class,
 //        // 支付订单
-        PayByBalanceTests.class,
+//        PayByBalanceTests.class,
 
         // 用户确认订单已送达。注意：需要订单被骑手派送完成之后执行
 //        ConfirmOrderStatusTests.class,
