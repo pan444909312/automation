@@ -1,10 +1,6 @@
 package com.miller.userapp.pay.balance.request;
 
 import com.hungrypanda.app.server.service.pay.pandapay.dto.AppBalancePaymentRequestDTO;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 请求对象_余额(礼品卡)支付

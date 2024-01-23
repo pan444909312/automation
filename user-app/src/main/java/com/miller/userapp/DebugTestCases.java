@@ -1,9 +1,7 @@
 package com.miller.userapp;
 
 import com.miller.userapp.login.UserLoginTests;
-import com.miller.userapp.order.create.CreateOrderByFoodCityTests;
 import com.miller.userapp.order.shopping.settlement.SettlementWithMemberTests;
-import com.miller.userapp.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
