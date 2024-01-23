@@ -12,5 +12,5 @@ import com.panda.erp.server.api.vo.auth.resp.LoginRespVO;
  * @version 1.0
  * @since 2023/12/26 17:56:16
  */
-public class LoginResponseDTO extends BasicResponseDTO<LoginRespVO> {
+public class ERPLoginResponseDTO extends BasicResponseDTO<LoginRespVO> {
 }

@@ -1,17 +1,11 @@
 package com.miller.userapp.order.refund.apply;
 
-import com.miller.erp.constants.ResponseConstantOfERP;
-import com.miller.erp.login.flow.LoginFlow;
-import com.miller.erp.manage.merchant.edit.businessinfo.flow.BusinessInfoEditFlow;
-import com.miller.erp.manage.merchant.edit.businessinfo.response.BusinessInfoEditResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.order.refund.apply.flow.ApplyRefundFlow;
 import com.miller.userapp.order.refund.apply.request.ApplyRefundRequestDTO;
 import com.miller.userapp.order.refund.apply.response.ApplyRefundResponseDTO;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -38,7 +32,6 @@ public class ApplyRefundTests {
         assertThat(applyRefundResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(applyRefundResponseDTO.getSuccess()).isTrue();
         assertThat(applyRefundResponseDTO.getResult().getOrderSn()).isNotNull();
-        // TODO 订单数据校验
     }
 
 }

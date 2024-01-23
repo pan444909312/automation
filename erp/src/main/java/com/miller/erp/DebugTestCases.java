@@ -1,6 +1,6 @@
 package com.miller.erp;
 
-import com.miller.erp.login.LoginTests;
+import com.miller.erp.login.ERPLoginTests;
 import com.miller.erp.service.customer.refund.duty.DutyTests;
 import com.miller.erp.service.customer.refund.list.RefundListTests;
 import org.junit.platform.suite.api.SelectClasses;
@@ -16,7 +16,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // ERP-登录
-        LoginTests.class,
+        ERPLoginTests.class,
 
         // ERP-编辑商家经营信息
 //         BusinessInfoEditTests.class,

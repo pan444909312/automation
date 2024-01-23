@@ -1,5 +1,6 @@
 package com.miller.takeaway.order.master.delivery.yourself;
 
+import com.miller.erp.login.ERPLoginTests;
 import com.miller.erp.service.customer.refund.duty.DutyTests;
 import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
@@ -52,7 +53,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         SubmitRefundTests.class,
 
         // ERP-登录
-        com.miller.erp.login.LoginTests.class,
+        ERPLoginTests.class,
         // ERP-客户服务-退款审核-定责
         DutyTests.class,
 

@@ -1,9 +1,9 @@
 package com.miller.erp.login;
 
 import com.miller.erp.constants.ResponseConstantOfERP;
-import com.miller.erp.login.flow.LoginFlow;
-import com.miller.erp.login.request.LoginRequestDTO;
-import com.miller.erp.login.response.LoginResponseDTO;
+import com.miller.erp.login.flow.ERPLoginFlow;
+import com.miller.erp.login.request.ERPLoginRequestDTO;
+import com.miller.erp.login.response.ERPLoginResponseDTO;
 import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("ERP-登录")
-public class LoginTests {
+public class ERPLoginTests {
     private static String token;
 
     @AfterAll
@@ -42,16 +42,16 @@ public class LoginTests {
         assertThat(RequestUtils.getHeaders().get("token")).isNotNull();
     }
 
-    @MethodSource("com.miller.erp.login.provider.LoginDataProvider#loginDataProviderFromDB")
+    @MethodSource("com.miller.erp.login.provider.ERPLoginDataProvider#loginDataProviderFromDB")
     @ParameterizedTest
     @DisplayName("正常流程_登录成功")
-    void shouldLoginSuccessfully(LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO loginResponseDTO = LoginFlow.loginReturnBodyObject(loginRequestDTO);
+    void shouldLoginSuccessfully(ERPLoginRequestDTO ERPLoginRequestDTO) {
+        ERPLoginResponseDTO ERPLoginResponseDTO = ERPLoginFlow.loginReturnBodyObject(ERPLoginRequestDTO);
 
-        assertThat(loginResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
-        assertThat(loginResponseDTO.getData().getToken()).isNotNull();
+        assertThat(ERPLoginResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+        assertThat(ERPLoginResponseDTO.getData().getToken()).isNotNull();
         // 获取token
-        token = loginResponseDTO.getData().getToken();
+        token = ERPLoginResponseDTO.getData().getToken();
     }
 
 }

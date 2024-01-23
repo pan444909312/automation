@@ -26,4 +26,10 @@ public class BusinessConstantOfERP {
      * token: ERP 认证令牌
      */
     public static String TOKEN = "";
+
+    /**
+     * ERP 后台老的项目接口请求域名。
+     * 前后端不分离的项目，代码工程在 platform
+     */
+    public static final String DOMAIN_TEST_BACKUP ="https://platform-test-backup.hungrypanda.cn";
 }

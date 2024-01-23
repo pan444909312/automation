@@ -1,7 +1,7 @@
 package com.miller.userapp.order.create;
 
 import com.miller.erp.constants.ResponseConstantOfERP;
-import com.miller.erp.login.flow.LoginFlow;
+import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.merchant.edit.businessinfo.flow.BusinessInfoEditFlow;
 import com.miller.erp.manage.merchant.edit.businessinfo.request.BusinessInfoEditRequestDTO;
 import com.miller.erp.manage.merchant.edit.businessinfo.response.BusinessInfoEditResponseDTO;
@@ -43,7 +43,7 @@ public class CreateOrderByMerchantDeliveryTests {
     @BeforeAll
     static void beforeAll() {
         // ERP 登录
-        LoginFlow.loginByDefaultUser();
+        ERPLoginFlow.loginByDefaultUser();
         // 修改配送方式为商家配送
         BusinessInfoEditResponseDTO businessInfoEditResponseDTO = BusinessInfoEditFlow.businessInfoEdit(getBusinessInfoEditRequestDTO(0));
         assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
