@@ -22,10 +22,10 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //         BusinessInfoEditTests.class,
 
         // 客户服务-退款审核-根据订单查询特殊单ID
-        RefundListTests.class,
+//        RefundListTests.class,
 
         // ERP-客户服务-退款审核-定责
-        DutyTests.class,
+//        DutyTests.class,
 
 })
 //@SelectPackages("com.miller.erp")
