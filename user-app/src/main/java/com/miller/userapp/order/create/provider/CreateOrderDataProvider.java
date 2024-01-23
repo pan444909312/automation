@@ -169,4 +169,44 @@ public class CreateOrderDataProvider {
 
         return Stream.of(Arguments.of(createOrderByFoodCity));
     }
+
+    /**
+     * 创建订单数据提供者_平台配送-会员合单。用户在下单时购买会员.
+     */
+    static Stream<Arguments> createOrderByPlatformDeliveryWithMember() {
+        CreateOrderRequestDTO createOrderByPlatformDeliveryWithMember = new CreateOrderRequestDTO();
+        createOrderByPlatformDeliveryWithMember.setAddressId(TestCaseDataForUserConstant.addressId);
+        // 0=商家配送；1=平台配送；2=自取
+        createOrderByPlatformDeliveryWithMember.setDeliveryType("1");
+        createOrderByPlatformDeliveryWithMember.setDeliveryTime("尽快送达");
+        createOrderByPlatformDeliveryWithMember.setIsOnlinePay(true);
+        // 为什么前端传的是1，服务器用的是  boolean
+        createOrderByPlatformDeliveryWithMember.setNeedNumberMasking(true);
+        createOrderByPlatformDeliveryWithMember.setPayType(16);
+        createOrderByPlatformDeliveryWithMember.setPlatform("1");
+        createOrderByPlatformDeliveryWithMember.setUseVoucherTemplate(0);
+        createOrderByPlatformDeliveryWithMember.setRemark("【自动化测试】创建订单");
+        // 选择自取时需要传联系电话。但是我发现配送传这个字段也没关系
+        createOrderByPlatformDeliveryWithMember.setUserPhone("86 18711110002");
+        createOrderByPlatformDeliveryWithMember.setTablewareCount(1);
+        createOrderByPlatformDeliveryWithMember.setOrderReqType(1);
+
+        // 会员合单之后的商品价格。无需动态查询，初始化数据时就应当指定好的值。
+        createOrderByPlatformDeliveryWithMember.setFixedPrice(12500);
+        // 会员合单相关参数
+        createOrderByPlatformDeliveryWithMember.setMemberCityId(TestCaseDataForUserConstant.memberCityId);
+        createOrderByPlatformDeliveryWithMember.setMemberBuyType(1);
+        createOrderByPlatformDeliveryWithMember.setMemberCombinedType(0);
+
+        // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
+        // createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
+        List<ProductCart> productCarts = new ArrayList<>();
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCarts.add(productCart);
+        createOrderByPlatformDeliveryWithMember.setProductCartList(JSON.toJSONString(productCarts));
+        createOrderByPlatformDeliveryWithMember.setShopId(TestCaseDataForMerchantConstant.shopId);
+        return Stream.of(Arguments.of(createOrderByPlatformDeliveryWithMember));
+    }
 }
