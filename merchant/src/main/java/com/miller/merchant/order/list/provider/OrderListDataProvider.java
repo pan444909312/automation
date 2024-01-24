@@ -1,5 +1,6 @@
 package com.miller.merchant.order.list.provider;
 
+import com.miller.merchant.constants.BusinessConstant;
 import com.miller.merchant.order.list.request.OrderListRequestDTO;
 import com.miller.merchant.util.RequestUtils;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,7 +25,7 @@ public class OrderListDataProvider {
         // TODO 从数据库中获取数据
         OrderListRequestDTO orderListRequestDTO = new OrderListRequestDTO();
         // 这个请求体里面的tokens是从登录返回的字段获取的
-        var tokens = RequestUtils.getHeaders().get("authorization").toString();
+        var tokens = RequestUtils.getHeaders().get(BusinessConstant.authorization).toString();
         orderListRequestDTO.setTokens(tokens);
         /*
          * 订单状态: 1(待接单列表); 2(备餐中列表); 3(待取餐列表); 4(配送中列表)

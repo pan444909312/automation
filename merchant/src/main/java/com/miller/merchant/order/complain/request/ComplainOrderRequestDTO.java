@@ -3,11 +3,15 @@ package com.miller.merchant.order.complain.request;
 import lombok.Data;
 
 /**
- * 商家催骑手请求对象
+ * 请求对象_商家催骑手
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一请求对象。
  * 这里之所以包装了一层是因为对请求字段可能需要二次处理，比如：加密、验签等.
  * 测试用例最终发送请求时需要使用{@code RequestUtils}类对请求字段做统一的二次处理。
+ * </p>
+ *
+ * <p>
+ * 此接口在 app-server 代码工程中，无法引用开发的代码
  * </p>
  *
  * @author Miller Shan

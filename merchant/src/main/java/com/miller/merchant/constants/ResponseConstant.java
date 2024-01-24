@@ -16,5 +16,4 @@ public class ResponseConstant implements Serializable {
      * 业务响应的状态码
      */
     public static final Integer resultCode = PResultCode.SUCCESS.getCode();
-
 }

@@ -1,7 +1,6 @@
 package com.miller.merchant.order.waiting.lack;
 
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
-import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.constants.ResponseConstant;
 import com.miller.merchant.manage.product.flow.ProductOnOrOffFlow;
 import com.miller.merchant.manage.product.request.ProductOnOrOffRequestDTO;
@@ -10,6 +9,7 @@ import com.miller.merchant.order.waiting.lack.request.OrderLackProductRequestDTO
 import com.miller.merchant.order.waiting.lack.response.OrderLackProductResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.panda.product.server.api.constant.ProductEnum;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,7 +38,7 @@ public class OrderChangeMenuTests {
     void afterEach() {
         ProductOnOrOffRequestDTO productOnOrOffRequestDTO = new ProductOnOrOffRequestDTO();
         productOnOrOffRequestDTO.setProductIds(List.of(TestCaseDataForMerchantConstant.productId));
-        productOnOrOffRequestDTO.setStatus(0);
+        productOnOrOffRequestDTO.setStatus(ProductEnum.ProductOnOff.ON.getCode());
         ProductOnOrOffFlow.productOnOrOff(productOnOrOffRequestDTO);
     }
 

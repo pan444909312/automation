@@ -1,6 +1,5 @@
 package com.miller.userapp.order.evaluate.provider;
 
-import com.hungrypanda.app.server.common.enums.product.ProductLabelEnum;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
@@ -28,7 +27,7 @@ public class EvaluateOrderDataProvider {
         evaluateOrderRequestDTOByDelivery.setOrderSn(orderSn);
 
         // 是否匿名评价。0/true：匿名评价；1/false:非匿名评价
-        evaluateOrderRequestDTOByDelivery.setAnonymousFlag(false);
+        evaluateOrderRequestDTOByDelivery.setAnonymousFlag(Boolean.FALSE);
         evaluateOrderRequestDTOByDelivery.setComposite(100);
         evaluateOrderRequestDTOByDelivery.setDriverEvaluate(1);
         evaluateOrderRequestDTOByDelivery.setDeliveryRemark("【自动化测试】骑手评价语");

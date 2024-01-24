@@ -180,8 +180,8 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setEntityLombokModel(true);
-        strategy.setRestControllerStyle(true);
+        strategy.setEntityLombokModel(Boolean.TRUE);
+        strategy.setRestControllerStyle(Boolean.TRUE);
         // 读取控制台输入的表名
         // strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         // 读取数据库的所有表名

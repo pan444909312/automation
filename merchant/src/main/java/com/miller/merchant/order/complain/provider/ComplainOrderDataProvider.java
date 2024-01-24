@@ -10,6 +10,9 @@ import java.util.stream.Stream;
 
 /**
  * 商家催骑手数据提供者
+ * <p>
+ * 此接口在 app-server 代码工程中，无法引用开发的代码
+ * </p>
  *
  * @author Miller Shan
  * @version 1.0
@@ -24,8 +27,6 @@ public class ComplainOrderDataProvider {
         String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         complainOrderRequestDTO.setOrderSn(orderSn);
         complainOrderRequestDTO.setComplainType(1);
-        return Stream.of(
-                Arguments.of(complainOrderRequestDTO)
-        );
+        return Stream.of(Arguments.of(complainOrderRequestDTO));
     }
 }

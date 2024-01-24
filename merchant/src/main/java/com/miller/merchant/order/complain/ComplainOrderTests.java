@@ -15,6 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * 测试用例_商家崔骑手
  *
+ * <p>
+ * 此接口在 app-server 代码工程中，无法引用开发的代码
+ * </p>
+ *
  * @author Miller Shan
  * @version 1.0
  * @since 2023/12/21 20:07:44
@@ -31,6 +35,5 @@ public class ComplainOrderTests {
         ComplainOrderResponseDTO complainOrderResponseDTO = ComplainOrderFlow.complainOrder(complainOrderRequestDTO);
         assertThat(complainOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(complainOrderResponseDTO.getSuccess()).isTrue();
-        // TODO 订单数据校验
     }
 }

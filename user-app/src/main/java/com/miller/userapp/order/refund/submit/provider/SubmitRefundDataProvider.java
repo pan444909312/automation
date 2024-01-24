@@ -1,5 +1,7 @@
 package com.miller.userapp.order.refund.submit.provider;
 
+import com.hungrypanda.app.server.common.enums.RefundReasonEnum;
+import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.vo.order.RefundDetailVO;
 import com.hungrypanda.app.server.vo.order.req.RefundProductReq;
 import com.miller.data.center.user.CreateOrderResponseDTO;
@@ -9,6 +11,7 @@ import com.miller.userapp.order.refund.apply.flow.ApplyRefundFlow;
 import com.miller.userapp.order.refund.apply.request.ApplyRefundRequestDTO;
 import com.miller.userapp.order.refund.apply.response.ApplyRefundResponseDTO;
 import com.miller.userapp.order.refund.submit.request.SubmitRefundRequestDTO;
+import com.panda.common.enums.refund.RefundOrderTypeEnum;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.ArrayList;
@@ -36,16 +39,16 @@ public class SubmitRefundDataProvider {
         // 提交退款申请之前需要先发起退款申请，然后从申请的响应结果中获取数据
         ApplyRefundRequestDTO applyRefundRequestDTO = new ApplyRefundRequestDTO();
         applyRefundRequestDTO.setOrderSn(orderSn);
-        applyRefundRequestDTO.setOrderType(1);
+        applyRefundRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
         ApplyRefundResponseDTO applyRefundResponseDTO = ApplyRefundFlow.applyRefund(applyRefundRequestDTO);
 
         // 构造提交退款请求数据
-        submitRefundRequestDTO.setOrderType(1);
-        submitRefundRequestDTO.setRefundType(1);
+        submitRefundRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
+        submitRefundRequestDTO.setRefundType(RefundOrderTypeEnum.TAKE_AWAY.getValue());
         submitRefundRequestDTO.setSupplementReason("【自动化测试】用户发起退款申请，并提交");
         submitRefundRequestDTO.setOrderSn(orderSn);
         // 退款原因ID: 7-其他原因
-        submitRefundRequestDTO.setRefundReasonId("7");
+        submitRefundRequestDTO.setRefundReasonId(RefundReasonEnum.REFUND_REASON_7.getCode());
         // 退款默认图片
         submitRefundRequestDTO.setRefundReasonImg("https://static.hungrypanda.co/panda/170382959698093da98e35372419ca8b19d4fd2367057.jpg");
 

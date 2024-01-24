@@ -3,6 +3,7 @@ package com.miller.userapp.order.shopping.car.provider;
 import com.hungrypanda.app.server.dto.order.cart.ShoppingCartDO;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.userapp.order.shopping.car.request.ShoppingCarRequestDTO;
+import com.panda.common.enums.DeliveryTypeEnum;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class ShoppingCarDataProvider {
      */
     static Stream<Arguments> addProductToShoppingCar() {
         ShoppingCarRequestDTO shoppingCarRequestDTO = new ShoppingCarRequestDTO();
-        shoppingCarRequestDTO.setDeliveryType(1);
+        shoppingCarRequestDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
         shoppingCarRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
 
         // 构造商品列表

@@ -28,7 +28,7 @@ public class OutingOrderDataProvider {
          * true：当订单超时时客户端会弹出浮层提示用户是否确认，用户点击确认之后参数变为false
          * false: 直接出餐不校验异常信息
          */
-        outingOrderRequestDTO.setIsNeedVerifyException(false);
+        outingOrderRequestDTO.setIsNeedVerifyException(Boolean.FALSE);
         return Stream.of(Arguments.of(outingOrderRequestDTO)
         );
     }
