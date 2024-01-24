@@ -31,8 +31,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户-支付-余额支付-会员合单
         PayByBalanceWithMemberTests.class,
 
-        // 删除用户购买的会员
-
         // 商家登录APP
         MerchantLoginTests.class,
         // 商家接单
