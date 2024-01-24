@@ -42,7 +42,7 @@ public class PayByBalanceWithMemberTests {
      删除用户开通的会员，需要在支付完成的时候删除开通的会员，创建订单还未支付并不会创建会员
      */
     @AfterEach
-    void afterEach() throws InterruptedException {
+    void afterEach(){
         ERPLoginFlow.loginByDefaultUser();
         String memberID = MemberListFlow.getIDByMemberName(UserLoginFlow.getCurrentUserInfo().getResult().getUserName());
         MemberDeleteFlow.deleteMemberById(memberID);
