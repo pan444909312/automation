@@ -6,7 +6,6 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -35,10 +34,4 @@ public class CreateOrderByPlatformDeliveryWithMemberTests {
         assertThat(createOrderResponseDTO.getResult().getOrderSn()).isNotNull();
         // 会员合单计算逻辑在结算测试用例中进行校验
     }
-
-    @AfterEach
-    void afterEach() {
-        // 删除用户开通的会员，需要在支付完成的时候删除开通的会员，创建订单还未支付并不会创建会员
-    }
-
 }
