@@ -48,7 +48,7 @@ public class MemberListFlow {
         String responseBody = HttpUtils.sendGetRequestReturnBody(uri, params, RequestUtils.getHeaders(), null);
         Document document = Jsoup.parse(responseBody);
         // 从字符串：到期时间 操作 18924 18711110002 东东测试用户0002 中解析出主键ID
-        return document.text().split("18711110002")[0].split("操作")[1].trim();
+        return document.text().split(userName)[0].split("操作")[1].trim();
     }
 
     @Disabled("仅针对当前类中的方法进行测试或调试使用")
