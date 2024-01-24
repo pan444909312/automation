@@ -22,16 +22,15 @@ public class UserLoginDataProvider {
      */
     static Stream<Arguments> loginData() {
         // TODO 假设这里的数据是从数据库或Redis查询出来的数据。后续会提供数据自动注入，这样就不用自己set数据了。
-        UserLoginRequestDTO user1 = new UserLoginRequestDTO();
-        user1.setAreaCode("86");
-        user1.setAccount("18711110002");
-        user1.setPassword(MD5Util.string2MD5("Test123456"));
-        user1.setCityName("九江市");
-        user1.setType(2);
-        user1.setDistinctId("0721CD44-5090-42F5-A0B1-8D2F29B85BF5");
+        UserLoginRequestDTO user = new UserLoginRequestDTO();
+        user.setAreaCode("86");
+        user.setAccount("18711110002");
+        user.setPassword(MD5Util.string2MD5("Test123456"));
+        user.setType(2);
+        user.setDistinctId("202c7d3739966521");
 
         return Stream.of(
-                arguments(user1)
+                arguments(user)
         );
     }
 }

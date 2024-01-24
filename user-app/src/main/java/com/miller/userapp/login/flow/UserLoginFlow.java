@@ -23,6 +23,8 @@ public class UserLoginFlow {
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/combine/login";
 
+    private static UserLoginResponseDTO userLoginResponseDTO;
+
     /**
      * 原生的请求发送工具，包含响应的所有内容
      *
@@ -33,8 +35,26 @@ public class UserLoginFlow {
         var header = new HashMap<String, Object>();
         header.put("Content-Type", "application/json");
         RequestUtils.setHeaders(header);
-        return HttpUtils.sendPostRequest(uri, null,
+        Map<String, Object> objectMap = HttpUtils.sendPostRequest(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(userLoginRequestDTO), null);
+        // 当前登录的用用户信息
+        userLoginResponseDTO = null;
+        userLoginResponseDTO = JSON.parseObject(
+                String.valueOf(
+                        ((Map<String, Object>) objectMap.get("body"))
+                                // 获取响应体的 body 字符串
+                                .get("body")
+                ), UserLoginResponseDTO.class);
+        return objectMap;
+    }
+
+    /**
+     * 获取当前登录的用户信息
+     *
+     * @return {@link UserLoginResponseDTO}
+     */
+    public static UserLoginResponseDTO getCurrentUserInfo() {
+        return userLoginResponseDTO;
     }
 
     /**
