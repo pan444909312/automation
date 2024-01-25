@@ -1,7 +1,7 @@
 package com.miller.deliveryapp.driver.online.provider;
 
-import com.miller.common.util.MD5Util;
 import com.miller.deliveryapp.driver.online.request.DriverOnlineRequestDTO;
+import com.panda.delivery.app.server.common.enums.DriverOnOffLineEnum;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
@@ -23,7 +23,7 @@ public class DriverOnlineDataProvider {
     static Stream<Arguments> driverOnlineDataProvider() {
         // TODO 假设这里的数据是从数据库或Redis查询出来的数据。后续会提供数据自动注入，这样就不用自己set数据了。
         DriverOnlineRequestDTO driverOnlineRequestDTO = new DriverOnlineRequestDTO();
-        driverOnlineRequestDTO.setIsOnline(Byte.valueOf("1"));
+        driverOnlineRequestDTO.setIsOnline(Byte.valueOf(String.valueOf(DriverOnOffLineEnum.YES.getType())));
 
         return Stream.of(
                 arguments(driverOnlineRequestDTO)
