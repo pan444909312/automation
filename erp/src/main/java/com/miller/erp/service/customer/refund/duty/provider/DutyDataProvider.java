@@ -1,5 +1,6 @@
 package com.miller.erp.service.customer.refund.duty.provider;
 
+import com.hungrypanda.common.enums.refund.CompensateTypeEnum;
 import com.miller.data.center.user.CreateOrderResponseDTO;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.erp.service.customer.refund.duty.request.DutyRequestDTO;
@@ -8,6 +9,8 @@ import com.miller.erp.service.customer.refund.list.request.RefundListRequestDTO;
 import com.miller.erp.service.customer.refund.list.response.RefundListResponseDTO;
 import com.miller.service.framework.cache.CacheUtils;
 import com.panda.erp.server.common.dto.refund.resp.RefundRecordVo;
+import com.panda.order.server.api.enums.refund.RefundDutyShowEnum;
+import com.panda.order.server.api.enums.refund.RefundProblemEnum;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.List;
@@ -33,10 +36,10 @@ public class DutyDataProvider {
 
         // 构造定责数据
         DutyRequestDTO dutyRequestDTO = new DutyRequestDTO();
-        dutyRequestDTO.setDuty(2);
-        dutyRequestDTO.setProblem(2010);
+        dutyRequestDTO.setDuty(RefundDutyShowEnum.PLATFORM.getCode());
+        dutyRequestDTO.setProblem(RefundProblemEnum.PROBLEM_2010.getCode());
         dutyRequestDTO.setRemark("【自动化测试】ERP后台人工审核定责备注字段。");
-        dutyRequestDTO.setCompensateType(2);
+        dutyRequestDTO.setCompensateType(CompensateTypeEnum.DIRECT_COMPENSATE_DUTY.getValue());
         // 特殊单 ID
         Long id = null;
         List<RefundRecordVo> refundList = refundListResponseDTO.getData();
