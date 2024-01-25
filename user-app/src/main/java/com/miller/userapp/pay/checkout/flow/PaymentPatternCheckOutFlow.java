@@ -41,14 +41,21 @@ public class PaymentPatternCheckOutFlow {
      * @return 合单ID
      */
     public static String getOrderCombineSn(String orderSn) {
+        return getOrderCombineInfo(orderSn).getResult().getCheckStandCombinedDTO().getOrderCombinedSn();
+    }
+
+    /**
+     * 根据订单ID查询合单信息
+     *
+     * @param orderSn 普通订单ID
+     * @return {@link PaymentPatternCheckOutResponseDTO }
+     */
+    public static PaymentPatternCheckOutResponseDTO getOrderCombineInfo(String orderSn) {
         // 查询合单ID
         var paymentPatternCheckOutRequestDTO = new PaymentPatternCheckOutRequestDTO();
         paymentPatternCheckOutRequestDTO.setOrderSn(orderSn);
         paymentPatternCheckOutRequestDTO.setPaymentType(PaymentEnum.ORDER_PAY.getValue());
-        var paymentPatternCheckOut = getPaymentPatternCheckOut(paymentPatternCheckOutRequestDTO);
-        // 合单ID，而不是订单ID
-        var orderCombinedSn = paymentPatternCheckOut.getResult().getCheckStandCombinedDTO().getOrderCombinedSn();
-        return orderCombinedSn;
+        return getPaymentPatternCheckOut(paymentPatternCheckOutRequestDTO);
     }
 
 }

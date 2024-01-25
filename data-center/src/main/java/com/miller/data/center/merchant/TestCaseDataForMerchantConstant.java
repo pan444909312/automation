@@ -28,6 +28,25 @@ public class TestCaseDataForMerchantConstant {
      */
     public static Long productId = 81669204L;
     public static Long skuId = 0L;
+    /**
+     * 自动化测试专用外卖代金券
+     * 券ID: 8201ZEFNW2
+     * 券类型: 外卖代金券（线上）
+     * 关联店铺: 东东测试商家·玩具屋·自动化测试·勿动，"shopId": 59750820,
+     * 券内商家名称: 满10减5
+     * 单个面值: 10
+     * 门槛: 无门槛
+     * 数量: 1
+     * 单个售价: 5
+     * 总售价: 5
+     * 生效时间: 999
+     * 每日单用户限购: 无限
+     * 单个分摊（金额）: 平台承担 0 商家承担 0
+     * 平台抽成: 无
+     * 券消费税: 无
+     * 运营活动: 东东测试代金券
+     */
+    public static String voucherSn = "8201ZEFNW2";
 
     // 第二组数据：美食城商家。
     /**

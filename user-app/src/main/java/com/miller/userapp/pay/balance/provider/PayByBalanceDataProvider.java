@@ -41,9 +41,9 @@ public class PayByBalanceDataProvider {
     }
 
     /**
-     * 余额支付-会员合单类型
+     * 余额支付-会员合单/代金券合单
      */
-    static Stream<Arguments> payByBalanceWithMember() {
+    static Stream<Arguments> payByBalanceWithCombined() {
         // 订单支付数据
         var payOfOrder = new PayByBalanceRequestDTO();
         // 从缓存中获取订单ID

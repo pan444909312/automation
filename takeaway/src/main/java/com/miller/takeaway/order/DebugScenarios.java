@@ -2,6 +2,7 @@ package com.miller.takeaway.order;
 
 import com.miller.service.framework.listenner.TestExecuteListener;
 import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithMemberScenarioTests;
+import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithVoucherScenarioTests;
 import com.miller.takeaway.order.branch.refund.OrderOfPlatformDeliveryAutoRefundScenarioTests;
 import com.miller.takeaway.order.branch.settlement.SettlementContainMemberScenarioTests;
 import com.miller.takeaway.order.branch.settlement.SettlementContainPackageDeliveryFeeScenarioTests;
@@ -70,6 +71,8 @@ import static org.junit.platform.launcher.TagFilter.includeTags;
         OrderOfPlatformDeliveryAutoRefundScenarioTests.class,
         // 【分支场景】【平台配送】【会员合单】用户下单时开通会员
         OrderOfPlatformDeliveryWithMemberScenarioTests.class,
+        // 【分支场景】【平台配送】【代金券合单】用户下单时购买代金券
+        OrderOfPlatformDeliveryWithVoucherScenarioTests.class,
         // 【分支场景】【订单结算】订单金额 = 商品小计 + 打包费 + 配送费
         SettlementContainPackageDeliveryFeeScenarioTests.class,
         // 【分支场景】【订单结算】订单金额 = 商品小计 + 打包费 + 原配送费 + 开通会员价格 - 配送费VIP优惠金额

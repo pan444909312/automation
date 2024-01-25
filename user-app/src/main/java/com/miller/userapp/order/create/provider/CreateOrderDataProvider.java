@@ -196,7 +196,7 @@ public class CreateOrderDataProvider {
         createOrderByPlatformDeliveryWithMember.setTablewareCount(1);
         createOrderByPlatformDeliveryWithMember.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
 
-        // 会员合单之后的商品价格。无需动态查询，初始化数据时就应当指定好的值。
+        // 会员合单之后的商品价格。无需动态查询，初始化数据时就应当指定好会员的价值。
         createOrderByPlatformDeliveryWithMember.setFixedPrice(12500);
         // 会员合单相关参数
         createOrderByPlatformDeliveryWithMember.setMemberCityId(TestCaseDataForUserConstant.memberCityId);
@@ -213,5 +213,48 @@ public class CreateOrderDataProvider {
         createOrderByPlatformDeliveryWithMember.setProductCartList(JSON.toJSONString(productCarts));
         createOrderByPlatformDeliveryWithMember.setShopId(TestCaseDataForMerchantConstant.shopId);
         return Stream.of(Arguments.of(createOrderByPlatformDeliveryWithMember));
+    }
+
+
+    /**
+     * 创建订单数据提供者_平台配送-代金券合单。用户在下单时购买代金券
+     */
+    static Stream<Arguments> createOrderByPlatformDeliveryWithVoucher() {
+        CreateOrderRequestDTO createOrderByPlatformDeliveryWithVoucher = new CreateOrderRequestDTO();
+        createOrderByPlatformDeliveryWithVoucher.setAddressId(TestCaseDataForUserConstant.addressId);
+        // 0=商家配送；1=平台配送；2=自取
+        createOrderByPlatformDeliveryWithVoucher.setDeliveryType(String.valueOf(DeliveryTypeEnum.third_party.getCode()));
+        createOrderByPlatformDeliveryWithVoucher.setDeliveryTime("尽快送达");
+        createOrderByPlatformDeliveryWithVoucher.setIsOnlinePay(Boolean.TRUE);
+        // 为什么前端传的是1，服务器用的是  boolean
+        createOrderByPlatformDeliveryWithVoucher.setNeedNumberMasking(Boolean.TRUE);
+        createOrderByPlatformDeliveryWithVoucher.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        createOrderByPlatformDeliveryWithVoucher.setPlatform(String.valueOf(PlatformEnum.ANDROID.getCode()));
+        createOrderByPlatformDeliveryWithVoucher.setRemark("【自动化测试】创建订单");
+        // 选择自取时需要传联系电话。但是我发现配送传这个字段也没关系
+        createOrderByPlatformDeliveryWithVoucher.setUserPhone("86 18711110002");
+        createOrderByPlatformDeliveryWithVoucher.setTablewareCount(1);
+        createOrderByPlatformDeliveryWithVoucher.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        createOrderByPlatformDeliveryWithVoucher.setShopId(TestCaseDataForMerchantConstant.shopId);
+
+        // 代金劵合单之后的商品价格。无需动态查询，初始化数据时就应当指定好代金券的价格。
+        createOrderByPlatformDeliveryWithVoucher.setFixedPrice(11500);
+        createOrderByPlatformDeliveryWithVoucher.setMemberBuyType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        createOrderByPlatformDeliveryWithVoucher.setMemberCombinedType(MemberCombinedTypeEnum.MEMBER_NO.getOpenBizType());
+        // 代金券单相关参数
+        createOrderByPlatformDeliveryWithVoucher.setUseVoucherTemplate(VoucherStatusEnum.USED.getCode());
+        createOrderByPlatformDeliveryWithVoucher.setVoucherSn(TestCaseDataForMerchantConstant.voucherSn);
+
+
+        // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
+        // createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
+        List<ProductCart> productCarts = new ArrayList<>();
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCarts.add(productCart);
+        createOrderByPlatformDeliveryWithVoucher.setProductCartList(JSON.toJSONString(productCarts));
+        createOrderByPlatformDeliveryWithVoucher.setShopId(TestCaseDataForMerchantConstant.shopId);
+        return Stream.of(Arguments.of(createOrderByPlatformDeliveryWithVoucher));
     }
 }
