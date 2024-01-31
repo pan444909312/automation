@@ -4,6 +4,7 @@ import com.hungrypanda.common.enums.shop.ShopTypeEnum;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.erp.manage.merchant.edit.businessinfo.request.BusinessInfoEditRequestDTO;
 import com.panda.common.enums.DeliveryTypeEnum;
+import com.panda.common.enums.LanguageEnum;
 import com.panda.merchant.server.api.constant.MerchantEnum;
 import com.panda.merchant.server.api.dto.info.PhoneInfo;
 import com.panda.merchant.server.api.dto.merchant.module.ImageModuleDTO;
@@ -53,7 +54,7 @@ public class BusinessInfoEditDataProvider {
         // shopSiteList 字段
         merchantModuleOperationInfoDTO.setShopSiteList(List.of(MerchantEnum.ShopSiteEnum.HP));
 
-        merchantModuleOperationInfoDTO.setLang(List.of("EN", "CN"));
+        merchantModuleOperationInfoDTO.setLang(List.of(LanguageEnum.CN.getKey(), LanguageEnum.EN.getKey()));
 
         TaxTypeModuleDTO taxTypeModuleDTO = new TaxTypeModuleDTO();
         taxTypeModuleDTO.setTaxRate(BigDecimal.ZERO);
