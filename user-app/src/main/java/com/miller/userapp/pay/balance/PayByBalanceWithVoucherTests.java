@@ -71,12 +71,8 @@ public class PayByBalanceWithVoucherTests {
         for (int i = 0; i < historyOrderList.size(); i++) {
             OrderListVO orderListVO = historyOrderList.get(i);
             String voucherOrderSn = orderListVO.getVoucherOrderSn();
-            if (voucherIds.contains(voucherOrderSn)) {
-                break;
-            }
-            if (i == historyOrderList.size() - 1) {
-                Assertions.fail("订单列表中不存在代金券购买的订单");
-            }
+            if (voucherIds.contains(voucherOrderSn)) break;
+            if (i == historyOrderList.size() - 1) Assertions.fail("订单列表中不存在代金券购买的订单");
         }
     }
 }
