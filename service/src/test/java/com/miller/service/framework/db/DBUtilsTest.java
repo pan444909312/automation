@@ -26,9 +26,9 @@ import static org.hamcrest.Matchers.nullValue;
  */
 @Disabled
 public class DBUtilsTest {
-    private static String mySqlUrl = "jdbc:mysql://121.43.119.63:3306/ct_dev";
-    private static String userName = "root";
-    private static String passWord = "autotest#123";
+    private static final String mySqlUrl = "jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com:3306/ct_test";
+    private static final String userName = "automation";
+    private static final String passWord = "20AR@UJsobwLBdih";
     private static DBUtils dbUtils;
 
     @BeforeAll
@@ -93,8 +93,7 @@ public class DBUtilsTest {
     @Test
     public void testExecuteInsertSql() {
         // Given
-        String sql = null;
-        sql = "INSERT INTO `issues` (`issue_id`, `title`, `description`, `status`, `create_time`, `update_time`, `creator`, `update_user`, `project_id`, `handler`) " + "VALUES (?, 'aaa', 'aaa', '1', '1676609583092', '1676609583092', 'admin@aliyun.com', " + "'admin@aliyun.com', 'c0c42460-5945-464b-b8da-f869e979ca28', 'miller.shan@aliyun.com')";
+        String sql = "INSERT INTO `issues` (`issue_id`, `title`, `description`, `status`, `create_time`, `update_time`, `creator`, `update_user`, `project_id`, `handler`) " + "VALUES (?, 'aaa', 'aaa', '1', '1676609583092', '1676609583092', 'admin@aliyun.com', " + "'admin@aliyun.com', 'c0c42460-5945-464b-b8da-f869e979ca28', 'miller.shan@aliyun.com')";
 
         // When. sql 语句中？占位符的值
         Integer updateResult = dbUtils.executeInsertOrUpdateOrDelete(sql, ULIDUtils.generateULID());
@@ -142,7 +141,7 @@ public class DBUtilsTest {
     @Test
     public void testInvokedSpringJdbcTemplateMethodButMethodIsOverride() {
         // Given
-        String sql = "UPDATE `ct_dev`.`issues` SET `title` = 'test' WHERE (`issue_id` = ?)";
+        String sql = "UPDATE `issues` SET `title` = 'test' WHERE (`issue_id` = ?)";
         // When
         int[] ints = dbUtils.getJdbcTemplate().batchUpdate(sql, Stream.of(new Object[]{"111"}, new Object[]{"222"}).collect(Collectors.toList()));
         // Then
