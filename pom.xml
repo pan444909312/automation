@@ -327,6 +327,13 @@
                 <artifactId>ehcache</artifactId>
                 <version>3.10.8</version>
             </dependency>
+            <!-- 数据库测试工具 Rider -->
+            <dependency>
+                <groupId>com.github.database-rider</groupId>
+                <artifactId>rider-junit5</artifactId>
+                <version>1.41.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
