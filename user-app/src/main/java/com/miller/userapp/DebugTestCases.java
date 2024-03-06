@@ -1,10 +1,9 @@
 package com.miller.userapp;
 
 import com.miller.userapp.login.UserLoginTests;
-import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryWithVoucherTests;
-import com.miller.userapp.order.list.OrderListTests;
-import com.miller.userapp.order.shopping.settlement.SettlementWithMemberTests;
-import com.miller.userapp.pay.balance.PayByBalanceWithVoucherTests;
+import com.miller.userapp.pay.card.AddCardRecordTest;
+import com.miller.userapp.pay.card.CreatePaymentMethodTest;
+import com.miller.userapp.pay.card.GetPaymentMethodsTest;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -51,6 +50,13 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 用户-订单列表
 //        OrderListTests.class,
+        //用户-添加卡
+//        AddCardRecordTest.class
+
+        //用户-绑定stripe 卡
+        CreatePaymentMethodTest.class,
+        //用户-获取stripe 卡
+        GetPaymentMethodsTest.class
 
 })
 @SuiteDisplayName("调试多个测试用例")
