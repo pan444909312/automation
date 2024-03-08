@@ -1,9 +1,12 @@
 package com.miller.userapp;
 
 import com.miller.userapp.login.UserLoginTests;
+import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
+import com.miller.userapp.order.shopping.car.ShoppingCarTests;
 import com.miller.userapp.pay.card.AddCardRecordTest;
 import com.miller.userapp.pay.card.CreatePaymentMethodTest;
 import com.miller.userapp.pay.card.GetPaymentMethodsTest;
+import com.miller.userapp.pay.payment.StripePaymentOnlyTest;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -19,13 +22,13 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         UserLoginTests.class,
         // 添加商品到购物车
-//        ShoppingCarTests.class,
+        ShoppingCarTests.class,
         // 创建订单-结算
 //        SettlementCarTests.class,
         // 创建订单-结算-会员结算
 //        SettlementWithMemberTests.class,
         // 创建订单-平台配送
-//        CreateOrderByPlatformDeliveryTests.class,
+        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
 //        CreateOrderByMerchantDeliveryTests.class,
         // 创建订单-用户自取
@@ -53,10 +56,12 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         //用户-添加卡
 //        AddCardRecordTest.class
 
-        //用户-绑定stripe 卡
-        CreatePaymentMethodTest.class,
-        //用户-获取stripe 卡
-        GetPaymentMethodsTest.class
+//        //用户-绑定stripe 卡
+//        CreatePaymentMethodTest.class,
+//        //用户-获取stripe 卡
+//        GetPaymentMethodsTest.class,
+        //用户-Stripe Payment【需要先下单】
+//        StripePaymentOnlyTest.class
 
 })
 @SuiteDisplayName("调试多个测试用例")

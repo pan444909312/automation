@@ -2,17 +2,14 @@ package com.miller.userapp.pay.card;
 
 import com.alibaba.fastjson.JSON;
 import com.hungrypanda.payserver.api.res.PaymentMethodInfoDTO;
-import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.pay.card.flow.CreatePaymentMethodFlow;
 import com.miller.userapp.pay.card.flow.DetachPaymentMethodFlow;
 import com.miller.userapp.pay.card.flow.GetPaymentMethodsFlow;
 import com.miller.userapp.pay.card.request.CreatePaymentMethodRequestDTO;
 import com.miller.userapp.pay.card.request.DetachPaymentMethodRequestDTO;
-import com.miller.userapp.pay.card.request.GetPaymentMethodsRequestDTO;
 import com.miller.userapp.pay.card.response.CreatePaymentMethodResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,10 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CreatePaymentMethodTest {
     @BeforeEach
     void beforeEach(){
-        GetPaymentMethodsRequestDTO getPaymentMethodsRequestDTO = new GetPaymentMethodsRequestDTO();
-        List<PaymentMethodInfoDTO> paymentMethodList= GetPaymentMethodsFlow.getPaymentMethodList(getPaymentMethodsRequestDTO);
-        String cardMd5 = MD5Util.string2MD5(PaymentConstant.CARDNUMBER.replaceAll(" ",""));
-        PaymentMethodInfoDTO paymentMethod=paymentMethodList.stream().filter(paymentMethodInfo -> paymentMethodInfo.getCardNoMd5().equals(cardMd5)).findAny().orElse(null);
+        PaymentMethodInfoDTO paymentMethod= GetPaymentMethodsFlow.getPaymentMethod();
         if(Objects.nonNull(paymentMethod)){
             DetachPaymentMethodRequestDTO detachPaymentMethodRequestDTO = new DetachPaymentMethodRequestDTO();
             detachPaymentMethodRequestDTO.setPaymentMethodId(paymentMethod.getPaymentMethodId());

@@ -30,6 +30,7 @@ public class PaymentPatternCheckOutFlow {
     public static PaymentPatternCheckOutResponseDTO getPaymentPatternCheckOut(PaymentPatternCheckOutRequestDTO payByBalanceRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
         RequestUtils.getHeaders().put("Content-Type", "application/json");
+        RequestUtils.getHeaders().put("countryCode","SG");
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
                 RequestUtils.putBodyOfJson(payByBalanceRequestDTO), null, PaymentPatternCheckOutResponseDTO.class);
     }

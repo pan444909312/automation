@@ -1,11 +1,11 @@
 package com.miller.userapp.pay.card.flow;
 
 import com.hungrypanda.payserver.api.res.PaymentMethodInfoDTO;
+import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.pay.card.request.AddCardRecordRequestDTO;
+import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.pay.card.request.GetPaymentMethodsRequestDTO;
-import com.miller.userapp.pay.card.response.AddCardRecordResponseDTO;
 import com.miller.userapp.pay.card.response.GetPaymentMethodsResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
@@ -30,5 +30,12 @@ public class GetPaymentMethodsFlow {
         GetPaymentMethodsResponseDTO result = getPaymentMethods(paymentMethodsInfo);
         List<PaymentMethodInfoDTO> paymentMethods = result.getResult().getPaymentMethodList();
         return paymentMethods;
+    }
+    public static PaymentMethodInfoDTO getPaymentMethod(){
+        GetPaymentMethodsRequestDTO getPaymentMethodsRequestDTO = new GetPaymentMethodsRequestDTO();
+        List<PaymentMethodInfoDTO> paymentMethodList= getPaymentMethodList(getPaymentMethodsRequestDTO);
+        String cardMd5 = MD5Util.string2MD5(PaymentConstant.CARDNUMBER.replaceAll(" ",""));
+        PaymentMethodInfoDTO paymentMethod = paymentMethodList.stream().filter(paymentMethodInfo -> paymentMethodInfo.getCardNoMd5().equals(cardMd5)).findAny().orElse(null);
+        return paymentMethod;
     }
 }
