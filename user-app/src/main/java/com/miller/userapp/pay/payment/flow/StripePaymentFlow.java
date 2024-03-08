@@ -82,7 +82,6 @@ public class StripePaymentFlow {
         paramsBody.put("return_url","pandastripe://stripe-redirect");
         paramsBody.put("client_secret",clientSecret);
         paramsBody.put("use_stripe_sdk",true);
-        paramsBody.put("return_url","pandastripe://stripe-redirect");
         Map<String,Object> confirmResult = HttpUtils.sendPostRequest(SDKURL.replace("${paymentIntentId}",paymentIntentId),paramsBody,headers,null,null);
 //        System.out.println("confirmResult: "+JSON.toJSON(confirmResult));
     }
