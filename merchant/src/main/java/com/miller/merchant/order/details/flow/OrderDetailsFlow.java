@@ -18,6 +18,9 @@ public class OrderDetailsFlow {
 
     private static final String uri = BusinessConstant.DOMAIN + "/api/app/merchant/order/details";
 
+    /**
+     * 根据查询 ID 查询订单状态
+     */
     public static OrderDetailsResponseDTO getOrderDetails(OrderDetailsRequestDTO orderDetailsRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
         RequestUtils.getHeaders().put("Content-Type", "application/json");

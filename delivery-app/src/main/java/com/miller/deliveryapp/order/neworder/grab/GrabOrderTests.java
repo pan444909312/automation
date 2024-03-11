@@ -32,7 +32,6 @@ public class GrabOrderTests {
         GrabOrderResponseDTO grabOrderResponseDTO = GrabOrderFlow.grabOrder(grabOrderRequestDTO);
 
         assertThat(grabOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        // TODO 订单数据校验
     }
 
 }

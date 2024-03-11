@@ -1,5 +1,6 @@
 package com.miller.userapp.order.refund.apply.provider;
 
+import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.miller.data.center.user.CreateOrderResponseDTO;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.cache.CacheUtils;
@@ -19,9 +20,8 @@ import java.util.stream.Stream;
 public class ApplyRefundDataProvider {
 
     static Stream<Arguments> applyRefund() {
-        // 1. 选择配送方式数据
         ApplyRefundRequestDTO applyRefundRequestDTOByDelivery = new ApplyRefundRequestDTO();
-        applyRefundRequestDTOByDelivery.setOrderType(1);
+        applyRefundRequestDTOByDelivery.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
         // 从缓存中获取订单ID
         String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
         applyRefundRequestDTOByDelivery.setOrderSn(orderSn);

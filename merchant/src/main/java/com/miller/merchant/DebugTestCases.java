@@ -1,12 +1,6 @@
 package com.miller.merchant;
 
-import com.miller.merchant.login.LoginTests;
-import com.miller.merchant.manage.product.ProductOnOrOffTests;
-import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
-import com.miller.merchant.order.details.OrderDetailsTests;
-import com.miller.merchant.order.list.OrderListTests;
-import com.miller.merchant.order.waiting.lack.OrderChangeMenuTests;
-import com.miller.merchant.order.waiting.lack.OrderLackProductTests;
+import com.miller.merchant.login.MerchantLoginTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -20,7 +14,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 商家登录APP
-        LoginTests.class,
+        MerchantLoginTests.class,
         // 订单列表
 //        OrderListTests.class,
         // 商家-订单详情

@@ -2,6 +2,7 @@ package com.miller.merchant.manage.product.provider;
 
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.merchant.manage.product.request.ProductOnOrOffRequestDTO;
+import com.panda.product.server.api.constant.ProductEnum;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ProductOnOrOffDataProvider {
     static Stream<Arguments> productOnOrOff() {
         ProductOnOrOffRequestDTO productOnOrOffRequestDTO = new ProductOnOrOffRequestDTO();
         productOnOrOffRequestDTO.setProductIds(List.of(TestCaseDataForMerchantConstant.productId));
-        productOnOrOffRequestDTO.setStatus(0);
+        productOnOrOffRequestDTO.setStatus(ProductEnum.ProductOnOff.ON.getCode());
 
         return Stream.of(Arguments.of(productOnOrOffRequestDTO));
     }

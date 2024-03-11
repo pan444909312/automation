@@ -31,6 +31,5 @@ public class ReceivingOrderTests {
         ReceivingOrderResponseDTO receivingOrderResponseDTO = ReceivingOrderFlow.receivingOrder(receivingOrderRequestDTO);
         assertThat(receivingOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(receivingOrderResponseDTO.getSuccess()).isTrue();
-        // TODO 订单数据校验
     }
 }

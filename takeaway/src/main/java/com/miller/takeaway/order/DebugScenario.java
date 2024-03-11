@@ -1,16 +1,20 @@
 package com.miller.takeaway.order;
 
 import com.miller.deliveryapp.driver.online.DriverOnlineTests;
+import com.miller.deliveryapp.login.DeliveryLoginTests;
 import com.miller.deliveryapp.order.delivery.list.DeliveryListTests;
 import com.miller.deliveryapp.order.neworder.grab.GrabOrderTests;
 import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
 import com.miller.deliveryapp.order.pickup.list.PickUpListTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
+import com.miller.erp.login.ERPLoginTests;
 import com.miller.erp.service.customer.refund.duty.DutyTests;
+import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.list.OrderListTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
+import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.order.refund.submit.SubmitRefundTests;
@@ -28,14 +32,14 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        com.miller.userapp.login.LoginTests.class,
+        UserLoginTests.class,
         // 创建订单-平台配送
         CreateOrderByPlatformDeliveryTests.class,
         // 支付订单
         PayByBalanceTests.class,
 
         // 商家登录APP
-        com.miller.merchant.login.LoginTests.class,
+        MerchantLoginTests.class,
         // 订单列表
         OrderListTests.class,
         // 商家-待接单-缺菜-退菜-下架一小时
@@ -51,7 +55,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // MerchantConfirmUserReceivedOrderTests.class,
 
         // 骑手登录
-        com.miller.deliveryapp.login.LoginTests.class,
+        DeliveryLoginTests.class,
         // 上线
         DriverOnlineTests.class,
         // 新订单列表
@@ -76,7 +80,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户-申请售后->申请退款-提交
         SubmitRefundTests.class,
         // ERP-登录
-        com.miller.erp.login.LoginTests.class,
+        ERPLoginTests.class,
         // ERP-客户服务-退款审核-定责
         DutyTests.class,
 

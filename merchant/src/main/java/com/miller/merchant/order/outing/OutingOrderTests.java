@@ -31,6 +31,5 @@ public class OutingOrderTests {
         OutingOrderResponseDTO outingOrderResponseDTO = OutingOrderFlow.outingOrder(outingOrderRequestDTO);
         assertThat(outingOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(outingOrderResponseDTO.getSuccess()).isTrue();
-        // TODO 订单数据校验
     }
 }

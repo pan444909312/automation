@@ -8,7 +8,10 @@ import com.miller.service.framework.http.HttpUtils;
 
 
 /**
- * 商家催骑手流程
+ * 流程_商家催骑手
+ * <p>
+ * 此接口在 app-server 代码工程中，无法引用开发的代码
+ * </p>
  *
  * @author Miller Shan
  * @version 1.0
@@ -16,21 +19,18 @@ import com.miller.service.framework.http.HttpUtils;
  */
 public class ComplainOrderFlow {
     /**
-     * 商家催骑手接口
+     * 接口_商家催骑手
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/merchant/order/complain";
 
     /**
-     * 商家催骑手流程
+     * 商家催骑手
      */
     public static ComplainOrderResponseDTO complainOrder(ComplainOrderRequestDTO complainOrderRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
         RequestUtils.getHeaders().put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        ComplainOrderResponseDTO complainOrderResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(uri, null,
-                RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(complainOrderRequestDTO),
-                null, ComplainOrderResponseDTO.class);
 
-        return complainOrderResponseDTO;
+        return HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(), RequestUtils.putBodyOfForm(complainOrderRequestDTO), null, ComplainOrderResponseDTO.class);
     }
 
 }

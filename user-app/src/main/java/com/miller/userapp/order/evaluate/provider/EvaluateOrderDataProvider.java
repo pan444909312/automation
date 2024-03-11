@@ -27,7 +27,7 @@ public class EvaluateOrderDataProvider {
         evaluateOrderRequestDTOByDelivery.setOrderSn(orderSn);
 
         // 是否匿名评价。0/true：匿名评价；1/false:非匿名评价
-        evaluateOrderRequestDTOByDelivery.setAnonymousFlag(false);
+        evaluateOrderRequestDTOByDelivery.setAnonymousFlag(Boolean.FALSE);
         evaluateOrderRequestDTOByDelivery.setComposite(100);
         evaluateOrderRequestDTOByDelivery.setDriverEvaluate(1);
         evaluateOrderRequestDTOByDelivery.setDeliveryRemark("【自动化测试】骑手评价语");

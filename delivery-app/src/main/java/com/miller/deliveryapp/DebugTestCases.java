@@ -1,7 +1,7 @@
 package com.miller.deliveryapp;
 
 import com.miller.deliveryapp.driver.online.DriverOnlineTests;
-import com.miller.deliveryapp.login.LoginTests;
+import com.miller.deliveryapp.login.DeliveryLoginTests;
 import com.miller.deliveryapp.order.delivery.list.DeliveryListTests;
 import com.miller.deliveryapp.order.neworder.grab.GrabOrderTests;
 import com.miller.deliveryapp.order.neworder.list.NewOrderListTests;
@@ -20,7 +20,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 骑手登录
-        LoginTests.class,
+        DeliveryLoginTests.class,
         // 上线
         DriverOnlineTests.class,
         // 新订单列表

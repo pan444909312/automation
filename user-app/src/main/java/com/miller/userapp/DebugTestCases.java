@@ -1,16 +1,12 @@
 package com.miller.userapp;
 
-import com.miller.userapp.login.LoginTests;
-import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
-import com.miller.userapp.order.create.CreateOrderByMerchantDeliveryTests;
-import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
+import com.miller.userapp.login.UserLoginTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
-import com.miller.userapp.order.evaluate.EvaluateOrderTests;
-import com.miller.userapp.order.refund.apply.ApplyRefundTests;
-import com.miller.userapp.order.refund.submit.SubmitRefundTests;
 import com.miller.userapp.order.shopping.car.ShoppingCarTests;
-import com.miller.userapp.order.shopping.settlement.SettlementCarTests;
-import com.miller.userapp.pay.balance.PayByBalanceTests;
+import com.miller.userapp.pay.card.AddCardRecordTest;
+import com.miller.userapp.pay.card.CreatePaymentMethodTest;
+import com.miller.userapp.pay.card.GetPaymentMethodsTest;
+import com.miller.userapp.pay.payment.StripePaymentOnlyTest;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -24,17 +20,25 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        LoginTests.class,
+        UserLoginTests.class,
         // 添加商品到购物车
         ShoppingCarTests.class,
         // 创建订单-结算
-        SettlementCarTests.class,
+//        SettlementCarTests.class,
+        // 创建订单-结算-会员结算
+//        SettlementWithMemberTests.class,
         // 创建订单-平台配送
-//        CreateOrderByPlatformDeliveryTests.class,
+        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
 //        CreateOrderByMerchantDeliveryTests.class,
         // 创建订单-用户自取
 //        CreateOrderByMyselfDeliveryTests.class,
+        // 创建订单-美食城订单
+//        CreateOrderByFoodCityTests.class,
+        // 创建订单-平台配送-代金券合单
+//        CreateOrderByPlatformDeliveryWithVoucherTests.class,
+        // 支付订单-余额支付-代金券合单
+//        PayByBalanceWithVoucherTests.class,
 //        // 支付订单
 //        PayByBalanceTests.class,
 
@@ -46,8 +50,20 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // ApplyRefundTests.class,
         // 用户申请退款-提交
 //        SubmitRefundTests.class,
+
+        // 用户-订单列表
+//        OrderListTests.class,
+        //用户-添加卡
+//        AddCardRecordTest.class
+
+//        //用户-绑定stripe 卡
+//        CreatePaymentMethodTest.class,
+//        //用户-获取stripe 卡
+//        GetPaymentMethodsTest.class,
+        //用户-Stripe Payment【需要先下单】
+//        StripePaymentOnlyTest.class
+
 })
-//@SelectPackages("com.miller.userapp")
 @SuiteDisplayName("调试多个测试用例")
 @Suite
 public class DebugTestCases {

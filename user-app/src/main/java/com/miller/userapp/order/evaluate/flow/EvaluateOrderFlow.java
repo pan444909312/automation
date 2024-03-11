@@ -15,7 +15,7 @@ import com.miller.userapp.util.RequestUtils;
  */
 public class EvaluateOrderFlow {
     /**
-     * 用户评价订单接口
+     * 接口_用户评价订单
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/order/toEvaluate";
 

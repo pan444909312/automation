@@ -1,7 +1,9 @@
 package com.miller.userapp.order.create;
 
+import com.hungrypanda.common.enums.shop.ShopTypeEnum;
+import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.erp.constants.ResponseConstantOfERP;
-import com.miller.erp.login.flow.LoginFlow;
+import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.merchant.edit.businessinfo.flow.BusinessInfoEditFlow;
 import com.miller.erp.manage.merchant.edit.businessinfo.request.BusinessInfoEditRequestDTO;
 import com.miller.erp.manage.merchant.edit.businessinfo.response.BusinessInfoEditResponseDTO;
@@ -11,6 +13,8 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
+import com.panda.common.enums.DeliveryTypeEnum;
+import com.panda.common.enums.LanguageEnum;
 import com.panda.merchant.server.api.constant.MerchantEnum;
 import com.panda.merchant.server.api.dto.info.PhoneInfo;
 import com.panda.merchant.server.api.dto.merchant.module.ImageModuleDTO;
@@ -43,16 +47,18 @@ public class CreateOrderByMerchantDeliveryTests {
     @BeforeAll
     static void beforeAll() {
         // ERP 登录
-        LoginFlow.loginByDefaultUser();
+        ERPLoginFlow.loginByDefaultUser();
         // 修改配送方式为商家配送
-        BusinessInfoEditResponseDTO businessInfoEditResponseDTO = BusinessInfoEditFlow.businessInfoEdit(getBusinessInfoEditRequestDTO(0));
+        BusinessInfoEditResponseDTO businessInfoEditResponseDTO =
+                BusinessInfoEditFlow.businessInfoEdit(getBusinessInfoEditRequestDTO(DeliveryTypeEnum.shop.getCode()));
         assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 
     @AfterAll
     static void afterAll() {
         // 修改配送方式为平台配送
-        BusinessInfoEditResponseDTO businessInfoEditResponseDTO = BusinessInfoEditFlow.businessInfoEdit(getBusinessInfoEditRequestDTO(1));
+        BusinessInfoEditResponseDTO businessInfoEditResponseDTO =
+                BusinessInfoEditFlow.businessInfoEdit(getBusinessInfoEditRequestDTO(DeliveryTypeEnum.third_party.getCode()));
         assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
 
     }
@@ -65,14 +71,13 @@ public class CreateOrderByMerchantDeliveryTests {
         assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(createOrderResponseDTO.getSuccess()).isTrue();
         assertThat(createOrderResponseDTO.getResult().getOrderSn()).isNotNull();
-        // TODO 订单数据校验
     }
 
     @NotNull
     private static BusinessInfoEditRequestDTO getBusinessInfoEditRequestDTO(Integer deliveryType) {
         BusinessInfoEditRequestDTO businessInfoEditRequestDTO = new BusinessInfoEditRequestDTO();
-        businessInfoEditRequestDTO.setShopId(59750820L);
-        businessInfoEditRequestDTO.setShopType(0);
+        businessInfoEditRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
+        businessInfoEditRequestDTO.setShopType(ShopTypeEnum.GENERAL.getCode());
         MerchantModuleOperationInfoDTO merchantModuleOperationInfoDTO = new MerchantModuleOperationInfoDTO();
 
         // images 字段
@@ -96,7 +101,7 @@ public class CreateOrderByMerchantDeliveryTests {
         // shopSiteList 字段
         merchantModuleOperationInfoDTO.setShopSiteList(List.of(MerchantEnum.ShopSiteEnum.HP));
 
-        merchantModuleOperationInfoDTO.setLang(List.of("EN", "CN"));
+        merchantModuleOperationInfoDTO.setLang(List.of(LanguageEnum.CN.getKey(), LanguageEnum.EN.getKey()));
 
         TaxTypeModuleDTO taxTypeModuleDTO = new TaxTypeModuleDTO();
         taxTypeModuleDTO.setTaxRate(BigDecimal.ZERO);

@@ -140,5 +140,10 @@
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
         </dependency>
+        <!-- 数据库测试工具 Rider -->
+        <dependency>
+            <groupId>com.github.database-rider</groupId>
+            <artifactId>rider-junit5</artifactId>
+        </dependency>
     </dependencies>
 </project>

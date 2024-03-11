@@ -1,5 +1,7 @@
 package com.miller.merchant.order.waiting.lack.provider;
 
+import com.hungrypanda.app.server.common.enums.ProductStatusEnum;
+import com.hungrypanda.common.enums.shop.PreorderTimeModeEnum;
 import com.miller.data.center.user.CreateOrderResponseDTO;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.merchant.order.details.flow.OrderDetailsFlow;
@@ -73,8 +75,8 @@ public class OrderLackProductDataProvider {
         String orderDetailIdsAndNum = orderDetailId + "#" + productCount;
         orderLackProductRequestDTO.setOrderDetailIdsAndNum(orderDetailIdsAndNum);
         orderLackProductRequestDTO.setOperateType(operateType);
-        orderLackProductRequestDTO.setProductStatus(1);
-        orderLackProductRequestDTO.setTimeMode(1);
+        orderLackProductRequestDTO.setProductStatus(ProductStatusEnum.OFFTHESHELF.getCode());
+        orderLackProductRequestDTO.setTimeMode(PreorderTimeModeEnum.OPERATE.getCode());
         return orderLackProductRequestDTO;
     }
 }

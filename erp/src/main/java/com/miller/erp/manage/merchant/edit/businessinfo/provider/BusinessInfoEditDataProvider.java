@@ -1,6 +1,10 @@
 package com.miller.erp.manage.merchant.edit.businessinfo.provider;
 
+import com.hungrypanda.common.enums.shop.ShopTypeEnum;
+import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.erp.manage.merchant.edit.businessinfo.request.BusinessInfoEditRequestDTO;
+import com.panda.common.enums.DeliveryTypeEnum;
+import com.panda.common.enums.LanguageEnum;
 import com.panda.merchant.server.api.constant.MerchantEnum;
 import com.panda.merchant.server.api.dto.info.PhoneInfo;
 import com.panda.merchant.server.api.dto.merchant.module.ImageModuleDTO;
@@ -25,8 +29,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class BusinessInfoEditDataProvider {
     static Stream<Arguments> businessInfoEdit() {
         BusinessInfoEditRequestDTO businessInfoEditRequestDTO = new BusinessInfoEditRequestDTO();
-        businessInfoEditRequestDTO.setShopId(59750820L);
-        businessInfoEditRequestDTO.setShopType(0);
+        businessInfoEditRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
+        businessInfoEditRequestDTO.setShopType(ShopTypeEnum.GENERAL.getCode());
         MerchantModuleOperationInfoDTO merchantModuleOperationInfoDTO = new MerchantModuleOperationInfoDTO();
 
         // images 字段
@@ -50,7 +54,7 @@ public class BusinessInfoEditDataProvider {
         // shopSiteList 字段
         merchantModuleOperationInfoDTO.setShopSiteList(List.of(MerchantEnum.ShopSiteEnum.HP));
 
-        merchantModuleOperationInfoDTO.setLang(List.of("EN", "CN"));
+        merchantModuleOperationInfoDTO.setLang(List.of(LanguageEnum.CN.getKey(), LanguageEnum.EN.getKey()));
 
         TaxTypeModuleDTO taxTypeModuleDTO = new TaxTypeModuleDTO();
         taxTypeModuleDTO.setTaxRate(BigDecimal.ZERO);
@@ -64,7 +68,7 @@ public class BusinessInfoEditDataProvider {
         merchantModuleOperationInfoDTO.setStartSendMoney(BigDecimal.TEN);
         merchantModuleOperationInfoDTO.setDeliveryRange(BigDecimal.valueOf(666));
         // 配送方式 0.商家自己送 1.第三方配送
-        merchantModuleOperationInfoDTO.setDeliveryType(1);
+        merchantModuleOperationInfoDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
         merchantModuleOperationInfoDTO.setIsOnlinePay(List.of(1));
         merchantModuleOperationInfoDTO.setIsSpecialDriveFaraway(1);
         merchantModuleOperationInfoDTO.setIsMandatoryTip(0);
