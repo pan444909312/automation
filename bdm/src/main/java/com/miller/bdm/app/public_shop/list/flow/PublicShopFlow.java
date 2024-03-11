@@ -22,12 +22,12 @@ import java.util.Map;
  */
 public class PublicShopFlow {
     /**
-     * 接口_客户服务-退款审核-根据订单查询特殊单ID
+     * bdm-移动端公海池-公海池商家列表
      */
     private static final String uri = BusinessConstantOfERP.DOMAIN_TEST_GATEWAY + "/api/bdm/mobile/public-shop/page";
 
     /**
-     * 流程_客户服务-退款审核-根据订单查询特殊单ID
+     * bdm-移动端公海池-公海池商家列表
      */
     public static PublicShopResponseDTO queryRefundList(PublicShopRequestDTO publicShopRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
