@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例_客户服务-退款审核-根据订单查询特殊单ID
+ * bdm-移动端公海池-公海池商家列表
  *
  * @author Miller Shan
  * @version 1.0
@@ -26,11 +26,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("bdm-移动端公海池-公海池列表")
+@DisplayName("bdm-移动端公海池-公海池商家列表")
 public class PublicShopTests {
     @MethodSource("com.miller.bdm.app.public_shop.list.provider.PublicShopDataProvider#PublicShopList")
     @ParameterizedTest
-    @DisplayName("bdm-移动端公海池-公海池列表")
+    @DisplayName("bdm-移动端公海池-公海池商家列表")
     void shouldQueryRefundListSuccessfully(PublicShopRequestDTO publicShopRequestDTO) {
         PublicShopResponseDTO publicShopResponseDTO = PublicShopFlow.queryRefundList(publicShopRequestDTO);
         assertThat(publicShopResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
