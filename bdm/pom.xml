@@ -25,15 +25,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--
-        目前公司使用的 json 处理工具为 fastjson，使用Gson可能存在字符串转换之后类型变更的问题，所以推荐使用 fastjson。
-        比如: {"age": 1} 转换为为 Map 之后会变成 1.0 导致加密失败。
-         -->
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
