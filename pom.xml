@@ -38,6 +38,7 @@
         <module>delivery-app</module>
         <module>erp</module>
         <module>takeaway</module>
+        <module>market</module>
     </modules>
 
     <dependencyManagement>
@@ -77,6 +78,11 @@
                 <artifactId>data-center</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>market</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
 
             <!-- 统一管理 swagger 版本 -->
             <dependency>
@@ -90,11 +96,11 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.30</version>
             </dependency>
-            <!-- 统一管理 fastjson2 版本-->
+            <!-- 统一管理 fastjson 版本-->
             <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>2.0.43</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.83</version>
             </dependency>
             <!-- 统一管理 jackson 版本. 保持与当前 SpringBoot 引用的 Jackson 版本相同 -->
             <dependency>
