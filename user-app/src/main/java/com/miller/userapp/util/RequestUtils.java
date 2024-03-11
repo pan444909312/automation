@@ -1,6 +1,6 @@
 package com.miller.userapp.util;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.miller.service.framework.util.MapUtils;
 import com.miller.userapp.constants.BusinessConstant;
 

@@ -1,6 +1,6 @@
 package com.miller.demo.login;
 
-import com.alibaba.fastjson2.JSONPath;
+import com.alibaba.fastjson.JSONPath;
 import com.miller.demo.login.flow.LoginFlow;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

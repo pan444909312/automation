@@ -1,6 +1,6 @@
 package com.miller.userapp.login.flow;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.login.request.UserLoginRequestDTO;

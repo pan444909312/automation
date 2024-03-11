@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class BasicResponseDTO<T> extends Result<T> implements Serializable {
     /*
     开发代码使用的是 AppResult , 但是使用这个对象会导致偶发性JSON序列化报错
-    "com.alibaba.fastjson2.JSONException: No enum ordinal com.panda.common.constants.PResultCode.1000"
+    "com.alibaba.fastjson.JSONException: No enum ordinal com.panda.common.constants.PResultCode.1000"
      而且发现这个对象里面多处两个字段blankList，blankObj 但是这两个字段开发代码中又没有用上，不知道写的有啥用。
 
      */

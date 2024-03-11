@@ -22,7 +22,6 @@ public class UserPackTests {
     void shouldReturnUserPackShopList(UserPackRequestDTO UserPackRequestDTO){
         UserPackResponseDTO UserPackResponseDTO= UserPackFlow.flowUserPack(UserPackRequestDTO);
         System.out.println(UserPackResponseDTO);
-//        assertThat(UserPackResponseDTO.getResult().getShopList().size());
-
+//        assertThat(UserPackResponseDTO.getResult().getShopList().size())
     }
 }

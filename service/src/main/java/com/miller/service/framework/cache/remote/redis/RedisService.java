@@ -1,6 +1,6 @@
 package com.miller.service.framework.cache.remote.redis;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.miller.service.framework.cache.AbstractCacheService;
 import lombok.Data;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;

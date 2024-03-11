@@ -39,8 +39,8 @@
         </dependency>
         <!-- json 处理 -->
         <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
         </dependency>
         <!-- jackson 处理 -->
         <dependency>

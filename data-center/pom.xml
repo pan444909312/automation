@@ -60,13 +60,20 @@
         <!-- erp
         后台涉及多个服务。而且很恶心的是抓包看着像是调用erp的接口，但是实际接口地址、实际实现都是在其他服务，第一次见到这种设计。
         所以会出现你erp-service搜索不到具体接口的情况。以下将业务模块可能涉及到的服务列出来，以便于后人了解。
-
         1. 商家信息：com.panda.erp.server.service.gateway.merchant.MerchantModuleService
-
         -->
         <dependency>
             <groupId>com.panda.erp.server</groupId>
             <artifactId>erp-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- hp-market-server
+        PF 生鲜超市项目
+        -->
+        <dependency>
+            <groupId>com.panda</groupId>
+            <artifactId>market-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
