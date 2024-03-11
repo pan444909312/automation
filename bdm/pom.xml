@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>automation</artifactId>
+        <groupId>com.miller</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>bdm</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>bdm</name>
+    <description>bdm</description>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--
+        目前公司使用的 json 处理工具为 fastjson，使用Gson可能存在字符串转换之后类型变更的问题，所以推荐使用 fastjson。
+        比如: {"age": 1} 转换为为 Map 之后会变成 1.0 导致加密失败。
+         -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>data-center</artifactId>
+        </dependency>
+
+        <!-- HTML 解析工具。ERP 有些接口返回的是 HTML，所以需要解析 -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.17.2</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

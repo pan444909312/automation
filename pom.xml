@@ -38,6 +38,7 @@
         <module>delivery-app</module>
         <module>erp</module>
         <module>takeaway</module>
+        <module>bdm</module>
     </modules>
 
     <dependencyManagement>
@@ -75,6 +76,11 @@
             <dependency>
                 <groupId>com.miller</groupId>
                 <artifactId>data-center</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>bdm</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
