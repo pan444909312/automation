@@ -1,6 +1,6 @@
 package com.miller.bdm.util;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.miller.bdm.constants.BusinessConstantOfERP;
 import com.miller.service.framework.util.MapUtils;
 

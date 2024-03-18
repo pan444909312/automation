@@ -1,5 +1,6 @@
 package com.miller.takeaway.order;
 
+import com.miller.service.framework.annotation.TestCase;
 import com.miller.service.framework.listenner.TestExecuteListener;
 import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithMemberScenarioTests;
 import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithVoucherScenarioTests;
@@ -79,6 +80,7 @@ import static org.junit.platform.launcher.TagFilter.includeTags;
         SettlementContainMemberScenarioTests.class,
 
 })
+@TestCase(testCaseID = "01HK72EK786CKN8N2QYVXRJ1AD", name = "【调试场景集】")
 @Suite
 @SuiteDisplayName("调试场景集")
 public class DebugScenarios {
