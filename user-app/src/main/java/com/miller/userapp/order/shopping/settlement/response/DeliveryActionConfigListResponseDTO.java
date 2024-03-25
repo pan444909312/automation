@@ -13,6 +13,6 @@ import com.miller.userapp.dto.BasicResponseDTO;
  * @version 1.0
  * @since 2024/3/12 10:58:18
  */
-public class DeliverableActionConfigListResponseDTO extends BasicResponseDTO<DeliverableActionConfigListDTO> {
+public class DeliveryActionConfigListResponseDTO extends BasicResponseDTO<DeliverableActionConfigListDTO> {
     // 测试用例应该基本不需要添加额外的响应信息
 }
