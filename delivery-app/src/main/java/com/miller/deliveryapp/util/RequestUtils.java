@@ -1,7 +1,7 @@
 package com.miller.deliveryapp.util;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.miller.deliveryapp.constants.BusinessConstant;
 import com.miller.service.framework.util.MapUtils;
 import com.panda.iam.server.api.constant.CountryEnum;

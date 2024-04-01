@@ -1,6 +1,9 @@
 package com.miller.merchant;
 
 import com.miller.merchant.login.MerchantLoginTests;
+import com.miller.merchant.product.addproduct.AddProductTests;
+import com.miller.merchant.product.queryproduct.ProductListTests;
+import com.miller.merchant.zllogin.ZlMerchantLoginTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -14,7 +17,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 商家登录APP
-        MerchantLoginTests.class,
+        ZlMerchantLoginTests.class,
+//        ProductListTests.class,
+        AddProductTests.class
         // 订单列表
 //        OrderListTests.class,
         // 商家-订单详情

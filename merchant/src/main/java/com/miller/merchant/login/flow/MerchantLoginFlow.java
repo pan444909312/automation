@@ -1,6 +1,6 @@
 package com.miller.merchant.login.flow;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.miller.common.util.MD5Util;
 import com.miller.merchant.constants.BusinessConstant;
 import com.miller.merchant.login.request.MerchantLoginRequestDTO;

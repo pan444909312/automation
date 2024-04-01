@@ -1,6 +1,6 @@
 package com.miller.demo.login;
 
-import com.alibaba.fastjson2.JSONPath;
+import com.alibaba.fastjson.JSONPath;
 import com.miller.demo.login.flow.LoginFlow;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +24,7 @@ class LoginTest {
         var username = "miller.shan@aliyun.com";
         var password = "123456";
 
+        // When
         // When
         var responseMap = LoginFlow.login(username, password);
 

@@ -1,6 +1,6 @@
 package com.miller.erp.login.flow;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.miller.erp.constants.BusinessConstantOfERP;
 import com.miller.erp.login.request.ERPLoginRequestDTO;
 import com.miller.erp.login.response.ERPLoginResponseDTO;

@@ -1,6 +1,6 @@
 package com.miller.userapp.pay.payment.flow;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.hungrypanda.app.server.api.res.payment.PaymentPatternDTO;
 import com.hungrypanda.app.server.service.pay.pandapay.payment.core.model.PayData;
 import com.hungrypanda.app.server.service.pay.pandapay.payment.stripe.StripePaymentResponseDTO;

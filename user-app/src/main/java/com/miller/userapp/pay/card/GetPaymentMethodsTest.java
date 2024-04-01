@@ -2,7 +2,7 @@ package com.miller.userapp.pay.card;
 
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson2.JSONPath;
+import com.alibaba.fastjson.JSONPath;
 import com.hungrypanda.payserver.api.res.PaymentMethodInfoDTO;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;

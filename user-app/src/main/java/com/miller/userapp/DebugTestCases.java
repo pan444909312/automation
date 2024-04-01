@@ -1,12 +1,17 @@
 package com.miller.userapp;
 
 import com.miller.userapp.login.UserLoginTests;
+import com.miller.userapp.newuserpopup.NewUserTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.order.shopping.car.ShoppingCarTests;
+import com.miller.userapp.pay.balance.PayByBalanceWithVoucherTests;
 import com.miller.userapp.pay.card.AddCardRecordTest;
 import com.miller.userapp.pay.card.CreatePaymentMethodTest;
 import com.miller.userapp.pay.card.GetPaymentMethodsTest;
 import com.miller.userapp.pay.payment.StripePaymentOnlyTest;
+import com.miller.userapp.search.category.SearchCategoryTests;
+import com.miller.userapp.search.channel.CategoryChannelTests;
+import com.miller.userapp.userpack.UserPackTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -22,13 +27,13 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         UserLoginTests.class,
         // 添加商品到购物车
-        ShoppingCarTests.class,
+//        ShoppingCarTests.class,
         // 创建订单-结算
 //        SettlementCarTests.class,
         // 创建订单-结算-会员结算
 //        SettlementWithMemberTests.class,
         // 创建订单-平台配送
-        CreateOrderByPlatformDeliveryTests.class,
+//        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
 //        CreateOrderByMerchantDeliveryTests.class,
         // 创建订单-用户自取
@@ -62,6 +67,14 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        GetPaymentMethodsTest.class,
         //用户-Stripe Payment【需要先下单】
 //        StripePaymentOnlyTest.class
+
+//        新人权益弹窗（未登录）
+//        NewUserTests.class
+//        自取频道商家列表
+//        UserPackTests.class
+//      搜索中间页面分类入口，点击进入品类页面
+//        SearchCategoryTests.class,
+//        CategoryChannelTests.class
 
 })
 @SuiteDisplayName("调试多个测试用例")

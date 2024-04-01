@@ -1,8 +1,8 @@
 package com.miller.service.framework.util;
 
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONException;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 /**
  * JSON 工具类
  *

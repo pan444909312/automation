@@ -9,7 +9,10 @@ import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
+import com.miller.userapp.order.shopping.settlement.flow.DeliveryActionFlow;
+import com.miller.userapp.order.shopping.settlement.request.DeliveryActionEditRequestDTO;
 import com.miller.userapp.order.shopping.settlement.request.SettlementRequestDTO;
+import com.miller.userapp.order.shopping.settlement.response.DeliveryActionConfigListResponseDTO;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
 import org.junit.jupiter.params.provider.Arguments;
@@ -79,5 +82,19 @@ public class SettlementDataProvider {
         settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
 
         return Stream.of(Arguments.of(settlementRequestDTO));
+    }
+
+    /**
+     * 结算-交付方式
+     * @return
+     */
+    static Stream<Arguments> deliveryActionEdit(){
+        DeliveryActionConfigListResponseDTO deliveryActionConfigListResponseDTO = DeliveryActionFlow.deliveryActionListFlow();
+        DeliveryActionEditRequestDTO deliveryActionEditRequestDTO = new DeliveryActionEditRequestDTO();
+        deliveryActionEditRequestDTO.setDeliverableAction(deliveryActionConfigListResponseDTO.getResult().getConfigList().get(0).getSubList().get(0).getId());
+        deliveryActionEditRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
+        deliveryActionEditRequestDTO.setDeliverableRemark("自动脚本设置交付方式");
+
+        return Stream.of(Arguments.of(deliveryActionEditRequestDTO));
     }
 }
