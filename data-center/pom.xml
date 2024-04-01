@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+        <!-- C 端工程依赖开发相关的库 -->
         <!-- user-app-server
         用户端请求、响应对象。直接使用研发的请求、响应类。私服仓库一般开发只推 -api 相关的jar包，具体实现 -impl 不推送到仓库。
         如果一定要用 impl 那么自己本地 install 吧 -->
@@ -33,6 +34,7 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!-- B 端工程依赖开发相关的库 -->
         <!-- merchant-server
         商家端请求、响应对象。商家端接口有两个工程 merchant、app-server。
         但是app-server是一个 war 包，而且请求居然是用 HttpServletRequest 来获取参数，响应 result 基本为null，没有引入的必要了。
@@ -42,12 +44,15 @@
             <artifactId>merchant-api</artifactId>
             <version>1.1.61-RELEASE</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.haya.panda.platform</groupId>-->
-<!--            <artifactId>haya-panda-app</artifactId>-->
-<!--            <version>0.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.haya.panda.platform</groupId>-->
+        <!--            <artifactId>haya-panda-app</artifactId>-->
+        <!--            <version>0.0.1-SNAPSHOT</version>-->
+        <!--        </dependency>-->
 
+
+
+        <!-- D 端工程依赖开发相关的库 -->
         <!-- hp-delivery-app-server
         骑手端请求、响应对象
         -->
@@ -57,23 +62,26 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!-- erp
-        后台涉及多个服务。而且很恶心的是抓包看着像是调用erp的接口，但是实际接口地址、实际实现都是在其他服务，第一次见到这种设计。
-        所以会出现你erp-service搜索不到具体接口的情况。以下将业务模块可能涉及到的服务列出来，以便于后人了解。
-        1. 商家信息：com.panda.erp.server.service.gateway.merchant.MerchantModuleService
-        -->
-        <dependency>
-            <groupId>com.panda.erp.server</groupId>
-            <artifactId>erp-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
 
+        <!-- PF 端工程依赖开发相关的库 -->
         <!-- hp-market-server
         PF 生鲜超市项目
         -->
         <dependency>
             <groupId>com.panda</groupId>
             <artifactId>market-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 多端公共依赖。比如：B、C都需要用到 ERP 后台 -->
+        <!-- erp
+            后台涉及多个服务。而且很恶心的是抓包看着像是调用erp的接口，但是实际接口地址、实际实现都是在其他服务，第一次见到这种设计。
+            所以会出现你erp-service搜索不到具体接口的情况。以下将业务模块可能涉及到的服务列出来，以便于后人了解。
+            1. 商家信息：com.panda.erp.server.service.gateway.merchant.MerchantModuleService
+        -->
+        <dependency>
+            <groupId>com.panda.erp.server</groupId>
+            <artifactId>erp-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
