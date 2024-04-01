@@ -49,7 +49,12 @@
         <!--            <artifactId>haya-panda-app</artifactId>-->
         <!--            <version>0.0.1-SNAPSHOT</version>-->
         <!--        </dependency>-->
-
+        <!-- hp-pos-server -->
+        <dependency>
+            <groupId>com.panda.pos.server</groupId>
+            <artifactId>pos-api</artifactId>
+            <version>1.0.16-RELEASE</version>
+        </dependency>
 
 
         <!-- D 端工程依赖开发相关的库 -->

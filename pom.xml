@@ -40,6 +40,7 @@
         <module>takeaway</module>
         <module>market</module>
         <module>bdm</module>
+        <module>pos</module>
     </modules>
 
     <dependencyManagement>
@@ -89,6 +90,12 @@
                 <artifactId>bdm</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>pos</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
 
             <!-- 统一管理 swagger 版本 -->
             <dependency>
