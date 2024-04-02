@@ -1,7 +1,7 @@
 package com.miller.userapp.constants;
 
+import com.panda.common.enums.CountryEnum;
 import com.panda.common.enums.LanguageEnum;
-import com.panda.iam.server.api.constant.CountryEnum;
 
 /**
  * 业务配置常量
@@ -49,7 +49,7 @@ public class BusinessConstant {
      * 每页数量
      */
     public static String pageSize;
-    public static String countryCode = CountryEnum.CN.getCode();
+    public static String countryCode = CountryEnum.CHINA.getCode();
     public static String language = LanguageEnum.CN.getKey();
     public static String platform = "ANDROID_USER";
     public static String cityName;

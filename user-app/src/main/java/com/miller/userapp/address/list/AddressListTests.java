@@ -4,9 +4,7 @@ import com.hungrypanda.app.server.api.common.ResultCode;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.address.list.flow.AddressListFlow;
-import com.miller.userapp.address.list.request.AddressListRequestDTO;
 import com.miller.userapp.address.list.response.AddressListResponseDTO;
-import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

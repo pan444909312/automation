@@ -1,8 +1,6 @@
 package com.miller.merchant.constants;
 
-import com.panda.iam.server.api.constant.CountryEnum;
-
-import java.math.BigDecimal;
+import com.panda.common.enums.CountryEnum;
 
 /**
  * 业务配置常量
@@ -35,7 +33,7 @@ public class ZlBusinessConstant {
     public static String systemversion = "12";
     public static String devicesn = "unknown";
     public static String platform = "ANDROID";
-    public static String countryCode = CountryEnum.CN.getCode();
+    public static String countryCode = CountryEnum.CHINA.getCode();
     public static String appTypeId = "1";
     public static String uniqueToken = "381bb9f0ec5f3988";
     public static String devicemodel = "TAS-AN00";

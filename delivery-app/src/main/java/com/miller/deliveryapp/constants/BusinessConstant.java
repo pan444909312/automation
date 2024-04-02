@@ -1,6 +1,6 @@
 package com.miller.deliveryapp.constants;
 
-import com.panda.iam.server.api.constant.CountryEnum;
+import com.panda.common.enums.CountryEnum;
 
 /**
  * 业务配置常量
@@ -32,7 +32,7 @@ public class BusinessConstant {
     public static String brand = "HUAWEI";
     public static String uniqueToken = "202c7d3739966521";
     public static String appTypeId = "2";
-    public static String countryCode = CountryEnum.CN.getCode();
+    public static String countryCode = CountryEnum.CHINA.getCode();
     public static String deviceSafeToken = "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0";
     // 默认值为请求头需要的名称，方便以后修改，不要修改默认值。
     public static String authorization = "authorization";

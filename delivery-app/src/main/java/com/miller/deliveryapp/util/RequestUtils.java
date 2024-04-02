@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.miller.deliveryapp.constants.BusinessConstant;
 import com.miller.service.framework.util.MapUtils;
-import com.panda.iam.server.api.constant.CountryEnum;
+import com.panda.common.enums.CountryEnum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +40,7 @@ public class RequestUtils {
         headers.put("brand", BusinessConstant.brand);
         headers.put("uniqueToken", BusinessConstant.uniqueToken);
         headers.put("appTypeId", BusinessConstant.appTypeId);
-        headers.put("countryCode", CountryEnum.CN.getCode());
+        headers.put("countryCode", CountryEnum.CHINA.getCode());
         headers.put("devicesafetoken", BusinessConstant.deviceSafeToken);
         headers.put("authorization", BusinessConstant.authorization);
 

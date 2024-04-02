@@ -89,6 +89,11 @@
             <artifactId>erp-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.panda.erp.server</groupId>
+            <artifactId>erp-api</artifactId>
+            <version>1.1.76-RELEASE</version>
+        </dependency>
 
     </dependencies>
 

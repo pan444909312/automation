@@ -5,8 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.http.HttpUtils;
+import com.panda.common.enums.CountryEnum;
 import com.panda.delivery.app.server.common.util.SignGenerateUtil;
-import com.panda.iam.server.api.constant.CountryEnum;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ public class SignTest {
         requestJsonObject.put("brand", "HUAWEI");
         requestJsonObject.put("uniquetoken", "HUAWEI");
         requestJsonObject.put("apptypeid", 2);
-        requestJsonObject.put("countrycode", CountryEnum.CN.getCode());
+        requestJsonObject.put("countrycode", CountryEnum.CHINA.getCode());
         requestJsonObject.put("devicesafetoken", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
         requestJsonObject.put("Content-Type", "application/json");
 
@@ -72,7 +72,7 @@ public class SignTest {
         headers.put("brand", "HUAWEI");
         headers.put("locale", "zh-CN");
         headers.put("apptypeid", "2");
-        headers.put("countrycode", CountryEnum.CN.getCode());
+        headers.put("countrycode", CountryEnum.CHINA.getCode());
         headers.put("uniquetoken", "HUAWEI");
         headers.put("devicesafetoken", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
         headers.put("authorization", token);
