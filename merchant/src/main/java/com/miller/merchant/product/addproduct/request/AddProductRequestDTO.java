@@ -3,7 +3,7 @@ package com.miller.merchant.product.addproduct.request;
 import com.panda.product.server.api.dto.product.req.ProductAddReqDTO;
 
 /**
- * 请求对象_商品上架、下架
+ * 请求对象_商品新增
  * <p>
  * 这里我直接引用了开发的代码，减少维护成本，使用统一请求对象。
  * 这里之所以包装了一层是因为对请求字段可能需要二次处理，比如：加密、验签等.

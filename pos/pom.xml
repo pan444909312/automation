@@ -31,7 +31,16 @@
 			<groupId>com.miller</groupId>
 			<artifactId>data-center</artifactId>
 		</dependency>
+		<!--随机生成测试数据-->
+
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
 
 	</dependencies>
+
 
 </project>
