@@ -23,7 +23,6 @@ public class QueryShopFlow {
     public static QueryShopResponseDTO queryShop(QueryShopRequestDTO queryShopRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
         RequestUtils.getHeaders().put("Content-Type", "application/json");
-        RequestUtils.getHeaders().put("Authorization", "lPWgzWw5aXp3iX0RCSN+vsUV/Li2K7vzxTAvEutqw+c=");
         return HttpUtils.sendGetRequestReturnJavaObject(uri, RequestUtils.putBodyOfForm(queryShopRequestDTO),
                 RequestUtils.getHeaders(), null,
                  QueryShopResponseDTO.class);

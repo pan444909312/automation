@@ -31,8 +31,7 @@ public class QueryShopListTests {
         QueryShopListResponseDTO queryShopListResponseDTO = QueryShopListFlow.queryshoplist(queryShopListRequestDTO);
         assertThat(queryShopListResponseDTO.getCode()).isEqualTo(0);
         System.out.println(queryShopListResponseDTO.getData());
-        System.out.println("queryShopListResponseDTO.getData()");
-        System.out.println(queryShopListResponseDTO.getData());
+
 
 
 
