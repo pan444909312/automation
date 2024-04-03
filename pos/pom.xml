@@ -24,12 +24,24 @@
 			<groupId>com.miller</groupId>
 			<artifactId>service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>fastjson</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- 数据中心。测试用例之间的公共数据；请求、响应对象使用研发仓库中的数据 -->
 		<dependency>
 			<groupId>com.miller</groupId>
 			<artifactId>data-center</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>fastjson</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!--随机生成测试数据-->
 
@@ -37,6 +49,13 @@
 			<groupId>com.github.javafaker</groupId>
 			<artifactId>javafaker</artifactId>
 			<version>1.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.11.1</version>
+			<optional>true</optional>
 		</dependency>
 
 

@@ -1,16 +1,15 @@
 package com.miller.pos.login.flow;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miller.pos.constants.BusinessConstant;
 import com.miller.pos.login.request.PosLoginRequestDTO;
+import com.miller.pos.login.response.PosLoginResponseDTO;
 import com.miller.pos.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
-import com.miller.pos.login.response.PosLoginResponseDTO;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.miller.pos.constants.BusinessConstant.app_key;
 
 
 /**
@@ -37,6 +36,7 @@ public class PosLoginFlow {
         header.put("Content-Type", "application/json");
         header.put("Connection", "keep-alive");
         RequestUtils.setHeaders(header);
+
 //        Map<String, String> body = new HashMap<>();
 //        body.put("app_key",app_key);
 //        body.put("app_secret","123");
@@ -49,10 +49,14 @@ public class PosLoginFlow {
      * @param posLoginRequestDTO {@link PosLoginRequestDTO}
      * @return 响应体对象
      */
-    public static JSONObject loginReturnBodyObject(PosLoginRequestDTO posLoginRequestDTO) {
-        System.out.println("登录返回响应体对象json");
-        System.out.println(JSON.parseObject(loginReturnBodyString(posLoginRequestDTO)));
-        return JSON.parseObject(loginReturnBodyString(posLoginRequestDTO));
+    public static PosLoginResponseDTO loginReturnBodyObject(PosLoginRequestDTO posLoginRequestDTO) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(loginReturnBodyString(posLoginRequestDTO), PosLoginResponseDTO.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        // return JSON.parseObject(loginReturnBodyString(posLoginRequestDTO), PosLoginResponseDTO.class);
     }
 
     /**
@@ -63,9 +67,40 @@ public class PosLoginFlow {
      */
     @SuppressWarnings("unchecked")
     public static String loginReturnBodyString(PosLoginRequestDTO PosLoginRequestDTO) {
-        System.out.println("登录返回响应体对象string");
         Map<String, Object> responseBodyMap = (Map<String, Object>) login(PosLoginRequestDTO).get("body");
-        System.out.println("string的日志"+String.valueOf(responseBodyMap.get("body")));
         return String.valueOf(responseBodyMap.get("body"));
+    }
+
+
+    /**
+     * 登录返回响应头
+     *
+     * @param PosLoginRequestDTO {@link PosLoginRequestDTO}
+     * @return 响应头
+     */
+    @SuppressWarnings({"unchecked", "unused"})
+    public static Map<String, Object> loginReturnHeaders(PosLoginRequestDTO PosLoginRequestDTO) {
+        return (Map<String, Object>) login(PosLoginRequestDTO).get("headers");
+    }
+
+    /**
+     * 登录的一种特化方式，登录之后将 token 设置到全局 headers 中，多用户登录时请勿使用。
+     *
+     * @param posLoginRequestDTO {@link PosLoginRequestDTO}
+     * @return 响应体对象
+     */
+    @SuppressWarnings({"unused"})
+    public static PosLoginResponseDTO loginAndPutToken(PosLoginRequestDTO posLoginRequestDTO) {
+        PosLoginResponseDTO posLoginResponseDTO = loginReturnBodyObject(posLoginRequestDTO);
+
+        // 获取token
+        var token = posLoginResponseDTO.getData().getAccessToken();
+        var headers = new HashMap<String, Object>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", token);
+
+        // 更新全局请求头参数。设置测试用例的默认用户。
+        RequestUtils.setHeaders(headers);
+        return posLoginResponseDTO;
     }
 }
