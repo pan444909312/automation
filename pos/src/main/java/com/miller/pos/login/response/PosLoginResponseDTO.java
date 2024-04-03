@@ -10,7 +10,7 @@ import com.panda.pos.server.api.dto.open.auth.AccessTokenResponse;
  * app-server-impl/src/main/java/com/hungrypanda/app/server/controller/UserController.java
  * </p>
  *
- * @author Miller Shan
+ * @author zhangli
  * @version 1.0
  * @since 2023/12/6 20:56:16
  */
