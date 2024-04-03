@@ -13,9 +13,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 /**
  * 登录数据提供者
  *
- * @author Miller Shan
+ * @author zhangli
  * @version 1.0
- * @since 2023/12/14 21:10:12
+ * @since 2024/4/3 11:50:12
  */
 @SuppressWarnings(value = "unused")
 public class PosLoginDataProvider {
@@ -24,11 +24,8 @@ public class PosLoginDataProvider {
      */
     static Stream<Arguments> loginDataProviderFromDB() {
         PosLoginRequestDTO user1 = new PosLoginRequestDTO();
-        user1.setApp_key(app_key);
-        user1.setApp_secret(app_secret);
-        System.out.println(Stream.of(arguments(user1) ));
-
-
+        user1.setAppKey(app_key);
+        user1.setAppSecret(app_secret);
         return Stream.of(
                 arguments(user1)
         );

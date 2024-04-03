@@ -1,11 +1,9 @@
 package com.miller.pos.login;
 
-import com.miller.pos.constants.ResponseConstant;
 import com.miller.pos.login.flow.PosLoginFlow;
 import com.miller.pos.login.request.PosLoginRequestDTO;
 import com.miller.pos.login.response.PosLoginResponseDTO;
 import com.miller.pos.util.RequestUtils;
-import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import org.junit.jupiter.api.AfterAll;
@@ -21,15 +19,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * 测试用例_登录
  *
- * @author Miller Shan
+ * @author zhangli
  * @version 1.0
- * @since 2023/12/7 20:31:39
+ * @since 2024/4/3 13:51:39
  */
-@ApiDoc(value = "http://10.1.6.46:3000/project/60/interface/api/3288")
 @EnvTag.Test
 @TestFramework
 @DisplayName("pos-登录获取token")
-public class LoginTests {
+public class PosLoginTests {
     private static String token;
 
     @AfterAll

@@ -1,6 +1,7 @@
 package com.miller.pos.util;
 
-import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miller.pos.constants.BusinessConstant;
 import com.miller.service.framework.util.MapUtils;
 
@@ -79,7 +80,13 @@ public class RequestUtils {
      * @return 请求体字符串
      */
     public static <T> String putBodyOfJson(T t) {
-        return JSON.toJSONString(t);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(t);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+//        return JSON.toJSONString(t);
         /*
         // 对请求参数的额外操作。以下代码是为代码因为现在还没有用到对请求体加密。
 

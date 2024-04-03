@@ -1,7 +1,7 @@
 package com.miller.pos;
 
 
-import com.miller.pos.login.LoginTests;
+import com.miller.pos.login.PosLoginTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -15,7 +15,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 商家登录APP
-        LoginTests.class,
+        PosLoginTests.class,
 //        ProductListTests.class,
 
         // 订单列表
