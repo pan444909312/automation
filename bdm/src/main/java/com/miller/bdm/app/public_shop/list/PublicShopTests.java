@@ -31,10 +31,12 @@ public class PublicShopTests {
     @MethodSource("com.miller.bdm.app.public_shop.list.provider.PublicShopDataProvider#PublicShopList")
     @ParameterizedTest
     @DisplayName("bdm-移动端公海池-公海池商家列表")
-    void shouldQueryRefundListSuccessfully(PublicShopRequestDTO publicShopRequestDTO) {
-        PublicShopResponseDTO publicShopResponseDTO = PublicShopFlow.queryRefundList(publicShopRequestDTO);
+    void QueryPublicShopList(PublicShopRequestDTO publicShopRequestDTO) {
+        PublicShopResponseDTO publicShopResponseDTO = PublicShopFlow.getPageList(publicShopRequestDTO);
         assertThat(publicShopResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
         assertThat(publicShopResponseDTO.getMessage()).isEqualTo(ResponseConstantOfERP.resultMessage);
+        assertThat(publicShopResponseDTO.getData().getList()).isNotNull();
+
     }
 
 }

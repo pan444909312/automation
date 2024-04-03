@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 流程_客户服务-退款审核-根据订单查询特殊单ID
+ * 流程_bdm-移动端公海池-公海池商家列表
  *
  * @author Miller Shan
  * @version 1.0
@@ -29,11 +29,8 @@ public class PublicShopFlow {
     /**
      * bdm-移动端公海池-公海池商家列表
      */
-    public static PublicShopResponseDTO queryRefundList(PublicShopRequestDTO publicShopRequestDTO) {
-        // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
-//        Map<String, Object> headers = new HashMap<>();
-//        headers.put("Content-Type", "application/json");
-//        RequestUtils.setHeaders(headers);
+    public static PublicShopResponseDTO getPageList(PublicShopRequestDTO publicShopRequestDTO) {
+
         RequestUtils.getHeaders().put("Content-Type", "application/json");
 
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
