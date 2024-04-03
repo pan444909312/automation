@@ -27,7 +27,7 @@ public class RequestUtils {
     private static Map<String, Object> commonHeaders() {
         // 公共请求头。每次获取都用新的对象，避免多用户冲突。
         var headers = new HashMap<String, Object>();
-        headers.put("localshopid", BusinessConstant.localshopid);
+//        headers.put("localshopid", BusinessConstant.localshopid);
 //        headers.put("latitude", BusinessConstant.latitude);
 //        headers.put("longitude", BusinessConstant.longitude);
 //        headers.put("user-agent", BusinessConstant.userAgent);
@@ -41,7 +41,7 @@ public class RequestUtils {
 //        headers.put("uniqueToken", BusinessConstant.uniqueToken);
 //        headers.put("devicemodel", BusinessConstant.devicemodel);
 //        headers.put("devicebrand", BusinessConstant.devicebrand);
-        headers.put("authorization", BusinessConstant.authorization);
+        headers.put("Authorization", BusinessConstant.authorization);
 
         return headers;
     }

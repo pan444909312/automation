@@ -52,5 +52,5 @@ public class BusinessConstant {
     public static String devicemodel = "TAS-AN00";
     public static String devicebrand = "HUAWEI";
     // 默认值为请求头需要的名称，方便以后修改，不要修改默认值。
-    public static String authorization = "authorization";
+    public static String authorization = "Authorization";
 }

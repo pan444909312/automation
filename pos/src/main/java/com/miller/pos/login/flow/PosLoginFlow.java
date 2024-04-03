@@ -106,8 +106,8 @@ public class PosLoginFlow {
      */
     public static void switchUser(String app_key , String app_secret) {
         PosLoginRequestDTO posLoginRequestDTO = new PosLoginRequestDTO();
-        posLoginRequestDTO.setAppKey(app_key);
-        posLoginRequestDTO.setAppSecret(app_secret);
+        posLoginRequestDTO.setApp_key(app_key);
+        posLoginRequestDTO.setApp_secret(app_secret);
         PosLoginResponseDTO posLoginResponseDTO = loginReturnBodyObject(posLoginRequestDTO);
         var token = posLoginResponseDTO.getData().getAccessToken();
         var headers = new HashMap<String, Object>();

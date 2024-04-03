@@ -24,8 +24,8 @@ public class PosLoginDataProvider {
      */
     static Stream<Arguments> loginDataProviderFromDB() {
         PosLoginRequestDTO user1 = new PosLoginRequestDTO();
-        user1.setAppKey(app_key);
-        user1.setAppSecret(app_secret);
+        user1.setApp_key(app_key);
+        user1.setApp_secret(app_secret);
         System.out.println(Stream.of(arguments(user1) ));
 
 
