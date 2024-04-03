@@ -1,7 +1,6 @@
 package com.miller.pos.constants;
 
 import com.panda.common.constants.PResultCode;
-
 import java.io.Serializable;
 
 /**

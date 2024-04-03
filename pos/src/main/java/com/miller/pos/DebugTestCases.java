@@ -2,6 +2,9 @@ package com.miller.pos;
 
 
 import com.miller.pos.login.LoginTests;
+import com.miller.pos.shop.queryshop.QueryShopTests;
+import com.miller.pos.shop.queryshoplist.QueryShopListTests;
+import com.miller.pos.shop.statusshop.StatusShopTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -16,10 +19,10 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SelectClasses({
         // 商家登录APP
         LoginTests.class,
-//        ProductListTests.class,
 
-        // 订单列表
-//        OrderListTests.class,
+//        QueryShopTests.class
+//        StatusShopTests.class,
+        QueryShopListTests.class,
         // 商家-订单详情
 //        OrderDetailsTests.class,
 

@@ -1,7 +1,6 @@
 package com.miller.pos.dto;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+
 import com.panda.common.base.Result;
 import lombok.Data;
 

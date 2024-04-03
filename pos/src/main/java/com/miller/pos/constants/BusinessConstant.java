@@ -26,11 +26,12 @@ public class BusinessConstant {
     public static String localshopid = "651600159";
 
 
-
+    public static int limit = 100;
 
     public static String app_key = "6000001298850019";
     public static String app_secret = "fb907620b07f4cb29656c44dd0401c12";
     public static String pos_no="18768196431" ;
+    public  static String shop_id="651600159";
 
     /**
      * 纬度
@@ -52,5 +53,5 @@ public class BusinessConstant {
     public static String devicemodel = "TAS-AN00";
     public static String devicebrand = "HUAWEI";
     // 默认值为请求头需要的名称，方便以后修改，不要修改默认值。
-    public static String authorization = "Authorization";
+    public static String authorization = "lPWgzWw5aXp3iX0RCSN+vsUV/Li2K7vzxTAvEutqw+c=";
 }
