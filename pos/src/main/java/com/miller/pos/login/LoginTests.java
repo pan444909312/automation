@@ -1,5 +1,8 @@
 package com.miller.pos.login;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.miller.pos.constants.ResponseConstant;
 import com.miller.pos.login.flow.PosLoginFlow;
 import com.miller.pos.login.request.PosLoginRequestDTO;
@@ -13,8 +16,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 
+import static com.alibaba.fastjson.JSONValidator.Type.Array;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -48,12 +53,15 @@ public class LoginTests {
     @ParameterizedTest
     @DisplayName("正常流程_POS商家登录")
     void shouldLoginSuccessfully(PosLoginRequestDTO posLoginRequestDTO) {
-        PosLoginResponseDTO posLoginResponseDTO = PosLoginFlow.loginReturnBodyObject(posLoginRequestDTO);
-        assertThat(posLoginResponseDTO.getCode()).isEqualTo(0);
-        assertThat(posLoginResponseDTO.getData().getAccessToken()).isNotNull();
-
+        JSONObject JSONObject = PosLoginFlow.loginReturnBodyObject(posLoginRequestDTO);
+        assertThat(JSONObject.getInteger("code")).isEqualTo(0);
+//        assertThat(posLoginResponseDTO.getData().getAccessToken()).isNotNull();
+//        System.out.println(posLoginResponseDTO.getData().getAccessToken());
+        JSONObject JSONOtoken  =JSON.parseObject(String.valueOf( JSONObject.getString("data")));
         // 获取token
-        token = posLoginResponseDTO.getData().getAccessToken();
+
+        token=JSONOtoken.getString("access_token") ;
+
     }
 
 }

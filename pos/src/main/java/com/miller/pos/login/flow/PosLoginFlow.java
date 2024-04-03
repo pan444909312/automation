@@ -1,6 +1,7 @@
 package com.miller.pos.login.flow;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.miller.pos.constants.BusinessConstant;
 import com.miller.pos.login.request.PosLoginRequestDTO;
 import com.miller.pos.util.RequestUtils;
@@ -48,8 +49,10 @@ public class PosLoginFlow {
      * @param posLoginRequestDTO {@link PosLoginRequestDTO}
      * @return 响应体对象
      */
-    public static PosLoginResponseDTO loginReturnBodyObject(PosLoginRequestDTO posLoginRequestDTO) {
-        return JSON.parseObject(loginReturnBodyString(posLoginRequestDTO), PosLoginResponseDTO.class);
+    public static JSONObject loginReturnBodyObject(PosLoginRequestDTO posLoginRequestDTO) {
+        System.out.println("登录返回响应体对象json");
+        System.out.println(JSON.parseObject(loginReturnBodyString(posLoginRequestDTO)));
+        return JSON.parseObject(loginReturnBodyString(posLoginRequestDTO));
     }
 
     /**
@@ -60,69 +63,9 @@ public class PosLoginFlow {
      */
     @SuppressWarnings("unchecked")
     public static String loginReturnBodyString(PosLoginRequestDTO PosLoginRequestDTO) {
+        System.out.println("登录返回响应体对象string");
         Map<String, Object> responseBodyMap = (Map<String, Object>) login(PosLoginRequestDTO).get("body");
+        System.out.println("string的日志"+String.valueOf(responseBodyMap.get("body")));
         return String.valueOf(responseBodyMap.get("body"));
     }
-
-
-    /**
-     * 登录返回响应头
-     *
-     * @param PosLoginRequestDTO {@link PosLoginRequestDTO}
-     * @return 响应头
-     */
-    @SuppressWarnings({"unchecked", "unused"})
-    public static Map<String, Object> loginReturnHeaders(PosLoginRequestDTO PosLoginRequestDTO) {
-        return (Map<String, Object>) login(PosLoginRequestDTO).get("headers");
-    }
-
-    /**
-     * 登录的一种特化方式，登录之后将 token 设置到全局 headers 中，多用户登录时请勿使用。
-     *
-     * @param posLoginRequestDTO {@link PosLoginRequestDTO}
-     * @return 响应体对象
-     */
-    @SuppressWarnings({"unused"})
-    public static PosLoginResponseDTO loginAndPutToken(PosLoginRequestDTO posLoginRequestDTO) {
-        PosLoginResponseDTO posLoginResponseDTO = loginReturnBodyObject(posLoginRequestDTO);
-
-        // 获取token
-        var token = posLoginResponseDTO.getData().getAccessToken();
-        var headers = new HashMap<String, Object>();
-        headers.put("Content-Type", "application/json");
-        headers.put("Authorization", token);
-
-        // 更新全局请求头参数。设置测试用例的默认用户。
-        RequestUtils.setHeaders(headers);
-        return posLoginResponseDTO;
-    }
-
-    /**
-     * 切换当前用户
-     *
-
-     * @param app_key 用户名
-     * @param app_secret 密码app_key
-     */
-    public static void switchUser(String app_key , String app_secret) {
-        PosLoginRequestDTO posLoginRequestDTO = new PosLoginRequestDTO();
-        posLoginRequestDTO.setApp_key(app_key);
-        posLoginRequestDTO.setApp_secret(app_secret);
-        PosLoginResponseDTO posLoginResponseDTO = loginReturnBodyObject(posLoginRequestDTO);
-        var token = posLoginResponseDTO.getData().getAccessToken();
-        var headers = new HashMap<String, Object>();
-        headers.put("Content-Type", RequestUtils.getHeaders().get("Content-Type"));
-        headers.put(BusinessConstant.authorization, token);
-        // 更新全局请求头参数。设置测试用例的用户。
-        RequestUtils.setHeaders(headers);
-    }
-
-    /**
-     * 切换当前用户，使用默认的区号86
-     *
-     * @see #switchUser(String, String)
-     */
-//    public static void switchUser(String app_key, String app_secret) {
-//        switchUser(app_key, app_secret);
-//    }
 }

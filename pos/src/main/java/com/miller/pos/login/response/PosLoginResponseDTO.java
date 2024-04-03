@@ -14,5 +14,7 @@ import com.panda.pos.server.api.dto.open.auth.AccessTokenResponse;
  * @version 1.0
  * @since 2023/12/6 20:56:16
  */
-public class PosLoginResponseDTO extends BasicResponseDTO<AccessTokenResponse> {
+public class PosLoginResponseDTO extends BasicResponseDTO<AccessTokenResponse>{
+
+
 }
