@@ -97,4 +97,31 @@ public class SettlementDataProvider {
 
         return Stream.of(Arguments.of(deliveryActionEditRequestDTO));
     }
+
+    /**
+     * 结算-代金券合单
+     */
+    static Stream<Arguments> settlementProductCoupon() {
+        SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
+        settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setTablewareCount(1);
+        settlementRequestDTO.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
+        settlementRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
+        settlementRequestDTO.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        settlementRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
+        settlementRequestDTO.setVoucherSn(TestCaseDataForUserConstant.voucherSn);
+        settlementRequestDTO.setUseVoucherTemplate(1);
+        // 是否自动使用红包，不使用红包
+        settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.NO.getType());
+
+        var productCartList = new ArrayList<ProductCart>();
+        var productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCartList.add(productCart);
+        settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
+
+        return Stream.of(Arguments.of(settlementRequestDTO));
+    }
 }
