@@ -42,6 +42,10 @@ public class TestCaseDataForUserConstant {
      */
     public static final Long memberRedPacketId = 10097316L;
 
+    /**
+     * 代金券合单代金券sn
+     */
+    public static final String voucherSn="8201ZEFNW2";
 
 }
 
