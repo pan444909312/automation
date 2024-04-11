@@ -9,6 +9,9 @@ import com.hungrypanda.common.enums.common.PlatformEnum;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.userapp.order.create.request.CreateOrderRequestDTO;
+import com.miller.userapp.order.shopping.settlement.flow.SettlementFlow;
+import com.miller.userapp.order.shopping.settlement.request.SettlementRequestDTO;
+import com.miller.userapp.order.shopping.settlement.response.SettlementResponseDTO;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
 import com.panda.common.enums.VoucherStatusEnum;
@@ -256,5 +259,50 @@ public class CreateOrderDataProvider {
         createOrderByPlatformDeliveryWithVoucher.setProductCartList(JSON.toJSONString(productCarts));
         createOrderByPlatformDeliveryWithVoucher.setShopId(TestCaseDataForMerchantConstant.shopId);
         return Stream.of(Arguments.of(createOrderByPlatformDeliveryWithVoucher));
+    }
+
+    /**
+     * 优速达合单下单
+     */
+    static Stream<Arguments> createOrderByPlatformDeliveryFastDelivery() {
+        SettlementRequestDTO settlementRequestDTO=new SettlementRequestDTO();
+        settlementRequestDTO.setChoseFastDelivery(1);
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        CreateOrderRequestDTO createOrderByPlatformDeliveryFastDelivery = new CreateOrderRequestDTO();
+        createOrderByPlatformDeliveryFastDelivery.setAddressId(TestCaseDataForUserConstant.addressId);
+        // 0=商家配送；1=平台配送；2=自取
+        createOrderByPlatformDeliveryFastDelivery.setDeliveryType(String.valueOf(DeliveryTypeEnum.third_party.getCode()));
+        createOrderByPlatformDeliveryFastDelivery.setDeliveryTime("尽快送达");
+        createOrderByPlatformDeliveryFastDelivery.setIsOnlinePay(Boolean.TRUE);
+        // 为什么前端传的是1，服务器用的是  boolean
+        createOrderByPlatformDeliveryFastDelivery.setNeedNumberMasking(Boolean.TRUE);
+        createOrderByPlatformDeliveryFastDelivery.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        createOrderByPlatformDeliveryFastDelivery.setPlatform(String.valueOf(PlatformEnum.ANDROID.getCode()));
+        createOrderByPlatformDeliveryFastDelivery.setRemark("【自动化测试】创建订单");
+        // 选择自取时需要传联系电话。但是我发现配送传这个字段也没关系
+        createOrderByPlatformDeliveryFastDelivery.setUserPhone("86 18711110002");
+        createOrderByPlatformDeliveryFastDelivery.setTablewareCount(1);
+        createOrderByPlatformDeliveryFastDelivery.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        createOrderByPlatformDeliveryFastDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
+
+        // 代金劵合单之后的商品价格。无需动态查询，初始化数据时就应当指定好代金券的价格。
+        createOrderByPlatformDeliveryFastDelivery.setFixedPrice(11500);
+        createOrderByPlatformDeliveryFastDelivery.setMemberBuyType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        createOrderByPlatformDeliveryFastDelivery.setMemberCombinedType(MemberCombinedTypeEnum.MEMBER_NO.getOpenBizType());
+        // 优速达相关参数
+        createOrderByPlatformDeliveryFastDelivery.setChoseFastDelivery(1);
+        createOrderByPlatformDeliveryFastDelivery.setFastDeliveryAmount(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastDeliveryAmount());
+        createOrderByPlatformDeliveryFastDelivery.setFastMinute(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastMinute());
+
+        // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
+        // createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
+        List<ProductCart> productCarts = new ArrayList<>();
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCarts.add(productCart);
+        createOrderByPlatformDeliveryFastDelivery.setProductCartList(JSON.toJSONString(productCarts));
+        createOrderByPlatformDeliveryFastDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
+        return Stream.of(Arguments.of(createOrderByPlatformDeliveryFastDelivery));
     }
 }

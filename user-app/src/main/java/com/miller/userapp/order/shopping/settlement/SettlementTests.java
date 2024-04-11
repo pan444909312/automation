@@ -47,4 +47,14 @@ public class SettlementTests {
         // 订单总价格应该为 120元
         assertThat(12000).isEqualTo( product + packaging + delivery);
     }
+
+    @MethodSource("com.miller.userapp.order.shopping.settlement.provider.SettlementDataProvider#settlementFastDelivery")
+    @ParameterizedTest
+    @DisplayName("结算-优速达合单")
+    void shouldSettlememtFastDeliverySuccessfully(SettlementRequestDTO settlementRequestDTO){
+        SettlementResponseDTO settlementResponseDTO = SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value->value.getItemKey().equalsIgnoreCase("buyFastDelivery")));
+        assertThat(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastMinute()).isGreaterThan(0);
+    }
 }
