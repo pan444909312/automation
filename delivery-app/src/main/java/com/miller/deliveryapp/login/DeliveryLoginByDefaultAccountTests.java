@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("骑手-登录")
-public class DeliveryLoginTests {
+public class DeliveryLoginByDefaultAccountTests {
     private static String token;
 
     @AfterAll
@@ -43,7 +43,7 @@ public class DeliveryLoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.deliveryapp.login.provider.DeliveryLoginDataProvider#loginDataProviderForOrder")
+    @MethodSource("com.miller.deliveryapp.login.provider.DeliveryLoginDataProvider#loginDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_骑手登录")
     void shouldLoginSuccessfully(DeliveryLoginRequestDTO deliveryLoginRequestDTO) {
