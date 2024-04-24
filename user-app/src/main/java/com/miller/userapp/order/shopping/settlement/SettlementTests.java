@@ -54,7 +54,7 @@ public class SettlementTests {
     void shouldSettlememtFastDeliverySuccessfully(SettlementRequestDTO settlementRequestDTO){
         SettlementResponseDTO settlementResponseDTO = SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value->value.getItemKey().equalsIgnoreCase("buyFastDelivery")));
+        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value->value.getItemKey().equalsIgnoreCase("buyFastDelivery")).findFirst().get().getItemAmount()).isEqualTo(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastDeliveryAmount());
         assertThat(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastMinute()).isGreaterThan(0);
     }
 }

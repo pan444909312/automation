@@ -91,9 +91,11 @@ public class SettlementDataProvider {
     static Stream<Arguments> deliveryActionEdit(){
         DeliveryActionConfigListResponseDTO deliveryActionConfigListResponseDTO = DeliveryActionFlow.deliveryActionListFlow();
         DeliveryActionEditRequestDTO deliveryActionEditRequestDTO = new DeliveryActionEditRequestDTO();
-        deliveryActionEditRequestDTO.setDeliverableAction(deliveryActionConfigListResponseDTO.getResult().getConfigList().get(0).getSubList().get(0).getId());
+//        deliveryActionEditRequestDTO.setDeliverableAction(deliveryActionConfigListResponseDTO.getResult().getConfigList().get(0).getSubList().get(0).getId());
         deliveryActionEditRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
-        deliveryActionEditRequestDTO.setDeliverableRemark("自动脚本设置交付方式");
+//        deliveryActionEditRequestDTO.setDeliverableRemark("自动脚本设置交付方式");
+        deliveryActionEditRequestDTO.setDeliverableRemark(TestCaseDataForUserConstant.deliverableRemark);
+        deliveryActionEditRequestDTO.setDeliverableAction(TestCaseDataForUserConstant.deliverableAction);
 
         return Stream.of(Arguments.of(deliveryActionEditRequestDTO));
     }
