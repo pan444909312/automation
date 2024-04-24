@@ -1,4 +1,4 @@
-package com.miller.merchant.summi.order.complete.response;
+package com.miller.merchant.summi.order.complete.list.response;
 
 import com.miller.merchant.dto.BasicResponseDTO;
 import com.panda.merchant.server.api.vo.app.merchant.resp.OrderTerminalRespDTO;

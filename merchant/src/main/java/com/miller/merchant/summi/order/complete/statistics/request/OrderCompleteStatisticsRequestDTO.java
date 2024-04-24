@@ -1,4 +1,4 @@
-package com.miller.merchant.summi.order.complete.request;
+package com.miller.merchant.summi.order.complete.statistics.request;
 
 import com.panda.merchant.server.api.vo.app.merchant.req.OrderTerminalQueryReqVO;
 
@@ -14,7 +14,7 @@ import com.panda.merchant.server.api.vo.app.merchant.req.OrderTerminalQueryReqVO
  * @version 1.0
  * @since 2024/04/24 15:45:30
  */
-public class OrderCompleteListRequestDTO extends OrderTerminalQueryReqVO {
+public class OrderCompleteStatisticsRequestDTO extends OrderTerminalQueryReqVO {
     // 测试用例需要使用的额外字段可以补充在这里。
 }
 

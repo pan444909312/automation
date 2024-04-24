@@ -1,9 +1,9 @@
-package com.miller.merchant.summi.order.complete;
+package com.miller.merchant.summi.order.complete.list;
 
 import com.miller.merchant.constants.ResponseConstant;
-import com.miller.merchant.summi.order.complete.flow.OrderCompleteListFlow;
-import com.miller.merchant.summi.order.complete.request.OrderCompleteListRequestDTO;
-import com.miller.merchant.summi.order.complete.response.OrderCompleteListResponseDTO;
+import com.miller.merchant.summi.order.complete.list.flow.OrderCompleteListFlow;
+import com.miller.merchant.summi.order.complete.list.request.OrderCompleteListRequestDTO;
+import com.miller.merchant.summi.order.complete.list.response.OrderCompleteListResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import org.assertj.core.api.Assertions;
@@ -20,10 +20,10 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-订单列表")
+@DisplayName("商家-已完成订单列表")
 public class SummiOrderCompleteListTests {
 
-    @MethodSource("com.miller.merchant.summi.order.complete.provider.OrderCompleteListDataProvider#orderListOfStatus")
+    @MethodSource("com.miller.merchant.summi.order.complete.list.provider.OrderCompleteListDataProvider#orderListOfStatus")
     @ParameterizedTest
     @DisplayName("正常流程_已完成订单列表")
     void shouldGetOrderListSuccessfully(OrderCompleteListRequestDTO orderCompleteListRequestDTO) {

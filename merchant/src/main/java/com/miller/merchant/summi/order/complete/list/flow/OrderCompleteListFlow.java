@@ -1,8 +1,8 @@
-package com.miller.merchant.summi.order.complete.flow;
+package com.miller.merchant.summi.order.complete.list.flow;
 
 import com.miller.merchant.constants.BusinessConstant;
-import com.miller.merchant.summi.order.complete.request.OrderCompleteListRequestDTO;
-import com.miller.merchant.summi.order.complete.response.OrderCompleteListResponseDTO;
+import com.miller.merchant.summi.order.complete.list.request.OrderCompleteListRequestDTO;
+import com.miller.merchant.summi.order.complete.list.response.OrderCompleteListResponseDTO;
 import com.miller.merchant.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
