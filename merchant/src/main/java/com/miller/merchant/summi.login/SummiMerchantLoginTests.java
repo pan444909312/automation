@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ApiDoc(value = "http://10.1.6.46:3000/project/60/interface/api/3288")
 @EnvTag.Test
 @TestFramework
-@DisplayName("商家-登录")
+@DisplayName("商家商米-登录")
 public class SummiMerchantLoginTests {
     private static String token;
 
@@ -46,7 +46,7 @@ public class SummiMerchantLoginTests {
 
     @MethodSource("com.miller.merchant.summi.login.provider.MerchantLoginDataProvider#loginDataProviderFromDB")
     @ParameterizedTest
-    @DisplayName("正常流程_商家登录")
+    @DisplayName("正常流程_普通商家商米登录")
     void shouldLoginSuccessfully(MerchantLoginRequestDTO merchantLoginRequestDTO) {
         MerchantLoginResponseDTO merchantLoginResponseDTO = MerchantLoginFlow.loginReturnBodyObject(merchantLoginRequestDTO);
 
