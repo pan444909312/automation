@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
 import com.hungrypanda.app.server.common.enums.StatusEnum;
 import com.hungrypanda.app.server.common.enums.member.MemberCombinedTypeEnum;
+import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.hungrypanda.common.enums.common.PlatformEnum;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
@@ -265,44 +266,55 @@ public class CreateOrderDataProvider {
      * 优速达合单下单
      */
     static Stream<Arguments> createOrderByPlatformDeliveryFastDelivery() {
+        CreateOrderRequestDTO createOrderByPlatformDeliveryWithFastDelivery = new CreateOrderRequestDTO();
         SettlementRequestDTO settlementRequestDTO=new SettlementRequestDTO();
+        settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setTablewareCount(1);
+        settlementRequestDTO.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
+        settlementRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
+        settlementRequestDTO.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        settlementRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
         settlementRequestDTO.setChoseFastDelivery(1);
-        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
-        CreateOrderRequestDTO createOrderByPlatformDeliveryFastDelivery = new CreateOrderRequestDTO();
-        createOrderByPlatformDeliveryFastDelivery.setAddressId(TestCaseDataForUserConstant.addressId);
-        // 0=商家配送；1=平台配送；2=自取
-        createOrderByPlatformDeliveryFastDelivery.setDeliveryType(String.valueOf(DeliveryTypeEnum.third_party.getCode()));
-        createOrderByPlatformDeliveryFastDelivery.setDeliveryTime("尽快送达");
-        createOrderByPlatformDeliveryFastDelivery.setIsOnlinePay(Boolean.TRUE);
-        // 为什么前端传的是1，服务器用的是  boolean
-        createOrderByPlatformDeliveryFastDelivery.setNeedNumberMasking(Boolean.TRUE);
-        createOrderByPlatformDeliveryFastDelivery.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
-        createOrderByPlatformDeliveryFastDelivery.setPlatform(String.valueOf(PlatformEnum.ANDROID.getCode()));
-        createOrderByPlatformDeliveryFastDelivery.setRemark("【自动化测试】创建订单");
-        // 选择自取时需要传联系电话。但是我发现配送传这个字段也没关系
-        createOrderByPlatformDeliveryFastDelivery.setUserPhone("86 18711110002");
-        createOrderByPlatformDeliveryFastDelivery.setTablewareCount(1);
-        createOrderByPlatformDeliveryFastDelivery.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
-        createOrderByPlatformDeliveryFastDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
+        // 是否自动使用红包，不使用红包
+        settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.NO.getType());
 
-        // 代金劵合单之后的商品价格。无需动态查询，初始化数据时就应当指定好代金券的价格。
-        createOrderByPlatformDeliveryFastDelivery.setFixedPrice(11500);
-        createOrderByPlatformDeliveryFastDelivery.setMemberBuyType(OrderReqTypeEnum.COMMON_ORDER.getType());
-        createOrderByPlatformDeliveryFastDelivery.setMemberCombinedType(MemberCombinedTypeEnum.MEMBER_NO.getOpenBizType());
-        // 优速达相关参数
-        createOrderByPlatformDeliveryFastDelivery.setChoseFastDelivery(1);
-        createOrderByPlatformDeliveryFastDelivery.setFastDeliveryAmount(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastDeliveryAmount());
-        createOrderByPlatformDeliveryFastDelivery.setFastMinute(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastMinute());
-
-        // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
-        // createOrderByMerchantDelivery.setProductCartList("[{\"skuId\":0,\"productId\":81669204}]");
-        List<ProductCart> productCarts = new ArrayList<>();
-        ProductCart productCart = new ProductCart();
+        var productCartList = new ArrayList<ProductCart>();
+        var productCart = new ProductCart();
         productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
         productCart.setProductId(TestCaseDataForMerchantConstant.productId);
-        productCarts.add(productCart);
-        createOrderByPlatformDeliveryFastDelivery.setProductCartList(JSON.toJSONString(productCarts));
-        createOrderByPlatformDeliveryFastDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
-        return Stream.of(Arguments.of(createOrderByPlatformDeliveryFastDelivery));
+        productCartList.add(productCart);
+        settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
+        SettlementResponseDTO settlementResponseDTO = SettlementFlow.settlementProduct(settlementRequestDTO);
+        // 优速达相关参数
+        Integer fastDeliveryAmount = settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastDeliveryAmount();
+        createOrderByPlatformDeliveryWithFastDelivery.setFastMinute(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastMinute());
+        createOrderByPlatformDeliveryWithFastDelivery.setFastDeliveryAmount(fastDeliveryAmount);
+        createOrderByPlatformDeliveryWithFastDelivery.setChoseFastDelivery(1);
+
+        createOrderByPlatformDeliveryWithFastDelivery.setAddressId(TestCaseDataForUserConstant.addressId);
+        // 0=商家配送；1=平台配送；2=自取
+        createOrderByPlatformDeliveryWithFastDelivery.setDeliveryType(String.valueOf(DeliveryTypeEnum.third_party.getCode()));
+        createOrderByPlatformDeliveryWithFastDelivery.setDeliveryTime("尽快送达");
+        createOrderByPlatformDeliveryWithFastDelivery.setIsOnlinePay(Boolean.TRUE);
+        // 为什么前端传的是1，服务器用的是  boolean
+        createOrderByPlatformDeliveryWithFastDelivery.setNeedNumberMasking(Boolean.TRUE);
+        createOrderByPlatformDeliveryWithFastDelivery.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        createOrderByPlatformDeliveryWithFastDelivery.setPlatform(String.valueOf(PlatformEnum.ANDROID.getCode()));
+        createOrderByPlatformDeliveryWithFastDelivery.setRemark("【自动化测试】创建订单");
+        // 选择自取时需要传联系电话。但是我发现配送传这个字段也没关系
+        createOrderByPlatformDeliveryWithFastDelivery.setUserPhone("86 18711110002");
+        createOrderByPlatformDeliveryWithFastDelivery.setTablewareCount(1);
+        createOrderByPlatformDeliveryWithFastDelivery.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        createOrderByPlatformDeliveryWithFastDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
+
+        createOrderByPlatformDeliveryWithFastDelivery.setFixedPrice(settlementResponseDTO.getResult().getPriceInfo().getTotalAmount());
+
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCartList.add(productCart);
+        createOrderByPlatformDeliveryWithFastDelivery.setProductCartList(JSON.toJSONString(productCartList));
+        createOrderByPlatformDeliveryWithFastDelivery.setShopId(TestCaseDataForMerchantConstant.shopId);
+        return Stream.of(Arguments.of(createOrderByPlatformDeliveryWithFastDelivery));
     }
 }

@@ -16,10 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-创建订单-平台配送-优速达合单")
 public class CreateOrderByPlatformDeliveryFastDeliveryTests {
-    @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderByPlatformDeliveryWithVoucher")
+
+    @MethodSource("com.miller.userapp.order.create.provider.CreateOrderDataProvider#createOrderByPlatformDeliveryFastDelivery")
     @ParameterizedTest
     @DisplayName("正常流程_创建订单-平台配送-优速达合单")
-    void shouldCreateOrderSuccessfully(CreateOrderRequestDTO createOrderRequestDTO) {
+    void shouldCreateOrderWithFastDeliverySuccessfully(CreateOrderRequestDTO createOrderRequestDTO) {
         CreateOrderResponseDTO createOrderResponseDTO = CreateOrderFlow.createOrder(createOrderRequestDTO);
         assertThat(createOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(createOrderResponseDTO.getSuccess()).isTrue();
