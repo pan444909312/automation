@@ -5,7 +5,7 @@ import com.panda.delivery.app.server.domain.dto.agreement.DeliveryAgreementListV
 
 
 /**
- * 用户同意的协议列表
+ * 骑手同意的协议列表获取
  *
  * <p>
  * delivery-app-domain/src/main/java/com/panda/delivery/app/server/domain/dto/auth/UserLoginResp.java

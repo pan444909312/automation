@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * 骑手同意的协议列表
+ * 骑手同意的协议列表获取
  *
  * @author penglul
  * @version 1.0
@@ -17,7 +17,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @SuppressWarnings(value = "unused")
 public class AgreementListDataProvider {
     /**
-     * 骑手同意的协议列表
+     * 骑手同意的协议列表获取
      */
     static Stream<Arguments> agreementListDataProvider() {
         AgreementListRequestDTO agreementListRequestDTO = new AgreementListRequestDTO();

@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * 测试用例_骑手银行卡信息获取
+ * 测试用例_骑手协议列表信息获取
  *
  * @author penglulu
  * @version 1.0
@@ -23,12 +23,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 // @ApiDoc(value = "http://10.1.6.46:3000/project/60/interface/api/3288")
 @EnvTag.Test
 @TestFramework
-@DisplayName("骑手-骑手银行卡信息获取")
+@DisplayName("骑手-骑手协议列表信息获取")
 public class AgreementListTests {
 
     @MethodSource("com.miller.deliveryapp.drivercenter.agreement.provider.AgreementListDataProvider#agreementListDataProvider")
     @ParameterizedTest
-    @DisplayName("骑手银行卡信息列表获取")
+    @DisplayName("骑手协议列表信息获取")
     void shouldGetHistoryOrderDetailSuccessfully(AgreementListRequestDTO agreementListRequestDTO) {
         AgreementListResponseDTO agreementListResponseDTO = AgreementListFlow.agreementList(agreementListRequestDTO);
 

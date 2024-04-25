@@ -20,7 +20,7 @@ public class DriverInfoDataProvider {
      * 个人信息用例数据提供者
      */
     static Stream<Arguments> driverInfoDataProvider() {
-        
+
         DriverInfoRequestDTO driverInfoRequestDTO = new DriverInfoRequestDTO();
         return Stream.of(
                 arguments(driverInfoRequestDTO)

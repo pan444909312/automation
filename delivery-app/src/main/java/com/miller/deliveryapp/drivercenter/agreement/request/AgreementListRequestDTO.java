@@ -4,7 +4,7 @@ package com.miller.deliveryapp.drivercenter.agreement.request;
 import com.panda.delivery.app.server.domain.dto.agreement.DeliveryAgreementListReq;
 
 /**
- * 用户同意的协议列表
+ * 骑手同意的协议列表获取
  *
  * @author penglulu
  * @version 1.0

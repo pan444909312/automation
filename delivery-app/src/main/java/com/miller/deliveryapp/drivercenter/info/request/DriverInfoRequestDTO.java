@@ -2,7 +2,7 @@ package com.miller.deliveryapp.drivercenter.info.request;
 
 
 /**
- * 个人信息请求数据
+ * 骑手个人信息请求数据
  *
  * @author penglulu
  * @version 1.0

@@ -7,7 +7,7 @@ import com.miller.deliveryapp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
 /**
- * 用户同意的协议列表
+ * 骑手同意的协议列表获取
  *
  * @author penglulu
  * @version 1.0
@@ -15,7 +15,7 @@ import com.miller.service.framework.http.HttpUtils;
  */
 public class AgreementListFlow {
     /**
-     *骑手同意的协议列表
+     *骑手同意的协议列表获取
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/delivery/app/agreement/list";
     public static AgreementListResponseDTO agreementList(AgreementListRequestDTO agreementListRequestDTO) {
