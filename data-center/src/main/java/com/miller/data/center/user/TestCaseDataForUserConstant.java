@@ -47,5 +47,10 @@ public class TestCaseDataForUserConstant {
      */
     public static final String voucherSn="8201ZEFNW2";
 
+    /**
+     * 交付方式-见面交付
+     */
+    public static final Integer deliverableAction=2;
+    public static final String deliverableRemark="自动脚本设置交付方式";
 }
 

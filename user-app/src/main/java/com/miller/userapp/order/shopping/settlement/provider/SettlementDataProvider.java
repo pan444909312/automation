@@ -91,9 +91,11 @@ public class SettlementDataProvider {
     static Stream<Arguments> deliveryActionEdit(){
         DeliveryActionConfigListResponseDTO deliveryActionConfigListResponseDTO = DeliveryActionFlow.deliveryActionListFlow();
         DeliveryActionEditRequestDTO deliveryActionEditRequestDTO = new DeliveryActionEditRequestDTO();
-        deliveryActionEditRequestDTO.setDeliverableAction(deliveryActionConfigListResponseDTO.getResult().getConfigList().get(0).getSubList().get(0).getId());
+//        deliveryActionEditRequestDTO.setDeliverableAction(deliveryActionConfigListResponseDTO.getResult().getConfigList().get(0).getSubList().get(0).getId());
         deliveryActionEditRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
-        deliveryActionEditRequestDTO.setDeliverableRemark("自动脚本设置交付方式");
+//        deliveryActionEditRequestDTO.setDeliverableRemark("自动脚本设置交付方式");
+        deliveryActionEditRequestDTO.setDeliverableRemark(TestCaseDataForUserConstant.deliverableRemark);
+        deliveryActionEditRequestDTO.setDeliverableAction(TestCaseDataForUserConstant.deliverableAction);
 
         return Stream.of(Arguments.of(deliveryActionEditRequestDTO));
     }
@@ -112,6 +114,32 @@ public class SettlementDataProvider {
         settlementRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
         settlementRequestDTO.setVoucherSn(TestCaseDataForUserConstant.voucherSn);
         settlementRequestDTO.setUseVoucherTemplate(1);
+        // 是否自动使用红包，不使用红包
+        settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.NO.getType());
+
+        var productCartList = new ArrayList<ProductCart>();
+        var productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCartList.add(productCart);
+        settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
+
+        return Stream.of(Arguments.of(settlementRequestDTO));
+    }
+
+    /**
+     * 结算-优速达合单
+     */
+    static Stream<Arguments> settlementFastDelivery() {
+        SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
+        settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setTablewareCount(1);
+        settlementRequestDTO.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
+        settlementRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
+        settlementRequestDTO.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        settlementRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
+        settlementRequestDTO.setChoseFastDelivery(1);
         // 是否自动使用红包，不使用红包
         settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.NO.getType());
 
