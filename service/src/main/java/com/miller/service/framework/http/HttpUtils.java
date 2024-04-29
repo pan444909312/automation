@@ -1,5 +1,8 @@
 package com.miller.service.framework.http;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.miller.service.framework.constants.JsonLibraryEnum;
 import com.miller.service.framework.util.JSONUtils;
 
 import java.util.HashMap;
@@ -92,7 +95,7 @@ public class HttpUtils {
     }
 
     /**
-     * 发送 GET 请求，将响应结果的 JSON 字符串映射成 Java 对象。
+     * 发送 GET 请求，将响应结果的 JSON 字符串映射成 Java 对象。使用 Fastjson 作为默认的 JSON 解析器。
      *
      * @param uri        请求的 url, 例如: 例如: <a href="http://localhost:1024">http://localhost:1024</a>
      * @param params     url上的参数，例如: ?key1=value1&key2=value2
@@ -104,12 +107,11 @@ public class HttpUtils {
      * @see #sendGetRequestReturnBody(String, Map, Map, Map)
      */
     public static <T> T sendGetRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Map<String, Object> cookies, Class<T> returnType) {
-        String returnBody = sendGetRequestReturnBody(uri, params, headers, cookies);
-        return JSONUtils.jsonToObject(returnBody, returnType);
+        return sendGetRequestReturnJavaObject(uri, params, headers, cookies, returnType, JsonLibraryEnum.FASTJSON);
     }
 
     /**
-     * 发送 POST 请求，将响应结果的 JSON 字符串映射成 Java 对象。
+     * 发送 POST 请求，将响应结果的 JSON 字符串映射成 Java 对象。使用 Fastjson 作为默认的 JSON 解析器。
      *
      * @param uri        请求的 url, 例如: 例如: <a href="http://localhost:1024">http://localhost:1024</a>
      * @param params     url上的参数，例如: ?key1=value1&key2=value2
@@ -122,23 +124,105 @@ public class HttpUtils {
      * @see #sendPostRequestReturnBody(String, Map, Map, Object, Map)
      */
     public static <T> T sendPostRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, Class<T> returnType) {
-        String returnBody = sendPostRequestReturnBody(uri, params, headers, body, cookies);
-        return JSONUtils.jsonToObject(returnBody, returnType);
+        return sendPostRequestReturnJavaObject(uri, params, headers, body, cookies, returnType, JsonLibraryEnum.FASTJSON);
     }
 
     /**
+     * 发送 PUT 请求，将响应结果的 JSON 字符串映射成 Java 对象。使用 Fastjson 作为默认的 JSON 解析器。
+     *
      * @see #sendPostRequestReturnJavaObject(String, Map, Map, Object, Map, Class)
      */
     public static <T> T sendPutRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, Class<T> returnType) {
-        String returnBody = sendPutRequestReturnBody(uri, params, headers, body, cookies);
-        return JSONUtils.jsonToObject(returnBody, returnType);
+        return sendPutRequestReturnJavaObject(uri, params, headers, body, cookies, returnType, JsonLibraryEnum.FASTJSON);
     }
 
     /**
+     * 发送 DELETE 请求，将响应结果的 JSON 字符串映射成 Java 对象。使用 Fastjson 作为默认的 JSON 解析器。
+     *
      * @see #sendPostRequestReturnJavaObject(String, Map, Map, Object, Map, Class)
      */
     public static <T> T sendDeleteRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, Class<T> returnType) {
-        String returnBody = sendDeleteRequestReturnBody(uri, params, headers, body, cookies);
-        return JSONUtils.jsonToObject(returnBody, returnType);
+       return sendDeleteRequestReturnJavaObject(uri, params, headers, body, cookies, returnType, JsonLibraryEnum.FASTJSON);
+    }
+
+    /**
+     * @param jsonLibraryEnum JSON解析器,系统默认支持{@link JsonLibraryEnum}
+     * @see #sendGetRequestReturnJavaObject(String, Map, Map, Map, Class)
+     */
+    public static <T> T sendGetRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Map<String, Object> cookies, Class<T> returnType, JsonLibraryEnum jsonLibraryEnum) {
+        switch (jsonLibraryEnum) {
+            case FASTJSON:
+                return JSONUtils.jsonToObject(sendGetRequestReturnBody(uri, params, headers, cookies), returnType);
+            case JACKSON:
+                return JSONUtils.jsonToObjectByJackson(sendGetRequestReturnBody(uri, params, headers, cookies), returnType);
+            // 暂不支持 GSON
+            case GSON:
+                System.err.println("暂不支持 GSOn");
+                break;
+            default:
+                break;
+        }
+        return null;
+    }
+
+    /**
+     * @param jsonLibraryEnum JSON解析器,系统默认支持{@link JsonLibraryEnum}
+     * @see #sendPostRequestReturnJavaObject(String, Map, Map, Object, Map, Class)
+     */
+    public static <T> T sendPostRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, Class<T> returnType, JsonLibraryEnum jsonLibraryEnum) {
+        switch (jsonLibraryEnum) {
+            case FASTJSON:
+                return JSONUtils.jsonToObject(sendPostRequestReturnBody(uri, params, headers, body, cookies), returnType);
+            case JACKSON:
+                return JSONUtils.jsonToObjectByJackson(sendPostRequestReturnBody(uri, params, headers, body, cookies), returnType);
+            // 暂不支持 GSON
+            case GSON:
+                System.err.println("暂不支持 GSOn");
+                break;
+            default:
+                break;
+        }
+        return null;
+    }
+
+
+    /**
+     * @param jsonLibraryEnum JSON解析器,系统默认支持{@link JsonLibraryEnum}
+     * @see #sendPutRequestReturnJavaObject(String, Map, Map, Object, Map, Class)
+     */
+    public static <T> T sendPutRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, Class<T> returnType, JsonLibraryEnum jsonLibraryEnum) {
+        switch (jsonLibraryEnum) {
+            case FASTJSON:
+                return JSONUtils.jsonToObject(sendPutRequestReturnBody(uri, params, headers, body, cookies), returnType);
+            case JACKSON:
+                return JSONUtils.jsonToObjectByJackson(sendPutRequestReturnBody(uri, params, headers, body, cookies), returnType);
+            // 暂不支持 GSON
+            case GSON:
+                System.err.println("暂不支持 GSOn");
+                break;
+            default:
+                break;
+        }
+        return null;
+    }
+
+    /**
+     * @param jsonLibraryEnum JSON解析器,系统默认支持{@link JsonLibraryEnum}
+     * @see #sendDeleteRequestReturnJavaObject(String, Map, Map, Object, Map, Class)
+     */
+    public static <T> T sendDeleteRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, Class<T> returnType, JsonLibraryEnum jsonLibraryEnum) {
+        switch (jsonLibraryEnum) {
+            case FASTJSON:
+                return JSONUtils.jsonToObject(sendDeleteRequestReturnBody(uri, params, headers, body, cookies), returnType);
+            case JACKSON:
+                return JSONUtils.jsonToObjectByJackson(sendDeleteRequestReturnBody(uri, params, headers, body, cookies), returnType);
+            // 暂不支持 GSON
+            case GSON:
+                System.err.println("暂不支持 GSOn");
+                break;
+            default:
+                break;
+        }
+        return null;
     }
 }

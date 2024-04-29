@@ -3,6 +3,9 @@ package com.miller.service.framework.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * JSON 工具类
  *
@@ -14,8 +17,12 @@ public class JSONUtils {
     private JSONUtils() {
     }
 
-//    private static ObjectMapper defaultMapperCreator() {
-//        ObjectMapper mapper = new ObjectMapper();
+    /**
+     * Jackson 相关配置
+     * @return {@link ObjectMapper}
+     */
+    private static ObjectMapper defaultMapperCreator() {
+        ObjectMapper mapper = new ObjectMapper();
 //        mapper.registerModules(ObjectMapper.findModules());
 //
 //        // 设置为false表示不检测失败字段映射, 在反序列化成 Java 对象时忽略不存在的属性。有些时候由于请求的数据不同返回的对象数据结构不一定每次都固定。
@@ -47,25 +54,17 @@ public class JSONUtils {
 //        //不输出空值字段
 //        // mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
 //        // mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//        return mapper;
-//    }
+        return mapper;
+    }
 
     /**
-     * 判断字符串是否是合法的 JSON
+     * 判断字符串是否是合法的 JSON，使用 Fastjson
      *
      * @param text 字符串
      * @return Boolean
      */
     public static Boolean isJSONFormat(String text) {
-//        ObjectMapper objectMapper = defaultMapperCreator();
-//        try {
-//            objectMapper.readTree(text);
-//            return true;
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            throw new IllegalArgumentException("不是一个合格的JSON格式:" + text);
-//            //return false;
-//        }
+
         JSON.parse(text);
         try {
             JSON.parse(text);
@@ -77,7 +76,7 @@ public class JSONUtils {
     }
 
     /**
-     * 字符串转换为对象
+     * 字符串转换为对象，使用 Fastjson
      *
      * @param json      字符串
      * @param valueType 预期类型
@@ -87,29 +86,49 @@ public class JSONUtils {
     public static <T> T jsonToObject(String json, Class<T> valueType) {
         isJSONFormat(json);
         return JSON.parseObject(json, valueType);
-//        ObjectMapper objectMapper = defaultMapperCreator();
-//        try {
-//            return objectMapper.readValue(json, valueType);
-//        } catch (JsonProcessingException jsonProcessingException) {
-//            System.err.format("String to Java Object failure, because %s not to transform %s. Error Message: %s", json, valueType, jsonProcessingException);
-//            throw new UnsupportedOperationException("String to Java Object failure, because " + json + " not to transform " + valueType + ". Error Message:", jsonProcessingException);
-//        }
     }
 
+
     /**
-     * 对象转 JSON
+     * 字符串转换为对象, 使用Jackson
+     *
+     * @param json      字符串
+     * @param valueType 预期类型
+     * @param <T>       泛型
+     * @return 预期类型
+     */
+    public static <T> T jsonToObjectByJackson(String json, Class<T> valueType) {
+        isJSONFormat(json);
+        ObjectMapper objectMapper = defaultMapperCreator();
+        try {
+            return objectMapper.readValue(json, valueType);
+        } catch (JsonProcessingException jsonProcessingException) {
+            System.err.format("String to Java Object failure, because %s not to transform %s. Error Message: %s", json, valueType, jsonProcessingException);
+            throw new UnsupportedOperationException("String to Java Object failure, because " + json + " not to transform " + valueType + ". Error Message:", jsonProcessingException);
+        }
+    }
+    /**
+     * 对象转 JSON 字符串，使用 Fastjson
      *
      * @param value Object
      * @return JSON 字符串
      */
     public static String toJSONString(Object value) {
         return JSON.toJSONString(value);
-//        ObjectMapper objectMapper = defaultMapperCreator();
-//        try {
-//            return objectMapper.writeValueAsString(value);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            throw new UnsupportedOperationException("Object to JSON String failure.", e);
-//        }
+    }
+    /**
+     * 对象转 JSON 字符串，使用 Jackson
+     *
+     * @param value Object
+     * @return JSON 字符串
+     */
+    public static String toJSONStringByJackson(Object value) {
+        ObjectMapper objectMapper = defaultMapperCreator();
+        try {
+            return objectMapper.writeValueAsString(value);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            throw new UnsupportedOperationException("Object to JSON String failure.", e);
+        }
     }
 }

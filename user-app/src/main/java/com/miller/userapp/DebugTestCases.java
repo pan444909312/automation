@@ -27,7 +27,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         UserLoginTests.class,
         // 添加商品到购物车
-//        ShoppingCarTests.class,
+        ShoppingCarTests.class,
         // 创建订单-结算
 //        SettlementCarTests.class,
         // 创建订单-结算-会员结算
