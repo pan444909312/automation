@@ -73,12 +73,8 @@
 		"min": 1,
 		"limit": 99,
 		"extra_list": [{
-			"id": 111,
+			"id": 818734,
 			"limit": 9
-		},
-		{
-			"id": 111,
-			"limit": 8
 		}]
 	}],
 	"second_category_id": 0
