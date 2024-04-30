@@ -6,10 +6,9 @@ import com.miller.pos.product.addproduct.response.AddProductResponseDTO;
 import com.miller.pos.product.queryproduct.request.QueryProductRequestDTO;
 import com.miller.pos.product.queryproduct.response.QueryProductResponseDTO;
 import com.miller.pos.util.RequestUtils;
-import com.miller.service.framework.constants.JsonLibraryEnum;
 import com.miller.service.framework.http.HttpUtils;
 
-import static com.miller.pos.constants.BusinessConstant.product_id;
+
 
 /**
  * 查询店铺详情
