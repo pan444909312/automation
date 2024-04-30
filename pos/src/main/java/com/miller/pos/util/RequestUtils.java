@@ -42,6 +42,7 @@ public class RequestUtils {
 //        headers.put("uniqueToken", BusinessConstant.uniqueToken);
 //        headers.put("devicemodel", BusinessConstant.devicemodel);
 //        headers.put("devicebrand", BusinessConstant.devicebrand);
+//        headers.put("Authorization", "lPWgzWw5aXp3iX0RCSN+vsUV/Li2K7vzxTAvEutqw+c=");
         headers.put("Authorization", BusinessConstant.authorization);
 
         return headers;

@@ -1,6 +1,7 @@
-package com.miller.pos.shop.queryshoplist.request;
+package com.miller.pos.product.addproduct.request;
 
 
+import com.panda.pos.server.api.dto.open.product.OpenApiProductDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,8 +21,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class QueryShopListRequestDTO {
-    private String limit ;
+public class AddProductRequestDTO extends OpenApiProductDTO {
+
 
 }
 

@@ -1,4 +1,4 @@
-package com.miller.pos.shop.queryshoplist.request;
+package com.miller.pos.product.deleteproduct.request;
 
 
 import lombok.Getter;
@@ -20,8 +20,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class QueryShopListRequestDTO {
-    private String limit ;
+public class DelProductRequestDTO {
+
 
 }
 

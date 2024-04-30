@@ -13,7 +13,9 @@ import static java.util.Locale.CHINESE;
  * @since 2023/12/14 20:27:34
  */
 public class BusinessConstant {
-    Faker faker= new Faker(CHINESE);
+    static Faker faker= new Faker(CHINESE);
+    public static String product_name = faker.food().fruit();
+    public static String pos_item_id = faker.number().digits(6);
 
     /**
      * 接口请求的域名
@@ -54,4 +56,7 @@ public class BusinessConstant {
     public static String devicebrand = "HUAWEI";
     // 默认值为请求头需要的名称，方便以后修改，不要修改默认值。
     public static String authorization = "lPWgzWw5aXp3iX0RCSN+vsUV/Li2K7vzxTAvEutqw+c=";
+
+
+    public static String menuId ="4152158";
 }
