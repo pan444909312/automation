@@ -33,7 +33,9 @@ public class NoPasswordListTest {
     void noPasswordList(NoPasswordListRequestDTO requestDTO) {
         System.out.println(JSON.toJSON(requestDTO));
         NoPasswordListResponseDTO result = NoPasswordListFlow.noPasswordList(requestDTO);
-        System.out.println(JSON.toJSON(result));
+//        System.out.println(JSON.toJSON(result));
+        assertThat(result.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(!result.getResult().getNoPasswordList().isEmpty());
 
 
 
