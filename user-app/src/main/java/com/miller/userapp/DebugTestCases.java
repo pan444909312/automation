@@ -8,6 +8,7 @@ import com.miller.userapp.pay.balance.PayByBalanceWithVoucherTests;
 import com.miller.userapp.pay.card.AddCardRecordTest;
 import com.miller.userapp.pay.card.CreatePaymentMethodTest;
 import com.miller.userapp.pay.card.GetPaymentMethodsTest;
+import com.miller.userapp.pay.nopassword.NoPasswordListTest;
 import com.miller.userapp.pay.payment.StripePaymentOnlyTest;
 import com.miller.userapp.search.category.SearchCategoryTests;
 import com.miller.userapp.search.channel.CategoryChannelTests;
@@ -75,6 +76,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //      搜索中间页面分类入口，点击进入品类页面
 //        SearchCategoryTests.class,
 //        CategoryChannelTests.class
+//        获取免密支付方式列表
+//        NoPasswordListTest.class
 
 })
 @SuiteDisplayName("调试多个测试用例")
