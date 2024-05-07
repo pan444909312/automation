@@ -9,6 +9,7 @@ import com.miller.userapp.pay.card.AddCardRecordTest;
 import com.miller.userapp.pay.card.CreatePaymentMethodTest;
 import com.miller.userapp.pay.card.GetPaymentMethodsTest;
 import com.miller.userapp.pay.nopassword.NoPasswordListTest;
+import com.miller.userapp.pay.nopassword.NoPasswordStatusTest;
 import com.miller.userapp.pay.payment.StripePaymentOnlyTest;
 import com.miller.userapp.search.category.SearchCategoryTests;
 import com.miller.userapp.search.channel.CategoryChannelTests;
@@ -78,7 +79,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        CategoryChannelTests.class
 //        获取免密支付方式列表
 //        NoPasswordListTest.class
-
+//        支付方式是否开启免密，0关闭1开启
+//        NoPasswordStatusTest.class
 })
 @SuiteDisplayName("调试多个测试用例")
 @Suite
