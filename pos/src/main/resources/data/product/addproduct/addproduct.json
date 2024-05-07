@@ -45,7 +45,8 @@
 			"code": "sku002"
 		}]
 	},
-	"attr_data": [{
+	"attr_data": [
+		{
 		"name": {
 			"zh_cn": "属性组名称",
 			"en_us": "Attr group name"
@@ -64,8 +65,10 @@
 			},
 			"code": "1002"
 		}]
-	}],
-	"extra_data": [{
+	}
+	],
+	"extra_data": [
+		{
 		"name": {
 			"zh_cn": "配料组名称",
 			"en_us": "extra group name"
@@ -73,9 +76,10 @@
 		"min": 1,
 		"limit": 99,
 		"extra_list": [{
-			"id": 818734,
+			"id": 1115012,
 			"limit": 9
 		}]
-	}],
+	}
+	],
 	"second_category_id": 0
 }
