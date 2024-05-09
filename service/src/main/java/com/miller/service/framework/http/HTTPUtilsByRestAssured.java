@@ -306,8 +306,10 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         responseStatusMap.put("statusLine", response.statusLine());
 
         // 获取响 body
-        responseBodyMap.put("body", (response.getBody().asString()).replaceAll(" ", ""));
-        String body = (response.getBody().asString()).replaceAll(" ", "");
+        // Bug:请勿修改响应体的内容，否则可能出现字符串反序列化错误，有些字符串中间的空格benign去掉
+        // responseBodyMap.put("body", (response.getBody().asString()).replaceAll(" ", ""));
+        responseBodyMap.put("body", response.getBody().asString());
+        String body = response.getBody().asString();
 
         // 这里不应该把Response对象返回，应该解析出内容后返回，这样才能达到在HTTPClientUtils工具中不管是使用RestAssured还是HTTPClient都是相同效果。但是为了充分使用Rest-assured的功能，可以把此对象一并返回
         otherObjectMap.put("request", request);
