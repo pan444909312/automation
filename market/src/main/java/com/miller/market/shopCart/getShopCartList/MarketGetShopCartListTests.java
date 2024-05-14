@@ -1,6 +1,7 @@
 package com.miller.market.shopCart.getShopCartList;
 
 import com.miller.market.constants.ResponseConstant;
+import com.miller.market.constants.TestCaseDataForMarketConstant;
 import com.miller.market.login.flow.MarketLoginFlow;
 import com.miller.market.login.request.MarketLoginRequestDTO;
 import com.miller.market.login.response.MarketLoginResponseDTO;
@@ -29,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("购物车列表")
 public class MarketGetShopCartListTests {
 
+
     @MethodSource("com.miller.market.shopCart.getShopCartList.provider.MarketGetShopCartListDataProvider#marketGetShopCartListDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_获取购物车列表")
@@ -36,8 +38,9 @@ public class MarketGetShopCartListTests {
         MarketGetShopCartListResponseDTO marketGetShopCartListResponseDTO = MarketGetShopCartListFlow.getShopCartList(marketGetShopCartListRequestDTO);
 
         assertThat(marketGetShopCartListResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        assertThat(marketGetShopCartListResponseDTO.getData()).isNotNull();
+        assertThat(marketGetShopCartListResponseDTO.getData().getNormalShopCartList()).isNotNull();
 
+        TestCaseDataForMarketConstant.shopCartId = marketGetShopCartListResponseDTO.getData().getNormalShopCartList().get(0).getShopCartList().get(0).getShopCartId();
     }
 
 }
