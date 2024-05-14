@@ -13,6 +13,8 @@ import com.miller.userapp.pay.nopassword.NoPasswordStatusTest;
 import com.miller.userapp.pay.payment.StripePaymentOnlyTest;
 import com.miller.userapp.search.category.SearchCategoryTests;
 import com.miller.userapp.search.channel.CategoryChannelTests;
+import com.miller.userapp.search.modulelist.IndexOperateModuleListTests;
+import com.miller.userapp.search.searchv2.SearchV2Tests;
 import com.miller.userapp.userpack.UserPackTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -29,7 +31,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         UserLoginTests.class,
         // 添加商品到购物车
-        ShoppingCarTests.class,
+//        ShoppingCarTests.class,
         // 创建订单-结算
 //        SettlementCarTests.class,
         // 创建订单-结算-会员结算
@@ -74,13 +76,18 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        NewUserTests.class
 //        自取频道商家列表
 //        UserPackTests.class
-//      搜索中间页面分类入口，点击进入品类页面
+//        搜索中间页面分类入口，点击进入品类页面
 //        SearchCategoryTests.class,
 //        CategoryChannelTests.class
+//        首页热搜词返回，点击热搜词搜索结果校验
+//        IndexOperateModuleListTests.class,
+//        SearchV2Tests.class
 //        获取免密支付方式列表
 //        NoPasswordListTest.class
 //        支付方式是否开启免密，0关闭1开启
 //        NoPasswordStatusTest.class
+
+
 })
 @SuiteDisplayName("调试多个测试用例")
 @Suite
