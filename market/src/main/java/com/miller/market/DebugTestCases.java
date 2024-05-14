@@ -17,11 +17,11 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         MarketLoginTests.class,
         // 加购
         MarketAddShopCartTests.class,
-        // 获取购物车列表
+        // 获取购物车列表（加购完成后调用）
         MarketGetShopCartListTests.class,
-        // 购物车结算
+        // 购物车结算（加购完成后调用）
         MarketSettleShopCartTests.class,
-        // 删除购物车
+        // 删除购物车（加购完成后调用）
         MarketDeleteShopCartTests.class,
 })
 @SuiteDisplayName("调试多个测试用例")

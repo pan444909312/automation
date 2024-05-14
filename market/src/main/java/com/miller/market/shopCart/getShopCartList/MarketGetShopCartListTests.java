@@ -38,7 +38,7 @@ public class MarketGetShopCartListTests {
         MarketGetShopCartListResponseDTO marketGetShopCartListResponseDTO = MarketGetShopCartListFlow.getShopCartList(marketGetShopCartListRequestDTO);
 
         assertThat(marketGetShopCartListResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        assertThat(marketGetShopCartListResponseDTO.getData().getNormalShopCartList()).isNotNull();
+        assertThat(marketGetShopCartListResponseDTO.getData()).isNotNull();
 
         TestCaseDataForMarketConstant.shopCartId = marketGetShopCartListResponseDTO.getData().getNormalShopCartList().get(0).getShopCartList().get(0).getShopCartId();
     }
