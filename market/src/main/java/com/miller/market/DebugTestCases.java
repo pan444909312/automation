@@ -4,6 +4,7 @@ import com.miller.market.login.MarketLoginTests;
 import com.miller.market.shopCart.addShopCart.MarketAddShopCartTests;
 import com.miller.market.shopCart.deleteShopCart.MarketDeleteShopCartTests;
 import com.miller.market.shopCart.getShopCartList.MarketGetShopCartListTests;
+import com.miller.market.shopCart.settleShopCart.MarketSettleShopCartTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -18,6 +19,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         MarketAddShopCartTests.class,
         // 获取购物车列表
         MarketGetShopCartListTests.class,
+        // 购物车结算
+        MarketSettleShopCartTests.class,
         // 删除购物车
         MarketDeleteShopCartTests.class,
 })
