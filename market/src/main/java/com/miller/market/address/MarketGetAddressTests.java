@@ -1,7 +1,7 @@
-package com.miller.market.Address;
+package com.miller.market.address;
 
-import com.miller.market.Address.flow.MarketGetAddressFlow;
-import com.miller.market.Address.response.MarketGetAddressResponseDTO;
+import com.miller.market.address.flow.MarketGetAddressFlow;
+import com.miller.market.address.response.MarketGetAddressResponseDTO;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.constants.TestCaseDataForMarketConstant;
 import com.miller.service.framework.annotation.EnvTag;

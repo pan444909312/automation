@@ -1,4 +1,4 @@
-package com.miller.market.Address.response;
+package com.miller.market.address.response;
 
 import com.miller.market.dto.BasicResponseDTO;
 import com.panda.market.dal.dto.AddressListDTO;

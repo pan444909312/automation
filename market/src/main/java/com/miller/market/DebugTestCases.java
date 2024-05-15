@@ -1,6 +1,6 @@
 package com.miller.market;
 
-import com.miller.market.Address.MarketGetAddressTests;
+import com.miller.market.address.MarketGetAddressTests;
 import com.miller.market.login.MarketLoginTests;
 import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoDeliveryWithoutTimeTests;
 import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoTakeWithoutTimeTests;
@@ -20,17 +20,17 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         MarketLoginTests.class,
         // 收货地址
         MarketGetAddressTests.class,
-//        // 加购
+        // 加购
         MarketAddShopCartTests.class,
-//        // 获取购物车列表（加购后调用）
+        // 获取购物车列表（加购后调用）
         MarketGetShopCartListTests.class,
-//        // 购物车结算（加购后调用）
+        // 购物车结算（加购后调用）
         MarketSettleShopCartTests.class,
-//        //预订单-配送-无时间（加购后调用）
+        //预订单-配送-无时间（加购后调用）
         MarketGetPreOrderInfoDeliveryWithoutTimeTests.class,
-//        //预订单-配送-无时间（加购后调用）
+        //预订单-配送-无时间（加购后调用）
         MarketGetPreOrderInfoTakeWithoutTimeTests.class,
-//        // 删除购物车（加购后调用）
+        // 删除购物车（加购后调用）
         MarketDeleteShopCartTests.class,
 })
 @SuiteDisplayName("调试多个测试用例")
