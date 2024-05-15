@@ -158,5 +158,12 @@
             <version>1.11</version>
         </dependency>
 
+        <!-- Java 操作 Git 的客户端工具 -->
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+        </dependency>
+
+
     </dependencies>
 </project>
