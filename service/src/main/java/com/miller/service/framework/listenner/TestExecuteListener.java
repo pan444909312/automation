@@ -12,14 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 测试执行监听器
- *
- * <p>
- * 测试用例执行监听
- * </p>
+ * 测试执行监听器，这个监听器需要配合 Launcher 一起使用，作为监听测试结果的自定义监听器注入到 Launcher 中。
  *
  * @author Miller Shan
  * @version 1.0
+ * @see com.miller.service.framework.launcher.TestCaseRunnerLauncher
  * @since 2023/10/16 20:56:49
  */
 public class TestExecuteListener implements TestExecutionListener {
@@ -28,12 +25,12 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
-        System.out.println("==============>>>>>>> testPlanExecutionStarted() invoked!!!");
+        System.out.println(this.getClass().getName() + " testPlanExecutionStarted() invoked!!!");
     }
 
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
-        System.out.println("==============>>>>>>> executionStarted() invoked!!!");
+        System.out.println(this.getClass().getName() + " executionStarted() invoked!!!");
         // 判断TestIdentifier，测试标识符，是否是一个 Container。注意: Container 会存在多个，所以此方法会执行多次。
         if (testIdentifier.isContainer()) {/* do not nothing... */}
         // 判断 TestIdentifier 是否是一个测试方法(@Test)
@@ -43,9 +40,9 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
-        System.out.println("==============>>>>>>> executionFinished() invoked!!!");
+        System.out.println(this.getClass().getName() + " executionFinished() invoked!!!");
         if (testIdentifier.isTest()) {
-            System.out.println("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
+             System.out.println("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
             String result = testExecutionResult.getStatus().toString();
             // Tesults requires result to be one of: [pass, fail, unknown]
             if (result == "SUCCESSFUL") {
@@ -86,21 +83,21 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void dynamicTestRegistered(TestIdentifier testIdentifier) {
-        System.out.println("==============>>>>>>> dynamicTestRegistered() invoked!!!");
+        System.out.println(this.getClass().getName() + " dynamicTestRegistered() invoked!!!");
     }
 
     @Override
     public void executionSkipped(TestIdentifier testIdentifier, String reason) {
-        System.out.println("==============>>>>>>> executionSkipped() invoked!!!");
+        System.out.println(this.getClass().getName() + " executionSkipped() invoked!!!");
     }
 
     @Override
     public void reportingEntryPublished(TestIdentifier testIdentifier, ReportEntry entry) {
-        System.out.println("==============>>>>>>> reportingEntryPublished() invoked!!!");
+        System.out.println(this.getClass().getName() + " reportingEntryPublished() invoked!!!");
     }
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
-        System.out.println("==============>>>>>>> testPlanExecutionFinished() invoked!!!");
+        System.out.println(this.getClass().getName() + " testPlanExecutionFinished() invoked!!!");
     }
 }

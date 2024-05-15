@@ -1,7 +1,6 @@
 package com.miller.takeaway.order;
 
 import com.miller.service.framework.annotation.TestCase;
-import com.miller.service.framework.listenner.TestExecuteListener;
 import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithMemberScenarioTests;
 import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithVoucherScenarioTests;
 import com.miller.takeaway.order.branch.refund.OrderOfPlatformDeliveryAutoRefundScenarioTests;
@@ -14,27 +13,9 @@ import com.miller.takeaway.order.master.delivery.platform.OrderOfPlatformDeliver
 import com.miller.takeaway.order.master.delivery.yourself.*;
 import com.miller.takeaway.order.master.foodcity.OrderOfFoodCityAllStallReceivingOrderThenMasterOrderStatusIsDoneScenarioTests;
 import com.miller.takeaway.order.master.foodcity.OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenarioTests;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.platform.launcher.Launcher;
-import org.junit.platform.launcher.LauncherDiscoveryRequest;
-import org.junit.platform.launcher.TestExecutionListener;
-import org.junit.platform.launcher.TestPlan;
-import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
-import org.junit.platform.launcher.core.LauncherFactory;
-import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
-
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
-import static org.junit.platform.launcher.TagFilter.excludeTags;
-import static org.junit.platform.launcher.TagFilter.includeTags;
 
 /**
  * 调试场景集

@@ -33,17 +33,22 @@ import java.util.Objects;
  * @version 1.0
  * @since 2023/10/18 11:03:13
  */
-public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
-        BeforeTestExecutionCallback, TestExecutionExceptionHandler,
-        AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+public class LifecycleCallback implements
+        BeforeAllCallback,
+            BeforeEachCallback,
+                BeforeTestExecutionCallback,
+                    TestExecutionExceptionHandler,
+                AfterTestExecutionCallback,
+            AfterEachCallback,
+        AfterAllCallback {
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
-        System.out.println("===========>>>>>>beforeAll callback invoked.");
+        System.out.println(this.getClass().getName() + " beforeAll callback invoked.");
     }
 
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
-        System.out.println("===========>>>>>>afterAll callback invoked.");
+        System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
         // 更新 YAPI 平台的状态
         for (String element : TestResultWatcher.apiDocsValues) {
             String yApiId = YApiUtils.getYApiId(element);
@@ -54,12 +59,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
-        System.out.println("===========>>>>>>beforeEach callback invoked.");
+        System.out.println(this.getClass().getName() + " beforeEach() callback invoked.");
     }
 
     @Override
     public void afterEach(ExtensionContext extensionContext) throws Exception {
-        System.out.println("===========>>>>>>afterEach callback invoked.");
+        System.out.println(this.getClass().getName() + " afterEach() callback invoked.");
     }
 
     /**
@@ -68,7 +73,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
         //@Test方法执行之前调用
-        System.out.println("===========>>>>>>beforeTestExecution callback invoked.");
+        System.out.println(this.getClass().getName() + " beforeTestExecution() callback invoked.");
         MethodInvoked methodInvokedAnnotation = extensionContext.getTestMethod().get().getDeclaredAnnotation(MethodInvoked.class);
         if (Objects.nonNull(methodInvokedAnnotation)) {
             Class<?> clazz = methodInvokedAnnotation.clazz();
@@ -86,7 +91,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
         //@Test方法执行之后调用
-        System.out.println("===========>>>>>>afterTestExecution callback invoked.");
+        System.out.println(this.getClass().getName() + " afterTestExecution() callback invoked.");
     }
 
     /**
@@ -95,7 +100,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      */
     @Override
     public void handleTestExecutionException(ExtensionContext extensionContext, Throwable throwable) throws Throwable {
-        System.out.println("===========>>>>>>handleTestExecutionException callback invoked.");
+        System.out.println(this.getClass().getName() + " handleTestExecutionException() callback invoked.");
         // 执行发生异常时把异常抛出来
         throw throwable;
     }
