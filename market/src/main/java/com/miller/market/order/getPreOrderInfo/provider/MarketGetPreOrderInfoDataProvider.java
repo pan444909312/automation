@@ -1,5 +1,6 @@
 package com.miller.market.order.getPreOrderInfo.provider;
 
+import com.miller.market.constants.TestCaseDataForMarketConstant;
 import com.miller.market.order.getPreOrderInfo.request.MarketGetPreOrderInfoRequestDTO;
 import org.junit.jupiter.params.provider.Arguments;
 
@@ -21,7 +22,7 @@ public class MarketGetPreOrderInfoDataProvider {
         MarketGetPreOrderInfoRequestDTO order1 = new MarketGetPreOrderInfoRequestDTO();
         order1.setIsPfRedPacket(1);
         order1.setDeliveryMethod(1);
-        order1.setAddressId(1652L);
+        order1.setAddressId(TestCaseDataForMarketConstant.addressId);
         order1.setAutoDeductRedPacket(1);
         // 使用默认值，1页10条
         return Stream.of(

@@ -6,7 +6,6 @@ import com.miller.market.shopCart.deleteShopCart.flow.MarketDeleteShopCartFlow;
 import com.miller.market.shopCart.deleteShopCart.request.MarketDeleteShopCartRequestDTO;
 import com.miller.market.shopCart.deleteShopCart.response.MarketDeleteShopCartResponseDTO;
 import com.miller.market.shopCart.getShopCartList.flow.MarketGetShopCartListFlow;
-import com.miller.market.shopCart.getShopCartList.request.MarketGetShopCartListRequestDTO;
 import com.miller.market.shopCart.getShopCartList.response.MarketGetShopCartListResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
@@ -28,8 +27,7 @@ public class MarketDeleteShopCartTests {
     @BeforeAll
     static void beforeAll() {
         //删除购物车前，先获取购物车id
-        MarketGetShopCartListRequestDTO marketGetShopCartListRequestDTO = new MarketGetShopCartListRequestDTO();
-        MarketGetShopCartListResponseDTO marketGetShopCartListResponseDTO = MarketGetShopCartListFlow.getShopCartList(marketGetShopCartListRequestDTO);
+        MarketGetShopCartListResponseDTO marketGetShopCartListResponseDTO = MarketGetShopCartListFlow.getShopCartList();
         TestCaseDataForMarketConstant.shopCartId = marketGetShopCartListResponseDTO.getData().getNormalShopCartList().get(0).getShopCartList().get(0).getShopCartId();
     }
     @MethodSource("com.miller.market.shopCart.deleteShopCart.provider.MarketDeleteShopCartDataProvider#marketDeleteShopCartDataProvider")

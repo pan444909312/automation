@@ -3,7 +3,6 @@ package com.miller.market.shopCart.settleShopCart;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.constants.TestCaseDataForMarketConstant;
 import com.miller.market.shopCart.getShopCartList.flow.MarketGetShopCartListFlow;
-import com.miller.market.shopCart.getShopCartList.request.MarketGetShopCartListRequestDTO;
 import com.miller.market.shopCart.getShopCartList.response.MarketGetShopCartListResponseDTO;
 import com.miller.market.shopCart.settleShopCart.flow.MarketSettleShopCartFlow;
 import com.miller.market.shopCart.settleShopCart.request.MarketSettleShopCartRequestDTO;
@@ -28,8 +27,7 @@ public class MarketSettleShopCartTests {
     @BeforeAll
     static void beforeAll() {
         //购物车结算前，先获取购物车id
-        MarketGetShopCartListRequestDTO marketGetShopCartListRequestDTO = new MarketGetShopCartListRequestDTO();
-        MarketGetShopCartListResponseDTO marketGetShopCartListResponseDTO = MarketGetShopCartListFlow.getShopCartList(marketGetShopCartListRequestDTO);
+        MarketGetShopCartListResponseDTO marketGetShopCartListResponseDTO = MarketGetShopCartListFlow.getShopCartList();
         TestCaseDataForMarketConstant.shopCartId = marketGetShopCartListResponseDTO.getData().getNormalShopCartList().get(0).getShopCartList().get(0).getShopCartId();
     }
     @MethodSource("com.miller.market.shopCart.settleShopCart.provider.MarketSettleShopCartDataProvider#marketSettleShopCartDataProvider")
