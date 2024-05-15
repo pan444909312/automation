@@ -17,4 +17,10 @@ public class TestCaseDataForMarketConstant {
      */
     public static Long goodsId = 2119L;
     public static Long skuId = 1182L;
+
+    /**
+     * 自动化测试专用下单地址。
+     * 先赋值，后续请求收货地址接口获取最新收货地址
+     */
+    public static Long addressId = 1463L;
 }

@@ -19,7 +19,7 @@ public class MarketLoginDataProvider {
     static Stream<Arguments> loginDataProviderFromDB() {
         MarketLoginRequestDTO user1 = new MarketLoginRequestDTO();
         user1.setAreaCode("86");
-        user1.setPhone("18968046019");
+        user1.setPhone("17700004444");
         user1.setCode("888888");
         user1.setRegistrationId("171976fa8b8cf2806d9");
         user1.setDistinctId(BusinessConstant.deviceNumber);
