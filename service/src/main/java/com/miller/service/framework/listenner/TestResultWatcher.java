@@ -2,6 +2,7 @@ package com.miller.service.framework.listenner;
 
 import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.ApiDocs;
+import com.miller.service.framework.apidoc.YApiUtils;
 import com.miller.service.framework.depend.DependsOnClass;
 import com.miller.service.framework.depend.DependsOnMethod;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
@@ -30,6 +31,10 @@ import java.util.*;
  * @since 2023/10/16 21:22:41
  */
 public class TestResultWatcher implements TestWatcher, ExecutionCondition {
+
+    // 是否同步结果到 YAPI 平台的开关
+    private static final Boolean yApiEnabled = false;
+
     /**
      * 存储成功的测试方法
      */
@@ -57,8 +62,17 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         // 记录成功的方法
         context.getTestMethod().ifPresent(method -> successfulTestMethods.add(method.getName()));
 
-        // 执行成功更新平台中接口的状态
-        processApiDoc(context);
+        // 执行成功则更新 ApiDoc 平台的状态
+        if (yApiEnabled) {
+            // 获取测试类上的ApiDoc注解中的值
+            getAnnotationValueOfApiDoc(context);
+
+            // 更新 YAPI 平台的状态
+            for (String element : TestResultWatcher.apiDocsValues) {
+                String yApiId = YApiUtils.getYApiId(element);
+                YApiUtils.updateYApiData(element);
+            }
+        }
     }
 
     @Override
@@ -75,9 +89,9 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     }
 
     /**
-     * 处理{@link  ApiDoc @ApiDoc}注解
+     * 获取 {@link  ApiDoc @ApiDoc} 注解的值
      */
-    private void processApiDoc(ExtensionContext context) {
+    private void getAnnotationValueOfApiDoc(ExtensionContext context) {
         // 处理方法上的注解
         // ApiDoc apiDocAnnotation = context.getTestMethod().get().getDeclaredAnnotation(ApiDoc.class);
         // 处理类上的注解

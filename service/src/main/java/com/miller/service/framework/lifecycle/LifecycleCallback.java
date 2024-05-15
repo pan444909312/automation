@@ -35,11 +35,11 @@ import java.util.Objects;
  */
 public class LifecycleCallback implements
         BeforeAllCallback,
-            BeforeEachCallback,
-                BeforeTestExecutionCallback,
-                    TestExecutionExceptionHandler,
-                AfterTestExecutionCallback,
-            AfterEachCallback,
+        BeforeEachCallback,
+        BeforeTestExecutionCallback,
+        TestExecutionExceptionHandler,
+        AfterTestExecutionCallback,
+        AfterEachCallback,
         AfterAllCallback {
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
@@ -49,12 +49,6 @@ public class LifecycleCallback implements
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
-        // 更新 YAPI 平台的状态
-        for (String element : TestResultWatcher.apiDocsValues) {
-            String yApiId = YApiUtils.getYApiId(element);
-            YApiUtils.updateYApiData(element);
-        }
-
     }
 
     @Override
@@ -72,7 +66,7 @@ public class LifecycleCallback implements
      */
     @Override
     public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
-        //@Test方法执行之前调用
+        // @Test方法执行之前调用
         System.out.println(this.getClass().getName() + " beforeTestExecution() callback invoked.");
         MethodInvoked methodInvokedAnnotation = extensionContext.getTestMethod().get().getDeclaredAnnotation(MethodInvoked.class);
         if (Objects.nonNull(methodInvokedAnnotation)) {
