@@ -29,12 +29,13 @@ public class DingTalkUtils {
     /**
      * 机器人应用的 access_token 的值
      */
-    public static final String CUSTOM_ROBOT_TOKEN = "7abf6afdfcd6841cc72094092fe232ab28b5b68c7eec61375e3dfb227790979d";
+    public static final String CUSTOM_ROBOT_TOKEN = "0de7c87ac7e3e8506c142d1929068a9c15feea710152aca9c2eeb1e9aa3202ff";
 
     /**
      * 钉钉机器人管理中的 安全设置，加签密钥
      */
-    public static final String SECRET = "SEC13176e3846c8420f82e49050560c303a2a4d351231da38c44a37ae2d301cc10a";
+    public static final String SECRET = "SECcc2d9a57ff038735ba738a2325e5623749e3016cbe931d930b8ce7253f265854";
+
 
 
     /**

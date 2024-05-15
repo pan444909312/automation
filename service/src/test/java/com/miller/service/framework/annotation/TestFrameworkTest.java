@@ -9,13 +9,11 @@ import org.junit.jupiter.api.Test;
  * @version 1.0
  * @since 2024/5/15 14:01:46
  */
-@ApiDoc("http://10.1.6.46:3000/project/60/interface/api/3288")
 @TestFramework
 public class TestFrameworkTest {
-
     @Test
     void testAnnotationOfTestFramework() {
 //        throw new RuntimeException(";");
-        System.out.println("assert @TestFramework is running...");
+        System.out.println("Assert @TestFramework is running...");
     }
 }

@@ -1,8 +1,10 @@
 package com.miller.service.framework.lifecycle;
 
+import com.miller.common.util.DateUtils;
 import com.miller.service.framework.annotation.MethodInvoked;
-import com.miller.service.framework.apidoc.YApiUtils;
-import com.miller.service.framework.listenner.TestResultWatcher;
+import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
+import com.miller.service.framework.util.JGitUtils;
+import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.util.ReflectionUtils;
 import org.junit.jupiter.api.extension.*;
 
@@ -33,17 +35,12 @@ import java.util.Objects;
  * @version 1.0
  * @since 2023/10/18 11:03:13
  */
-public class LifecycleCallback implements
-        BeforeAllCallback,
-        BeforeEachCallback,
-        BeforeTestExecutionCallback,
-        TestExecutionExceptionHandler,
-        AfterTestExecutionCallback,
-        AfterEachCallback,
-        AfterAllCallback {
+public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " beforeAll callback invoked.");
+        sendExecuteNotification();
+
     }
 
     @Override
@@ -97,5 +94,13 @@ public class LifecycleCallback implements
         System.out.println(this.getClass().getName() + " handleTestExecutionException() callback invoked.");
         // 执行发生异常时把异常抛出来
         throw throwable;
+    }
+
+    private static void sendExecuteNotification() {
+        // 记录执行测试的事件
+        String content =
+                "- 执行人员: " + JGitUtils.getGitEmail() + "\n" +
+                        "- 执行时间: " + DateUtils.getCurrentDateTime() + "\n";
+        DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }
