@@ -1,6 +1,7 @@
 package com.miller.market.takesTime;
 
 import com.miller.market.constants.ResponseConstant;
+import com.miller.market.constants.TestCaseDataForMarketConstant;
 import com.miller.market.takesTime.flow.MarketGetTakesTimeFlow;
 import com.miller.market.takesTime.request.MarketGetTakesTimeRequestDTO;
 import com.miller.market.takesTime.response.MarketGetTakesTimeResponseDTO;
@@ -28,8 +29,11 @@ public class MarketTakesTimeTests {
         MarketGetTakesTimeResponseDTO marketGetTakesTimeResponseDTO = MarketGetTakesTimeFlow.getTakesTime(marketGetTakesTimeRequestDTO);
 
         assertThat(marketGetTakesTimeResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        //获取到配送时间
+        //获取到自取时间不为空
         assertThat(marketGetTakesTimeResponseDTO.getData()).isNotNull();
+
+        //第一个自取时间赋值给全局变量，方便后续接口使用
+        TestCaseDataForMarketConstant.takesTime = marketGetTakesTimeResponseDTO.getData().getTakesTimeList().get(0);
 
     }
 

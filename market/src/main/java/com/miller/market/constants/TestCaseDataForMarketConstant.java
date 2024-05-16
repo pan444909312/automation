@@ -1,5 +1,8 @@
 package com.miller.market.constants;
 
+import com.panda.market.dal.dto.DeliveryTimeDTO;
+import com.panda.market.dal.dto.TakesTimeDTO;
+
 /**
  * PF相关信息的测试数据。
  * 测试用例需要用到的数据直接通过初始化脚本完成，而在代码中仅保存最少需要的关键数据ID。
@@ -23,4 +26,14 @@ public class TestCaseDataForMarketConstant {
      * 先赋值，后续请求收货地址接口获取最新收货地址
      */
     public static Long addressId = 1463L;
+
+    /**
+     * 自动化测试专用配送时间。
+     */
+    public static DeliveryTimeDTO deliveryTime;
+
+    /**
+     * 自动化测试专用自取。
+     */
+    public static TakesTimeDTO takesTime;
 }

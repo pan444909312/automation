@@ -1,6 +1,7 @@
 package com.miller.market.deliveryTime;
 
 import com.miller.market.constants.ResponseConstant;
+import com.miller.market.constants.TestCaseDataForMarketConstant;
 import com.miller.market.deliveryTime.flow.MarketGetDeliveryTimeFlow;
 import com.miller.market.deliveryTime.request.MarketGetDeliveryTimeRequestDTO;
 import com.miller.market.deliveryTime.response.MarketGetDeliveryTimeResponseDTO;
@@ -28,9 +29,11 @@ public class MarketDeliveryTimeTests {
         MarketGetDeliveryTimeResponseDTO marketGetDeliveryTimeResponseDTO = MarketGetDeliveryTimeFlow.getDeliveryTime(marketGetDeliveryTimeRequestDTO);
 
         assertThat(marketGetDeliveryTimeResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        //获取到配送时间
+        //获取到配送时间不为空
         assertThat(marketGetDeliveryTimeResponseDTO.getData().getDeliveryTimeList()).isNotNull();
 
+        //第一个配送时间赋值给全局变量，方便后续接口使用
+        TestCaseDataForMarketConstant.deliveryTime = marketGetDeliveryTimeResponseDTO.getData().getDeliveryTimeList().get(0);
     }
 
 }
