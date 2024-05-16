@@ -125,7 +125,7 @@ public class DingTalkUtils {
             /**
              * 发送Marddown消息
              */
-            OapiRobotSendRequest req = new OapiRobotSendRequest();
+            OapiRobotSendRequest request = new OapiRobotSendRequest();
 
             OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
             markdown.setTitle(title);
@@ -138,11 +138,11 @@ public class DingTalkUtils {
             at.setIsAtAll(Boolean.FALSE);
 
             // 设置消息类型
-            req.setMsgtype("markdown");
-            req.setMarkdown(markdown);
-            req.setAt(at);
+            request.setMsgtype("markdown");
+            request.setMarkdown(markdown);
+            request.setAt(at);
             // 发送消息
-            OapiRobotSendResponse rsp = client.execute(req, CUSTOM_ROBOT_TOKEN);
+            OapiRobotSendResponse rsp = client.execute(request, CUSTOM_ROBOT_TOKEN);
             System.out.println(rsp.getBody());
         } catch (ApiException e) {
             e.printStackTrace();

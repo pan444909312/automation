@@ -4,7 +4,6 @@ import com.miller.common.util.DateUtils;
 import com.miller.service.framework.annotation.MethodInvoked;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
-import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.util.ReflectionUtils;
 import org.junit.jupiter.api.extension.*;
 
@@ -36,11 +35,16 @@ import java.util.Objects;
  * @since 2023/10/18 11:03:13
  */
 public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+
+    /**
+     * 自动化测试执行通知开关
+     */
+    private static final Boolean isSendNotification = true;
+
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " beforeAll callback invoked.");
-        sendExecuteNotification();
-
+        if (isSendNotification) sendExecuteNotification();
     }
 
     @Override
@@ -96,11 +100,14 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         throw throwable;
     }
 
+    /**
+     * 发送自动化测试执行消息
+     */
     private static void sendExecuteNotification() {
         // 记录执行测试的事件
         String content =
-                "- 执行人员: " + JGitUtils.getGitEmail() + "\n" +
-                        "- 执行时间: " + DateUtils.getCurrentDateTime() + "\n";
+                "- **执行人员**: " + JGitUtils.getGitEmail() + " \n " +
+                "- **执行时间**: " + DateUtils.getCurrentDateTime() + " \n ";
         DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }
