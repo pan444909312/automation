@@ -1,0 +1,36 @@
+package com.miller.market.deliveryTime;
+
+import com.miller.market.constants.ResponseConstant;
+import com.miller.market.deliveryTime.flow.MarketGetDeliveryTimeFlow;
+import com.miller.market.deliveryTime.request.MarketGetDeliveryTimeRequestDTO;
+import com.miller.market.deliveryTime.response.MarketGetDeliveryTimeResponseDTO;
+import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.TestFramework;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+
+/**
+ * 中超获取配送时间接口
+ */
+@EnvTag.Test
+@TestFramework
+@DisplayName("配送时间接口")
+public class MarketDeliveryTimeTests {
+
+    @MethodSource("com.miller.market.deliveryTime.provider.MarketGetDeliveryTimeDataProvider#marketDeliveryTimeDataProvider")
+    @ParameterizedTest
+    @DisplayName("正常流程_获取配送时间")
+    void getDeliveryTimeSuccessfully(MarketGetDeliveryTimeRequestDTO marketGetDeliveryTimeRequestDTO) {
+        MarketGetDeliveryTimeResponseDTO marketGetDeliveryTimeResponseDTO = MarketGetDeliveryTimeFlow.getDeliveryTime(marketGetDeliveryTimeRequestDTO);
+
+        assertThat(marketGetDeliveryTimeResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
+        //获取到配送时间
+        assertThat(marketGetDeliveryTimeResponseDTO.getData().getDeliveryTimeList()).isNotNull();
+
+    }
+
+}

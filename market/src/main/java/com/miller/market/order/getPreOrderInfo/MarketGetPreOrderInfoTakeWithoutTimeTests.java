@@ -24,7 +24,7 @@ public class MarketGetPreOrderInfoTakeWithoutTimeTests {
     @MethodSource("com.miller.market.order.getPreOrderInfo.provider.MarketGetPreOrderInfoDataProvider#marketTakeWithoutTimeDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_预订单创建成功-自取-无时间")
-    void addShopCartSuccessfully(MarketGetPreOrderInfoRequestDTO marketGetPreOrderInfoRequestDTO) {
+    void getPreOrderInfoTakeWithoutTimeSuccessfully(MarketGetPreOrderInfoRequestDTO marketGetPreOrderInfoRequestDTO) {
         MarketGetPreOrderInfoResponseDTO marketGetPreOrderInfoResponseDTO = MarketGetPreOrderInfoFlow.getPreOrderInfo(marketGetPreOrderInfoRequestDTO);
 
         assertThat(marketGetPreOrderInfoResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
