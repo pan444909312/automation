@@ -227,6 +227,12 @@
                 <artifactId>junit-platform-suite-engine</artifactId>
                 <version>${junit.platform.version}</version>
             </dependency>
+            <!-- JUnit5 整合 reporting -->
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-reporting</artifactId>
+                <version>${junit.platform.version}</version>
+            </dependency>
 
             <!-- JUnit5 整合 Mockito, mockito-junit-jupiter 已经包含了Mockito的core所以不需要单独引入了 -->
             <dependency>
@@ -373,8 +379,13 @@
     </dependencyManagement>
 
     <build>
+<!--        <testSourceDirectory>src/main/java</testSourceDirectory>-->
         <plugins>
-            <!-- 添加 Maven 的 surefire插件用于管理 JUnit 测试用例，否则可能会出现 mvn test 的时候Tests run: 0的情况，新版本 2.20.1 以上已解决 -->
+            <!-- maven-surefire-plugin 插件用于生成测试报告：
+             1. 添加 Maven 的 surefire 插件用于管理 JUnit 测试用例，否则可能会出现 mvn test 的时候Tests run: 0的情况，新版本 2.20.1 以上已解决.
+             2. 执行 mvn clean test 命令时，会自动生产测试报告，默认 xml 格式。如果想要 html 格式需要使用命令 mvn clean surefire-report:report 命令，
+             会生成 target/site/surefire-report.html 文件。
+             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -386,6 +397,22 @@
                         <version>${junit.jupiter.version}</version>
                     </dependency>
                 </dependencies>
+                <!-- 制定要运行的测试用例的模式 -->
+                <configuration>
+                    <includes>
+                        <include>**/*ScenarioTests.java</include>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                    <!-- 指定测试用例的目录 -->
+                    <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
+                    <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
+                </configuration>
+            </plugin>
+            <!-- 执行 mvn site 时生成网站 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.3</version>
             </plugin>
         </plugins>
     </build>
