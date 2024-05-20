@@ -36,9 +36,12 @@ public class LoginFlow {
         userDTO.setPassword(password);
         String body = JSONUtils.toJSONString(userDTO);
 
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+
         // When. 发送请求
         LoginResponseDTO responseUser = HttpUtils.
-                sendPostRequestReturnJavaObject(uri, null, null, body, null, LoginResponseDTO.class);
+                sendPostRequestReturnJavaObject(uri, null, headers, body, null, LoginResponseDTO.class);
         // Then
         return responseUser;
     }
@@ -68,11 +71,13 @@ public class LoginFlow {
         UserRequestDTO userDTO = new UserRequestDTO();
         userDTO.setEmail(username);
         userDTO.setPassword(password);
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
 
         String body = JSONUtils.toJSONString(userDTO);
         // When. 发送请求
         return HttpUtils.sendPostRequest(
-                uri, null, null, body, null);
+                uri, null, headers, body, null);
     }
 
 
