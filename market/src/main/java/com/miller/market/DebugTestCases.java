@@ -3,7 +3,11 @@ package com.miller.market;
 import com.miller.market.address.MarketGetAddressTests;
 import com.miller.market.deliveryTime.MarketDeliveryTimeTests;
 import com.miller.market.login.MarketLoginTests;
+import com.miller.market.order.createOrder.MarketCreateOrderDeliveryTimeTests;
+import com.miller.market.order.createOrder.MarketCreateOrderTakeTimeTests;
+import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoDeliveryTimeTests;
 import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoDeliveryWithoutTimeTests;
+import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoTakeTimeTests;
 import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoTakeWithoutTimeTests;
 import com.miller.market.shopCart.addShopCart.MarketAddShopCartTests;
 import com.miller.market.shopCart.deleteShopCart.MarketDeleteShopCartTests;
@@ -20,24 +24,32 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SelectClasses({
         // 用户登录
         MarketLoginTests.class,
-        // 收货地址
+        // 收货地址（登录-收货地址）
         MarketGetAddressTests.class,
-        //获取配送时间(需获取配送地址后调用)
+        //获取配送时间(登录-收货地址-配送时间)
         MarketDeliveryTimeTests.class,
-        //获取自取时间
+        //获取自取时间（登录-自取时间）
         MarketTakesTimeTests.class,
-//        // 加购
-//        MarketAddShopCartTests.class,
-//        // 获取购物车列表（加购后调用）
+        // 加购（登录-加购）
+        MarketAddShopCartTests.class,
+//        // 获取购物车列表（登录-加购-购物车列表）
 //        MarketGetShopCartListTests.class,
-//        // 购物车结算（加购后调用）
-//        MarketSettleShopCartTests.class,
-//        //预订单-配送-无时间（加购后调用）
+//        // 购物车结算（登录-加购-结算）
+        MarketSettleShopCartTests.class,
+        //预订单-配送-有时间（登录-获取收货地址-获取配送时间-加购-预订单）
+        MarketGetPreOrderInfoDeliveryTimeTests.class,
+//        //预订单-配送-无时间（登录-加购-预订单）
 //        MarketGetPreOrderInfoDeliveryWithoutTimeTests.class,
-//        //预订单-配送-无时间（加购后调用）
+//        //预订单-自取-无时间（登录-加购-预订单）
 //        MarketGetPreOrderInfoTakeWithoutTimeTests.class,
-//        // 删除购物车（加购后调用）
+        //预订单-自取-有时间（登录-获取自取时间-加购-预订单）
+//        MarketGetPreOrderInfoTakeTimeTests.class,
+//        // 删除购物车（登录-加购-删除购物车）
 //        MarketDeleteShopCartTests.class,
+        // 配送下单(登录-获取收货地址-获取配送时间-加购-结算-预订单（配送-有时间）-下单)
+        MarketCreateOrderDeliveryTimeTests.class,
+        // 自取下单(登录-获取自取时间-加购-结算-预订单（自取-有时间）-下单)
+//        MarketCreateOrderTakeTimeTests.class,
 })
 @SuiteDisplayName("调试多个测试用例")
 @Suite
