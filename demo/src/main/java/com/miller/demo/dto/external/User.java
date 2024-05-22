@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * 用户实体类，与数据库user表对应
  * <p>
- * 使用 MyBatis-plus 中的注解 {@link TableName @TableName}指定表名
+ * 假设这个是开发代码中的请求对象
  * </p>
  *
  * @author Miller Shan

@@ -10,11 +10,11 @@ import lombok.Data;
  * @since 2023/11/1 20:48:25
  */
 @Data
-public class BasicResponseDTO {
+public class BasicResponseDTO<T> {
     private Integer code;
     private String message;
     /**
      * Use Object Because data maybe is String, Integer, Boolean and so on.
      */
-    private Object data;
+    private T data;
 }
