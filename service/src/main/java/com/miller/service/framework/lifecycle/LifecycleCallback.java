@@ -107,17 +107,18 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private static void sendExecuteNotification() {
         // 记录执行测试的事件
         String content =
-                "- **执行人员**: " + JGitUtils.getGitEmail() + " \n " +
-                        "- **执行时间**: " + DateUtils.getCurrentDateTime() + " \n " +
-                        "- **用例总数**:" + (
+                "- **执行人员**: " + JGitUtils.getGitEmail().split("@")[0] + " \n " +
+                        "- **执行时间**:\t" + DateUtils.getCurrentDateTime() + " \n " +
+                        // 统计用例执行情况，目前是一次运行期间的累积数量之和，如果需要单独统计每次运行结果，则需要先设置为0
+                        "- **<font color=black>用例总数:</font>**\t" + (
                         TestResultWatcher.testCaseCountOfSuccessful +
                                 TestResultWatcher.testCaseCountOfFailed +
                                 TestResultWatcher.testCaseCountOfDisabled +
                                 TestResultWatcher.testCaseCountOfAborted) + " \n " +
-                        "- **成功用例**:" + TestResultWatcher.testCaseCountOfSuccessful + " \n " +
-                        "- **失败用例**:" + TestResultWatcher.testCaseCountOfFailed + " \n " +
-                        "- **禁用用例**:" + TestResultWatcher.testCaseCountOfDisabled + " \n " +
-                        "- **中断用例**:" + TestResultWatcher.testCaseCountOfAborted + " \n ";
+                        "- **<font color=blue>成功用例:</font>**\t" + TestResultWatcher.testCaseCountOfSuccessful + " \n " +
+                        "- **<font color=red>失败用例:</font>**\t" + TestResultWatcher.testCaseCountOfFailed + " \n " +
+                        "- **<font color=green>禁用用例:</font>**\t" + TestResultWatcher.testCaseCountOfDisabled + " \n " +
+                        "- **<font color=grey>中断用例:</font>**\t" + TestResultWatcher.testCaseCountOfAborted + " \n ";
         DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }
