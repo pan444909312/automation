@@ -32,8 +32,7 @@ import java.util.*;
  */
 public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
-    // 是否同步结果到 YAPI 平台的开关
-    private static final Boolean yApiEnabled = false;
+
 
     /**
      * 存储成功的测试方法
@@ -42,14 +41,17 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     /**
      * 存储失败的类
      */
-    private static Set<String> failedTestClasses = new HashSet<>();
+    private Set<String> failedTestClasses = new HashSet<>();
+
+    // 是否同步结果到 YAPI 平台的开关
+    private static final Boolean yApiEnabled = false;
 
     /**
      * 存储所有测试类上的{@link ApiDoc @ApiDoc} 上的 value。用于测试执行完成之后更新平台的状态.
      *
      * @see com.miller.service.framework.lifecycle.LifecycleCallback
      */
-    public static Set<String> apiDocsValues = new HashSet<>();
+    public Set<String> apiDocsValues = new HashSet<>();
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
@@ -68,7 +70,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
             getAnnotationValueOfApiDoc(context);
 
             // 更新 YAPI 平台的状态
-            for (String element : TestResultWatcher.apiDocsValues) {
+            for (String element : apiDocsValues) {
                 String yApiId = YApiUtils.getYApiId(element);
                 YApiUtils.updateYApiData(element);
             }

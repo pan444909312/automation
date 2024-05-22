@@ -1,5 +1,8 @@
 package com.miller.service.framework.annotation;
 
+import com.miller.service.framework.listenner.TestResultWatcher;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -10,6 +13,7 @@ import org.junit.jupiter.api.Test;
  * @since 2024/5/15 14:01:46
  */
 @TestFramework
+@DisplayName("Annotation of @TestFramework Testsuite")
 public class TestFrameworkTest {
     @Test
     void testAnnotationOfTestFramework() {
