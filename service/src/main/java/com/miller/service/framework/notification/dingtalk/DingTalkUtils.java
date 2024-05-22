@@ -37,7 +37,6 @@ public class DingTalkUtils {
     public static final String SECRET = "SECcc2d9a57ff038735ba738a2325e5623749e3016cbe931d930b8ce7253f265854";
 
 
-
     /**
      * 可选参数。内部群：可以填写用户的 UserId 实现 @ 能力
      */
@@ -142,8 +141,9 @@ public class DingTalkUtils {
             request.setMarkdown(markdown);
             request.setAt(at);
             // 发送消息
-            OapiRobotSendResponse rsp = client.execute(request, CUSTOM_ROBOT_TOKEN);
-            System.out.println(rsp.getBody());
+            OapiRobotSendResponse response = client.execute(request, CUSTOM_ROBOT_TOKEN);
+            if (response.getErrcode() != 0) System.err.println("发送钉钉推送消息失败:" + response.getBody());
+            // System.out.println(rsp.getBody());
         } catch (ApiException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
