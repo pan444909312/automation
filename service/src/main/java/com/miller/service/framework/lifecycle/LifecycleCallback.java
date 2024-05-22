@@ -2,6 +2,7 @@ package com.miller.service.framework.lifecycle;
 
 import com.miller.common.util.DateUtils;
 import com.miller.service.framework.annotation.MethodInvoked;
+import com.miller.service.framework.listenner.TestResultWatcher;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.ReflectionUtils;
@@ -44,12 +45,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " beforeAll callback invoked.");
-        if (isSendNotification) sendExecuteNotification();
     }
 
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
+        if (isSendNotification) sendExecuteNotification();
     }
 
     @Override
@@ -107,7 +108,16 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         // 记录执行测试的事件
         String content =
                 "- **执行人员**: " + JGitUtils.getGitEmail() + " \n " +
-                "- **执行时间**: " + DateUtils.getCurrentDateTime() + " \n ";
+                        "- **执行时间**: " + DateUtils.getCurrentDateTime() + " \n " +
+                        "- **用例总数**:" + (
+                        TestResultWatcher.testCaseCountOfSuccessful +
+                                TestResultWatcher.testCaseCountOfFailed +
+                                TestResultWatcher.testCaseCountOfDisabled +
+                                TestResultWatcher.testCaseCountOfAborted) + " \n " +
+                        "- **成功用例**:" + TestResultWatcher.testCaseCountOfSuccessful + " \n " +
+                        "- **失败用例**:" + TestResultWatcher.testCaseCountOfFailed + " \n " +
+                        "- **禁用用例**:" + TestResultWatcher.testCaseCountOfDisabled + " \n " +
+                        "- **中断用例**:" + TestResultWatcher.testCaseCountOfAborted + " \n ";
         DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }

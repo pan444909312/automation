@@ -32,8 +32,6 @@ import java.util.*;
  */
 public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
-
-
     /**
      * 存储成功的测试方法
      */
@@ -51,16 +49,28 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      *
      * @see com.miller.service.framework.lifecycle.LifecycleCallback
      */
-    public Set<String> apiDocsValues = new HashSet<>();
+    private Set<String> apiDocsValues = new HashSet<>();
+
+    /**
+     * 测试执行结果统计
+     */
+    public static Integer testCaseCountOfSuccessful = 0;
+    public static Integer testCaseCountOfFailed = 0;
+    public static Integer testCaseCountOfDisabled = 0;
+    public static Integer testCaseCountOfAborted = 0;
+
+
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
         System.out.println(this.getClass().getName() + " testDisabled method invoked...");
+        testCaseCountOfDisabled++;
     }
 
     @Override
     public void testSuccessful(ExtensionContext context) {
         System.out.println(this.getClass().getName() + " testSuccessful method invoked...");
+        testCaseCountOfSuccessful++;
         // 记录成功的方法
         context.getTestMethod().ifPresent(method -> successfulTestMethods.add(method.getName()));
 
@@ -80,11 +90,13 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
         System.out.println(this.getClass().getName() + " testAborted method invoked...");
+        testCaseCountOfAborted++;
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         System.out.println(this.getClass().getName() + " testFailed method invoked...");
+        testCaseCountOfFailed++;
         // 如果类中的某一个方法失败了，那么认为这个类也执行失败了
         String failedClassName = context.getTestClass().orElse(null).getName();
         failedTestClasses.add(failedClassName);
