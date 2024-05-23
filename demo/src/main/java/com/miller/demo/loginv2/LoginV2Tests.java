@@ -92,7 +92,7 @@ public class LoginV2Tests {
         // 方式二：数据库构造
         String sql = "SELECT * FROM user where user_id = ?";
         User user = dbUtils.queryOneObjectReturnObject(sql, User.class, "Miller");
-        user.setPassword("123456");
+        user.setPassword("123456"); // 数据库加密字段，所以需要二次处理
 
         return Stream.of(
                 arguments(
