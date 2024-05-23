@@ -1,11 +1,13 @@
 package com.miller.demo.loginv2;
 
+import com.miller.demo.constants.ResponseConstant;
+import com.miller.demo.dto.external.User;
 import com.miller.demo.loginv2.flow.LoginV2Flow;
 import com.miller.demo.loginv2.request.LoginV2RequestDTO;
 import com.miller.demo.loginv2.response.LoginV2ResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import org.hamcrest.Matchers;
+import com.miller.service.framework.db.DBUtils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
@@ -28,11 +31,18 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestFramework
 @DisplayName("登录V2")
 public class LoginV2Tests {
+    private static final String mySqlUrl = "jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com:3306/ct_test";
+    private static final String userName = "automation";
+    private static final String passWord = "20AR@UJsobwLBdih";
+    private static DBUtils dbUtils;
+
     private static String token;
 
     @BeforeAll
     static void beforeAll() {
         System.out.println("beforeAll invoked...");
+        // 初始化，链接数据库
+        dbUtils = new DBUtils(mySqlUrl, userName, passWord);
     }
 
     @AfterAll
@@ -61,24 +71,32 @@ public class LoginV2Tests {
         // Given
 
         // When. 将响应体映射为 Java Object
-        LoginV2ResponseDTO responseUser = LoginV2Flow.loginReturnJavaObject(loginV2RequestDTO.getEmail(), loginV2RequestDTO.getPassword());
+        LoginV2ResponseDTO response = LoginV2Flow.loginReturnJavaObject(loginV2RequestDTO.getEmail(), loginV2RequestDTO.getPassword());
 
-        // Then. 通过 Java 对象操作数据，更加符合 OOP 原则，避免通过 JSON Path 解析字符串，更加公用
-        assertThat(responseUser.getCode(), Matchers.is(loginV2RequestDTO.getExpectCode()));
+        // Then. 通过 Java 对象操作数据，更加符合 OOP 原则，避免通过 JSON Path 解析字符串
+        assertThat(response.getCode(), is(ResponseConstant.CODE_SUCCESS));
+        assertThat(response.getData().getUser().getEmail(), is(loginV2RequestDTO.getEmail()));  // 断言接口响应字段与数据库字段值一致
 
-        token = responseUser.getData().getToken();
+        token = response.getData().getToken();
     }
 
     /**
      * 登陆测试用例数据提供者
      */
     static Stream<Arguments> loginDataProvider() {
+        // 方式一：手工构造。废弃
         LoginV2RequestDTO loginV2RequestDTO = new LoginV2RequestDTO();
         loginV2RequestDTO.setEmail("miller.shan@aliyun.com");
         loginV2RequestDTO.setPassword("123456");
-        loginV2RequestDTO.setExpectCode(0);
-        loginV2RequestDTO.setExpectMessage("success");
 
-        return Stream.of(arguments(loginV2RequestDTO));
+        // 方式二：数据库构造
+        String sql = "SELECT * FROM user where user_id = ?";
+        User user = dbUtils.queryOneObjectReturnObject(sql, User.class, "Miller");
+        user.setPassword("123456");
+
+        return Stream.of(
+                arguments(
+                        loginV2RequestDTO, user
+                ));
     }
 }

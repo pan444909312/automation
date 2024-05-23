@@ -15,6 +15,4 @@ import lombok.Data;
  */
 @Data
 public class LoginV2RequestDTO extends User {
-    private Integer expectCode;
-    private String expectMessage;
 }
