@@ -83,20 +83,19 @@ public class LoginV2Tests {
     /**
      * 登陆测试用例数据提供者
      */
-    static Stream<Arguments> loginDataProvider() {
-        // 方式一：手工构造。废弃
-        LoginV2RequestDTO loginV2RequestDTO = new LoginV2RequestDTO();
-        loginV2RequestDTO.setEmail("miller.shan@aliyun.com");
-        loginV2RequestDTO.setPassword("123456");
+    private static Stream<Arguments> loginDataProvider() {
+//        // 方式一：手工构造。废弃
+//        LoginV2RequestDTO loginV2RequestDTO = new LoginV2RequestDTO();
+//        loginV2RequestDTO.setEmail("miller.shan@aliyun.com");
+//        loginV2RequestDTO.setPassword("123456");
 
         // 方式二：数据库构造
         String sql = "SELECT * FROM user where user_id = ?";
-        User user = dbUtils.queryOneObjectReturnObject(sql, User.class, "Miller");
+        LoginV2RequestDTO user = dbUtils.queryOneObjectReturnObject(sql, LoginV2RequestDTO.class, "Miller");
         user.setPassword("123456"); // 数据库加密字段，所以需要二次处理
 
         return Stream.of(
-                arguments(
-                        loginV2RequestDTO, user
+                arguments(user
                 ));
     }
 }
