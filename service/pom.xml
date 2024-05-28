@@ -171,6 +171,12 @@
             <artifactId>commons-codec</artifactId>
             <version>1.11</version>
         </dependency>
+        <!-- extent-report -->
+        <dependency>
+            <groupId>com.relevantcodes</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>2.41.2</version>
+        </dependency>
 
         <!-- Java 操作 Git 的客户端工具 -->
         <dependency>
