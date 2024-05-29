@@ -94,10 +94,12 @@ public class TestExecuteListener implements TestExecutionListener {
             if(testIdentifier.getParentId().isPresent()){
                 suiteName = testIdentifier.getParentId().get();
                 String suiteNameSub = suiteName.substring(suiteName.indexOf(separator) + separator.length(), suiteName.lastIndexOf("]"));
-                testClassName =suiteNameSub.substring(0,suiteNameSub.indexOf("]"));
+                testClassName =suiteNameSub.indexOf("]") >= 0 ? suiteNameSub.substring(0,suiteNameSub.indexOf("]")):suiteNameSub;
                 int index = suiteName.indexOf(templateSeparator);
-                String testMethodNameSub = suiteName.substring(index + templateSeparator.length(), suiteName.lastIndexOf("]"));
-                testMethodNameSub = testMethodNameSub.substring(0,testMethodNameSub.indexOf("("));
+                if(index >= 0) {
+                    String testMethodNameSub = suiteName.substring(index + templateSeparator.length(), suiteName.lastIndexOf("]"));
+                    testMethodNameSub = testMethodNameSub.indexOf("(") >= 0 ?testMethodNameSub.substring(0, testMethodNameSub.indexOf("("))
+                    :testMethodNameSub;
 //                testMethodName.add(testMethodNameSub.substring(0,testMethodNameSub.indexOf("(")));
 //                while(index >= 0){
 //                    count ++;
@@ -107,13 +109,18 @@ public class TestExecuteListener implements TestExecutionListener {
 //                    testMethodName.add(testMethodNameSub.substring(0,testMethodNameSub.indexOf("(")));
 //                    if(count > 100) break;
 //                }
-                testClassMethodName = testClassName + "#" + testMethodNameSub;
+                    testClassMethodName = testClassName + "#" + testMethodNameSub;
+                }else {
+                    testClassMethodName = testClassName;
+                }
+
             }
             switch (status){
                 case  SUCCESSFUL:
                     test = extentReports.startTest(testClassMethodName,"Test Success");
                     test.log(LogStatus.PASS,"success");
                     flushReports(extentReports,test);
+                    System.out.println("==================================wlu test ================");
                     break;
                 case FAILED:
                     test = extentReports.startTest(testClassMethodName,"Test Failed");
