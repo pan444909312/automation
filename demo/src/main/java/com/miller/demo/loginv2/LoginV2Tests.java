@@ -83,7 +83,7 @@ public class LoginV2Tests {
     /**
      * 登陆测试用例数据提供者
      */
-    private static Stream<Arguments> loginDataProvider() {
+    private Stream<Arguments> loginDataProvider() {
 //        // 方式一：手工构造。废弃
 //        LoginV2RequestDTO loginV2RequestDTO = new LoginV2RequestDTO();
 //        loginV2RequestDTO.setEmail("miller.shan@aliyun.com");
