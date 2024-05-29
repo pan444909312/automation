@@ -1,15 +1,17 @@
 package com.miller.service.framework.listenner;
 
+import com.alibaba.fastjson.JSON;
+import com.miller.service.framework.constants.ExtentReportsPath;
+import com.relevantcodes.extentreports.*;
 import org.junit.platform.engine.TestExecutionResult;
+import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.reporting.ReportEntry;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 /**
  * 测试执行监听器，这个监听器需要配合 Launcher 一起使用，作为监听测试结果的自定义监听器注入到 Launcher 中。
@@ -22,10 +24,13 @@ import java.util.Map;
 public class TestExecuteListener implements TestExecutionListener {
     // 测试结果收集
     private List<Map<String, Object>> testCases = new ArrayList();
+    private ExtentReports extentReports;
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
         System.out.println(this.getClass().getName() + " testPlanExecutionStarted() invoked!!!");
+        extentReports = new ExtentReports(ExtentReportsPath.REPORTS_LOCATION,true, NetworkMode.OFFLINE);
+        extentReports.startReporter(ReporterType.DB,ExtentReportsPath.REPORTS_LOCATION);
     }
 
     @Override
@@ -41,6 +46,7 @@ public class TestExecuteListener implements TestExecutionListener {
     @Override
     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
         System.out.println(this.getClass().getName() + " executionFinished() invoked!!!");
+        ExtentTest test;
         if (testIdentifier.isTest()) {
              System.out.println("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
             String result = testExecutionResult.getStatus().toString();
@@ -78,6 +84,51 @@ public class TestExecuteListener implements TestExecutionListener {
             //files.add("/path-to-files/test-name/img2.png");
             //testCase.put("files", files);
             testCases.add(testCase);
+
+            ///接入extend-report/// ---displayName没有显示@Test上面的@displayName标签
+            TestExecutionResult.Status status = testExecutionResult.getStatus();
+            String templateSeparator = "test-template:";
+            String testClassName,suiteName,testClassMethodName ="";
+//            List<String> testMethodName = new ArrayList<>();
+//            int count = 0;
+            if(testIdentifier.getParentId().isPresent()){
+                suiteName = testIdentifier.getParentId().get();
+                String suiteNameSub = suiteName.substring(suiteName.indexOf(separator) + separator.length(), suiteName.lastIndexOf("]"));
+                testClassName =suiteNameSub.substring(0,suiteNameSub.indexOf("]"));
+                int index = suiteName.indexOf(templateSeparator);
+                String testMethodNameSub = suiteName.substring(index + templateSeparator.length(), suiteName.lastIndexOf("]"));
+                testMethodNameSub = testMethodNameSub.substring(0,testMethodNameSub.indexOf("("));
+//                testMethodName.add(testMethodNameSub.substring(0,testMethodNameSub.indexOf("(")));
+//                while(index >= 0){
+//                    count ++;
+//                    index = testMethodNameSub.indexOf(templateSeparator,index + templateSeparator.length());
+//                    if(index < 0 ) break;
+//                    testMethodNameSub = testMethodNameSub.substring(index + templateSeparator.length(), testMethodNameSub.lastIndexOf("]"));
+//                    testMethodName.add(testMethodNameSub.substring(0,testMethodNameSub.indexOf("(")));
+//                    if(count > 100) break;
+//                }
+                testClassMethodName = testClassName + "#" + testMethodNameSub;
+            }
+            switch (status){
+                case  SUCCESSFUL:
+                    test = extentReports.startTest(testClassMethodName,"Test Success");
+                    test.log(LogStatus.PASS,"success");
+                    flushReports(extentReports,test);
+                    break;
+                case FAILED:
+                    test = extentReports.startTest(testClassMethodName,"Test Failed");
+                    test.log(LogStatus.FAIL,testExecutionResult.getThrowable().orElseGet(()->new Throwable("no error message ")));
+                    test.addScreenCapture(ExtentReportsPath.REPORTS_LOCATION.replace(File.separator+"TestReport.html",""));
+                    flushReports(extentReports,test);
+                    break;
+                case ABORTED:
+                    test = extentReports.startTest(testClassMethodName,"Test disabled");
+                    test.log(LogStatus.SKIP,testExecutionResult.getThrowable().orElseGet(()->new Throwable("no error message ")));
+                    flushReports(extentReports,test);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -99,5 +150,10 @@ public class TestExecuteListener implements TestExecutionListener {
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
         System.out.println(this.getClass().getName() + " testPlanExecutionFinished() invoked!!!");
+        extentReports.close();
+    }
+    private void flushReports(ExtentReports extentReports,ExtentTest test){
+        extentReports.endTest(test);
+        extentReports.flush();
     }
 }
