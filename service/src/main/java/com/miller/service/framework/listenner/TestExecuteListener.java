@@ -120,7 +120,6 @@ public class TestExecuteListener implements TestExecutionListener {
                     test = extentReports.startTest(testClassMethodName,"Test Success");
                     test.log(LogStatus.PASS,"success");
                     flushReports(extentReports,test);
-                    System.out.println("==================================wlu test ================");
                     break;
                 case FAILED:
                     test = extentReports.startTest(testClassMethodName,"Test Failed");
