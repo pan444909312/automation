@@ -145,54 +145,11 @@
                 <artifactId>spring-boot-starter-aop</artifactId>
                 <version>2.5.5</version>
             </dependency>
-            <!-- SpringBoot 整合 MyBatis -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.2.0</version>
-            </dependency>
-            <!-- SpringBoot 中测试 MyBatis Mapper -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter-test</artifactId>
-                <version>2.2.0</version>
-            </dependency>
-            <!-- 统一管理 mybatis-plus 版本 -->
+            <!-- Spring Boot3 引入 MyBatisPlus 3.5.6 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.1</version>
-            </dependency>
-            <!-- 统一管理 mybatis-plus-generator 代码生成器版本 -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.4.1</version>
-            </dependency>
-            <!-- 统一管理 freemarker 版本，代码生成器依赖的模板引擎 -->
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>2.3.31</version>
-            </dependency>
-            <!-- 添加 MyBatis-plus 的单元测试依赖。原生 MyBatis 的单元测试使用 @MybatisTest 注解 ，但是由于使用了 MybatisPlus，
-            所以需要添加 MybatisPlusTest 依赖，然后使用 @MybatisPlusTest 注解进行 Mapper 层的单元测试，否则会出现 xml 文件解析绑定参数错误。
-            org.apache.ibatis.binding.BindingException: Invalid bound statement (not found) -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter-test</artifactId>
-                <version>3.4.1</version>
-            </dependency>
-            <!-- 添加findbugs依赖用于忽略SpotBugs上报的错误 -->
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>annotations</artifactId>
-                <version>3.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>jsr305</artifactId>
-                <version>3.0.1</version>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>3.5.6</version>
             </dependency>
             <!-- 统一管理 JUnit 版本. 5.9.x 版本 Jupiter 已经包含了 api, engine, params相关依赖 -->
             <dependency>
