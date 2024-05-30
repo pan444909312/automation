@@ -16,24 +16,20 @@ public class MemberRenewUpdateData {
 
     //主要用来测试站更新自动续费的数据，可以不用手动更新
     //详细见文档：https://alidocs.dingtalk.com/i/nodes/AR4GpnMqJzMKgaXKTAZgP4q1VKe0xjE3
-    public static void main(String[] args){
+    public static void main(String[] args) {
         MemberAutoRenewSql  memberAutoRenewSql = new MemberAutoRenewSql();
         MemberEntitySql memberEntitySql = new MemberEntitySql();
         String userId = "249296";
         MemberAutoRenewDTO memberAutoRenewDTO = memberAutoRenewSql.getMemberAutoRenew(userId);
-        System.out.println("===========================memberAutoRenewDTO: " + JSON.toJSON(memberAutoRenewDTO));
         if (Objects.isNull(memberAutoRenewDTO) || memberAutoRenewDTO.getAutoRenew() != 1){
-            new Throwable("非自动续费用户");
+            throw new RuntimeException("非自动续费用户");
         }
         if (memberAutoRenewDTO.getAuthType() != 1){
-            new Throwable("非授权用户，是订阅用户");
-            assert false;
+            throw new RuntimeException("非授权用户，是订阅用户");
         }
         MemberEntityDTO memberEntityDTO = memberEntitySql.getMemberEntity(userId);
-        System.out.println("===========================memberEntityDTO: " + JSON.toJSON(memberEntityDTO));
         if (Objects.isNull(memberEntityDTO)){
-            new Throwable("会员不存在");
-            assert false;
+            throw new RuntimeException("会员不存在");
         }
         Long currentTime = System.currentTimeMillis();
 //        memberEntityDTO.setMemberEndTime(currentTime + 2*24*60*60*1000 - 60*1000); //当前时间+48小时-1分钟
