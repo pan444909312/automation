@@ -39,7 +39,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("登录V3")
+@DisplayName("登录V3-使用MyBatis")
 public class LoginV3Tests {
     private static SqlSession sqlSession;
     private UserMapper userMapper;
