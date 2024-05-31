@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import lombok.Data;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.mapping.Environment;
@@ -37,32 +38,39 @@ import java.util.jar.JarFile;
  * @version 1.0
  * @since 2024/5/29 15:42:31
  */
+@Data
 public class MyBatisPlusConfig {
+    // Mapper 接口所在的包
+    private String packageName = "com.miller";
+    private MybatisConfiguration configuration;
+    private GlobalConfig globalConfig;
+    private Environment environment;
+    private SqlSessionFactory sqlSessionFactory;
 
     public SqlSession getSqlSession(DataSource dataSource) {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-        //这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
-        MybatisConfiguration configuration = new MybatisConfiguration();
-        //开启驼峰大小写转换
+        // 这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
+        configuration = new MybatisConfiguration();
+        // 开启驼峰大小写转换
         configuration.setMapUnderscoreToCamelCase(true);
-        //配置添加数据自动返回数据主键
+        // 配置添加数据自动返回数据主键
         configuration.setUseGeneratedKeys(true);
-        //这是初始化连接器，如mybatis-plus的分页插件
+        // 这是初始化连接器，如mybatis-plus的分页插件
         configuration.addInterceptor(initInterceptor());
-        //配置日志实现
+        // 配置日志实现
         configuration.setLogImpl(Slf4jImpl.class);
-        //扫描mapper接口所在包
-        configuration.addMappers("com.miller");
-        //构建mybatis-plus需要的globalconfig
-        GlobalConfig globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);
+        // 扫描mapper接口所在包
+        configuration.addMappers(packageName);
+        // 构建mybatis-plus需要的globalconfig
+        globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);
         //此参数会自动生成实现baseMapper的基础方法映射
         globalConfig.setSqlInjector(new DefaultSqlInjector());
         //设置id生成器
         globalConfig.setIdentifierGenerator(new DefaultIdentifierGenerator());
-        //设置超类mapper
+        // 设置超类mapper
         globalConfig.setSuperMapperClass(BaseMapper.class);
-        //设置数据源
-        Environment environment = new Environment("1", new JdbcTransactionFactory(), dataSource);
+        // 设置数据源
+        environment = new Environment("test", new JdbcTransactionFactory(), dataSource);
         configuration.setEnvironment(environment);
         try {
             this.registryMapperXml(configuration, "mapper");
@@ -70,12 +78,10 @@ public class MyBatisPlusConfig {
             throw new RuntimeException(e);
         }
         //构建sqlSessionFactory
-        SqlSessionFactory sqlSessionFactory = builder.build(configuration);
+        sqlSessionFactory = builder.build(configuration);
         //创建session
         return sqlSessionFactory.openSession();
     }
-
-
 
 
     /**
@@ -133,4 +139,5 @@ public class MyBatisPlusConfig {
             }
         }
     }
+    
 }

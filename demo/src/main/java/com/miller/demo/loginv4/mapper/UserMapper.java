@@ -10,6 +10,5 @@ import com.miller.demo.loginv2.request.LoginV2RequestDTO;
  * @version 1.0
  * @since 2024/5/27 13:58:40
  */
-
 public interface UserMapper extends BaseMapper<LoginV2RequestDTO> {
 }
