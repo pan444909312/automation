@@ -1,6 +1,8 @@
 package com.miller.demo.loginv4;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.miller.demo.constants.ResponseConstant;
 import com.miller.demo.loginv2.flow.LoginV2Flow;
 import com.miller.demo.loginv2.request.LoginV2RequestDTO;
@@ -8,6 +10,7 @@ import com.miller.demo.loginv2.response.LoginV2ResponseDTO;
 import com.miller.demo.loginv4.mapper.UserMapper;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.util.ApplicationPropertiesUtils;
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
 import org.apache.ibatis.session.SqlSession;
@@ -38,9 +41,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestFramework
 @DisplayName("登录V4-使用MyBatisPlus")
 public class LoginV4Tests {
-    private static final String mySqlUrl = "jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com:3306/ct_test";
-    private static final String userName = "automation";
-    private static final String passWord = "20AR@UJsobwLBdih";
+    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
+    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
+    private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
     private static SqlSession sqlSession;
     private UserMapper userMapper;
 

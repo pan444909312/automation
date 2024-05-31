@@ -47,6 +47,12 @@ public class MyBatisPlusConfig {
     private Environment environment;
     private SqlSessionFactory sqlSessionFactory;
 
+    /**
+     * 获取SqlSession
+     *
+     * @param dataSource 数据源
+     * @return SqlSession
+     */
     public SqlSession getSqlSession(DataSource dataSource) {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         // 这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
@@ -87,7 +93,7 @@ public class MyBatisPlusConfig {
     /**
      * 初始化拦截器
      *
-     * @return
+     * @return Interceptor
      */
     private Interceptor initInterceptor() {
         //创建mybatis-plus插件对象
@@ -104,9 +110,8 @@ public class MyBatisPlusConfig {
     /**
      * 解析mapper.xml文件
      *
-     * @param configuration
-     * @param classPath
-     * @throws IOException
+     * @param configuration MybatisConfiguration
+     * @param classPath 文件路径
      */
     private void registryMapperXml(MybatisConfiguration configuration, String classPath) throws IOException {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -139,5 +144,5 @@ public class MyBatisPlusConfig {
             }
         }
     }
-    
+
 }
