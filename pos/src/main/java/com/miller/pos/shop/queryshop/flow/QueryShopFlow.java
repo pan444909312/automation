@@ -10,7 +10,7 @@ import static com.miller.pos.constants.BusinessConstant.shop_id;
 
 
 /**
- * 流程_商品上架、下架
+ * 查询店铺详情
  *
  * @author Miller Shan
  * @version 1.0

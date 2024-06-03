@@ -79,6 +79,11 @@
             <artifactId>market-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.panda</groupId>
+            <artifactId>market-dal</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!-- 多端公共依赖。比如：B、C都需要用到 ERP 后台 -->
         <!-- erp

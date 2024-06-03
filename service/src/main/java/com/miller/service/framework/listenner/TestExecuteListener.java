@@ -1,39 +1,41 @@
 package com.miller.service.framework.listenner;
 
+import com.alibaba.fastjson.JSON;
+import com.miller.service.framework.constants.ExtentReportsPath;
+import com.relevantcodes.extentreports.*;
 import org.junit.platform.engine.TestExecutionResult;
+import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.reporting.ReportEntry;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 /**
- * 测试执行监听器
- *
- * <p>
- * 测试用例执行监听
- * </p>
+ * 测试执行监听器，这个监听器需要配合 Launcher 一起使用，作为监听测试结果的自定义监听器注入到 Launcher 中。
  *
  * @author Miller Shan
  * @version 1.0
+ * @see com.miller.service.framework.launcher.TestCaseRunnerLauncher
  * @since 2023/10/16 20:56:49
  */
 public class TestExecuteListener implements TestExecutionListener {
     // 测试结果收集
     private List<Map<String, Object>> testCases = new ArrayList();
+    private ExtentReports extentReports;
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
-        System.out.println("==============>>>>>>> testPlanExecutionStarted() invoked!!!");
+        System.out.println(this.getClass().getName() + " testPlanExecutionStarted() invoked!!!");
+        extentReports = new ExtentReports(ExtentReportsPath.REPORTS_LOCATION,true, NetworkMode.OFFLINE);
+        extentReports.startReporter(ReporterType.DB,ExtentReportsPath.REPORTS_LOCATION);
     }
 
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
-        System.out.println("==============>>>>>>> executionStarted() invoked!!!");
+        System.out.println(this.getClass().getName() + " executionStarted() invoked!!!");
         // 判断TestIdentifier，测试标识符，是否是一个 Container。注意: Container 会存在多个，所以此方法会执行多次。
         if (testIdentifier.isContainer()) {/* do not nothing... */}
         // 判断 TestIdentifier 是否是一个测试方法(@Test)
@@ -43,9 +45,10 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
-        System.out.println("==============>>>>>>> executionFinished() invoked!!!");
+        System.out.println(this.getClass().getName() + " executionFinished() invoked!!!");
+        ExtentTest test;
         if (testIdentifier.isTest()) {
-            System.out.println("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
+             System.out.println("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
             String result = testExecutionResult.getStatus().toString();
             // Tesults requires result to be one of: [pass, fail, unknown]
             if (result == "SUCCESSFUL") {
@@ -81,26 +84,82 @@ public class TestExecuteListener implements TestExecutionListener {
             //files.add("/path-to-files/test-name/img2.png");
             //testCase.put("files", files);
             testCases.add(testCase);
+
+            ///接入extend-report/// ---displayName没有显示@Test上面的@displayName标签
+            TestExecutionResult.Status status = testExecutionResult.getStatus();
+            String templateSeparator = "test-template:";
+            String testClassName,suiteName,testClassMethodName ="";
+//            List<String> testMethodName = new ArrayList<>();
+//            int count = 0;
+            if(testIdentifier.getParentId().isPresent()){
+                suiteName = testIdentifier.getParentId().get();
+                String suiteNameSub = suiteName.substring(suiteName.indexOf(separator) + separator.length(), suiteName.lastIndexOf("]"));
+                testClassName =suiteNameSub.indexOf("]") >= 0 ? suiteNameSub.substring(0,suiteNameSub.indexOf("]")):suiteNameSub;
+                int index = suiteName.indexOf(templateSeparator);
+                if(index >= 0) {
+                    String testMethodNameSub = suiteName.substring(index + templateSeparator.length(), suiteName.lastIndexOf("]"));
+                    testMethodNameSub = testMethodNameSub.indexOf("(") >= 0 ?testMethodNameSub.substring(0, testMethodNameSub.indexOf("("))
+                    :testMethodNameSub;
+//                testMethodName.add(testMethodNameSub.substring(0,testMethodNameSub.indexOf("(")));
+//                while(index >= 0){
+//                    count ++;
+//                    index = testMethodNameSub.indexOf(templateSeparator,index + templateSeparator.length());
+//                    if(index < 0 ) break;
+//                    testMethodNameSub = testMethodNameSub.substring(index + templateSeparator.length(), testMethodNameSub.lastIndexOf("]"));
+//                    testMethodName.add(testMethodNameSub.substring(0,testMethodNameSub.indexOf("(")));
+//                    if(count > 100) break;
+//                }
+                    testClassMethodName = testClassName + "#" + testMethodNameSub;
+                }else {
+                    testClassMethodName = testClassName;
+                }
+
+            }
+            switch (status){
+                case  SUCCESSFUL:
+                    test = extentReports.startTest(testClassMethodName,"Test Success");
+                    test.log(LogStatus.PASS,"success");
+                    flushReports(extentReports,test);
+                    break;
+                case FAILED:
+                    test = extentReports.startTest(testClassMethodName,"Test Failed");
+                    test.log(LogStatus.FAIL,testExecutionResult.getThrowable().orElseGet(()->new Throwable("no error message ")));
+                    test.addScreenCapture(ExtentReportsPath.REPORTS_LOCATION.replace(File.separator+"TestReport.html",""));
+                    flushReports(extentReports,test);
+                    break;
+                case ABORTED:
+                    test = extentReports.startTest(testClassMethodName,"Test disabled");
+                    test.log(LogStatus.SKIP,testExecutionResult.getThrowable().orElseGet(()->new Throwable("no error message ")));
+                    flushReports(extentReports,test);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     @Override
     public void dynamicTestRegistered(TestIdentifier testIdentifier) {
-        System.out.println("==============>>>>>>> dynamicTestRegistered() invoked!!!");
+        System.out.println(this.getClass().getName() + " dynamicTestRegistered() invoked!!!");
     }
 
     @Override
     public void executionSkipped(TestIdentifier testIdentifier, String reason) {
-        System.out.println("==============>>>>>>> executionSkipped() invoked!!!");
+        System.out.println(this.getClass().getName() + " executionSkipped() invoked!!!");
     }
 
     @Override
     public void reportingEntryPublished(TestIdentifier testIdentifier, ReportEntry entry) {
-        System.out.println("==============>>>>>>> reportingEntryPublished() invoked!!!");
+        System.out.println(this.getClass().getName() + " reportingEntryPublished() invoked!!!");
     }
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
-        System.out.println("==============>>>>>>> testPlanExecutionFinished() invoked!!!");
+        System.out.println(this.getClass().getName() + " testPlanExecutionFinished() invoked!!!");
+        extentReports.close();
+    }
+    private void flushReports(ExtentReports extentReports,ExtentTest test){
+        extentReports.endTest(test);
+        extentReports.flush();
     }
 }

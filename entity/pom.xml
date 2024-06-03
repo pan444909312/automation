@@ -35,7 +35,7 @@
         <!-- Java Bean 中使用了 MyBatis-plus 的注解，所以 Entity 添加了依赖  -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
         </dependency>
     </dependencies>
 

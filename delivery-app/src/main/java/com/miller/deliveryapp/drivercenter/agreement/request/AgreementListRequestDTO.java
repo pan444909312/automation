@@ -1,0 +1,14 @@
+package com.miller.deliveryapp.drivercenter.agreement.request;
+
+
+import com.panda.delivery.app.server.domain.dto.agreement.DeliveryAgreementListReq;
+
+/**
+ * 骑手同意的协议列表获取
+ *
+ * @author penglulu
+ * @version 1.0
+ * @since 2024/04/25 14:59:46
+ */
+public class AgreementListRequestDTO extends DeliveryAgreementListReq {
+}

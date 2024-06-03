@@ -20,9 +20,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class QueryShopListRequestDTO   {
-    private String start_key ;
+public class QueryShopListRequestDTO {
     private String limit ;
+
 }
 
 

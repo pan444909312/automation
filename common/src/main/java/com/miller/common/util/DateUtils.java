@@ -1,5 +1,8 @@
 package com.miller.common.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 日期工具类
  *
@@ -16,5 +19,16 @@ public class DateUtils {
      */
     public static Long generateTimestamp() {
         return System.currentTimeMillis();
+    }
+
+    public static String getCurrentDateTime() {
+        // 获取当前日期和时间
+        Date now = new Date();
+
+        // 定义日期时间格式
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        // 格式化当前日期和时间
+        return formatter.format(now);
     }
 }

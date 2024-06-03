@@ -94,6 +94,7 @@ public class YApiUtils {
 
         var headers = new HashMap<String, Object>();
         headers.put("Content-Type", "application/json");
+        // 更新YApi数据
         HttpUtils.sendPostRequestReturnBody(uri, null, headers, JSONUtils.toJSONString(yApiRequestDTO), null);
     }
 

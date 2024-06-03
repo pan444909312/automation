@@ -29,12 +29,12 @@ public class DingTalkUtils {
     /**
      * 机器人应用的 access_token 的值
      */
-    public static final String CUSTOM_ROBOT_TOKEN = "7abf6afdfcd6841cc72094092fe232ab28b5b68c7eec61375e3dfb227790979d";
+    public static final String CUSTOM_ROBOT_TOKEN = "0de7c87ac7e3e8506c142d1929068a9c15feea710152aca9c2eeb1e9aa3202ff";
 
     /**
      * 钉钉机器人管理中的 安全设置，加签密钥
      */
-    public static final String SECRET = "SEC13176e3846c8420f82e49050560c303a2a4d351231da38c44a37ae2d301cc10a";
+    public static final String SECRET = "SECcc2d9a57ff038735ba738a2325e5623749e3016cbe931d930b8ce7253f265854";
 
 
     /**
@@ -124,7 +124,7 @@ public class DingTalkUtils {
             /**
              * 发送Marddown消息
              */
-            OapiRobotSendRequest req = new OapiRobotSendRequest();
+            OapiRobotSendRequest request = new OapiRobotSendRequest();
 
             OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
             markdown.setTitle(title);
@@ -137,12 +137,13 @@ public class DingTalkUtils {
             at.setIsAtAll(Boolean.FALSE);
 
             // 设置消息类型
-            req.setMsgtype("markdown");
-            req.setMarkdown(markdown);
-            req.setAt(at);
+            request.setMsgtype("markdown");
+            request.setMarkdown(markdown);
+            request.setAt(at);
             // 发送消息
-            OapiRobotSendResponse rsp = client.execute(req, CUSTOM_ROBOT_TOKEN);
-            System.out.println(rsp.getBody());
+            OapiRobotSendResponse response = client.execute(request, CUSTOM_ROBOT_TOKEN);
+            if (response.getErrcode() != 0) System.err.println("发送钉钉推送消息失败:" + response.getBody());
+            // System.out.println(rsp.getBody());
         } catch (ApiException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

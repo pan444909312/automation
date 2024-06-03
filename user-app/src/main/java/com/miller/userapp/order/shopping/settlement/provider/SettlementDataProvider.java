@@ -152,4 +152,23 @@ public class SettlementDataProvider {
 
         return Stream.of(Arguments.of(settlementRequestDTO));
     }
+    static Stream<Arguments> settlementPreorder() {
+        SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
+        settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
+//        settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.NO.getType());
+        settlementRequestDTO.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
+        settlementRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
+
+        // 这里为什么只能传字符串，不能传数组么。。。 服务端应该改成请求体为json
+        //createOrderByMyselfDelivery.setProductCartList("[{\"productId\":81669204,\"skuId\":0,\"tagId\":[]}]");
+        List<ProductCart> productCartList = new ArrayList<>();
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+        productCartList.add(productCart);
+        settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
+
+        return Stream.of(Arguments.of(settlementRequestDTO));
+    }
 }

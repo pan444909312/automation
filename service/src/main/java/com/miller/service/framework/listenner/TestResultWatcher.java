@@ -2,6 +2,7 @@ package com.miller.service.framework.listenner;
 
 import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.ApiDocs;
+import com.miller.service.framework.apidoc.YApiUtils;
 import com.miller.service.framework.depend.DependsOnClass;
 import com.miller.service.framework.depend.DependsOnMethod;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
@@ -30,6 +31,7 @@ import java.util.*;
  * @since 2023/10/16 21:22:41
  */
 public class TestResultWatcher implements TestWatcher, ExecutionCondition {
+
     /**
      * 存储成功的测试方法
      */
@@ -37,47 +39,73 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     /**
      * 存储失败的类
      */
-    private static Set<String> failedTestClasses = new HashSet<>();
+    private Set<String> failedTestClasses = new HashSet<>();
+
+    // 是否同步结果到 YAPI 平台的开关
+    private static final Boolean yApiEnabled = false;
 
     /**
      * 存储所有测试类上的{@link ApiDoc @ApiDoc} 上的 value。用于测试执行完成之后更新平台的状态.
      *
      * @see com.miller.service.framework.lifecycle.LifecycleCallback
      */
-    public static Set<String> apiDocsValues = new HashSet<>();
+    private Set<String> apiDocsValues = new HashSet<>();
+
+    /**
+     * 测试执行结果统计
+     */
+    public static Integer testCaseCountOfSuccessful = 0;
+    public static Integer testCaseCountOfFailed = 0;
+    public static Integer testCaseCountOfDisabled = 0;
+    public static Integer testCaseCountOfAborted = 0;
+
+
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
         System.out.println(this.getClass().getName() + " testDisabled method invoked...");
+        testCaseCountOfDisabled++;
     }
 
     @Override
     public void testSuccessful(ExtensionContext context) {
         System.out.println(this.getClass().getName() + " testSuccessful method invoked...");
+        testCaseCountOfSuccessful++;
         // 记录成功的方法
         context.getTestMethod().ifPresent(method -> successfulTestMethods.add(method.getName()));
 
-        // 执行成功更新平台中接口的状态
-        processApiDoc(context);
+        // 执行成功则更新 ApiDoc 平台的状态
+        if (yApiEnabled) {
+            // 获取测试类上的ApiDoc注解中的值
+            getAnnotationValueOfApiDoc(context);
+
+            // 更新 YAPI 平台的状态
+            for (String element : apiDocsValues) {
+                String yApiId = YApiUtils.getYApiId(element);
+                YApiUtils.updateYApiData(element);
+            }
+        }
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
         System.out.println(this.getClass().getName() + " testAborted method invoked...");
+        testCaseCountOfAborted++;
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         System.out.println(this.getClass().getName() + " testFailed method invoked...");
+        testCaseCountOfFailed++;
         // 如果类中的某一个方法失败了，那么认为这个类也执行失败了
         String failedClassName = context.getTestClass().orElse(null).getName();
         failedTestClasses.add(failedClassName);
     }
 
     /**
-     * 处理{@link  ApiDoc @ApiDoc}注解
+     * 获取 {@link  ApiDoc @ApiDoc} 注解的值
      */
-    private void processApiDoc(ExtensionContext context) {
+    private void getAnnotationValueOfApiDoc(ExtensionContext context) {
         // 处理方法上的注解
         // ApiDoc apiDocAnnotation = context.getTestMethod().get().getDeclaredAnnotation(ApiDoc.class);
         // 处理类上的注解

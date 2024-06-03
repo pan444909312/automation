@@ -1,0 +1,85 @@
+{
+	"pos_item_id": 111,
+	"code": "100001",
+	"desc": {
+		"en_us": "add_product_test",
+		"zh_cn": "新增商品测试"
+	},
+	"name": {
+		"en_us": "111",
+		"zh_cn": "name_cn"
+	},
+	"other": {
+		"is_zp": 0
+	},
+	"img_list": [{
+		"type": "image",
+		"url": "https://298383278759-fuji-test-us-west-2.s3.us-west-2.amazonaws.com/fuji-product-webapp-test/202312/b72765aa-8fbb-45ba-820e-c631808bdcc5.jpg"
+	}],
+	"excise_tax_rate": 6.998,
+
+	"seq": 99,
+	"sku_data": {
+		"name": {
+			"en_us": "guigezu",
+			"zh_cn": "规格组名称"
+		},
+		"sku_list": [{
+			"name": {
+				"en_us": "Standard",
+				"zh_cn": "标准"
+			},
+			"price": 280,
+			"stock": -1,
+			"stock_everyday": -1,
+			"code": "sku001"
+		},
+		{
+			"name": {
+				"en_us": "Standard1",
+				"zh_cn": "标准1"
+			},
+			"price": 290,
+			"stock": -1,
+			"stock_everyday": -1,
+			"code": "sku002"
+		}]
+	},
+	"attr_data": [
+		{
+		"name": {
+			"zh_cn": "属性组名称",
+			"en_us": "Attr group name"
+		},
+		"attr_list": [{
+			"name": {
+				"zh_cn": "属性名称1",
+				"en_us": "Attr  name1"
+			},
+			"code": "1001"
+		},
+		{
+			"name": {
+				"zh_cn": "属性名称2",
+				"en_us": "Attr  name2"
+			},
+			"code": "1002"
+		}]
+	}
+	],
+	"extra_data": [
+		{
+		"name": {
+			"zh_cn": "配料组名称",
+			"en_us": "extra group name"
+		},
+		"min": 1,
+		"limit": 99,
+		"extra_list": [{
+			"id": 1115012,
+			"limit": 9
+		}]
+	}
+	],
+	"second_category_id": 0
+}

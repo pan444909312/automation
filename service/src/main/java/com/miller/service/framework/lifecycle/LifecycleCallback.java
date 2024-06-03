@@ -1,8 +1,10 @@
 package com.miller.service.framework.lifecycle;
 
+import com.miller.common.util.DateUtils;
 import com.miller.service.framework.annotation.MethodInvoked;
-import com.miller.service.framework.apidoc.YApiUtils;
 import com.miller.service.framework.listenner.TestResultWatcher;
+import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
+import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.ReflectionUtils;
 import org.junit.jupiter.api.extension.*;
 
@@ -33,33 +35,32 @@ import java.util.Objects;
  * @version 1.0
  * @since 2023/10/18 11:03:13
  */
-public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
-        BeforeTestExecutionCallback, TestExecutionExceptionHandler,
-        AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+
+    /**
+     * 自动化测试执行通知开关
+     */
+    private static final Boolean isSendNotification = true;
+
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
-        System.out.println("===========>>>>>>beforeAll callback invoked.");
+        System.out.println(this.getClass().getName() + " beforeAll callback invoked.");
     }
 
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
-        System.out.println("===========>>>>>>afterAll callback invoked.");
-        // 更新 YAPI 平台的状态
-        for (String element : TestResultWatcher.apiDocsValues) {
-            String yApiId = YApiUtils.getYApiId(element);
-            YApiUtils.updateYApiData(element);
-        }
-
+        System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
+        if (isSendNotification) sendExecuteNotification();
     }
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
-        System.out.println("===========>>>>>>beforeEach callback invoked.");
+        System.out.println(this.getClass().getName() + " beforeEach() callback invoked.");
     }
 
     @Override
     public void afterEach(ExtensionContext extensionContext) throws Exception {
-        System.out.println("===========>>>>>>afterEach callback invoked.");
+        System.out.println(this.getClass().getName() + " afterEach() callback invoked.");
     }
 
     /**
@@ -67,8 +68,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      */
     @Override
     public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
-        //@Test方法执行之前调用
-        System.out.println("===========>>>>>>beforeTestExecution callback invoked.");
+        // @Test方法执行之前调用
+        System.out.println(this.getClass().getName() + " beforeTestExecution() callback invoked.");
         MethodInvoked methodInvokedAnnotation = extensionContext.getTestMethod().get().getDeclaredAnnotation(MethodInvoked.class);
         if (Objects.nonNull(methodInvokedAnnotation)) {
             Class<?> clazz = methodInvokedAnnotation.clazz();
@@ -86,7 +87,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
         //@Test方法执行之后调用
-        System.out.println("===========>>>>>>afterTestExecution callback invoked.");
+        System.out.println(this.getClass().getName() + " afterTestExecution() callback invoked.");
     }
 
     /**
@@ -95,8 +96,29 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      */
     @Override
     public void handleTestExecutionException(ExtensionContext extensionContext, Throwable throwable) throws Throwable {
-        System.out.println("===========>>>>>>handleTestExecutionException callback invoked.");
+        System.out.println(this.getClass().getName() + " handleTestExecutionException() callback invoked.");
         // 执行发生异常时把异常抛出来
         throw throwable;
+    }
+
+    /**
+     * 发送自动化测试执行消息
+     */
+    private static void sendExecuteNotification() {
+        // 记录执行测试的事件
+        String content =
+                "- **执行人员**: " + JGitUtils.getGitEmail().split("@")[0] + " \n " +
+                        "- **执行时间**:\t" + DateUtils.getCurrentDateTime() + " \n " +
+                        // 统计用例执行情况，目前是一次运行期间的累积数量之和，如果需要单独统计每次运行结果，则需要先设置为0
+                        "- **<font color=black>用例总数:</font>**\t" + (
+                        TestResultWatcher.testCaseCountOfSuccessful +
+                                TestResultWatcher.testCaseCountOfFailed +
+                                TestResultWatcher.testCaseCountOfDisabled +
+                                TestResultWatcher.testCaseCountOfAborted) + " \n " +
+                        "- **<font color=blue>成功用例:</font>**\t" + TestResultWatcher.testCaseCountOfSuccessful + " \n " +
+                        "- **<font color=red>失败用例:</font>**\t" + TestResultWatcher.testCaseCountOfFailed + " \n " +
+                        "- **<font color=green>禁用用例:</font>**\t" + TestResultWatcher.testCaseCountOfDisabled + " \n " +
+                        "- **<font color=grey>中断用例:</font>**\t" + TestResultWatcher.testCaseCountOfAborted + " \n ";
+        DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }

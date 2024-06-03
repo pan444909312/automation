@@ -145,54 +145,11 @@
                 <artifactId>spring-boot-starter-aop</artifactId>
                 <version>2.5.5</version>
             </dependency>
-            <!-- SpringBoot 整合 MyBatis -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.2.0</version>
-            </dependency>
-            <!-- SpringBoot 中测试 MyBatis Mapper -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter-test</artifactId>
-                <version>2.2.0</version>
-            </dependency>
-            <!-- 统一管理 mybatis-plus 版本 -->
+            <!-- Spring Boot3 引入 MyBatisPlus 3.5.6 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.1</version>
-            </dependency>
-            <!-- 统一管理 mybatis-plus-generator 代码生成器版本 -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.4.1</version>
-            </dependency>
-            <!-- 统一管理 freemarker 版本，代码生成器依赖的模板引擎 -->
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>2.3.31</version>
-            </dependency>
-            <!-- 添加 MyBatis-plus 的单元测试依赖。原生 MyBatis 的单元测试使用 @MybatisTest 注解 ，但是由于使用了 MybatisPlus，
-            所以需要添加 MybatisPlusTest 依赖，然后使用 @MybatisPlusTest 注解进行 Mapper 层的单元测试，否则会出现 xml 文件解析绑定参数错误。
-            org.apache.ibatis.binding.BindingException: Invalid bound statement (not found) -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter-test</artifactId>
-                <version>3.4.1</version>
-            </dependency>
-            <!-- 添加findbugs依赖用于忽略SpotBugs上报的错误 -->
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>annotations</artifactId>
-                <version>3.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>jsr305</artifactId>
-                <version>3.0.1</version>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>3.5.6</version>
             </dependency>
             <!-- 统一管理 JUnit 版本. 5.9.x 版本 Jupiter 已经包含了 api, engine, params相关依赖 -->
             <dependency>
@@ -227,6 +184,12 @@
                 <artifactId>junit-platform-suite-engine</artifactId>
                 <version>${junit.platform.version}</version>
             </dependency>
+            <!-- JUnit5 整合 reporting -->
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-reporting</artifactId>
+                <version>${junit.platform.version}</version>
+            </dependency>
 
             <!-- JUnit5 整合 Mockito, mockito-junit-jupiter 已经包含了Mockito的core所以不需要单独引入了 -->
             <dependency>
@@ -241,11 +204,11 @@
                 <version>4.4.0</version>
             </dependency>
             <!-- JUnit5 整合 Selenium -->
-<!--            <dependency>-->
-<!--                <groupId>io.github.bonigarcia</groupId>-->
-<!--                <artifactId>selenium-jupiter</artifactId>-->
-<!--                <version>3.4.0</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.github.bonigarcia</groupId>-->
+            <!--                <artifactId>selenium-jupiter</artifactId>-->
+            <!--                <version>3.4.0</version>-->
+            <!--            </dependency>-->
             <!-- 引入断言工具 hamcrest -->
             <dependency>
                 <groupId>org.hamcrest</groupId>
@@ -361,12 +324,38 @@
                 <version>2.4.0</version>
             </dependency>
 
+            <!-- Java 操作 Git 的客户端工具 -->
+            <dependency>
+                <groupId>org.eclipse.jgit</groupId>
+                <artifactId>org.eclipse.jgit</artifactId>
+                <version>6.9.0.202403050737-r</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
-            <!-- 添加 Maven 的 surefire插件用于管理 JUnit 测试用例，否则可能会出现 mvn test 的时候Tests run: 0的情况，新版本 2.20.1 以上已解决 -->
+            <!-- Maven compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+            <!-- Maven 站点插件将生成更多报告，如依赖项、插件、摘要以及项目测试报告,报告将保存在项目的“target/site”目录下 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>4.0.0-M14</version>
+            </plugin>
+
+            <!--
+             maven-surefire-plugin 插件用于生成测试报告：
+             1. 添加 Maven 的 surefire 插件用于管理 JUnit 测试用例，否则可能会出现 mvn test 的时候Tests run: 0的情况，新版本 2.20.1 以上已解决.
+             2. 执行 mvn clean test 命令时，会自动生成 xml 格式报告
+             3. 执行 mvn clean surefire-report:report 命令时，会自动生成 html 格式
+             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -378,7 +367,49 @@
                         <version>${junit.jupiter.version}</version>
                     </dependency>
                 </dependencies>
+                <!-- 制定要运行的测试用例的模式 -->
+                <configuration>
+                    <includes>
+                        <!-- <include>**/*ScenarioTests.java</include>-->
+                        <!--                        <include>**/*Tests.java</include>-->
+                        <include>OrderOfMyselfDeliveryThenMerchantConfirmOrderAndUserConfirmOrderScenarioTests.java
+                        </include>
+                        <include>UserLoginTests.java</include>
+                        <include>MerchantLoginTests.java</include>
+                    </includes>
+                    <!-- 指定测试用例的目录 -->
+                    <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
+                    <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+    <!-- Junit reporting plugin。使用 mvn site 生成项目报告时需要添加此插件，否则无法生成测试用例的报告 -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <!-- 多模块生成聚合测试报告 -->
+                    <aggregate>true</aggregate>
+                    <linkXRef>true</linkXRef>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <!-- 将项目推送到仓库 -->
+    <distributionManagement>
+        <repository>
+            <id>hungrypanda-releases</id>
+            <url>https://mvn.hungrypanda.it/repository/hungrypanda-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>hungrypanda-snapshots</id>
+            <url>https://mvn.hungrypanda.it/repository/hungrypanda-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>

@@ -68,7 +68,7 @@ public class JdbcUtilsByDruid {
      * @see #getDataSource(String, String, String, String, Integer, Integer, Long)
      */
     public DataSource getDataSource(String mySqlUrl, String userName, String passWord) {
-        return getDataSource("com.mysql.jdbc.Driver", mySqlUrl, userName, passWord,
+        return getDataSource("com.mysql.cj.jdbc.Driver", mySqlUrl, userName, passWord,
                 0, 8, 3000L);
     }
 }

@@ -1,9 +1,18 @@
 package com.miller.service.framework.util;
 
 import com.alibaba.fastjson.JSONException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.io.Serializable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,4 +39,27 @@ class JSONUtilsTest {
 
 
     }
+
+
+    @Test
+    @DisplayName("测试 Jackson 注解 @JsonProperty 的属性序列化和反序列化能正确取到值")
+    void testJacksonAnnotationOfJsonProperty() {
+        Person person = new Person();
+        person.setProductId(100L);
+
+        // String s = JSONUtils.toJSONString(person);   // UnsupportedOperationException, 使用 Fastjson 序列化 Jackson
+        String s = JSONUtils.toJSONStringByJackson(person);
+
+        Person person2 = JSONUtils.jsonToObjectByJackson(s, Person.class);
+        System.out.println(person2.getProductId());
+    }
+}
+
+@Getter
+@Setter
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+class Person implements Serializable {
+    @JsonProperty("item_id")
+    private Long productId;
 }
