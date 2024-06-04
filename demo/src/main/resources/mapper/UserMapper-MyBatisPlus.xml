@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.demo.loginv4.mapper.UserMapper">
+
+    <select id="selectByCondition" resultType="com.miller.demo.loginv2.request.LoginV2RequestDTO"
+            parameterType="com.miller.demo.loginv2.request.LoginV2RequestDTO">
+        <!-- 使用动态SQL根据传入的User对象属性构造查询条件 -->
+        SELECT * FROM user
+        WHERE
+        <if test="user.userId != null">
+            user_id = #{user.userId}
+            <if test="user.name != null or user.email != null">
+                AND
+            </if>
+        </if>
+        <if test="user.name != null">
+            name = #{user.name}
+            <if test="user.email != null">
+                AND
+            </if>
+        </if>
+        <if test="user.email != null">
+            email = #{user.email}
+        </if>
+
+    </select>
+</mapper>
