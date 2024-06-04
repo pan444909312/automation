@@ -93,10 +93,8 @@ public class LoginV4Tests {
         queryWrapper.isNotNull("email");    // 查询邮箱不为空的用户
         List<LoginV2RequestDTO> userList = userMapper.selectList(queryWrapper); // 使用 MyBatisPlus 进行查询
 
-        userList.forEach(user -> System.out.println(user.getEmail()));
-
         // 对密码进行二次处理
-        userList.forEach((user) -> user.setPassword("123456"));
+        userList.forEach((user) -> user.setPassword(ApplicationPropertiesUtils.loadProperties().getProperty("user.password.default")));
 
         return Stream.of(
                 arguments(
@@ -120,7 +118,7 @@ public class LoginV4Tests {
         List<LoginV2RequestDTO> loginV2RequestDTOS = userMapper.selectByCondition(queryFilter);
 
         // 对密码进行二次处理
-        loginV2RequestDTOS.forEach((user) -> user.setPassword("123456"));
+        loginV2RequestDTOS.forEach((user) -> user.setPassword(ApplicationPropertiesUtils.loadProperties().getProperty("user.password.default")));
 
         return Stream.of(
                 arguments(
