@@ -13,11 +13,11 @@ public class BusinessConstant {
     /**
      * admin 账号
      */
-    public static final String USERNAME_ADMIN = ApplicationPropertiesUtils.loadProperties().getProperty("user.account.admin");
+    public static final String USERNAME_ADMIN = ApplicationPropertiesUtils.loadProperties().getProperty("demo.user.account.admin");
     /**
      * admin 密码
      */
-    public static final String PASSWORD_ADMIN = ApplicationPropertiesUtils.loadProperties().getProperty("user.password.admin");
+    public static final String PASSWORD_ADMIN = ApplicationPropertiesUtils.loadProperties().getProperty("demo.user.password.admin");
 
     /**
      * miller 账号
