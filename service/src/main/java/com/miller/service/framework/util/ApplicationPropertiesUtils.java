@@ -15,19 +15,25 @@ import java.util.Properties;
  * @since 2024/5/31 14:48:03
  */
 public class ApplicationPropertiesUtils {
-    static Properties mergeProperties = new Properties();
+    private static Properties mergeProperties = null;
 
     /**
-     * 加载配置文件
+     * 加载配置文件，默认会加载“application.properties”配置文件，
+     * 然后根据配置文件中的key spring.profiles.active 动态加载对应的配置文件，最终会合并两个配置文件中的配置项，重复的会覆盖。
      * <p>
      * 默认会读取resources目录下的 application.properties 作为配置文件。
      * 可以通过 spring.profiles.active 来配置多个配置文件。
      * 如果 存在 application-{profile}.properties 则会读取该配置文件内容，最后合并。
      * </p>
      *
-     * @return
+     * @return {@link Properties}
      */
-    public static Properties loadProperties() {
+    public static synchronized Properties loadProperties() {
+        if (mergeProperties != null) {
+            return mergeProperties;
+        } else {
+            mergeProperties = new Properties();
+        }
         // 首先加载默认的配置文件
         Properties defalutProperties = loadConfig("application.properties");
         mergeProperties.putAll(defalutProperties);

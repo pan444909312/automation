@@ -1,8 +1,6 @@
 package com.miller.demo.loginv4;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.miller.demo.constants.ResponseConstant;
 import com.miller.demo.loginv2.flow.LoginV2Flow;
 import com.miller.demo.loginv2.request.LoginV2RequestDTO;
@@ -69,7 +67,7 @@ public class LoginV4Tests {
     }
 
 
-    @MethodSource({"loginDataProvider"})
+    @MethodSource({"loginDataProvider", "loginDataProviderByQueryFilter"})
     @ParameterizedTest
     @DisplayName("Should Login Successfully")
     void shouldLoginSuccessfully(LoginV2RequestDTO loginV2RequestDTO) {
@@ -95,14 +93,36 @@ public class LoginV4Tests {
         queryWrapper.isNotNull("email");    // 查询邮箱不为空的用户
         List<LoginV2RequestDTO> userList = userMapper.selectList(queryWrapper); // 使用 MyBatisPlus 进行查询
 
-        userList.forEach(user -> System.out.println(user.getEmail()));
-
         // 对密码进行二次处理
-        userList.forEach((user) -> user.setPassword("123456"));
+        userList.forEach((user) -> user.setPassword(ApplicationPropertiesUtils.loadProperties().getProperty("demo.user.password.default")));
 
         return Stream.of(
                 arguments(
                         userList.toArray()    // list to array
+                )
+        );
+    }
+
+    /**
+     * 使用条件过滤器筛选数据。测试 MyBatisPlus 进行查询
+     *
+     * @return Stream<Arguments>
+     */
+    private Stream<Arguments> loginDataProviderByQueryFilter() {
+        // 构造数据之前需要先获取对象
+        userMapper = sqlSession.getMapper(UserMapper.class);
+        // 使用 MyBatis 进行数据库的操作
+        LoginV2RequestDTO queryFilter = new LoginV2RequestDTO();
+        // 使用配置文件中的配置获取用户ID
+        queryFilter.setUserId(ApplicationPropertiesUtils.loadProperties().getProperty("demo.user.id.default"));    // 筛选出用户ID为 Miller 的用户
+        List<LoginV2RequestDTO> loginV2RequestDTOS = userMapper.selectByCondition(queryFilter);
+
+        // 对密码进行二次处理
+        loginV2RequestDTOS.forEach((user) -> user.setPassword(ApplicationPropertiesUtils.loadProperties().getProperty("demo.user.password.default")));
+
+        return Stream.of(
+                arguments(
+                        loginV2RequestDTOS.toArray()    // list to array
                 )
         );
     }
