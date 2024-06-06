@@ -1,0 +1,17 @@
+package com.miller.bdm.app.privateShop.list.response;
+
+
+import com.panda.common.base.BasePageResponse;
+import com.panda.common.base.Result;
+import com.panda.erp.server.dal.dto.bdm.shop.OpportunityShopMobilePageResponse;
+
+
+/**
+ * bdm-移动端私海池-私海池商家列表
+ *
+ * @author lipan
+ * @version 1.0
+ * @since 2024/3/21
+ */
+public class PrivateShopResponseDTO extends Result<BasePageResponse<OpportunityShopMobilePageResponse>> {
+}

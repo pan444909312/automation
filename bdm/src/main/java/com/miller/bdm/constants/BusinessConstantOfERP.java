@@ -49,6 +49,11 @@ public class BusinessConstantOfERP {
 
 
     /**
+     * 緩存
+     * 合同数据
+     */
+    public static final String EVERSIGN_DOC = "EVERSIGN_DOC";
+    /**
      * 私海池&公海池查询或私海池新增对应的城市
      */
     public static final String TEST_CITY = "杭州市";
@@ -77,12 +82,35 @@ public class BusinessConstantOfERP {
     /**
      * 私海池新增需要的数据
      */
+    //邮箱
     public static final String Email = "lipan1009@163.om";
+    //手机号
     public static final String Iphone = "15010079202";
+    //KP名称
     public static final String KPName = "自动化";
+    //私海池名称
     public static final String PrivateShopName = "测试自动化私海池名称";
     public static final String Code = "86";
+    //语言
     public static final String Lang = "1";
     public static final double Latitude = 30.209841;
     public static final double Longitude = 120.214462;
+
+    //合同模版ID 测试合同hp_bdm_eversign_templates主键ID
+    public static final Long eversignTemplatesId = 22L;
+
+    /**
+     * 合同相关数据
+     * "related_user_id":"1677542",
+     * "related_business_id":"384401",
+     * "related_app_id":"435"
+     */
+    public static final String relatedUserId = "1677542";
+
+    public static final String relatedBusinessId = "384401";
+
+    public static final String relatedAppId = "435";
+
+    public static final String KP_NAME = "李攀";
+
 }

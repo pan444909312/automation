@@ -1,12 +1,15 @@
 package com.miller.bdm;
 
-import com.miller.bdm.app.private_shop.add.AddPrivateShopTests;
-import com.miller.bdm.app.private_shop.list.PrivateShopTests;
-import com.miller.bdm.app.public_shop.list.PublicShopTests;
-import com.miller.bdm.app.shop_category.ShopCategoryTests;
-import com.miller.bdm.app.shop_city.ShopCityTests;
-import com.miller.bdm.app.shop_kp_role.ShopKPRoleTests;
-import com.miller.bdm.app.shop_tag.ShopTagTests;
+import com.miller.bdm.app.privateShop.add.AddPrivateShopTests;
+import com.miller.bdm.app.privateShop.callback.SignCallBackTests;
+import com.miller.bdm.app.privateShop.formula.GetTemplatesTests;
+import com.miller.bdm.app.privateShop.list.PrivateShopTests;
+import com.miller.bdm.app.privateShop.sign.SignTests;
+import com.miller.bdm.app.publicShop.list.PublicShopTests;
+import com.miller.bdm.app.shopCategory.ShopCategoryTests;
+import com.miller.bdm.app.shopCity.ShopCityTests;
+import com.miller.bdm.app.shopKpRole.ShopKPRoleTests;
+import com.miller.bdm.app.shopTag.ShopTagTests;
 import com.miller.bdm.login.ERPLoginTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -24,21 +27,28 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         ERPLoginTests.class,
         //私海池商家列表
         PrivateShopTests.class,
-//        //公海池商家列表
+        //公海池商家列表
         PublicShopTests.class,
-////        //商家标签列表
+        //商家标签列表
         ShopTagTests.class,
-////        //商家KP角色列表
+        //商家KP角色列表
         ShopKPRoleTests.class,
-////        //商家城市列表
+        //商家城市列表
         ShopCityTests.class,
-//        //商家类目列表
+        //商家类目列表
         ShopCategoryTests.class,
-//        //私海池商家创建
+        //
+        GetTemplatesTests.class,
+        //私海池商家创建
         AddPrivateShopTests.class,
+        //发起签约
+        SignTests.class,
+        //签约回调相关
+        SignCallBackTests.class,
 
 })
 @SuiteDisplayName("调试多个测试用例")
 @Suite
 public class DebugTestCases {
+
 }
