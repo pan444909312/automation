@@ -1,6 +1,7 @@
 package com.miller.demo.loginv4;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.miller.demo.constants.ResponseConstant;
 import com.miller.demo.loginv2.flow.LoginV2Flow;
 import com.miller.demo.loginv2.request.LoginV2RequestDTO;
@@ -43,12 +44,14 @@ public class LoginV4Tests {
     private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
     private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
     private static SqlSession sqlSession;
-    private UserMapper userMapper;
+    private static UserMapper userMapper;
 
     @BeforeAll
     public static void beforeAll() throws IOException {
         MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
         sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
+        userMapper = sqlSession.getMapper(UserMapper.class);
+
     }
 
     @AfterAll
@@ -62,10 +65,7 @@ public class LoginV4Tests {
 
     @AfterEach
     public void afterEach() {
-        // 将修改提交到数据库，不提交则数据库不生效，如果仅仅只是测试 Mapper 接口可以不提交
-        sqlSession.commit();
     }
-
 
     @MethodSource({"loginDataProvider", "loginDataProviderByQueryFilter"})
     @ParameterizedTest
@@ -86,7 +86,7 @@ public class LoginV4Tests {
      */
     private Stream<Arguments> loginDataProvider() {
         // 构造数据之前需要先获取对象
-        userMapper = sqlSession.getMapper(UserMapper.class);
+        // userMapper = sqlSession.getMapper(UserMapper.class);
 
         // 使用 MyBatisPlus 进行数据库的操作,基础的增删改查不需要自己写sql了
         QueryWrapper<LoginV2RequestDTO> queryWrapper = new QueryWrapper<>(); // 构造查询条件
@@ -110,7 +110,7 @@ public class LoginV4Tests {
      */
     private Stream<Arguments> loginDataProviderByQueryFilter() {
         // 构造数据之前需要先获取对象
-        userMapper = sqlSession.getMapper(UserMapper.class);
+        // userMapper = sqlSession.getMapper(UserMapper.class);
         // 使用 MyBatis 进行数据库的操作
         LoginV2RequestDTO queryFilter = new LoginV2RequestDTO();
         // 使用配置文件中的配置获取用户ID
@@ -125,6 +125,25 @@ public class LoginV4Tests {
                         loginV2RequestDTOS.toArray()    // list to array
                 )
         );
+    }
+
+    /**
+     * 这个仅仅是一个测试方法，用于测试 MyBatisPlus 的更新操作
+     */
+    @Disabled
+    @Test
+    void testUpdate() {
+        // 设置需要更新的条件
+        UpdateWrapper<LoginV2RequestDTO> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("user_id", "Miller");  // 设置条件
+
+        // 方式一: 通过set() 方法设置字段值
+        updateWrapper.set("status", "33");
+        // 方式二: 通过对象设置字段值
+        LoginV2RequestDTO loginV2RequestDTO = new LoginV2RequestDTO();
+        loginV2RequestDTO.setStatus("33");
+
+        userMapper.update(loginV2RequestDTO, updateWrapper);
     }
 
 }
