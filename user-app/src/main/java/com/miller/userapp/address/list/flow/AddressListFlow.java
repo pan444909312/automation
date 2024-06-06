@@ -1,6 +1,5 @@
 package com.miller.userapp.address.list.flow;
 
-import com.alibaba.fastjson.JSON;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.address.list.response.AddressListResponseDTO;
 import com.miller.userapp.constants.BusinessConstant;
