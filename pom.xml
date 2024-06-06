@@ -316,14 +316,6 @@
                 <version>1.41.0</version>
             </dependency>
 
-            <!-- json解析工具 -->
-            <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
-            <dependency>
-                <groupId>com.jayway.jsonpath</groupId>
-                <artifactId>json-path</artifactId>
-                <version>2.4.0</version>
-            </dependency>
-
             <!-- Java 操作 Git 的客户端工具 -->
             <dependency>
                 <groupId>org.eclipse.jgit</groupId>

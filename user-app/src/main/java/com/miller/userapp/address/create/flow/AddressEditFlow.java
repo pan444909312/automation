@@ -1,6 +1,6 @@
 package com.miller.userapp.address.create.flow;
 
-import com.jayway.jsonpath.JsonPath;
+import com.alibaba.fastjson.JSONPath;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
@@ -25,6 +25,7 @@ public class AddressEditFlow {
 
     private Map<String,Object> headers;
 
+
     public Map<String, Object> setCommonHeaders() {
 
         if (headers != null){
@@ -39,6 +40,11 @@ public class AddressEditFlow {
         return headers;
     }
 
+    /**
+     * 添加地址接口调用
+     * @param addressRequestDTO
+     * @return
+     */
     public AddressResponseDTO addAddress(AddressRequestDTO addressRequestDTO) {
 
         Map<String, Object> headers = setCommonHeaders();
@@ -47,13 +53,19 @@ public class AddressEditFlow {
 
         String addressEditResponseDTOJson = JSONUtils.toJSONString(addressResponseDTO);
 
-        Object addressId = JsonPath.read(addressEditResponseDTOJson, "$.result.addressId");
+        Object addressId = JSONPath.read(addressEditResponseDTOJson, "$.result.addressId");
+
 
         CacheUtils.set("addressId",addressId);
 
         return addressResponseDTO;
     }
 
+    /**
+     * 编辑地址接口调用
+     * @param addressRequestDTO
+     * @return
+     */
     public AddressResponseDTO editAddress(AddressRequestDTO addressRequestDTO){
         Map<String, Object> headers = setCommonHeaders();
 
@@ -62,6 +74,11 @@ public class AddressEditFlow {
         return addressResponseDTO;
     }
 
+    /**
+     * 删除地址接口调用
+     * @param addressRequestDTO
+     * @return
+     */
     public AddressResponseDTO deleteAddress(AddressRequestDTO addressRequestDTO){
         Map<String, Object> headers = setCommonHeaders();
 
