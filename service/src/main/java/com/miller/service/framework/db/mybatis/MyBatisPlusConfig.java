@@ -85,8 +85,8 @@ public class MyBatisPlusConfig {
         }
         //构建sqlSessionFactory
         sqlSessionFactory = builder.build(configuration);
-        //创建session
-        return sqlSessionFactory.openSession();
+        // 创建session, 并且设置自动提交，这样不用 sqlSession.commit();
+        return sqlSessionFactory.openSession(true);
     }
 
 
