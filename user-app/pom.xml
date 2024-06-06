@@ -30,12 +30,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!-- json解析工具 -->
-        <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
