@@ -7,6 +7,7 @@ import com.miller.service.framework.util.JSONUtils;
 import com.miller.userapp.address.create.request.AddressRequestDTO;
 import com.miller.userapp.address.create.response.AddressResponseDTO;
 import com.miller.userapp.constants.BusinessConstant;
+import com.miller.userapp.util.LoginUtils;
 import com.miller.userapp.util.RequestUtils;
 
 import java.util.HashMap;
@@ -23,22 +24,9 @@ public class AddressEditFlow {
     private String saveOrUpdateUrl = BusinessConstant.DOMAIN + "/api/app/user/v1/address/edit";
     private String deleteUrl = BusinessConstant.DOMAIN + "/api/app/user/v1/address/edit";
 
-    private Map<String,Object> headers;
+    private Map<String,Object> headers = LoginUtils.getHeaderWithAuth();
 
 
-    public Map<String, Object> setCommonHeaders() {
-
-        if (headers != null){
-            return headers;
-        }
-        headers = new HashMap<>();
-
-        RequestUtils.setHeaders(headers);
-
-        headers.put("Content-Type","application/json");
-        headers.put("Authorization", "aa12137192fcf7ae6a77b86db8fc4228");
-        return headers;
-    }
 
     /**
      * 添加地址接口调用
@@ -47,7 +35,6 @@ public class AddressEditFlow {
      */
     public AddressResponseDTO addAddress(AddressRequestDTO addressRequestDTO) {
 
-        Map<String, Object> headers = setCommonHeaders();
 
         AddressResponseDTO addressResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(saveOrUpdateUrl, null, headers, addressRequestDTO, null, AddressResponseDTO.class);
 
@@ -67,7 +54,6 @@ public class AddressEditFlow {
      * @return
      */
     public AddressResponseDTO editAddress(AddressRequestDTO addressRequestDTO){
-        Map<String, Object> headers = setCommonHeaders();
 
         AddressResponseDTO addressResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(saveOrUpdateUrl, null, headers, addressRequestDTO, null, AddressResponseDTO.class);
 
@@ -80,10 +66,8 @@ public class AddressEditFlow {
      * @return
      */
     public AddressResponseDTO deleteAddress(AddressRequestDTO addressRequestDTO){
-        Map<String, Object> headers = setCommonHeaders();
 
         AddressResponseDTO addressResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(deleteUrl, null, headers, addressRequestDTO, null, AddressResponseDTO.class);
-
 
         return addressResponseDTO;
     }

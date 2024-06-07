@@ -5,6 +5,7 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.address.list.flow.AddressListFlow;
 import com.miller.userapp.address.list.response.AddressListResponseDTO;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-地址")
 public class AddressListTests {
+
 
     @DisplayName("正常流程_获取所有地址")
     @Test
