@@ -1,21 +1,35 @@
 package com.miller.userapp.login;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.hungrypanda.app.server.entity.device.DeviceLoginInfoEntity;
+import com.hungrypanda.app.server.entity.user.UserEntity;
+import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.db.mybatis.DataSourceConfig;
+import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
+import com.miller.service.framework.util.ApplicationPropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
+import com.miller.userapp.entity.device.DeviceLoginInfoMapper;
 import com.miller.userapp.login.flow.UserLoginFlow;
+import com.miller.userapp.entity.user.UserMapper;
 import com.miller.userapp.login.request.UserLoginRequestDTO;
 import com.miller.userapp.login.response.UserLoginResponseDTO;
 import com.miller.userapp.util.RequestUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
@@ -30,7 +44,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-登录")
 public class UserLoginTests {
+    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
+    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
+    private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
+    private static SqlSession sqlSession;
+
+    private static UserMapper userMapper;
+    private static DeviceLoginInfoMapper deviceLoginInfoMapper;
+
     private static String token;
+
+    @BeforeAll
+    static void beforeAll() {
+        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
+        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
+        userMapper = sqlSession.getMapper(UserMapper.class);
+        deviceLoginInfoMapper = sqlSession.getMapper(DeviceLoginInfoMapper.class);
+    }
 
     @AfterAll
     static void afterAll() {
@@ -44,7 +74,7 @@ public class UserLoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.userapp.login.provider.UserLoginDataProvider#loginData")
+    @MethodSource("loginData")
     @ParameterizedTest
     @DisplayName("正常流程_用户登录")
     void shouldLoginSuccessfully(UserLoginRequestDTO userLoginRequestDTO) {
@@ -53,12 +83,43 @@ public class UserLoginTests {
         assertThat(userLoginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(userLoginResponseDTO.getResult().getAccessToken()).isNotNull();
         assertThat(userLoginResponseDTO.getSuccess()).isTrue();
-        assertThat(userLoginResponseDTO.getResult().getUserName())
-                .isNotNull()
-                .isEqualTo(userLoginRequestDTO.getAccount());
+        assertThat(userLoginResponseDTO.getResult().getUserName()).isNotNull().isEqualTo(userLoginRequestDTO.getAccount());
 
         // 获取token
         token = userLoginResponseDTO.getResult().getAccessToken();
+    }
+
+    Stream<Arguments> loginData() {
+        String userId = ApplicationPropertiesUtils.loadProperties().getProperty("userapp.account.of.user002.id");
+        String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("userapp.account.of.public.password");
+        String loginType = ApplicationPropertiesUtils.loadProperties().getProperty("userapp.account.of.public.login.type");
+
+        // 构造查询条件，从数据库查询数据
+        LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserEntity::getUserId, userId);
+        UserEntity userEntity = userMapper.selectOne(queryWrapper);
+
+        // 构造查询条件，从数据库查询数据
+        LambdaQueryWrapper<DeviceLoginInfoEntity> queryWrapper2 = new LambdaQueryWrapper<>();
+        queryWrapper2
+                // 查询设备ID不为空的数据
+                .ne(DeviceLoginInfoEntity::getDeviceId, "null")
+                // 并且 user_id 为指定ID的用户
+                .eq(DeviceLoginInfoEntity::getUserId, userId)
+                // 取一条数据
+                .last("limit 1");
+        DeviceLoginInfoEntity deviceLoginInfoEntity = deviceLoginInfoMapper.selectOne(queryWrapper2);
+
+        // 构造请求数据，从数据库查询结果作为请求数据
+        UserLoginRequestDTO user = new UserLoginRequestDTO();
+        user.setAreaCode(userEntity.getCallingCode());
+        user.setAccount(userEntity.getUserTelphone());
+        user.setPassword(MD5Util.string2MD5(passWord));
+        user.setType(Integer.valueOf(loginType));
+
+        user.setDistinctId(deviceLoginInfoEntity.getDeviceId());
+
+        return Stream.of(arguments(user));
     }
 
 }
