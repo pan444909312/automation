@@ -41,9 +41,9 @@ public class MarketLoginTests {
     private static SqlSession sqlSession;
     @BeforeAll
     public static void beforeAll() throws IOException {
-//        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
-//        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
-//        userMapper = sqlSession.getMapper(UserMapper.class);
+        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
+        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
+        userMapper = sqlSession.getMapper(UserMapper.class);
 
     }
     @AfterAll
@@ -68,8 +68,8 @@ public class MarketLoginTests {
         assertThat(marketLoginResponseDTO.getData().getToken()).isNotNull();
         // 获取token
         token = marketLoginResponseDTO.getData().getToken();
-//        UserDto userDto = userMapper.getUser(249222);
-//        System.out.println(userDto);
+        UserDto userDto = userMapper.getUser(249222);
+        System.out.println(userDto);
 
     }
 
