@@ -1,7 +1,7 @@
 package com.miller.market.login.flow;
 
 import com.alibaba.fastjson.JSON;
-import com.miller.market.constants.BusinessConstant;
+import com.miller.market.constants.SystemConfigConstant;
 import com.miller.market.login.request.MarketLoginRequestDTO;
 import com.miller.market.login.response.MarketLoginResponseDTO;
 import com.miller.market.util.RequestUtils;
@@ -18,7 +18,7 @@ public class MarketLoginFlow {
     /**
      * 登录接口
      */
-    private static final String uri = BusinessConstant.DOMAIN + "/user/login";
+    private static final String uri = SystemConfigConstant.DOMAIN + "/user/login";
 
     /**
      * 原生的请求发送工具，包含响应的所有内容
