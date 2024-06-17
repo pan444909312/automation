@@ -23,7 +23,6 @@
         <dependency>
             <groupId>com.miller</groupId>
             <artifactId>service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <!-- 数据中心。测试用例之间的公共数据；请求、响应对象使用研发仓库中的数据 -->

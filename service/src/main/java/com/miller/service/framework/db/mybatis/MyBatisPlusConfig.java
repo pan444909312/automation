@@ -24,12 +24,8 @@ import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.Enumeration;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
 /**
  * MyBatisPlus配置
@@ -99,11 +95,9 @@ public class MyBatisPlusConfig {
         //创建mybatis-plus插件对象
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         //构建分页插件
-//        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
-//        paginationInnerInterceptor.setDbType(DbType.MYSQL);
-//        paginationInnerInterceptor.setOverflow(true);
-//        paginationInnerInterceptor.setMaxLimit(500L);
-//        interceptor.addInnerInterceptor(paginationInnerInterceptor);
+        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+        paginationInnerInterceptor.setDbType(DbType.MYSQL);
+        interceptor.addInnerInterceptor(paginationInnerInterceptor);
         return interceptor;
     }
 
@@ -111,7 +105,7 @@ public class MyBatisPlusConfig {
      * 解析mapper.xml文件
      *
      * @param configuration MybatisConfiguration
-     * @param classPath 文件路径
+     * @param classPath     文件路径
      */
     private void registryMapperXml(MybatisConfiguration configuration, String classPath) throws IOException {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -129,6 +123,8 @@ public class MyBatisPlusConfig {
                     in.close();
                 }
             } else {
+                // jar包 不处理
+                /*
                 JarURLConnection urlConnection = (JarURLConnection) url.openConnection();
                 JarFile jarFile = urlConnection.getJarFile();
                 Enumeration<JarEntry> entries = jarFile.entries();
@@ -141,7 +137,9 @@ public class MyBatisPlusConfig {
                         in.close();
                     }
                 }
+                */
             }
+
         }
     }
 

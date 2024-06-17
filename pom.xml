@@ -115,6 +115,12 @@
                 <artifactId>fastjson</artifactId>
                 <version>1.2.83</version>
             </dependency>
+            <!-- 统一管理 JsonAssert 版本-->
+            <dependency>
+                <groupId>org.skyscreamer</groupId>
+                <artifactId>jsonassert</artifactId>
+                <version>1.5.1</version>
+            </dependency>
             <!-- 统一管理 jackson 版本. 保持与当前 SpringBoot 引用的 Jackson 版本相同 -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -151,6 +157,13 @@
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>3.5.6</version>
             </dependency>
+            <!-- 添加 mybatis-plus-extension 用于加载插件 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>3.5.6</version>
+            </dependency>
+
             <!-- 统一管理 JUnit 版本. 5.9.x 版本 Jupiter 已经包含了 api, engine, params相关依赖 -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
