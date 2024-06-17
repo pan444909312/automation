@@ -1,18 +1,27 @@
 package com.miller.market.login;
 
 import com.miller.market.constants.ResponseConstant;
+import com.miller.market.login.mapper.UserMapper;
 import com.miller.market.login.flow.MarketLoginFlow;
 import com.miller.market.login.request.MarketLoginRequestDTO;
 import com.miller.market.login.response.MarketLoginResponseDTO;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.db.mybatis.DataSourceConfig;
+import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
+import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.panda.market.dal.dto.UserDto;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.IOException;
 import java.util.HashMap;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -24,7 +33,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-登录")
 public class MarketLoginTests {
     private static String token;
+    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
+    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
+    private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
+    private static UserMapper userMapper;
 
+    private static SqlSession sqlSession;
+    @BeforeAll
+    public static void beforeAll() throws IOException {
+        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
+        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
+        userMapper = sqlSession.getMapper(UserMapper.class);
+
+    }
     @AfterAll
     static void afterAll() {
         // 获取token
@@ -47,6 +68,9 @@ public class MarketLoginTests {
         assertThat(marketLoginResponseDTO.getData().getToken()).isNotNull();
         // 获取token
         token = marketLoginResponseDTO.getData().getToken();
+        UserDto userDto = userMapper.getUser(249222);
+        System.out.println(userDto);
+
     }
 
 }

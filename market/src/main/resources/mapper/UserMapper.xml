@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.market.login.mapper.UserMapper">
+
+    <select id="getUser" resultMap="userDto">
+        select u.*,
+               (select login_ip from user_log where user_type=0 and user_id = #{userId} order by create_time desc limit 1) as loginIp,
+          (select create_time from user_log where user_type=0 and user_id = #{userId} order by create_time desc limit 1) as loginDate,
+            (select count(order_id) from `order` where user_id = u.user_id) as orderNum,
+            TRUNCATE(u.money/100,2) as formatMoney
+        from `user` as u
+        where u.user_id = #{userId}
+    </select>
+</mapper>
