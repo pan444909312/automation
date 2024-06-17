@@ -1,11 +1,12 @@
-package com.miller.market.address;
+package com.miller.market.address.getAddress;
 
-import com.miller.market.address.flow.MarketGetAddressFlow;
-import com.miller.market.address.response.MarketGetAddressResponseDTO;
+import com.miller.market.address.getAddress.flow.MarketGetAddressFlow;
+import com.miller.market.address.getAddress.response.MarketGetAddressResponseDTO;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.constants.TestCaseDataForMarketConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +26,8 @@ public class MarketGetAddressTests {
     void getAddressSuccessfully() {
         MarketGetAddressResponseDTO marketGetAddressResponseDTO = MarketGetAddressFlow.getAddresses();
 
-        assertThat(marketGetAddressResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        assertThat(marketGetAddressResponseDTO.getData()).isNotNull();
+        Assertions.assertThat(marketGetAddressResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
+        Assertions.assertThat(marketGetAddressResponseDTO.getData()).isNotNull();
 
         TestCaseDataForMarketConstant.addressId = marketGetAddressResponseDTO.getData().getAddressDTOList().get(0).getAddressId();
 
