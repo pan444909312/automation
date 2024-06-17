@@ -1,6 +1,6 @@
 package com.miller.market.TestScenario;
 
-import com.miller.market.address.MarketGetAddressTests;
+import com.miller.market.address.getAddress.MarketGetAddressTests;
 import com.miller.market.deliveryTime.MarketDeliveryTimeTests;
 import com.miller.market.login.MarketLoginTests;
 import com.miller.market.order.createOrder.MarketCreateOrderDeliveryTimeTests;

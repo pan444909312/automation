@@ -1,6 +1,6 @@
-package com.miller.market.address.flow;
+package com.miller.market.address.getAddress.flow;
 
-import com.miller.market.address.response.MarketGetAddressResponseDTO;
+import com.miller.market.address.getAddress.response.MarketGetAddressResponseDTO;
 import com.miller.market.constants.BusinessConstant;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
