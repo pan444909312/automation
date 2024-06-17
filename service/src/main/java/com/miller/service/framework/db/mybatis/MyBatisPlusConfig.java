@@ -61,8 +61,6 @@ public class MyBatisPlusConfig {
         configuration.setMapUnderscoreToCamelCase(true);
         // 配置添加数据自动返回数据主键
         configuration.setUseGeneratedKeys(true);
-        // 这是初始化连接器，如mybatis-plus的分页插件
-        configuration.addInterceptor(initInterceptor());
         // 配置日志实现
         configuration.setLogImpl(Slf4jImpl.class);
         // 扫描mapper接口所在包
@@ -83,6 +81,8 @@ public class MyBatisPlusConfig {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        // 这是初始化连接器，如mybatis-plus的分页插件
+        configuration.addInterceptor(initInterceptor());
         //构建sqlSessionFactory
         sqlSessionFactory = builder.build(configuration);
         // 创建session, 并且设置自动提交，这样不用 sqlSession.commit();
@@ -99,11 +99,11 @@ public class MyBatisPlusConfig {
         //创建mybatis-plus插件对象
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         //构建分页插件
-        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
-        paginationInnerInterceptor.setDbType(DbType.MYSQL);
-        paginationInnerInterceptor.setOverflow(true);
-        paginationInnerInterceptor.setMaxLimit(500L);
-        interceptor.addInnerInterceptor(paginationInnerInterceptor);
+//        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+//        paginationInnerInterceptor.setDbType(DbType.MYSQL);
+//        paginationInnerInterceptor.setOverflow(true);
+//        paginationInnerInterceptor.setMaxLimit(500L);
+//        interceptor.addInnerInterceptor(paginationInnerInterceptor);
         return interceptor;
     }
 
