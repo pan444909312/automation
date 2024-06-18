@@ -1,0 +1,19 @@
+package com.miller.userapp.mapper.device;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hungrypanda.app.server.entity.device.DeviceLoginInfoEntity;
+
+/**
+ * 添加对数据库 device_login_info 表的操作
+ * <p>
+ * 查询数据库表与Java实体对象字段的映射关系，这样就可以自动将数据库的表字段映射到Java对象中了。
+ * 查找开发代码中的对应Java实体对象方法: 在代码工程中中搜索 @TableName("表名")，例如: @TableName("device_login_info")。
+ * 包命名可以参考开发代码工程，开发代码工程包路径一般在 com.xxx.entity.device
+ * </p>
+ *
+ * @author Miller Shan
+ * @version 1.0
+ * @since 2024/6/17 18:34:40
+ */
+public interface DeviceLoginInfoMapper extends BaseMapper<DeviceLoginInfoEntity> {
+}
