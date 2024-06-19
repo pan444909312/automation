@@ -1,6 +1,5 @@
 package com.miller.userapp.order.shopping.settlement;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -11,7 +10,7 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.order.shopping.settlement.flow.SettlementFlow;
-import com.miller.userapp.order.shopping.settlement.mapper.ShopExtraInfoMapper;
+import com.miller.userapp.mapper.shop.ShopExtraInfoMapper;
 import com.miller.userapp.order.shopping.settlement.request.PreorderParamsEntity;
 import com.miller.userapp.order.shopping.settlement.request.SettlementRequestDTO;
 import com.miller.userapp.order.shopping.settlement.response.SettlementResponseDTO;
