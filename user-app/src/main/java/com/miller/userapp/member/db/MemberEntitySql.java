@@ -20,7 +20,7 @@ public class MemberEntitySql {
 
     }
     public Integer updateMemberEntity(Long memberEndTime,Long userId){
-        String sql = "update member_entity set member_end_time = ? and user_id = ?";
-        return dbUtils.executeInsertOrUpdateOrDelete(sql, Arrays.asList(memberEndTime,userId));
+        String sql = "update member_entity set member_end_time = ? where user_id = ?";
+        return dbUtils.executeInsertOrUpdateOrDelete(sql, memberEndTime,userId);
     }
 }
