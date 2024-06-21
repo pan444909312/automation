@@ -90,9 +90,9 @@ public class UserLoginTests {
     }
 
     Stream<Arguments> loginData() {
-        String userId = ApplicationPropertiesUtils.loadProperties().getProperty("userapp.account.of.user002.id");
-        String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("userapp.account.of.public.password");
-        String loginType = ApplicationPropertiesUtils.loadProperties().getProperty("userapp.account.of.public.login.type");
+        String userId = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.id");
+        String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.password");
+        String loginType = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.login.type");
 
         // 构造查询条件，从数据库查询数据
         LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper<>();

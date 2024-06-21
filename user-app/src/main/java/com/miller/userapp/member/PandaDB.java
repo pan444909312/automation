@@ -1,17 +1,9 @@
 package com.miller.userapp.member;
 
-import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.hungrypanda.app.server.entity.shop.ShopExtraInfoEntity;
-import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
 import com.miller.service.framework.util.ApplicationPropertiesUtils;
-import com.miller.userapp.order.shopping.settlement.mapper.ShopExtraInfoMapper;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.Objects;
