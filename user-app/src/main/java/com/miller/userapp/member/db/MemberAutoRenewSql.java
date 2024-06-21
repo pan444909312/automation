@@ -13,7 +13,7 @@ public class MemberAutoRenewSql {
         dbUtils = PandaDB.getDBInstance();
     }
 
-    public  MemberAutoRenewDTO getMemberAutoRenew(String userId){
+    public  MemberAutoRenewDTO getMemberAutoRenew(Long userId){
         String sql = "select * from hp_member_auto_renew where user_id = ?";
         return dbUtils.queryOneObjectReturnObject(sql,MemberAutoRenewDTO.class,userId);
 
