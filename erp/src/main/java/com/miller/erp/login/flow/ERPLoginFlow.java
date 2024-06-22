@@ -24,12 +24,52 @@ public class ERPLoginFlow {
     private static final String uri = BusinessConstantOfERP.DOMAIN_TEST_GATEWAY + "/api/erp/auth/login/v2";
 
     /**
+     * 是否手动登陆，有效期8小时
+     */
+    private static boolean isManualLogin = true;
+
+    /**
      * 原生的请求发送工具，包含响应的所有内容
      *
      * @param ERPLoginRequestDTO {@link ERPLoginRequestDTO}
      * @return 响应结构
      */
     private static Map<String, Object> login(ERPLoginRequestDTO ERPLoginRequestDTO) {
+        /* TODO
+            线上环境无法通过账号密码登陆，解决方案：
+            1. 手动扫码登陆；
+            2. 扫码登陆后，获取到token，通过token访问接口；
+            3. token 机制目前是默认8小时失效，使用这个token通过定时任务每4小时访问一次接口，会自动续签token；
+            4. 将响应数据写死直接设置到 Map 中，避免请求失败，测试用的token写到配置文件中。
+         */
+        var mockLoginResponse = new HashMap<String, Object>();
+        // 获取手工登陆的token，有效期8小时
+        var responseBody = "{\n" +
+                "    \"code\": 1,\n" +
+                "    \"message\": \"成功\",\n" +
+                "    \"data\": {\n" +
+                "        \"token\": \"1a22e333aadacccc2990166c12f68899\",\n" +
+                "        \"manager\": {\n" +
+                "            \"userId\": 1748,\n" +
+                "            \"userName\": \"dongdong_test\",\n" +
+                "            \"userNick\": \"单东东\",\n" +
+                "            \"userPic\": \"\",\n" +
+                "            \"userTelphone\": \"15606690056\",\n" +
+                "            \"passwordUpdateTime\": null\n" +
+                "        },\n" +
+                "        \"showManagerBinding\": false\n" +
+                "    },\n" +
+                "    \"currencySymbol\": null,\n" +
+                "    \"sql\": null,\n" +
+                "    \"queryList\": null\n" +
+                "}";
+        mockLoginResponse.put("body", responseBody);
+
+        var mockResponseBody = new HashMap<String ,Object>();
+        mockResponseBody.put("body", mockLoginResponse);
+
+        if (isManualLogin) return mockResponseBody;
+
         var header = new HashMap<String, Object>();
         header.put("Content-Type", "application/json");
         RequestUtils.setHeaders(header);
