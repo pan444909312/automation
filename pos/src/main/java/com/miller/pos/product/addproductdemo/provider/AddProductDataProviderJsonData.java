@@ -2,9 +2,8 @@ package com.miller.pos.product.addproductdemo.provider;
 
 import com.github.javafaker.Faker;
 import com.miller.pos.product.addproductdemo.request.AddProductRequestDTO;
-import com.miller.service.framework.util.FileUtils;
+import com.miller.service.framework.util.ResourceUtils;
 import com.miller.service.framework.util.JSONUtils;
-import com.panda.pos.server.api.dto.open.NameMultiLanguageDTO;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
@@ -24,7 +23,7 @@ import static java.util.Locale.CHINESE;
 public class AddProductDataProviderJsonData {
     static Faker faker= new Faker(CHINESE);
     static Stream<Arguments> addproduct() {
-        String requestBody = FileUtils.readFileFromResources("/data/product/addproduct/addproduct.json");
+        String requestBody = ResourceUtils.readFileFromResources("/data/product/addproduct/addproduct.json");
         AddProductRequestDTO addProductRequestDTO = JSONUtils.jsonToObjectByJackson(requestBody, AddProductRequestDTO.class);
         addProductRequestDTO.getName().setEnUs("add_prodcutname_test_"+pos_item_id);
         addProductRequestDTO.getName().setZhCn(product_name);

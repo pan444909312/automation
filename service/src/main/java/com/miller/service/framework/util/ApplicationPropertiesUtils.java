@@ -50,7 +50,7 @@ public class ApplicationPropertiesUtils {
 
     }
 
-    private static Properties loadConfig(String configFilePath) {
+    static Properties loadConfig(String configFilePath) {
         Properties properties = new Properties();
         InputStream inputStream = null;
         try {
