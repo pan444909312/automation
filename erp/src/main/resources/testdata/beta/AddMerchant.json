@@ -1,0 +1,58 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": "东东测试商家"
+          },
+          {
+            "operationName": "ACTIVITY",
+            "value": "商卡二期"
+          },
+          {
+            "operationName": "SPECIAL",
+            "value": "自动化测试"
+          },
+          {
+            "operationName": "LOCATION",
+            "value": "勿动"
+          }
+        ]
+      },
+      {
+        "lang": "EN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": "Miller‘s Toy2"
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国江西省九江市濂溪区332000",
+      "city": "九江市",
+      "longitude": "115.9433041000",
+      "latitude": "29.6706264703",
+      "postCode": "332000"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 1389,
+        "type": 0
+      },
+      {
+        "businessCategoryId": 1395,
+        "type": 1
+      }
+    ],
+    "managerId": 1748,
+    "extraManagerId": 138,
+    "merchantNotes": "东东测试商家，勿动"
+  }
+}
