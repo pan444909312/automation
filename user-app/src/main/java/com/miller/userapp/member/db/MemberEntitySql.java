@@ -4,12 +4,14 @@ import com.miller.service.framework.db.DBUtils;
 import com.miller.userapp.member.renew.MemberEntityDTO;
 import com.miller.userapp.member.PandaDB;
 
+import java.util.Arrays;
+
 public class MemberEntitySql {
     DBUtils dbUtils;
     public MemberEntitySql(){
         dbUtils = PandaDB.getDBInstance();
     }
-    public MemberEntityDTO getMemberEntity(String userId){
+    public MemberEntityDTO getMemberEntity(Long userId){
         Long currentTime = System.currentTimeMillis();
 
         String sql = "select * from member_entity where user_id = ? and is_del = 0 and status = 1 and member_start_time <= "
@@ -17,8 +19,8 @@ public class MemberEntitySql {
         return dbUtils.queryOneObjectReturnObject(sql,MemberEntityDTO.class,userId);
 
     }
-    public Integer updateMemberEntity(Long memberEndTime){
-        String sql = "update member_entity set member_end_time = ?";
-        return dbUtils.executeInsertOrUpdateOrDelete(sql,memberEndTime);
+    public Integer updateMemberEntity(Long memberEndTime,Long userId){
+        String sql = "update member_entity set member_end_time = ? where user_id = ?";
+        return dbUtils.executeInsertOrUpdateOrDelete(sql, memberEndTime,userId);
     }
 }
