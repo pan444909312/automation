@@ -2,9 +2,8 @@ package com.miller.service.framework.util;
 
 import org.apache.ibatis.io.Resources;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 /**
@@ -49,16 +48,14 @@ public class ApplicationPropertiesUtils {
         return mergeProperties;
 
     }
-
     static Properties loadConfig(String configFilePath) {
         Properties properties = new Properties();
-        InputStream inputStream = null;
-        try {
-            inputStream = Resources.getResourceAsStream(configFilePath);
-            properties.load(inputStream);
-            inputStream.close();
+        try (InputStream inputStream = Resources.getResourceAsStream(configFilePath);
+             Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+            properties.load(reader);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Unable to load properties from " + configFilePath, e);
         }
         return properties;
     }
