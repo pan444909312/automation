@@ -12,21 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResourceUtilsTest {
     @Test
     @DisplayName("Read file content from resource file path")
-    void testReadFileFromResources() {
-        String content = ResourceUtils.readFileFromResources("/application.properties");
+    void testReadFileFromResourcesPath() {
+        String content = ResourceUtils.readFileFromResourcesPath("application.properties");
         assertNotNull(content);
-        content = ResourceUtils.readFileFromResources("/test.json");
+        content = ResourceUtils.readFileFromResourcesPath("test.json");
         assertTrue(JSONUtils.isJSONFormat(content));
     }
 
 
     @Test
     @DisplayName("Read test case data from resource file path")
-    void testReadTestCaseDataFromResourcesFile() {
+    void testReadTestCaseDataFromResourcesPath() {
         // load default properties
         Properties defalutProperties = ApplicationPropertiesUtils.loadConfig("application.properties");
         // load test case data
-        String content = ResourceUtils.readTestCaseDataFromResourcesFile("Person.json");
+        String content = ResourceUtils.readTestCaseDataFromResourcesPath("Person.json");
         assertTrue(content.contains(defalutProperties.getProperty("spring.profiles.active")));
     }
 

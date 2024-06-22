@@ -9,7 +9,7 @@ public class TestJsonToObject {
 
     @Test
     void testGetJavaObjectFromJsonString() {
-        String requestBody = ResourceUtils.readFileFromResources("/data/product/addproduct/addproduct.json");
+        String requestBody = ResourceUtils.readFileFromResourcesPath("/data/product/addproduct/addproduct.json");
         AddProductRequestDTO addProductRequestDTO = JSONUtils.jsonToObjectByJackson(requestBody, AddProductRequestDTO.class);
         System.out.println(addProductRequestDTO.getName());
         System.out.println(addProductRequestDTO.getSpecification());
