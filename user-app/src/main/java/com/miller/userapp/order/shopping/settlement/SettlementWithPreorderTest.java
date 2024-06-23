@@ -21,7 +21,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.BeanUtils;
-import com.miller.userapp.member.PandaDB;
+import com.miller.userapp.module.person.member.PandaDB;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

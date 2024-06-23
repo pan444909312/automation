@@ -1,21 +1,6 @@
 package com.miller.userapp;
 
-import com.miller.userapp.login.UserLoginTests;
-import com.miller.userapp.newuserpopup.NewUserTests;
-import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
-import com.miller.userapp.order.shopping.car.ShoppingCarTests;
-import com.miller.userapp.pay.balance.PayByBalanceWithVoucherTests;
-import com.miller.userapp.pay.card.AddCardRecordTest;
-import com.miller.userapp.pay.card.CreatePaymentMethodTest;
-import com.miller.userapp.pay.card.GetPaymentMethodsTest;
-import com.miller.userapp.pay.nopassword.NoPasswordListTest;
-import com.miller.userapp.pay.nopassword.NoPasswordStatusTest;
-import com.miller.userapp.pay.payment.StripePaymentOnlyTest;
-import com.miller.userapp.search.category.SearchCategoryTests;
-import com.miller.userapp.search.channel.CategoryChannelTests;
-import com.miller.userapp.search.modulelist.IndexOperateModuleListTests;
-import com.miller.userapp.search.searchv2.SearchV2Tests;
-import com.miller.userapp.userpack.UserPackTests;
+import com.miller.userapp.module.home.login.UserLoginTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;

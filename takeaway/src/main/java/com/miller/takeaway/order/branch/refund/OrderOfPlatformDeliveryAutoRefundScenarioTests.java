@@ -1,10 +1,10 @@
 package com.miller.takeaway.order.branch.refund;
 
 import com.miller.service.framework.annotation.TestCase;
-import com.miller.userapp.login.UserLoginTests;
+import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
 import com.miller.userapp.order.refund.submit.SubmitRefundTests;
-import com.miller.userapp.pay.balance.PayByBalanceTests;
+import com.miller.userapp.module.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
