@@ -4,7 +4,7 @@ import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.waiting.lack.OrderLackProductTests;
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.module.home.login.UserLoginTests;
-import com.miller.userapp.order.create.CreateOrderByMyselfDeliveryTests;
+import com.miller.userapp.module.order.create.CreateOrderByMyselfDeliveryTests;
 import com.miller.userapp.module.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;

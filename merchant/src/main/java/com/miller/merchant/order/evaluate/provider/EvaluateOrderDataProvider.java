@@ -18,12 +18,5 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class EvaluateOrderDataProvider {
 
-    static Stream<Arguments> evaluateOrder() {
-        EvaluateOrderRequestDTO evaluateOrderRequestDTO = new EvaluateOrderRequestDTO();
-        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
-        evaluateOrderRequestDTO.setOrderSn(orderSn);
-        evaluateOrderRequestDTO.setReplyContent("【自动化测试】商家回复评论");
 
-        return Stream.of(Arguments.of(evaluateOrderRequestDTO));
-    }
 }

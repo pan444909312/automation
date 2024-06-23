@@ -15,9 +15,10 @@ import com.miller.merchant.order.list.OrderListTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
 import com.miller.userapp.module.home.login.UserLoginTests;
-import com.miller.userapp.order.confirm.ConfirmOrderStatusTests;
-import com.miller.userapp.order.create.CreateOrderByPlatformDeliveryTests;
-import com.miller.userapp.order.refund.submit.SubmitRefundTests;
+import com.miller.userapp.module.order.confirm.ConfirmOrderStatusTests;
+import com.miller.userapp.module.order.create.CreateOrderByPlatformDeliveryTests;
+import com.miller.userapp.module.order.evaluate.EvaluateOrderTests;
+import com.miller.userapp.module.order.refund.submit.SubmitRefundTests;
 import com.miller.userapp.module.pay.balance.PayByBalanceTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -72,7 +73,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户确认订单已送达。注意：需要订单被【骑手/商家】派送完成之后执行，用户自取除外。
         ConfirmOrderStatusTests.class,
         // 用户评价订单
-        com.miller.userapp.order.evaluate.EvaluateOrderTests.class,
+        EvaluateOrderTests.class,
 
         // 商家回复评论
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,

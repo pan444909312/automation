@@ -9,7 +9,7 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.pay.balance.flow.PayByBalanceFlow;
 import com.miller.userapp.module.pay.balance.request.PayByBalanceRequestDTO;
 import com.miller.userapp.module.pay.balance.response.PayByBalanceResponseDTO;
-import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
+import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

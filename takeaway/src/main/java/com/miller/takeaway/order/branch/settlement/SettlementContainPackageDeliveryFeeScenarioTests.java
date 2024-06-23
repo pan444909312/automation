@@ -2,8 +2,8 @@ package com.miller.takeaway.order.branch.settlement;
 
 import com.miller.service.framework.annotation.TestCase;
 import com.miller.userapp.module.home.login.UserLoginTests;
-import com.miller.userapp.order.shopping.car.ShoppingCarTests;
-import com.miller.userapp.order.shopping.settlement.SettlementTests;
+import com.miller.userapp.module.order.shopping.car.ShoppingCarTests;
+import com.miller.userapp.module.order.shopping.settlement.SettlementTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;

@@ -13,7 +13,7 @@ import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.pay.balance.flow.PayByBalanceFlow;
 import com.miller.userapp.module.pay.balance.request.PayByBalanceRequestDTO;
 import com.miller.userapp.module.pay.balance.response.PayByBalanceResponseDTO;
-import com.miller.userapp.order.create.response.CreateOrderResponseDTO;
+import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.module.pay.checkout.flow.PaymentPatternCheckOutFlow;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
