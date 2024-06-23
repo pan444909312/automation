@@ -23,11 +23,11 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
- * 测试用例_编辑商家经营信息
+ * 测试用例_编辑商家-补充信息
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023/12/27 16:31:39
+ * @since 2024/06/23 13:31:39
  */
 @EnvTag.Test
 @TestFramework
@@ -40,7 +40,7 @@ public class AdditionalInfoEditTests {
         ERPLoginFlow.loginByDefaultUser();
     }
 
-    @MethodSource("additionalInfoEdit")
+    @MethodSource("additionalInfoEditDataProvider")
     @ParameterizedTest
     @DisplayName("编辑商家-补充信息_正常流程")
     void shouldAdditionalInfoEditSuccessfully(AdditionalInfoEditRequestDTO additionalInfoEditRequestDTO) {
@@ -48,7 +48,7 @@ public class AdditionalInfoEditTests {
         assertThat(additionalInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 
-    static Stream<Arguments> additionalInfoEdit() {
+    static Stream<Arguments> additionalInfoEditDataProvider() {
         String requestJson = ResourceUtils.readTestCaseDataFromResourcesPath("AdditionalInfoEdit.json");
         AdditionalInfoEditRequestDTO additionalInfoEditRequestDTO = JSONUtils.jsonToObject(requestJson, AdditionalInfoEditRequestDTO.class);
         if (additionalInfoEditRequestDTO.getShopId() == null)

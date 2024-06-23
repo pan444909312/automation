@@ -13,7 +13,7 @@ import com.panda.merchant.server.api.dto.merchant.module.MerchantModuleOtherInfo
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023/12/27 15:56:16
+ * @since 2024/06/23 13:56:16
  */
 public class AdditionalInfoEditResponseDTO extends BasicResponseDTO<MerchantModuleOtherInfoDTO> {
 }

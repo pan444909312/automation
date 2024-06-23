@@ -45,7 +45,7 @@ public class AddMerchantTests {
     }
 
     @Disabled // 禁用测试,因为创建了好像没法删除
-    @MethodSource("addMerchantForShopCardOfSecondVersion")
+    @MethodSource("addMerchantForShopCardOfSecondVersionDataProvider")
     @ParameterizedTest
     @DisplayName("商家管理-商家列表-新增商家-基础信息_正常流程")
     void shouldAddMerchantSuccessfully(AddMerchantRequestDTO addMerchantRequestDTO) {
@@ -59,7 +59,7 @@ public class AddMerchantTests {
     /**
      * 东东测试商家·商卡二期·自动化测试·数据
      */
-    static Stream<Arguments> addMerchantForShopCardOfSecondVersion() {
+    static Stream<Arguments> addMerchantForShopCardOfSecondVersionDataProvider() {
         AddMerchantRequestDTO addMerchantRequestDTO = JSONUtils.jsonToObject(
                 // 读取测试用例数据
                 ResourceUtils.readTestCaseDataFromResourcesPath("AddMerchant.json"),

@@ -11,7 +11,7 @@ import com.panda.merchant.server.api.dto.merchant.module.MerchantModuleDTO;
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2023/12/27 15:49:23
+ * @since 2024/06/23 13:49:23
  */
 public class AdditionalInfoEditRequestDTO extends MerchantModuleDTO {
 }
