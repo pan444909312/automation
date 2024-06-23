@@ -44,11 +44,12 @@ public class ERPLoginFlow {
          */
         var mockLoginResponse = new HashMap<String, Object>();
         // 获取手工登陆的token，有效期8小时
+        String token = "d15ad8e787fa2a9871f2d7b3084bba48";
         var responseBody = "{\n" +
                 "    \"code\": 1,\n" +
                 "    \"message\": \"成功\",\n" +
                 "    \"data\": {\n" +
-                "        \"token\": \"1a22e333aadacccc2990166c12f68899\",\n" +
+                "        \"token\": \"" + token + "\",\n" +
                 "        \"manager\": {\n" +
                 "            \"userId\": 1748,\n" +
                 "            \"userName\": \"dongdong_test\",\n" +
@@ -65,7 +66,7 @@ public class ERPLoginFlow {
                 "}";
         mockLoginResponse.put("body", responseBody);
 
-        var mockResponseBody = new HashMap<String ,Object>();
+        var mockResponseBody = new HashMap<String, Object>();
         mockResponseBody.put("body", mockLoginResponse);
 
         if (isManualLogin) return mockResponseBody;
