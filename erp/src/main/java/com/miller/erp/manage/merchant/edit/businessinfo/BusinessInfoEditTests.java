@@ -42,7 +42,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("ERP-编辑商家经营信息")
+@DisplayName("ERP-编辑商家-经营信息")
 public class BusinessInfoEditTests {
 
     @BeforeAll
@@ -53,7 +53,7 @@ public class BusinessInfoEditTests {
 
     @MethodSource("businessInfoEdit")
     @ParameterizedTest
-    @DisplayName("编辑商家经营信息流程_正常流程")
+    @DisplayName("编辑商家-经营信息流程_正常流程")
     void shouldBusinessInfoEditSuccessfully(BusinessInfoEditRequestDTO businessInfoEditRequestDTO) {
         BusinessInfoEditResponseDTO businessInfoEditResponseDTO = BusinessInfoEditFlow.businessInfoEdit(businessInfoEditRequestDTO);
         assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
