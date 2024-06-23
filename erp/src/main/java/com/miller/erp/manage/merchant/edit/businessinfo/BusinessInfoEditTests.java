@@ -1,16 +1,36 @@
 package com.miller.erp.manage.merchant.edit.businessinfo;
 
+import com.hungrypanda.common.enums.shop.ShopTypeEnum;
+import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.erp.constants.ResponseConstantOfERP;
+import com.miller.erp.login.flow.ERPLoginFlow;
+import com.miller.erp.manage.merchant.add.AddMerchantTests;
 import com.miller.erp.manage.merchant.edit.businessinfo.flow.BusinessInfoEditFlow;
 import com.miller.erp.manage.merchant.edit.businessinfo.request.BusinessInfoEditRequestDTO;
 import com.miller.erp.manage.merchant.edit.businessinfo.response.BusinessInfoEditResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.util.JSONUtils;
+import com.miller.service.framework.util.ResourceUtils;
+import com.panda.common.enums.DeliveryTypeEnum;
+import com.panda.common.enums.LanguageEnum;
+import com.panda.merchant.server.api.constant.MerchantEnum;
+import com.panda.merchant.server.api.dto.info.PhoneInfo;
+import com.panda.merchant.server.api.dto.merchant.module.ImageModuleDTO;
+import com.panda.merchant.server.api.dto.merchant.module.MerchantModuleOperationInfoDTO;
+import com.panda.merchant.server.api.dto.merchant.module.TaxTypeModuleDTO;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
@@ -24,7 +44,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("ERP-编辑商家经营信息")
 public class BusinessInfoEditTests {
-    @MethodSource("com.miller.erp.manage.merchant.edit.businessinfo.provider.BusinessInfoEditDataProvider#businessInfoEdit")
+
+    @BeforeAll
+    static void beforeAll() {
+        // 测试前置条件
+        ERPLoginFlow.loginByDefaultUser();
+    }
+
+    @MethodSource("businessInfoEdit")
     @ParameterizedTest
     @DisplayName("编辑商家经营信息流程_正常流程")
     void shouldBusinessInfoEditSuccessfully(BusinessInfoEditRequestDTO businessInfoEditRequestDTO) {
@@ -32,4 +59,11 @@ public class BusinessInfoEditTests {
         assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 
+    static Stream<Arguments> businessInfoEdit() {
+        String requestJson = ResourceUtils.readTestCaseDataFromResourcesPath("UpdateMerchantOfInfo.json");
+        BusinessInfoEditRequestDTO businessInfoEditRequestDTO = JSONUtils.jsonToObject(requestJson, BusinessInfoEditRequestDTO.class);
+        if (businessInfoEditRequestDTO.getShopId() == null)
+            businessInfoEditRequestDTO.setShopId(AddMerchantTests.addMerchantResponseMap.get("addMerchantResponseDTO").getData().getShopId());
+        return Stream.of(arguments(businessInfoEditRequestDTO));
+    }
 }

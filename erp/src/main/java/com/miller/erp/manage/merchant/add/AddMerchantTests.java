@@ -17,6 +17,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,6 +36,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @DisplayName("ERP-商家管理-商家列表-新增商家-基础信息")
 public class AddMerchantTests {
 
+    public static Map<String, AddMerchantResponseDTO> addMerchantResponseMap = new HashMap<>();
+
     @BeforeAll
     static void beforeAll() {
         // 测试前置条件
@@ -47,6 +51,8 @@ public class AddMerchantTests {
     void shouldAddMerchantSuccessfully(AddMerchantRequestDTO addMerchantRequestDTO) {
         AddMerchantResponseDTO addMerchantResponseDTO = AddMerchantFlow.addMerchant(addMerchantRequestDTO);
         assertThat(addMerchantResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+        // 将响应结果存储起来提供给下一个测试用例使用
+        addMerchantResponseMap.putIfAbsent("addMerchantResponseDTO", addMerchantResponseDTO);
     }
 
 
