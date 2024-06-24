@@ -14,7 +14,7 @@ public class TestCaseDataForMerchantConstant {
     /**
      * 自动化测试专用店铺。
      * "shopId": 59750820,
-     * "shopName": "东东测试商家·玩具屋·自动化测试·勿动",
+     * "shopName": "东东测试商家·订单测试·自动化测试·勿动",
      */
     public static Long shopId = 59750820L;
 
@@ -32,7 +32,7 @@ public class TestCaseDataForMerchantConstant {
      * 自动化测试专用外卖代金券
      * 券ID: 8201ZEFNW2
      * 券类型: 外卖代金券（线上）
-     * 关联店铺: 东东测试商家·玩具屋·自动化测试·勿动，"shopId": 59750820,
+     * 关联店铺: 东东测试商家·订单测试·自动化测试·勿动，"shopId": 59750820,
      * 券内商家名称: 满10减5
      * 单个面值: 10
      * 门槛: 无门槛
@@ -52,7 +52,7 @@ public class TestCaseDataForMerchantConstant {
     /**
      * 自动化测试专用店铺。
      * "shopId": 638845643,
-     * "shopName": "东东测试美食城·玩具屋·自动化测试·勿动",
+     * "shopName": "东东测试美食城·订单测试·自动化测试·勿动",
      */
     public static Long shopIdOfFoodCity = 638845643L;
 

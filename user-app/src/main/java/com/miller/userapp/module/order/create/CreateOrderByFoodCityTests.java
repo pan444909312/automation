@@ -12,8 +12,10 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.module.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
+import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -36,6 +38,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-创建订单-美食城订单")
 public class CreateOrderByFoodCityTests {
+    // 商品价格，使用结算页的计算金额,动态获取。这个用例用于验证订单主流程，所以金额计算的内部计算因子逻辑，暂不放在这里处理
+    private static Integer orderPrice;
+
+    @BeforeAll
+    static void beforeAll() {
+        // 商品1
+        ProductCart productCart1 = new ProductCart();
+        productCart1.setProductId(TestCaseDataForMerchantConstant.productIdOfFoodCity1);
+        productCart1.setSkuId(TestCaseDataForMerchantConstant.skuIdOfFoodCity1);
+        // 商品2
+        ProductCart productCart2 = new ProductCart();
+        productCart2.setProductId(TestCaseDataForMerchantConstant.productIdOfFoodCity2);
+        productCart2.setSkuId(TestCaseDataForMerchantConstant.skuIdOfFoodCity2);
+
+        // 查询订单金额
+        orderPrice = SettlementFlow.queryOrderPriceFormSettlementPage(
+                OrderReqTypeEnum.COMMON_ORDER.getType(),
+                DeliveryTypeEnum.third_party.getCode(),
+                TestCaseDataForMerchantConstant.shopIdOfFoodCity,
+                List.of(productCart1, productCart2));
+    }
 
     @MethodSource("createOrderByFoodCity")
     @ParameterizedTest
@@ -59,8 +82,8 @@ public class CreateOrderByFoodCityTests {
         createOrderByFoodCity.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
         // 0=商家配送；1=平台配送；2=自取。美食城仅支持平台配送
         createOrderByFoodCity.setDeliveryType(String.valueOf(DeliveryTypeEnum.third_party.getCode()));
-        // 商品价格。无需动态查询，初始化数据时就应当指定好的值。每件商品价格100元，共2件商品，覆盖2个档口。
-        createOrderByFoodCity.setFixedPrice(23000);
+        // 商品价格，使用结算页的计算金额
+        createOrderByFoodCity.setFixedPrice(orderPrice);
         createOrderByFoodCity.setPlatform(String.valueOf(PlatformEnum.ANDROID.getCode()));
         createOrderByFoodCity.setAddressId(TestCaseDataForUserConstant.addressId);
         createOrderByFoodCity.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());

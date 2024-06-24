@@ -1,6 +1,7 @@
 package com.miller.userapp;
 
 import com.miller.userapp.module.home.login.UserLoginTests;
+import com.miller.userapp.module.order.create.*;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -22,7 +23,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 创建订单-结算-会员结算
 //        SettlementWithMemberTests.class,
         // 创建订单-平台配送
-//        CreateOrderByPlatformDeliveryTests.class,
+        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
 //        CreateOrderByMerchantDeliveryTests.class,
         // 创建订单-用户自取
@@ -30,7 +31,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 创建订单-美食城订单
 //        CreateOrderByFoodCityTests.class,
         // 创建订单-平台配送-代金券合单
-//        CreateOrderByPlatformDeliveryWithVoucherTests.class,
+        CreateOrderByPlatformDeliveryWithVoucherTests.class,
+        // 创建订单-平台配送-会员合单
+        CreateOrderByPlatformDeliveryWithMemberTests.class,
         // 支付订单-余额支付-代金券合单
 //        PayByBalanceWithVoucherTests.class,
 //        // 支付订单

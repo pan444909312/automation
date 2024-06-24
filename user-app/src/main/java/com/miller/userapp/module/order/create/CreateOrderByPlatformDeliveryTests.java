@@ -2,6 +2,7 @@ package com.miller.userapp.module.order.create;
 
 import com.alibaba.fastjson.JSON;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
+import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.hungrypanda.common.enums.common.PlatformEnum;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
@@ -11,9 +12,11 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.module.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
+import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
 import com.panda.common.enums.VoucherStatusEnum;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -36,7 +39,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-创建订单-平台配送")
 public class CreateOrderByPlatformDeliveryTests {
+    // 商品价格，使用结算页的计算金额,动态获取。这个用例用于验证订单主流程，所以金额计算的内部计算因子逻辑，暂不放在这里处理
+    private static Integer orderPrice;
 
+    @BeforeAll
+    static void beforeAll() {
+        // 查询订单金额
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+
+        orderPrice = SettlementFlow.queryOrderPriceFormSettlementPage(
+                OrderReqTypeEnum.COMMON_ORDER.getType(),
+                DeliveryTypeEnum.third_party.getCode(),
+                TestCaseDataForMerchantConstant.shopId,
+                List.of(productCart));
+    }
     @MethodSource("createOrderByPlatformDelivery")
     @ParameterizedTest
     @DisplayName("正常流程_创建订单-平台配送")
@@ -57,7 +75,7 @@ public class CreateOrderByPlatformDeliveryTests {
         createOrderByPlatformDelivery.setDeliveryType(String.valueOf(DeliveryTypeEnum.third_party.getCode()));
         createOrderByPlatformDelivery.setDeliveryTime("尽快送达");
         // 商品价格。无需动态查询，初始化数据时就应当指定好的值
-        createOrderByPlatformDelivery.setFixedPrice(12000);
+        createOrderByPlatformDelivery.setFixedPrice(orderPrice);
         createOrderByPlatformDelivery.setIsOnlinePay(Boolean.TRUE);
         // 为什么前端传的是1，服务器用的是  boolean
         createOrderByPlatformDelivery.setNeedNumberMasking(Boolean.TRUE);

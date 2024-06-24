@@ -13,9 +13,11 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.module.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
+import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
 import com.panda.common.enums.VoucherStatusEnum;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -38,7 +40,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-创建订单-平台配送-代金券合单")
 public class CreateOrderByPlatformDeliveryWithVoucherTests {
+    // 商品价格，使用结算页的计算金额,动态获取。这个用例用于验证订单主流程，所以金额计算的内部计算因子逻辑，暂不放在这里处理
+    private static Integer orderPrice;
 
+    @BeforeAll
+    static void beforeAll() {
+        // 查询订单金额
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+
+        orderPrice = SettlementFlow.queryOrderPriceFormSettlementPage(
+                OrderReqTypeEnum.COMMON_ORDER.getType(),
+                DeliveryTypeEnum.third_party.getCode(),
+                TestCaseDataForMerchantConstant.shopId,
+                List.of(productCart));
+    }
     @MethodSource("createOrderByPlatformDeliveryWithVoucher")
     @ParameterizedTest
     @DisplayName("正常流程_创建订单-平台配送-代金券合单")
@@ -71,8 +88,8 @@ public class CreateOrderByPlatformDeliveryWithVoucherTests {
         createOrderByPlatformDeliveryWithVoucher.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
         createOrderByPlatformDeliveryWithVoucher.setShopId(TestCaseDataForMerchantConstant.shopId);
 
-        // 代金劵合单之后的商品价格。无需动态查询，初始化数据时就应当指定好代金券的价格。
-        createOrderByPlatformDeliveryWithVoucher.setFixedPrice(11500);
+        // 代金劵合单之后的商品价格
+        createOrderByPlatformDeliveryWithVoucher.setFixedPrice(orderPrice);
         createOrderByPlatformDeliveryWithVoucher.setMemberBuyType(OrderReqTypeEnum.COMMON_ORDER.getType());
         createOrderByPlatformDeliveryWithVoucher.setMemberCombinedType(MemberCombinedTypeEnum.MEMBER_NO.getOpenBizType());
         // 代金券单相关参数

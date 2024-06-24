@@ -13,9 +13,11 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.module.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
+import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
 import com.panda.common.enums.VoucherStatusEnum;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -38,7 +40,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-创建订单-平台配送-会员合单")
 public class CreateOrderByPlatformDeliveryWithMemberTests {
+    // 商品价格，使用结算页的计算金额,动态获取。这个用例用于验证订单主流程，所以金额计算的内部计算因子逻辑，暂不放在这里处理
+    private static Integer orderPrice;
 
+    @BeforeAll
+    static void beforeAll() {
+        // 查询订单金额
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+
+        orderPrice = SettlementFlow.queryOrderPriceFormSettlementPage(
+                OrderReqTypeEnum.COMMON_ORDER.getType(),
+                DeliveryTypeEnum.third_party.getCode(),
+                TestCaseDataForMerchantConstant.shopId,
+                List.of(productCart));
+    }
     @MethodSource("createOrderByPlatformDeliveryWithMember")
     @ParameterizedTest
     @DisplayName("正常流程_创建订单-平台配送-会员合单")
@@ -71,8 +88,8 @@ public class CreateOrderByPlatformDeliveryWithMemberTests {
         createOrderByPlatformDeliveryWithMember.setTablewareCount(1);
         createOrderByPlatformDeliveryWithMember.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
 
-        // 会员合单之后的商品价格。无需动态查询，初始化数据时就应当指定好会员的价值。
-        createOrderByPlatformDeliveryWithMember.setFixedPrice(12500);
+
+        createOrderByPlatformDeliveryWithMember.setFixedPrice(orderPrice);
         // 会员合单相关参数
         createOrderByPlatformDeliveryWithMember.setMemberCityId(TestCaseDataForUserConstant.memberCityId);
         createOrderByPlatformDeliveryWithMember.setMemberBuyType(OrderReqTypeEnum.COMMON_ORDER.getType());

@@ -19,6 +19,7 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.module.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
+import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.LanguageEnum;
 import com.panda.common.enums.PayTypeEnum;
@@ -54,6 +55,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-创建订单-商家配送")
 public class CreateOrderByMerchantDeliveryTests {
+    // 商品价格，使用结算页的计算金额,动态获取。这个用例用于验证订单主流程，所以金额计算的内部计算因子逻辑，暂不放在这里处理
+    private static Integer orderPrice;
 
     @BeforeAll
     static void beforeAll() {
@@ -63,7 +66,19 @@ public class CreateOrderByMerchantDeliveryTests {
         BusinessInfoEditResponseDTO businessInfoEditResponseDTO =
                 BusinessInfoEditFlow.businessInfoEdit(getBusinessInfoEditRequestDTO(DeliveryTypeEnum.shop.getCode()));
         assertThat(businessInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+
+        // 查询订单金额
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+
+        orderPrice = SettlementFlow.queryOrderPriceFormSettlementPage(
+                OrderReqTypeEnum.COMMON_ORDER.getType(),
+                DeliveryTypeEnum.shop.getCode(),
+                TestCaseDataForMerchantConstant.shopId,
+                List.of(productCart));
     }
+
 
     @AfterAll
     static void afterAll() {
@@ -151,7 +166,7 @@ public class CreateOrderByMerchantDeliveryTests {
         createOrderByMerchantDelivery.setDeliveryType(String.valueOf(DeliveryTypeEnum.shop.getCode()));
         createOrderByMerchantDelivery.setDeliveryTime("尽快送达");
         // 商品价格。无需动态查询，初始化数据时就应当指定好的值
-        createOrderByMerchantDelivery.setFixedPrice(12000);
+        createOrderByMerchantDelivery.setFixedPrice(orderPrice);
         createOrderByMerchantDelivery.setIsOnlinePay(Boolean.TRUE);
 
         createOrderByMerchantDelivery.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());

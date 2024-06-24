@@ -12,8 +12,13 @@ import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.order.create.request.CreateOrderRequestDTO;
 import com.miller.userapp.module.order.create.flow.CreateOrderFlow;
 import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
+import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
+import com.miller.userapp.module.order.shopping.settlement.request.SettlementRequestDTO;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
+import com.panda.market.common.enums.DeliveryTimeTypeEnum;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -36,6 +41,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-创建订单-用户自取")
 public class CreateOrderByMyselfDeliveryTests {
+    // 商品价格，使用结算页的计算金额,动态获取。这个用例用于验证订单主流程，所以金额计算的内部计算因子逻辑，暂不放在这里处理
+    private static Integer orderPrice;
+
+    @BeforeAll
+    static void beforeAll() {
+        // 查询订单金额
+        ProductCart productCart = new ProductCart();
+        productCart.setSkuId(TestCaseDataForMerchantConstant.skuId);
+        productCart.setProductId(TestCaseDataForMerchantConstant.productId);
+
+        orderPrice = SettlementFlow.queryOrderPriceFormSettlementPage(
+                OrderReqTypeEnum.COMMON_ORDER.getType(),
+                DeliveryTypeEnum.user.getCode(),
+                TestCaseDataForMerchantConstant.shopId,
+                List.of(productCart));
+    }
 
     @MethodSource("createOrderByMyselfDelivery")
     @ParameterizedTest
@@ -51,14 +72,13 @@ public class CreateOrderByMyselfDeliveryTests {
     /**
      * 创建订单数据提供者_用户自取
      */
-    static Stream<Arguments> createOrderByMyselfDelivery() {
+    Stream<Arguments> createOrderByMyselfDelivery() {
         CreateOrderRequestDTO createOrderByMyselfDelivery = new CreateOrderRequestDTO();
         createOrderByMyselfDelivery.setDeliveryTime("尽快取餐");
-        createOrderByMyselfDelivery.setDeliveryTime("06-23 18:52-17:52");
         // 0=商家配送；1=平台配送；2=自取
         createOrderByMyselfDelivery.setDeliveryType(String.valueOf(DeliveryTypeEnum.user.getCode()));
         // 商品价格。用户自取的价格是不一样的。无需动态查询，初始化数据时就应当指定好的值
-        createOrderByMyselfDelivery.setFixedPrice(9360);
+        createOrderByMyselfDelivery.setFixedPrice(orderPrice);    // 价格为什么跟之前不一样了？这里要改为动态获取了
         // 选择自取/商家配送时需要传联系电话
         createOrderByMyselfDelivery.setUserPhone("86 18711110002");
         createOrderByMyselfDelivery.setTablewareCount(1);

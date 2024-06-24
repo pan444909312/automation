@@ -40,7 +40,7 @@ public class BusinessConstant {
     /**
      * 版本号
      */
-    public static String version = "8.30.0";
+    public static String version = "8.39.0";
     /**
      * 页码
      */
