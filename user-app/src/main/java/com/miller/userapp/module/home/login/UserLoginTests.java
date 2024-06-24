@@ -16,6 +16,7 @@ import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.mapper.user.UserMapper;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.home.login.response.UserLoginResponseDTO;
+import com.miller.userapp.util.DBUtils;
 import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
@@ -44,20 +45,14 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestFramework
 @DisplayName("用户-登录")
 public class UserLoginTests {
-    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
-    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
-    private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
-    private static SqlSession sqlSession;
+    private static String token;
 
     private static UserMapper userMapper;
     private static DeviceLoginInfoMapper deviceLoginInfoMapper;
 
-    private static String token;
-
     @BeforeAll
     static void beforeAll() {
-        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
-        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
+        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         userMapper = sqlSession.getMapper(UserMapper.class);
         deviceLoginInfoMapper = sqlSession.getMapper(DeviceLoginInfoMapper.class);
     }
