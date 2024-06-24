@@ -27,6 +27,8 @@ public class ERPLoginFlow {
      * 是否手动登陆，有效期8小时
      */
     private static boolean isManualLogin = true;
+    // 获取手工登陆的token，有效期8小时
+    private static final String token = "d575aca550ffde76bb83b5cc808ea09c";
 
     /**
      * 原生的请求发送工具，包含响应的所有内容
@@ -43,8 +45,7 @@ public class ERPLoginFlow {
             4. 将响应数据写死直接设置到 Map 中，避免请求失败，测试用的token写到配置文件中。
          */
         var mockLoginResponse = new HashMap<String, Object>();
-        // 获取手工登陆的token，有效期8小时
-        String token = "d15ad8e787fa2a9871f2d7b3084bba48";
+
         var responseBody = "{\n" +
                 "    \"code\": 1,\n" +
                 "    \"message\": \"成功\",\n" +
