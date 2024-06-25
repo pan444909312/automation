@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-基础信息-店铺logo-静图")
-public class ShopListScenarioTests {
+public class ShopShouldHasLabelScenarioTests {
     private static final Long shopId = Long.parseLong(ApplicationPropertiesUtils.loadProperties().getProperty("user.app.for.test.shop.card.version2.shopId"));
     private static ShopMapper shopMapper;
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
