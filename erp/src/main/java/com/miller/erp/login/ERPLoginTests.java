@@ -1,5 +1,6 @@
 package com.miller.erp.login;
 
+import com.miller.erp.constants.BusinessConstantOfERP;
 import com.miller.erp.constants.ResponseConstantOfERP;
 import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.login.request.ERPLoginRequestDTO;
@@ -10,11 +11,14 @@ import com.miller.service.framework.annotation.TestFramework;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
@@ -42,7 +46,7 @@ public class ERPLoginTests {
         assertThat(RequestUtils.getHeaders().get("token")).isNotNull();
     }
 
-    @MethodSource("com.miller.erp.login.provider.ERPLoginDataProvider#loginDataProviderFromDB")
+    @MethodSource("loginDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_登录成功")
     void shouldLoginSuccessfully(ERPLoginRequestDTO ERPLoginRequestDTO) {
@@ -52,6 +56,19 @@ public class ERPLoginTests {
         assertThat(ERPLoginResponseDTO.getData().getToken()).isNotNull();
         // 获取token
         token = ERPLoginResponseDTO.getData().getToken();
+    }
+
+    /**
+     * 登陆测试用例数据提供者，数据来自于DB
+     */
+    static Stream<Arguments> loginDataProvider() {
+        ERPLoginRequestDTO user = new ERPLoginRequestDTO();
+        user.setUserName(BusinessConstantOfERP.USERNAME);
+        // ERP 个人账号，不使用明文
+        user.setPassword(BusinessConstantOfERP.PASSWORD);
+        return Stream.of(
+                arguments(user)
+        );
     }
 
 }
