@@ -1,7 +1,9 @@
 package com.miller.userapp.module.home.login.flow;
 
 import com.alibaba.fastjson.JSON;
+import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.ApplicationPropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.home.login.response.UserLoginResponseDTO;
@@ -102,6 +104,42 @@ public class UserLoginFlow {
 
         // 获取token
         var token = userLoginResponseDTO.getResult().getAccessToken();
+        var headers = new HashMap<String, Object>();
+        headers.put("Content-Type", "application/json");
+        headers.put("authorization", token);
+
+        // 更新全局请求头参数。设置测试用例的默认用户。
+        RequestUtils.setHeaders(headers);
+        return userLoginResponseDTO;
+    }
+
+    /**
+     * 用户端-登录，通过默认的账号
+     * 登录的一种特化方式，登录之后将 token 设置到全局 headers 中，多用户登录时请勿使用。
+     *
+     * @return 响应体对象
+     */
+    public static UserLoginResponseDTO loginByDefaultUser() {
+
+        String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.password");
+        String userName = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account");
+        String loginType = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.login.type");
+        String callingCode = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.callingCode");
+        String distinctId = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.distinctId");
+
+        // 构造请求数据，从数据库查询结果作为请求数据
+        UserLoginRequestDTO user = new UserLoginRequestDTO();
+        user.setAreaCode(callingCode);
+        user.setAccount(userName);
+        user.setPassword(MD5Util.string2MD5(passWord));
+        user.setType(Integer.valueOf(loginType));
+        user.setDistinctId(distinctId);
+
+        UserLoginResponseDTO userLoginResponseDTO = UserLoginFlow.loginReturnBodyObject(user);
+
+        // 获取token
+        var token = userLoginResponseDTO.getResult().getAccessToken();
+        // 获取token
         var headers = new HashMap<String, Object>();
         headers.put("Content-Type", "application/json");
         headers.put("authorization", token);

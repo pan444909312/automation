@@ -21,8 +21,6 @@ public class BusinessInfoEditFlow {
 
     /**
      * 流程_编辑商家-经营信息
-     *
-     * @see com.panda.merchant.server.api.dto.merchant.module.MerchantModuleDTO
      */
     public static BusinessInfoEditResponseDTO businessInfoEdit(BusinessInfoEditRequestDTO businessInfoEditRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token

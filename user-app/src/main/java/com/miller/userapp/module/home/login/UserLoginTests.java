@@ -7,8 +7,6 @@ import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.db.mybatis.DataSourceConfig;
-import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
 import com.miller.service.framework.util.ApplicationPropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.mapper.device.DeviceLoginInfoMapper;
@@ -85,7 +83,7 @@ public class UserLoginTests {
     }
 
     static Stream<Arguments> loginData() {
-        String userId = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.id");
+        String userId = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id");
         String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.password");
         String loginType = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.login.type");
 
