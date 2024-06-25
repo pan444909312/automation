@@ -177,7 +177,7 @@ public class HttpUtils {
                 return JSONUtils.jsonToObjectByJackson(sendPostRequestReturnBody(uri, params, headers, body, cookies), returnType);
             // 暂不支持 GSON
             case GSON:
-                System.err.println("暂不支持 GSOn");
+                System.err.println("暂不支持 GSON");
                 break;
             default:
                 break;
