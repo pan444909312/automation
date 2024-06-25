@@ -55,6 +55,9 @@ public class ShopShouldHasStaticLogoScenarioTests {
     @ParameterizedTest
     @DisplayName("正常流程_店铺logo-静图")
     void shouldExistStaticLogo(ShopListRequestDTO shopListRequestDTO) {
+        // Given
+
+        // When
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         String shopLogoOfInterfaceResponse = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().map(BaseShopIndexVO::getShopLogo).orElseThrow();
@@ -64,7 +67,7 @@ public class ShopShouldHasStaticLogoScenarioTests {
                 .findFirst()
                 .map(ImageModuleDTO::getUrl).orElseThrow();
 
-        // 校验接口返回的字段与ERP后台配置接口返回的字段值相同: JSON.result.shopList[x].shopLogo
+        // Then. 校验接口返回的字段与ERP后台配置接口返回的字段值相同: JSON.result.shopList[x].shopLogo
         var shopLogoOfInterfaceResponseFilaName = shopLogoOfInterfaceResponse.substring(shopLogoOfInterfaceResponse.lastIndexOf("/") + 1);
         var shopLogoOfERPInterfaceResponseFilaName = shopLogoOfERPInterfaceResponse.substring(shopLogoOfERPInterfaceResponse.lastIndexOf("/") + 1);
         assertThat(shopLogoOfInterfaceResponseFilaName).isNotNull().isEqualTo(shopLogoOfERPInterfaceResponseFilaName);
@@ -84,7 +87,6 @@ public class ShopShouldHasStaticLogoScenarioTests {
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
-
     }
 
 }
