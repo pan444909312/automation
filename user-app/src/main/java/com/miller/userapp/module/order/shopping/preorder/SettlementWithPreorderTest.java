@@ -1,4 +1,4 @@
-package com.miller.userapp.module.order.shopping.settlement;
+package com.miller.userapp.module.order.shopping.preorder;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
+import com.hungrypanda.app.server.api.res.order.PreorderDeliveryTimeVO;
 import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.hungrypanda.app.server.entity.shop.ShopExtraInfoEntity;
@@ -29,12 +30,17 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.BeanUtils;
 import com.miller.userapp.module.person.member.PandaDB;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * 这个是虚单预约单测试，请求使用虚单接口，只是单独建了个包名
+ */
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-结算-预约单数据校验")
@@ -42,6 +48,7 @@ public class SettlementWithPreorderTest {
     PreorderParamsEntity preorderParamsEntity;
     ShopExtraInfoEntity shopExtraInfoEntity;
     ShopExtraInfoMapper shopExtraInfoMapper;
+    PreorderServiceImpl preorderService;
 //    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
 //    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
 //    private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
@@ -51,12 +58,14 @@ public class SettlementWithPreorderTest {
     void beforeAll(){
 //        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
 //        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
-        shopExtraInfoMapper = PandaDB.getSqlSession().getMapper(ShopExtraInfoMapper.class);
+        sqlSession = PandaDB.getSqlSession();
+        shopExtraInfoMapper = sqlSession.getMapper(ShopExtraInfoMapper.class);
         QueryWrapper<ShopExtraInfoEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<ShopExtraInfoEntity> lambda = queryWrapper.lambda();
         lambda.eq(ShopExtraInfoEntity::getShopId,TestCaseDataForMerchantConstant.shopId);
         shopExtraInfoEntity = shopExtraInfoMapper.selectOne(queryWrapper);
         preorderParamsEntity = new PreorderParamsEntity();
+        preorderService = new PreorderServiceImpl(sqlSession);
 //        String sql = "select * from shop_extra_info where shop_id = ?";
 //        shopExtraInfoEntity = PandaDB.getDBInstance().queryOneObjectReturnObject(sql,
 //                ShopExtraInfoEntity.class, TestCaseDataForMerchantConstant.shopId);
@@ -141,6 +150,29 @@ public class SettlementWithPreorderTest {
         if(settlementResponseDTO.getResult().getOrderOther().getOrderType() == 0 ){
             assertThat(settlementResponseDTO.getResult().getOrderOther().getPreOrderOpenType()).isEqualTo(3);
         }
+    }
+    @ParameterizedTest
+    @MethodSource("settlementPreorder")
+    @DisplayName("用户-结算-预约单-获取第一个时间")
+    void settlementWithFirstTime(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda  = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId,TestCaseDataForMerchantConstant.shopId);
+        lambda.set(ShopExtraInfoEntity::getPreorderOpenType,0);
+        shopExtraInfoMapper.update(null,updateWrapper);
+        //获取makeTime
+        int makeTime = preorderService.getMakeTimeByShop();
+//        System.out.println("makeTime: "+makeTime);
+        LocalTime localTime = LocalTime.now();
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        List<PreorderDeliveryTimeVO> preorderDeliveryTimeVOList = settlementResponseDTO.getResult().getOrderOpt().getDeliveryWay().getDeliveryTime();
+        assertThat(preorderDeliveryTimeVOList.size()).isGreaterThan(0);
+        PreorderDeliveryTimeVO preorderDeliveryTimeVO = preorderDeliveryTimeVOList.get(0);
+        assertThat(preorderDeliveryTimeVO.getTimeList().size()).isGreaterThan(0);
+        String firstTime = preorderDeliveryTimeVO.getTimeList().get(0).getStartTime();
+//        System.out.println("firstTime: "+firstTime);
+//        System.out.println("actualTime: "+localTime.plusMinutes(makeTime).format(DateTimeFormatter.ofPattern("HH:mm")));
+        assertThat(firstTime).isGreaterThan( localTime.plusMinutes(makeTime).format(DateTimeFormatter.ofPattern("HH:mm")));
     }
 
     static Stream<Arguments> settlementPreorder() {
