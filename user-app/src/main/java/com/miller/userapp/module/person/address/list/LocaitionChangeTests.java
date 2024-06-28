@@ -1,6 +1,8 @@
 package com.miller.userapp.module.person.address.list;
 
 import com.hungrypanda.app.server.api.common.ResultCode;
+import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.module.person.address.list.flow.LocationChangeFlow;
 import com.miller.userapp.module.person.address.list.request.LocationChangeRequestDTO;
 import com.miller.userapp.module.person.address.list.response.LocationChangeResponseDTO;
@@ -14,10 +16,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/6/3 9:35
  */
+@EnvTag.Test
+@TestFramework
+@DisplayName("用户-用户位置变更")
 public class LocaitionChangeTests {
 
     @DisplayName("正常流程_用户位置变更")
-    @MethodSource("com.miller.userapp.address.list.provider.LocationChangeProvider#locationChangeData")
+    @MethodSource("com.miller.userapp.module.person.address.list.provider.LocationChangeProvider#locationChangeData")
     @ParameterizedTest
     public void locationChangeSuccessfully(LocationChangeRequestDTO locationChangeRequestDTO) {
         LocationChangeResponseDTO locationChangeResponseDTO = new LocationChangeFlow().locationChange(locationChangeRequestDTO);
