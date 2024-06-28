@@ -14,9 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/5/31 16:34
  */
-@EnvTag.Test
-@TestFramework
-@DisplayName("用户-搜索地址")
+
 public class AddressSearchTests {
 
     @DisplayName("正常流程_搜索地址")

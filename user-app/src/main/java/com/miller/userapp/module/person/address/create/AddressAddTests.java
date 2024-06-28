@@ -23,7 +23,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class AddressAddTests {
 
 
-    @MethodSource("com.miller.userapp.address.create.provider.AddressDataProvider#addressAddData")
+    @MethodSource("com.miller.userapp.module.person.address.create.provider.AddressDataProvider#addressAddData")
     @ParameterizedTest
     @DisplayName("正常流程_创建收货地址")
     public void shouldAddAddressSuccessfully(AddressRequestDTO addressRequestDTO){
