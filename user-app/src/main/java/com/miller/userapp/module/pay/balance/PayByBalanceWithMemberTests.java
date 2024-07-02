@@ -4,13 +4,11 @@ import com.hungrypanda.app.server.common.enums.payment.PaymentEnum;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.member.delete.MemberDeleteFlow;
-import com.miller.erp.manage.member.list.flow.MemberListFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.service.framework.util.ApplicationPropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.pay.balance.flow.PayByBalanceFlow;
 import com.miller.userapp.module.pay.balance.request.PayByBalanceRequestDTO;
 import com.miller.userapp.module.pay.balance.response.PayByBalanceResponseDTO;
@@ -51,11 +49,12 @@ public class PayByBalanceWithMemberTests {
      删除用户开通的会员，需要在支付完成的时候删除开通的会员，创建订单还未支付并不会创建会员
      */
     @AfterEach
-    void afterEach(){
+    void afterEach() {
         ERPLoginFlow.loginByDefaultUser();
         MemberDeleteFlow.deleteMemberByUserId(
                 ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id"));
     }
+
     /**
      * 余额支付-会员合单/代金券合单
      */
