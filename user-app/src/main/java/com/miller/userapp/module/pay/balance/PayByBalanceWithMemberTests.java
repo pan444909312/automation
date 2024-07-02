@@ -8,6 +8,7 @@ import com.miller.erp.manage.member.list.flow.MemberListFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
+import com.miller.service.framework.util.ApplicationPropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.pay.balance.flow.PayByBalanceFlow;
@@ -52,8 +53,8 @@ public class PayByBalanceWithMemberTests {
     @AfterEach
     void afterEach(){
         ERPLoginFlow.loginByDefaultUser();
-        String memberID = MemberListFlow.getIDByMemberName(UserLoginFlow.getCurrentUserInfo().getResult().getUserName());
-        MemberDeleteFlow.deleteMemberById(memberID);
+        MemberDeleteFlow.deleteMemberByUserId(
+                ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id"));
     }
     /**
      * 余额支付-会员合单/代金券合单
