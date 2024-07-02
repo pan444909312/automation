@@ -30,6 +30,8 @@ public class TestCaseDataForMerchantConstant {
     public static Long skuId = 0L;
     /**
      * 自动化测试专用外卖代金券
+     * 后台配置：运营管理->消费券管理->外卖代金券（线上）
+     * 表：hp_voucher_info
      * 券ID: 8201ZEFNW2
      * 券类型: 外卖代金券（线上）
      * 关联店铺: 东东测试商家·订单测试·自动化测试·勿动，"shopId": 59750820,
