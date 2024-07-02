@@ -11,6 +11,7 @@ import com.hungrypanda.app.server.entity.delivery.DeliveryTimeConfigDataShopEnti
 import com.hungrypanda.app.server.entity.shop.ShopEntity;
 import com.hungrypanda.app.server.vo.shop.ShopPeakTimeJsonVO;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
+import com.miller.service.framework.constants.FormatterCons;
 import com.miller.userapp.mapper.shop.DeliveryTimeConfigDataMapper;
 import com.miller.userapp.mapper.shop.ShopDeliveryTimeDataConfigMapper;
 import com.miller.userapp.mapper.shop.ShopMapper;
@@ -89,7 +90,7 @@ public class PreorderServiceImpl {
         return deliveryTimeConfigDataEntity.orElse(null);
     }
     public DeliveryTimeDTO getDeliveryTime(Double distance){
-        String nowTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        String nowTime = LocalTime.now().format(DateTimeFormatter.ofPattern(FormatterCons.TIMESecFormatter));
         BigDecimal distanceNew = getDistanceForUnit(BigDecimal.valueOf(distance));
         DeliveryTimeConfigDataEntity deliveryTimeConfigDataEntity = getDeliveryTimeConfigData(distanceNew,nowTime);
         int makeTime = getMakeTimeByShop();
