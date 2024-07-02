@@ -6,11 +6,16 @@ import com.miller.deliveryapp.driver.online.request.DriverOnlineRequestDTO;
 import com.miller.deliveryapp.driver.online.response.DriverOnlineResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.panda.delivery.app.server.common.enums.DriverOnOffLineEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
@@ -25,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("骑手-上线")
 public class DriverOnlineTests {
 
-    @MethodSource("com.miller.deliveryapp.driver.online.provider.DriverOnlineDataProvider#driverOnlineDataProvider")
+    @MethodSource("driverOnlineDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_骑手上线")
     void shouldOnlineSuccessfully(DriverOnlineRequestDTO loginRequestDTO) {
@@ -33,5 +38,15 @@ public class DriverOnlineTests {
 
         assertThat(driverOnlineResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
     }
+    /**
+     * 骑手上线测试用例数据提供者
+     */
+    static Stream<Arguments> driverOnlineDataProvider() {
+        DriverOnlineRequestDTO driverOnlineRequestDTO = new DriverOnlineRequestDTO();
+        driverOnlineRequestDTO.setIsOnline(Byte.valueOf(String.valueOf(DriverOnOffLineEnum.YES.getType())));
 
+        return Stream.of(
+                arguments(driverOnlineRequestDTO)
+        );
+    }
 }
