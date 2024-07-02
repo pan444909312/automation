@@ -1,8 +1,14 @@
 package com.miller.erp.manage.member.delete;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.hungrypanda.app.server.entity.member.MemberEntity;
+import com.hungrypanda.app.server.entity.member.MemberEntityEntity;
 import com.miller.erp.constants.BusinessConstantOfERP;
+import com.miller.erp.mapper.member.MemberEntityMapper;
+import com.miller.erp.util.DBUtils;
 import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.HashMap;
 
@@ -24,10 +30,12 @@ public class MemberDeleteFlow {
     /**
      * 通过会员ID删除指定会员
      * <p>
-     * 需要优化：目前此接口返回的是html，等后段改成返回json之后在优化
+     * 需要优化：目前此接口返回的是html，等后段改成返回json之后在优化.
      *
      * @param memberId 会员主键ID
+     * @see #deleteMemberByUserId(String)
      */
+    @Deprecated
     public static void deleteMemberById(String memberId) {
         try {
             Long.valueOf(memberId);
@@ -51,5 +59,22 @@ public class MemberDeleteFlow {
         if (!responseBody.contains("成功")) {
             throw new RuntimeException("删除会员失败");
         }
+    }
+
+    /**
+     * 通过用户ID删除用户开通的会员
+     *
+     * @param userId 用户主键ID
+     */
+    public static void deleteMemberByUserId(String userId) {
+        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
+
+        MemberEntityMapper mapper = sqlSession.getMapper(MemberEntityMapper.class);
+        mapper.update(
+                new LambdaUpdateWrapper<MemberEntityEntity>()
+                        .eq(MemberEntityEntity::getUserId, userId)
+                        .set(MemberEntityEntity::getIsDel, Byte.valueOf("1"))
+        );
+
     }
 }
