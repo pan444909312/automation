@@ -81,6 +81,10 @@ public class UserLoginTests {
         token = userLoginResponseDTO.getResult().getAccessToken();
     }
 
+    /**
+     * 测试用例数据
+     * @return Stream<UserLoginRequestDTO>
+     */
     static Stream<Arguments> loginDataDataProvider() {
         String userId = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id");
         String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.password");

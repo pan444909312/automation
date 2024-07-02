@@ -1,5 +1,6 @@
 package com.miller.deliveryapp.login;
 
+import com.miller.common.util.MD5Util;
 import com.miller.deliveryapp.constants.ResponseConstant;
 import com.miller.deliveryapp.login.flow.DeliveryLoginFlow;
 import com.miller.deliveryapp.login.request.DeliveryLoginRequestDTO;
@@ -10,11 +11,14 @@ import com.miller.service.framework.annotation.TestFramework;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
@@ -43,7 +47,7 @@ public class DeliveryLoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.deliveryapp.login.provider.DeliveryLoginDataProvider#loginDataProviderForOrder")
+    @MethodSource("loginDataProviderForOrder")
     @ParameterizedTest
     @DisplayName("正常流程_骑手登录")
     void shouldLoginSuccessfully(DeliveryLoginRequestDTO deliveryLoginRequestDTO) {
@@ -53,6 +57,21 @@ public class DeliveryLoginTests {
         assertThat(deliveryLoginResponseDTO.getResult().getAccessToken()).isNotNull();
         // 获取token
         token = deliveryLoginResponseDTO.getResult().getAccessToken();
+    }
+
+    /**
+     * 登陆测试用例数据提供者，数据来自于DB
+     */
+    static Stream<Arguments> loginDataProviderForOrder() {
+        // TODO 假设这里的数据是从数据库或Redis查询出来的数据。后续会提供数据自动注入，这样就不用自己set数据了。
+        DeliveryLoginRequestDTO user = new DeliveryLoginRequestDTO();
+        user.setAreaCode("86");
+        user.setAccount("18733330001");
+        user.setPassword(MD5Util.string2MD5("Test123456"));
+
+        return Stream.of(
+                arguments(user)
+        );
     }
 
 }

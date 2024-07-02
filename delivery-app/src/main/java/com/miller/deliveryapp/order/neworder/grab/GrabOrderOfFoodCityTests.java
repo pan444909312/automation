@@ -16,9 +16,13 @@ import com.miller.service.framework.cache.CacheUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
@@ -47,7 +51,7 @@ public class GrabOrderOfFoodCityTests {
         assertThat(orderDetails.getResult().getStallInfoList().size()).isGreaterThanOrEqualTo(2);
     }
 
-    @MethodSource("com.miller.deliveryapp.order.neworder.grab.provider.GrabOrderDataProvider#grabOrderDataProvider")
+    @MethodSource("grabOrderDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_骑手抢美食城订单")
     void shouldGrabOrderSuccessfully(GrabOrderRequestDTO grabOrderRequestDTO) {
@@ -56,4 +60,14 @@ public class GrabOrderOfFoodCityTests {
         assertThat(grabOrderResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
     }
 
+    static Stream<Arguments> grabOrderDataProvider() {
+        GrabOrderRequestDTO grabOrderRequestDTO = new GrabOrderRequestDTO();
+        // 从缓存中获取订单ID
+        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
+        grabOrderRequestDTO.setOrderSn(orderSn);
+
+        return Stream.of(
+                arguments(grabOrderRequestDTO)
+        );
+    }
 }

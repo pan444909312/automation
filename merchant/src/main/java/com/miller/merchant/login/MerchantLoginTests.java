@@ -1,5 +1,6 @@
 package com.miller.merchant.login;
 
+import com.miller.common.util.MD5Util;
 import com.miller.merchant.constants.ResponseConstant;
 import com.miller.merchant.login.flow.MerchantLoginFlow;
 import com.miller.merchant.login.request.MerchantLoginRequestDTO;
@@ -11,11 +12,14 @@ import com.miller.service.framework.annotation.TestFramework;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
@@ -44,7 +48,7 @@ public class MerchantLoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.merchant.login.provider.MerchantLoginDataProvider#loginDataProviderFromDB")
+    @MethodSource("loginDataProviderFromDB")
     @ParameterizedTest
     @DisplayName("正常流程_商家登录")
     void shouldLoginSuccessfully(MerchantLoginRequestDTO merchantLoginRequestDTO) {
@@ -55,6 +59,20 @@ public class MerchantLoginTests {
         assertThat(merchantLoginResponseDTO.getSuccess()).isTrue();
         // 获取token
         token = merchantLoginResponseDTO.getResult().getAccessToken();
+    }
+
+    /**
+     * 登陆测试用例数据提供者，数据来自于DB
+     */
+    static Stream<Arguments> loginDataProviderFromDB() {
+        MerchantLoginRequestDTO user1 = new MerchantLoginRequestDTO();
+        user1.setAreaCode("86");
+        user1.setAccount("18722220001");
+        user1.setPassword(MD5Util.string2MD5("wJ3X8JHJ4"));
+
+        return Stream.of(
+                arguments(user1)
+        );
     }
 
 }
