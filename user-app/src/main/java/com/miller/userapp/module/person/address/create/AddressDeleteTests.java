@@ -19,7 +19,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 @DisplayName("用户-地址删除")
 public class AddressDeleteTests {
 
-    @MethodSource("com.miller.userapp.address.create.provider.AddressDataProvider#addressDeleteData")
+    @MethodSource("com.miller.userapp.module.person.address.create.provider.AddressDataProvider#addressDeleteData")
     @ParameterizedTest
     @DisplayName("正常流程_删除收货地址")
     public void shouldDeleteAddressSuccessfully(AddressRequestDTO addressRequestDTO){

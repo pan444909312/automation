@@ -19,7 +19,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 @DisplayName("用户-地址编辑")
 public class AddressEditTests {
 
-    @MethodSource("com.miller.userapp.address.create.provider.AddressDataProvider#addressEditData")
+    @MethodSource("com.miller.userapp.module.person.address.create.provider.AddressDataProvider#addressEditData")
     @ParameterizedTest
     @DisplayName("正常流程_编辑收货地址")
     public void shouldEditAddressSuccessfully(AddressRequestDTO addressRequestDTO){
