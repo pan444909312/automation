@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.entity.device.DeviceLoginInfoEntity;
 import com.hungrypanda.app.server.entity.user.UserEntity;
 import com.miller.common.util.MD5Util;
-import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.ApplicationPropertiesUtils;
@@ -38,7 +37,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * @version 1.0
  * @since 2023/12/7 20:31:39
  */
-@ApiDoc("http://10.1.6.46:3000/project/60/interface/api/3288")
+//@ApiDoc("http://10.1.6.46:3000/project/60/interface/api/3288")
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-登录")
@@ -67,7 +66,7 @@ public class UserLoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("loginData")
+    @MethodSource("loginDataDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_用户登录")
     void shouldLoginSuccessfully(UserLoginRequestDTO userLoginRequestDTO) {
@@ -82,7 +81,7 @@ public class UserLoginTests {
         token = userLoginResponseDTO.getResult().getAccessToken();
     }
 
-    static Stream<Arguments> loginData() {
+    static Stream<Arguments> loginDataDataProvider() {
         String userId = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id");
         String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.password");
         String loginType = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.login.type");
