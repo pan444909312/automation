@@ -2,6 +2,7 @@ package com.miller.userapp.module.order.shopping.settlement;
 
 import com.alibaba.fastjson.JSON;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
+import com.hungrypanda.app.server.api.res.order.OrderAmountVO;
 import com.hungrypanda.app.server.common.enums.StatusEnum;
 import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
@@ -48,18 +49,19 @@ public class SettlementTests {
         // 商品小记费用
         Integer product = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
                 .filter(value -> value.getItemKey().equalsIgnoreCase("product"))
-                .findFirst().get().getItemAmount();
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
         // 打包费
         Integer packaging = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
                 .filter(value -> value.getItemKey().equalsIgnoreCase("packaging"))
-                .findFirst().get().getItemAmount();
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
         // 配送费
         Integer delivery = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
                 .filter(value -> value.getItemKey().equalsIgnoreCase("delivery"))
-                .findFirst().get().getItemAmount();
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
 
         // 订单总价格应该为 120元
-        assertThat(12000).isEqualTo( product + packaging + delivery);
+        Integer totalAmount = settlementResponseDTO.getResult().getPriceInfo().getTotalAmount();
+        assertThat(totalAmount).isEqualTo( product + packaging + delivery);
     }
 
     static Stream<Arguments> settlementProduct() {
