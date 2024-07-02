@@ -6,13 +6,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
+import com.hungrypanda.app.server.api.res.order.OrderOptVO;
 import com.hungrypanda.app.server.api.res.order.PreorderDeliveryTimeVO;
 import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
+import com.hungrypanda.app.server.dto.delivery.DeliveryTimeDTO;
 import com.hungrypanda.app.server.entity.shop.ShopExtraInfoEntity;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.constants.FormatterCons;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.miller.userapp.module.order.shopping.settlement.request.PreorderParamsEntity;
@@ -20,6 +23,7 @@ import com.miller.userapp.module.order.shopping.settlement.request.SettlementReq
 import com.miller.userapp.module.order.shopping.settlement.response.SettlementResponseDTO;
 import com.miller.userapp.mapper.shop.ShopExtraInfoMapper;
 import com.panda.common.enums.DeliveryTypeEnum;
+import com.panda.pos.server.api.vo.order.OrderVO;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,6 +34,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.BeanUtils;
 import com.miller.userapp.module.person.member.PandaDB;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -160,19 +167,31 @@ public class SettlementWithPreorderTest {
         lambda.eq(ShopExtraInfoEntity::getShopId,TestCaseDataForMerchantConstant.shopId);
         lambda.set(ShopExtraInfoEntity::getPreorderOpenType,0);
         shopExtraInfoMapper.update(null,updateWrapper);
-        //获取makeTime
-        int makeTime = preorderService.getMakeTimeByShop();
-//        System.out.println("makeTime: "+makeTime);
         LocalTime localTime = LocalTime.now();
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
-        List<PreorderDeliveryTimeVO> preorderDeliveryTimeVOList = settlementResponseDTO.getResult().getOrderOpt().getDeliveryWay().getDeliveryTime();
+        OrderOptVO orderOptVO = settlementResponseDTO.getResult().getOrderOpt();
+        Double distance = orderOptVO.getAddress().getOptAddress().getToShopDistance();
+        System.out.println("distance: "+distance);
+        DeliveryTimeDTO deliveryTimeDTO = preorderService.getDeliveryTime(distance);
+        int makeTime = deliveryTimeDTO.getMakeTime();
+        int aveDeliveryTime = deliveryTimeDTO.getAvgDeliveryTime();
+//        System.out.println("makeTime: "+makeTime);
+//        System.out.println("aveDeliveryTime: "+aveDeliveryTime);
+        List<PreorderDeliveryTimeVO> preorderDeliveryTimeVOList = orderOptVO.getDeliveryWay().getDeliveryTime();
         assertThat(preorderDeliveryTimeVOList.size()).isGreaterThan(0);
         PreorderDeliveryTimeVO preorderDeliveryTimeVO = preorderDeliveryTimeVOList.get(0);
         assertThat(preorderDeliveryTimeVO.getTimeList().size()).isGreaterThan(0);
-        String firstTime = preorderDeliveryTimeVO.getTimeList().get(0).getStartTime();
-//        System.out.println("firstTime: "+firstTime);
-//        System.out.println("actualTime: "+localTime.plusMinutes(makeTime).format(DateTimeFormatter.ofPattern("HH:mm")));
-        assertThat(firstTime).isGreaterThan( localTime.plusMinutes(makeTime).format(DateTimeFormatter.ofPattern("HH:mm")));
+        //比较是不是当天
+        String nowDate = preorderDeliveryTimeVO.getDate();
+//        System.out.println("nowDate: "+nowDate +" <> "+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        assertThat(LocalDateTime.now().format(DateTimeFormatter.ofPattern(FormatterCons.YEARDATEFormatter))).isEqualTo(nowDate);
+        String firstTimeStr = preorderDeliveryTimeVO.getTimeList().get(0).getStartTime();
+
+        LocalTime firstTime = LocalTime.parse(firstTimeStr,DateTimeFormatter.ofPattern(FormatterCons.TIMEFormatter));
+        LocalTime actualFirstTime  = localTime.plusMinutes(makeTime+aveDeliveryTime);
+//        System.out.println("firstTime: "+firstTime +" > " +actualFirstTime);
+        //比较第一个开始时间是不是大于当前时间+出餐时间+配送时常平均值
+        assertThat(actualFirstTime).isBefore(firstTime);
     }
 
     static Stream<Arguments> settlementPreorder() {
