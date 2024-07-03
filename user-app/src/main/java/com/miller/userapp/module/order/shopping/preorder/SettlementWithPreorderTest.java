@@ -11,12 +11,14 @@ import com.hungrypanda.app.server.api.res.order.PreorderDeliveryTimeVO;
 import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.hungrypanda.app.server.dto.delivery.DeliveryTimeDTO;
+import com.hungrypanda.app.server.entity.shop.ShopEntity;
 import com.hungrypanda.app.server.entity.shop.ShopExtraInfoEntity;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.constants.FormatterCons;
 import com.miller.userapp.constants.ResponseConstant;
+import com.miller.userapp.mapper.shop.ShopMapper;
 import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.miller.userapp.module.order.shopping.settlement.request.PreorderParamsEntity;
 import com.miller.userapp.module.order.shopping.settlement.request.SettlementRequestDTO;
@@ -25,9 +27,7 @@ import com.miller.userapp.mapper.shop.ShopExtraInfoMapper;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.pos.server.api.vo.order.OrderVO;
 import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -51,10 +51,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-结算-预约单数据校验")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SettlementWithPreorderTest {
     PreorderParamsEntity preorderParamsEntity;
     ShopExtraInfoEntity shopExtraInfoEntity;
     ShopExtraInfoMapper shopExtraInfoMapper;
+    ShopMapper shopMapper;
     PreorderServiceImpl preorderService;
 //    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
 //    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
@@ -66,6 +68,7 @@ public class SettlementWithPreorderTest {
 //        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
 //        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
         sqlSession = PandaDB.getSqlSession();
+        shopMapper = sqlSession.getMapper(ShopMapper.class);
         shopExtraInfoMapper = sqlSession.getMapper(ShopExtraInfoMapper.class);
         QueryWrapper<ShopExtraInfoEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<ShopExtraInfoEntity> lambda = queryWrapper.lambda();
@@ -111,6 +114,7 @@ public class SettlementWithPreorderTest {
     }
     @ParameterizedTest
     @MethodSource("settlementPreorder")
+    @Order(1)
     @DisplayName("用户-结算-预约单-立即送达+仅预约")
     void settlementWithPreorderOpenType1(SettlementRequestDTO settlementRequestDTO){
 //        String sql = "update shop_extra_info set preorder_open_type = ?";
@@ -128,6 +132,7 @@ public class SettlementWithPreorderTest {
     }
     @ParameterizedTest
     @MethodSource("settlementPreorder")
+    @Order(2)
     @DisplayName("用户-结算-预约单-仅预约")
     void settlementWithPreorderOpenType2(SettlementRequestDTO settlementRequestDTO){
 //        String sql = "update shop_extra_info set preorder_open_type = ?";
@@ -143,6 +148,7 @@ public class SettlementWithPreorderTest {
     }
     @ParameterizedTest
     @MethodSource("settlementPreorder")
+    @Order(3)
     @DisplayName("用户-结算-预约单-仅立即送达")
     void settlementWithPreorderOpenType3(SettlementRequestDTO settlementRequestDTO){
 //        String sql = "update shop_extra_info set preorder_open_type = ?";
@@ -156,10 +162,13 @@ public class SettlementWithPreorderTest {
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         if(settlementResponseDTO.getResult().getOrderOther().getOrderType() == 0 ){
             assertThat(settlementResponseDTO.getResult().getOrderOther().getPreOrderOpenType()).isEqualTo(3);
+            List<PreorderDeliveryTimeVO> preorderDeliveryTimeVOList = settlementResponseDTO.getResult().getOrderOpt().getDeliveryWay().getDeliveryTime();
+            assertThat(preorderDeliveryTimeVOList.size()).isEqualTo(0); //是个空数组
         }
     }
     @ParameterizedTest
     @MethodSource("settlementPreorder")
+    @Order(4)
     @DisplayName("用户-结算-预约单-获取第一个时间")
     void settlementWithFirstTime(SettlementRequestDTO settlementRequestDTO){
         UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
@@ -192,6 +201,57 @@ public class SettlementWithPreorderTest {
 //        System.out.println("firstTime: "+firstTime +" > " +actualFirstTime);
         //比较第一个开始时间是不是大于当前时间+出餐时间+配送时常平均值
         assertThat(actualFirstTime).isBefore(firstTime);
+    }
+    @ParameterizedTest
+    @MethodSource("settlementPreorder")
+    @Order(5)
+    @DisplayName("用户-结算-预约天数")
+    void settlementWithPreDays(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda  = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId,TestCaseDataForMerchantConstant.shopId);
+        lambda.set(ShopExtraInfoEntity::getPreorderDays,5);
+        shopExtraInfoMapper.update(null,updateWrapper);
+
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+
+        List<PreorderDeliveryTimeVO> preorderDeliveryTimeVOList = settlementResponseDTO.getResult().getOrderOpt().getDeliveryWay().getDeliveryTime();
+        assertThat(preorderDeliveryTimeVOList.size()).isEqualTo(5);
+    }
+    @ParameterizedTest
+    @MethodSource("settlementPreorder")
+    @Order(6)
+    @DisplayName("用户-结算-打烊可预约&打烊不可预约")
+    void settlementWithClosedSupport(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopEntity> updateWrapperShop = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopEntity> lambdaShop  = updateWrapperShop.lambda();
+        lambdaShop.eq(ShopEntity::getShopId,TestCaseDataForMerchantConstant.shopId);
+        lambdaShop.set(ShopEntity::getShopStatus,1); //1为打烊
+        shopMapper.update(null,updateWrapperShop);
+
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda  = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId,TestCaseDataForMerchantConstant.shopId);
+        lambda.set(ShopExtraInfoEntity::getPreorderClosedSupport,1);
+        lambda.set(ShopExtraInfoEntity::getPreorderOpenType,1); //设置为全部，即立即+预约单
+        shopExtraInfoMapper.update(null,updateWrapper);
+
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTO.getResult().getOrderOther().getPreOrderOpenType()).isEqualTo(2); //判断为预约单模式
+        //有预约时间
+        List<PreorderDeliveryTimeVO> preorderDeliveryTimeVOList = settlementResponseDTO.getResult().getOrderOpt().getDeliveryWay().getDeliveryTime();
+        assertThat(preorderDeliveryTimeVOList.size()).isGreaterThan(1);
+
+        lambda.set(ShopExtraInfoEntity::getPreorderClosedSupport,0); //设置打烊不可预约
+        shopExtraInfoMapper.update(null,updateWrapper);
+        SettlementResponseDTO settlementResponseDTONew= SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTONew.getResultCode()).isNotEqualTo(1000);
+        assertThat(settlementResponseDTONew.getReason()).isEqualTo("店铺已打烊");
+
+
+        lambdaShop.set(ShopEntity::getShopStatus,0); //数据还原，0是营业
+        shopMapper.update(null,updateWrapperShop);
+
     }
 
     static Stream<Arguments> settlementPreorder() {
