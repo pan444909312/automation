@@ -6,6 +6,7 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * Java 操作 Git 的客户端工具类
@@ -54,8 +55,15 @@ public class JGitUtils {
         // 假设你的项目是一个Git仓库，并且你的工作目录是仓库的根目录
         // 如果不是，你需要提供正确的Git仓库路径
         FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
-        String projectRootPath = new File(System.getProperty("user.dir")).getParent();
+        String projectRootPath = System.getProperty("user.dir");
         File gitPath = new File(projectRootPath + File.separator + ".git");
+        // 不同环境获取到的 user.dir 不同，如果没有获取到那么尝试从父目录获取
+        if (!gitPath.exists()) {
+            String parent = new File(projectRootPath).getParent();
+            gitPath = new File(parent + File.separator + ".git");
+        }
+        if (!gitPath.exists()) throw new RuntimeException("Git仓库未找到，请检查项目路径是否正确。");
+
         repositoryBuilder.setGitDir(gitPath) // 设置.git目录
                 .readEnvironment() // 从环境变量中读取配置
                 .findGitDir() // 寻找.git目录
