@@ -1,5 +1,4 @@
-package com.miller.web.runner;
-
+package com.miller.runner;
 
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 
