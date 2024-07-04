@@ -23,7 +23,7 @@ public class ResourceUtils {
      * 默认测试用例数据文件路径
      */
     static {
-        DEFAULT_TESTCASE_DATA_FILE_PATH = PropertiesUtils.loadProperties().getProperty("testcase.data.file.path");
+        DEFAULT_TESTCASE_DATA_FILE_PATH = PropertiesUtils.getProperty("testcase.data.file.path");
         if (null == DEFAULT_TESTCASE_DATA_FILE_PATH || DEFAULT_TESTCASE_DATA_FILE_PATH.isEmpty()) {
             DEFAULT_TESTCASE_DATA_FILE_PATH = "testdata";
         }

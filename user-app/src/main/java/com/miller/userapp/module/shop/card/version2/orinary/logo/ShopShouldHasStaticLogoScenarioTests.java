@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-基础信息-店铺logo-静图")
 public class ShopShouldHasStaticLogoScenarioTests {
-    private static final Long shopId = Long.parseLong(PropertiesUtils.loadProperties().getProperty("user.app.for.test.shop.card.version2.shopId"));
+    private static final Long shopId = Long.parseLong(PropertiesUtils.getProperty("user.app.for.test.shop.card.version2.shopId"));
     private static ShopMapper shopMapper;
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
 

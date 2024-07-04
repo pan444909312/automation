@@ -52,7 +52,7 @@ public class PayByBalanceWithMemberTests {
     void afterEach() {
         ERPLoginFlow.loginByDefaultUser();
         MemberDeleteFlow.deleteMemberByUserId(
-                PropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id"));
+                PropertiesUtils.getProperty("user.app.account.of.user002.account.id"));
     }
 
     /**

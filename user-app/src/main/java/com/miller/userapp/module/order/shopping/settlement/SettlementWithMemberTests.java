@@ -46,7 +46,7 @@ public class SettlementWithMemberTests {
     @BeforeEach
     void beforeEach() {
         MemberDeleteFlow.deleteMemberByUserId(
-                PropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id"));
+                PropertiesUtils.getProperty("user.app.account.of.user002.account.id"));
 
     }
 

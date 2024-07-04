@@ -13,7 +13,7 @@ public class SystemConfigConstant {
     /**
      * 接口请求的域名
      */
-     public static final String DOMAIN = PropertiesUtils.loadProperties().getProperty("demo.env.domain");
+     public static final String DOMAIN = PropertiesUtils.getProperty("demo.env.domain");
     // public static final String DOMAIN = "http://47.242.73.37/api";
     //public static final String DOMAIN = "http://localhost:7080/api";
 }
