@@ -1,12 +1,12 @@
 package com.miller.service.framework.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.lib.ConfigConstants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
  * Java 操作 Git 的客户端工具类
@@ -15,7 +15,10 @@ import java.nio.file.Paths;
  * @version 1.0
  * @since 2024/5/15 17:54:43
  */
+@Slf4j
 public class JGitUtils {
+    // private static final Logger log = LoggerFactory.getLogger(JGitUtils.class);
+
     /**
      * 获取 Git 仓库的用户名
      *
@@ -27,6 +30,7 @@ public class JGitUtils {
         if (name != null) {
             return name;
         } else {
+            log.error("Git用户名未配置或获取失败，返回了null。");
             throw new RuntimeException("Git用户名未配置或获取失败，返回了null。");
         }
     }
@@ -42,6 +46,7 @@ public class JGitUtils {
         if (email != null) {
             return email;
         } else {
+            log.error("Git邮箱未配置或获取失败，返回了null。");
             throw new RuntimeException("Git邮箱未配置或获取失败，返回了null。");
         }
     }
@@ -62,7 +67,10 @@ public class JGitUtils {
             String parent = new File(projectRootPath).getParent();
             gitPath = new File(parent + File.separator + ".git");
         }
-        if (!gitPath.exists()) throw new RuntimeException("Git仓库未找到，请检查项目路径是否正确。");
+        if (!gitPath.exists()) {
+            log.error("Git仓库未找到，请检查项目路径是否正确。");
+            throw new RuntimeException("Git仓库未找到，请检查项目路径是否正确。");
+        }
 
         repositoryBuilder.setGitDir(gitPath) // 设置.git目录
                 .readEnvironment() // 从环境变量中读取配置
@@ -73,6 +81,7 @@ public class JGitUtils {
             // 如果.git目录不存在，build()方法将抛出一个异常。
             repository = repositoryBuilder.build();
         } catch (IOException e) {
+            log.error("Git仓库未找到，请检查项目路径是否正确。");
             throw new RuntimeException(e);
         }
         return repository;

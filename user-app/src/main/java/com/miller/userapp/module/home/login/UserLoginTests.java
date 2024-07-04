@@ -6,7 +6,7 @@ import com.hungrypanda.app.server.entity.user.UserEntity;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.mapper.device.DeviceLoginInfoMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
@@ -22,6 +22,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -37,8 +39,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * @version 1.0
  * @since 2023/12/7 20:31:39
  */
-//@ApiDoc("http://10.1.6.46:3000/project/60/interface/api/3288")
-@EnvTag.Test
+//@EnvTag.Test
 @TestFramework
 @DisplayName("用户-登录")
 public class UserLoginTests {
@@ -86,9 +87,9 @@ public class UserLoginTests {
      * @return Stream<UserLoginRequestDTO>
      */
     static Stream<Arguments> loginDataDataProvider() {
-        String userId = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id");
-        String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.password");
-        String loginType = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.login.type");
+        String userId = PropertiesUtils.getProperty("user.app.account.of.user002.account.id");
+        String passWord = PropertiesUtils.getProperty("user.app.account.of.public.password");
+        String loginType = PropertiesUtils.getProperty("user.app.account.of.public.login.type");
 
         // 构造查询条件，从数据库查询数据
         LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper<>();

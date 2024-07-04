@@ -1,5 +1,6 @@
 package com.miller.service.framework.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.init.ResourceReader;
 
 import java.io.*;
@@ -13,6 +14,7 @@ import java.util.Properties;
  * @version 1.0
  * @since 2024/4/30 16:09:10
  */
+@Slf4j
 public class ResourceUtils {
 
     private static String DEFAULT_TESTCASE_DATA_FILE_PATH;
@@ -21,7 +23,7 @@ public class ResourceUtils {
      * 默认测试用例数据文件路径
      */
     static {
-        DEFAULT_TESTCASE_DATA_FILE_PATH = ApplicationPropertiesUtils.loadProperties().getProperty("testcase.data.file.path");
+        DEFAULT_TESTCASE_DATA_FILE_PATH = PropertiesUtils.loadProperties().getProperty("testcase.data.file.path");
         if (null == DEFAULT_TESTCASE_DATA_FILE_PATH || DEFAULT_TESTCASE_DATA_FILE_PATH.isEmpty()) {
             DEFAULT_TESTCASE_DATA_FILE_PATH = "testdata";
         }
@@ -40,7 +42,7 @@ public class ResourceUtils {
         }
 
         // 首先加载默认的配置文件
-        Properties defalutProperties = ApplicationPropertiesUtils.loadConfig("application.properties");
+        Properties defalutProperties = PropertiesUtils.loadConfig("application.properties");
 
         String envProperty = defalutProperties.getProperty("spring.profiles.active");
         if (null != envProperty && !envProperty.isEmpty()) {
@@ -77,6 +79,7 @@ public class ResourceUtils {
             }
             return content.toString();
         } catch (IOException e) {
+            log.error("读取文件内容失败", e);
             throw new RuntimeException(e);
         }
     }

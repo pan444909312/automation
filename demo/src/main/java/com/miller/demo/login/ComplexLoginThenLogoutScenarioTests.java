@@ -5,6 +5,7 @@ import com.miller.demo.login.flow.LogoutFlow;
 import com.miller.demo.login.request.LoginRequestDTO;
 import com.miller.demo.login.response.LoginResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @since 2023/11/01 20:11:12
  */
+@Slf4j
 @DisplayName("登陆场景_登入->登出")
 public class ComplexLoginThenLogoutScenarioTests {
 
@@ -38,6 +40,7 @@ public class ComplexLoginThenLogoutScenarioTests {
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
+            log.error("sleep error", e);
             throw new RuntimeException(e);
         }
         LogoutFlow.shouldLogoutSuccessful();

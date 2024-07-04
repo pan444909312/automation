@@ -3,7 +3,7 @@ package com.miller.userapp.module.home.login.flow;
 import com.alibaba.fastjson.JSON;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.home.login.response.UserLoginResponseDTO;
@@ -121,11 +121,11 @@ public class UserLoginFlow {
      */
     public static UserLoginResponseDTO loginByDefaultUser() {
 
-        String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.password");
-        String userName = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account");
-        String loginType = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.public.login.type");
-        String callingCode = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.callingCode");
-        String distinctId = ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.distinctId");
+        String passWord = PropertiesUtils.loadProperties().getProperty("user.app.account.of.public.password");
+        String userName = PropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account");
+        String loginType = PropertiesUtils.loadProperties().getProperty("user.app.account.of.public.login.type");
+        String callingCode = PropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.callingCode");
+        String distinctId = PropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.distinctId");
 
         // 构造请求数据，从数据库查询结果作为请求数据
         UserLoginRequestDTO user = new UserLoginRequestDTO();

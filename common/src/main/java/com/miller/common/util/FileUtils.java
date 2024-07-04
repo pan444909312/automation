@@ -1,10 +1,11 @@
 package com.miller.common.util;
 
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,10 @@ import java.util.Objects;
  * @version 1.0
  * @since 2023/09/28 10:51:54
  */
+
 public class FileUtils {
+    private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
+
     /**
      * 读取一个文件，返回文件中的字符串
      *
@@ -88,7 +92,9 @@ public class FileUtils {
     public static String doCopyAndDelSrc(String sourceFilePath, String targetFilePath) throws IOException {
         targetFilePath = doCopy(sourceFilePath, targetFilePath);
         var temp = new File(sourceFilePath);
-        if (!temp.delete()) throw new RuntimeException("删除文件失败");
+        if (!temp.delete()) {
+            throw new RuntimeException("删除文件失败");
+        }
         return targetFilePath;
     }
 

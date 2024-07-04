@@ -10,7 +10,7 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.panda.market.dal.dto.UserDto;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
@@ -33,14 +33,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-登录")
 public class MarketLoginTests {
     private static String token;
-    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
-    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
-    private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
+    private static final String mySqlUrl = PropertiesUtils.getProperty("spring.datasource.url");
+    private static final String userName = PropertiesUtils.getProperty("spring.datasource.username");
+    private static final String passWord = PropertiesUtils.getProperty("spring.datasource.password");
     private static UserMapper userMapper;
 
     private static SqlSession sqlSession;
     @BeforeAll
-    public static void beforeAll() throws IOException {
+    public static void beforeAll() {
         MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
         sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
         userMapper = sqlSession.getMapper(UserMapper.class);

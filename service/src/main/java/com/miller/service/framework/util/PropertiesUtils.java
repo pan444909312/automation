@@ -1,9 +1,11 @@
 package com.miller.service.framework.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -13,7 +15,8 @@ import java.util.Properties;
  * @version 1.0
  * @since 2024/5/31 14:48:03
  */
-public class ApplicationPropertiesUtils {
+@Slf4j
+public class PropertiesUtils {
     private static Properties mergeProperties = null;
 
     /**
@@ -46,12 +49,26 @@ public class ApplicationPropertiesUtils {
             mergeProperties.putAll(properties2);
         }
         return mergeProperties;
-
     }
+
+    /**
+     * 获取配置文件中的属性
+     *
+     * @param key 属性key
+     * @return 属性key对应的value值
+     */
+    public static String getProperty(String key) {
+        String property = loadProperties().getProperty(key);
+        if (Objects.isNull(property) || property.isBlank()){
+            log.error("property {} is not found", key);
+            throw new RuntimeException("property " + key + " is not found");
+            }
+        return property;
+    }
+
     static Properties loadConfig(String configFilePath) {
         Properties properties = new Properties();
-        try (InputStream inputStream = Resources.getResourceAsStream(configFilePath);
-             Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+        try (InputStream inputStream = Resources.getResourceAsStream(configFilePath); Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
             properties.load(reader);
         } catch (IOException e) {
             e.printStackTrace();

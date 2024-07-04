@@ -13,7 +13,7 @@ import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.erp.manage.member.delete.MemberDeleteFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.miller.userapp.module.order.shopping.settlement.request.SettlementRequestDTO;
@@ -46,7 +46,7 @@ public class SettlementWithMemberTests {
     @BeforeEach
     void beforeEach() {
         MemberDeleteFlow.deleteMemberByUserId(
-                ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id"));
+                PropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id"));
 
     }
 

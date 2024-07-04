@@ -3,7 +3,7 @@ package com.miller.userapp.module.person.member;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.Objects;
@@ -14,9 +14,9 @@ public class PandaDB {
 //    private static final String USERNAME = "panda_test";
 //    private static final String PASSWORD = "Pan$te19*";
 //    private static final String URL="jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com/panda_test?useUnicode=true&characterEncoding=utf8&useSSL=false&tinyInt1isBit=false&transformedBitIsBoolean=false&serverTimezone=Asia/Shanghai";
-    private static final String URL = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
-    private static final String USERNAME = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
-    private static final String PASSWORD = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
+    private static final String URL = PropertiesUtils.loadProperties().getProperty("spring.datasource.url");
+    private static final String USERNAME = PropertiesUtils.loadProperties().getProperty("spring.datasource.username");
+    private static final String PASSWORD = PropertiesUtils.loadProperties().getProperty("spring.datasource.password");
     private PandaDB(){
 
     }

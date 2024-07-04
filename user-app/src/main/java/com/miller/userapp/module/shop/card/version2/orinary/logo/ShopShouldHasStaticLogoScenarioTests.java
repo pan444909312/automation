@@ -7,7 +7,7 @@ import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.merchant.query.flow.QueryShopInfoFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.mapper.shop.ShopMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-基础信息-店铺logo-静图")
 public class ShopShouldHasStaticLogoScenarioTests {
-    private static final Long shopId = Long.parseLong(ApplicationPropertiesUtils.loadProperties().getProperty("user.app.for.test.shop.card.version2.shopId"));
+    private static final Long shopId = Long.parseLong(PropertiesUtils.loadProperties().getProperty("user.app.for.test.shop.card.version2.shopId"));
     private static ShopMapper shopMapper;
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
 

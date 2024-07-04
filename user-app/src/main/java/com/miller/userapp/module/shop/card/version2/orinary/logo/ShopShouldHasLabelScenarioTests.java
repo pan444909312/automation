@@ -5,7 +5,7 @@ import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.BaseShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.orinary.logo.flow.ShopListFlow;
@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-基础信息-店铺角标-展示")
 public class ShopShouldHasLabelScenarioTests {
-    private static final Long shopId = Long.parseLong(ApplicationPropertiesUtils.loadProperties().getProperty("user.app.for.test.shop.card.version2.shopId"));
+    private static final Long shopId = Long.parseLong(PropertiesUtils.loadProperties().getProperty("user.app.for.test.shop.card.version2.shopId"));
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
 
     @BeforeAll
