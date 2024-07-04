@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
 import com.hungrypanda.app.server.api.res.order.OrderOptVO;
 import com.hungrypanda.app.server.api.res.order.PreorderDeliveryTimeVO;
+import com.hungrypanda.app.server.api.res.order.PreorderTimeDTO;
 import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.hungrypanda.app.server.dto.delivery.DeliveryTimeDTO;
@@ -25,7 +26,6 @@ import com.miller.userapp.module.order.shopping.settlement.request.SettlementReq
 import com.miller.userapp.module.order.shopping.settlement.response.SettlementResponseDTO;
 import com.miller.userapp.mapper.shop.ShopExtraInfoMapper;
 import com.panda.common.enums.DeliveryTypeEnum;
-import com.panda.pos.server.api.vo.order.OrderVO;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,8 +34,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.BeanUtils;
 import com.miller.userapp.module.person.member.PandaDB;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -252,6 +250,26 @@ public class SettlementWithPreorderTest {
         lambdaShop.set(ShopEntity::getShopStatus,0); //数据还原，0是营业
         shopMapper.update(null,updateWrapperShop);
 
+    }
+    @ParameterizedTest
+    @MethodSource("settlementPreorder")
+    @Order(7)
+    @DisplayName("用户-结算-预约时间间隔")
+    void settlementWithInterval(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda  = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId,TestCaseDataForMerchantConstant.shopId);
+        lambda.set(ShopExtraInfoEntity::getPreorderOpenType,1);
+        shopExtraInfoMapper.update(null,updateWrapper);
+        int defaultInterval = shopExtraInfoEntity.getPreorderInterval() < 15 ? 15 : shopExtraInfoEntity.getPreorderInterval();
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+
+        List<PreorderDeliveryTimeVO> preorderDeliveryTimeVOList = settlementResponseDTO.getResult().getOrderOpt().getDeliveryWay().getDeliveryTime();
+        List<PreorderTimeDTO> preorderTimeDTOS = preorderDeliveryTimeVOList.get(0).getTimeList();
+        LocalTime firstTime  = LocalTime.parse(preorderTimeDTOS.get(0).getStartTime(),DateTimeFormatter.ofPattern(FormatterCons.TIMEFormatter));
+        LocalTime secTime  = LocalTime.parse(preorderTimeDTOS.get(1).getStartTime(),DateTimeFormatter.ofPattern(FormatterCons.TIMEFormatter));
+//        System.out.println(firstTime +" <> " + secTime);
+        assertThat(firstTime.plusMinutes(defaultInterval)).isEqualTo(secTime);
     }
 
     static Stream<Arguments> settlementPreorder() {
