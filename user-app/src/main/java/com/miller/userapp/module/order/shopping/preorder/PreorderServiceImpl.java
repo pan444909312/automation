@@ -3,18 +3,24 @@ package com.miller.userapp.module.order.shopping.preorder;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.hungrypanda.app.server.config.ApiConfig;
 import com.hungrypanda.app.server.dto.delivery.DeliveryTimeDTO;
 import com.hungrypanda.app.server.entity.delivery.DeliveryTimeConfigDataEntity;
 import com.hungrypanda.app.server.entity.delivery.DeliveryTimeConfigDataShopEntity;
 import com.hungrypanda.app.server.entity.shop.ShopEntity;
+import com.hungrypanda.app.server.entity.shop.ShopTimeConfigEntity;
 import com.hungrypanda.app.server.vo.shop.ShopPeakTimeJsonVO;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.service.framework.constants.FormatterCons;
 import com.miller.userapp.mapper.shop.DeliveryTimeConfigDataMapper;
 import com.miller.userapp.mapper.shop.ShopDeliveryTimeDataConfigMapper;
 import com.miller.userapp.mapper.shop.ShopMapper;
+import com.miller.userapp.mapper.shop.ShopTimeConfigMapper;
+import com.panda.market.dal.entity.Shop;
+import org.apache.commons.jexl3.parser.StringParser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +36,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PreorderServiceImpl {
     @Value("${user.app.server.metric.unit:km}")
@@ -45,6 +54,9 @@ public class PreorderServiceImpl {
     }
     private DeliveryTimeConfigDataMapper getDeliveryTimeConfigDataMapper(){
         return  sqlSession.getMapper(DeliveryTimeConfigDataMapper.class);
+    }
+    private ShopTimeConfigMapper getShopTimeConfigMapper(){
+        return  sqlSession.getMapper(ShopTimeConfigMapper.class);
     }
 
     public ShopEntity getShopDTO(){
@@ -63,6 +75,90 @@ public class PreorderServiceImpl {
         lambda.eq(DeliveryTimeConfigDataShopEntity::getIsDel,0);
         DeliveryTimeConfigDataShopEntity deliveryTimeConfigDataShopEntity = shopDeliveryTimeDataConfigMapper.selectOne(queryWrapper);
         return deliveryTimeConfigDataShopEntity;
+    }
+    public List<ShopTimeConfigEntity> getShopTimeConfigEntity(){
+        ShopTimeConfigMapper shopTimeConfigMapper = getShopTimeConfigMapper();
+        QueryWrapper<ShopTimeConfigEntity> queryWrapper = new QueryWrapper<>();
+        LambdaQueryWrapper<ShopTimeConfigEntity> lambda = queryWrapper.lambda();
+        lambda.eq(ShopTimeConfigEntity::getShopId, TestCaseDataForMerchantConstant.shopId);
+        lambda.eq(ShopTimeConfigEntity::getStatus,1);
+        List<ShopTimeConfigEntity> shopTimeConfigEntityList = shopTimeConfigMapper.selectList(queryWrapper);
+        return shopTimeConfigEntityList;
+    }
+
+    /**
+     * 设置当前时间是否截单的数据
+     *
+     * @return
+     */
+    private ShopTimeConfigEntity updateShopTimeConfigEntity(String nowTime,ShopTimeConfigEntity shopTimeConfigEntity){
+        int defaultMin = 5;
+        String deadLine = shopTimeConfigEntity.getOrderDeadline();
+        String timeStart = shopTimeConfigEntity.getTimeStart();
+        String timeEnd = shopTimeConfigEntity.getTimeEnd();
+        Duration duration = Duration.between(String2LocalTime(nowTime).plusMinutes(defaultMin),String2LocalTime(deadLine));
+        String newTimeStart = LocalTime2String(String2LocalTime(timeStart).plusMinutes(duration.toMinutes()));
+        String newTimeEnd = LocalTime2String(String2LocalTime(timeEnd).plusMinutes(duration.toMinutes()));
+        String newDeadLine = LocalTime2String(String2LocalTime(nowTime).plusMinutes(defaultMin));
+        System.out.println("deadLine="+deadLine+" timeStart"+timeStart+" timeEnd"+timeEnd +" <> "
+                +" newTimeStart" + newTimeStart + " newTimeEnd"+newTimeEnd+" newDeadLine"+newDeadLine);
+        shopTimeConfigEntity.setOrderDeadline(newDeadLine);
+        shopTimeConfigEntity.setTimeStart(newTimeStart);
+        shopTimeConfigEntity.setTimeEnd(newTimeEnd);
+        ShopTimeConfigMapper shopTimeConfigMapper = getShopTimeConfigMapper();
+        UpdateWrapper<ShopTimeConfigEntity> updateWrapper = new UpdateWrapper<>();
+//        LambdaUpdateWrapper<ShopTimeConfigEntity> lambda = updateWrapper.lambda();
+//        lambda.eq(ShopTimeConfigEntity::getShopId, shopTimeConfigEntity.getShopId());
+//        lambda.eq(ShopTimeConfigEntity::getId,shopTimeConfigEntity.getId());
+        shopTimeConfigMapper.updateById(shopTimeConfigEntity);
+        return shopTimeConfigEntity;
+    }
+
+    /**
+     * 如果有数据，就返回最小一条，反之就更改第一条或者最后一条（总共是3条）
+     * @param nowTime
+     * @return
+     */
+    public ShopTimeConfigEntity updateShopTimeConfigEntity(String nowTime){
+        List<ShopTimeConfigEntity> shopTimeConfigEntityList = getShopTimeConfigEntity();
+        int i = findShopTimeConfigEntity(nowTime,shopTimeConfigEntityList);
+        System.out.println("updateShopTimeConfigEntity: "+i);
+        if( i == 0 ){
+            return  shopTimeConfigEntityList.stream().filter(a->nowTime.compareTo(a.getOrderDeadline()) < 0 ).min(Comparator.comparing(ShopTimeConfigEntity::getOrderDeadline)).get();
+        } else if (i == 1) {
+            return  updateShopTimeConfigEntity(nowTime,shopTimeConfigEntityList.get(0));
+        }else {
+            return  updateShopTimeConfigEntity(nowTime,shopTimeConfigEntityList.get(shopTimeConfigEntityList.size()-1));
+        }
+    }
+
+    /**
+     * 如果有超过和不超过deadline的数据，表示不需要更改
+     * @param nowTime
+     * @param shopTimeConfigEntityList
+     * @return
+     */
+    private int findShopTimeConfigEntity(String nowTime,List<ShopTimeConfigEntity> shopTimeConfigEntityList){
+        List<ShopTimeConfigEntity> shopTimeConfigEntityListNew = shopTimeConfigEntityList.stream().filter(a->nowTime.compareTo(a.getOrderDeadline()) < 0 ).toList();
+        if(shopTimeConfigEntityList.size() > shopTimeConfigEntityListNew.size() && !shopTimeConfigEntityListNew.isEmpty()) {
+            return 0;
+        }else if(shopTimeConfigEntityListNew.size() == shopTimeConfigEntityList.size()){
+            return 1;
+        }
+        return 2;
+
+    }
+
+    /**
+     * 需要“HH:mm“格式
+     * @param time
+     * @return
+     */
+    public static LocalTime String2LocalTime(String time){
+        return  LocalTime.parse(time,DateTimeFormatter.ofPattern(FormatterCons.TIMEFormatter));
+    }
+    public static String LocalTime2String(LocalTime time){
+        return  time.format(DateTimeFormatter.ofPattern(FormatterCons.TIMEFormatter));
     }
     public DeliveryTimeConfigDataEntity getDeliveryTimeConfigData(BigDecimal distance,String nowTime){
         DeliveryTimeConfigDataShopEntity deliveryTimeConfigDataShopEntity = getShopDeliveryTimeDataConfig();
