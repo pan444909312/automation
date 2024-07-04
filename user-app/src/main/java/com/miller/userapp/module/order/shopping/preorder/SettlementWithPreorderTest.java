@@ -14,6 +14,7 @@ import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.hungrypanda.app.server.dto.delivery.DeliveryTimeDTO;
 import com.hungrypanda.app.server.entity.shop.ShopEntity;
 import com.hungrypanda.app.server.entity.shop.ShopExtraInfoEntity;
+import com.hungrypanda.app.server.entity.shop.ShopTimeConfigEntity;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
@@ -270,6 +271,28 @@ public class SettlementWithPreorderTest {
         LocalTime secTime  = LocalTime.parse(preorderTimeDTOS.get(1).getStartTime(),DateTimeFormatter.ofPattern(FormatterCons.TIMEFormatter));
 //        System.out.println(firstTime +" <> " + secTime);
         assertThat(firstTime.plusMinutes(defaultInterval)).isEqualTo(secTime);
+    }
+    @ParameterizedTest
+    @MethodSource("settlementPreorder")
+    @Order(8)
+    @DisplayName("用户-结算-预约截单时间")
+    void settlementWithDeadLine(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda  = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId,TestCaseDataForMerchantConstant.shopId);
+        lambda.set(ShopExtraInfoEntity::getPreorderTimeMode,2);
+        lambda.set(ShopExtraInfoEntity::getNMini,1); //1天后的时间，比较好判断
+        shopExtraInfoMapper.update(null,updateWrapper);
+        String nowTime = PreorderServiceImpl.LocalTime2String(LocalTime.now());
+        ShopTimeConfigEntity shopTimeConfigEntity = preorderService.updateShopTimeConfigEntity(nowTime);
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        List<PreorderDeliveryTimeVO> preorderDeliveryTimeVOList = settlementResponseDTO.getResult().getOrderOpt().getDeliveryWay().getDeliveryTime();
+        List<PreorderTimeDTO> preorderTimeDTOS = preorderDeliveryTimeVOList.get(0).getTimeList();
+        assertThat(preorderTimeDTOS.get(0).getStartTime()).isEqualTo(shopTimeConfigEntity.getTimeStart());
+        assertThat(preorderTimeDTOS.get(0).getEndTime()).isEqualTo(shopTimeConfigEntity.getTimeEnd());
+        //还原数据
+        lambda.set(ShopExtraInfoEntity::getPreorderTimeMode,1);
+        shopExtraInfoMapper.update(null,updateWrapper);
     }
 
     static Stream<Arguments> settlementPreorder() {
