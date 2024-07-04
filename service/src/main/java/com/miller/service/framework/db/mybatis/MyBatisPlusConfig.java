@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.mapping.Environment;
@@ -34,6 +35,7 @@ import java.util.Enumeration;
  * @version 1.0
  * @since 2024/5/29 15:42:31
  */
+@Slf4j
 @Data
 public class MyBatisPlusConfig {
     // Mapper 接口所在的包
@@ -75,6 +77,7 @@ public class MyBatisPlusConfig {
         try {
             this.registryMapperXml(configuration, "mapper");
         } catch (IOException e) {
+            log.error("解析mapper.xml文件失败", e);
             throw new RuntimeException(e);
         }
         // 这是初始化连接器，如mybatis-plus的分页插件

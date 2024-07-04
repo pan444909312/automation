@@ -20,6 +20,7 @@ import com.miller.userapp.module.order.create.CreateOrderByPlatformDeliveryTests
 import com.miller.userapp.module.order.evaluate.EvaluateOrderTests;
 import com.miller.userapp.module.order.refund.submit.SubmitRefundTests;
 import com.miller.userapp.module.pay.balance.PayByBalanceTests;
+import org.junit.jupiter.api.Disabled;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -86,6 +87,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         DutyTests.class,
 
 })
+@Disabled
 @Suite
 @SuiteDisplayName("测试订单场景")
 public class DebugScenario {

@@ -1,4 +1,4 @@
-package com.miller.web.config;
+package com.miller.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

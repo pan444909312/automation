@@ -82,6 +82,11 @@
             </dependency>
             <dependency>
                 <groupId>com.miller</groupId>
+                <artifactId>takeaway</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
                 <artifactId>market</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>

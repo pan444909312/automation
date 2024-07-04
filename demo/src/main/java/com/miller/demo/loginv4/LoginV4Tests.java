@@ -9,7 +9,7 @@ import com.miller.demo.loginv2.response.LoginV2ResponseDTO;
 import com.miller.demo.loginv4.mapper.UserMapper;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
 import org.apache.ibatis.session.SqlSession;
@@ -40,9 +40,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestFramework
 @DisplayName("登录V4-使用MyBatisPlus")
 public class LoginV4Tests {
-    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
-    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
-    private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
+    private static final String mySqlUrl = PropertiesUtils.getProperty("spring.datasource.url");
+    private static final String userName = PropertiesUtils.getProperty("spring.datasource.username");
+    private static final String passWord = PropertiesUtils.getProperty("spring.datasource.password");
     private static SqlSession sqlSession;
     private static UserMapper userMapper;
 
@@ -94,7 +94,7 @@ public class LoginV4Tests {
         List<LoginV2RequestDTO> userList = userMapper.selectList(queryWrapper); // 使用 MyBatisPlus 进行查询
 
         // 对密码进行二次处理
-        userList.forEach((user) -> user.setPassword(ApplicationPropertiesUtils.loadProperties().getProperty("demo.user.password.default")));
+        userList.forEach((user) -> user.setPassword(PropertiesUtils.getProperty("demo.user.password.default")));
 
         return Stream.of(
                 arguments(
@@ -114,11 +114,11 @@ public class LoginV4Tests {
         // 使用 MyBatis 进行数据库的操作
         LoginV2RequestDTO queryFilter = new LoginV2RequestDTO();
         // 使用配置文件中的配置获取用户ID
-        queryFilter.setUserId(ApplicationPropertiesUtils.loadProperties().getProperty("demo.user.id.default"));    // 筛选出用户ID为 Miller 的用户
+        queryFilter.setUserId(PropertiesUtils.getProperty("demo.user.id.default"));    // 筛选出用户ID为 Miller 的用户
         List<LoginV2RequestDTO> loginV2RequestDTOS = userMapper.selectByCondition(queryFilter);
 
         // 对密码进行二次处理
-        loginV2RequestDTOS.forEach((user) -> user.setPassword(ApplicationPropertiesUtils.loadProperties().getProperty("demo.user.password.default")));
+        loginV2RequestDTOS.forEach((user) -> user.setPassword(PropertiesUtils.getProperty("demo.user.password.default")));
 
         return Stream.of(
                 arguments(

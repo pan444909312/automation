@@ -5,6 +5,7 @@ import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.taobao.api.ApiException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Mac;
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @since 2024/03/20
  */
+@Slf4j
 public class DingTalkUtils {
 
     /**
@@ -82,18 +84,23 @@ public class DingTalkUtils {
             OapiRobotSendResponse rsp = client.execute(req, CUSTOM_ROBOT_TOKEN);
             System.out.println(rsp.getBody());
         } catch (ApiException e) {
+            log.error("钉钉发送消息失败", e);
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
+            log.error("编码错误", e);
             throw new RuntimeException(e);
         } catch (NoSuchAlgorithmException e) {
+            log.error("加密错误", e);
             throw new RuntimeException(e);
         } catch (InvalidKeyException e) {
+            log.error("验证key错误", e);
             throw new RuntimeException(e);
         }
         try {
             // 每个机器人每分钟最多发送20条消息到群里，如果超过20条，会限流10分钟。
             Thread.sleep(TimeUnit.SECONDS.toMillis(3));
         } catch (InterruptedException e) {
+            log.error("线程休眠错误", e);
             throw new RuntimeException(e);
         }
     }
@@ -145,18 +152,23 @@ public class DingTalkUtils {
             if (response.getErrcode() != 0) System.err.println("发送钉钉推送消息失败:" + response.getBody());
             // System.out.println(rsp.getBody());
         } catch (ApiException e) {
+            log.error("钉钉发送消息失败", e);
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
+            log.error("编码错误", e);
             throw new RuntimeException(e);
         } catch (NoSuchAlgorithmException e) {
+            log.error("加密错误", e);
             throw new RuntimeException(e);
         } catch (InvalidKeyException e) {
+            log.error("验证key错误", e);
             throw new RuntimeException(e);
         }
         try {
             // 每个机器人每分钟最多发送20条消息到群里，如果超过20条，会限流10分钟。
             Thread.sleep(TimeUnit.SECONDS.toMillis(3));
         } catch (InterruptedException e) {
+            log.error("线程休眠错误", e);
             throw new RuntimeException(e);
         }
     }

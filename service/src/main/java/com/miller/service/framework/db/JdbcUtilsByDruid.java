@@ -1,6 +1,7 @@
 package com.miller.service.framework.db;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
 
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
  * @author Miller Shan
  * @version 1.0.0
  */
+@Slf4j
 public class JdbcUtilsByDruid {
     /**
      * 获取连接池对象
@@ -25,25 +27,32 @@ public class JdbcUtilsByDruid {
      */
     public DataSource getDataSource(String driverClassName, String mySqlUrl, String userName, String passWord,
                                     Integer initialSize, Integer maxActive, Long maxWait) {
-        if (driverClassName == null || driverClassName.length() == 0) {
+        if (driverClassName == null || driverClassName.isBlank()) {
+            log.error("The driverClassName can not be empty.");
             throw new RuntimeException("The driverClassName can not be empty.");
         }
-        if (mySqlUrl == null || mySqlUrl.length() == 0) {
+        if (mySqlUrl == null || mySqlUrl.isBlank()) {
+            log.error("The mySqlUrl can not be empty.");
             throw new RuntimeException("The mySqlUrl can not be empty.");
         }
-        if (userName == null || userName.length() == 0) {
+        if (userName == null || userName.isBlank()) {
+            log.error("The userName can not be empty.");
             throw new RuntimeException("The userName can not be empty.");
         }
-        if (passWord == null || passWord.length() == 0) {
+        if (passWord == null || passWord.isBlank()) {
+            log.error("The passWord can not be empty.");
             throw new RuntimeException("The passWord can not be empty.");
         }
-        if (initialSize == null || initialSize.intValue() < 0) {
+        if (initialSize == null || initialSize < 0) {
+            log.error("The initialSize can not be empty or < 0.");
             throw new RuntimeException("The initialSize can not be empty or < 0.");
         }
-        if (maxActive == null || maxActive.intValue() <= 0) {
+        if (maxActive == null || maxActive <= 0) {
+            log.error("The maxActive can not be empty or <= 0.");
             throw new RuntimeException("The maxActive can not be empty or <= 0.");
         }
-        if (maxWait == null || maxWait.longValue() <= 0) {
+        if (maxWait == null || maxWait <= 0) {
+            log.error("The maxWait can not be empty or <= 0.");
             throw new RuntimeException("The maxWait can not be empty or <= 0.");
         }
         // 创建数据库的连接池对象

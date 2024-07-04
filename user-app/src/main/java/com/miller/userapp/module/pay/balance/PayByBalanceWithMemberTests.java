@@ -7,7 +7,7 @@ import com.miller.erp.manage.member.delete.MemberDeleteFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.pay.balance.flow.PayByBalanceFlow;
 import com.miller.userapp.module.pay.balance.request.PayByBalanceRequestDTO;
@@ -52,7 +52,7 @@ public class PayByBalanceWithMemberTests {
     void afterEach() {
         ERPLoginFlow.loginByDefaultUser();
         MemberDeleteFlow.deleteMemberByUserId(
-                ApplicationPropertiesUtils.loadProperties().getProperty("user.app.account.of.user002.account.id"));
+                PropertiesUtils.getProperty("user.app.account.of.user002.account.id"));
     }
 
     /**

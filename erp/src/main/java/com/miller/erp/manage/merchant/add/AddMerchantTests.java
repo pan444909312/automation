@@ -7,7 +7,7 @@ import com.miller.erp.manage.merchant.add.request.AddMerchantRequestDTO;
 import com.miller.erp.manage.merchant.add.response.AddMerchantResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.ResourceUtils;
 import org.junit.jupiter.api.BeforeAll;
@@ -72,7 +72,7 @@ public class AddMerchantTests {
                 // 设置中文名称
                 .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().get()
                 // 名称从配置文件读取
-                .setValue(ApplicationPropertiesUtils.loadProperties().getProperty("erp.merchant.chinese.name.prefix") + System.currentTimeMillis());
+                .setValue(PropertiesUtils.getProperty("erp.merchant.chinese.name.prefix") + System.currentTimeMillis());
         // 英文名称不能重复
         addMerchantRequestDTO.getBaseInfo().getOperationNameList()
                 // 获取 "lang": "EN" 对象
@@ -80,7 +80,7 @@ public class AddMerchantTests {
                 // 设置英文名称
                 .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().get()
                 // 名称从配置文件读取
-                .setValue(ApplicationPropertiesUtils.loadProperties().getProperty("erp.merchant.english.name.prefix") + System.currentTimeMillis());
+                .setValue(PropertiesUtils.getProperty("erp.merchant.english.name.prefix") + System.currentTimeMillis());
 
 
         return Stream.of(arguments(addMerchantRequestDTO));

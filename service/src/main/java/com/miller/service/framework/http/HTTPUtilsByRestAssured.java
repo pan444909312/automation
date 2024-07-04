@@ -34,6 +34,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     public Map<String, Object> sendGetRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Map<String, Object> cookies) {
         log.info("========================= 开始记录HTTP 日志 ========================");
         if (null == uri || uri.length() < 1) {
+            log.error("uri cannot be null");
             throw new RuntimeException("uri cannot be null");
         }
         if (null == params) {
@@ -123,6 +124,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     private Map<String, Object> sendRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, String method) {
         log.info("========================= 开始记录HTTP 日志 =========================");
         if (null == uri || uri.length() < 1) {
+            log.error("uri cannot be null");
             throw new RuntimeException("uri cannot be null");
         }
         if (null == params) {

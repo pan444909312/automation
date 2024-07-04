@@ -24,7 +24,7 @@ class ResourceUtilsTest {
     @DisplayName("Read test case data from resource file path")
     void testReadTestCaseDataFromResourcesPath() {
         // load default properties
-        Properties defalutProperties = ApplicationPropertiesUtils.loadConfig("application.properties");
+        Properties defalutProperties = PropertiesUtils.loadConfig("application.properties");
         // load test case data
         String content = ResourceUtils.readTestCaseDataFromResourcesPath("Person.json");
         assertTrue(content.contains(defalutProperties.getProperty("spring.profiles.active")));

@@ -2,7 +2,7 @@ package com.miller.userapp.util;
 
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
-import com.miller.service.framework.util.ApplicationPropertiesUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -22,9 +22,9 @@ public class DBUtils {
      */
     public static synchronized SqlSession getDBOfPandaTest() {
         if (sqlSessionOfPandaTest != null) return sqlSessionOfPandaTest;
-        var mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
-        var userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
-        var passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
+        var mySqlUrl = PropertiesUtils.getProperty("spring.datasource.url");
+        var userName = PropertiesUtils.getProperty("spring.datasource.username");
+        var passWord = PropertiesUtils.getProperty("spring.datasource.password");
         var myBatisPlusConfig = new MyBatisPlusConfig();
         sqlSessionOfPandaTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
         return sqlSessionOfPandaTest;

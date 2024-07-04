@@ -57,9 +57,6 @@ public class SettlementWithPreorderTest {
     ShopExtraInfoMapper shopExtraInfoMapper;
     ShopMapper shopMapper;
     PreorderServiceImpl preorderService;
-//    private static final String mySqlUrl = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.url");
-//    private static final String userName = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.username");
-//    private static final String passWord = ApplicationPropertiesUtils.loadProperties().getProperty("spring.datasource.password");
     private static SqlSession sqlSession;
 
     @BeforeAll

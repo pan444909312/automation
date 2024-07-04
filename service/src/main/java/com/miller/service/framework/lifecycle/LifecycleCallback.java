@@ -44,7 +44,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
-        System.out.println(this.getClass().getName() + " beforeAll callback invoked.");
+        System.out.println(this.getClass().getName() + " beforeAll() callback invoked.");
     }
 
     @Override

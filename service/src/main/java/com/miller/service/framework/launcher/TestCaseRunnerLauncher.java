@@ -123,7 +123,7 @@ public class TestCaseRunnerLauncher {
         executeRequest(request);
     }
 
-    private static void executeRequest(LauncherDiscoveryRequest request) {
+    public static void executeRequest(LauncherDiscoveryRequest request) {
         Launcher launcher = LauncherFactory.create();
         TestPlan testPlan = launcher.discover(request);
 

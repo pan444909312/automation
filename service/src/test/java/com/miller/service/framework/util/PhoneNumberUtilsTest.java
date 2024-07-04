@@ -1,5 +1,6 @@
 package com.miller.service.framework.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Miller Shan
  */
+@Slf4j
 class PhoneNumberUtilsTest {
 
     @Test
@@ -19,6 +21,7 @@ class PhoneNumberUtilsTest {
         for (var i = 0; i < size; i++) {
             String phoneNumber = PhoneNumberUtils.generatePhoneNumber();
             if (total.contains(phoneNumber)) {
+                log.error("重复:{}", phoneNumber);
                 throw new RuntimeException("重复:" + phoneNumber);
             } else {
                 total.add(phoneNumber);
