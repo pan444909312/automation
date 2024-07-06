@@ -34,4 +34,12 @@ public class TestCaseController {
                 ).build();
         TestCaseRunnerLauncher.executeRequest(request);
     }
+
+    public static void main(String[] args) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(
+                        selectPackage("com.miller.takeaway.order.branch.settlement")
+                ).build();
+        TestCaseRunnerLauncher.executeRequest(request);
+    }
 }
