@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-03-06T09:09:39.949Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.5.1 Chrome/112.0.5615.204 Electron/24.6.0 Safari/537.36" etag="lAO1EcXhx0KrMiAbVISA" version="21.5.1" type="device" pages="6">
+<mxfile host="Electron" modified="2024-07-04T06:07:29.232Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.5.1 Chrome/112.0.5615.204 Electron/24.6.0 Safari/537.36" etag="-JGQz2PNhVH7S5BDWQ4a" version="21.5.1" type="device" pages="5">
   <diagram name="订单状态流程-主" id="f5dGeiTARa9hCnqQ5rgv">
-    <mxGraphModel dx="1194" dy="607" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1674" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -659,7 +659,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="s8TE_keOMJIooYw7QIsz" name="美食城订单">
-    <mxGraphModel dx="1194" dy="607" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1674" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -864,102 +864,12 @@
     </mxGraphModel>
   </diagram>
   <diagram id="2zObR6U-1c5EU6VGZcEM" name="测试策略">
-    <mxGraphModel dx="954" dy="607" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1674" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="g1CKyiA4aoh2CKQt43ho-1" value="订单业务说明：&lt;br style=&quot;font-size: 16px;&quot;&gt;1. 订单业务流程中，加入购物车、结算页，目前服务端都只有计算逻辑，计算金额、优惠项，而并没有具体的业务逻辑，数据也不会落库存储。针对这种偏向于纯”计算“的逻辑，对应的测试策略也需要调整，测试用例单独针对”计算“逻辑进行矩阵测试，验证所有计算、组合逻辑的正确性。目前针对这种业务逻辑有两种测试方案：&lt;br style=&quot;font-size: 16px;&quot;&gt;1. Mock掉接口的前置数据逻辑，这样测试用例不会太重，执行效率也更高，可维护性也会更好。&lt;br style=&quot;font-size: 16px;&quot;&gt;2. 通过接口构造构造前置数据逻辑，但是这样的话整个用例会做的比较重，依赖项太多，势必带来执行效率、维护性问题。" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;align=left;fontSize=16;" parent="1" vertex="1">
           <mxGeometry x="40" y="40" width="760" height="240" as="geometry" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="qKEZjSbZ0-ggd2vpKelr" name="测试用例依赖关系图">
-    <mxGraphModel dx="1194" dy="607" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-14" target="MUaqJy7GZ8mH57wd4cbI-32" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-14" value="user-app" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="80" y="520" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-16" target="MUaqJy7GZ8mH57wd4cbI-32" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-16" value="merchant" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="280" y="520" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-19" target="MUaqJy7GZ8mH57wd4cbI-32" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-19" target="MUaqJy7GZ8mH57wd4cbI-43" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-19" value="delivery-app" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="480" y="520" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-32" target="MUaqJy7GZ8mH57wd4cbI-37" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-32" value="erp" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="280" y="640" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-37" value="Framework" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
-          <mxGeometry x="280" y="760" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-39" target="MUaqJy7GZ8mH57wd4cbI-14" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-39" target="MUaqJy7GZ8mH57wd4cbI-16" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-39" target="MUaqJy7GZ8mH57wd4cbI-19" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-39" value="takeaway" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="280" y="400" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-43" target="MUaqJy7GZ8mH57wd4cbI-37" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-43" value="delivery-admin" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="640" y="600" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-46" value="&lt;ul&gt;&lt;li&gt;takeaway：外卖业务。这个模块需要用到所有的外卖能力， 比如用户下单、商家接单、骑手配送。&lt;/li&gt;&lt;li&gt;user-app: 用户端。下单，加购物车、结算、支付、评价&lt;/li&gt;&lt;li&gt;merchant：商家端。接单，出餐。&lt;/li&gt;&lt;li&gt;delivery-app：骑手端。抢单，配送。&lt;/li&gt;&lt;li&gt;ERP：运营后台，用于支持用户端、商家端、骑手端。比如：造数据、修改数据、配置数据等。&lt;/li&gt;&lt;li&gt;delivery-admin：司官后台。主要为骑手app提供支撑服务。&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;li&gt;用户&amp;amp;商家&amp;amp;骑手之间互相调用需要使用Mock挡板隔离/数数据库脚本进行隔离，单独验证服务内部的逻辑正确性。&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="40" y="40" width="760" height="160" as="geometry" />
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-47" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" parent="1" source="MUaqJy7GZ8mH57wd4cbI-14" target="MUaqJy7GZ8mH57wd4cbI-16" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="660" y="560" as="sourcePoint" />
-            <mxPoint x="710" y="510" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-49" value="Mock" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="MUaqJy7GZ8mH57wd4cbI-47" vertex="1" connectable="0">
-          <mxGeometry y="1" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-50" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" parent="1" target="MUaqJy7GZ8mH57wd4cbI-19" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="540" as="sourcePoint" />
-            <mxPoint x="290" y="550" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="MUaqJy7GZ8mH57wd4cbI-51" value="Mock" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="MUaqJy7GZ8mH57wd4cbI-50" vertex="1" connectable="0">
-          <mxGeometry y="1" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Vu2ow6_wn3Q3U0-Ko19R-2" value="data-center" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="640" y="360" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="9t3OOmVcBFmX8l9mIsPt-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="9t3OOmVcBFmX8l9mIsPt-1" target="MUaqJy7GZ8mH57wd4cbI-37">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="9t3OOmVcBFmX8l9mIsPt-1" value="market" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="760" y="520" width="120" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
