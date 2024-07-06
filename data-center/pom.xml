@@ -27,11 +27,67 @@
             <groupId>com.hungrypanda</groupId>
             <artifactId>app-server-api</artifactId>
             <version>1.10.6-RELEASE</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.hungrypanda</groupId>
             <artifactId>app-server-impl</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- B 端工程依赖开发相关的库 -->
@@ -43,20 +99,70 @@
             <groupId>com.panda.merchant.server</groupId>
             <artifactId>merchant-api</artifactId>
             <version>1.1.61-RELEASE</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.haya.panda.platform</groupId>-->
-        <!--            <artifactId>haya-panda-app</artifactId>-->
-        <!--            <version>0.0.1-SNAPSHOT</version>-->
-        <!--        </dependency>-->
         <!-- hp-pos-server -->
         <dependency>
             <groupId>com.panda.pos.server</groupId>
             <artifactId>pos-api</artifactId>
-<!--            <version>1.0.16-RELEASE</version>-->
+            <!-- <version>1.0.16-RELEASE</version> -->
             <version>1.0.16-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
 
 
         <!-- D 端工程依赖开发相关的库 -->
@@ -67,6 +173,102 @@
             <groupId>com.panda.delivery.app.server</groupId>
             <artifactId>delivery-app-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 骑手端验签需要依赖公共服务，加密、解密等需要用到 -->
+        <dependency>
+            <groupId>com.panda.delivery.app.server</groupId>
+            <artifactId>delivery-app-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 公共参数，比如一些枚举值 -->
+        <dependency>
+            <groupId>com.panda.common</groupId>
+            <artifactId>hp-base-common</artifactId>
+            <version>3.3.4-RELEASE</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 
@@ -78,11 +280,83 @@
             <groupId>com.panda</groupId>
             <artifactId>market-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.ctrip.framework.apollo</groupId>
+                    <artifactId>apollo-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.ctrip.framework.apollo</groupId>
+                    <artifactId>apollo-client</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.panda</groupId>
             <artifactId>market-dal</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.ctrip.framework.apollo</groupId>
+                    <artifactId>apollo-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.ctrip.framework.apollo</groupId>
+                    <artifactId>apollo-client</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 多端公共依赖。比如：B、C都需要用到 ERP 后台 -->
@@ -95,11 +369,67 @@
             <groupId>com.panda.erp.server</groupId>
             <artifactId>erp-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.panda.erp.server</groupId>
             <artifactId>erp-api</artifactId>
             <version>1.1.76-RELEASE</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
