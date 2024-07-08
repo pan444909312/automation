@@ -1,9 +1,9 @@
 package com.miller.service.framework.util;
 
 import org.apache.commons.exec.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.yaml.snakeyaml.nodes.CollectionNode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -105,14 +105,18 @@ class CommandUtilsTest {
     @Test
     @DisplayName("Execute command by CommandUtils")
     void testExecCommandByCommandUtils() throws InterruptedException {
-        String echoExecuteCommandInTerminal =
-                CommandUtils.executeCommand("echo execute command in terminal", 60 * 1000, Boolean.FALSE);
+        String echoExecuteCommandInTerminal = CommandUtils.executeCommand("echo execute command in terminal", 60 * 1000, Boolean.FALSE);
         assertThat(echoExecuteCommandInTerminal).isNotNull().isNotEmpty();
 
 
-        CommandUtils.executeCommand("ping localhost", 10 * 1000, Boolean.TRUE);
+        CommandUtils.executeCommandByAsync("echo Hello Miller");
 
-        CommandUtils.executeCommand("echo Hello Miller");
+        CommandUtils.executeCommand("echo Hello Mila");
+
+        RuntimeException pingLocalhost = Assertions.assertThrows(RuntimeException.class, () -> {
+            CommandUtils.executeCommand("ping localhost", 5 * 1000, Boolean.TRUE);
+        }, "命令执行超时了,这个命令本身就执行不会结束");
+        pingLocalhost.printStackTrace();
     }
 }
 
