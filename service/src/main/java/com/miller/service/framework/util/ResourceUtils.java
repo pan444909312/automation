@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 /**
- * 文件工具类
+ * Resource 文件工具类
  *
  * @author Miller Shan
  * @version 1.0
