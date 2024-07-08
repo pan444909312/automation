@@ -1,8 +1,8 @@
-package com.miller.userapp.module.person.member.db;
+package com.miller.userapp.module.data.member.db;
 
 import com.miller.service.framework.db.DBUtils;
-import com.miller.userapp.module.person.member.renew.MemberAutoRenewDTO;
-import com.miller.userapp.module.person.member.PandaDB;
+import com.miller.userapp.module.data.member.PandaDB;
+import com.miller.userapp.module.data.member.renew.MemberAutoRenewDTO;
 
 public class MemberAutoRenewSql {
     DBUtils dbUtils;
