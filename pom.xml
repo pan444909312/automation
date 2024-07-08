@@ -340,6 +340,12 @@
                 <artifactId>org.eclipse.jgit</artifactId>
                 <version>6.9.0.202403050737-r</version>
             </dependency>
+            <!-- 命令行工具 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-exec</artifactId>
+                <version>1.4.0</version>
+            </dependency>
 
 
         </dependencies>
