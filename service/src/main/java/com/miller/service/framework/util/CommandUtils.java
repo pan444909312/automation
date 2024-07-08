@@ -17,16 +17,41 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 @Slf4j
 public class CommandUtils {
+    /**
+     * 命令执行超时时间,默认10分钟
+     */
+    private static long timeout = 60 * 1000 * 10;
 
     /**
-     * 执行命令
+     * 在终端执行命令，并返回命令行终端的结果。默认超时10分钟。默认串行执行。
+     *
+     * @param command 待执行的命令
+     * @return 命令行执行结果
+     */
+    public static String executeCommand(String command) {
+        return executeCommand(command, timeout);
+    }
+
+    /**
+     * 在终端执行命令，并返回命令行终端的结果。默认串行执行。
+     *
+     * @param command 命令
+     * @param timeout 超时时间
+     * @return 命令行执行结果
+     */
+    public static String executeCommand(String command, long timeout) {
+        return executeCommand(command, timeout, false);
+    }
+
+    /**
+     * 在终端执行命令，并返回命令行终端的结果
      *
      * @param command 命令
      * @param timeout 命令执行超时时间
      * @param isAsync 是否异步执行；true: 异步；false: 同步。需要注意异步执行时主线成执行结束，那么异步的线程也会结束
      * @return 命令行执行结果
      */
-    public static String executeCommand(String command, long timeout, boolean isAsync) throws InterruptedException {
+    public static String executeCommand(String command, long timeout, boolean isAsync) {
         // 命令执行结果
         String commandResul = null;
         //接收正常结果流

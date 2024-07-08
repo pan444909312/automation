@@ -3,6 +3,7 @@ package com.miller.service.framework.util;
 import org.apache.commons.exec.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.yaml.snakeyaml.nodes.CollectionNode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -110,6 +111,8 @@ class CommandUtilsTest {
 
 
         CommandUtils.executeCommand("ping localhost", 10 * 1000, Boolean.TRUE);
+
+        CommandUtils.executeCommand("echo Hello Miller");
     }
 }
 
