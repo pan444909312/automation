@@ -6,7 +6,6 @@ import org.apache.commons.exec.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 命令行工具类
