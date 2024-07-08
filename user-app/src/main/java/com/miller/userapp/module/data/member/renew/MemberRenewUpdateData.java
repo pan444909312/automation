@@ -1,7 +1,7 @@
-package com.miller.userapp.module.person.member.renew;
+package com.miller.userapp.module.data.member.renew;
 
-import com.miller.userapp.module.person.member.db.MemberAutoRenewSql;
-import com.miller.userapp.module.person.member.db.MemberEntitySql;
+import com.miller.userapp.module.data.member.db.MemberAutoRenewSql;
+import com.miller.userapp.module.data.member.db.MemberEntitySql;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

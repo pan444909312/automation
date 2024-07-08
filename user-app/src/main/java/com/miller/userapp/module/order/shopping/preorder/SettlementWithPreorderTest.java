@@ -33,7 +33,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.BeanUtils;
-import com.miller.userapp.module.person.member.PandaDB;
+import com.miller.userapp.module.data.member.PandaDB;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
