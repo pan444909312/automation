@@ -28,18 +28,6 @@
             <groupId>com.miller</groupId>
             <artifactId>data-center</artifactId>
         </dependency>
-        <!-- 骑手端验签需要依赖公共服务，加密、解密等需要用到 -->
-        <dependency>
-            <groupId>com.panda.delivery.app.server</groupId>
-            <artifactId>delivery-app-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <!-- 公共参数，比如一些枚举值 -->
-        <dependency>
-            <groupId>com.panda.common</groupId>
-            <artifactId>hp-base-common</artifactId>
-            <version>3.3.4-RELEASE</version>
-        </dependency>
     </dependencies>
 
 </project>

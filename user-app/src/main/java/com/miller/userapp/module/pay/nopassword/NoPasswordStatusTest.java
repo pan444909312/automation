@@ -17,6 +17,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +44,7 @@ public class NoPasswordStatusTest {
         NoPasswordListResponseDTO noPasswordListResponseDTO2 = NoPasswordListFlow.noPasswordList(noPasswordListRequestDTO);
         List<NoPasswordDTO> noPasswordList2 =noPasswordListResponseDTO2.getResult().getNoPasswordList();
         NoPasswordDTO noPasswordDTO2 = noPasswordList2.stream().filter(dto->dto.getPaymentPattern().equals(paymentPattern))
-                .toList().get(0);
+                .collect(Collectors.toList()).get(0);
 
         assertThat(result.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(noPasswordDTO2.getOpenStatus()).isEqualTo(setOpenStatus);

@@ -14,6 +14,6 @@ public class ResponseConstant implements Serializable {
     /**
      * 业务响应的状态码
      */
-    public static final Long code = BaseResponseCodeEnum.SUCCESS.getCode();
+    public static final Long code = 1L;
 
 }

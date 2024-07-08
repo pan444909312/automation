@@ -139,7 +139,8 @@ public class PreorderServiceImpl {
      * @return
      */
     private int findShopTimeConfigEntity(String nowTime,List<ShopTimeConfigEntity> shopTimeConfigEntityList){
-        List<ShopTimeConfigEntity> shopTimeConfigEntityListNew = shopTimeConfigEntityList.stream().filter(a->nowTime.compareTo(a.getOrderDeadline()) < 0 ).toList();
+        List<ShopTimeConfigEntity> shopTimeConfigEntityListNew = shopTimeConfigEntityList.stream().
+                filter(a->nowTime.compareTo(a.getOrderDeadline()) < 0 ).collect(Collectors.toList());
         if(shopTimeConfigEntityList.size() > shopTimeConfigEntityListNew.size() && !shopTimeConfigEntityListNew.isEmpty()) {
             return 0;
         }else if(shopTimeConfigEntityListNew.size() == shopTimeConfigEntityList.size()){
