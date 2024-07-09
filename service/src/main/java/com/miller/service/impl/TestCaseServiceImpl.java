@@ -17,9 +17,5 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
     @Autowired
     private TestCaseMapper testCaseMapper;
 
-    public void debugScenarios() {
-        System.out.println("test..........");
-    }
-
 
 }

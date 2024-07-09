@@ -11,5 +11,4 @@ import com.miller.entity.TestCaseEntity;
  * @since 2024/7/3 11:12:53
  */
 public interface TestCaseService extends IService<TestCaseEntity> {
-    void debugScenarios();
 }

@@ -52,7 +52,6 @@ public class GlobalException implements ResponseBodyAdvice {
         ResponseCode code = e.getCode();
         return new Response(code.getCode(), code.getMessage(), e);
     }
-
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
         return true;
@@ -83,7 +82,10 @@ public class GlobalException implements ResponseBodyAdvice {
                     // 如果客户端访问了未知地址返回404
                     if (status.equalsIgnoreCase("404")) {
                         return new Response(ResponseCode.RESOURCES_NOT_EXIST.getCode(), ResponseCode.RESOURCES_NOT_EXIST.getMessage(), o);
-                    } else if (status.equalsIgnoreCase("500")) {
+                    }else if (status.startsWith("4")) {
+                        return new Response(ResponseCode.REQUEST_ARGS_ERROR.getCode(), ResponseCode.REQUEST_ARGS_ERROR.getMessage(), o);
+                    }
+                    else if (status.equalsIgnoreCase("500")) {
                         return new Response(ResponseCode.FAILURE_SERVICE_ERROR.getCode(), ResponseCode.FAILURE_SERVICE_ERROR.getMessage(), o);
                     } else {
                         log.warn("未捕获的SpringBoot异常状态处理.{}", linkedHashMap);
