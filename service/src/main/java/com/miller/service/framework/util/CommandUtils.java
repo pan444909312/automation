@@ -94,7 +94,7 @@ public class CommandUtils {
                 // 异步执行失败，抛出异常
                 if (0 != exitValue) {
                     commandResul = errorStream.toString(Charset.defaultCharset());
-                    log.error("异步执行命令失败: {}", commandResul);
+                    log.error("异步执行命令 {} 失败: {}", command, commandResul);
                     throw new RuntimeException("异步执行命令失败:" + commandResul);
                 } else {
                     // 异步执行成功，返回结果

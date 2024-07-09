@@ -5,6 +5,7 @@ import com.miller.service.framework.annotation.MethodInvoked;
 import com.miller.service.framework.listenner.TestResultWatcher;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
+import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.util.ReflectionUtils;
 import org.junit.jupiter.api.extension.*;
 
@@ -105,9 +106,20 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * 发送自动化测试执行消息
      */
     private static void sendExecuteNotification() {
+        // 获取执行人员
+        String executor = "";
+        String hostNameOfOS = OSUtils.getHostNameOfOS();
+        // 如果是测试环境，则执行人员为DevOps平台
+        if (hostNameOfOS.contains("hk-test-")) {
+            executor = "DevOps Platform";
+        } else {
+            // 获取git用户名
+            executor = JGitUtils.getGitEmail().split("@")[0];
+        }
+
         // 记录执行测试的事件
         String content =
-                "- **执行人员**: " + JGitUtils.getGitEmail().split("@")[0] + " \n " +
+                "- **执行人员**: " + executor + " \n " +
                         "- **执行时间**:\t" + DateUtils.getCurrentDateTime() + " \n " +
                         // 统计用例执行情况，目前是一次运行期间的累积数量之和，如果需要单独统计每次运行结果，则需要先设置为0
                         "- **<font color=black>用例总数:</font>**\t" + (

@@ -16,4 +16,12 @@ public class OSUtils {
     public static String getUserNameOfOS() {
         return System.getProperty("user.name");
     }
+
+    /**
+     * 获取当前操作系统主机名
+     * @return 当前操作系统主机名
+     */
+    public static String getHostNameOfOS() {
+        return CommandUtils.executeCommand("hostname");
+    }
 }
