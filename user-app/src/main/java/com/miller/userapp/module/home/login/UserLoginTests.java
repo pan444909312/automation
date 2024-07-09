@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.entity.device.DeviceLoginInfoEntity;
 import com.hungrypanda.app.server.entity.user.UserEntity;
 import com.miller.common.util.MD5Util;
-import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
@@ -22,8 +21,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -84,6 +81,7 @@ public class UserLoginTests {
 
     /**
      * 测试用例数据
+     *
      * @return Stream<UserLoginRequestDTO>
      */
     static Stream<Arguments> loginDataDataProvider() {
