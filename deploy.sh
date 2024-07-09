@@ -4,7 +4,7 @@ ps -efww|grep -w 'automation-web.jar'|grep -v grep|cut -c 9-15|xargs kill -9
 # 启动服务
 nohup java -jar ./automation-web.jar --spring.profiles.active=test --server.portt
 =9080 >>automation.log 2>&1 &
-echo 'automation-web  Server is running...
+echo 'automation-web  Server is running...'
 
 #######   通过阿里云效访问接口 #######
 # input your command here
