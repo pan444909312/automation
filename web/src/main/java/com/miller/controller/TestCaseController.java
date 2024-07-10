@@ -43,11 +43,11 @@ public class TestCaseController {
     @Autowired
     private TestCaseService testCaseService;
 
-    @GetMapping("/runScenario")
-    public String debugScenarios(@RequestParam(value = "packageName", required = false) String packageName) throws IOException {
-        if (null == packageName || StringUtils.isBlank(packageName)) {
-            return "packageName is empty.";
-        }
+    @GetMapping("/runScenarioOfTakeaway")
+    public String runScenarioOfTakeaway(@RequestParam(value = "packageName", required = false) String packageName) {
+//        if (null == packageName || StringUtils.isBlank(packageName)) {
+//            return "packageName is empty.";
+//        }
 
         // String path ="/Users/miller/Documents/gitlab/automation/takeaway/target/";
         // String fileName = "takeaway-0.0.1-SNAPSHOT.jar";
@@ -60,12 +60,12 @@ public class TestCaseController {
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(
                         selectPackage(packageName)
-//                        ,selectClass(SettlementContainMemberScenarioTests.class)
+                        , selectClass(SettlementContainMemberScenarioTests.class)
                 ).filters(
                         includeClassNamePatterns(".*Scenario[s]?Test[s]?")
                 ).build();
-//        TestCaseRunnerLauncher.executeRequest(request);
-        TestCaseRunnerLauncher.executeRequest(RunTestCase.run());
+        TestCaseRunnerLauncher.executeRequest(request);
+//        TestCaseRunnerLauncher.executeRequest(RunTestCase.run());
         return "success";
     }
 
@@ -76,6 +76,8 @@ public class TestCaseController {
                 ).filters(
                         includeClassNamePatterns(".*Scenario[s]?Test[s]?")
                 ).build();
-        TestCaseRunnerLauncher.executeRequest(request);
+//        TestCaseRunnerLauncher.executeRequest(request);
+        TestCaseRunnerLauncher.executeRequest(RunTestCase.run());
+
     }
 }
