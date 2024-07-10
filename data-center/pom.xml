@@ -54,6 +54,10 @@
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
+                </exclusion>
                 <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -128,6 +132,10 @@
                 <exclusion>
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
                 </exclusion>
                 <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
                 <exclusion>
@@ -210,6 +218,10 @@
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
+                </exclusion>
                 <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -287,6 +299,10 @@
                 <exclusion>
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
                 </exclusion>
                 <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
                 <exclusion>
@@ -370,6 +386,10 @@
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <!-- 骑手端验签需要依赖公共服务，加密、解密等需要用到 -->
@@ -404,6 +424,10 @@
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <!-- 公共参数，比如一些枚举值 -->
@@ -437,6 +461,10 @@
                 <exclusion>
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -484,6 +512,10 @@
                 <exclusion>
                     <groupId>com.ctrip.framework.apollo</groupId>
                     <artifactId>apollo-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
                 </exclusion>
                 <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
                 <exclusion>
@@ -569,6 +601,10 @@
                     <groupId>com.ctrip.framework.apollo</groupId>
                     <artifactId>apollo-client</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -608,6 +644,10 @@
                 <exclusion>
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
                 </exclusion>
                 <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
                 <exclusion>
@@ -684,6 +724,10 @@
                 <exclusion>
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
                 </exclusion>
                 <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
                 <exclusion>
