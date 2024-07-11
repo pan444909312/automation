@@ -42,6 +42,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     private Set<String> failedTestClasses = new HashSet<>();
 
     // 是否同步结果到 YAPI 平台的开关
+    @Deprecated /* 已废弃，关闭开关 */
     private static final Boolean yApiEnabled = false;
 
     /**
