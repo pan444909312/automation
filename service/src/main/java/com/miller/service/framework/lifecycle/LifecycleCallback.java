@@ -51,7 +51,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
-        if (isSendNotification) sendExecuteNotification();
+        if (isSendNotification) sendExecuteNotification(extensionContext);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     /**
      * 发送自动化测试执行消息
      */
-    private static void sendExecuteNotification() {
+    private static void sendExecuteNotification(ExtensionContext extensionContext) {
         // 获取执行人员
         String executor = "";
         String hostNameOfOS = OSUtils.getHostNameOfOS();
@@ -116,6 +116,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             // 获取git用户名
             executor = JGitUtils.getGitEmail().split("@")[0];
         }
+        // 用例名称
+        String displayName = extensionContext.getDisplayName();
 
         // 记录执行测试的事件
         String content =
@@ -127,10 +129,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
                                 TestResultWatcher.testCaseCountOfFailed +
                                 TestResultWatcher.testCaseCountOfDisabled +
                                 TestResultWatcher.testCaseCountOfAborted) + " \n " +
+                        "- **<font color=black>用例名称:</font>**\t" + displayName + " \n " +
                         "- **<font color=blue>成功用例:</font>**\t" + TestResultWatcher.testCaseCountOfSuccessful + " \n " +
                         "- **<font color=red>失败用例:</font>**\t" + TestResultWatcher.testCaseCountOfFailed + " \n " +
                         "- **<font color=green>禁用用例:</font>**\t" + TestResultWatcher.testCaseCountOfDisabled + " \n " +
-                        "- **<font color=grey>中断用例:</font>**\t" + TestResultWatcher.testCaseCountOfAborted + " \n ";
+                        "- **<font color=grey>中断用例:</font>**\t" + TestResultWatcher.testCaseCountOfAborted + " \n "
+                ;
         DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }
