@@ -1,7 +1,5 @@
 package com.miller.userapp.module.data.pay;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.entity.account.UserAccountEntity;
 import com.hungrypanda.app.server.entity.member.MemberOrderEntity;
 import com.hungrypanda.app.server.entity.order.OrderEntity;
@@ -10,21 +8,15 @@ import com.hungrypanda.app.server.entity.order.OrderPaymentCombinedEntity;
 import com.hungrypanda.app.server.entity.order.OrderPaymentCombinedRelationEntity;
 import com.hungrypanda.app.server.entity.user.UserAccountFlowEntity;
 import com.hungrypanda.app.server.entity.voucher.VoucherOrderInfoEntity;
-import com.miller.userapp.mapper.order.OrderMapper;
-import com.miller.userapp.mapper.pay.PayOrderMapper;
-import com.miller.userapp.mapper.user.UserAccountFlowMapper;
-import com.miller.userapp.mapper.user.UserAccountMapper;
-import com.miller.userapp.module.data.member.PandaDB;
+import com.hungrypanda.payserver.entity.PayOrder;
+import com.miller.userapp.module.data.PandaDB;
 import com.miller.userapp.module.data.pay.db.*;
 import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.Order;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class PaySucDataCheckServer {
     private SqlSession sqlSession = PandaDB.getSqlSession();

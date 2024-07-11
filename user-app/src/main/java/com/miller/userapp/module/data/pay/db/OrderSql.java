@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.entity.order.OrderEntity;
 import com.miller.userapp.mapper.order.OrderMapper;
-import com.miller.userapp.module.data.member.PandaDB;
 import org.apache.ibatis.session.SqlSession;
 
 public class OrderSql {

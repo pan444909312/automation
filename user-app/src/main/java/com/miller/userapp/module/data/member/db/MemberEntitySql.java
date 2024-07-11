@@ -2,7 +2,7 @@ package com.miller.userapp.module.data.member.db;
 
 import com.miller.service.framework.db.DBUtils;
 import com.miller.userapp.module.data.member.renew.MemberEntityDTO;
-import com.miller.userapp.module.data.member.PandaDB;
+import com.miller.userapp.module.data.PandaDB;
 
 public class MemberEntitySql {
     DBUtils dbUtils;

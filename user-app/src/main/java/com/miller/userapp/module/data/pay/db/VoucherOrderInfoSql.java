@@ -2,11 +2,8 @@ package com.miller.userapp.module.data.pay.db;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hungrypanda.app.server.entity.member.MemberOrderEntity;
 import com.hungrypanda.app.server.entity.voucher.VoucherOrderInfoEntity;
-import com.miller.userapp.mapper.order.MemberOrderMapper;
 import com.miller.userapp.mapper.order.VoucherOrderInfoMapper;
-import com.miller.userapp.module.data.member.PandaDB;
 import org.apache.ibatis.session.SqlSession;
 
 public class VoucherOrderInfoSql {
