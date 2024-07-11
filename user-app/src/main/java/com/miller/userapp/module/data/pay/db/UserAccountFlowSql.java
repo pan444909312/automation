@@ -4,12 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.entity.user.UserAccountFlowEntity;
 import com.miller.userapp.mapper.user.UserAccountFlowMapper;
-import com.miller.userapp.module.data.member.PandaDB;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
-import java.util.Objects;
 
 public class UserAccountFlowSql {
     private SqlSession sqlSession;

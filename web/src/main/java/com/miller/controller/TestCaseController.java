@@ -1,6 +1,7 @@
 package com.miller.controller;
 
 import com.miller.service.TestCaseService;
+import com.miller.service.framework.clz.ClassFindService;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import com.miller.takeaway.order.RunTestCase;
 import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithMemberScenarioTests;
@@ -8,6 +9,8 @@ import com.miller.takeaway.order.branch.settlement.SettlementContainMemberScenar
 import com.miller.util.DynamicLoad;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.platform.engine.DiscoverySelector;
+import org.junit.platform.engine.discovery.DiscoverySelectors;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.mybatis.spring.mapper.ClassPathMapperScanner;
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.platform.engine.discovery.ClassNameFilter.includeClassNamePatterns;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
@@ -42,6 +47,8 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
 public class TestCaseController {
     @Autowired
     private TestCaseService testCaseService;
+    @Autowired
+    private ClassFindService classFindService;
 
     @GetMapping("/runScenarioOfTakeaway")
     public String runScenarioOfTakeaway(@RequestParam(value = "packageName", required = false) String packageName) {
@@ -57,15 +64,21 @@ public class TestCaseController {
         // System.out.println(OrderOfPlatformDeliveryWithMemberScenarioTests.class.toGenericString());
         // System.out.println(OrderOfPlatformDeliveryWithMemberScenarioTests.class.descriptorString());
 
+    @GetMapping("/runScenario")
+    public String debugScenarios(@RequestParam(value = "packageName", required = false) String packageName) {
+        if (null == packageName || StringUtils.isBlank(packageName)) {
+            return "packageName is empty.";
+        }
+
+        List<DiscoverySelector> discoverySelectorList = classFindService.getPackageClass(packageName)
+                .stream().map(DiscoverySelectors::selectClass).collect(Collectors.toList());
+
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-                .selectors(
-                        selectPackage(packageName)
-                        , selectClass(SettlementContainMemberScenarioTests.class)
-                ).filters(
+                .selectors(discoverySelectorList)
+                .filters(
                         includeClassNamePatterns(".*Scenario[s]?Test[s]?")
                 ).build();
         TestCaseRunnerLauncher.executeRequest(request);
-//        TestCaseRunnerLauncher.executeRequest(RunTestCase.run());
         return "success";
     }
 
@@ -76,8 +89,6 @@ public class TestCaseController {
                 ).filters(
                         includeClassNamePatterns(".*Scenario[s]?Test[s]?")
                 ).build();
-//        TestCaseRunnerLauncher.executeRequest(request);
-        TestCaseRunnerLauncher.executeRequest(RunTestCase.run());
-
+        TestCaseRunnerLauncher.executeRequest(request);
     }
 }

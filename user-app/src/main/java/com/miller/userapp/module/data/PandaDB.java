@@ -1,4 +1,4 @@
-package com.miller.userapp.module.data.member;
+package com.miller.userapp.module.data;
 
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
