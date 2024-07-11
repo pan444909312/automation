@@ -106,6 +106,10 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * 发送自动化测试执行消息
      */
     private static void sendExecuteNotification(ExtensionContext extensionContext) {
+        TestResultWatcher.testCaseCountOfSuccessful = 0;
+        TestResultWatcher.testCaseCountOfFailed = 0;
+        TestResultWatcher.testCaseCountOfDisabled = 0;
+        TestResultWatcher.testCaseCountOfAborted = 0;
         // 获取执行人员
         String executor = "";
         String hostNameOfOS = OSUtils.getHostNameOfOS();
@@ -133,8 +137,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
                         "- **<font color=blue>成功用例:</font>**\t" + TestResultWatcher.testCaseCountOfSuccessful + " \n " +
                         "- **<font color=red>失败用例:</font>**\t" + TestResultWatcher.testCaseCountOfFailed + " \n " +
                         "- **<font color=green>禁用用例:</font>**\t" + TestResultWatcher.testCaseCountOfDisabled + " \n " +
-                        "- **<font color=grey>中断用例:</font>**\t" + TestResultWatcher.testCaseCountOfAborted + " \n "
-                ;
+                        "- **<font color=grey>中断用例:</font>**\t" + TestResultWatcher.testCaseCountOfAborted + " \n ";
         DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }
