@@ -729,6 +729,11 @@
                 <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
