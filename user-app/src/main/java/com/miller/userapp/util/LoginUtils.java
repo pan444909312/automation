@@ -1,22 +1,26 @@
 package com.miller.userapp.util;
 
-import com.alibaba.fastjson.JSONPath;
+import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.service.framework.util.ResourceUtils;
 import com.miller.userapp.constants.BusinessConstant;
+import com.miller.userapp.module.home.login.response.UserLoginResponseDTO;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * pjx个人使用的工具类
  * @author panjuxiang
  * @since 2024/4/3 15:22
  */
 public class LoginUtils {
 
     private static String loginApi = BusinessConstant.DOMAIN + "/api/user/combine/login";
-    private static String accout = "13990000001";
-    private static String password = "e10adc3949ba59abbe56e057f20f883e";
+    private static String accout = PropertiesUtils.loadProperties().getProperty("user.app.account.of.user.pjx.account");
+    private static String password = PropertiesUtils.loadProperties().getProperty("user.app.account.of.user.pjx.password");
 
     private static Map<String,Object> headers = null;
 
@@ -36,13 +40,16 @@ public class LoginUtils {
      * @return 用户身份token
      */
     public static String loginReturnToken(){
+        String passwordDecode = MD5Util.string2MD5(password);
 
-        String loginParam = "{\"areaCode\":\"86\",\"account\":\"" + accout +"\",\"password\":\"" + password + "\",\"cityName\":\"杭州市\",\"type\":2,\"distinctId\":\"AFF39007-ADD4-4B00-8B5D-4E24906115F1\"}";
+        String loginParam = ResourceUtils.readTestCaseDataFromResourcesPath("LoginDataPjx.json");
+//        String loginParam = "{\"areaCode\":\"86\",\"account\":\"" + accout +"\",\"password\":\"" + passwordDecode + "\",\"cityName\":\"杭州市\",\"type\":2,\"distinctId\":\"AFF39007-ADD4-4B00-8B5D-4E24906115F1\"}";
 
-        String loginResp = HttpUtils.sendPostRequestReturnBody(loginApi, null, getHeader(), loginParam, null);
 
-        System.out.println(loginResp);
-        return (String)JSONPath.read(loginResp, "$.result.accessToken");
+
+        UserLoginResponseDTO userLoginResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(loginApi, null, getHeader(), loginParam, null, UserLoginResponseDTO.class);
+
+        return userLoginResponseDTO.getResult().getAccessToken();
     }
 
     /**
@@ -58,6 +65,7 @@ public class LoginUtils {
 
         return headers;
     }
+
 
     public static Map<String,Object> getCommonHeader(){
         Map<String, Object> headers = new HashMap<>();
