@@ -53,25 +53,20 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     private Set<String> apiDocsValues = new HashSet<>();
 
     /**
-     * 测试执行结果统计
+     * 单条测试用例执行结果
      */
-    public static Integer testCaseCountOfSuccessful = 0;
-    public static Integer testCaseCountOfFailed = 0;
-    public static Integer testCaseCountOfDisabled = 0;
-    public static Integer testCaseCountOfAborted = 0;
-
-
+    public static Map<String, String> testcaseExecuteResult = new HashMap<>();
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
         System.out.println(this.getClass().getName() + " testDisabled method invoked...");
-        testCaseCountOfDisabled++;
+        testcaseExecuteResult.put(context.getTestClass().orElseThrow().toGenericString(), "Disabled");
+
     }
 
     @Override
     public void testSuccessful(ExtensionContext context) {
         System.out.println(this.getClass().getName() + " testSuccessful method invoked...");
-        testCaseCountOfSuccessful++;
         // 记录成功的方法
         context.getTestMethod().ifPresent(method -> successfulTestMethods.add(method.getName()));
 
@@ -86,21 +81,22 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                 YApiUtils.updateYApiData(element);
             }
         }
+        testcaseExecuteResult.put(context.getTestClass().orElseThrow().toGenericString(), "Successful");
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
         System.out.println(this.getClass().getName() + " testAborted method invoked...");
-        testCaseCountOfAborted++;
+        testcaseExecuteResult.put(context.getTestClass().orElseThrow().toGenericString(), "Aborted");
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         System.out.println(this.getClass().getName() + " testFailed method invoked...");
-        testCaseCountOfFailed++;
         // 如果类中的某一个方法失败了，那么认为这个类也执行失败了
         String failedClassName = context.getTestClass().orElse(null).getName();
         failedTestClasses.add(failedClassName);
+        testcaseExecuteResult.put(context.getTestClass().orElseThrow().toGenericString(), "Failed");
     }
 
     /**

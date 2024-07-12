@@ -106,10 +106,6 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * 发送自动化测试执行消息
      */
     private static void sendExecuteNotification(ExtensionContext extensionContext) {
-        TestResultWatcher.testCaseCountOfSuccessful = 0;
-        TestResultWatcher.testCaseCountOfFailed = 0;
-        TestResultWatcher.testCaseCountOfDisabled = 0;
-        TestResultWatcher.testCaseCountOfAborted = 0;
         // 获取执行人员
         String executor = "";
         String hostNameOfOS = OSUtils.getHostNameOfOS();
@@ -123,21 +119,21 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         // 用例名称
         String displayName = extensionContext.getDisplayName();
 
+        // 测试用例执行结果
+        String testResult = TestResultWatcher.testcaseExecuteResult.get(extensionContext.getTestClass().orElseThrow().toGenericString());
+        if (testResult.trim().contains("Successful")) {
+            // ** 符号之前需要添加一个空格
+            testResult = "✅" + " **<font color=blue>" + testResult + "</font>**";
+        }
+        if (testResult.trim().contains("Failed")) {
+            testResult = "❌" + " **<font color=red>" + testResult + "</font>**";
+        }
         // 记录执行测试的事件
         String content =
                 "- **执行人员**: " + executor + " \n " +
                         "- **执行时间**:\t" + DateUtils.getCurrentDateTime() + " \n " +
-                        // 统计用例执行情况，目前是一次运行期间的累积数量之和，如果需要单独统计每次运行结果，则需要先设置为0
-                        "- **<font color=black>用例总数:</font>**\t" + (
-                        TestResultWatcher.testCaseCountOfSuccessful +
-                                TestResultWatcher.testCaseCountOfFailed +
-                                TestResultWatcher.testCaseCountOfDisabled +
-                                TestResultWatcher.testCaseCountOfAborted) + " \n " +
                         "- **<font color=black>用例名称:</font>**\t" + displayName + " \n " +
-                        "- **<font color=blue>成功用例:</font>**\t" + TestResultWatcher.testCaseCountOfSuccessful + " \n " +
-                        "- **<font color=red>失败用例:</font>**\t" + TestResultWatcher.testCaseCountOfFailed + " \n " +
-                        "- **<font color=green>禁用用例:</font>**\t" + TestResultWatcher.testCaseCountOfDisabled + " \n " +
-                        "- **<font color=grey>中断用例:</font>**\t" + TestResultWatcher.testCaseCountOfAborted + " \n ";
+                        "- **<font color=black>执行结果:</font>**\t" + testResult + " \n ";
         DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }

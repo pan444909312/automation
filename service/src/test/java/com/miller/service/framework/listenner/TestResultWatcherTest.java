@@ -49,18 +49,4 @@ class TestResultWatcherTest {
     void testAborted2() {
         Assumptions.assumeTrue(false, () -> "testAborted2 is Aborted");
     }
-
-
-    @AfterAll
-    static void afterAll() {
-        System.out.println("执行成功的方法总数:" + TestResultWatcher.testCaseCountOfSuccessful);
-        System.out.println("执行失败的方法总数:" + TestResultWatcher.testCaseCountOfFailed);
-        System.out.println("执行禁用的方法总数:" + TestResultWatcher.testCaseCountOfDisabled);
-        System.out.println("执行中止的方法总数:" + TestResultWatcher.testCaseCountOfAborted);
-        System.out.println("执行方法总数:" + (
-                TestResultWatcher.testCaseCountOfSuccessful +
-                        TestResultWatcher.testCaseCountOfFailed +
-                        TestResultWatcher.testCaseCountOfDisabled +
-                        TestResultWatcher.testCaseCountOfAborted));
-    }
 }
