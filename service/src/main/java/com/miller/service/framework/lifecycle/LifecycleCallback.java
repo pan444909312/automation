@@ -38,11 +38,6 @@ import java.util.Objects;
  */
 public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
 
-    /**
-     * 自动化测试执行通知开关
-     */
-    private static final Boolean isSendNotification = true;
-
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " beforeAll() callback invoked.");
@@ -51,7 +46,6 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
-        if (isSendNotification) sendExecuteNotification(extensionContext);
     }
 
     @Override
@@ -100,40 +94,5 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         System.out.println(this.getClass().getName() + " handleTestExecutionException() callback invoked.");
         // 执行发生异常时把异常抛出来
         throw throwable;
-    }
-
-    /**
-     * 发送自动化测试执行消息
-     */
-    private static void sendExecuteNotification(ExtensionContext extensionContext) {
-        // 获取执行人员
-        String executor = "";
-        String hostNameOfOS = OSUtils.getHostNameOfOS();
-        // 如果是测试环境，则执行人员为DevOps平台
-        if (hostNameOfOS.contains("hk-test-")) {
-            executor = "DevOps Platform";
-        } else {
-            // 获取git用户名
-            executor = JGitUtils.getGitEmail().split("@")[0];
-        }
-        // 用例名称
-        String displayName = extensionContext.getDisplayName();
-
-        // 测试用例执行结果
-        String testResult = TestResultWatcher.testcaseExecuteResult.get(extensionContext.getTestClass().orElseThrow().toGenericString());
-        if (testResult.trim().contains("Successful")) {
-            // ** 符号之前需要添加一个空格
-            testResult = "✅" + " **<font color=blue>" + testResult + "</font>**";
-        }
-        if (testResult.trim().contains("Failed")) {
-            testResult = "❌" + " **<font color=red>" + testResult + "</font>**";
-        }
-        // 记录执行测试的事件
-        String content =
-                "- **执行人员**: " + executor + " \n " +
-                        "- **执行时间**:\t" + DateUtils.getCurrentDateTime() + " \n " +
-                        "- **<font color=black>用例名称:</font>**\t" + displayName + " \n " +
-                        "- **<font color=black>执行结果:</font>**\t" + testResult + " \n ";
-        DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
 }
