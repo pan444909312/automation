@@ -35,34 +35,14 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
 public class TestCaseController {
     @Autowired
     private TestCaseService testCaseService;
-    @Autowired
-    private ClassFindService classFindService;
 
     @GetMapping("/runScenarioOfTakeaway")
     public String runScenarioOfTakeaway(@RequestParam(value = "packageName", required = false) String packageName) {
         if (null == packageName || StringUtils.isBlank(packageName)) {
             return "packageName is empty.";
         }
+        Long testsFoundCount = testCaseService.runTestCase(packageName);
 
-        List<DiscoverySelector> discoverySelectorList = classFindService.getPackageClass(packageName)
-                .stream().map(DiscoverySelectors::selectClass).collect(Collectors.toList());
-
-        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-                .selectors(discoverySelectorList)
-                .filters(
-                        includeClassNamePatterns(".*Scenario[s]?Test[s]?")
-                ).build();
-        TestCaseRunnerLauncher.executeRequest(request);
-        return "success";
-    }
-
-    public static void main(String[] args) {
-        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-                .selectors(
-                        selectPackage("com.miller.takeaway.order.branch.settlement")
-                ).filters(
-                        includeClassNamePatterns(".*Scenario[s]?Test[s]?")
-                ).build();
-        TestCaseRunnerLauncher.executeRequest(request);
+        return String.valueOf(testsFoundCount);
     }
 }

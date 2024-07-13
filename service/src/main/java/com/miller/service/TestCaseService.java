@@ -11,4 +11,10 @@ import com.miller.entity.TestCaseEntity;
  * @since 2024/7/3 11:12:53
  */
 public interface TestCaseService extends IService<TestCaseEntity> {
+    /**
+     * 运行测试用例
+     * @param packageName 包名
+     * @return 测试用例数量
+     */
+    Long runTestCase(String packageName);
 }
