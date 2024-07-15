@@ -2,7 +2,7 @@ package com.miller.exception;
 
 import com.alibaba.fastjson.JSON;
 import com.miller.common.util.Response;
-import com.miller.common.util.ResponseCode;
+import com.miller.common.util.ResponseEnum;
 import lombok.SneakyThrows;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -45,11 +45,12 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     @SneakyThrows
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         if (body instanceof String) {
-            return JSON.toJSONString(new Response(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage(), body));
+            return JSON.toJSONString(new Response(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getMessage(), body));
         }
         // 如果返回的是Response对象，则直接返回
         if (body instanceof Response) return body;
-        return new Response(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage(), body);
+        return new Response(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getMessage(), body);
     }
 }

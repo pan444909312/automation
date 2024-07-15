@@ -16,7 +16,7 @@ import java.io.Serializable;
 @ApiModel("统一响应对象")
 @Data
 @AllArgsConstructor
-public class Response implements Serializable {
+public class Response<T> implements Serializable {
     @ApiModelProperty("响应的状态码")
     private Integer code;
 
@@ -24,6 +24,5 @@ public class Response implements Serializable {
     private String message;
 
     @ApiModelProperty("响应的数据")
-    private Object data;
-
+    private T data;
 }

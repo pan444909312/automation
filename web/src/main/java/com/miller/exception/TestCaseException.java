@@ -1,7 +1,7 @@
 package com.miller.exception;
 
 
-import com.miller.common.util.ResponseCode;
+import com.miller.common.util.ResponseEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,14 +14,19 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class TestCaseException extends RuntimeException {
-    private ResponseCode code;
+    private int code;
+    private String message;
 
-    public TestCaseException(ResponseCode responseCode) {
-        this.code = responseCode;
+    public TestCaseException() {
     }
 
-    public TestCaseException(Throwable t, ResponseCode responseCode) {
-        super(t);
-        this.code = responseCode;
+    public TestCaseException(ResponseEnum responseEnum) {
+        this(responseEnum.getCode(), responseEnum.getMessage());
+    }
+
+    public TestCaseException(int code, String msg) {
+        super(msg);
+        this.code = code;
+        this.message = msg;
     }
 }

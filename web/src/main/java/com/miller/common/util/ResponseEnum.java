@@ -6,7 +6,7 @@ package com.miller.common.util;
  * @author Miller Shan
  * @since 2024/7/3 13:57:30
  */
-public enum ResponseCode {
+public enum ResponseEnum {
 
     SUCCESS(0, "success"),
 
@@ -19,6 +19,8 @@ public enum ResponseCode {
     REQUEST_ARGS_ERROR(400, "请求参数错误"),
 
     RESOURCES_NOT_EXIST(404, "请求的资源不存在"),
+
+    REQUEST_METHOD_ERROR(405, "请求方法错误"),
 
     ACCOUNT_EXPIRE(401, "登录已过期"),
 
@@ -43,13 +45,13 @@ public enum ResponseCode {
     /**
      * 自定义状态码
      **/
-    private int code;
+    private final int code;
     /**
      * 自定义描述
      **/
-    private String message;
+    private final String message;
 
-    ResponseCode(int code, String message) {
+    ResponseEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }

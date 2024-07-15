@@ -1,26 +1,10 @@
 package com.miller.controller;
 
 import com.miller.service.TestCaseService;
-import com.miller.service.framework.clz.ClassFindService;
-import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.platform.engine.DiscoverySelector;
-import org.junit.platform.engine.discovery.DiscoverySelectors;
-import org.junit.platform.launcher.LauncherDiscoveryRequest;
-import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.platform.engine.discovery.ClassNameFilter.includeClassNamePatterns;
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 测试用例管理接口
@@ -36,8 +20,8 @@ public class TestCaseController {
     @Autowired
     private TestCaseService testCaseService;
 
-    @GetMapping("/runScenarioOfTakeaway")
-    public String runScenarioOfTakeaway(@RequestParam(value = "packageName", required = false) String packageName) {
+    @GetMapping("/runScenario")
+    public String runScenario(@RequestParam(value = "packageName") String packageName) {
         if (null == packageName || StringUtils.isBlank(packageName)) {
             return "packageName is empty.";
         }
