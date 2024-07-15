@@ -32,11 +32,11 @@ public class ResourceUtils {
     /**
      * 读取测试用例数据
      *
-     * @return
+     * @return 测试用例数据
      */
     public static String readTestCaseDataFromResourcesPath(String fileName) {
         // 获取资源的输入流
-        InputStream inputStream = ResourceReader.class.getResourceAsStream("/" + DEFAULT_TESTCASE_DATA_FILE_PATH);
+        InputStream inputStream = ResourceReader.class.getResourceAsStream(File.separator + DEFAULT_TESTCASE_DATA_FILE_PATH);
         if (inputStream == null) {
             throw new IllegalArgumentException("目录不存在, 请在 resources 目录下创建 testdata 目录");
         }
