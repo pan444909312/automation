@@ -1,21 +1,13 @@
 package com.miller.exception;
 
-import com.alibaba.fastjson.JSON;
-
 import com.miller.common.util.Response;
 import com.miller.common.util.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.MethodParameter;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-
-import java.util.LinkedHashMap;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
  * 全局异常处理及返回统一响应体结构
@@ -27,13 +19,25 @@ import java.util.LinkedHashMap;
  * </p>
  *
  * @author Miller Shan
+ * @see ResponseAdvice
  * @since 2024/7/3 15:32:08
  */
-@ResponseBody
-@Slf4j
 // 指定需要扫描的包，否则访问swagger也会被拦截返回统一响应体
-@RestControllerAdvice(basePackages = "com.miller.controller")
-public class GlobalException implements ResponseBodyAdvice {
+//@RestControllerAdvice(basePackages = "com.miller.controller")
+@RestControllerAdvice
+@Slf4j
+public class GlobalException {
+
+    /**
+     * 处理所有不可知的异常
+     */
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public Response exception(Exception exception) {
+        log.error("全局异常信息 exception={}", exception.getMessage(), exception);
+        return new Response(ResponseCode.FAILURE_SERVICE_ERROR.getCode(), ResponseCode.FAILURE_SERVICE_ERROR.getMessage(), exception);
+    }
+
     /**
      * 处理 RuntimeException
      */
@@ -52,51 +56,5 @@ public class GlobalException implements ResponseBodyAdvice {
         ResponseCode code = e.getCode();
         return new Response(code.getCode(), code.getMessage(), e);
     }
-    @Override
-    public boolean supports(MethodParameter methodParameter, Class aClass) {
-        return true;
-    }
 
-    /**
-     * 统一对响应体进行处理
-     */
-    @Override
-    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        // 处理空值
-        if (o == null && StringHttpMessageConverter.class.isAssignableFrom(aClass)) {
-            return null;
-        }
-        if (o instanceof String) {
-            return JSON.toJSONString(new Response(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage(), o));
-        }
-        // 判断响应的Content-Type为JSON格式的body
-        if (MediaType.APPLICATION_JSON.equals(mediaType) || MediaType.APPLICATION_JSON_UTF8.equals(mediaType)) {
-            // 如果响应返回的对象为统一响应体，则直接返回body
-            if (o instanceof Response) {
-                return o;
-            } else {
-                // 对于未处理的异常信息默认会返回SpringBoot的格式，这里先简单的做一些异常状态判断
-                if (o instanceof LinkedHashMap) {
-                    LinkedHashMap linkedHashMap = (LinkedHashMap) o;
-                    String status = String.valueOf(linkedHashMap.get("status"));
-                    // 如果客户端访问了未知地址返回404
-                    if (status.equalsIgnoreCase("404")) {
-                        return new Response(ResponseCode.RESOURCES_NOT_EXIST.getCode(), ResponseCode.RESOURCES_NOT_EXIST.getMessage(), o);
-                    }else if (status.startsWith("4")) {
-                        return new Response(ResponseCode.REQUEST_ARGS_ERROR.getCode(), ResponseCode.REQUEST_ARGS_ERROR.getMessage(), o);
-                    }
-                    else if (status.equalsIgnoreCase("500")) {
-                        return new Response(ResponseCode.FAILURE_SERVICE_ERROR.getCode(), ResponseCode.FAILURE_SERVICE_ERROR.getMessage(), o);
-                    } else {
-                        log.warn("未捕获的SpringBoot异常状态处理.{}", linkedHashMap);
-                    }
-                }
-                // 只有正常返回的结果才会进入这个判断流程，所以返回正常成功的状态码
-                return new Response(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage(), o);
-            }
-        } else {
-            // 非JSON格式直接返回
-            return o;
-        }
-    }
 }
