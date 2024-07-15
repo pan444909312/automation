@@ -26,9 +26,9 @@ public class ERPLoginFlow {
     /**
      * 是否手动登陆，有效期8小时
      */
-    private static boolean isManualLogin = true;
+    private static final boolean isManualLogin = false;
     // 获取手工登陆的token，有效期8小时
-    private static final String token = "d575aca550ffde76bb83b5cc808ea09c";
+    private static final String token = "a0a3a0413b2c02858c4de3b5976adecc";
 
     /**
      * 原生的请求发送工具，包含响应的所有内容
