@@ -9,6 +9,7 @@ import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -178,9 +179,21 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
             executor = JGitUtils.getGitEmail().split("@")[0];
         }
         // 用例名称
-        String classDisplayName = context.getParent().orElseThrow().getParent().orElseThrow().getDisplayName();
-        String methodDisplayName = context.getParent().orElseThrow().getDisplayName();
-
+        String classDisplayName;
+        Optional<DisplayName> optionalClassDisplayName = Optional.ofNullable(context.getRequiredTestClass().getAnnotation(DisplayName.class));
+        if (optionalClassDisplayName.isPresent()) {
+            classDisplayName = optionalClassDisplayName.get().value();
+        } else {
+            classDisplayName = context.getRequiredTestClass().getName();
+        }
+        // 测试方法名称
+        String methodDisplayName;
+        Optional<DisplayName> optionalMethodDisplayName = Optional.ofNullable(context.getRequiredTestMethod().getAnnotation(DisplayName.class));
+        if (optionalMethodDisplayName.isPresent()) {
+            methodDisplayName = optionalMethodDisplayName.get().value();
+        } else {
+            methodDisplayName = context.getRequiredTestMethod().getName();
+        }
 
         // 测试用例执行结果
         // String testResult = TestResultWatcher.testcaseExecuteResult.get(context.getTestClass().orElseThrow().toGenericString());
