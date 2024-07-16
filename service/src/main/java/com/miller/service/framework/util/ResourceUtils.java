@@ -19,7 +19,7 @@ public class ResourceUtils {
 
     private static String DEFAULT_TESTCASE_DATA_FILE_PATH;
 
-    /**
+    /*
      * 默认测试用例数据文件路径
      */
     static {
