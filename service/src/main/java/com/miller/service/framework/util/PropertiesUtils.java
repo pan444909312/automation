@@ -5,6 +5,7 @@ import org.apache.ibatis.io.Resources;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -59,10 +60,10 @@ public class PropertiesUtils {
      */
     public static String getProperty(String key) {
         String property = loadProperties().getProperty(key);
-        if (Objects.isNull(property) || property.isBlank()){
-            log.error("property {} is not found", key);
-            throw new RuntimeException("property " + key + " is not found");
-            }
+        if (Objects.isNull(property) || property.isBlank()) {
+            log.error("property key not found: {}", key);
+            throw new RuntimeException("property key not found: " + key);
+        }
         return property;
     }
 
@@ -71,7 +72,7 @@ public class PropertiesUtils {
         try (InputStream inputStream = Resources.getResourceAsStream(configFilePath); Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
             properties.load(reader);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Unable to load properties from {}", configFilePath);
             throw new RuntimeException("Unable to load properties from " + configFilePath, e);
         }
         return properties;
@@ -92,13 +93,11 @@ public class PropertiesUtils {
                 finalProperties.putAll(currentProperties);
             } catch (IOException ex) {
                 // 处理异常，例如打印错误信息或抛出运行时异常
-                System.err.println("Unable to load properties from file: " + filePath);
-                ex.printStackTrace();
+                log.error("Failed to load properties from file: {}", Arrays.asList(filePaths));
                 // 可以选择抛出异常或继续加载其他文件
-                // throw new RuntimeException("Failed to load properties.", ex);
+                throw new RuntimeException("Failed to load properties.", ex);
             }
         }
-
         return finalProperties;
     }
 }
