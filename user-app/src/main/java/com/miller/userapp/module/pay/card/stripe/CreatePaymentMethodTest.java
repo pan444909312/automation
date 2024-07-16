@@ -1,4 +1,4 @@
-package com.miller.userapp.module.pay.card;
+package com.miller.userapp.module.pay.card.stripe;
 
 import com.alibaba.fastjson.JSON;
 import com.hungrypanda.payserver.api.res.PaymentMethodInfoDTO;
@@ -6,12 +6,12 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.module.pay.card.flow.CreatePaymentMethodFlow;
-import com.miller.userapp.module.pay.card.flow.DetachPaymentMethodFlow;
-import com.miller.userapp.module.pay.card.flow.GetPaymentMethodsFlow;
-import com.miller.userapp.module.pay.card.request.CreatePaymentMethodRequestDTO;
-import com.miller.userapp.module.pay.card.request.DetachPaymentMethodRequestDTO;
-import com.miller.userapp.module.pay.card.response.CreatePaymentMethodResponseDTO;
+import com.miller.userapp.module.pay.card.stripe.flow.CreatePaymentMethodFlow;
+import com.miller.userapp.module.pay.card.stripe.flow.DetachPaymentMethodFlow;
+import com.miller.userapp.module.pay.card.stripe.flow.GetPaymentMethodsFlow;
+import com.miller.userapp.module.pay.card.stripe.request.CreatePaymentMethodRequestDTO;
+import com.miller.userapp.module.pay.card.stripe.request.DetachPaymentMethodRequestDTO;
+import com.miller.userapp.module.pay.card.stripe.response.CreatePaymentMethodResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

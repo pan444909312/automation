@@ -1,4 +1,4 @@
-package com.miller.userapp.module.pay.card.request;
+package com.miller.userapp.module.pay.card.stripe.request;
 
 import com.hungrypanda.app.server.api.req.payment.AddCardRecordReq;
 

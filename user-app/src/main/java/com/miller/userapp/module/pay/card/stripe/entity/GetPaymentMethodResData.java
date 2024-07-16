@@ -1,4 +1,4 @@
-package com.miller.userapp.module.pay.card.entity;
+package com.miller.userapp.module.pay.card.stripe.entity;
 
 import com.hungrypanda.payserver.api.res.PaymentMethodInfoDTO;
 import lombok.Data;

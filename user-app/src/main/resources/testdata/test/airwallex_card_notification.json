@@ -1,0 +1,97 @@
+
+{
+"id": "evt_hkdmqmmncgy2u7f8ssc_7bv7fy",
+"name": "payment_intent.succeeded",
+"account_id": "acct_AxuZtIUDOGyvFrOZNovCBQ",
+"accountId": "acct_AxuZtIUDOGyvFrOZNovCBQ",
+"data": {
+"object": {
+"amount": 1,
+"base_amount": 1,
+"base_currency": "AUD",
+"captured_amount": 1,
+"created_at": "2024-07-16T03:11:58+0000",
+"currency": "AUD",
+"customer_id": "cus_hkdmvnzhtgx1ogyvszg",
+"descriptor": "Cathy Testing",
+"id": "int_hkdmqmmncgy2u7bv7fy",
+"latest_payment_attempt": {
+"amount": 1,
+"authentication_data": {
+"avs_result": "U",
+"cvc_code": "M",
+"cvc_result": "Y",
+"ds_data": {
+"retry_count_for_auth_decline": 0
+},
+"fraud_data": {
+"action": "ACCEPT",
+"risk_factors": [],
+"score": "0"
+}
+},
+"authorization_code": "395469",
+"captured_amount": 0,
+"created_at": "2024-07-16T03:12:03+0000",
+"currency": "AUD",
+"id": "att_hkdmqmmncgy2u7ezkzn_7bv7fy",
+"merchant_order_id": "PDts973093149320937472",
+"payment_consent_id": "cst_hkdmqmmncgy2u7esnr9",
+"payment_intent_id": "int_hkdmqmmncgy2u7bv7fy",
+"payment_method": {
+"card": {
+"bin": "40120003",
+"brand": "visa",
+"card_type": "CREDIT",
+"cvc_check": "pass",
+"expiry_month": "07",
+"expiry_year": "2028",
+"fingerprint": "4Au0CPq/rOjyXB7mAhsAi+oalNw=",
+"is_commercial": false,
+"issuer_country_code": "RU",
+"issuer_name": "VISA PRODUCTION SUPPORT CLIENT BID 1",
+"last4": "0005",
+"name": "",
+"number_type": "PAN"
+},
+"created_at": "2024-07-16T03:12:03+0000",
+"customer_id": "cus_hkdmvnzhtgx1ogyvszg",
+"id": "mtd_hkdmcd947gy2u7cadm3",
+"status": "CREATED",
+"type": "card",
+"updated_at": "2024-07-16T03:12:03+0000"
+},
+"payment_method_options": {
+"card": {}
+},
+"provider_original_response_code": "00",
+"provider_transaction_id": "102110007705_481021386204228",
+"refunded_amount": 0,
+"settle_via": "airwallex",
+"status": "AUTHORIZED",
+"updated_at": "2024-07-16T03:12:04+0000"
+},
+"merchant_order_id": "PDts973093149320937472",
+"metadata": {
+"cardNoMd5": "4f0d5eb54e60eafeada4a0fb37d1f76f"
+},
+"order": {
+"products": [
+{
+"name": "order-PDts973093149320937472",
+"type": "service"
+}
+],
+"type": "service"
+},
+"payment_consent_id": "cst_hkdmqmmncgy2u7esnr9",
+"request_id": "7a8f4c176e154db0848ee29da19c5e4d",
+"status": "SUCCEEDED",
+"updated_at": "2024-07-16T03:12:04+0000"
+}
+},
+"created_at": "2024-07-16T03:12:04+0000",
+"createdAt": "2024-07-16T03:12:04+0000",
+"version": "2022-11-11",
+"sourceId": "int_hkdmqmmncgy2u7bv7fy"
+}

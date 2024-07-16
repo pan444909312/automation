@@ -1,4 +1,4 @@
-package com.miller.userapp.module.pay.card;
+package com.miller.userapp.module.pay.card.stripe;
 
 
 import com.alibaba.fastjson.JSON;
@@ -8,9 +8,9 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.module.pay.card.flow.GetPaymentMethodsFlow;
-import com.miller.userapp.module.pay.card.response.GetPaymentMethodsResponseDTO;
-import com.miller.userapp.module.pay.card.request.GetPaymentMethodsRequestDTO;
+import com.miller.userapp.module.pay.card.stripe.flow.GetPaymentMethodsFlow;
+import com.miller.userapp.module.pay.card.stripe.response.GetPaymentMethodsResponseDTO;
+import com.miller.userapp.module.pay.card.stripe.request.GetPaymentMethodsRequestDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

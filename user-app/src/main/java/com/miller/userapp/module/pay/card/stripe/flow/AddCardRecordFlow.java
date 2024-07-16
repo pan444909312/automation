@@ -1,9 +1,9 @@
-package com.miller.userapp.module.pay.card.flow;
+package com.miller.userapp.module.pay.card.stripe.flow;
 
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.module.pay.card.request.AddCardRecordRequestDTO;
-import com.miller.userapp.module.pay.card.response.AddCardRecordResponseDTO;
+import com.miller.userapp.module.pay.card.stripe.request.AddCardRecordRequestDTO;
+import com.miller.userapp.module.pay.card.stripe.response.AddCardRecordResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 public class AddCardRecordFlow {

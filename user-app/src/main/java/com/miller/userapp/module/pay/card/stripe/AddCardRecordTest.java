@@ -1,13 +1,13 @@
-package com.miller.userapp.module.pay.card;
+package com.miller.userapp.module.pay.card.stripe;
 
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 
 import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.module.pay.card.flow.AddCardRecordFlow;
-import com.miller.userapp.module.pay.card.request.AddCardRecordRequestDTO;
-import com.miller.userapp.module.pay.card.response.AddCardRecordResponseDTO;
+import com.miller.userapp.module.pay.card.stripe.flow.AddCardRecordFlow;
+import com.miller.userapp.module.pay.card.stripe.request.AddCardRecordRequestDTO;
+import com.miller.userapp.module.pay.card.stripe.response.AddCardRecordResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

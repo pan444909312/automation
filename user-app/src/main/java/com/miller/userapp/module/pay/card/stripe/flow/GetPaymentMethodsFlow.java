@@ -1,12 +1,12 @@
-package com.miller.userapp.module.pay.card.flow;
+package com.miller.userapp.module.pay.card.stripe.flow;
 
 import com.hungrypanda.payserver.api.res.PaymentMethodInfoDTO;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.constants.PaymentConstant;
-import com.miller.userapp.module.pay.card.response.GetPaymentMethodsResponseDTO;
-import com.miller.userapp.module.pay.card.request.GetPaymentMethodsRequestDTO;
+import com.miller.userapp.module.pay.card.stripe.response.GetPaymentMethodsResponseDTO;
+import com.miller.userapp.module.pay.card.stripe.request.GetPaymentMethodsRequestDTO;
 import com.miller.userapp.util.RequestUtils;
 
 import java.util.List;

@@ -1,9 +1,9 @@
-package com.miller.userapp.module.pay.card.flow;
+package com.miller.userapp.module.pay.card.stripe.flow;
 
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.module.pay.card.request.DetachPaymentMethodRequestDTO;
-import com.miller.userapp.module.pay.card.response.DetachPaymentMethodResponseDTO;
+import com.miller.userapp.module.pay.card.stripe.request.DetachPaymentMethodRequestDTO;
+import com.miller.userapp.module.pay.card.stripe.response.DetachPaymentMethodResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 public class DetachPaymentMethodFlow {
