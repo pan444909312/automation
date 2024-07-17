@@ -39,7 +39,7 @@ public class TopBannerListGetAlwaysInviteNewScenarioTests {
             List<SingleModuleVo> topBannerList = indexOperateModuleList.getResult().getIndexModuleVo().getTopBannerList();
 
             SingleModuleVo singleModuleVo = topBannerList.stream()
-                    .filter(banner -> banner.getIndexModuleDetailId() == Integer.parseInt(PropertiesUtils.loadProperties().getProperty("user.app.index.banner.index.module.detailId.type18")))
+                    .filter(banner -> banner.getIndexModuleDetailId() == Integer.parseInt(PropertiesUtils.getProperty("user.app.index.banner.index.module.detailId.type18")))
                     .findFirst()
                     .get();
             String type = singleModuleVo.getType().toString();
