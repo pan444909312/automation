@@ -4,8 +4,6 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.pay.card.general.request.GeneralCreateCardRequest;
 import com.miller.userapp.module.pay.card.general.response.GeneralCreateCardResponse;
-import com.miller.userapp.module.pay.card.stripe.request.AddCardRecordRequestDTO;
-import com.miller.userapp.module.pay.card.stripe.response.AddCardRecordResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 public class GeneralCreateCardFlow {

@@ -3,9 +3,7 @@ package com.miller.userapp.module.pay.card.general.flow;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.pay.card.general.request.GeneralDeleteCardRequest;
-import com.miller.userapp.module.pay.card.general.request.GeneralQueryCardListRequest;
 import com.miller.userapp.module.pay.card.general.response.GeneralDeleteCardResponse;
-import com.miller.userapp.module.pay.card.general.response.GeneralQueryCardListResponse;
 import com.miller.userapp.util.RequestUtils;
 
 public class GeneralDeleteCardFlow {
