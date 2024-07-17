@@ -36,6 +36,16 @@
             <groupId>com.miller</groupId>
             <artifactId>common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                </exclusion></exclusions>
+        </dependency>
         <!-- lombok 工具 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
