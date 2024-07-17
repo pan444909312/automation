@@ -29,7 +29,7 @@ public class PayCardRecordSql {
         queryWrapper.last("limit 1");
         return getPayCardRecordMapper().selectOne(queryWrapper);
     }
-    public int deletePayCardRecord(PayCardRecord payCardRecord){
+    public int updatePayCardRecord(PayCardRecord payCardRecord){
         UpdateWrapper<PayCardRecord> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<PayCardRecord> lambda = updateWrapper.lambda();
         lambda.eq(PayCardRecord::getId,payCardRecord.getId());

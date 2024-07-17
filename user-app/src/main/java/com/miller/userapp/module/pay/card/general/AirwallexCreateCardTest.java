@@ -67,19 +67,8 @@ public class AirwallexCreateCardTest {
             e.printStackTrace();
         }
         payCardRecord = payCardRecordSql.getPayCardRecord(cardNumberMd5, userId,"AUS");
-        System.out.println("payCardRecord: "+JSON.toJSON(payCardRecord));
         assertThat(payCardRecord).isNotNull();
     }
-    public static void main(String[] args){
-        String cardNumberMd5 = string2MD5(PaymentConstant.CARDNUMBER_AIRWALLEX.replaceAll(" ",""));
-        String userId = PropertiesUtils.getProperty("user.app.account.of.user002.account.id");
-        PayCardRecordSql sql = new PayCardRecordSql();
-        PayCardRecord payCardRecord1 = sql.getPayCardRecord(cardNumberMd5,userId,"AUS");
-        System.out.println("payCardRecord: "+JSON.toJSON(payCardRecord1));
-        int value = sql.deletePayCardRecord(payCardRecord1);
-        System.out.println("value: "+value);
-    }
-
     @MethodSource("addCardRecordDataProvider4Airwallex")
     @ParameterizedTest
     @DisplayName("正常流程_airwallex添加卡")
@@ -109,8 +98,8 @@ public class AirwallexCreateCardTest {
                assertThat(deleteCardResponse.getSuccess()).isTrue();
            }
         }else if(Objects.nonNull(payCardRecord)){
-            int value =  payCardRecordSql.deletePayCardRecord(payCardRecord);
-            System.out.println("value: "+value);
+            payCardRecordSql.updatePayCardRecord(payCardRecord);
+
         }
     }
 
