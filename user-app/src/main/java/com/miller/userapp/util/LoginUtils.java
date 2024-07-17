@@ -19,8 +19,8 @@ import java.util.Map;
 public class LoginUtils {
 
     private static String loginApi = BusinessConstant.DOMAIN + "/api/user/combine/login";
-    private static String accout = PropertiesUtils.loadProperties().getProperty("user.app.account.of.user.pjx.account");
-    private static String password = PropertiesUtils.loadProperties().getProperty("user.app.account.of.user.pjx.password");
+    private static String accout = PropertiesUtils.getProperty("user.app.account.of.user.pjx.account");
+    private static String password = PropertiesUtils.getProperty("user.app.account.of.user.pjx.password");
 
     private static Map<String,Object> headers = null;
 
