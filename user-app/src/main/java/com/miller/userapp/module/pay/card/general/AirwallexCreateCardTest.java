@@ -85,7 +85,7 @@ public class AirwallexCreateCardTest {
     @ParameterizedTest
     @DisplayName("正常流程_airwallex添加卡")
     void addCardRecord4AirwallexTest(AddCardRecordRequestDTO addCardRecordRequestDTO) {
-        AddCardRecordResponseDTO result = AddCardRecordFlow.addCardRecord(addCardRecordRequestDTO,"AU");
+        AddCardRecordResponseDTO result = AddCardRecordFlow.addCardRecord(addCardRecordRequestDTO);
         assertThat(result.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(result.getSuccess()).isTrue();
     }

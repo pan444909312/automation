@@ -28,7 +28,7 @@ public class AddCardRecordTest {
     @ParameterizedTest
     @DisplayName("正常流程_添加卡")
     void shouldAddCardRecordSuccessfully(AddCardRecordRequestDTO addCardRecordRequestDTO) {
-        AddCardRecordResponseDTO result = AddCardRecordFlow.addCardRecord(addCardRecordRequestDTO,"AU");
+        AddCardRecordResponseDTO result = AddCardRecordFlow.addCardRecord(addCardRecordRequestDTO);
 //        System.out.println("result: "+ JSON.toJSON(result));
         assertThat(result.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(result.getSuccess()).isTrue();
