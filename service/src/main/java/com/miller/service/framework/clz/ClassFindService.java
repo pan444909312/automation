@@ -9,7 +9,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -23,7 +27,10 @@ public class ClassFindService {
     @Resource
     private ConfigurableApplicationContext applicationContext;
 
-    private final Map<String, Class<?>> clzNameList = new HashMap<>(100);
+    // 通过类名称获得类，获得包下类使用
+    private final Map<String, Class<?>> clzNameMap = new HashMap<>(100);
+    // 类所在路径Map, 获得类所在jar 资源使用
+    private final Map<Class<?>, String> clzPathMap = new HashMap<>(100);
 
     public static final ClassLoader clzLoader = ClassFindService.class.getClassLoader();
 
@@ -48,7 +55,9 @@ public class ClassFindService {
 
             String className = urlPath.substring(idx + 1, urlPath.length() - 6).replace('/', '.');
             try {
-                clzNameList.put(className, clzLoader.loadClass(className));
+                Class<?> clz = clzLoader.loadClass(className);
+                clzNameMap.put(className, clz);
+                clzPathMap.put(clz, urlPath.substring(0, idx));
             } catch (Exception e) {
                 log.error("class loader error:{}", className);
             }
@@ -56,9 +65,32 @@ public class ClassFindService {
     }
 
     public List<Class<?>> getPackageClass(String packagePath) {
-        return clzNameList.entrySet().stream()
+        return clzNameMap.entrySet().stream()
                 .filter(v -> v.getKey().startsWith(packagePath))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
+    }
+
+    public InputStream getResourcePathByClz(Class<?> clz, String file) {
+        String clzPath = clzPathMap.get(clz);
+        if (null == clzPath) {
+            log.error("资源获取失败, class path 获得失败, class:{}", clz);
+            return null;
+        }
+
+        try {
+            Iterator<URL> iterator = clzLoader.getResources(file).asIterator();
+            while (iterator.hasNext()) {
+                URL url = iterator.next();
+                String filePath = url.getPath();
+                if (filePath.startsWith(clzPath)) {
+                    log.info("getResourcePathByClz:{}", filePath);
+                    return url.openStream();
+                }
+            }
+        } catch (Exception e) {
+            log.error("资源获取失败: class:{} path:{}", clz, file);
+        }
+        return null;
     }
 }
