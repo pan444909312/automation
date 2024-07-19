@@ -28,9 +28,9 @@ public class ClassFindService {
     private ConfigurableApplicationContext applicationContext;
 
     // 通过类名称获得类，获得包下类使用
-    private final Map<String, Class<?>> clzNameMap = new HashMap<>(100);
+    private static final Map<String, Class<?>> clzNameMap = new HashMap<>(100);
     // 类所在路径Map, 获得类所在jar 资源使用
-    private final Map<Class<?>, String> clzPathMap = new HashMap<>(100);
+    private static final Map<Class<?>, String> clzPathMap = new HashMap<>(100);
 
     public static final ClassLoader clzLoader = ClassFindService.class.getClassLoader();
 
@@ -64,14 +64,18 @@ public class ClassFindService {
         }
     }
 
-    public List<Class<?>> getPackageClass(String packagePath) {
+    public static List<Class<?>> getPackageClass(String packagePath) {
         return clzNameMap.entrySet().stream()
                 .filter(v -> v.getKey().startsWith(packagePath))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
     }
 
-    public InputStream getResourcePathByClz(Class<?> clz, String file) {
+    public static InputStream getResourcePathByClz(Class<?> clz, String file) {
+        if (clzPathMap.isEmpty()) {
+            return clzLoader.getResourceAsStream(file);
+        }
+
         String clzPath = clzPathMap.get(clz);
         if (null == clzPath) {
             log.error("资源获取失败, class path 获得失败, class:{}", clz);
