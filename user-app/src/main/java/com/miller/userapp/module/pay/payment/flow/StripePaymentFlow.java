@@ -9,7 +9,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
-import com.miller.userapp.module.pay.card.flow.GetPaymentMethodsFlow;
+import com.miller.userapp.module.pay.card.stripe.flow.GetPaymentMethodsFlow;
 import com.miller.userapp.module.pay.checkout.flow.PaymentPatternCheckOutFlow;
 import com.miller.userapp.module.pay.checkout.response.PaymentPatternCheckOutResponseDTO;
 import com.miller.userapp.module.pay.payment.request.StripePaymentRequest;
