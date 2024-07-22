@@ -70,8 +70,8 @@ public class AirwallexPayNotificationTest {
     }
 
     static Stream<Arguments> airwallexPayNotificationDataProvider(){
-        String airwallexPayNotificationJSON = ResourceUtils.readFileFromResourcesPath(
-                "testdata"+File.separator+"test"+File.separator + "airwallex_card_notification.json" );
+        String airwallexPayNotificationJSON = new ResourceUtils().readFileFromResourcesPath(AirwallexPayNotificationTest.class,
+                 "airwallex_card_notification.json" );
         PayOrder payOrder = payOrderSql.getPayOrder(orderSn,false);
         AirwallexPayNotificationRequest request = JSON.parseObject(airwallexPayNotificationJSON, AirwallexPayNotificationRequest.class);
         request.getData().getObject().setMerchantOrderId(payOrder.getTradeNo());
@@ -117,8 +117,8 @@ public class AirwallexPayNotificationTest {
     }
     public static void main(String[] args){
 
-        String airwallexPayNotificationJSON = ResourceUtils.readFileFromResourcesPath(
-                "testdata"+File.separator+"test"+File.separator + "airwallex_card_notification.json" );
+        String airwallexPayNotificationJSON = new ResourceUtils().readFileFromResourcesPath(AirwallexPayNotificationTest.class,
+                "airwallex_card_notification.json" );
         System.out.println(airwallexPayNotificationJSON);
         SerializeConfig config = new SerializeConfig();
         config.propertyNamingStrategy = PropertyNamingStrategy.SnakeCase;

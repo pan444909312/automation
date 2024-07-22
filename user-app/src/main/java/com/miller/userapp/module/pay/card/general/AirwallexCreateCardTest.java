@@ -49,7 +49,7 @@ public class AirwallexCreateCardTest {
     public void beforeAll(){
         payCardRecordSql = new PayCardRecordSql();
         cardNumberMd5 = string2MD5(PaymentConstant.CARDNUMBER_AIRWALLEX.replaceAll(" ",""));
-        userId = PropertiesUtils.getProperty("user.app.account.of.user002.account.id");
+        userId = new PropertiesUtils().getProperty(this.getClass(),"user.app.account.of.user002.account.id");
         payCardRecord = payCardRecordSql.getPayCardRecord(cardNumberMd5, userId,"AUS");
     }
     @MethodSource("createCardDataProvider4Airwallex")

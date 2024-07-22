@@ -22,7 +22,7 @@ import static com.miller.userapp.util.RequestUtils.putBodyOfJson;
 
 
 public class ElePayNotificationFlow {
-    private static final String uri = PropertiesUtils.getProperty("pay.server.notification.app.url.domain")+ "/api/pandaPay/v1/notify/payment/elePay/v1";
+    private static final String uri = new PropertiesUtils().getProperty(ElePayNotificationFlow.class,"pay.server.notification.app.url.domain")+ "/api/pandaPay/v1/notify/payment/elePay/v1";
     public static void main(String[] args){
 //        PayOrderSql payOrderSql = new PayOrderSql();
 //        PayOrder payOrder = payOrderSql.getPayOrder("776068920042272387996",false);

@@ -16,7 +16,7 @@ import java.util.TreeMap;
 
 
 public class RonghanPayNotificationFlow {
-    private static final String uri = PropertiesUtils.getProperty("pay.server.notification.app.url.domain")+ "/api/pandaPay/v1/notify/payment/rongHanPay/v1";
+    private static final String uri = new PropertiesUtils().getProperty(RonghanPayNotificationFlow.class,"pay.server.notification.app.url.domain")+ "/api/pandaPay/v1/notify/payment/rongHanPay/v1";
     private static final List<String> NO_SIGN_PARAMETER = Arrays.asList(
             "originTransactionId", "originMerchantTxnId","customsDeclarationAmount",
             "customsDeclarationCurrency","paymentMethod", "walletTypeName","periodValue","tokenExpireTime","sign");

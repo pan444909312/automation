@@ -1,4 +1,4 @@
-package com.miller.userapp.util;
+package com.miller.market.util;
 
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;

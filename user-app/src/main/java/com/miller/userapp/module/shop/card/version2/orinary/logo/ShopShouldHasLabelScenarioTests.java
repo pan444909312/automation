@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-基础信息-店铺角标-展示")
 public class ShopShouldHasLabelScenarioTests {
-    private static final Long shopId = Long.parseLong(PropertiesUtils.getProperty("user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
 
     @BeforeAll

@@ -36,7 +36,7 @@ public class TopBannerListGetShopIdScenarioTests {
                 .getIndexModuleVo()
                 .getTopBannerList()
                 .stream()
-                .filter(banner -> banner.getIndexModuleDetailId() == Integer.parseInt(PropertiesUtils.getProperty("user.app.index.banner.index.module.detailId.type1")))
+                .filter(banner -> banner.getIndexModuleDetailId() == Integer.parseInt(new PropertiesUtils().getProperty(this.getClass(),"user.app.index.banner.index.module.detailId.type1")))
                 .findFirst()
                 .get();
         Map<String, String> map = DeepLinkUtils.extraDeepLinkSearchParams(singleModuleVo.getUrl().toString());

@@ -120,12 +120,11 @@ public class UserLoginFlow {
      * @return 响应体对象
      */
     public static UserLoginResponseDTO loginByDefaultUser() {
-
-        String passWord = PropertiesUtils.getProperty("user.app.account.of.public.password");
-        String userName = PropertiesUtils.getProperty("user.app.account.of.user002.account");
-        String loginType = PropertiesUtils.getProperty("user.app.account.of.public.login.type");
-        String callingCode = PropertiesUtils.getProperty("user.app.account.of.user002.account.callingCode");
-        String distinctId = PropertiesUtils.getProperty("user.app.account.of.user002.account.distinctId");
+        String passWord = new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.password");
+        String userName = new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account");
+        String loginType = new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type");
+        String callingCode = new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode");
+        String distinctId = new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.distinctId");
 
         // 构造请求数据，从数据库查询结果作为请求数据
         UserLoginRequestDTO user = new UserLoginRequestDTO();

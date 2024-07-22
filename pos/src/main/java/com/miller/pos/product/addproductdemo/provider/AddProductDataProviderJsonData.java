@@ -23,7 +23,7 @@ import static java.util.Locale.CHINESE;
 public class AddProductDataProviderJsonData {
     static Faker faker= new Faker(CHINESE);
     static Stream<Arguments> addproduct() {
-        String requestBody = ResourceUtils.readFileFromResourcesPath("/data/product/addproduct/addproduct.json");
+        String requestBody = new ResourceUtils().readFileFromResourcesPath(AddProductDataProviderJsonData.class, "addproduct.json");
         AddProductRequestDTO addProductRequestDTO = JSONUtils.jsonToObjectByJackson(requestBody, AddProductRequestDTO.class);
         addProductRequestDTO.getName().setEnUs("add_prodcutname_test_"+pos_item_id);
         addProductRequestDTO.getName().setZhCn(product_name);

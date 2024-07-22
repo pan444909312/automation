@@ -49,7 +49,7 @@ public class AddKPTests {
     }
 
     static Stream<Arguments> addKPDataProvider() {
-        String requestJson = ResourceUtils.readTestCaseDataFromResourcesPath("AddKP.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AddKPTests.class,"AddKP.json");
         AddKPRequestDTO AddKPRequestDTO = JSONUtils.jsonToObject(requestJson, AddKPRequestDTO.class);
         if (AddKPRequestDTO.getShopId() == null)
             AddKPRequestDTO.setShopId(AddMerchantTests.addMerchantResponseMap.get("addMerchantResponseDTO").getData().getShopId());

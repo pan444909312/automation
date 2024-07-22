@@ -42,7 +42,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @DisplayName("用户-登录")
 public class UserLoginTests {
     private static String token;
-
     private static UserMapper userMapper;
     private static DeviceLoginInfoMapper deviceLoginInfoMapper;
 
@@ -86,9 +85,9 @@ public class UserLoginTests {
      * @return Stream<UserLoginRequestDTO>
      */
     static Stream<Arguments> loginDataDataProvider() {
-        String userId = PropertiesUtils.getProperty("user.app.account.of.user002.account.id");
-        String passWord = PropertiesUtils.getProperty("user.app.account.of.public.password");
-        String loginType = PropertiesUtils.getProperty("user.app.account.of.public.login.type");
+        String userId = new PropertiesUtils().getProperty(UserLoginTests.class, "user.app.account.of.user002.account.id");
+        String passWord = new PropertiesUtils().getProperty(UserLoginTests.class, "user.app.account.of.public.password");
+        String loginType = new PropertiesUtils().getProperty(UserLoginTests.class, "user.app.account.of.public.login.type");
 
         // 构造查询条件，从数据库查询数据
         LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper<>();
