@@ -13,9 +13,9 @@ class ResourceUtilsTest {
     @Test
     @DisplayName("Read file content from resource file path")
     void testReadFileFromResourcesPath() {
-        String content = ResourceUtils.readFileFromResourcesPath("application.properties");
+        String content = new ResourceUtils().readFileFromResourcesPath(this.getClass(), "application.properties");
         assertNotNull(content);
-        content = ResourceUtils.readFileFromResourcesPath("test.json");
+        content = new ResourceUtils().readFileFromResourcesPath(this.getClass(), "test.json");
         assertTrue(JSONUtils.isJSONFormat(content));
     }
 
@@ -24,9 +24,9 @@ class ResourceUtilsTest {
     @DisplayName("Read test case data from resource file path")
     void testReadTestCaseDataFromResourcesPath() {
         // load default properties
-        Properties defalutProperties = PropertiesUtils.loadConfig("application.properties");
+        Properties defalutProperties = new PropertiesUtils().loadConfig(this.getClass(), "application.properties");
         // load test case data
-        String content = ResourceUtils.readTestCaseDataFromResourcesPath("Person.json");
+        String content = new ResourceUtils().readTestCaseDataFromResourcesPath(this.getClass(), "Person.json");
         assertTrue(content.contains(defalutProperties.getProperty("spring.profiles.active")));
     }
 
