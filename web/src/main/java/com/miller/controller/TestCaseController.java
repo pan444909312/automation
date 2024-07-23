@@ -31,9 +31,9 @@ public class TestCaseController {
         if (null == packageName || StringUtils.isBlank(packageName)) {
             return "packageName is empty.";
         }
-        Long testsFoundCount = testCaseService.runTestCase(packageName);
+        String runTestCaseULID = testCaseService.runTestCase(packageName);
 
-        return String.valueOf(testsFoundCount);
+        return String.valueOf(runTestCaseULID);
     }
 
     /**
