@@ -16,5 +16,5 @@ public interface TestCaseService extends IService<TestCaseEntity> {
      * @param packageName 包名
      * @return 测试用例数量
      */
-    Long runTestCase(String packageName);
+    String runTestCase(String packageName);
 }
