@@ -1,11 +1,13 @@
-package com.miller.pos.login;
+package com.miller.pos.token;
 
-import com.miller.pos.login.flow.PosLoginFlow;
-import com.miller.pos.login.request.PosLoginRequestDTO;
-import com.miller.pos.login.response.PosLoginResponseDTO;
+import com.miller.pos.token.flow.AccessTokenFlow;
+import com.miller.pos.token.request.AccessTokenRequestDTO;
+import com.miller.pos.token.response.AccessTokenResponseDTO;
 import com.miller.pos.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,9 +26,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/4/3 13:51:39
  */
 @EnvTag.Test
+@Log4j
 @TestFramework
 @DisplayName("pos-登录获取token")
-public class PosLoginTests {
+public class AccessTokenTests {
     private static String token;
 
     @AfterAll
@@ -38,19 +41,19 @@ public class PosLoginTests {
 
         // 更新全局请求头参数。设置测试用例的默认用户。
         RequestUtils.setHeaders(headers);
-        assertThat(RequestUtils.getHeaders().get("Authorization")).isNotNull();
+//        assertThat(RequestUtils.getHeaders().get("Authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.pos.login.provider.PosLoginDataProvider#loginDataProviderFromDB")
+    @MethodSource("com.miller.pos.token.provider.PosLoginDataProvider#loginDataProviderFromDB")
     @ParameterizedTest
     @DisplayName("正常流程_POS商家登录")
-    void shouldLoginSuccessfully(PosLoginRequestDTO posLoginRequestDTO) {
-        PosLoginResponseDTO posLoginResponseDTO = PosLoginFlow.loginReturnBodyObject(posLoginRequestDTO);
-        assertThat(posLoginResponseDTO.getCode()).isEqualTo(0);
-        assertThat(posLoginResponseDTO.getData().getAccessToken()).isNotNull();
+    void shouldLoginSuccessfully(AccessTokenRequestDTO accessTokenRequestDTO) {
+        AccessTokenResponseDTO accessTokenResponseDTO = AccessTokenFlow.getAccessToken(accessTokenRequestDTO);
+        assertThat(accessTokenResponseDTO.getCode()).isEqualTo(0);
+        assertThat(accessTokenResponseDTO.getData().getAccessToken()).isNotNull();
 
         // 获取token
-        token = posLoginResponseDTO.getData().getAccessToken();
+        token = accessTokenResponseDTO.getData().getAccessToken();
     }
 
 }

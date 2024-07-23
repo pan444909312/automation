@@ -3,6 +3,7 @@ package com.miller.pos.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miller.pos.constants.BusinessConstant;
+import com.miller.pos.enums.ContentTypeEnum;
 import com.miller.service.framework.util.MapUtils;
 
 import java.util.HashMap;
@@ -16,11 +17,40 @@ import java.util.Objects;
  * @version 1.0
  * @since 2023/12/14 21:08:37
  */
-public class RequestUtils {
+public class RequestUtils extends com.miller.service.framework.http.HttpUtils {
     /**
      * 请求体为json格式对应的请求头
      */
     private static Map<String, Object> headers = null;
+
+    private static String token = null;
+
+    public static Map<String, Object> sendPostRequest(String uri, Object body) {
+        return sendPostRequest(
+                uri,
+                null,
+                ContentTypeEnum.JSON.toHeader(token),
+                RequestUtils.putBodyOfJson(body),
+                null
+        );
+    }
+
+    public static <T> T sendPostRequest(String uri, Object body, Class<T> responseClass) {
+        return sendPostRequestReturnJavaObject(
+                uri,
+                null,
+                ContentTypeEnum.JSON.toHeader(token),
+                RequestUtils.putBodyOfJson(body),
+                null,
+                responseClass
+        );
+    }
+
+
+    public static void setToken(String token){
+        RequestUtils.token = token;
+    }
+
 
     /**
      * 公共请求头

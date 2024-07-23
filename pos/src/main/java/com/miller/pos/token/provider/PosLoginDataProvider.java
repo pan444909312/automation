@@ -1,7 +1,7 @@
-package com.miller.pos.login.provider;
+package com.miller.pos.token.provider;
 
 
-import com.miller.pos.login.request.PosLoginRequestDTO;
+import com.miller.pos.token.request.AccessTokenRequestDTO;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
@@ -23,7 +23,7 @@ public class PosLoginDataProvider {
      * 登陆测试用例数据提供者，数据来自于DB
      */
     static Stream<Arguments> loginDataProviderFromDB() {
-        PosLoginRequestDTO user1 = new PosLoginRequestDTO();
+        AccessTokenRequestDTO user1 = new AccessTokenRequestDTO();
         user1.setAppKey(app_key);
         user1.setAppSecret(app_secret);
         return Stream.of(

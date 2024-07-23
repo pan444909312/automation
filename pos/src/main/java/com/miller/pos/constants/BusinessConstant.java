@@ -57,6 +57,5 @@ public class BusinessConstant {
     // 默认值为请求头需要的名称，方便以后修改，不要修改默认值。
     public static String authorization = "lPWgzWw5aXp3iX0RCSN+vsUV/Li2K7vzxTAvEutqw+c=";
 
-
     public static String menuId ="4159092";
 }
