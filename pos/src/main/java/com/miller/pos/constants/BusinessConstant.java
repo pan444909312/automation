@@ -13,7 +13,7 @@ import static java.util.Locale.CHINESE;
  * @since 2023/12/14 20:27:34
  */
 public class BusinessConstant {
-    static Faker faker= new Faker(CHINESE);
+    static Faker faker = new Faker(CHINESE);
     public static String product_name = faker.food().fruit();
     public static String pos_item_id = faker.number().digits(6);
 
@@ -32,8 +32,8 @@ public class BusinessConstant {
 
     public static String app_key = "6000001298850019";
     public static String app_secret = "fb907620b07f4cb29656c44dd0401c12";
-    public static String pos_no="18768196431" ;
-    public  static String shop_id="651600159";
+    public static String pos_no = "18768196431";
+    public static String shop_id = "651600159";
 
     /**
      * 纬度
@@ -57,5 +57,5 @@ public class BusinessConstant {
     // 默认值为请求头需要的名称，方便以后修改，不要修改默认值。
     public static String authorization = "lPWgzWw5aXp3iX0RCSN+vsUV/Li2K7vzxTAvEutqw+c=";
 
-    public static String menuId ="4159092";
+    public static String menuId = "4162846";
 }

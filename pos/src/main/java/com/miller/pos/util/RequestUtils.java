@@ -25,6 +25,15 @@ public class RequestUtils extends com.miller.service.framework.http.HttpUtils {
 
     private static String token = null;
 
+    public static <T> T sendGetRequest(String uri, Map<String,Object> params,Class<T> t) {
+        return sendGetRequestReturnJavaObject(
+                uri,
+                params,
+                ContentTypeEnum.JSON.toHeader(token),
+                null,
+                t
+        );
+    }
     public static Map<String, Object> sendPostRequest(String uri, Object body) {
         return sendPostRequest(
                 uri,
@@ -37,6 +46,17 @@ public class RequestUtils extends com.miller.service.framework.http.HttpUtils {
 
     public static <T> T sendPostRequest(String uri, Object body, Class<T> responseClass) {
         return sendPostRequestReturnJavaObject(
+                uri,
+                null,
+                ContentTypeEnum.JSON.toHeader(token),
+                RequestUtils.putBodyOfJson(body),
+                null,
+                responseClass
+        );
+    }
+
+    public static <T> T sendPutRequest(String uri, Object body, Class<T> responseClass) {
+        return sendPutRequestReturnJavaObject(
                 uri,
                 null,
                 ContentTypeEnum.JSON.toHeader(token),

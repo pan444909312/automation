@@ -1,9 +1,8 @@
-package com.miller.pos.menu.add;
+package com.miller.pos.menu.edit;
 
-import com.alibaba.fastjson.JSONObject;
-import com.miller.pos.menu.add.flow.AddMenuFlow;
-import com.miller.pos.menu.add.request.AddMenuRequestDTO;
-import com.miller.pos.menu.add.response.AddMenuResponseDTO;
+import com.miller.pos.menu.edit.flow.EditMenuFlow;
+import com.miller.pos.menu.edit.request.EditMenuRequestDTO;
+import com.miller.pos.menu.edit.response.EditMenuResponseDTO;
 import com.miller.pos.token.flow.AccessTokenFlow;
 import com.miller.pos.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
@@ -18,8 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@DisplayName("pos-Menu-新增菜单")
-public class AddMenuTests {
+@DisplayName("pos-Menu-编辑菜单")
+public class EditMenuTests {
 
 
     @BeforeAll
@@ -29,17 +28,15 @@ public class AddMenuTests {
     }
 
 
-    @MethodSource("com.miller.pos.menu.add.provider.AddMenuDataProvider#addMenuDataProvider")
+    @MethodSource("com.miller.pos.menu.edit.provider.EditMenuDataProvider#editMenuDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_新增菜单")
-    void addMenuSuccessfully(AddMenuRequestDTO addMenuRequestDTO) {
-        AddMenuResponseDTO responseDTO = AddMenuFlow.addMenu(addMenuRequestDTO);
+    @DisplayName("正常流程_编辑菜单")
+    void editMenuSuccessfully(EditMenuRequestDTO editMenuRequestDTO) {
+        EditMenuResponseDTO responseDTO = EditMenuFlow.editMenu(editMenuRequestDTO);
 
         // 验证响应结果
         final Integer code = responseDTO.getCode();
-        final Long id = responseDTO.getData().getId();
         Assertions.assertThat(code == 0);
-        Assertions.assertThat(id > 0L);
     }
 
 }

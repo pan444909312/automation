@@ -1,9 +1,10 @@
-package com.miller.pos.menu.add;
+package com.miller.pos.menu.list;
 
-import com.alibaba.fastjson.JSONObject;
 import com.miller.pos.menu.add.flow.AddMenuFlow;
 import com.miller.pos.menu.add.request.AddMenuRequestDTO;
 import com.miller.pos.menu.add.response.AddMenuResponseDTO;
+import com.miller.pos.menu.list.flow.ListMenuFlow;
+import com.miller.pos.menu.list.response.ListMenuResponseDTO;
 import com.miller.pos.token.flow.AccessTokenFlow;
 import com.miller.pos.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
@@ -12,14 +13,14 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.params.provider.MethodSource;
 
 @EnvTag.Test
 @TestFramework
-@DisplayName("pos-Menu-新增菜单")
-public class AddMenuTests {
+@DisplayName("pos-Menu-菜单列表")
+public class ListMenuTests {
 
 
     @BeforeAll
@@ -29,17 +30,13 @@ public class AddMenuTests {
     }
 
 
-    @MethodSource("com.miller.pos.menu.add.provider.AddMenuDataProvider#addMenuDataProvider")
-    @ParameterizedTest
-    @DisplayName("正常流程_新增菜单")
-    void addMenuSuccessfully(AddMenuRequestDTO addMenuRequestDTO) {
-        AddMenuResponseDTO responseDTO = AddMenuFlow.addMenu(addMenuRequestDTO);
-
+    @Test
+    @DisplayName("正常流程_菜单列表")
+    void listMenuTestCases() {
+        ListMenuResponseDTO responseDTO = ListMenuFlow.listMenu(false);
         // 验证响应结果
         final Integer code = responseDTO.getCode();
-        final Long id = responseDTO.getData().getId();
         Assertions.assertThat(code == 0);
-        Assertions.assertThat(id > 0L);
     }
 
 }
