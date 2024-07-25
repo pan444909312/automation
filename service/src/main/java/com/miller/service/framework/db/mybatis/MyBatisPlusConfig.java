@@ -2,6 +2,7 @@ package com.miller.service.framework.db.mybatis;
 
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
@@ -63,12 +64,14 @@ public class MyBatisPlusConfig {
         configuration.setLogImpl(Slf4jImpl.class);
         // 扫描mapper接口所在包
         configuration.addMappers(packageName);
-        // 构建mybatis-plus需要的globalconfig
+        // 构建mybatis-plus需要的 globalconfig
         globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);
         //此参数会自动生成实现baseMapper的基础方法映射
         globalConfig.setSqlInjector(new DefaultSqlInjector());
         //设置id生成器
         globalConfig.setIdentifierGenerator(new DefaultIdentifierGenerator());
+        globalConfig.getDbConfig().setIdType(IdType.AUTO);
+
         // 设置超类mapper
         globalConfig.setSuperMapperClass(BaseMapper.class);
         // 设置数据源
