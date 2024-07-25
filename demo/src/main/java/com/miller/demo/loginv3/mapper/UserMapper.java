@@ -21,8 +21,6 @@ public interface UserMapper {
      * 查询多条记录数。{@link Results @Results}注解用于声明返回结果中数据库的字段名称
      * 与Java Bean中的属性名对应关系。如果数据库中的属性名称和Java Bean对象中相同，
      * 则不需要通过{@link Result @Result}注解声明，反之亦然。
-     *
-     * @return 列表 {@literal List<Calculator}
      */
     @Select("select user_id, name, email, password, status, create_time, update_time from user;")
     List<LoginV2RequestDTO> getUserList();
