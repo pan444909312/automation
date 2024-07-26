@@ -40,9 +40,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestFramework
 @DisplayName("登录V4-使用MyBatisPlus")
 public class LoginV4Tests {
-    private static final String mySqlUrl = PropertiesUtils.getProperty("spring.datasource.url");
-    private static final String userName = PropertiesUtils.getProperty("spring.datasource.username");
-    private static final String passWord = PropertiesUtils.getProperty("spring.datasource.password");
+    private static final String mySqlUrl = new PropertiesUtils().getProperty(LoginV4Tests.class, "spring.datasource.url");
+    private static final String userName = new PropertiesUtils().getProperty(LoginV4Tests.class, "spring.datasource.username");
+    private static final String passWord = new PropertiesUtils().getProperty(LoginV4Tests.class, "spring.datasource.password");
     private static SqlSession sqlSession;
     private static UserMapper userMapper;
 
@@ -94,7 +94,7 @@ public class LoginV4Tests {
         List<LoginV2RequestDTO> userList = userMapper.selectList(queryWrapper); // 使用 MyBatisPlus 进行查询
 
         // 对密码进行二次处理
-        userList.forEach((user) -> user.setPassword(PropertiesUtils.getProperty("demo.user.password.default")));
+        userList.forEach((user) -> user.setPassword(new PropertiesUtils().getProperty(this.getClass(),"demo.user.password.default")));
 
         return Stream.of(
                 arguments(
@@ -114,11 +114,11 @@ public class LoginV4Tests {
         // 使用 MyBatis 进行数据库的操作
         LoginV2RequestDTO queryFilter = new LoginV2RequestDTO();
         // 使用配置文件中的配置获取用户ID
-        queryFilter.setUserId(PropertiesUtils.getProperty("demo.user.id.default"));    // 筛选出用户ID为 Miller 的用户
+        queryFilter.setUserId(new PropertiesUtils().getProperty(this.getClass(),"demo.user.id.default"));    // 筛选出用户ID为 Miller 的用户
         List<LoginV2RequestDTO> loginV2RequestDTOS = userMapper.selectByCondition(queryFilter);
 
         // 对密码进行二次处理
-        loginV2RequestDTOS.forEach((user) -> user.setPassword(PropertiesUtils.getProperty("demo.user.password.default")));
+        loginV2RequestDTOS.forEach((user) -> user.setPassword(new PropertiesUtils().getProperty(this.getClass(),"demo.user.password.default")));
 
         return Stream.of(
                 arguments(

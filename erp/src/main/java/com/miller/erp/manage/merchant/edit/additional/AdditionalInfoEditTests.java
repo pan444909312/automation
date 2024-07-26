@@ -49,7 +49,7 @@ public class AdditionalInfoEditTests {
     }
 
     static Stream<Arguments> additionalInfoEditDataProvider() {
-        String requestJson = ResourceUtils.readTestCaseDataFromResourcesPath("AdditionalInfoEdit.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AdditionalInfoEditTests.class,"AdditionalInfoEdit.json");
         AdditionalInfoEditRequestDTO additionalInfoEditRequestDTO = JSONUtils.jsonToObject(requestJson, AdditionalInfoEditRequestDTO.class);
         if (additionalInfoEditRequestDTO.getShopId() == null)
             additionalInfoEditRequestDTO.setShopId(AddMerchantTests.addMerchantResponseMap.get("addMerchantResponseDTO").getData().getShopId());

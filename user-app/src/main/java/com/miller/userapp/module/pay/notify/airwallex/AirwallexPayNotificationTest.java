@@ -3,14 +3,10 @@ package com.miller.userapp.module.pay.notify.airwallex;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.PropertyNamingStrategy;
 import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.hungrypanda.app.server.api.req.payment.AliWalletInstallReq;
 import com.hungrypanda.app.server.api.req.payment.AppWalletInstallReq;
 import com.hungrypanda.app.server.api.req.payment.WechatWalletInstallReq;
-import com.hungrypanda.payserver.api.enums.PayChannelEnum;
-import com.hungrypanda.payserver.biz.payment.elepay.model.ElePayNotificationModel;
 import com.hungrypanda.payserver.entity.PayOrder;
-import com.miller.common.util.MD5Util;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
@@ -22,12 +18,9 @@ import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.module.pay.notify.airwallex.flow.AirwallexPayNotificationFlow;
 import com.miller.userapp.module.pay.notify.airwallex.request.AirwallexPayNotificationRequest;
 import com.miller.userapp.module.pay.notify.airwallex.request.Card;
-import com.miller.userapp.module.pay.notify.ele.flow.ElePayNotificationFlow;
-import com.miller.userapp.module.pay.notify.ele.request.ElePayNotificationRequest;
 import com.miller.userapp.module.pay.payment.flow.DefaultPaymentFlow;
 import com.miller.userapp.module.pay.payment.request.DefaultPaymentRequest;
 import com.miller.userapp.module.pay.payment.response.DefaultPaymentResponse;
-import io.elepay.client.charge.pojo.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -35,14 +28,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.nio.file.Paths;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -84,8 +70,8 @@ public class AirwallexPayNotificationTest {
     }
 
     static Stream<Arguments> airwallexPayNotificationDataProvider(){
-        String airwallexPayNotificationJSON = ResourceUtils.readFileFromResourcesPath(
-                "testdata"+File.separator+"test"+File.separator + "airwallex_card_notification.json" );
+        String airwallexPayNotificationJSON = new ResourceUtils().readFileFromResourcesPath(AirwallexPayNotificationTest.class,
+                 "airwallex_card_notification.json" );
         PayOrder payOrder = payOrderSql.getPayOrder(orderSn,false);
         AirwallexPayNotificationRequest request = JSON.parseObject(airwallexPayNotificationJSON, AirwallexPayNotificationRequest.class);
         request.getData().getObject().setMerchantOrderId(payOrder.getTradeNo());
@@ -115,7 +101,6 @@ public class AirwallexPayNotificationTest {
         appWalletInstallReq.setAliWalletInstallReq(aliWalletInstallReq);
         appWalletInstallReq.setWechatWalletInstallReq(wechatWalletInstallReq);
         defaultPaymentRequest.setAppWalletInstallReq(appWalletInstallReq);
-//        defaultPaymentRequest.setBlackBox("7GPU1709693602737GdlJURplc");
         defaultPaymentRequest.setFloatingAmount(0);
         defaultPaymentRequest.setIsSidePayment("0");
         defaultPaymentRequest.setRoutingFloatingType(0);
@@ -125,9 +110,6 @@ public class AirwallexPayNotificationTest {
         defaultPaymentRequest.setRoutingPayChannel("airwallexPay");
         defaultPaymentRequest.setCountryCode("AU");
         defaultPaymentRequest.setRoutingFloatingRate(1.0);
-//        defaultPaymentRequest.setPaymentCardToken();
-        CreateOrderResponseDTO createOrderResponseDTO = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class);
-        String orderSn = createOrderResponseDTO.getResult().getOrderSn();
         defaultPaymentRequest.setOrderSn(orderSn);
         return Stream.of(
                 Arguments.of(defaultPaymentRequest,"AU","132") //apple pay  135为card
@@ -135,8 +117,8 @@ public class AirwallexPayNotificationTest {
     }
     public static void main(String[] args){
 
-        String airwallexPayNotificationJSON = ResourceUtils.readFileFromResourcesPath(
-                "testdata"+File.separator+"test"+File.separator + "airwallex_card_notification.json" );
+        String airwallexPayNotificationJSON = new ResourceUtils().readFileFromResourcesPath(AirwallexPayNotificationTest.class,
+                "airwallex_card_notification.json" );
         System.out.println(airwallexPayNotificationJSON);
         SerializeConfig config = new SerializeConfig();
         config.propertyNamingStrategy = PropertyNamingStrategy.SnakeCase;

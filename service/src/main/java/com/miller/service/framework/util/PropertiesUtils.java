@@ -1,10 +1,11 @@
 package com.miller.service.framework.util;
 
+import com.miller.service.framework.clz.ClassFindService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.io.Resources;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -17,7 +18,22 @@ import java.util.Properties;
  */
 @Slf4j
 public class PropertiesUtils {
-    private static Properties mergeProperties = null;
+    /**
+     * 根据当前类获取当前类模块下的资源文件中的属性值
+     *
+     * @param clazz 当前类必须要传，否则在多模块 SpringBoot 环境下获取的永远都是运行jar的资源文件中的属性值
+     * @param key   属性key
+     * @return 属性key对应的value值
+     */
+    public String getProperty(Class<?> clazz, String key) {
+        String property = loadProperties(clazz).getProperty(key);
+        if (Objects.isNull(property) || property.isBlank()) {
+            log.error("property key not found: {}", key);
+            throw new RuntimeException("property key not found: " + key);
+        }
+        return property;
+    }
+
 
     /**
      * 加载配置文件，默认会加载“application.properties”配置文件，
@@ -30,20 +46,16 @@ public class PropertiesUtils {
      *
      * @return {@link Properties}
      */
-    public static synchronized Properties loadProperties() {
-        if (mergeProperties != null) {
-            return mergeProperties;
-        } else {
-            mergeProperties = new Properties();
-        }
+    private synchronized Properties loadProperties(Class<?> clazz) {
+        Properties mergeProperties = new Properties();
         // 首先加载默认的配置文件
-        Properties defalutProperties = loadConfig("application.properties");
+        Properties defalutProperties = loadConfig(clazz, "application.properties");
         mergeProperties.putAll(defalutProperties);
 
         String property = defalutProperties.getProperty("spring.profiles.active");
         if (null != property && !property.isEmpty()) {
             // 添加环境配置文件
-            Properties properties2 = loadConfig("application-" + property + ".properties");
+            Properties properties2 = loadConfig(clazz, "application-" + property + ".properties");
 
             // 将当前文件的属性添加到最终的属性集合中这将覆盖之前加载的同名属性
             mergeProperties.putAll(properties2);
@@ -51,33 +63,30 @@ public class PropertiesUtils {
         return mergeProperties;
     }
 
-    /**
-     * 获取配置文件中的属性
-     *
-     * @param key 属性key
-     * @return 属性key对应的value值
-     */
-    public static String getProperty(String key) {
-        String property = loadProperties().getProperty(key);
-        if (Objects.isNull(property) || property.isBlank()){
-            log.error("property {} is not found", key);
-            throw new RuntimeException("property " + key + " is not found");
-            }
-        return property;
-    }
 
-    static Properties loadConfig(String configFilePath) {
+    /**
+     * 加载配置文件
+     *
+     * @param clazz          当前类必须要传，否则在多模块 SpringBoot 环境下获取的永远都是运行jar的资源文件中的属性值
+     * @param configFilePath 配置文件路径
+     * @return {@link Properties}
+     */
+    public Properties loadConfig(Class<?> clazz, String configFilePath) {
         Properties properties = new Properties();
-        try (InputStream inputStream = Resources.getResourceAsStream(configFilePath); Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+        // 传统的方式，默认加载的是当前类所在的包路径下的配置文件
+//        try (InputStream inputStream = Resources.getResourceAsStream(configFilePath); Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+        // 使用 ClassFindService 根据类获取类所在的配置文件
+        try (InputStream inputStream = ClassFindService.getResourcePathByClz(clazz, configFilePath);
+             Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
             properties.load(reader);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Unable to load properties from {}", configFilePath);
             throw new RuntimeException("Unable to load properties from " + configFilePath, e);
         }
         return properties;
     }
 
-    public static Properties loadAndMergeProperties(String... filePaths) {
+    public Properties loadAndMergeProperties(String... filePaths) {
         Properties finalProperties = new Properties();
 
         // 按顺序加载每个文件
@@ -92,13 +101,11 @@ public class PropertiesUtils {
                 finalProperties.putAll(currentProperties);
             } catch (IOException ex) {
                 // 处理异常，例如打印错误信息或抛出运行时异常
-                System.err.println("Unable to load properties from file: " + filePath);
-                ex.printStackTrace();
+                log.error("Failed to load properties from file: {}", Arrays.asList(filePaths));
                 // 可以选择抛出异常或继续加载其他文件
-                // throw new RuntimeException("Failed to load properties.", ex);
+                throw new RuntimeException("Failed to load properties.", ex);
             }
         }
-
         return finalProperties;
     }
 }

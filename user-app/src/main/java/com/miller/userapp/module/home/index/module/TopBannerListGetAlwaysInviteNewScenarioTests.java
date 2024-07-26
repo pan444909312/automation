@@ -39,17 +39,16 @@ public class TopBannerListGetAlwaysInviteNewScenarioTests {
             List<SingleModuleVo> topBannerList = indexOperateModuleList.getResult().getIndexModuleVo().getTopBannerList();
 
             SingleModuleVo singleModuleVo = topBannerList.stream()
-                    .filter(banner -> banner.getIndexModuleDetailId() == Integer.parseInt(PropertiesUtils.loadProperties().getProperty("user.app.index.banner.index.module.detailId.type18")))
+                    .filter(banner -> banner.getIndexModuleDetailId() == Integer.parseInt(new PropertiesUtils().getProperty(this.getClass(),"user.app.index.banner.index.module.detailId.type18")))
                     .findFirst()
                     .get();
-            String type = singleModuleVo.getType().toString();
 
             Map<String, String> map = DeepLinkUtils.extraDeepLinkSearchParams(singleModuleVo.getUrl());
             String url = URLDecoder.decode(map.get("url"), "UTF-8");
 
             assertThat(indexOperateModuleList.getSuccess()).isTrue();
             assert indexOperateModuleList.getResultCode() == ResultCode.SUCCESS.getCode();
-            assert type.equals("18");
+            assert singleModuleVo.getType() == 18;
             assert UrlUtils.isValidUrl(url, "https://f2e-pkg-leaflet-test.hungrypanda.cn/alwaysInviteNew", "");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

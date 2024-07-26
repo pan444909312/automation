@@ -10,51 +10,56 @@ import org.apache.ibatis.session.SqlSession;
 import java.util.Objects;
 
 public class PandaDB {
-    private static DBUtils dbUtils ;
+    private static DBUtils dbUtils;
     private static SqlSession sqlSession;
     private static SqlSession sqlSessionPay;
-//    private static final String USERNAME = "panda_test";
+    //    private static final String USERNAME = "panda_test";
 //    private static final String PASSWORD = "Pan$te19*";
 //    private static final String URL="jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com/panda_test?useUnicode=true&characterEncoding=utf8&useSSL=false&tinyInt1isBit=false&transformedBitIsBoolean=false&serverTimezone=Asia/Shanghai";
-    private static final String URL = PropertiesUtils.getProperty("spring.datasource.url");
-    private static final String USERNAME = PropertiesUtils.getProperty("spring.datasource.username");
-    private static final String PASSWORD = PropertiesUtils.getProperty("spring.datasource.password");
-    private static final String PayURL = PropertiesUtils.getProperty("spring.datasource.pay.url");
-    private PandaDB(){
+    private static final String URL = new PropertiesUtils().getProperty(PandaDB.class, "spring.datasource.url");
+    private static final String USERNAME = new PropertiesUtils().getProperty(PandaDB.class, "spring.datasource.username");
+    private static final String PASSWORD = new PropertiesUtils().getProperty(PandaDB.class, "spring.datasource.password");
+    private static final String PayURL = new PropertiesUtils().getProperty(PandaDB.class, "spring.datasource.pay.url");
+
+    private PandaDB() {
 
     }
-    public static DBUtils getDBInstance () {
-        if (Objects.isNull(dbUtils)){
-            dbUtils = new DBUtils(URL,USERNAME,PASSWORD);
+
+    public static DBUtils getDBInstance() {
+        if (Objects.isNull(dbUtils)) {
+            dbUtils = new DBUtils(URL, USERNAME, PASSWORD);
             return dbUtils;
         }
         return dbUtils;
     }
-    public static SqlSession getSqlSession () {
-        if (Objects.isNull(sqlSession)){
+
+    public static SqlSession getSqlSession() {
+        if (Objects.isNull(sqlSession)) {
             MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
             sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(URL, USERNAME, PASSWORD).getDataSource());
             return sqlSession;
         }
         return sqlSession;
     }
-    public static SqlSession getSqlSession (Class<?> cls) {
+
+    public static SqlSession getSqlSession(Class<?> cls) {
         String source = cls.getAnnotation(DataName.class).value();
         MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
-        switch (source){
+        switch (source) {
             case "pay":
                 if (Objects.isNull(sqlSessionPay)) {
                     sqlSessionPay = myBatisPlusConfig.getSqlSession(new DataSourceConfig(PayURL, USERNAME, PASSWORD).getDataSource());
                 }
                 return sqlSessionPay;
             default:
-                if (Objects.isNull(sqlSession)){
+                if (Objects.isNull(sqlSession)) {
                     sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(URL, USERNAME, PASSWORD).getDataSource());
                 }
                 return sqlSession;
         }
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
 //        ShopExtraInfoMapper shopExtraInfoMapper = PandaDB.getSqlSession().getMapper(ShopExtraInfoMapper.class);
 //        QueryWrapper<ShopExtraInfoEntity> queryWrapper = new QueryWrapper<>();
 //        LambdaQueryWrapper<ShopExtraInfoEntity> lambda = queryWrapper.lambda();

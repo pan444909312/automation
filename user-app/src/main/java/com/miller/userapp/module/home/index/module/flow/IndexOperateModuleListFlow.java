@@ -20,7 +20,7 @@ public class IndexOperateModuleListFlow {
     public IndexOperateModuleListResponseDTO getIndexOperateModuleList() {
 
 
-        IndexOperateModuleListResponseDTO indexOperateModuleListResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(url, null, LoginUtils.getCommonHeader(), "{}", null, IndexOperateModuleListResponseDTO.class);
+        IndexOperateModuleListResponseDTO indexOperateModuleListResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(url, null, LoginUtils.getHeader(), "{}", null, IndexOperateModuleListResponseDTO.class);
 
         return indexOperateModuleListResponseDTO;
     }

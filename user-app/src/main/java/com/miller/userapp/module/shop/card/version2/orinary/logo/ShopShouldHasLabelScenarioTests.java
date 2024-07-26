@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 测试用例_首页店铺流-商卡(中文)-普通店铺配送商卡-基础信息-店铺角标-展示
+ * 商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标
  *
  * @author Miller Shan
  * @version 1.0
@@ -31,9 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-基础信息-店铺角标-展示")
+@DisplayName("商卡(中文)")
 public class ShopShouldHasLabelScenarioTests {
-    private static final Long shopId = Long.parseLong(PropertiesUtils.getProperty("user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
 
     @BeforeAll
@@ -45,7 +45,7 @@ public class ShopShouldHasLabelScenarioTests {
 
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_店铺角标-展示")
+    @DisplayName("普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 

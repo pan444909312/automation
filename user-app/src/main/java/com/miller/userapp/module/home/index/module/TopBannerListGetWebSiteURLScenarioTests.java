@@ -37,16 +37,13 @@ public class TopBannerListGetWebSiteURLScenarioTests {
         List<SingleModuleVo> topBannerList = indexOperateModuleList.getResult().getIndexModuleVo().getTopBannerList();
 
         SingleModuleVo singleModuleVo = topBannerList.stream()
-                .filter(banner -> banner.getIndexModuleDetailId() == Integer.parseInt(PropertiesUtils.loadProperties().getProperty("user.app.index.banner.index.module.detailId.type2")))
+                .filter(banner -> banner.getIndexModuleDetailId() == Integer.parseInt(new PropertiesUtils().getProperty(this.getClass(),"user.app.index.banner.index.module.detailId.type2")))
                 .findFirst()
                 .get();
-        String type = singleModuleVo.getType().toString();
-
-        Map<String, String> map = DeepLinkUtils.extraDeepLinkSearchParams(singleModuleVo.getUrl());
 
         assertThat(indexOperateModuleList.getSuccess()).isTrue();
         assert indexOperateModuleList.getResultCode() == ResultCode.SUCCESS.getCode();
-        assert type.equals("2");
+        assert singleModuleVo.getType() == 2;
 
     }
 

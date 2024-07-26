@@ -50,7 +50,7 @@ public class DeliveryLoginTests {
     @MethodSource("loginDataProviderForOrder")
     @ParameterizedTest
     @DisplayName("正常流程_骑手登录")
-    void shouldLoginSuccessfully(DeliveryLoginRequestDTO deliveryLoginRequestDTO) {
+    void  shouldLoginSuccessfully(DeliveryLoginRequestDTO deliveryLoginRequestDTO) {
         DeliveryLoginResponseDTO deliveryLoginResponseDTO = DeliveryLoginFlow.loginReturnBodyObject(deliveryLoginRequestDTO);
 
         assertThat(deliveryLoginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
