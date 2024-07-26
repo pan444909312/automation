@@ -30,7 +30,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-商品折扣-外卖可用")
+@DisplayName("商卡(中文)")
 public class ShopShouldHasTakeoutDiscountScenarioTests {
 
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
@@ -51,7 +51,7 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_优惠标签-商品折扣-外卖可用")
+    @DisplayName("普通店铺配送商卡-优惠标签-商品折扣-首页-商卡二期:商品折扣28-外卖可用")
     void shouldExistTakeoutDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);

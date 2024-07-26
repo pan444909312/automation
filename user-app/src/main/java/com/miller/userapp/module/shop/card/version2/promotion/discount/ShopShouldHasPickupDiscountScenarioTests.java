@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-商品折扣-自取可用")
+@DisplayName("商卡(中文)")
 public class ShopShouldHasPickupDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
@@ -59,7 +59,7 @@ public class ShopShouldHasPickupDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_优惠标签-商品折扣-自取可用")
+    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_自取可用_首页-商卡二期:商品折扣28-自取可用")
     void shouldExistPickupDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
