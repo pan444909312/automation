@@ -21,8 +21,8 @@ import java.util.Map;
 public class LoginUtils {
 
     private static String loginApi = BusinessConstant.DOMAIN + "/api/user/combine/login";
-    private static String accout =new PropertiesUtils().getProperty(LoginUtils.class,"user.app.account.of.user.pjx.account");
-    private static String password = new PropertiesUtils().getProperty(LoginUtils.class,"user.app.account.of.user.pjx.password");
+    private static String accout = new PropertiesUtils().getProperty(LoginUtils.class, "user.app.account.of.user.pjx.account");
+    private static String password = new PropertiesUtils().getProperty(LoginUtils.class, "user.app.account.of.user.pjx.password");
 
     private static Map<String, Object> headers = null;
 
@@ -42,12 +42,12 @@ public class LoginUtils {
     public static String loginReturnToken(Integer newUserStatus) {
 //        String passwordDecode = MD5Util.string2MD5(password);
 //        String loginParam = "{\"areaCode\":\"86\",\"account\":\"" + accout +"\",\"password\":\"" + passwordDecode + "\",\"cityName\":\"杭州市\",\"type\":2,\"distinctId\":\"AFF39007-ADD4-4B00-8B5D-4E24906115F1\"}";
-        String loginParam = "";
+        String loginParam;
         if (newUserStatus == 0) {
-            loginParam = new ResourceUtils().readTestCaseDataFromResourcesPath(UserLoginRequestDTO.class,"LoginDataNewUser.json");
+            loginParam = new ResourceUtils().readTestCaseDataFromResourcesPath(UserLoginRequestDTO.class, "LoginDataNewUser.json");
 
         } else {
-            loginParam = new ResourceUtils().readTestCaseDataFromResourcesPath(UserLoginRequestDTO.class,"LoginDataOldUser.json");
+            loginParam = new ResourceUtils().readTestCaseDataFromResourcesPath(UserLoginRequestDTO.class, "LoginDataOldUser.json");
         }
 
         UserLoginResponseDTO userLoginResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(loginApi, null, getHeader(), loginParam, null, UserLoginResponseDTO.class);
@@ -75,6 +75,29 @@ public class LoginUtils {
         if (StringUtils.isEmpty(headers.get("authorization"))) {
             headers.put("Authorization", loginReturnToken(newUserStatus));
         }
+        return headers;
+    }
+
+    /**
+     * 通过账号密码登录并返回header信息
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    public static Map<String, Object> getHeaderWithAuth(String username, String password) {
+        headers = getHeader();
+        UserLoginRequestDTO user = new UserLoginRequestDTO();
+        user.setAreaCode("86");
+        user.setAccount(username);
+        user.setPassword(MD5Util.string2MD5(password));
+        user.setType(2);
+        user.setDistinctId("AFF39007-ADD4-4B00-8B5D-4E24906115F1");
+
+        UserLoginResponseDTO userLoginResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(loginApi, null, getHeader(), user, null, UserLoginResponseDTO.class);
+        //无则插入，有则更新
+        headers.put("Authorization", userLoginResponseDTO.getResult().getAccessToken());
+
         return headers;
     }
 
