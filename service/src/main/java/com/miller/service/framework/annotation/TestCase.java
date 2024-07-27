@@ -1,5 +1,10 @@
 package com.miller.service.framework.annotation;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * 自动化测试用例管理
  *
@@ -16,6 +21,8 @@ package com.miller.service.framework.annotation;
  * @version 1.0
  * @since 2023/12/05 20:08:26
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE})
 public @interface TestCase {
 
     /**
