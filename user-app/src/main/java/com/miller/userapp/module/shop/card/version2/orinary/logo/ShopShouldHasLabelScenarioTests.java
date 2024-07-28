@@ -55,17 +55,20 @@ public class ShopShouldHasLabelScenarioTests {
         var shopList = ShopListFlow.getShopList(shopListRequestDTO);
 
         var interfaceResponse = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().map(BaseShopIndexVO::getNewShopLabelUrl).orElseThrow();
+                .filter(item -> item.getShopId().equals(shopId)).findFirst()
+                // 获取接口返回的字段
+                .map(BaseShopIndexVO::getNewShopLabelUrl).orElseThrow();
 
-        // Then. 校验接口返回的字段 JSON.result.shopList[x].newShopLabelUrl
-        // 与数据库字段: hp_shop_search_middle.new_channel_label_url（大于8.15版本返回字段为 new_channel_label_url）
-        var newChannelLabelUrl = shopSearchMiddleMapper.selectOne(
+        // Then. 校验接口返回的字段与数据库字段匹配, JSON.result.shopList[x].newShopLabelUrl = hp_shop_search_middle.new_channel_label_url（大于8.15版本返回字段为 new_channel_label_url）
+        var databaseResponse = shopSearchMiddleMapper.selectOne(
                 // 查询条件，店铺ID
-                new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId)).getNewChannelLabelUrl();
+                new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId))
+                // 获取数据库字段值
+                .getNewChannelLabelUrl();
         interfaceResponse = interfaceResponse.substring(interfaceResponse.lastIndexOf("/") + 1);
-        newChannelLabelUrl = newChannelLabelUrl.substring(newChannelLabelUrl.lastIndexOf("/") + 1);
+        databaseResponse = databaseResponse.substring(databaseResponse.lastIndexOf("/") + 1);
 
-        assertThat(interfaceResponse).isEqualTo(newChannelLabelUrl);
+        assertThat(interfaceResponse).isEqualTo(databaseResponse);
     }
 
     /**

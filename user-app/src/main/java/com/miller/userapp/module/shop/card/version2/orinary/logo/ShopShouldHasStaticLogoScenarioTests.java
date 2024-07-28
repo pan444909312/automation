@@ -62,11 +62,14 @@ public class ShopShouldHasStaticLogoScenarioTests {
         // When
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         String shopLogoOfInterfaceResponse = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().map(BaseShopIndexVO::getShopLogo).orElseThrow();
-
+                .filter(item -> item.getShopId().equals(shopId)).findFirst()
+                // 获取接口的字段值
+                .map(BaseShopIndexVO::getShopLogo).orElseThrow();
+        // 查询 ERP 后台的配置信息
         String shopLogoOfERPInterfaceResponse = QueryShopInfoFlow.queryShopInfoByShopId(shopId).getData().getOperationInfo().getImages()
                 .stream().filter(item -> item.getFileSource().name().equalsIgnoreCase("SHOP_LOGO"))
                 .findFirst()
+                // 获取接口的字段值
                 .map(ImageModuleDTO::getUrl).orElseThrow();
 
         // Then. 校验接口返回的字段与ERP后台配置接口返回的字段值相同: JSON.result.shopList[x].shopLogo
@@ -75,9 +78,13 @@ public class ShopShouldHasStaticLogoScenarioTests {
         assertThat(shopLogoOfInterfaceResponseFilaName).isNotNull().isEqualTo(shopLogoOfERPInterfaceResponseFilaName);
 
         // 校验数据库字段: hp_shop_search_middle.shop_logo = shop.shop_logo
-        assertThat(shopMapper.selectById(shopId).getShopLogo()).isEqualTo(shopSearchMiddleMapper.selectOne(
+        var databaseResponseOfShopLogo = shopMapper.selectById(shopId).getShopLogo();
+        var databaseResponseOfSearchMiddleShopLogo = shopSearchMiddleMapper.selectOne(
                 // 查询条件，店铺ID
-                new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId)).getShopLogo());
+                new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId))
+                // 获取数据库的字段值
+                .getShopLogo();
+        assertThat(databaseResponseOfShopLogo).isEqualTo(databaseResponseOfSearchMiddleShopLogo);
     }
 
     /**
@@ -86,7 +93,7 @@ public class ShopShouldHasStaticLogoScenarioTests {
     static Stream<Arguments> staticLogoDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false); // 开发代码 Bug，没有对 null 进行判断，应该默认给 false
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
