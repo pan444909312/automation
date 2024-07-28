@@ -5,6 +5,7 @@ import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.TestCase;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.util.PropertiesUtils;
@@ -28,6 +29,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:02
  */
+@TestCase(testCaseID = "01J3VJ3JN37RWFDN1HG4498PDQ", name = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:商品折扣28-外卖可用")
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
@@ -62,15 +64,14 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
         ShopSearchMiddleEntity shopDetail = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 
 
-
         String sql = "SELECT * FROM hp_product_discount where shop_id = ? and discount_sn = ?";
-        Map<String, Object> stringObjectMap = dbUtils.queryOneObjectReturnMap(sql,shopId,discountSn);
+        Map<String, Object> stringObjectMap = dbUtils.queryOneObjectReturnMap(sql, shopId, discountSn);
 
 //        double discountValue = (double)productDiscountEntity.getDiscountValue();
-        Integer discountValueInteger = (Integer)stringObjectMap.get("discount_value");
+        Integer discountValueInteger = (Integer) stringObjectMap.get("discount_value");
         Double discountValue = discountValueInteger.doubleValue();
 
-        assert shopDetail.getDiscountExc() == discountValue/10;
+        assert shopDetail.getDiscountExc() == discountValue / 10;
         assert pickup.getType() == 28;
         assert pickup.getShowContent().equals(shopDetail.getDiscountTagExc());
 
