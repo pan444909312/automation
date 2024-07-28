@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.orinary.logo.response;
+package com.miller.userapp.module.shop.card.version2.baseinfo.response;
 
 import com.hungrypanda.app.server.vo.index.ShopListVO;
 import com.miller.userapp.dto.BasicResponseDTO;

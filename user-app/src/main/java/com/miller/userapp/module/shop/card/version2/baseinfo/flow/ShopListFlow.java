@@ -1,9 +1,9 @@
-package com.miller.userapp.module.shop.card.version2.orinary.logo.flow;
+package com.miller.userapp.module.shop.card.version2.baseinfo.flow;
 
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.module.shop.card.version2.orinary.logo.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.orinary.logo.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.baseinfo.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.baseinfo.response.ShopListResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**

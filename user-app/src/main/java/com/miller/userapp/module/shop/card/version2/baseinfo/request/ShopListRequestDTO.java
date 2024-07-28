@@ -1,7 +1,6 @@
-package com.miller.userapp.module.shop.card.version2.orinary.logo.request;
+package com.miller.userapp.module.shop.card.version2.baseinfo.request;
 
 import com.hungrypanda.app.server.api.req.shop.ShopListReq;
-import lombok.Data;
 
 /**
  * 请求对象_首页店铺流
