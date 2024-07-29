@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import java.util.Objects;
 
+@Deprecated
 public class PandaDB {
     private static DBUtils dbUtils;
     private static SqlSession sqlSession;
@@ -36,7 +37,7 @@ public class PandaDB {
     public static SqlSession getSqlSession() {
         if (Objects.isNull(sqlSession)) {
             MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
-            sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(URL, USERNAME, PASSWORD).getDataSource());
+            sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(URL, USERNAME, PASSWORD).getDataSource(), PandaDB.class);
             return sqlSession;
         }
         return sqlSession;
@@ -48,12 +49,12 @@ public class PandaDB {
         switch (source) {
             case "pay":
                 if (Objects.isNull(sqlSessionPay)) {
-                    sqlSessionPay = myBatisPlusConfig.getSqlSession(new DataSourceConfig(PayURL, USERNAME, PASSWORD).getDataSource());
+                    sqlSessionPay = myBatisPlusConfig.getSqlSession(new DataSourceConfig(PayURL, USERNAME, PASSWORD).getDataSource(), PandaDB.class);
                 }
                 return sqlSessionPay;
             default:
                 if (Objects.isNull(sqlSession)) {
-                    sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(URL, USERNAME, PASSWORD).getDataSource());
+                    sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(URL, USERNAME, PASSWORD).getDataSource(), PandaDB.class);
                 }
                 return sqlSession;
         }

@@ -7,6 +7,7 @@ import com.miller.demo.loginv2.flow.LoginV2Flow;
 import com.miller.demo.loginv2.request.LoginV2RequestDTO;
 import com.miller.demo.loginv2.response.LoginV2ResponseDTO;
 import com.miller.demo.loginv4.mapper.UserMapper;
+import com.miller.demo.util.DBUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
@@ -39,17 +40,13 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @EnvTag.Test
 @TestFramework
 @DisplayName("登录V4-使用MyBatisPlus")
-public class LoginV4Tests {
-    private static final String mySqlUrl = new PropertiesUtils().getProperty(LoginV4Tests.class, "spring.datasource.url");
-    private static final String userName = new PropertiesUtils().getProperty(LoginV4Tests.class, "spring.datasource.username");
-    private static final String passWord = new PropertiesUtils().getProperty(LoginV4Tests.class, "spring.datasource.password");
+public class LoginV4ScenarioTests {
     private static SqlSession sqlSession;
     private static UserMapper userMapper;
 
     @BeforeAll
     public static void beforeAll() throws IOException {
-        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
-        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
+        sqlSession = DBUtils.getDBOfDemo();
         userMapper = sqlSession.getMapper(UserMapper.class);
 
     }

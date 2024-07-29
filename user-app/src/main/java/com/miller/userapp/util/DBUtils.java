@@ -26,7 +26,7 @@ public class DBUtils {
         var userName = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.username");
         var passWord = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.password");
         var myBatisPlusConfig = new MyBatisPlusConfig();
-        sqlSessionOfPandaTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
+        sqlSessionOfPandaTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), DBUtils.class);
         return sqlSessionOfPandaTest;
     }
 }

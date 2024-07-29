@@ -51,7 +51,7 @@ public class MyBatisPlusConfig {
      * @param dataSource 数据源
      * @return SqlSession
      */
-    public SqlSession getSqlSession(DataSource dataSource) {
+    public SqlSession getSqlSession(DataSource dataSource, Class clazz) {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         // 这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
         configuration = new MybatisConfiguration();
@@ -73,7 +73,7 @@ public class MyBatisPlusConfig {
         environment = new Environment("test", new JdbcTransactionFactory(), dataSource);
         configuration.setEnvironment(environment);
         try {
-            this.registryMapperXml(configuration, "mapper");
+            this.registryMapperXml(configuration, "mapper", clazz);
         } catch (IOException e) {
             log.error("解析mapper.xml文件失败", e);
             throw new RuntimeException(e);
@@ -112,7 +112,7 @@ public class MyBatisPlusConfig {
      * @param configuration MybatisConfiguration
      * @param classPath     文件路径
      */
-    private void registryMapperXml(MybatisConfiguration configuration, String classPath) throws IOException {
+    private void registryMapperXml(MybatisConfiguration configuration, String classPath, Class clazz) throws IOException {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> mapper = contextClassLoader.getResources(classPath);
         while (mapper.hasMoreElements()) {
