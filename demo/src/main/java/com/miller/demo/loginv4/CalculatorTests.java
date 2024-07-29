@@ -46,6 +46,6 @@ public class CalculatorTests {
         calculatorEntity.setSecondNumber(2.0);
         calculatorEntity.setResult(calculatorEntity.getFirstNumber() + calculatorEntity.getSecondNumber());
         int insert = calculatorMapper.insert(calculatorEntity);
-        System.out.println("insert result: " + insert);
+        System.out.println("insert result: " + insert + " --> " + calculatorEntity.getId());
     }
 }

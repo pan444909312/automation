@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
@@ -62,14 +61,10 @@ public class MyBatisPlusConfig {
         configuration.setUseGeneratedKeys(true);
         // 配置日志实现
         configuration.setLogImpl(Slf4jImpl.class);
-        // 扫描mapper接口所在包
-        configuration.addMappers(packageName);
         // 构建mybatis-plus需要的 globalconfig
         globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);
         //此参数会自动生成实现baseMapper的基础方法映射
         globalConfig.setSqlInjector(new DefaultSqlInjector());
-        //设置id生成器
-        globalConfig.setIdentifierGenerator(new DefaultIdentifierGenerator());
         globalConfig.getDbConfig().setIdType(IdType.AUTO);
 
         // 设置超类mapper
@@ -85,6 +80,10 @@ public class MyBatisPlusConfig {
         }
         // 这是初始化连接器，如mybatis-plus的分页插件
         configuration.addInterceptor(initInterceptor());
+
+        // 扫描mapper接口所在包
+        configuration.addMappers(packageName);
+
         //构建sqlSessionFactory
         sqlSessionFactory = builder.build(configuration);
         // 创建session, 并且设置自动提交，这样不用 sqlSession.commit();
