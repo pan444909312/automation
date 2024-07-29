@@ -22,7 +22,6 @@ public class TestCaseTest {
      *
      * @param testInfo
      */
-    @TestCase(testCaseID = "01HG0EQ62QKSVS8QARV1G12Q7P", name = "自动化用例名称")
     @RepeatedTest(value = 3)
     void test(TestInfo testInfo) {
         System.out.println(testInfo.getTestMethod().hashCode());    // -261110400 但是也会存在包名/类名/方法名/称变了 hashcode值就变了

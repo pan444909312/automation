@@ -2,15 +2,16 @@ package com.miller.demo.loginv4;
 
 import com.miller.demo.dto.external.CalculatorEntity;
 import com.miller.demo.loginv4.mapper.CalculatorMapper;
+import com.miller.demo.util.DBUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
-import com.miller.service.framework.util.PropertiesUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 测试数据
@@ -24,16 +25,12 @@ import java.io.IOException;
 @TestFramework
 @DisplayName("计算器测试")
 public class CalculatorTests {
-    private static final String mySqlUrl = new PropertiesUtils().getProperty(CalculatorTests.class, "spring.datasource.url");
-    private static final String userName = new PropertiesUtils().getProperty(CalculatorTests.class, "spring.datasource.username");
-    private static final String passWord = new PropertiesUtils().getProperty(CalculatorTests.class, "spring.datasource.password");
     private static SqlSession sqlSession;
     private static CalculatorMapper calculatorMapper;
 
     @BeforeAll
     public static void beforeAll() throws IOException {
-        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
-        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
+        sqlSession = DBUtils.getDBOfDemo();
         calculatorMapper = sqlSession.getMapper(CalculatorMapper.class);
     }
 
@@ -45,6 +42,7 @@ public class CalculatorTests {
         calculatorEntity.setSecondNumber(3.0);
         calculatorEntity.setResult(calculatorEntity.getFirstNumber() + calculatorEntity.getSecondNumber());
         int insert = calculatorMapper.insert(calculatorEntity);
+        assertThat(insert).isGreaterThan(0);
         System.out.println("insert result: " + insert + " --> " + calculatorEntity.getId());
     }
 }
