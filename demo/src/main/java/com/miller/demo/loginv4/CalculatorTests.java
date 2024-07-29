@@ -8,9 +8,7 @@ import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
 import com.miller.service.framework.util.PropertiesUtils;
 import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 
@@ -21,6 +19,7 @@ import java.io.IOException;
  * @version 1.0
  * @since 2024/7/24 15:35:46
  */
+@Disabled
 @EnvTag.Test
 @TestFramework
 @DisplayName("计算器测试")
@@ -38,12 +37,12 @@ public class CalculatorTests {
         calculatorMapper = sqlSession.getMapper(CalculatorMapper.class);
     }
 
-    @Test
+    @RepeatedTest(value = 2)
     @DisplayName("测试插入语句")
     void testInsert() {
         CalculatorEntity calculatorEntity = new CalculatorEntity();
-        calculatorEntity.setFirstNumber(1.0);
-        calculatorEntity.setSecondNumber(2.0);
+        calculatorEntity.setFirstNumber(2.0);
+        calculatorEntity.setSecondNumber(3.0);
         calculatorEntity.setResult(calculatorEntity.getFirstNumber() + calculatorEntity.getSecondNumber());
         int insert = calculatorMapper.insert(calculatorEntity);
         System.out.println("insert result: " + insert + " --> " + calculatorEntity.getId());

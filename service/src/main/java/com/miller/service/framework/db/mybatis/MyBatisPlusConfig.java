@@ -81,7 +81,7 @@ public class MyBatisPlusConfig {
         // 这是初始化连接器，如mybatis-plus的分页插件
         configuration.addInterceptor(initInterceptor());
 
-        // 扫描mapper接口所在包
+        // 扫描mapper接口所在包。这行代码需要放在其他配置之后，设置后就会扫描 mapper 其他配置就不生效了
         configuration.addMappers(packageName);
 
         //构建sqlSessionFactory
