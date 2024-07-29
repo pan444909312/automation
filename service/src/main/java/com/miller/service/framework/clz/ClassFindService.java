@@ -73,7 +73,7 @@ public class ClassFindService {
      * @param fileName 文件名称
      * @return 资源的流
      */
-    public static InputStream getResourcePathByClz(Class<?> clazz, String fileName) {
+    public static URL getResourcePathByClz(Class<?> clazz, String fileName) {
         String clzPath = null;
         // 如果为空则不是 Spring 环境，则获取本地资源路径
         if (clzPathMap.isEmpty()) {
@@ -100,7 +100,7 @@ public class ClassFindService {
                 String filePath = url.getPath();
                 if (filePath.startsWith(clzPath)) {
                     log.info("getResourcePathByClz:{}", filePath);
-                    return url.openStream();
+                    return url;
                 }
             }
         } catch (Exception e) {
