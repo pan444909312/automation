@@ -1,39 +1,30 @@
-package com.miller.userapp.module.shop.card.version2.promotion.discount;
+package com.miller.userapp.module.shop.card.version2.promotion.shopNewUser;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
-import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
-import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
-import com.miller.userapp.mapper.shop.ProductDiscountMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.baseinfo.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.baseinfo.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.baseinfo.response.ShopListResponseDTO;
-import com.panda.erp.server.dal.dataobject.product.ProductDiscountEntity;
-import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Map;
 import java.util.stream.Stream;
 
 /**
  * @author panjuxiang
- * @since 2024/7/25 15:06
+ * @since 2024/7/30 13:43
  */
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
-public class ShopShouldHasNoDiscountScenarioTests {
+public class ShopShouldHasNoShopNewUserDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.blank.compare.shopId"));
 
     @BeforeAll
@@ -43,16 +34,16 @@ public class ShopShouldHasNoDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-不展示")
-    void shouldNotExistDiscount(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡_优惠标签_新客爆品_首页-商卡二期：新客爆品25-不展示")
+    void shouldNotExistShopNewUserDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
-        //遍历店铺的ShopPromoteList列表，如果没有type=28的优惠类型则返回true
+        //遍历店铺的ShopPromoteList列表，如果没有type=25的优惠类型则返回true
         boolean flag = shopIndexVO.getShopPromoteList().stream().
-                noneMatch(item -> item.getType() == ShopPromoteEnum.INDEX_PRODUCT_DISCOUNT.getType());
+                noneMatch(item -> item.getType() == ShopPromoteEnum.INDEX_MIN_NEW_USER_SKU.getType());
 
         assert flag;
 

@@ -1,6 +1,7 @@
 package com.miller.userapp.module.shop.card.version2.promotion.discount;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
@@ -56,17 +57,18 @@ public class ShopShouldHasPickupDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_自取可用_首页-商卡二期:商品折扣28-自取可用")
+    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-自取可用")
     void shouldExistPickupDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
-        ShopPromoteVO pickup = shopIndexVO.getShopPromoteList().stream().filter(item -> item.getShowContent().contains("自取")).findFirst().get();
+        ShopPromoteVO pickup = shopIndexVO.getShopPromoteList().stream().
+                filter(item -> item.getShowContent().contains("自取")).findFirst().get();
 //        目前ProductDiscountEntity类的字段和数据库对不上，调用Mapper的方法会报错，改使用jdbcTemplate
 //        ProductDiscountEntity productDiscountEntity = productDiscountMapper.selectOne(new QueryWrapper<ProductDiscountEntity>().eq("shop_id", shopId).eq("discount_sn",discountSn));
-        ShopSearchMiddleEntity shopDetail = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 
 //        List<ProductDiscountEntity> prouctDiscountDiscountValue = productDiscountMapper.getProductDiscountDiscountValue(shopId.toString());
 
@@ -79,9 +81,9 @@ public class ShopShouldHasPickupDiscountScenarioTests {
         Double discountValue = discountValueInteger.doubleValue();
 
 
-        assert shopDetail.getTakeSelfDiscountExc() == discountValue/10;
-        assert pickup.getType() == 28;
-        assert pickup.getShowContent().equals(shopDetail.getTakeSelfDiscountTagExc());
+        assert shopSearchMiddleEntity.getTakeSelfDiscountExc() == discountValue/10;
+        assert pickup.getType() == ShopPromoteEnum.INDEX_PRODUCT_DISCOUNT.getType();
+        assert pickup.getShowContent().equals(shopSearchMiddleEntity.getTakeSelfDiscountTagExc());
 
     }
 
