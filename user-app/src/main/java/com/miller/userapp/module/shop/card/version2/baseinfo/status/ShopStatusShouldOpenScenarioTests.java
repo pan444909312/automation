@@ -31,7 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/07/28 17:17:39
  */
-@Scenario(scenarioID = "01J3VJ3JM9NZNW9BH5JEBWCN2H", scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-营业")
+@Scenario(scenarioID = "01J46NM6T95SRMR0NK5V3MG17E", scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-营业"
+        , developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
@@ -62,8 +63,8 @@ public class ShopStatusShouldOpenScenarioTests {
 
         // Then. 校验接口返回的字段与数据库字段匹配,
         var databaseResponse = shopSearchMiddleMapper.selectOne(
-                // 查询条件，店铺ID
-                new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId))
+                        // 查询条件，店铺ID
+                        new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId))
                 // 获取数据库字段值
                 .getShopStatus();
 
