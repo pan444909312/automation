@@ -22,6 +22,8 @@ import com.miller.userapp.module.pay.card.general.response.GeneralQueryCardListR
 import com.miller.userapp.module.pay.card.stripe.flow.AddCardRecordFlow;
 import com.miller.userapp.module.pay.card.stripe.request.AddCardRecordRequestDTO;
 import com.miller.userapp.module.pay.card.stripe.response.AddCardRecordResponseDTO;
+import com.miller.userapp.util.DBUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -47,7 +49,8 @@ public class AirwallexCreateCardTest {
 
     @BeforeAll
     public void beforeAll(){
-        payCardRecordSql = new PayCardRecordSql();
+        SqlSession sqlPaySession = DBUtils.getDBOfPandaPayTest();
+        payCardRecordSql = new PayCardRecordSql(sqlPaySession);
         cardNumberMd5 = string2MD5(PaymentConstant.CARDNUMBER_AIRWALLEX.replaceAll(" ",""));
         userId = new PropertiesUtils().getProperty(this.getClass(),"user.app.account.of.user002.account.id");
         payCardRecord = payCardRecordSql.getPayCardRecord(cardNumberMd5, userId,"AUS");

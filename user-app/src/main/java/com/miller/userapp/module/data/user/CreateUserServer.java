@@ -32,6 +32,7 @@ import com.miller.userapp.module.pay.card.stripe.request.GetPaymentMethodsReques
 import com.miller.userapp.module.person.address.create.flow.AddressEditFlow;
 import com.miller.userapp.module.person.address.create.request.AddressRequestDTO;
 import com.miller.userapp.module.person.address.create.response.AddressResponseDTO;
+import com.miller.userapp.util.DBUtils;
 import com.panda.delivery.app.server.common.util.PasswordUtil;
 import com.panda.delivery.app.server.common.util.RedisUtil;
 import io.swagger.models.auth.In;
@@ -74,7 +75,7 @@ public class CreateUserServer {
         redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9",32,60L);
     }
     public static  void main(String[] args){
-        CreateUserServer createUserServer = new CreateUserServer(PandaDB.getSqlSession());
+        CreateUserServer createUserServer = new CreateUserServer(DBUtils.getDBOfPandaTest());
         createUserServer.initSql();
         String result = createUserServer.autoCreateUser(true,null);
         System.out.println("result is : "+result);

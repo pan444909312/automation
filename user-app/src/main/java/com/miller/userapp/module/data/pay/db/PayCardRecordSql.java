@@ -16,6 +16,9 @@ public class PayCardRecordSql {
     public  PayCardRecordSql(){
         this.sqlSession = PandaDB.getSqlSession(this.getClass());
     }
+    public PayCardRecordSql(SqlSession sqlSession){
+        this.sqlSession = sqlSession;
+    }
     public PayCardRecordMapper getPayCardRecordMapper(){
         return sqlSession.getMapper(PayCardRecordMapper.class);
     }
