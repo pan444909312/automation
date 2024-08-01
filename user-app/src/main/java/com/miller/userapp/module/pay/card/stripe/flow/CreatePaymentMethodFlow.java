@@ -6,6 +6,9 @@ import com.miller.userapp.module.pay.card.stripe.request.CreatePaymentMethodRequ
 import com.miller.userapp.module.pay.card.stripe.response.CreatePaymentMethodResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
+import java.util.Map;
+import java.util.Objects;
+
 public class CreatePaymentMethodFlow {
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/pandaPay/biz/stripeCreateAndAttachPaymentMethod";
 
@@ -19,6 +22,11 @@ public class CreatePaymentMethodFlow {
         RequestUtils.getHeaders().put("Content-Type", "application/json");
         RequestUtils.getHeaders().put("countryCode","SG");
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
+                RequestUtils.putBodyOfForm(createPaymentMethodRequestDTO), null, CreatePaymentMethodResponseDTO.class);
+    }
+    public static CreatePaymentMethodResponseDTO createPaymentMethod(CreatePaymentMethodRequestDTO createPaymentMethodRequestDTO, Map<String,Object> headers) {
+        if(Objects.isNull(headers)) return createPaymentMethod(createPaymentMethodRequestDTO);
+        return HttpUtils.sendPostRequestReturnJavaObject(uri, null, headers,
                 RequestUtils.putBodyOfForm(createPaymentMethodRequestDTO), null, CreatePaymentMethodResponseDTO.class);
     }
 }

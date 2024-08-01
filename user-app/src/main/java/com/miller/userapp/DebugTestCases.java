@@ -2,6 +2,13 @@ package com.miller.userapp;
 
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.create.*;
+import com.miller.userapp.module.order.shopping.car.ShoppingCarTests;
+import com.miller.userapp.module.order.shopping.preorder.SettlementWithPreorderTest;
+import com.miller.userapp.module.pay.card.general.AirwallexCreateCardTest;
+import com.miller.userapp.module.pay.notify.airwallex.AirwallexPayNotificationTest;
+import com.miller.userapp.module.pay.notify.ele.ElePayNotificationTest;
+import com.miller.userapp.module.pay.notify.ronghan.RonghanPayNotificationTest;
+import com.miller.userapp.module.pay.payment.DefaultPaymentTest;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -17,8 +24,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         UserLoginTests.class,
         // 添加商品到购物车
-//        ShoppingCarTests.class,
-        // 创建订单-结算
+        ShoppingCarTests.class,
+//         创建订单-结算
 //        SettlementCarTests.class,
         // 创建订单-结算-会员结算
 //        SettlementWithMemberTests.class,
@@ -31,9 +38,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 创建订单-美食城订单
 //        CreateOrderByFoodCityTests.class,
         // 创建订单-平台配送-代金券合单
-        CreateOrderByPlatformDeliveryWithVoucherTests.class,
+//        CreateOrderByPlatformDeliveryWithVoucherTests.class,
         // 创建订单-平台配送-会员合单
-        CreateOrderByPlatformDeliveryWithMemberTests.class,
+//        CreateOrderByPlatformDeliveryWithMemberTests.class,
         // 支付订单-余额支付-代金券合单
 //        PayByBalanceWithVoucherTests.class,
 //        // 支付订单
@@ -74,6 +81,12 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        NoPasswordListTest.class
 //        支付方式是否开启免密，0关闭1开启
 //        NoPasswordStatusTest.class
+//        SettlementWithPreorderTest.class
+//        DefaultPaymentTest.class,
+//        ElePayNotificationTest.class
+//        AirwallexPayNotificationTest.class
+//        AirwallexCreateCardTest.class
+        RonghanPayNotificationTest.class
 
 
 })

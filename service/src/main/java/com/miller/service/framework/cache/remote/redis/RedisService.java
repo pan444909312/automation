@@ -199,7 +199,7 @@ public class RedisService extends AbstractCacheService {
      * @param value 值
      * @param time  时间(秒) , 小于1为无期限
      */
-    public void set(String key, String value, Long time) {
+    public void set(String key, Object value, Long time) {
         if (time > 0) {
             redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
         } else {
