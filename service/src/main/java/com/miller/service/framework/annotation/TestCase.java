@@ -22,11 +22,11 @@ import java.lang.annotation.Target;
  * @since 2023/12/05 20:08:26
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
+@Target({ElementType.METHOD})
 public @interface TestCase {
 
     /**
-     * 自动化测试用例ID，使用ULID工具生成唯一ID。
+     * 测试用例ID，，使用 ULIDUtils.java 工具生成唯一ID
      */
     String testCaseID();
 
