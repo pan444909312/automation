@@ -16,12 +16,30 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface Scenario {
     /**
-     * 场景ID，使用 ULID 工具生成唯一ID
+     * 场景ID，使用 ULIDUtils.java 工具生成唯一ID
      */
     String scenarioID();
 
     /**
      * 场景名称
      */
-    String name();
+    String scenarioName();
+
+    /**
+     * 开发成本: 单位分钟
+     * 例如: 10 分钟: developmentTime = 1 * 10; 1小时: developmentTime = 1 * 60;
+     */
+    int developmentTime();
+
+    /**
+     * 维护成本: 单位分钟
+     * 例如: 10 分钟: maintenanceTime = 1 * 10; 1小时: maintenanceTime = 1 * 60;
+     */
+    int maintenanceTime();
+
+    /**
+     * 人工测试成本: 单位分钟
+     * 例如: 10 分钟: manualTestTime = 1 * 10; 1小时: manualTestTime = 1 * 60;
+     */
+    int manualTestTime();
 }

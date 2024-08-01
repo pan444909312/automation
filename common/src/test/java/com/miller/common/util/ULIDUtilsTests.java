@@ -9,6 +9,6 @@ public class ULIDUtilsTests {
     public void testGenerateULID() {
         String ulid = ULIDUtils.generateULID();
         Assertions.assertNotNull(ulid);
-        //System.out.println(ulid);
+        System.out.println(ulid);
     }
 }
