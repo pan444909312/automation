@@ -67,6 +67,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【平台配送】用户选择配送方式为配送，商家出餐、崔骑手，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束")
-@TestCase(testCaseID = "01HJQH3Y82QYNFVEVCWQQQ93FG", name = "【主干场景】【平台配送】用户选择配送方式为配送，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束")
+@TestCase(testCaseID = "01HJQH3Y82QYNFVEVCWQQQ93FG", testCaseName = "【主干场景】【平台配送】用户选择配送方式为配送，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束")
 public class OrderOfPlatformDeliveryScenarioTests {
 }

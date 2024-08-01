@@ -54,7 +54,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
         // 订单流程结束
 })
-@TestCase(testCaseID = "01HK72EK76QYGFPH5W6KQJ5VNA", name = "【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新")
+@TestCase(testCaseID = "01HK72EK76QYGFPH5W6KQJ5VNA", testCaseName = "【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新")
 @SuiteDisplayName("【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新")
 @Suite
 public class OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenarioTests {

@@ -38,7 +38,7 @@ public @interface TestCase {
     /**
      * 测试用例标题
      */
-    String name();
+    String testCaseName();
 
     /**
      * 用例状态：enum('updating','abandon','normal')

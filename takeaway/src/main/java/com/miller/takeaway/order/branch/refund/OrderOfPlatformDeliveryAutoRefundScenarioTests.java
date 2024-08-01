@@ -37,6 +37,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【分支场景】【申请售后】待接单阶段，申请售后，系统自动审核通过，自动退款")
-@TestCase(testCaseID = "01HJQH3Y82QYNFVEVCWQQQ93FH", name = "【分支场景】【申请售后】待接单阶段，申请售后，系统自动审核通过，自动退款")
+@TestCase(testCaseID = "01HJQH3Y82QYNFVEVCWQQQ93FH", testCaseName = "【分支场景】【申请售后】待接单阶段，申请售后，系统自动审核通过，自动退款")
 public class OrderOfPlatformDeliveryAutoRefundScenarioTests {
 }

@@ -58,6 +58,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
-@TestCase(testCaseID = "01HJQY9HH260WG8SH4S19CQY4Q", name = "【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
+@TestCase(testCaseID = "01HJQY9HH260WG8SH4S19CQY4Q", testCaseName = "【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
 public class OrderOfMerchantDeliveryScenarioTests {
 }

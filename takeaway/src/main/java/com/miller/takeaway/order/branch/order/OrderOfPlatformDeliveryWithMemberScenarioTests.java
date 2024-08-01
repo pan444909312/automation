@@ -59,6 +59,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【分支场景】【平台配送】【会员合单】用户下单时开通会员")
-@TestCase(testCaseID = "01HK72EK7B4JB80PM2NEHY9J5Y", name = "【分支场景】【平台配送】【会员合单】用户下单时开通会员")
+@TestCase(testCaseID = "01HK72EK7B4JB80PM2NEHY9J5Y", testCaseName = "【分支场景】【平台配送】【会员合单】用户下单时开通会员")
 public class OrderOfPlatformDeliveryWithMemberScenarioTests {
 }

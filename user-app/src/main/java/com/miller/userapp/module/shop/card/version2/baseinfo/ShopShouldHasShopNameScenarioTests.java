@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/07/28 12:17:39
  */
-@TestCase(testCaseID = "01J3VJ3JM9NZNW9BH5JEBWCN2F", name = "商卡(中文)_普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称")
+@TestCase(testCaseID = "01J3VJ3JM9NZNW9BH5JEBWCN2F", testCaseName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称")
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")

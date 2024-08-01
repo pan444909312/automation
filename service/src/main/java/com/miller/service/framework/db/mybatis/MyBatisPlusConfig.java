@@ -113,6 +113,7 @@ public class MyBatisPlusConfig {
      * @param classPath     文件路径
      */
     private void registryMapperXml(MybatisConfiguration configuration, String classPath, Class clazz) throws IOException {
+        // TODO 修改为从类路径获取
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> mapper = contextClassLoader.getResources(classPath);
         while (mapper.hasMoreElements()) {

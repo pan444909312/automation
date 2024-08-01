@@ -47,6 +47,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【用户自取】用户选择配送方式为自取，支付成功后直接确认取餐，订单主流程结束")
-@TestCase(testCaseID = "01HJQY9HHYMR1R38TTSM7Y885S", name = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后直接确认取餐，订单主流程结束")
+@TestCase(testCaseID = "01HJQY9HHYMR1R38TTSM7Y885S", testCaseName = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后直接确认取餐，订单主流程结束")
 public class OrderOfMyselfDeliveryThenUserConfirmOrderScenarioTests {
 }

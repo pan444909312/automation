@@ -29,7 +29,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:02
  */
-@TestCase(testCaseID = "01J3VJ3JN37RWFDN1HG4498PDQ", name = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:商品折扣28-外卖可用")
+@TestCase(testCaseID = "01J3VJ3JN37RWFDN1HG4498PDQ", testCaseName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:商品折扣28-外卖可用")
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")

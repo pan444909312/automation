@@ -52,6 +52,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家接单后选择退单(换菜)，订单主流程结束")
-@TestCase(testCaseID = "01HJQY9HHVSJ7MHH6D1AHW2W99", name = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家接单后选择退单(换菜)，订单主流程结束")
+@TestCase(testCaseID = "01HJQY9HHVSJ7MHH6D1AHW2W99", testCaseName = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家接单后选择退单(换菜)，订单主流程结束")
 public class OrderOfMyselfDeliveryThenMerchantReceivingOrderAndRefundScenarioTests {
 }

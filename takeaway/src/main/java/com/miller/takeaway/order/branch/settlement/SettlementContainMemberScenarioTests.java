@@ -23,7 +23,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户-结算-会员结算
         SettlementWithMemberTests.class,
 })
-@TestCase(testCaseID = "01HK72EK786CKN8N2QYVXRJ1AD", name = "【分支场景】【订单结算】 订单金额 = 商品小计 + 打包费 + 配送费折扣价(配送费-VIP配送优惠金额）+ 开通会员价格 + 新增收费项cn - 红包优惠")
+@TestCase(testCaseID = "01HK72EK786CKN8N2QYVXRJ1AD", testCaseName = "【分支场景】【订单结算】 订单金额 = 商品小计 + 打包费 + 配送费折扣价(配送费-VIP配送优惠金额）+ 开通会员价格 + 新增收费项cn - 红包优惠")
 @SuiteDisplayName("【分支场景】【订单结算】 订单金额 = 商品小计 + 打包费 + 配送费折扣价(配送费-VIP配送优惠金额）+ 开通会员价格 + 新增收费项cn - 红包优惠")
 @Suite
 public class SettlementContainMemberScenarioTests {

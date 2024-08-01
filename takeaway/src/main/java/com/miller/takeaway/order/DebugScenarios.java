@@ -63,7 +63,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
 })
 @Disabled
-@TestCase(testCaseID = "01HK72EK786CKN8N2QYVXRJ1AD", name = "【调试场景集】")
+@TestCase(testCaseID = "01HK72EK786CKN8N2QYVXRJ1AD", testCaseName = "【调试场景集】")
 @Suite
 @SuiteDisplayName("调试场景集")
 public class DebugScenarios {
