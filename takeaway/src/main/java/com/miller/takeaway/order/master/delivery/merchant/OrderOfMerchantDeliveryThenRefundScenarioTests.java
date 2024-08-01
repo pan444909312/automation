@@ -6,7 +6,7 @@ import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.module.order.create.CreateOrderByMerchantDeliveryTests;
@@ -69,6 +69,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，申请售后，订单结束")
-@TestCase(testCaseID = "01HJQY9HH260WG8SH4S19CQY4J", testCaseName = "【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，申请售后，订单结束")
+@Scenario(scenarioID = "01HJQY9HH260WG8SH4S19CQY4J",
+        scenarioName = "【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，申请售后，订单结束",
+        developmentTime = 4 * 60, maintenanceTime = 0, manualTestTime = 80)
 public class OrderOfMerchantDeliveryThenRefundScenarioTests {
 }

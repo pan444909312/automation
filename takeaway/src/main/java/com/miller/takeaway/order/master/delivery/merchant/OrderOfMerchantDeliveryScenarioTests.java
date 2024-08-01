@@ -4,7 +4,7 @@ import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.delivery.MerchantConfirmUserReceivedOrderTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.module.order.create.CreateOrderByMerchantDeliveryTests;
@@ -48,16 +48,18 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         MerchantConfirmUserReceivedOrderTests.class,
 
         // 用户确认订单已送达。注意：需要订单被【骑手/商家】派送完成之后执行
-         ConfirmOrderStatusTests.class,
+        ConfirmOrderStatusTests.class,
         // 用户评价订单
-         EvaluateOrderTests.class,
+        EvaluateOrderTests.class,
 
         // 商家回复评论
-         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
+        com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
         // 订单流程结束
 })
 @Suite
 @SuiteDisplayName("【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
-@TestCase(testCaseID = "01HJQY9HH260WG8SH4S19CQY4Q", testCaseName = "【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
+@Scenario(scenarioID = "01HJQY9HH260WG8SH4S19CQY4Q",
+        scenarioName = "【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束",
+        developmentTime = 12 * 60, maintenanceTime = 30, manualTestTime = 60)
 public class OrderOfMerchantDeliveryScenarioTests {
 }

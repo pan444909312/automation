@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.BaseShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
@@ -30,7 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/07/28 12:17:39
  */
-@TestCase(testCaseID = "01J3VJ3JM9NZNW9BH5JEBWCN2F", testCaseName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称")
+@Scenario(scenarioID = "01J3VJ3JM9NZNW9BH5JEBWCN2F",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称",
+        developmentTime = 3 * 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")

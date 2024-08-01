@@ -6,6 +6,7 @@ import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.util.PropertiesUtils;
@@ -30,6 +31,9 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:06
  */
+@Scenario(scenarioID = "01J46NM6RG9R85V0Q20ZKYKW7Q",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-不展示",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")

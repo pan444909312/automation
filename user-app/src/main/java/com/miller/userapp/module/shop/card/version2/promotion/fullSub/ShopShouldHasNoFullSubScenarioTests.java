@@ -3,6 +3,7 @@ package com.miller.userapp.module.shop.card.version2.promotion.fullSub;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
@@ -21,6 +22,9 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/30 17:39
  */
+@Scenario(scenarioID = "01J46NM6SN57R40GPWSY4V9G1D",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_满减_首页-商卡二期：满减29-不展示",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")

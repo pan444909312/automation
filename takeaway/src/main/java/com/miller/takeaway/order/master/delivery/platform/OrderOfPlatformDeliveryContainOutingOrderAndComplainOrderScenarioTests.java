@@ -8,7 +8,7 @@ import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.complain.ComplainOrderTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.module.order.create.CreateOrderByPlatformDeliveryTests;
@@ -70,6 +70,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【平台配送】用户选择配送方式为配送，商家出餐、崔骑手，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束")
-@TestCase(testCaseID = "01HJQJ9NGWC8JX43MXQ43053MD", testCaseName = "【主干场景】【平台配送】用户选择配送方式为配送，商家出餐、崔骑手，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束")
+@Scenario(scenarioID = "01HJQJ9NGWC8JX43MXQ43053MD",
+        scenarioName = "【主干场景】【平台配送】用户选择配送方式为配送，商家出餐、崔骑手，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束",
+        developmentTime = 16 * 60, maintenanceTime = 2 * 60, manualTestTime = 2 * 60)
 public class OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenarioTests {
 }

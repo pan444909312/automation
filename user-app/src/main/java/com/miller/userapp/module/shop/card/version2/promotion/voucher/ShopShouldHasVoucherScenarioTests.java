@@ -8,6 +8,7 @@ import com.hungrypanda.app.server.entity.voucher.VoucherInfoEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
@@ -29,6 +30,9 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/31 11:42
  */
+@Scenario(scenarioID = "01J46NM6T6GJJQ88MNAVKGN6Z9",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_代金券_首页-商卡二期：代金券31",
+        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")

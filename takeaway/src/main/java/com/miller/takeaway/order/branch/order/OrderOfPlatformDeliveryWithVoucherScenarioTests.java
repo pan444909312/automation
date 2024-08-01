@@ -7,7 +7,7 @@ import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
 import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.module.order.create.CreateOrderByPlatformDeliveryWithVoucherTests;
@@ -59,6 +59,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【分支场景】【平台配送】【代金券合单】用户下单时购买代金券")
-@TestCase(testCaseID = "01HK72EK7DJP4HJAH7BX02ZM3D", testCaseName = "【分支场景】【平台配送】【代金券合单】用户下单时购买代金券")
+@Scenario(scenarioID = "01HK72EK7DJP4HJAH7BX02ZM3D", scenarioName = "【分支场景】【平台配送】【代金券合单】用户下单时购买代金券"
+        , developmentTime = 12 * 60, maintenanceTime = 60, manualTestTime = 60)
 public class OrderOfPlatformDeliveryWithVoucherScenarioTests {
 }
