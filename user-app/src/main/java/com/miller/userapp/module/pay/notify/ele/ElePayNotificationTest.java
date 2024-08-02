@@ -14,7 +14,9 @@ import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.module.pay.notify.ele.flow.ElePayNotificationFlow;
 import com.miller.userapp.module.pay.notify.ele.request.ElePayNotificationRequest;
 
+import com.miller.userapp.util.DBUtils;
 import io.elepay.client.charge.pojo.*;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -36,7 +38,8 @@ public class ElePayNotificationTest {
     private static String orderSn;
     @BeforeAll
     public void beforeAll(){
-        payOrderSql = new PayOrderSql();
+        SqlSession sqlPaySession = DBUtils.getDBOfPandaPayTest();
+        payOrderSql = new PayOrderSql(sqlPaySession);
         CreateOrderResponseDTO createOrderResponseDTO = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class);
         orderSn = createOrderResponseDTO.getResult().getOrderSn();
     }

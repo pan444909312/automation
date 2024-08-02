@@ -9,8 +9,8 @@ import com.hungrypanda.app.server.entity.order.OrderPaymentCombinedRelationEntit
 import com.hungrypanda.app.server.entity.user.UserAccountFlowEntity;
 import com.hungrypanda.app.server.entity.voucher.VoucherOrderInfoEntity;
 import com.hungrypanda.payserver.entity.PayOrder;
-import com.miller.userapp.module.data.PandaDB;
 import com.miller.userapp.module.data.pay.db.*;
+import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 
 import java.math.BigDecimal;
@@ -19,9 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaySucDataCheckServer {
-    private SqlSession sqlSession = PandaDB.getSqlSession();
+    private SqlSession sqlSession = DBUtils.getDBOfPandaTest();
+    private SqlSession sqlPaySession = DBUtils.getDBOfPandaPayTest();
     private OrderSql orderSql = new OrderSql(sqlSession);
-    private PayOrderSql payOrderSql = new PayOrderSql();
+    private PayOrderSql payOrderSql = new PayOrderSql(sqlPaySession);
     private UserAccountFlowSql userAccountFlowSql = new UserAccountFlowSql(sqlSession);
     private UserAccountSql userAccountSql = new UserAccountSql(sqlSession);
     private OrderPaymentCombinedSql orderPaymentCombinedSql = new OrderPaymentCombinedSql(sqlSession);
