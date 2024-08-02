@@ -14,6 +14,7 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class DBUtils {
     private static SqlSession sqlSessionOfPandaTest;
+    private static SqlSession sqlSessionOfPandaPayTest;
 
     /**
      * 获取数据库链接 “panda_test" 库
@@ -28,5 +29,14 @@ public class DBUtils {
         var myBatisPlusConfig = new MyBatisPlusConfig();
         sqlSessionOfPandaTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), DBUtils.class);
         return sqlSessionOfPandaTest;
+    }
+    public static synchronized SqlSession getDBOfPandaPayTest() {
+        if (sqlSessionOfPandaPayTest != null) return sqlSessionOfPandaPayTest;
+        var mySqlUrl = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.pay.url");
+        var userName = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.username");
+        var passWord = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.password");
+        var myBatisPlusConfig = new MyBatisPlusConfig();
+        sqlSessionOfPandaPayTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), DBUtils.class);
+        return sqlSessionOfPandaPayTest;
     }
 }
