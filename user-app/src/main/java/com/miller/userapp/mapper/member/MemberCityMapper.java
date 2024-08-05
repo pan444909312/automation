@@ -1,4 +1,4 @@
-package com.miller.userapp.mapper.shop;
+package com.miller.userapp.mapper.member;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.member.MemberCityEntity;
@@ -7,5 +7,5 @@ import com.hungrypanda.app.server.entity.member.MemberCityEntity;
 /**
  * 会员
  */
-public interface ShopMemberCityMapper extends BaseMapper<MemberCityEntity> {
+public interface MemberCityMapper extends BaseMapper<MemberCityEntity> {
 }
