@@ -26,8 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-展示")
-public class ShopShouldHasFirstOrderTagCrowdThirdTests {
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
+public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
 //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
     private static ShopNewUserLabelMapper ShopNewUserLabelMapper;

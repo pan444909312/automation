@@ -19,24 +19,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-不展示")
-public class ShopShouldNotHasSelfTagTests {
-    //    采用店铺2的数据，标签类型：33，content:可自取
-    private final Long shopId = Long.parseLong("160288176");
-    private final Integer type=33;
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-自取折扣-首页-商卡二期：自取折扣30 - 无独享商品折扣")
+public class ShopShouldHasSelfTakeDiscountTagScenarioTests {
+//    采用店铺2的数据，标签类型：30，自取折扣
+    private final Long shopId = Long.parseLong("59750820");
+    private final Integer type=30;
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-关闭自取服务时不展示可自取标签")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-自取折扣-首页-商卡二期：自取折扣30 - 无独享商品折扣")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
-        List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
-        System.out.println(shopPromoteTypeList);
-        assertThat(shopPromoteTypeList.size()).isEqualTo(0);
-
+        String showContent=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getShowContent).orElseThrow();
+        assertThat(showContent).isEqualTo("自取再享9折");
     }
-
     //    DataProvider改为在测试用例文件里写,提供测试数据
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
