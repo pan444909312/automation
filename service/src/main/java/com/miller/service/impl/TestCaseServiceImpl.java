@@ -5,6 +5,7 @@ import com.miller.common.util.ULIDUtils;
 import com.miller.entity.TestCaseEntity;
 import com.miller.mapper.TestCaseMapper;
 import com.miller.service.TestCaseService;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.clz.ClassFindService;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import lombok.extern.slf4j.Slf4j;
@@ -59,13 +60,17 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Callable<SummaryGeneratingListener> callable = () -> {
             log.info("进入 Callable 的 call 方法");
-            List<DiscoverySelector> discoverySelectorList = classFindService.getPackageClass(packageName)
+            // 获取包下所有类, 通过注解过滤，需要执行的测试用例
+            List<Class<?>> packageClass = classFindService.getPackageClass(packageName)
+                    .stream().filter(clz -> clz.isAnnotationPresent(Scenario.class)).toList();
+
+            List<DiscoverySelector> discoverySelectorList = packageClass
                     .stream().map(DiscoverySelectors::selectClass).collect(Collectors.toList());
 
             LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                     .selectors(discoverySelectorList)
                     .filters(
-                            includeClassNamePatterns(".*Scenario[s]?Test[s]?")
+                            // includeClassNamePatterns(".*Scenario[s]?Test[s]?")
                     ).build();
             SummaryGeneratingListener summaryGeneratingListener = testCaseRunnerLauncher.executeRequest(request);
             // 获取执行的测试用例数量
