@@ -6,16 +6,11 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.payserver.entity.PayCardRecord;
 import com.miller.userapp.mapper.pay.PayCardRecordMapper;
-import com.miller.userapp.module.data.DataName;
-import com.miller.userapp.module.data.PandaDB;
 import org.apache.ibatis.session.SqlSession;
 
-@DataName("pay")
+
 public class PayCardRecordSql {
     private SqlSession sqlSession;
-    public  PayCardRecordSql(){
-        this.sqlSession = PandaDB.getSqlSession(this.getClass());
-    }
     public PayCardRecordSql(SqlSession sqlSession){
         this.sqlSession = sqlSession;
     }
