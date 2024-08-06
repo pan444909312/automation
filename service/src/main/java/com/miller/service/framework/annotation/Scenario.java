@@ -12,11 +12,12 @@ import java.lang.annotation.Target;
  * @version 1.0
  * @since 2024/7/27 21:30:41
  */
+@TestFramework
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface Scenario {
     /**
-     * 场景ID，使用 ULIDUtils.java 工具生成唯一ID
+     * 场景ID，使用 {@link com.miller.common.util.ULIDUtils} 工具生成唯一ID,参考{@code ULIDUtilsTests.java}
      */
     String scenarioID();
 
