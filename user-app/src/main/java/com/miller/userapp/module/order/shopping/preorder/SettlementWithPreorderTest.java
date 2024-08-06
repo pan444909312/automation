@@ -26,6 +26,7 @@ import com.miller.userapp.module.order.shopping.settlement.request.PreorderParam
 import com.miller.userapp.module.order.shopping.settlement.request.SettlementRequestDTO;
 import com.miller.userapp.module.order.shopping.settlement.response.SettlementResponseDTO;
 import com.miller.userapp.mapper.shop.ShopExtraInfoMapper;
+import com.miller.userapp.util.DBUtils;
 import com.panda.common.enums.DeliveryTypeEnum;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
@@ -33,7 +34,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.BeanUtils;
-import com.miller.userapp.module.data.PandaDB;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -61,9 +61,7 @@ public class SettlementWithPreorderTest {
 
     @BeforeAll
     void beforeAll(){
-//        MyBatisPlusConfig myBatisPlusConfig = new MyBatisPlusConfig();
-//        sqlSession = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
-        sqlSession = PandaDB.getSqlSession();
+        sqlSession = DBUtils.getDBOfPandaTest();
         shopMapper = sqlSession.getMapper(ShopMapper.class);
         shopExtraInfoMapper = sqlSession.getMapper(ShopExtraInfoMapper.class);
         QueryWrapper<ShopExtraInfoEntity> queryWrapper = new QueryWrapper<>();
@@ -105,7 +103,6 @@ public class SettlementWithPreorderTest {
         lambda.set(ShopExtraInfoEntity::getPreorderPushShop,preorderParamsEntity.getPreorderPushShop());
         shopExtraInfoMapper.update(null,updateWrapper);
 //        shopExtraInfoMapper.update(shopExtraInfoEntity,updateWrapper);
-        PandaDB.getSqlSession().close();
 
     }
     @ParameterizedTest

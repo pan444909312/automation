@@ -4,20 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.payserver.entity.PayOrder;
 import com.miller.userapp.mapper.pay.PayOrderMapper;
-import com.miller.userapp.module.data.DataName;
-import com.miller.userapp.module.data.PandaDB;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.Objects;
 
-@DataName("pay")
 public class PayOrderSql {
     private SqlSession sqlSession;
     public  PayOrderSql(SqlSession sqlSession){
         this.sqlSession = sqlSession;
-    }
-    public  PayOrderSql(){
-        this.sqlSession = PandaDB.getSqlSession(this.getClass());
     }
     public PayOrderMapper getPayOrderMapper(){
         return sqlSession.getMapper(PayOrderMapper.class);
