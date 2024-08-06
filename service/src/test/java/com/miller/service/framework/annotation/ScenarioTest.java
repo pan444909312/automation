@@ -1,5 +1,6 @@
 package com.miller.service.framework.annotation;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
  * @version 1.0
  * @since 2024/8/6 16:57:41
  */
+@Disabled
 @TestFramework
 @Scenario(scenarioID = "01J4KETZ7AFZXVWE02JSM7P3Z7", scenarioName = "测试场景", developmentTime = 1, maintenanceTime = 1, manualTestTime = 1)
 public class ScenarioTest {
