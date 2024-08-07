@@ -54,7 +54,7 @@ public class XXLJobUtils {
             // 查询定时任务执行结果
             return taskStatus(jobId);
         } else {
-            log.error("触发定时任务失败，Job ID is:{}", jobId);
+            // log.error("触发定时任务失败，Job ID is:{}", jobId);
             return false;
 
         }
@@ -67,18 +67,18 @@ public class XXLJobUtils {
      * @return true:完成; false: 超时
      */
     private static boolean taskStatus(String jobId) {
-        long timeout = 1000 * 60 * 2;  // 超时时间设置为5分钟
+        long timeout = 1000 * 60 * 3;  // 超时时间设置为5分钟
         while (true) {
             try {
                 Thread.sleep(1000 * 30);    // 休眠30秒
                 timeout -= 1000 * 30;   // 减去休眠时间
-                System.out.println(timeout);
+                // System.out.println(timeout);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             if (timeout <= 0) {
-                log.error("定时任务执行超时，Job ID is:{}", jobId);
-                System.out.println(timeout);
+                // log.error("定时任务执行超时，Job ID is:{}", jobId);
+                // System.out.println(timeout);
                 return false;
             }
             // 查询定时任务执行结果 TODO 待开发完成之后补充
