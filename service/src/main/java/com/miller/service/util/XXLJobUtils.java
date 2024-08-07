@@ -77,7 +77,7 @@ public class XXLJobUtils {
                 throw new RuntimeException(e);
             }
             if (timeout <= 0) {
-                log.error("定时任务执行超时，Job ID is:{}", jobId);
+                // log.error("定时任务执行超时，Job ID is:{}", jobId);
                 // System.out.println(timeout);
                 return false;
             }
