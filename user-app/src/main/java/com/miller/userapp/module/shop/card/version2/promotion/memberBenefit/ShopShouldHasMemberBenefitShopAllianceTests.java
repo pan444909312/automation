@@ -8,7 +8,9 @@ import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.member.MemberCityMapper;
+import com.miller.userapp.module.shop.card.version2.baseinfo.ShopShouldHasLabelScenarioTests;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.flow.ShopListFlowNoLogin;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.response.ShopListResponseDTO;
@@ -35,6 +37,13 @@ public class ShopShouldHasMemberBenefitShopAllianceTests {
     static void beforeAll() {
          SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         MemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
+        //        修改会员城市表，修改会员城市表is_open_delivery_discount字段为0 运费减免优先级>店铺联盟，因此现关闭会员减免
+         UpdateWrapper<MemberCityEntity> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("member_city_id", 1111378).set("is_open_delivery_discount",0);
+        MemberCityMapper.update(null,updateWrapper);
+        //执行定时定时任务
+        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.index.update.id"));
+
     }
     @AfterAll
     static void afterAll() {
@@ -47,10 +56,7 @@ public class ShopShouldHasMemberBenefitShopAllianceTests {
     @ParameterizedTest
     @DisplayName("普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
-//        修改会员城市表，修改会员城市表is_open_delivery_discount字段为0 运费减免优先级>店铺联盟，因此现关闭会员减免
-         UpdateWrapper<MemberCityEntity> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("member_city_id", 1111378).set("is_open_delivery_discount",0);
-        MemberCityMapper.update(null,updateWrapper);
+
 
 //        请求首页店铺数据
         ShopListResponseDTO shopList = ShopListFlowNoLogin.getShopList(shopListRequestDTO);
