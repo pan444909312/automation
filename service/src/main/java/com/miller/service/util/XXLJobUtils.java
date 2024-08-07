@@ -45,7 +45,7 @@ public class XXLJobUtils {
      * @param jobId 任务ID
      * @return true:完成; false: 超时
      */
-    public static synchronized boolean triggerJob(Integer jobId) {
+    public static synchronized boolean triggerJob(String jobId) {
         var params = new HashMap<String, Object>();
         params.put("id", jobId);
 
@@ -66,7 +66,7 @@ public class XXLJobUtils {
      * @param jobId 任务ID
      * @return true:完成; false: 超时
      */
-    private static boolean taskStatus(Integer jobId) {
+    private static boolean taskStatus(String jobId) {
         long timeout = 1000 * 60 * 2;  // 超时时间设置为5分钟
         while (true) {
             try {
@@ -93,7 +93,7 @@ public class XXLJobUtils {
 
 
     public static void main(String[] args) {
-        triggerJob(11);
+        triggerJob("11");
     }
 
 }
