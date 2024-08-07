@@ -9,6 +9,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.flow.ShopListFlowNoLogin;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.response.ShopListResponseDTO;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.request.ShopListRequestDTO;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -22,6 +23,8 @@ import java.util.stream.Stream;
 public class ShopShouldHasMemberBenefitDeliveryDsicountTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 //     用户未登录，会员店铺配置了运费减免，展示运费减免红包
+
+
     @MethodSource("staticDataProvider")
     @ParameterizedTest
     @DisplayName("普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：会员权益32-会员运费免减")
