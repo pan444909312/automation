@@ -44,7 +44,7 @@ public class AddMerchantTests {
         ERPLoginFlow.loginByDefaultUser();
     }
 
-    @Disabled // 禁用测试,因为创建了好像没法删除
+    @Disabled
     @MethodSource("addMerchantForShopCardOfSecondVersionDataProvider")
     @ParameterizedTest
     @DisplayName("商家管理-商家列表-新增商家-基础信息_正常流程")
