@@ -60,6 +60,7 @@ public class AddMerchantTests {
      * 东东测试商家·商卡二期·自动化测试·数据
      */
     static Stream<Arguments> addMerchantForShopCardOfSecondVersionDataProvider() {
+        // Given
         AddMerchantRequestDTO addMerchantRequestDTO = JSONUtils.jsonToObject(
                 // 读取测试用例数据
                 new ResourceUtils().readTestCaseDataFromResourcesPath(AddMerchantTests.class, "AddMerchant.json"),
@@ -68,21 +69,24 @@ public class AddMerchantTests {
         // 商家中文名称不能重复
         addMerchantRequestDTO.getBaseInfo().getOperationNameList()
                 // 获取 "lang": "CH" 对象
-                .stream().filter(item -> item.getLang().equalsIgnoreCase("CN")).findFirst().get().getSortList()
+                .stream().filter(item -> item.getLang().equalsIgnoreCase("CN")).findFirst().orElseThrow().getSortList()
                 // 设置中文名称
-                .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().get()
+                .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().orElseThrow()
                 // 名称从配置文件读取
-                .setValue(new PropertiesUtils().getProperty(AddMerchantTests.class, "erp.merchant.chinese.name.prefix") + System.currentTimeMillis());
+                .setValue(new PropertiesUtils().getProperty(AddMerchantTests.class, "erp.merchant.chinese.name.prefix") +
+                        // 名称添加时间戳的后6位，避免重复
+                        String.valueOf(System.currentTimeMillis()).substring(7, 13)
+                );
         // 英文名称不能重复
         addMerchantRequestDTO.getBaseInfo().getOperationNameList()
                 // 获取 "lang": "EN" 对象
-                .stream().filter(item -> item.getLang().equalsIgnoreCase("EN")).findFirst().get().getSortList()
+                .stream().filter(item -> item.getLang().equalsIgnoreCase("EN")).findFirst().orElseThrow().getSortList()
                 // 设置英文名称
-                .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().get()
+                .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().orElseThrow()
                 // 名称从配置文件读取
-                .setValue(new PropertiesUtils().getProperty(AddMerchantTests.class, "erp.merchant.english.name.prefix") + System.currentTimeMillis());
-
-
+                .setValue(new PropertiesUtils().getProperty(AddMerchantTests.class, "erp.merchant.english.name.prefix") +
+                        // 名称添加时间戳的后6位，避免重复
+                        String.valueOf(System.currentTimeMillis()).substring(7, 13));
         return Stream.of(arguments(addMerchantRequestDTO));
     }
 
