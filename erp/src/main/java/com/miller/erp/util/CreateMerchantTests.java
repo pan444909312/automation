@@ -14,6 +14,10 @@ import com.miller.erp.manage.merchant.edit.businessinfo.BusinessInfoEditTests;
 import com.miller.erp.manage.merchant.edit.businessinfo.flow.BusinessInfoEditFlow;
 import com.miller.erp.manage.merchant.edit.businessinfo.request.BusinessInfoEditRequestDTO;
 import com.miller.erp.manage.merchant.edit.businessinfo.response.BusinessInfoEditResponseDTO;
+import com.miller.erp.manage.merchant.edit.kp.AddKPTests;
+import com.miller.erp.manage.merchant.edit.kp.flow.AddKPFlow;
+import com.miller.erp.manage.merchant.edit.kp.request.AddKPRequestDTO;
+import com.miller.erp.manage.merchant.edit.kp.response.AddKPResponseDTO;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
@@ -37,33 +41,37 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/7 20:25:24
  */
 @Disabled
-// @Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
+@Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
 @Slf4j
 public class CreateMerchantTests {
     /**
+     * true: 编辑商家；false:创建商家。如果为false则使用指定的 ShopId 对商家进行编辑操作。
+     */
+    private static final boolean isEditMerchant = true;
+    private final long shopIdForDebug = 970301088;
+
+    /**
      * 测试用例数据文件路径
      */
-    private String filePath = "quickCreateMerchant/";
+    private static final String filePath = "quickCreateMerchant/";
     /**
      * 新增商家返回的数据
      */
-    private AddMerchantResponseDTO addMerchantResponseDTO;
-
-    /**
-     * 这个是调试模式，如果是调试模式，则使用指定的 ShopId。使用场景一般为仅编辑商家信息，想要手动指定 shopId.
-     * 注意: 调用模式时注释掉 方法上的 @DependsOnMethod 或 @Scenario
-     */
-    private final boolean isDebug = true;
-    private final long shopIdForDebug = 640561624;
+    private static AddMerchantResponseDTO addMerchantResponseDTO;
 
     @BeforeAll
-    public static void step01Login() {
+    public static void beforeAll() {
         ERPLoginFlow.loginByDefaultUser();
+        if (!isEditMerchant) step02CreateMerchant();
     }
 
-    @Test
-    @DisplayName("ERP-创建商家")
-    public void step02CreateMerchant() {
+    @AfterAll
+    public static void afterAll() {
+        System.out.println(addMerchantResponseDTO.getData().getShopId());
+        // 删除店铺？
+    }
+
+    private static void step02CreateMerchant() {
         // Given
         AddMerchantRequestDTO addMerchantRequestDTO = JSONUtils.jsonToObject(
                 // 读取测试用例数据
@@ -98,12 +106,10 @@ public class CreateMerchantTests {
         // Then
         assertThat(addMerchantResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
         // 将响应结果存储起来提供给下一个测试用例使用
-        this.addMerchantResponseDTO = addMerchantResponseDTO;
+        CreateMerchantTests.addMerchantResponseDTO = addMerchantResponseDTO;
         log.info("创建商家成功，ShopId is:{}", addMerchantResponseDTO.getData().getShopId());
     }
 
-
-    @DependsOnMethod("step02CreateMerchant")
     @Test
     @DisplayName("ERP-编辑商家-经营信息")
     public void step03EditMerchantInfoOfBusiness() {
@@ -111,11 +117,12 @@ public class CreateMerchantTests {
         String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(BusinessInfoEditTests.class,
                 filePath + "Step03EditMerchantInfoOfBusiness.json");
         BusinessInfoEditRequestDTO businessInfoEditRequestDTO = JSONUtils.jsonToObject(requestJson, BusinessInfoEditRequestDTO.class);
-        if (isDebug) {
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
             businessInfoEditRequestDTO.setShopId(shopIdForDebug);
         } else {
             // 修改 ShopId 为创建商家的 ShopId
-            businessInfoEditRequestDTO.setShopId(this.addMerchantResponseDTO.getData().getShopId());
+            businessInfoEditRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
         }
 
         // When
@@ -126,7 +133,6 @@ public class CreateMerchantTests {
 
     }
 
-    @DependsOnMethod("step03EditMerchantInfoOfBusiness")
     @Test
     @DisplayName("ERP-编辑商家-费用配置")
     public void step04EditMerchantInfoOfCost() {
@@ -138,18 +144,18 @@ public class CreateMerchantTests {
         // 自取小额订单费
     }
 
-    @DependsOnMethod("step04EditMerchantInfoOfCost")
     @Test
     @DisplayName("ERP-编辑商家-补充信息")
     public void step05EditMerchantInfoOfAdditional() {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AdditionalInfoEditTests.class, this.filePath + "Step05EditMerchantInfoOfAdditional.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AdditionalInfoEditTests.class,
+                filePath + "Step05EditMerchantInfoOfAdditional.json");
         AdditionalInfoEditRequestDTO additionalInfoEditRequestDTO = JSONUtils.jsonToObject(requestJson, AdditionalInfoEditRequestDTO.class);
-        if (isDebug) {
+        if (isEditMerchant) {
             additionalInfoEditRequestDTO.setShopId(shopIdForDebug);
         } else {
             // 修改 ShopId 为创建商家的 ShopId
-            additionalInfoEditRequestDTO.setShopId(this.addMerchantResponseDTO.getData().getShopId());
+            additionalInfoEditRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
         }
         // When
         AdditionalInfoEditResponseDTO additionalInfoEditResponseDTO = AdditionalInfoEditFlow.additionalInfoEdit(additionalInfoEditRequestDTO);
@@ -158,5 +164,24 @@ public class CreateMerchantTests {
         assertThat(additionalInfoEditResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 
+    @Test
+    @DisplayName("ERP-编辑商家-KP信息")
+    public void step06EditMerchantInfoOfAddKP() {
+        // Given
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AddKPTests.class,
+                filePath + "Step06EditMerchantInfoOfAddKP.json");
+        AddKPRequestDTO AddKPRequestDTO = JSONUtils.jsonToObject(requestJson, AddKPRequestDTO.class);
+        if (isEditMerchant) {
+            AddKPRequestDTO.setShopId(shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            AddKPRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+        }
+        // When
+        AddKPResponseDTO AddKPResponseDTO = AddKPFlow.addKP(AddKPRequestDTO);
+
+        // Then
+        assertThat(AddKPResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+    }
 
 }
