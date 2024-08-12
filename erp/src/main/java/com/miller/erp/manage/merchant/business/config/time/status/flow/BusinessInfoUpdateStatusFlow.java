@@ -1,9 +1,9 @@
-package com.miller.erp.manage.merchant.business.config.time.flow;
+package com.miller.erp.manage.merchant.business.config.time.status.flow;
 
 import com.hungrypanda.app.server.common.enums.ShopStatusEnum;
 import com.miller.erp.constants.BusinessConstantOfERP;
-import com.miller.erp.manage.merchant.business.config.time.request.BusinessInfoUpdateStatusRequestDTO;
-import com.miller.erp.manage.merchant.business.config.time.response.BusinessInfoUpdateStatusResponseDTO;
+import com.miller.erp.manage.merchant.business.config.time.status.request.BusinessInfoUpdateStatusRequestDTO;
+import com.miller.erp.manage.merchant.business.config.time.status.response.BusinessInfoUpdateStatusResponseDTO;
 import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
@@ -14,7 +14,7 @@ import com.miller.service.framework.http.HttpUtils;
  * @version 1.0
  * @since 2024/07/28 16:59:46
  */
-public class BusinessInfoUpdateStatus {
+public class BusinessInfoUpdateStatusFlow {
     /**
      * 接口_编辑商家-营业配置-营业时间-修改营业状态为营业、打烊
      */

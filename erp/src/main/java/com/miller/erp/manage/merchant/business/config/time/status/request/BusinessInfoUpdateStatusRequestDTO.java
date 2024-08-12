@@ -1,4 +1,4 @@
-package com.miller.erp.manage.merchant.business.config.time.request;
+package com.miller.erp.manage.merchant.business.config.time.status.request;
 
 
 import com.panda.merchant.server.api.vo.shop.req.BusinessInfoUpdateStatusReqVO;

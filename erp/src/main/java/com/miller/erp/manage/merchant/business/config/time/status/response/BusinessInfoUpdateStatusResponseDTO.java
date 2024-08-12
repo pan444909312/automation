@@ -1,4 +1,4 @@
-package com.miller.erp.manage.merchant.business.config.time.response;
+package com.miller.erp.manage.merchant.business.config.time.status.response;
 
 
 import com.miller.erp.dto.BasicResponseDTO;

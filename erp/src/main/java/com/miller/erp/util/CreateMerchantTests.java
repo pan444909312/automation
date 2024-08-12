@@ -6,6 +6,9 @@ import com.miller.erp.manage.merchant.add.AddMerchantTests;
 import com.miller.erp.manage.merchant.add.flow.AddMerchantFlow;
 import com.miller.erp.manage.merchant.add.request.AddMerchantRequestDTO;
 import com.miller.erp.manage.merchant.add.response.AddMerchantResponseDTO;
+import com.miller.erp.manage.merchant.business.config.time.add.flow.AddShopBusinessTimeFlow;
+import com.miller.erp.manage.merchant.business.config.time.add.request.AddShopBusinessTimeRequestDTO;
+import com.miller.erp.manage.merchant.business.config.time.add.response.AddShopBusinessTimeResponseDTO;
 import com.miller.erp.manage.merchant.edit.additional.AdditionalInfoEditTests;
 import com.miller.erp.manage.merchant.edit.additional.flow.AdditionalInfoEditFlow;
 import com.miller.erp.manage.merchant.edit.additional.request.AdditionalInfoEditRequestDTO;
@@ -207,7 +210,26 @@ public class CreateMerchantTests {
 
         // Then
         assertThat(copyOtherShopProductResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+    }
+    @Test
+    @DisplayName("ERP-编辑商家-修改店铺营业时间")
+    public void step08AddShopBusinessTime() {
+        // Given
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class,
+                filePath + "Step08AddShopBusinessTime.json");
+        AddShopBusinessTimeRequestDTO addShopBusinessTimeRequestDTO = JSONUtils.jsonToObject(requestJson, AddShopBusinessTimeRequestDTO.class);
+        if(isEditMerchant){
+            addShopBusinessTimeRequestDTO.setShopId(shopIdForDebug);
+        }else {
+            // 修改 ShopId 为创建商家的 ShopId
+            addShopBusinessTimeRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+        }
 
+        // When
+        AddShopBusinessTimeResponseDTO addShopBusinessTimeResponseDTO = AddShopBusinessTimeFlow.addShopBusinessTime(addShopBusinessTimeRequestDTO);
+
+        // Then
+        assertThat(addShopBusinessTimeResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 
 }
