@@ -7,6 +7,9 @@ import com.miller.erp.manage.merchant.add.AddMerchantTests;
 import com.miller.erp.manage.merchant.add.flow.AddMerchantFlow;
 import com.miller.erp.manage.merchant.add.request.AddMerchantRequestDTO;
 import com.miller.erp.manage.merchant.add.response.AddMerchantResponseDTO;
+import com.miller.erp.manage.merchant.auth.flow.MerchantAuthFlow;
+import com.miller.erp.manage.merchant.auth.request.MerchantAuthRequestDTO;
+import com.miller.erp.manage.merchant.auth.response.MerchantAuthResponseDTO;
 import com.miller.erp.manage.merchant.business.config.time.add.flow.AddShopBusinessTimeFlow;
 import com.miller.erp.manage.merchant.business.config.time.add.request.AddShopBusinessTimeRequestDTO;
 import com.miller.erp.manage.merchant.business.config.time.add.response.AddShopBusinessTimeResponseDTO;
@@ -35,6 +38,7 @@ import com.miller.erp.manage.merchant.product.flow.CopyOtherShopProductFlow;
 import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductRequestDTO;
 import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.framework.util.ResourceUtils;
@@ -285,6 +289,7 @@ public class CreateMerchantTests {
         saveBillInfo("Step10SaveBillInfoOfPandaGFO.json");
     }
 
+    @DependsOnMethod("step10SaveBillInfo")
     @Test
     @DisplayName("ERP-编辑商家-结算信息-佣金")
     public void step11SaveCommission() {
@@ -298,6 +303,11 @@ public class CreateMerchantTests {
         saveCommission("Step11SaveCommissionOfGFO-1.json");
     }
 
+    /**
+     * 结算信息子项-佣金
+     *
+     * @param fileName 文件名
+     */
     private void saveCommission(String fileName) {
         // Given
         String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(SaveCommissionFlow.class,
@@ -336,5 +346,24 @@ public class CreateMerchantTests {
         SaveBillInfoConfigResponseDTO saveBillInfoConfigResponseDTO = SaveBillInfoConfigFlow.saveBillInfoConfig(saveBillInfoConfigRequestDTO);
         // Then
         assertThat(saveBillInfoConfigResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+    }
+
+    @DependsOnMethod("step11SaveCommission")
+    @Test
+    @DisplayName("ERP-编辑商家-审核")
+    public void step12MerchantAuth() {
+        // Given
+        MerchantAuthRequestDTO merchantAuthRequestDTO = new MerchantAuthRequestDTO();
+        merchantAuthRequestDTO.setStatus(1);
+        if (isEditMerchant) {
+            merchantAuthRequestDTO.setShopId(shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            merchantAuthRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+        }
+        // When
+        MerchantAuthResponseDTO merchantAuthResponseDTO = MerchantAuthFlow.merchantAuth(merchantAuthRequestDTO);
+        // Then
+        assertThat(merchantAuthResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 }
