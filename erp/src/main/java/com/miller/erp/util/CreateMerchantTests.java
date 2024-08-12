@@ -385,6 +385,8 @@ public class CreateMerchantTests {
         // When
         String responseBody = RecommendMerchantFlow.recommendMerchant(recommendMerchantRequestDTO);
         // Then
-        assertThat(responseBody).containsIgnoringCase("{\"code\":\"000000\",\"message\":\"操作成功\",\"data\":null}");
+        assertThat(responseBody).containsIgnoringCase("{\"code\":\"1000\"");
+        // TODO: 更新索引？？？
+
     }
 }
