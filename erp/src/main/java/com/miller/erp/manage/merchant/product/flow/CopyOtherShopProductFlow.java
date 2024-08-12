@@ -16,12 +16,12 @@ import com.miller.service.framework.http.HttpUtils;
  */
 public class CopyOtherShopProductFlow {
     /**
-     * 接口_这个是html接口？？？？
+     * 接口_这个是html接口，老的服务，前后端不分离
      */
     private static final String uri = BusinessConstantOfERP.DOMAIN_TEST_BACKUP + "/admin/merchant/copyOtherShopProduct.htm";
 
     /**
-     * 流程_
+     * 流程_编辑商家-商品-复制其他店铺商品到本店铺
      */
     public static CopyOtherShopProductResponseDTO copyOtherShopProduct(CopyOtherShopProductRequestDTO copyOtherShopProductRequestDTO) {
         ERPLoginFlow.erpLoginByCookie();

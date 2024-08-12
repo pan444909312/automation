@@ -21,6 +21,9 @@ import com.miller.erp.manage.merchant.edit.kp.AddKPTests;
 import com.miller.erp.manage.merchant.edit.kp.flow.AddKPFlow;
 import com.miller.erp.manage.merchant.edit.kp.request.AddKPRequestDTO;
 import com.miller.erp.manage.merchant.edit.kp.response.AddKPResponseDTO;
+import com.miller.erp.manage.merchant.fence.flow.FenceFlow;
+import com.miller.erp.manage.merchant.fence.request.FenceRequestDTO;
+import com.miller.erp.manage.merchant.fence.response.FenceResponseDTO;
 import com.miller.erp.manage.merchant.product.flow.CopyOtherShopProductFlow;
 import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductRequestDTO;
 import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
@@ -29,8 +32,12 @@ import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.framework.util.ResourceUtils;
+import com.panda.common.enums.delivery.ShopTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -198,9 +205,9 @@ public class CreateMerchantTests {
         String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class,
                 filePath + "Step07CopyOtherShopGoods.json");
         CopyOtherShopProductRequestDTO copyOtherShopProductRequestDTO = JSONUtils.jsonToObject(requestJson, CopyOtherShopProductRequestDTO.class);
-        if(isEditMerchant){
+        if (isEditMerchant) {
             copyOtherShopProductRequestDTO.setOrgShopId(shopIdForDebug);
-        }else {
+        } else {
             // 修改 ShopId 为创建商家的 ShopId
             copyOtherShopProductRequestDTO.setOrgShopId(addMerchantResponseDTO.getData().getShopId());
         }
@@ -211,6 +218,7 @@ public class CreateMerchantTests {
         // Then
         assertThat(copyOtherShopProductResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
+
     @Test
     @DisplayName("ERP-编辑商家-修改店铺营业时间")
     public void step08AddShopBusinessTime() {
@@ -218,9 +226,9 @@ public class CreateMerchantTests {
         String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class,
                 filePath + "Step08AddShopBusinessTime.json");
         AddShopBusinessTimeRequestDTO addShopBusinessTimeRequestDTO = JSONUtils.jsonToObject(requestJson, AddShopBusinessTimeRequestDTO.class);
-        if(isEditMerchant){
+        if (isEditMerchant) {
             addShopBusinessTimeRequestDTO.setShopId(shopIdForDebug);
-        }else {
+        } else {
             // 修改 ShopId 为创建商家的 ShopId
             addShopBusinessTimeRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
         }
@@ -232,4 +240,27 @@ public class CreateMerchantTests {
         assertThat(addShopBusinessTimeResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 
+    @Test
+    @DisplayName("ERP-编辑商家-配送围栏")
+    public void step09AddFence() throws UnsupportedEncodingException {
+        // Given
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class,
+                filePath + "Step09AddFence.json");
+        FenceRequestDTO fenceRequestDTO = JSONUtils.jsonToObject(requestJson, FenceRequestDTO.class);
+
+        fenceRequestDTO.setAreaFenceData(URLEncoder.encode(fenceRequestDTO.getAreaFenceData(), "UTF-8"));
+
+        fenceRequestDTO.setShopType((int) ShopTypeEnum.general.getTypeCode());
+        if (isEditMerchant) {
+            fenceRequestDTO.setShopId(shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            fenceRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+        }
+        // When
+        FenceResponseDTO fenceResponseDTO = FenceFlow.saveFence(fenceRequestDTO);
+
+        // Then
+        assertThat(fenceResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.code);
+    }
 }
