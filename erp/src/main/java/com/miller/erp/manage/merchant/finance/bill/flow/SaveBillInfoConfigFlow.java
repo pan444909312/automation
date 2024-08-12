@@ -1,8 +1,8 @@
-package com.miller.erp.manage.merchant.finance.flow;
+package com.miller.erp.manage.merchant.finance.bill.flow;
 
 import com.miller.erp.constants.BusinessConstantOfERP;
-import com.miller.erp.manage.merchant.finance.request.SaveBillInfoConfigRequestDTO;
-import com.miller.erp.manage.merchant.finance.response.SaveBillInfoConfigResponseDTO;
+import com.miller.erp.manage.merchant.finance.bill.request.SaveBillInfoConfigRequestDTO;
+import com.miller.erp.manage.merchant.finance.bill.response.SaveBillInfoConfigResponseDTO;
 import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 

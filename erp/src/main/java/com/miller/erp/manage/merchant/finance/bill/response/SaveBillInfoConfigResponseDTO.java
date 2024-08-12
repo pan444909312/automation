@@ -1,4 +1,4 @@
-package com.miller.erp.manage.merchant.finance.response;
+package com.miller.erp.manage.merchant.finance.bill.response;
 
 
 import com.miller.erp.dto.BasicResponseDTO;

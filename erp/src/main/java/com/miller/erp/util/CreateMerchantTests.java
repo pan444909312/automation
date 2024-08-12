@@ -25,23 +25,23 @@ import com.miller.erp.manage.merchant.edit.kp.response.AddKPResponseDTO;
 import com.miller.erp.manage.merchant.fence.flow.FenceFlow;
 import com.miller.erp.manage.merchant.fence.request.FenceRequestDTO;
 import com.miller.erp.manage.merchant.fence.response.FenceResponseDTO;
-import com.miller.erp.manage.merchant.finance.flow.SaveBillInfoConfigFlow;
-import com.miller.erp.manage.merchant.finance.request.SaveBillInfoConfigRequestDTO;
-import com.miller.erp.manage.merchant.finance.response.SaveBillInfoConfigResponseDTO;
+import com.miller.erp.manage.merchant.finance.bill.flow.SaveBillInfoConfigFlow;
+import com.miller.erp.manage.merchant.finance.bill.request.SaveBillInfoConfigRequestDTO;
+import com.miller.erp.manage.merchant.finance.bill.response.SaveBillInfoConfigResponseDTO;
+import com.miller.erp.manage.merchant.finance.commission.flow.SaveCommissionFlow;
+import com.miller.erp.manage.merchant.finance.commission.request.SaveCommissionRequestDTO;
+import com.miller.erp.manage.merchant.finance.commission.response.SaveCommissionResponseDTO;
 import com.miller.erp.manage.merchant.product.flow.CopyOtherShopProductFlow;
 import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductRequestDTO;
 import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.framework.util.ResourceUtils;
-import com.panda.common.enums.delivery.ShopTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -279,11 +279,43 @@ public class CreateMerchantTests {
 
     @Test
     @DisplayName("ERP-编辑商家-结算信息")
-    public void step10SaveBillInfoOfPanda() {
+    public void step10SaveBillInfo() {
         saveBillInfo("Step10SaveBillInfoOfPanda.json");
-        saveBillInfo("Step11SaveBillInfoOfPandaWeb.json");
-        saveBillInfo("Step12SaveBillInfoOfPandaGFO.json");
+        saveBillInfo("Step10SaveBillInfoOfPandaWeb.json");
+        saveBillInfo("Step10SaveBillInfoOfPandaGFO.json");
     }
+
+    @Test
+    @DisplayName("ERP-编辑商家-结算信息-佣金")
+    public void step11SaveCommission() {
+        saveCommission("Step11SaveCommissionOfPanda-1.json");
+        saveCommission("Step11SaveCommissionOfPanda-2.json");
+        saveCommission("Step11SaveCommissionOfPanda-3.json");
+        saveCommission("Step11SaveCommissionOfPanda-4.json");
+        saveCommission("Step11SaveCommissionOfPanda-5.json");
+        saveCommission("Step11SaveCommissionOfPanda-6.json");
+        saveCommission("Step11SaveCommissionOfPandaWeb-1.json");
+        saveCommission("Step11SaveCommissionOfGFO-1.json");
+    }
+
+    private void saveCommission(String fileName) {
+        // Given
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(SaveCommissionFlow.class,
+                filePath + fileName);
+        SaveCommissionRequestDTO saveCommissionRequestDTO = JSONUtils.jsonToObject(requestJson, SaveCommissionRequestDTO.class);
+        if (isEditMerchant) {
+            saveCommissionRequestDTO.setShopId(shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            saveCommissionRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+        }
+        // When
+        SaveCommissionResponseDTO saveCommissionResponseDTO = SaveCommissionFlow.saveCommission(saveCommissionRequestDTO);
+        // Then
+        assertThat(saveCommissionResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+    }
+
+
     /**
      * 保存结算信息
      *

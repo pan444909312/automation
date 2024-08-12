@@ -1,4 +1,4 @@
-package com.miller.erp.manage.merchant.finance.request;
+package com.miller.erp.manage.merchant.finance.bill.request;
 
 
 import com.panda.erp.server.dal.dto.shop.ShopBillInfoReq;
