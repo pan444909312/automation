@@ -39,7 +39,6 @@ import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductReques
 import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
 import com.miller.erp.manage.merchant.recommend.flow.RecommendMerchantFlow;
 import com.miller.erp.manage.merchant.recommend.request.RecommendMerchantRequestDTO;
-import com.miller.erp.manage.merchant.recommend.response.RecommendMerchantResponseDTO;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
@@ -384,8 +383,8 @@ public class CreateMerchantTests {
             recommendMerchantRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
         }
         // When
-        RecommendMerchantResponseDTO recommendMerchantResponseDTO = RecommendMerchantFlow.recommendMerchant(recommendMerchantRequestDTO);
+        String responseBody = RecommendMerchantFlow.recommendMerchant(recommendMerchantRequestDTO);
         // Then
-        assertThat(recommendMerchantResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+        assertThat(responseBody).containsIgnoringCase("{\"code\":\"000000\",\"message\":\"操作成功\",\"data\":null}");
     }
 }

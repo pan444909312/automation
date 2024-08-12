@@ -3,7 +3,6 @@ package com.miller.erp.manage.merchant.recommend.flow;
 import com.miller.erp.constants.BusinessConstantOfERP;
 import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.merchant.recommend.request.RecommendMerchantRequestDTO;
-import com.miller.erp.manage.merchant.recommend.response.RecommendMerchantResponseDTO;
 import com.miller.erp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
@@ -25,13 +24,13 @@ public class RecommendMerchantFlow {
     /**
      * 流程_推荐商家
      */
-    public static RecommendMerchantResponseDTO recommendMerchant(RecommendMerchantRequestDTO recommendMerchantRequestDTO){
+    public static String recommendMerchant(RecommendMerchantRequestDTO recommendMerchantRequestDTO){
         ERPLoginFlow.erpLoginByCookie();
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
         // RequestUtils.getHeaders().put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 
-        return HttpUtils.sendGetRequestReturnJavaObject(uri, RequestUtils.putParams(recommendMerchantRequestDTO),
-                RequestUtils.getHeaders(), null, RecommendMerchantResponseDTO.class);
+        return HttpUtils.sendGetRequestReturnBody(uri, RequestUtils.putParams(recommendMerchantRequestDTO),
+                RequestUtils.getHeaders(), null);
     }
 
 }
