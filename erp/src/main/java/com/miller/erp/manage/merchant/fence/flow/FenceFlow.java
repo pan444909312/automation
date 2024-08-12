@@ -11,7 +11,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
- * 流程_编辑商家-配送围栏
+ * 流程_编辑商家-配送围栏.
+ * 这个是html接口,老的服务，代码工程在 platform 里面。
  *
  * @author Miller Shan
  * @version 1.0

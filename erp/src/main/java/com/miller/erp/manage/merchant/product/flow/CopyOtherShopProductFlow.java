@@ -9,6 +9,7 @@ import com.miller.service.framework.http.HttpUtils;
 
 /**
  * 流程_编辑商家-商品-复制其他店铺商品到本店铺
+ * 这个是html接口,老的服务，代码工程在 platform 里面。
  *
  * @author Miller Shan
  * @version 1.0

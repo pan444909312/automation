@@ -25,6 +25,9 @@ import com.miller.erp.manage.merchant.edit.kp.response.AddKPResponseDTO;
 import com.miller.erp.manage.merchant.fence.flow.FenceFlow;
 import com.miller.erp.manage.merchant.fence.request.FenceRequestDTO;
 import com.miller.erp.manage.merchant.fence.response.FenceResponseDTO;
+import com.miller.erp.manage.merchant.finance.flow.SaveBillInfoConfigFlow;
+import com.miller.erp.manage.merchant.finance.request.SaveBillInfoConfigRequestDTO;
+import com.miller.erp.manage.merchant.finance.response.SaveBillInfoConfigResponseDTO;
 import com.miller.erp.manage.merchant.product.flow.CopyOtherShopProductFlow;
 import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductRequestDTO;
 import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
@@ -274,9 +277,32 @@ public class CreateMerchantTests {
         assertThat(fenceResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.code);
     }
 
-//    @Test
-//    @DisplayName("ERP-编辑商家-结算信息")
-//    public void step10()  {
-//
-//    }
+    @Test
+    @DisplayName("ERP-编辑商家-结算信息")
+    public void step10SaveBillInfoOfPanda() {
+        saveBillInfo("Step10SaveBillInfoOfPanda.json");
+        saveBillInfo("Step11SaveBillInfoOfPandaWeb.json");
+        saveBillInfo("Step12SaveBillInfoOfPandaGFO.json");
+    }
+    /**
+     * 保存结算信息
+     *
+     * @param fileName 文件名
+     */
+    private void saveBillInfo(String fileName) {
+        // Given
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(SaveBillInfoConfigFlow.class,
+                filePath + fileName);
+        SaveBillInfoConfigRequestDTO saveBillInfoConfigRequestDTO = JSONUtils.jsonToObject(requestJson, SaveBillInfoConfigRequestDTO.class);
+        if (isEditMerchant) {
+            saveBillInfoConfigRequestDTO.setShopId(shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            saveBillInfoConfigRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+        }
+        // When
+        SaveBillInfoConfigResponseDTO saveBillInfoConfigResponseDTO = SaveBillInfoConfigFlow.saveBillInfoConfig(saveBillInfoConfigRequestDTO);
+        // Then
+        assertThat(saveBillInfoConfigResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+    }
 }
