@@ -10,6 +10,6 @@ public class SystemConfigConstant {
     /**
      * 接口请求的域名
      */
-     public static final String DOMAIN = new PropertiesUtils().getProperty(SystemConfigConstant.class,"fresh.env.domain");
-    // public static final String DOMAIN = "https://test.pandafreshmart.com";
+//     public static final String DOMAIN = "https://test.pandafreshmart.com";
+    public static final String DOMAIN =  new PropertiesUtils().getProperty(SystemConfigConstant .class, "fresh.env.domain");
 }
