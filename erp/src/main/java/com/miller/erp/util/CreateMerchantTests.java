@@ -1,5 +1,6 @@
 package com.miller.erp.util;
 
+import com.alibaba.fastjson.JSON;
 import com.miller.erp.constants.ResponseConstantOfERP;
 import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.merchant.add.AddMerchantTests;
@@ -38,6 +39,7 @@ import org.junit.jupiter.api.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -248,19 +250,33 @@ public class CreateMerchantTests {
                 filePath + "Step09AddFence.json");
         FenceRequestDTO fenceRequestDTO = JSONUtils.jsonToObject(requestJson, FenceRequestDTO.class);
 
-        fenceRequestDTO.setAreaFenceData(URLEncoder.encode(fenceRequestDTO.getAreaFenceData(), "UTF-8"));
-
-        fenceRequestDTO.setShopType((int) ShopTypeEnum.general.getTypeCode());
+        List<FenceRequestDTO.BaseFenceOperateDTO> baseFenceOperateDTOS =
+                JSON.parseArray(fenceRequestDTO.getAreaFenceData(), FenceRequestDTO.BaseFenceOperateDTO.class);
         if (isEditMerchant) {
-            fenceRequestDTO.setShopId(shopIdForDebug);
+            baseFenceOperateDTOS.forEach(baseFenceOperateDTO -> {
+                baseFenceOperateDTO.setPid(shopIdForDebug);
+            });
+
+
         } else {
             // 修改 ShopId 为创建商家的 ShopId
-            fenceRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+            baseFenceOperateDTOS.forEach(baseFenceOperateDTO -> {
+                baseFenceOperateDTO.setPid(addMerchantResponseDTO.getData().getShopId());
+            });
         }
+        fenceRequestDTO.setAreaFenceData(JSON.toJSONString(baseFenceOperateDTOS));
+
+//        URLEncoder.encode(String.valueOf(fenceRequestDTO.getAreaFenceData().get(0)), "UTF-8");
         // When
         FenceResponseDTO fenceResponseDTO = FenceFlow.saveFence(fenceRequestDTO);
 
         // Then
         assertThat(fenceResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.code);
     }
+
+//    @Test
+//    @DisplayName("ERP-编辑商家-结算信息")
+//    public void step10()  {
+//
+//    }
 }
