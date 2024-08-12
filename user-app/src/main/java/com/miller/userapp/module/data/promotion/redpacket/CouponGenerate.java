@@ -25,9 +25,12 @@ public class CouponGenerate {
 
     private CouponTemplateFlow couponTemplateFlow;
     private final String fileURL = "coupon" + File.separator;
+    //默认店铺id
     private final String defaultShopId = "536235947";
+    //默认商品id
     private final String defaultProductIds = "82083860,82083858,82083862";
-    private final Integer defaultCouponType = 1; // 满减
+    //默认券类型 满减
+    private final Integer defaultCouponType = 1;
 
 
     /**
@@ -190,7 +193,7 @@ public class CouponGenerate {
 
     /**
      * 创建商品券，不传指定商品则传入写死的默认测试商品id
-     * @return
+     * @return 添加结果，成功则返回优惠券template_sn
      */
     public String addProductCouponTemplate(){
         return addProductCouponTemplate(defaultProductIds);
@@ -198,14 +201,32 @@ public class CouponGenerate {
 
     @Test
     public void addCouponTest() {
+        //创建平台满减优惠券
 //        System.out.println(addPlatformCouponTemplate(1));
+
+        //创建平台折扣优惠券
 //        System.out.println(addPlatformCouponTemplate(2));
+
+        //创建平台减运费优惠券
 //        System.out.println(addPlatformCouponTemplate(3));
+
+        //创建店铺满减优惠券
 //        System.out.println(addShopCouponTemplate(1));
+
+        //创建店铺折扣优惠券
 //        System.out.println(addShopCouponTemplate(2));
+
+        //创建店铺减运费优惠券
 //        System.out.println(addShopCouponTemplate(3));
-//        addShopCouponTemplate("278985730,116049906");
-//        addProductCouponTemplate();
+
+        //指定商家创建店铺满减优惠券
+//        System.out.println(addShopCouponTemplate(1, "278985730,116049906"));
+
+        //创建商品券
+//        System.out.println(addProductCouponTemplate());
+
+        //指定商品创建商品券
+        System.out.println(addProductCouponTemplate("82083860"));
     }
 
     /**
