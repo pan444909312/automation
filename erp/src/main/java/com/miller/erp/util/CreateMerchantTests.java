@@ -18,6 +18,9 @@ import com.miller.erp.manage.merchant.edit.kp.AddKPTests;
 import com.miller.erp.manage.merchant.edit.kp.flow.AddKPFlow;
 import com.miller.erp.manage.merchant.edit.kp.request.AddKPRequestDTO;
 import com.miller.erp.manage.merchant.edit.kp.response.AddKPResponseDTO;
+import com.miller.erp.manage.merchant.product.flow.CopyOtherShopProductFlow;
+import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductRequestDTO;
+import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
@@ -43,11 +46,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Disabled
 @Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
 @Slf4j
+@DisplayName("一键自动创建商家")
 public class CreateMerchantTests {
     /**
      * true: 编辑商家；false:创建商家。如果为false则使用指定的 ShopId 对商家进行编辑操作。
      */
-    private static final boolean isEditMerchant = true;
+    private static final boolean isEditMerchant = false;
     private final long shopIdForDebug = 970301088;
 
     /**
@@ -182,6 +186,28 @@ public class CreateMerchantTests {
 
         // Then
         assertThat(AddKPResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+    }
+
+    @Test
+    @DisplayName("ERP-编辑商家-复制其他店铺商品")
+    public void step07CopyOtherShopGoods() {
+        // Given
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class,
+                filePath + "Step07CopyOtherShopGoods.json");
+        CopyOtherShopProductRequestDTO copyOtherShopProductRequestDTO = JSONUtils.jsonToObject(requestJson, CopyOtherShopProductRequestDTO.class);
+        if(isEditMerchant){
+            copyOtherShopProductRequestDTO.setOrgShopId(shopIdForDebug);
+        }else {
+            // 修改 ShopId 为创建商家的 ShopId
+            copyOtherShopProductRequestDTO.setOrgShopId(addMerchantResponseDTO.getData().getShopId());
+        }
+
+        // When
+        CopyOtherShopProductResponseDTO copyOtherShopProductResponseDTO = CopyOtherShopProductFlow.copyOtherShopProduct(copyOtherShopProductRequestDTO);
+
+        // Then
+        assertThat(copyOtherShopProductResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+
     }
 
 }
