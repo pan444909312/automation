@@ -1,0 +1,38 @@
+{
+  "userCollectNumType": 2,
+  "distanceType": 1,
+  "isTagLimited": 2,
+  "isLimitAddress": 2,
+  "scope": 3,
+  "useChannel": 0,
+  "isAllowAddPrice": 0,
+  "couponType": 2,
+  "couponNameType": 1,
+  "bearType": 0,
+  "isAllowBigFullSub": 0,
+  "isPopup": 0,
+  "mutexType": 1,
+  "timeSlotType": 1,
+  "validTimeType": 1,
+  "cityName": "杭州市",
+  "activitySn": "8620QIH9YK",
+  "templateName": "平台-折扣券",
+  "languageCodeList": [
+    "CN",
+    "EN"
+  ],
+  "crowd": 1,
+  "deviceUseUnique": 2,
+  "deviceLimitType": 2,
+  "endTimeStr": "$endTime$",
+  "startTimeStr": "$startTime$",
+  "rule": {
+    "meetPrice": 1000,
+    "merchantMeetPrice": 1000,
+    "reducePrice": 500,
+    "discountRate": 9,
+    "merchantBearPrice": 100,
+    "platformBearPrice": 0,
+    "stock": 1000
+  }
+}

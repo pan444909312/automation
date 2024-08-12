@@ -1,0 +1,36 @@
+{
+  "userCollectNumType": 2,
+  "distanceType": 1,
+  "isTagLimited": 2,
+  "isLimitAddress": 2,
+  "scope": 2,
+  "useChannel": 0,
+  "isAllowAddPrice": 0,
+  "couponNameType": 1,
+  "bearType": 1,
+  "isAllowBigFullSub": 0,
+  "timeSlotType": 1,
+  "validTimeType": 1,
+  "cityName": "杭州市",
+  "activitySn": "8620QIH9YK",
+  "templateName": "商品券",
+  "startTime": [
+    "2024-08-08T09:35:15.919Z",
+    "2024-08-31T09:35:15.919Z"
+  ],
+  "languageCodeList": [
+    "CN"
+  ],
+  "crowd": 1,
+  "deviceUseUnique": 2,
+  "deviceLimitType": 2,
+  "endTimeStr": "$endTime$",
+  "startTimeStr": "$startTime$",
+  "rule": {
+    "meetPrice": 1000,
+    "reducePrice": 200,
+    "merchantBearPrice": 200,
+    "platformBearPrice": 0,
+    "stock": 1000
+  }
+}
