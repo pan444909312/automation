@@ -1,0 +1,37 @@
+{
+  "userCollectNumType": 2,
+  "distanceType": 1,
+  "isTagLimited": 2,
+  "isLimitAddress": 2,
+  "scope": 3,
+  "useChannel": 1,
+  "isAllowAddPrice": 0,
+  "couponType": 3,
+  "couponNameType": 1,
+  "bearType": 1,
+  "isAllowBigFullSub": 0,
+  "isPopup": 0,
+  "mutexType": 1,
+  "timeSlotType": 1,
+  "validTimeType": 1,
+  "cityName": "杭州市",
+  "activitySn": "8620QIH9YK",
+  "templateName": "平台-减运费券",
+  "languageCodeList": [
+    "CN",
+    "EN"
+  ],
+  "crowd": 1,
+  "deviceUseUnique": 2,
+  "deviceLimitType": 2,
+  "endTimeStr": "$endTime$",
+  "startTimeStr": "$startTime$",
+  "rule": {
+    "meetPrice": 500,
+    "merchantMeetPrice": 500,
+    "reducePrice": 400,
+    "merchantBearPrice": 400,
+    "platformBearPrice": 0,
+    "stock": 1000
+  }
+}

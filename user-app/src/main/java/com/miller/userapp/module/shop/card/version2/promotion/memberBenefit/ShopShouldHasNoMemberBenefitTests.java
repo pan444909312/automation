@@ -43,12 +43,14 @@ public class ShopShouldHasNoMemberBenefitTests {
         ShopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
         MemberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
 //        修改会员城市表，修改会员城市表is_open_delivery_discount字段为0 运费减免优先级>店铺联盟，因此现关闭会员减免
+//        update member_city set is_open_delivery_discount=0 where   member_city_id=1111378;
          UpdateWrapper<MemberCityEntity> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("member_city_id", memberCityID).set("is_open_delivery_discount",0);
         ShopMemberCityMapper.update(null,updateWrapper);
 //        修改会员权益店铺联盟券的=已删除
+//        update member_packet set is_del=1 where packet_id=888890186 and member_city_id=1111378;
         UpdateWrapper<MemberPacketEntity> updateWrapper2 = new UpdateWrapper<>();
-        updateWrapper2.eq("packet_id", packageId).eq("member_city_id", memberCityID).set("is_del",0);
+        updateWrapper2.eq("packet_id", packageId).eq("member_city_id", memberCityID).set("is_del",1);
         MemberPacketMapper.update(null,updateWrapper2);
 //       执行定时定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.index.update.id"));
@@ -85,7 +87,6 @@ public class ShopShouldHasNoMemberBenefitTests {
         boolean memberPacket= shopIndexVO.getShopPromoteList().stream().
                 noneMatch(item -> item.getType() == ShopPromoteEnum.INDEX_MEMBER_PACKET.getType());
         assert memberPacket;
-
     }
     /**
      * 测试用例数据提供者
