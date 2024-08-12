@@ -37,6 +37,9 @@ import com.miller.erp.manage.merchant.finance.commission.response.SaveCommission
 import com.miller.erp.manage.merchant.product.flow.CopyOtherShopProductFlow;
 import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductRequestDTO;
 import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
+import com.miller.erp.manage.merchant.recommend.flow.RecommendMerchantFlow;
+import com.miller.erp.manage.merchant.recommend.request.RecommendMerchantRequestDTO;
+import com.miller.erp.manage.merchant.recommend.response.RecommendMerchantResponseDTO;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
@@ -365,5 +368,24 @@ public class CreateMerchantTests {
         MerchantAuthResponseDTO merchantAuthResponseDTO = MerchantAuthFlow.merchantAuth(merchantAuthRequestDTO);
         // Then
         assertThat(merchantAuthResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
+    }
+
+    @DependsOnMethod("step12MerchantAuth")
+    @Test
+    @DisplayName("ERP-编辑商家-推荐商家")
+    public void step13Recommend() {
+        // Given
+        RecommendMerchantRequestDTO recommendMerchantRequestDTO = new RecommendMerchantRequestDTO();
+        recommendMerchantRequestDTO.setType(1);
+        if (isEditMerchant) {
+            recommendMerchantRequestDTO.setShopId(shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            recommendMerchantRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+        }
+        // When
+        RecommendMerchantResponseDTO recommendMerchantResponseDTO = RecommendMerchantFlow.recommendMerchant(recommendMerchantRequestDTO);
+        // Then
+        assertThat(recommendMerchantResponseDTO.getCode()).isEqualTo(ResponseConstantOfERP.resultCode);
     }
 }
