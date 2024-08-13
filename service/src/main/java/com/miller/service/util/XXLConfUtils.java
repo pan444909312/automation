@@ -5,8 +5,6 @@ import com.miller.service.dto.XXLConfigEnvEnum;
 import com.miller.service.dto.XXLConfigRequestDTO;
 import com.miller.service.dto.XXLResponseDTO;
 import com.miller.service.framework.http.HttpUtils;
-import com.miller.service.framework.util.JSONUtils;
-import com.miller.service.framework.util.PropertiesUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,16 +32,23 @@ public class XXLConfUtils {
         params.put("password", "123456");
         params.put("ifRemember", "on");
 
-        Map<String, Object> stringObjectMap = HttpUtils.sendPostRequest(XXL_CONFIG_URL + "/login", params, headers, null, null);
+        Map<String, Object> stringObjectMap = HttpUtils.sendPostRequest(XXL_CONFIG_URL + "/login", null, headers, params, null);
         responseCookies = (HashMap<String, Object>) stringObjectMap.get("cookies");
     }
 
     /**
-     * 更新配置
+     * 更新 XXL Config  配置
+     *
+     * @param env   {@link XXLConfigEnvEnum}
+     * @param key   配置 key
+     * @param title 配置名称
+     * @param value 配置值，一般是 true 或 false
+     * @return 成功返回true， 失败返回false
      */
-    public static boolean updateConfig(XXLConfigEnvEnum env, String key, String title, Boolean value) {
+    public static boolean updateConfig(String env, String key, String title, Boolean value) {
+        XXLConfigEnvEnum xxlConfigEnvEnum = XXLConfigEnvEnum.valueOf(env.toUpperCase());
         XXLConfigRequestDTO xxlConfigRequestDTO = new XXLConfigRequestDTO();
-        xxlConfigRequestDTO.setEnv(env.getEnv());
+        xxlConfigRequestDTO.setEnv(xxlConfigEnvEnum.getEnv());
         xxlConfigRequestDTO.setKey(key);
         xxlConfigRequestDTO.setTitle(title);
         xxlConfigRequestDTO.setValue(value);
@@ -61,7 +66,7 @@ public class XXLConfUtils {
     }
 
     public static void main(String[] args) {
-        updateConfig(XXLConfigEnvEnum.TEST, "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
+        updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
     }
 
 }

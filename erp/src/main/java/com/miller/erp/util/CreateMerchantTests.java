@@ -40,11 +40,13 @@ import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductReques
 import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
 import com.miller.erp.manage.merchant.recommend.flow.RecommendMerchantFlow;
 import com.miller.erp.manage.merchant.recommend.request.RecommendMerchantRequestDTO;
+import com.miller.service.dto.XXLConfigEnvEnum;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.framework.util.ResourceUtils;
+import com.miller.service.util.XXLConfUtils;
 import com.miller.service.util.XXLJobUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
@@ -89,12 +91,14 @@ public class CreateMerchantTests {
     @BeforeAll
     public static void beforeAll() {
         ERPLoginFlow.loginByDefaultUser();
-        if (!isEditMerchant) step02CreateMerchant();
+        // 关闭首页店铺流缓存
+        XXLConfUtils.updateConfig(new PropertiesUtils().getProperty(CreateMerchantTests.class,"erp.xxl.env"), "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
+        if (!isEditMerchant)
+            step02CreateMerchant();
     }
 
     @AfterAll
     public static void afterAll() {
-        System.out.println(addMerchantResponseDTO.getData().getShopId());
         // 删除店铺？
     }
 
