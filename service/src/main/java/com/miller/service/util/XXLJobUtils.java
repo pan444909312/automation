@@ -1,6 +1,6 @@
 package com.miller.service.util;
 
-import com.miller.service.dto.XXLJobResponse;
+import com.miller.service.dto.XXLResponseDTO;
 import com.miller.service.framework.http.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,14 +48,13 @@ public class XXLJobUtils {
         var params = new HashMap<String, Object>();
         params.put("id", jobId);
 
-        XXLJobResponse XXLJobResponse = HttpUtils.sendPostRequestReturnJavaObject(XXL_JOB_ADMIN_URL + "/jobinfo/trigger", params, headers, null, responseCookies, XXLJobResponse.class);
-        if (XXLJobResponse.getCode().equals(200)) {
+        XXLResponseDTO XXLResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(XXL_JOB_ADMIN_URL + "/jobinfo/trigger", params, headers, null, responseCookies, XXLResponseDTO.class);
+        if (XXLResponseDTO.getCode().equals(200)) {
             // 查询定时任务执行结果
             return taskStatus(jobId);
         } else {
             // log.error("触发定时任务失败，Job ID is:{}", jobId);
             return false;
-
         }
     }
 
