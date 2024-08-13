@@ -1,13 +1,16 @@
 package com.miller.erp.util;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.hungrypanda.app.server.entity.shop.ShopEntity;
 import com.miller.erp.constants.ResponseConstantOfERP;
-import com.miller.erp.dto.BasicResponseDTO;
 import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.merchant.add.AddMerchantTests;
 import com.miller.erp.manage.merchant.add.flow.AddMerchantFlow;
 import com.miller.erp.manage.merchant.add.request.AddMerchantRequestDTO;
 import com.miller.erp.manage.merchant.add.response.AddMerchantResponseDTO;
+import com.miller.erp.manage.merchant.auditIdentity.flow.AuditIdentityMerchantFlow;
+import com.miller.erp.manage.merchant.auditIdentity.request.AuditIdentityMerchantRequestDTO;
 import com.miller.erp.manage.merchant.auth.flow.MerchantAuthFlow;
 import com.miller.erp.manage.merchant.auth.request.MerchantAuthRequestDTO;
 import com.miller.erp.manage.merchant.auth.response.MerchantAuthResponseDTO;
@@ -40,7 +43,7 @@ import com.miller.erp.manage.merchant.product.request.CopyOtherShopProductReques
 import com.miller.erp.manage.merchant.product.response.CopyOtherShopProductResponseDTO;
 import com.miller.erp.manage.merchant.recommend.flow.RecommendMerchantFlow;
 import com.miller.erp.manage.merchant.recommend.request.RecommendMerchantRequestDTO;
-import com.miller.service.dto.XXLConfigEnvEnum;
+import com.miller.erp.mapper.shop.ShopMapper;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
@@ -59,10 +62,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * 一键自动创建商家。
  * 路径：ERP-商家管理-商家列表-新增商家
- * <p>
- * 创建商家流程：
- * <p>
- * 1.
  *
  * @author Miller Shan
  * @version 1.0
@@ -92,7 +91,7 @@ public class CreateMerchantTests {
     public static void beforeAll() {
         ERPLoginFlow.loginByDefaultUser();
         // 关闭首页店铺流缓存
-        XXLConfUtils.updateConfig(new PropertiesUtils().getProperty(CreateMerchantTests.class,"erp.xxl.env"), "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
+        XXLConfUtils.updateConfig(new PropertiesUtils().getProperty(CreateMerchantTests.class, "erp.xxl.env"), "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
         if (!isEditMerchant)
             step02CreateMerchant();
     }
@@ -102,6 +101,9 @@ public class CreateMerchantTests {
         // 删除店铺？
     }
 
+    /**
+     * 创建商家
+     */
     private static void step02CreateMerchant() {
         // Given
         AddMerchantRequestDTO addMerchantRequestDTO = JSONUtils.jsonToObject(
@@ -378,7 +380,7 @@ public class CreateMerchantTests {
     @DependsOnMethod("step12MerchantAuth")
     @Test
     @DisplayName("ERP-编辑商家-推荐商家")
-    public void step13Recommend() {
+    public void step13RecommendMerchant() {
         // Given
         RecommendMerchantRequestDTO recommendMerchantRequestDTO = new RecommendMerchantRequestDTO();
         recommendMerchantRequestDTO.setType(1);
@@ -396,4 +398,32 @@ public class CreateMerchantTests {
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "erp.job.increment.index.update.id"));
     }
 
+    @Disabled
+    @DependsOnMethod("step13RecommendMerchant")
+    @Test
+    @DisplayName("ERP-商家管理-商家认证-店主认证")
+    public void step14MerchantAuth() {
+        // TODO 上传资料接口是老的表单接口，请求为 multipart/form-data ，请求体里面需要添加文件，所以暂时无法测试
+
+        // Given
+        AuditIdentityMerchantRequestDTO auditIdentityMerchantRequestDTO = new AuditIdentityMerchantRequestDTO();
+        if (isEditMerchant) {
+            auditIdentityMerchantRequestDTO.setShopId(shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            auditIdentityMerchantRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
+        }
+        // 根据 shopID 查询 UserId
+        ShopMapper mapper = DBUtils.getDBOfPandaTest().getMapper(ShopMapper.class);
+        ShopEntity shopEntity = mapper.selectOne(new LambdaQueryWrapper<ShopEntity>().eq(ShopEntity::getShopId, auditIdentityMerchantRequestDTO.getShopId()));
+        auditIdentityMerchantRequestDTO.setUserId(shopEntity.getUserId());
+        auditIdentityMerchantRequestDTO.setIdentityStatus(1);
+
+
+        // When
+        String responseBody = AuditIdentityMerchantFlow.auditIdentityMerchant(auditIdentityMerchantRequestDTO);
+
+        // Then
+        assertThat(responseBody).isNotEmpty();  // 返回的是html页面。。。
+    }
 }
