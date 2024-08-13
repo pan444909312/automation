@@ -2,6 +2,7 @@ package com.miller.erp.util;
 
 import com.alibaba.fastjson.JSON;
 import com.miller.erp.constants.ResponseConstantOfERP;
+import com.miller.erp.dto.BasicResponseDTO;
 import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.merchant.add.AddMerchantTests;
 import com.miller.erp.manage.merchant.add.flow.AddMerchantFlow;
@@ -44,6 +45,7 @@ import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.framework.util.ResourceUtils;
+import com.miller.service.util.XXLJobUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 
@@ -383,10 +385,11 @@ public class CreateMerchantTests {
             recommendMerchantRequestDTO.setShopId(addMerchantResponseDTO.getData().getShopId());
         }
         // When
-        String responseBody = RecommendMerchantFlow.recommendMerchant(recommendMerchantRequestDTO);
+        String response = RecommendMerchantFlow.recommendMerchant(recommendMerchantRequestDTO);
         // Then
-        assertThat(responseBody).containsIgnoringCase("{\"code\":\"1000\"");
-        // TODO: 更新索引？？？
-
+        assertThat(response).containsIgnoringCase("code\\\":1000");
+        // 搜索索引更新
+        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "erp.job.increment.index.update.id"));
     }
+
 }
