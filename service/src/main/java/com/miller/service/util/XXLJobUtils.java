@@ -1,12 +1,11 @@
 package com.miller.service.util;
 
+import com.miller.service.dto.XXLJobResponse;
 import com.miller.service.framework.http.HttpUtils;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * XXLJob工具类
@@ -49,8 +48,8 @@ public class XXLJobUtils {
         var params = new HashMap<String, Object>();
         params.put("id", jobId);
 
-        Response response = HttpUtils.sendPostRequestReturnJavaObject(XXL_JOB_ADMIN_URL + "/jobinfo/trigger", params, headers, null, responseCookies, Response.class);
-        if (response.getCode().equals(200)) {
+        XXLJobResponse XXLJobResponse = HttpUtils.sendPostRequestReturnJavaObject(XXL_JOB_ADMIN_URL + "/jobinfo/trigger", params, headers, null, responseCookies, XXLJobResponse.class);
+        if (XXLJobResponse.getCode().equals(200)) {
             // 查询定时任务执行结果
             return taskStatus(jobId);
         } else {
@@ -98,9 +97,3 @@ public class XXLJobUtils {
 
 }
 
-@Data
-class Response {
-    private Integer code;
-    private String msg;
-    private String content;
-}
