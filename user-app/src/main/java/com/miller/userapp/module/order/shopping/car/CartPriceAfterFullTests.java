@@ -36,10 +36,11 @@ public class CartPriceAfterFullTests {
         // 初始化，链接数据库
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         UserCdKeyMapper userCdKeyMapper = sqlSession.getMapper(UserCdKeyMapper.class);
+        Long time = System.currentTimeMillis();
         var lambdaUpdateWrapper = new LambdaUpdateWrapper<UserCdKeyEntity>();
         lambdaUpdateWrapper
                 .eq(UserCdKeyEntity::getUserId, 1398708422L)
-                .gt(UserCdKeyEntity::getEndTime, 1710223505718L)
+                .gt(UserCdKeyEntity::getEndTime, time)
                 .set(UserCdKeyEntity::getIsUsed, 1);
         userCdKeyMapper.update(lambdaUpdateWrapper);
     }
