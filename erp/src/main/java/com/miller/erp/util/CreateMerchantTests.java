@@ -60,8 +60,39 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 一键自动创建商家。
- * 路径：ERP-商家管理-商家列表-新增商家
+ * 一键自动创建商家。支持创建新商家 或 修改已存在的商家。当 {@code isEditMerchant = true} 则会根据 {@code shopIdForDebug} 的ID进行编辑商家操作。
+ * <p>
+ * 手工查看创建的商家路径：ERP-商家管理-商家列表-新增商家
+ * <p>
+ * 创建商家步骤：
+ * <ul>
+ *     <li>会自动根据指定路径{@code filePath}下的Json文件创建商家。</li>
+ *     <li>关闭首页店铺流缓存,否则创建完商家不会自动显示在首页店铺流。</li>
+ *     <li>如果 {@code isEditMerchant = false} 则自动创建商家。</li>
+ *     <li>ERP-编辑商家-经营信息</li>
+ *     <li>ERP-编辑商家-费用配置</li>
+ *     <li>ERP-编辑商家-补充信息</li>
+ *     <li>ERP-编辑商家-KP信息</li>
+ *     <li>ERP-编辑商家-复制其他店铺商品</li>
+ *     <li>ERP-编辑商家-修改店铺营业时间</li>
+ *     <li>ERP-编辑商家-配送围栏</li>
+ *     <li>ERP-编辑商家-结算信息</li>
+ *     <li>ERP-编辑商家-结算信息-佣金</li>
+ *     <li>ERP-编辑商家-审核</li>
+ *     <li>ERP-编辑商家-推荐商家</li>
+ *     <li>ERP-商家管理-商家认证-店主认证。<b>注意:</b>这一步暂未自动化，如果业务需要用到商家认证请手动上传照片认证，后续完善</li>
+ *
+ * </ul>
+ *
+ * </p>
+ * <p>
+ *     <ur>
+ *         <li>使用场景1: 一键自动创建模板商家，用于测试首页、商卡、订单流等, 不包含红包、会员、优惠券等信息。</li>
+ *         <li>使用场景2: 根据现有商家快速创建商家，使用方式为为先将自己的商家相关信息抓包保存到 {@code filePath} 文件夹下，然后使用此测试类进行创建商家.</li>
+ *     </ur>
+ *
+ *
+ * </p>
  *
  * @author Miller Shan
  * @version 1.0
@@ -92,8 +123,7 @@ public class CreateMerchantTests {
         ERPLoginFlow.loginByDefaultUser();
         // 关闭首页店铺流缓存
         XXLConfUtils.updateConfig(new PropertiesUtils().getProperty(CreateMerchantTests.class, "erp.xxl.env"), "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
-        if (!isEditMerchant)
-            step02CreateMerchant();
+        if (!isEditMerchant) step02CreateMerchant();
     }
 
     @AfterAll
@@ -108,8 +138,7 @@ public class CreateMerchantTests {
         // Given
         AddMerchantRequestDTO addMerchantRequestDTO = JSONUtils.jsonToObject(
                 // 读取测试用例数据
-                new ResourceUtils().readTestCaseDataFromResourcesPath(AddMerchantTests.class,
-                        filePath + "Step02AddMerchant.json"),
+                new ResourceUtils().readTestCaseDataFromResourcesPath(AddMerchantTests.class, filePath + "Step02AddMerchant.json"),
                 // 转换为对象
                 AddMerchantRequestDTO.class);
         // 商家中文名称不能重复
@@ -121,8 +150,7 @@ public class CreateMerchantTests {
                 // 名称从配置文件读取
                 .setValue(new PropertiesUtils().getProperty(AddMerchantTests.class, "erp.merchant.chinese.name.prefix") +
                         // 名称添加时间戳的后6位，避免重复
-                        String.valueOf(System.currentTimeMillis()).substring(7, 13)
-                );
+                        String.valueOf(System.currentTimeMillis()).substring(7, 13));
         // 英文名称不能重复
         addMerchantRequestDTO.getBaseInfo().getOperationNameList()
                 // 获取 "lang": "EN" 对象
@@ -147,8 +175,7 @@ public class CreateMerchantTests {
     @DisplayName("ERP-编辑商家-经营信息")
     public void step03EditMerchantInfoOfBusiness() {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(BusinessInfoEditTests.class,
-                filePath + "Step03EditMerchantInfoOfBusiness.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(BusinessInfoEditTests.class, filePath + "Step03EditMerchantInfoOfBusiness.json");
         BusinessInfoEditRequestDTO businessInfoEditRequestDTO = JSONUtils.jsonToObject(requestJson, BusinessInfoEditRequestDTO.class);
         if (isEditMerchant) {
             // 修改 ShopId 为指定的 ShopId
@@ -181,8 +208,7 @@ public class CreateMerchantTests {
     @DisplayName("ERP-编辑商家-补充信息")
     public void step05EditMerchantInfoOfAdditional() {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AdditionalInfoEditTests.class,
-                filePath + "Step05EditMerchantInfoOfAdditional.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AdditionalInfoEditTests.class, filePath + "Step05EditMerchantInfoOfAdditional.json");
         AdditionalInfoEditRequestDTO additionalInfoEditRequestDTO = JSONUtils.jsonToObject(requestJson, AdditionalInfoEditRequestDTO.class);
         if (isEditMerchant) {
             additionalInfoEditRequestDTO.setShopId(shopIdForDebug);
@@ -201,8 +227,7 @@ public class CreateMerchantTests {
     @DisplayName("ERP-编辑商家-KP信息")
     public void step06EditMerchantInfoOfAddKP() {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AddKPTests.class,
-                filePath + "Step06EditMerchantInfoOfAddKP.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(AddKPTests.class, filePath + "Step06EditMerchantInfoOfAddKP.json");
         AddKPRequestDTO AddKPRequestDTO = JSONUtils.jsonToObject(requestJson, AddKPRequestDTO.class);
         if (isEditMerchant) {
             AddKPRequestDTO.setShopId(shopIdForDebug);
@@ -221,8 +246,7 @@ public class CreateMerchantTests {
     @DisplayName("ERP-编辑商家-复制其他店铺商品")
     public void step07CopyOtherShopGoods() {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class,
-                filePath + "Step07CopyOtherShopGoods.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class, filePath + "Step07CopyOtherShopGoods.json");
         CopyOtherShopProductRequestDTO copyOtherShopProductRequestDTO = JSONUtils.jsonToObject(requestJson, CopyOtherShopProductRequestDTO.class);
         if (isEditMerchant) {
             copyOtherShopProductRequestDTO.setOrgShopId(shopIdForDebug);
@@ -242,8 +266,7 @@ public class CreateMerchantTests {
     @DisplayName("ERP-编辑商家-修改店铺营业时间")
     public void step08AddShopBusinessTime() {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class,
-                filePath + "Step08AddShopBusinessTime.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class, filePath + "Step08AddShopBusinessTime.json");
         AddShopBusinessTimeRequestDTO addShopBusinessTimeRequestDTO = JSONUtils.jsonToObject(requestJson, AddShopBusinessTimeRequestDTO.class);
         if (isEditMerchant) {
             addShopBusinessTimeRequestDTO.setShopId(shopIdForDebug);
@@ -263,12 +286,10 @@ public class CreateMerchantTests {
     @DisplayName("ERP-编辑商家-配送围栏")
     public void step09AddFence() throws UnsupportedEncodingException {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class,
-                filePath + "Step09AddFence.json");
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(CopyOtherShopProductFlow.class, filePath + "Step09AddFence.json");
         FenceRequestDTO fenceRequestDTO = JSONUtils.jsonToObject(requestJson, FenceRequestDTO.class);
 
-        List<FenceRequestDTO.BaseFenceOperateDTO> baseFenceOperateDTOS =
-                JSON.parseArray(fenceRequestDTO.getAreaFenceData(), FenceRequestDTO.BaseFenceOperateDTO.class);
+        List<FenceRequestDTO.BaseFenceOperateDTO> baseFenceOperateDTOS = JSON.parseArray(fenceRequestDTO.getAreaFenceData(), FenceRequestDTO.BaseFenceOperateDTO.class);
         if (isEditMerchant) {
             baseFenceOperateDTOS.forEach(baseFenceOperateDTO -> {
                 baseFenceOperateDTO.setPid(shopIdForDebug);
@@ -320,8 +341,7 @@ public class CreateMerchantTests {
      */
     private void saveCommission(String fileName) {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(SaveCommissionFlow.class,
-                filePath + fileName);
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(SaveCommissionFlow.class, filePath + fileName);
         SaveCommissionRequestDTO saveCommissionRequestDTO = JSONUtils.jsonToObject(requestJson, SaveCommissionRequestDTO.class);
         if (isEditMerchant) {
             saveCommissionRequestDTO.setShopId(shopIdForDebug);
@@ -343,8 +363,7 @@ public class CreateMerchantTests {
      */
     private void saveBillInfo(String fileName) {
         // Given
-        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(SaveBillInfoConfigFlow.class,
-                filePath + fileName);
+        String requestJson = new ResourceUtils().readTestCaseDataFromResourcesPath(SaveBillInfoConfigFlow.class, filePath + fileName);
         SaveBillInfoConfigRequestDTO saveBillInfoConfigRequestDTO = JSONUtils.jsonToObject(requestJson, SaveBillInfoConfigRequestDTO.class);
         if (isEditMerchant) {
             saveBillInfoConfigRequestDTO.setShopId(shopIdForDebug);
