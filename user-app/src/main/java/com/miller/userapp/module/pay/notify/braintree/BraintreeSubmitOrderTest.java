@@ -78,7 +78,7 @@ public class BraintreeSubmitOrderTest {
         request.setAppStatus(0);
         String result  = BraintreeSubmitOrderFlow.BTSubmitOrder(request);
         Assertions.assertThat(result.contains("Payment failed. please try again or change payment method"));
-        SleepUtils.sleep(1,0);
+        SleepUtils.sleep(1000);
         PayOrder payOrder = payOrderSql.getPayOrder(request.getTradeNo(),true,false);
         Assertions.assertThat(payOrder.getTradeStatus()).isEqualTo(2);
 
