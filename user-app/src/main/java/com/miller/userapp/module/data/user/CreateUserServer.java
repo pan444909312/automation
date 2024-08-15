@@ -13,6 +13,7 @@ import com.hungrypanda.server.encryption.api.feign.SecurePhoneNumApi;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.cache.remote.redis.RedisService;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.JSONUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.module.data.pay.db.UserAccountSql;
@@ -57,8 +58,11 @@ public class CreateUserServer {
     private Map<String,Object> headers ;
     private RedisService redisService;
     private Long userId;
-    public CreateUserServer(SqlSession sqlSession){
+    private CreateUserEntity createUserEntity;
+    public CreateUserServer(SqlSession sqlSession,CreateUserEntity createUserEntity){
         this.sqlSession = sqlSession;
+        this.createUserEntity = createUserEntity;
+        initSql();
     }
     public void initSql(){
         accountSql = new AccountSql(sqlSession);
@@ -73,13 +77,57 @@ public class CreateUserServer {
         redisService.connectionSlave("r-3nscqny4art27v9hrzpd.redis.rds.aliyuncs.com", 6379, "YNKAthEbNF3XoK8E");
         redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9",32,60L);
     }
+
+    /**
+     * 1.创建CreateUserEntity 数据
+     *   a.loginPassword为登陆密码，默认12345678
+     *   b.payPassword为支付密码，默认123456
+     *   c.balance为账户余额，默认1_000_000
+     * 2.autoCreateUser 开始创建用户账号，isAuto 为true则自动创建用户，false则根据tel来创建
+     * 3.发送短信验证接口 （redis自动插入图形校验值32，根据手机号码前3后4模糊匹配验证码
+     * 4.登陆接口 （获取userId）
+     * 5.根据userId修改user相关表数据，如登陆密码，支付密码，账户余额
+     * 6.绑定一个默认地址，type为1为创建地址
+     * 7.在countryCode=SG 创建一张银行卡
+     */
     public static  void main(String[] args){
-        CreateUserServer createUserServer = new CreateUserServer(DBUtils.getDBOfPandaTest());
-        createUserServer.initSql();
+        String createUserJson = """
+                {
+                    "loginPassword":"12345678",
+                    "payPassword":"123456",
+                    "balance":1000000,
+                    "address":{
+                        "addressRemark": "",
+                	    "postcode": "310000",
+                	    "longitude": "120.22185",
+                	    "buildingName": "星耀中心",
+                	    "countryCode": "86",
+                	    "isDefault": "0",
+                	    "addTag": 2,
+                	    "address": "China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心",
+                	    "houseNum": "1288",
+                	    "latitude": "30.20074",
+                	    "contacts": "手机号",
+                	    "type": 1,
+                	    "telephone": "19240377998",
+                	    "gender": 1
+                    }
+                    
+                }
+                """;
+        CreateUserEntity createUserData = JSON.parseObject(createUserJson,CreateUserEntity.class);
+        CreateUserServer createUserServer = new CreateUserServer(DBUtils.getDBOfPandaTest(),createUserData);
         String result = createUserServer.autoCreateUser(true,null);
         System.out.println("result is : "+result);
 //        createUserServer.autoCreateUser(false,"19225568102");
     }
+
+    /**
+     *
+     * @param isAuto true为自动创建用户，false则根据tel来创建
+     * @param tel
+     * @return
+     */
     public String autoCreateUser(Boolean isAuto,String tel){
         if(isAuto){
             int count = 0;
@@ -181,9 +229,9 @@ public class CreateUserServer {
      */
     public void updatePWDAndBalance(Long userId){
         String salt = PasswordUtil.genSalt(10);
-        String pwd = PasswordUtil.encrypt("25d55ad283aa400af464c76d713c07ad",salt);//12345678
-        String pwdBalance = MD5Util.string2MD5("123456");
-        int balance = 1_000_000;
+        String pwd = PasswordUtil.encrypt(MD5Util.string2MD5(createUserEntity.getLoginPassword()),salt);//12345678
+        String pwdBalance = MD5Util.string2MD5(createUserEntity.getPayPassword());
+        int balance = createUserEntity.getBalance();
         userSql.updatePassword(userId,salt,pwd); //用户登陆密码
         userAccountSql.update(userId,balance,pwdBalance);//余额支付密码
         accountSql.update(userId,balance);
@@ -195,25 +243,26 @@ public class CreateUserServer {
      * @param tel
      */
     public void createAddress(String tel){
-        String addressJson = """
-                {
-                	"addressRemark": "",
-                	"postcode": "310000",
-                	"longitude": "120.22185",
-                	"buildingName": "星耀中心",
-                	"countryCode": "61",
-                	"isDefault": "0",
-                	"addTag": 2,
-                	"address": "China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心",
-                	"houseNum": "1288",
-                	"latitude": "30.20074",
-                	"contacts": "手机号",
-                	"type": 1,
-                	"telephone": "468885658",
-                	"gender": 1
-                }
-                """;
-        AddressRequestDTO addressRequestDTO = JSON.parseObject(addressJson,AddressRequestDTO.class);
+//        String addressJson = """
+//                {
+//                	"addressRemark": "",
+//                	"postcode": "310000",
+//                	"longitude": "120.22185",
+//                	"buildingName": "星耀中心",
+//                	"countryCode": "86",
+//                	"isDefault": "0",
+//                	"addTag": 2,
+//                	"address": "China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心",
+//                	"houseNum": "1288",
+//                	"latitude": "30.20074",
+//                	"contacts": "手机号",
+//                	"type": 1,
+//                	"telephone": "468885658",
+//                	"gender": 1
+//                }
+//                """;
+//        AddressRequestDTO addressRequestDTO = JSON.parseObject(addressJson,AddressRequestDTO.class);
+        AddressRequestDTO addressRequestDTO = createUserEntity.getAddress();
         addressRequestDTO.setTelephone(tel);
         HttpUtils.sendPostRequestReturnJavaObject(saveOrUpdateUrl,null,headers,JSON.toJSONString(addressRequestDTO),null,AddressResponseDTO.class);
     }
