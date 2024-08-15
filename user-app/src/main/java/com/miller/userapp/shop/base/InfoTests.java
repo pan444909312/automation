@@ -1,5 +1,6 @@
 package com.miller.userapp.shop.base;
 
+import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.ResponseConstant;
@@ -8,7 +9,10 @@ import com.miller.userapp.shop.base.request.InfoRequestDTO;
 import com.miller.userapp.shop.base.response.InfoResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestFramework
 @DisplayName("店铺首页-店铺信息")
 public class InfoTests {
-    @MethodSource("com.miller.userapp.shop.base.provider.InfoDataProvider#getBaseInfo")
+    @MethodSource("getBaseInfo")
     @ParameterizedTest
     @DisplayName("正常流程_店铺首页-店铺信息")
     void shouldgetShopBaseInfoSuccessfully(InfoRequestDTO infoRequestDTO) {
@@ -30,6 +34,13 @@ public class InfoTests {
         assertThat(infoResponseDTO.getSuccess()).isTrue();
         // 校验接口返回的商品ID是添加时的商品ID
         assertThat(infoResponseDTO.getResult().getShopId()).isEqualTo(infoRequestDTO.getShopId());
+    }
+
+    static Stream<Arguments> getBaseInfo() {
+        InfoRequestDTO infoRequestDTO = new InfoRequestDTO();
+        infoRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopId);
+
+        return Stream.of(Arguments.of(infoRequestDTO));
     }
 
 }
