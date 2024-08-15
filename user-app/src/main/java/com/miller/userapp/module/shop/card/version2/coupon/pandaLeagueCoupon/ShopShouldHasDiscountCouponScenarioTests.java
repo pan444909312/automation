@@ -28,6 +28,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author heyuan
  * @version 1.0
@@ -75,7 +77,13 @@ public class ShopShouldHasDiscountCouponScenarioTests {
 
       assert shopPromoteVO.getType().equals(ShopPromoteEnum.PANDA_LEAGUE.getType());
       assert shopPromoteVO.getShowContent().equals("1.1折无门槛");
+
       assert shopSearchMiddleEntity.getPandaLeagueTag().equals(1);
+
+      assertThat(shopPromoteVO.getShowContent())
+              .isNotEmpty()
+              .containsIgnoringCase("1.1折无门槛")
+              .isNullOrEmpty();
 
 
    }

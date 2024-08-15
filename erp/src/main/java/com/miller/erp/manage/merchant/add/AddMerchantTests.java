@@ -7,9 +7,9 @@ import com.miller.erp.manage.merchant.add.request.AddMerchantRequestDTO;
 import com.miller.erp.manage.merchant.add.response.AddMerchantResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.ResourceUtils;
+import com.panda.merchant.server.api.dto.merchant.module.MerchantModuleOperationNameSortDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -61,32 +61,30 @@ public class AddMerchantTests {
      */
     static Stream<Arguments> addMerchantForShopCardOfSecondVersionDataProvider() {
         // Given
+        /* 名称添加时间戳的后6位，避免重复 */
+        String merchantName = String.valueOf(System.currentTimeMillis()).substring(7, 13);
         AddMerchantRequestDTO addMerchantRequestDTO = JSONUtils.jsonToObject(
                 // 读取测试用例数据
                 new ResourceUtils().readTestCaseDataFromResourcesPath(AddMerchantTests.class, "AddMerchant.json"),
                 // 转换为对象
                 AddMerchantRequestDTO.class);
         // 商家中文名称不能重复
-        addMerchantRequestDTO.getBaseInfo().getOperationNameList()
+        MerchantModuleOperationNameSortDTO merchantModuleOperationNameSortDTO = addMerchantRequestDTO.getBaseInfo().getOperationNameList()
                 // 获取 "lang": "CH" 对象
                 .stream().filter(item -> item.getLang().equalsIgnoreCase("CN")).findFirst().orElseThrow().getSortList()
                 // 设置中文名称
-                .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().orElseThrow()
-                // 名称从配置文件读取
-                .setValue(new PropertiesUtils().getProperty(AddMerchantTests.class, "erp.merchant.chinese.name.prefix") +
-                        // 名称添加时间戳的后6位，避免重复
-                        String.valueOf(System.currentTimeMillis()).substring(7, 13)
-                );
+                .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().orElseThrow();
+        // 设置中文名称
+        merchantModuleOperationNameSortDTO.setValue(merchantModuleOperationNameSortDTO.getValue() + merchantName);
         // 英文名称不能重复
-        addMerchantRequestDTO.getBaseInfo().getOperationNameList()
+        MerchantModuleOperationNameSortDTO merchantModuleOperationNameSortDTO1 = addMerchantRequestDTO.getBaseInfo().getOperationNameList()
                 // 获取 "lang": "EN" 对象
                 .stream().filter(item -> item.getLang().equalsIgnoreCase("EN")).findFirst().orElseThrow().getSortList()
                 // 设置英文名称
-                .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().orElseThrow()
-                // 名称从配置文件读取
-                .setValue(new PropertiesUtils().getProperty(AddMerchantTests.class, "erp.merchant.english.name.prefix") +
-                        // 名称添加时间戳的后6位，避免重复
-                        String.valueOf(System.currentTimeMillis()).substring(7, 13));
+                .stream().filter(item -> item.getOperationName().name().equalsIgnoreCase("NAME")).findFirst().orElseThrow();
+        // 设置英文名称
+        merchantModuleOperationNameSortDTO1.setValue(merchantModuleOperationNameSortDTO1.getValue() + merchantName);
+
         return Stream.of(arguments(addMerchantRequestDTO));
     }
 
