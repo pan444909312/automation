@@ -5,16 +5,13 @@ import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.common.utils.PriceUtil;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.entity.shop.ShopFirstDiscountConfigEntity;
-import com.hungrypanda.app.server.entity.voucher.VoucherInfoEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.mapper.shop.ShopFirstDiscountMapper;
-import com.miller.userapp.mapper.shop.VoucherMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.baseinfo.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.baseinfo.request.ShopListRequestDTO;
@@ -36,7 +33,6 @@ import java.util.stream.Stream;
         scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_门店新客_首页-商卡二期：门店新客24",
         developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
-@TestFramework
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopFirstDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));

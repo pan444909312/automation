@@ -6,7 +6,7 @@ import com.hungrypanda.app.server.entity.member.MemberCityEntity;
 import com.hungrypanda.app.server.entity.member.MemberPacketEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.member.MemberCityMapper;
@@ -27,7 +27,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 @EnvTag.Test
-@TestFramework
+@Scenario(scenarioID = "01J5AKPH46ETH3N1W167KCY6B7",
+        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：会员权益32-无会员权益",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoMemberBenefitTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));

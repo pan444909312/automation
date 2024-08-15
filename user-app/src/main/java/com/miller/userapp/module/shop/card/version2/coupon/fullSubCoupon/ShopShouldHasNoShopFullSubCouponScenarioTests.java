@@ -2,10 +2,9 @@ package com.miller.userapp.module.shop.card.version2.coupon.fullSubCoupon;
 
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
-import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
@@ -26,7 +25,9 @@ import java.util.stream.Stream;
  * @since 2024/8/6 19:37
  */
 @EnvTag.Test
-@TestFramework
+@Scenario(scenarioID = "01J5AKPH45WEMSBM7ZB9774875",
+        scenarioName = "普通店铺配送商卡_优惠标签_已领满减红包_首页-商卡二期：已领满减红包38-不展示",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoShopFullSubCouponScenarioTests {
    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));

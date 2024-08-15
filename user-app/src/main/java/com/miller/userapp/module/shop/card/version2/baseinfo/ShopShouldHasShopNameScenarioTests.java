@@ -5,7 +5,6 @@ import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.BaseShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
@@ -34,7 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称",
         developmentTime = 3 * 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
-@TestFramework
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopNameScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));

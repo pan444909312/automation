@@ -34,7 +34,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示",
         developmentTime = 4 * 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
-@TestFramework
 @DisplayName("商卡(中文)")
 public class ShopShouldHasLabelScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));

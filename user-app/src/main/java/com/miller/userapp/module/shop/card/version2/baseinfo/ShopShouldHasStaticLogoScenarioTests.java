@@ -7,7 +7,6 @@ import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.manage.merchant.query.flow.QueryShopInfoFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.mapper.shop.ShopMapper;
@@ -39,7 +38,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺logo_静图_首页-商卡二期:店铺logo-静图",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
-@TestFramework
 @DisplayName("商卡(中文)")
 public class ShopShouldHasStaticLogoScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
