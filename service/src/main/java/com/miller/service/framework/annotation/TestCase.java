@@ -1,5 +1,10 @@
 package com.miller.service.framework.annotation;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * 自动化测试用例管理
  *
@@ -16,10 +21,12 @@ package com.miller.service.framework.annotation;
  * @version 1.0
  * @since 2023/12/05 20:08:26
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD})
 public @interface TestCase {
 
     /**
-     * 自动化测试用例ID，使用ULID工具生成唯一ID。
+     * 测试用例ID，，使用 ULIDUtils.java 工具生成唯一ID
      */
     String testCaseID();
 
@@ -31,7 +38,7 @@ public @interface TestCase {
     /**
      * 测试用例标题
      */
-    String name();
+    String testCaseName();
 
     /**
      * 用例状态：enum('updating','abandon','normal')

@@ -4,6 +4,7 @@ import com.miller.service.framework.clz.ClassFindService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
@@ -76,8 +77,9 @@ public class PropertiesUtils {
         // 传统的方式，默认加载的是当前类所在的包路径下的配置文件
 //        try (InputStream inputStream = Resources.getResourceAsStream(configFilePath); Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
         // 使用 ClassFindService 根据类获取类所在的配置文件
-        try (InputStream inputStream = ClassFindService.getResourcePathByClz(clazz, configFilePath);
-             Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+        URL inputStream = ClassFindService.getResourcePathByClz(clazz, configFilePath);
+        try (
+                Reader reader = new InputStreamReader(inputStream.openStream(), StandardCharsets.UTF_8)) {
             properties.load(reader);
         } catch (IOException e) {
             log.error("Unable to load properties from {}", configFilePath);

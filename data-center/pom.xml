@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.hungrypanda</groupId>
             <artifactId>app-server-api</artifactId>
-            <version>1.10.6-RELEASE</version>
+            <version>1.10.9-RELEASE</version>
             <exclusions>
                 <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
                  自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
@@ -223,7 +223,7 @@
         <dependency>
             <groupId>com.panda.merchant.server</groupId>
             <artifactId>merchant-api</artifactId>
-            <version>1.1.61-RELEASE</version>
+            <version>1.1.82-RELEASE</version>
             <exclusions>
                 <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
                  自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
@@ -304,7 +304,6 @@
         <dependency>
             <groupId>com.panda.pos.server</groupId>
             <artifactId>pos-api</artifactId>
-            <!-- <version>1.0.16-RELEASE</version> -->
             <version>1.0.16-SNAPSHOT</version>
             <exclusions>
                 <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
@@ -467,7 +466,7 @@
         <dependency>
             <groupId>com.panda.common</groupId>
             <artifactId>hp-base-common</artifactId>
-            <version>3.3.4-RELEASE</version>
+            <version>4.1.4-RELEASE</version>
             <exclusions>
                 <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
                  自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
@@ -730,7 +729,7 @@
         <dependency>
             <groupId>com.panda.erp.server</groupId>
             <artifactId>erp-api</artifactId>
-            <version>1.1.76-RELEASE</version>
+            <version>1.1.86-RELEASE</version>
             <exclusions>
                 <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
                  自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->

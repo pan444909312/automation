@@ -1,0 +1,58 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": "自动化测试"
+          },
+          {
+            "operationName": "ACTIVITY",
+            "value": "模版商家"
+          },
+          {
+            "operationName": "SPECIAL",
+            "value": "自动化测试"
+          },
+          {
+            "operationName": "LOCATION",
+            "value": "勿动"
+          }
+        ]
+      },
+      {
+        "lang": "EN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": "AutoTest"
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国江西省九江市濂溪区332000",
+      "city": "九江市",
+      "longitude": "115.9433041000",
+      "latitude": "29.6706264703",
+      "postCode": "332000"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 1389,
+        "type": 0
+      },
+      {
+        "businessCategoryId": 1395,
+        "type": 1
+      }
+    ],
+    "managerId": 1748,
+    "extraManagerId": 0,
+    "merchantNotes": "勿动，自动化测试创建商家"
+  }
+}

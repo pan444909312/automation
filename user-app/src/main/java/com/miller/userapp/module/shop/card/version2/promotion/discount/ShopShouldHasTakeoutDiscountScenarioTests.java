@@ -1,19 +1,20 @@
 package com.miller.userapp.module.shop.card.version2.promotion.discount;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
-import com.miller.userapp.mapper.shop.ProductDiscountMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.orinary.logo.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.orinary.logo.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.orinary.logo.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.baseinfo.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.baseinfo.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.baseinfo.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -28,6 +29,9 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:02
  */
+@Scenario(scenarioID = "01J3VJ3JN37RWFDN1HG4498PDQ",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:商品折扣28-外卖可用",
+        developmentTime = 40, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
@@ -51,28 +55,27 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-优惠标签-商品折扣-首页-商卡二期:商品折扣28-外卖可用")
+    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-外卖可用")
     void shouldExistTakeoutDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
-        ShopPromoteVO pickup = shopIndexVO.getShopPromoteList().stream().filter(item -> item.getShowContent().contains("外卖")).findFirst().get();
-        ShopSearchMiddleEntity shopDetail = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
-
+        ShopPromoteVO pickup = shopIndexVO.getShopPromoteList().stream().
+                filter(item -> item.getShowContent().contains("外卖")).findFirst().get();
+        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 
 
         String sql = "SELECT * FROM hp_product_discount where shop_id = ? and discount_sn = ?";
-        Map<String, Object> stringObjectMap = dbUtils.queryOneObjectReturnMap(sql,shopId,discountSn);
+        Map<String, Object> stringObjectMap = dbUtils.queryOneObjectReturnMap(sql, shopId, discountSn);
 
-//        double discountValue = (double)productDiscountEntity.getDiscountValue();
-        Integer discountValueInteger = (Integer)stringObjectMap.get("discount_value");
-        Double discountValue = discountValueInteger.doubleValue();
+        Integer discountValueInteger = (Integer) stringObjectMap.get("discount_value");
+        double discountValue = discountValueInteger.doubleValue();
 
-        assert shopDetail.getDiscountExc() == discountValue/10;
-        assert pickup.getType() == 28;
-        assert pickup.getShowContent().equals(shopDetail.getDiscountTagExc());
+        assert shopSearchMiddleEntity.getDiscountExc() == discountValue / 10;
+        assert pickup.getType() == ShopPromoteEnum.INDEX_PRODUCT_DISCOUNT.getType();
+        assert pickup.getShowContent().equals(shopSearchMiddleEntity.getDiscountTagExc());
 
     }
 

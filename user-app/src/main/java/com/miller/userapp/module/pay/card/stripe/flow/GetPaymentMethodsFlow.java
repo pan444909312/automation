@@ -10,6 +10,8 @@ import com.miller.userapp.module.pay.card.stripe.request.GetPaymentMethodsReques
 import com.miller.userapp.util.RequestUtils;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class GetPaymentMethodsFlow {
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/pandaPay/biz/getPaymentMethods";
@@ -24,6 +26,12 @@ public class GetPaymentMethodsFlow {
         RequestUtils.getHeaders().put("Content-Type", "application/json");
         RequestUtils.getHeaders().put("countryCode","SG");
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
+                RequestUtils.putBodyOfForm(paymentMethodsInfo), null, GetPaymentMethodsResponseDTO.class);
+    }
+    public static GetPaymentMethodsResponseDTO getPaymentMethods(GetPaymentMethodsRequestDTO paymentMethodsInfo, Map<String,Object> headers) {
+        // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
+        if(Objects.isNull(headers)) return getPaymentMethods(paymentMethodsInfo);
+        return HttpUtils.sendPostRequestReturnJavaObject(uri, null, headers,
                 RequestUtils.putBodyOfForm(paymentMethodsInfo), null, GetPaymentMethodsResponseDTO.class);
     }
     public static List<PaymentMethodInfoDTO> getPaymentMethodList(GetPaymentMethodsRequestDTO paymentMethodsInfo){

@@ -2,7 +2,7 @@ package com.miller.takeaway.order.master.delivery.yourself;
 
 import com.miller.erp.login.ERPLoginTests;
 import com.miller.erp.service.customer.refund.duty.DutyTests;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.create.CreateOrderByMyselfDeliveryTests;
 import com.miller.userapp.module.order.refund.submit.SubmitRefundTests;
@@ -45,6 +45,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【用户自取】用户选择配送方式为自取，支付成功后申请退款，订单主流程结束")
-@TestCase(testCaseID = "01HJQY9HHMVR22YM50MK94NV0F", name = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后申请退款，订单主流程结束")
+@Scenario(scenarioID = "01HJQY9HHMVR22YM50MK94NV0F",
+        scenarioName = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后申请退款，订单主流程结束",
+        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 public class OrderOfMyselfDeliveryThenRefundScenarioTests {
 }

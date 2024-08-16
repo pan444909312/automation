@@ -1,0 +1,16 @@
+{
+  "commissionRateBefore": "50.00",
+  "extraCommissionRateBefore": "0.00",
+  "contractCommissionRate": 50,
+  "commissionRateDuring": 50,
+  "extraCommissionRateDuring": 0,
+  "commissionRateAfter": 0,
+  "extraCommissionRateAfter": 0,
+  "formulaId": 1,
+  "mchtDeliveryAmount": 1,
+  "rateDownward": "0.00",
+  "settleSource": 0,
+  "effectStartTimeStr": "2023-11-10 17:28:39",
+  "shopId": null,
+  "commissionType": 1
+}

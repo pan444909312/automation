@@ -2,7 +2,7 @@ package com.miller.takeaway.order.master.delivery.yourself;
 
 import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.waiting.lack.OrderLackProductTests;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.create.CreateOrderByMyselfDeliveryTests;
 import com.miller.userapp.module.pay.balance.PayByBalanceTests;
@@ -43,6 +43,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家未接单选择退单(退菜)，订单主流程结束")
-@TestCase(testCaseID = "01HJQY9HHRAHX76Y8QWWJDCNZ5", name = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家未接单选择退单(退菜)，订单主流程结束")
+@Scenario(scenarioID = "01HJQY9HHRAHX76Y8QWWJDCNZ5",
+        scenarioName = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家未接单选择退单(退菜)，订单主流程结束",
+        developmentTime = 60, maintenanceTime = 0, manualTestTime = 60)
 public class OrderOfMyselfDeliveryThenMerchantRefundScenarioTests {
 }

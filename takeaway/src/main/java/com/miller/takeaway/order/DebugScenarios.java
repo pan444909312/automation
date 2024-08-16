@@ -1,6 +1,7 @@
 package com.miller.takeaway.order;
 
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithMemberScenarioTests;
 import com.miller.takeaway.order.branch.order.OrderOfPlatformDeliveryWithVoucherScenarioTests;
 import com.miller.takeaway.order.branch.refund.OrderOfPlatformDeliveryAutoRefundScenarioTests;
@@ -37,13 +38,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenarioTests.class,
 
         // 【主干场景】【用户自取】
-        OrderOfMyselfDeliveryThenMerchantConfirmOrderAndUserConfirmOrderScenarioTests.class,
-        OrderOfMyselfDeliveryThenMerchantOutOrderAndConfirmOrderScenarioTests.class,
-        OrderOfMyselfDeliveryThenMerchantOutOrderAndUserConfirmOrderAndRefundScenarioTests.class,
-        OrderOfMyselfDeliveryThenMerchantReceivingOrderAndRefundScenarioTests.class,
-        OrderOfMyselfDeliveryThenMerchantRefundScenarioTests.class,
-        OrderOfMyselfDeliveryThenRefundScenarioTests.class,
-        OrderOfMyselfDeliveryThenUserConfirmOrderScenarioTests.class,
+        OrderOfMyselfDeliveryThenMerchantConfirmOrderAndUserConfirmOrderScenarioTests.class, OrderOfMyselfDeliveryThenMerchantOutOrderAndConfirmOrderScenarioTests.class, OrderOfMyselfDeliveryThenMerchantOutOrderAndUserConfirmOrderAndRefundScenarioTests.class, OrderOfMyselfDeliveryThenMerchantReceivingOrderAndRefundScenarioTests.class, OrderOfMyselfDeliveryThenMerchantRefundScenarioTests.class, OrderOfMyselfDeliveryThenRefundScenarioTests.class, OrderOfMyselfDeliveryThenUserConfirmOrderScenarioTests.class,
 
         // 【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新
         OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenarioTests.class,
@@ -63,7 +58,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
 })
 @Disabled
-@TestCase(testCaseID = "01HK72EK786CKN8N2QYVXRJ1AD", name = "【调试场景集】")
+@Scenario(scenarioID = "01HK72EK786CKN8N2QYVXRJ1AD", scenarioName = "【调试场景集】", developmentTime = 0, maintenanceTime = 0, manualTestTime = 0)
 @Suite
 @SuiteDisplayName("调试场景集")
 public class DebugScenarios {

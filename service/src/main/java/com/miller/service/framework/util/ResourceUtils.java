@@ -4,6 +4,7 @@ import com.miller.service.framework.clz.ClassFindService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class ResourceUtils {
         // 获取资源的输入流
         // InputStream inputStream = ResourceReader.class.getResourceAsStream(File.separator + DEFAULT_TESTCASE_DATA_FILE_PATH);
         // 使用 ClassFindService 根据类获取类所在的配置文件
-        InputStream inputStream = ClassFindService.getResourcePathByClz(clazz, DEFAULT_TESTCASE_DATA_FILE_PATH);
+        URL inputStream = ClassFindService.getResourcePathByClz(clazz, DEFAULT_TESTCASE_DATA_FILE_PATH);
         if (inputStream == null) {
             throw new IllegalArgumentException("目录不存在, 请在 resources 目录下创建 testdata 目录");
         }
@@ -77,12 +78,12 @@ public class ResourceUtils {
         // 获取资源的输入流
 //        InputStream inputStream = ResourceReader.class.getResourceAsStream(fileName);
         // 使用 ClassFindService 根据类获取类所在的配置文件
-        InputStream inputStream = ClassFindService.getResourcePathByClz(clazz, fileName);
+        URL inputStream = ClassFindService.getResourcePathByClz(clazz, fileName);
         if (inputStream == null) {
             throw new IllegalArgumentException("file not found! " + fileName);
         }
         // 使用BufferedReader读取内容
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream.openStream(), StandardCharsets.UTF_8))) {
             StringBuilder content = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {

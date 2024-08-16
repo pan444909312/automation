@@ -1,6 +1,6 @@
 package com.miller.takeaway.order.branch.settlement;
 
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.shopping.car.ShoppingCarTests;
 import com.miller.userapp.module.order.shopping.settlement.SettlementTests;
@@ -22,7 +22,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         ShoppingCarTests.class,
         // 创建订单-结算
         SettlementTests.class,})
-@TestCase(testCaseID = "01HK72EK733AS48DCMJ8MCRGCM", name = "【分支场景】【订单结算】订单金额 = 商品小计 + 打包费 + 配送费")
+@Scenario(scenarioID = "01HK72EK733AS48DCMJ8MCRGCM", scenarioName = "【分支场景】【订单结算】订单金额 = 商品小计 + 打包费 + 配送费",
+        developmentTime = 4 * 60, maintenanceTime = 60, manualTestTime = 120)
 @SuiteDisplayName("【分支场景】【订单结算】订单金额 = 商品小计 + 打包费 + 配送费")
 @Suite
 public class SettlementContainPackageDeliveryFeeScenarioTests {

@@ -136,5 +136,17 @@ public class ERPLoginFlow {
         return ERPLoginResponseDTO;
     }
 
-
+    /**
+     * ERP 后台老的项目接口请求需要在请求头中放置token，所以需要手动登录获取token，然后设置到全局 headers 中。
+     */
+    public static void erpLoginByCookie() {
+        var headers = new HashMap<String, Object>();
+        // 先从请求头中把token取出来，放到新的 headers 中，否则每次 setHeaders 方法调用token都会初始化为空
+        headers.put(BusinessConstantOfERP.TOKEN, RequestUtils.getHeaders().get(BusinessConstantOfERP.TOKEN));
+        headers.put("Content-Type", RequestUtils.getHeaders().get("Content-Type"));
+        // 必传字段，使用erp的登录token进行校验
+        String cookie = "CN_isNewFramework=1;CN_token=" + RequestUtils.getHeaders().get(BusinessConstantOfERP.TOKEN);
+        headers.put("Cookie", cookie);
+        RequestUtils.setHeaders(headers);
+    }
 }

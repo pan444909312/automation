@@ -6,7 +6,7 @@ import com.miller.deliveryapp.order.neworder.grab.GrabOrderOfFoodCityTests;
 import com.miller.deliveryapp.order.status.ModifyOrderStatusTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderOfFoodCityUseStallAccountTests;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.module.order.create.CreateOrderByFoodCityTests;
@@ -54,7 +54,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         com.miller.merchant.order.evaluate.EvaluateOrderTests.class,
         // 订单流程结束
 })
-@TestCase(testCaseID = "01HK72EK76QYGFPH5W6KQJ5VNZ", name = "【主干场景】【美食城订单】美食城下的所有档口账号接单之后，美食城订单状态更新为完成")
+@Scenario(scenarioID = "01HK72EK76QYGFPH5W6KQJ5VNZ",
+        scenarioName = "【主干场景】【美食城订单】美食城下的所有档口账号接单之后，美食城订单状态更新为完成",
+        developmentTime = 16 * 60, maintenanceTime = 0, manualTestTime = 2 * 60)
 @SuiteDisplayName("【主干场景】【美食城订单】美食城下的所有档口账号接单之后，美食城订单状态更新为完成")
 @Suite
 public class OrderOfFoodCityAllStallReceivingOrderThenMasterOrderStatusIsDoneScenarioTests {

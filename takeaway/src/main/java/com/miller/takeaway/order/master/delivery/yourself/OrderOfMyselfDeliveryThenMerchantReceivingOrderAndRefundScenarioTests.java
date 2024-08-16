@@ -3,7 +3,7 @@ package com.miller.takeaway.order.master.delivery.yourself;
 import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.waiting.lack.OrderChangeMenuTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;
-import com.miller.service.framework.annotation.TestCase;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.confirm.ConfirmOrderStatusTests;
 import com.miller.userapp.module.order.create.CreateOrderByMyselfDeliveryTests;
@@ -19,7 +19,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * 商家退单（11）->缺菜->换菜->退回订单部分金额->自动退款
  * ->订单结束
  * </p>
-
+ *
  * <p>
  *     <ul>覆盖路径
  *         <li>路径: 1，3， 4， 5， 7，9，10，11</li>
@@ -52,6 +52,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Suite
 @SuiteDisplayName("【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家接单后选择退单(换菜)，订单主流程结束")
-@TestCase(testCaseID = "01HJQY9HHVSJ7MHH6D1AHW2W99", name = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家接单后选择退单(换菜)，订单主流程结束")
+@Scenario(scenarioID = "01HJQY9HHVSJ7MHH6D1AHW2W99",
+        scenarioName = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功后商家接单后选择退单(换菜)，订单主流程结束",
+        developmentTime = 3 * 60, maintenanceTime = 0, manualTestTime = 60)
 public class OrderOfMyselfDeliveryThenMerchantReceivingOrderAndRefundScenarioTests {
 }

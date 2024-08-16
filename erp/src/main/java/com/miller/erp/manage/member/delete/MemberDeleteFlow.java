@@ -1,9 +1,9 @@
 package com.miller.erp.manage.member.delete;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.hungrypanda.app.server.entity.member.MemberEntity;
 import com.hungrypanda.app.server.entity.member.MemberEntityEntity;
 import com.miller.erp.constants.BusinessConstantOfERP;
+import com.miller.erp.login.flow.ERPLoginFlow;
 import com.miller.erp.mapper.member.MemberEntityMapper;
 import com.miller.erp.util.DBUtils;
 import com.miller.erp.util.RequestUtils;
@@ -44,14 +44,7 @@ public class MemberDeleteFlow {
         }
         var params = new HashMap<String, Object>();
         params.put("memberId", memberId);
-        var headers = new HashMap<String, Object>();
-        // 先从请求头中把token取出来，放到新的 headers 中，否则每次 setHeaders 方法调用token都会初始化为空
-        headers.put(BusinessConstantOfERP.TOKEN, RequestUtils.getHeaders().get(BusinessConstantOfERP.TOKEN));
-        headers.put("Content-Type", RequestUtils.getHeaders().get("Content-Type"));
-        // 必传字段，使用erp的登录token进行校验
-        String cookie = "CN_isNewFramework=1;CN_token=" + RequestUtils.getHeaders().get(BusinessConstantOfERP.TOKEN);
-        headers.put("Cookie", cookie);
-        RequestUtils.setHeaders(headers);
+        ERPLoginFlow.erpLoginByCookie();
 
         // 响应结果为：{\"code\":4108,\"name\":\"删除会员成功\"}
         String responseBody = HttpUtils.sendGetRequestReturnBody(uri, params, RequestUtils.getHeaders(), null);

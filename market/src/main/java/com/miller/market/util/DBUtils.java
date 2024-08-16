@@ -13,20 +13,21 @@ import org.apache.ibatis.session.SqlSession;
  * @since 2024/6/24 17:47:09
  */
 public class DBUtils {
-    private static SqlSession sqlSessionOfPandaTest;
+    private static SqlSession sqlSessionOfFreshTest;
+
 
     /**
-     * 获取数据库链接 “panda_test" 库
+     * 获取数据库链接 “fresh_test" 库
      *
      * @return SqlSession
      */
-    public static synchronized SqlSession getDBOfPandaTest() {
-        if (sqlSessionOfPandaTest != null) return sqlSessionOfPandaTest;
+    public static synchronized SqlSession getDBOfFreshTest() {
+        if (sqlSessionOfFreshTest != null) return sqlSessionOfFreshTest;
         var mySqlUrl = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.url");
         var userName = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.username");
         var passWord = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.password");
         var myBatisPlusConfig = new MyBatisPlusConfig();
-        sqlSessionOfPandaTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource());
-        return sqlSessionOfPandaTest;
+        sqlSessionOfFreshTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), DBUtils.class);
+        return sqlSessionOfFreshTest;
     }
 }

@@ -1,0 +1,55 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "operationInfo": {
+    "images": [
+      {
+        "fileSource": "SHOP_LOGO",
+        "url": "https://static.hungrypanda.co/crm/17230984400044931a1da64094c00b00a6843e6ebfb6e.jpg",
+        "sort": 0
+      },
+      {
+        "fileSource": "BG_IMAGE_CN",
+        "url": "https://static.hungrypanda.co/crm/1700206343524ef7d22d2c0b54c67bc6018d1d2358761.jpg",
+        "sort": 0
+      },
+      {
+        "fileSource": "SHOP_LOGO_GIF",
+        "url": "https://static.hungrypanda.co/crm/1700206191472ec9c8a416dcc4a8eb38a8a3fd8aab8e1.gif",
+        "sort": 0
+      }
+    ],
+    "shopSiteList": [
+      "HP",
+      "EASI"
+    ],
+    "lang": [
+      "EN",
+      "CN"
+    ],
+    "taxType": {
+      "taxRate": 0,
+      "taxSetType": 0
+    },
+    "servicePhoneList": [
+      {
+        "countryCallingCode": "86",
+        "phoneNumber": "18722220001"
+      }
+    ],
+    "startSendMoney": 10,
+    "deliveryRange": 666,
+    "deliveryType": 1,
+    "deliveryTypeTimeConfig": null,
+    "isOnlinePay": [
+      1
+    ],
+    "isSpecialDriveFaraway": 1,
+    "isMandatoryTip": 0,
+    "isTipShowZero": 0,
+    "hasPlatformPrice": 0,
+    "isUserPack": 1,
+    "userPackCanOfflinePay": 1,
+    "minSelfThreshold": 0
+  }
+}

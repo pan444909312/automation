@@ -37,7 +37,20 @@
             <artifactId>jsoup</artifactId>
             <version>1.17.2</version>
         </dependency>
-
+        <!-- 指定 mybatis-plus-annotation 的版本否则会报找不到类的错误
+         java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'
+         -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+        </dependency>
+        <!-- 添加 mybatis-plus-extension 用于加载插件，否则会报找不到类的错误
+         Exception in thread "main" java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'
+         -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -48,6 +48,15 @@ public class TestCaseDataForUserConstant {
     public static final String voucherSn="8201ZEFNW2";
 
     /**
+     * 店铺优惠券sn
+     */
+    public static final String ShopredUserSn="0d16af04-99a4-43cb-922e-3e4623d96c91";
+    /**
+     * 平台优惠券sn
+     */
+    public static final String PlatformredUserSn="246cf065-2b5a-4701-a5ca-2f971c0e5073";
+
+    /**
      * 交付方式-见面交付
      */
     public static final Integer deliverableAction=2;
