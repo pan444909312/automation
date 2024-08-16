@@ -7,9 +7,10 @@ import com.miller.userapp.module.shop.base.response.InfoResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * @description:
- * @author: hey
- * @create: 2024-04-30 16:25
+ * 店铺首页-店铺信息
+ *
+ * @author he yuan
+ * 2024-04-30 16:25
  */
 public class InfoFlow {
     private static final String uri = BusinessConstant.DOMAIN + "/api/app/user/shop/base/info";

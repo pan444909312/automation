@@ -2,7 +2,7 @@ package com.miller.userapp.module.shop.base;
 
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.shop.base.flow.InfoFlow;
 import com.miller.userapp.module.shop.base.request.InfoRequestDTO;
@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @create: 2024-04-30 16:52
  */
 @EnvTag.Test
-@TestFramework
+@Scenario(scenarioID = "01J5CW57N1KMMD1W7D0S2SKWYC", scenarioName = "店铺首页-店铺信息", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("店铺首页-店铺信息")
 public class InfoTests {
     @MethodSource("getBaseInfo")

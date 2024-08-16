@@ -8,7 +8,7 @@
         "sortList": [
           {
             "operationName": "NAME",
-            "value": "自动化测试"
+            "value": "自动化测试_"
           },
           {
             "operationName": "ACTIVITY",
@@ -29,7 +29,7 @@
         "sortList": [
           {
             "operationName": "NAME",
-            "value": "AutoTest"
+            "value": "AutoTest_"
           }
         ]
       }
