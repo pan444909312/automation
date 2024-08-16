@@ -2,8 +2,8 @@ package com.miller.userapp.module.pay.balance;
 
 import com.hungrypanda.app.server.common.enums.payment.PaymentEnum;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
-import com.miller.erp.login.flow.ERPLoginFlow;
-import com.miller.erp.manage.member.delete.MemberDeleteFlow;
+import com.miller.erp.moudle.login.flow.ERPLoginFlow;
+import com.miller.erp.moudle.manage.merchant.member.delete.MemberDeleteFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;

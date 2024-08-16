@@ -1,9 +1,7 @@
 package com.miller.erp;
 
-import com.miller.erp.login.ERPLoginTests;
-import com.miller.erp.manage.merchant.edit.businessinfo.BusinessInfoEditTests;
-import com.miller.erp.service.customer.refund.duty.DutyTests;
-import com.miller.erp.service.customer.refund.list.RefundListTests;
+import com.miller.erp.moudle.login.ERPLoginTests;
+import com.miller.erp.moudle.manage.merchant.edit.businessinfo.BusinessInfoEditTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;

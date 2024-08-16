@@ -10,7 +10,7 @@ import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
-import com.miller.erp.manage.member.delete.MemberDeleteFlow;
+import com.miller.erp.moudle.manage.merchant.member.delete.MemberDeleteFlow;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
