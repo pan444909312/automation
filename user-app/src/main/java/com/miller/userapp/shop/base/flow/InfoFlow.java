@@ -7,8 +7,8 @@ import com.miller.userapp.shop.base.response.InfoResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * @description:
- * @author: hey
+ * @author heyuan
+ * @version 1.0
  * @create: 2024-04-30 16:25
  */
 public class InfoFlow {
