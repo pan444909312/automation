@@ -17,8 +17,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @description:
- * @author: hey
+ * @author heyuan
+ * @version 1.0
  * @create: 2024-04-30 16:52
  */
 @EnvTag.Test

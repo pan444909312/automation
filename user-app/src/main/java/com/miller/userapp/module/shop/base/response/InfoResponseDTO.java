@@ -4,8 +4,8 @@ import com.hungrypanda.app.server.dto.shop.ShopBaseInfoDTO;
 import com.miller.userapp.dto.BasicResponseDTO;
 
 /**
- * @description:
- * @author: hey
+ * @author heyuan
+ * @version 1.0
  * @create: 2024-04-30 16:24
  */
 public class InfoResponseDTO extends BasicResponseDTO<ShopBaseInfoDTO> {

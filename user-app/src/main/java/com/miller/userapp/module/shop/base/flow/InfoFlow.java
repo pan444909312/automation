@@ -1,16 +1,15 @@
-package com.miller.userapp.module.shop.base.flow;
+package com.miller.userapp.shop.base.flow;
 
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.module.shop.base.request.InfoRequestDTO;
-import com.miller.userapp.module.shop.base.response.InfoResponseDTO;
+import com.miller.userapp.shop.base.request.InfoRequestDTO;
+import com.miller.userapp.shop.base.response.InfoResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 店铺首页-店铺信息
- *
- * @author he yuan
- * 2024-04-30 16:25
+ * @author heyuan
+ * @version 1.0
+ * @create: 2024-04-30 16:25
  */
 public class InfoFlow {
     private static final String uri = BusinessConstant.DOMAIN + "/api/app/user/shop/base/info";
