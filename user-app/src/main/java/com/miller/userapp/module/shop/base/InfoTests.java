@@ -1,12 +1,12 @@
-package com.miller.userapp.shop.base;
+package com.miller.userapp.module.shop.base;
 
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.shop.base.flow.InfoFlow;
-import com.miller.userapp.shop.base.request.InfoRequestDTO;
-import com.miller.userapp.shop.base.response.InfoResponseDTO;
+import com.miller.userapp.module.shop.base.flow.InfoFlow;
+import com.miller.userapp.module.shop.base.request.InfoRequestDTO;
+import com.miller.userapp.module.shop.base.response.InfoResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

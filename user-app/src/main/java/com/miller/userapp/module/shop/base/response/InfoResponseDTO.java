@@ -1,4 +1,4 @@
-package com.miller.userapp.shop.base.response;
+package com.miller.userapp.module.shop.base.response;
 
 import com.hungrypanda.app.server.dto.shop.ShopBaseInfoDTO;
 import com.miller.userapp.dto.BasicResponseDTO;

@@ -1,9 +1,9 @@
-package com.miller.userapp.shop.base.flow;
+package com.miller.userapp.module.shop.base.flow;
 
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.shop.base.request.InfoRequestDTO;
-import com.miller.userapp.shop.base.response.InfoResponseDTO;
+import com.miller.userapp.module.shop.base.request.InfoRequestDTO;
+import com.miller.userapp.module.shop.base.response.InfoResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**

@@ -1,4 +1,4 @@
-package com.miller.userapp.shop.base.request;
+package com.miller.userapp.module.shop.base.request;
 
 import com.hungrypanda.app.server.dto.shop.ShopBaseReqDTO;
 
