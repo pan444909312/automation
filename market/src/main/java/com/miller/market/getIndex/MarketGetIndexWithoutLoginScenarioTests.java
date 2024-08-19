@@ -1,8 +1,8 @@
-package com.miller.market.index.getIndex;
+package com.miller.market.getIndex;
 
 import com.miller.market.constants.ResponseConstant;
-import com.miller.market.index.getIndex.flow.MarketGetIndexWithoutLoginFlow;
-import com.miller.market.index.getIndex.response.MarketGetIndexResponseDTO;
+import com.miller.market.getIndex.flow.MarketGetIndexWithoutLoginFlow;
+import com.miller.market.getIndex.response.MarketGetIndexResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import org.assertj.core.api.Assertions;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @EnvTag.Test
 @TestFramework
 @DisplayName("首页")
-public class MarketGetIndexWithoutLoginTests {
+public class MarketGetIndexWithoutLoginScenarioTests {
 
     @Test
     @DisplayName("正常流程_未登录_获取首页")

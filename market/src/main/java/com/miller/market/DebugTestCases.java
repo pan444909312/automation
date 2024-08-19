@@ -1,11 +1,7 @@
 package com.miller.market;
 
-import com.miller.market.address.addAddress.MarketAddAddressTests;
 import com.miller.market.address.getAddress.MarketGetAddressTests;
 import com.miller.market.index.getIndex.MarketGetIndexLoginTests;
-import com.miller.market.index.getIndex.MarketGetIndexWithoutLoginTests;
-import com.miller.market.index.getIndex.flow.MarketGetIndexLoginFlow;
-import com.miller.market.index.getIndex.flow.MarketGetIndexWithoutLoginFlow;
 import com.miller.market.login.MarketLoginTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -15,7 +11,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * 当需要执行多个测试类时可以通过此程序进行调试
  */
 @SelectClasses({
-        MarketGetIndexWithoutLoginTests.class,
         // 用户登录
         MarketLoginTests.class,
         MarketGetIndexLoginTests.class,
