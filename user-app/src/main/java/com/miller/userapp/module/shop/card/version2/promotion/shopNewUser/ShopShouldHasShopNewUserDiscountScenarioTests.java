@@ -37,7 +37,7 @@ public class ShopShouldHasShopNewUserDiscountScenarioTests {
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
 
     //新客爆品的活动sn
-    private String discountSn = "5452LGZTXY";
+    private String discountSn = new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.new.user.discountSn");
 
     @BeforeAll
     void beforeAll() {

@@ -98,13 +98,6 @@ public class ShopShouldHasFullSubScenarioTests {
             e.printStackTrace();
         }
 
-
-
-
-
-//        assert newUserDiscount.getType() == ShopPromoteEnum.INDEX_FULL_SUB.getType();
-//        assert newUserDiscount.getShowContent().equals("新客爆品" +  PriceUtil.getFixedPrice(shopSearchMiddleEntity.getMinNewUserSkuPrice(), shopSearchMiddleEntity.getCountry()) + "抢");
-
     }
 
     /**

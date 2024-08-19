@@ -40,7 +40,7 @@ public class ShopShouldHasShopFirstDiscountScenarioTests {
     private ShopFirstDiscountMapper shopFirstDiscountMapper;
 
     //门店新客活动id
-    private Long id = 338L;
+    private final Long id = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.first.discount.id"));
 
     @BeforeAll
     void beforeAll() {

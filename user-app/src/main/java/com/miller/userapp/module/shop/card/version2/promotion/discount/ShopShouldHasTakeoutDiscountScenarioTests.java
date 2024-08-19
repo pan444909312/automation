@@ -41,7 +41,7 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
     private DBUtils dbUtils;
     //单品折扣使用渠道为外卖的活动sn
-    private String discountSn = "5452C0FN0T";
+    private String discountSn = new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.takeout.discountSn");
 
     @BeforeAll
     void beforeAll() {

@@ -42,7 +42,7 @@ public class ShopShouldHasVoucherScenarioTests {
     private VoucherMapper voucherMapper;
 
     //消费券活动sn
-    private String voucherSn = "54522NRAFJ";
+    private String voucherSn = new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.voucherSn");
 
     @BeforeAll
     void beforeAll() {
