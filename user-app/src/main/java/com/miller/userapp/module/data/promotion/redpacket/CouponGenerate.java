@@ -1,6 +1,6 @@
 package com.miller.userapp.module.data.promotion.redpacket;
 
-import com.miller.erp.login.flow.ERPLoginFlow;
+import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.service.framework.util.ResourceUtils;
 import com.miller.userapp.module.data.promotion.redpacket.flow.CouponTemplateFlow;
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddProductRequestDTO;

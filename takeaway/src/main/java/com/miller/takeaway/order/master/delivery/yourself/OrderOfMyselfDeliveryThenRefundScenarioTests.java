@@ -1,7 +1,7 @@
 package com.miller.takeaway.order.master.delivery.yourself;
 
-import com.miller.erp.login.ERPLoginTests;
-import com.miller.erp.service.customer.refund.duty.DutyTests;
+import com.miller.erp.moudle.login.ERPLoginTests;
+import com.miller.erp.moudle.service.customer.refund.duty.DutyTests;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.create.CreateOrderByMyselfDeliveryTests;
