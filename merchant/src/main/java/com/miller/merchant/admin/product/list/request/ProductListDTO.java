@@ -58,12 +58,12 @@ public class ProductListDTO {
     private String isPersonalRecommend;
     private String isCombine;
 
-
-    public Map<String,Object> toMap(){
-        Map<String,Object> map = new HashMap<>();
-        Field[] fields = this.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            map.put(field.getName(),field.get())
-        }
-    }
+// TODO 对象转Map ，未完成
+//    public Map<String,Object> toMap(){
+//        Map<String,Object> map = new HashMap<>();
+//        Field[] fields = this.getClass().getDeclaredFields();
+//        for (Field field : fields) {
+//            map.put(field.getName(),field.get())
+//        }
+//    }
 }
