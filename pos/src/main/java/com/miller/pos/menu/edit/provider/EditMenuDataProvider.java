@@ -18,9 +18,10 @@ public class EditMenuDataProvider {
      * @return
      */
     static Stream<Arguments> editMenuDataProvider() {
+        ResourceUtils resourceUtils = new ResourceUtils();
 
         // 通过json文件初始化数据
-        final String requestJson = ResourceUtils.readTestCaseDataFromResourcesPath("editMenu.json");
+        final String requestJson = resourceUtils.readTestCaseDataFromResourcesPath(EditMenuDataProvider.class,"editMenu.json");
         EditMenuRequestDTO dto = JSONUtils.jsonToObject(requestJson, EditMenuRequestDTO.class);
 
         // 设置动态参数 中文名称和英文名称

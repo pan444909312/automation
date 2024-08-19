@@ -17,9 +17,10 @@ public class AddMenuDataProvider {
      * @return
      */
     static Stream<Arguments> addMenuDataProvider() {
+        ResourceUtils resourceUtils = new ResourceUtils();
 
         // 通过json文件初始化数据
-        final String requestJson = ResourceUtils.readTestCaseDataFromResourcesPath("addMenu.json");
+        final String requestJson = resourceUtils.readTestCaseDataFromResourcesPath(AddMenuDataProvider.class, "addMenu.json");
         AddMenuRequestDTO dto = JSONUtils.jsonToObject(requestJson, AddMenuRequestDTO.class);
 
         // 设置动态参数 中文名称和英文名称
