@@ -1,7 +1,6 @@
 package com.miller.userapp.module.shop.card.version2.promotion.memberBenefit;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.entity.member.MemberCityEntity;
 import com.hungrypanda.app.server.entity.member.MemberPacketEntity;
@@ -9,19 +8,15 @@ import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.member.MemberCityMapper;
 import com.miller.userapp.mapper.member.MemberPacketMapper;
-import com.miller.userapp.mapper.redpacket.UserCdKeyMapper;
-import com.miller.userapp.module.shop.card.version2.baseinfo.ShopShouldHasLabelScenarioTests;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.flow.ShopListFlowNoLogin;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.promotion.memberBenefit.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,7 +32,7 @@ import java.util.stream.Stream;
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasMemberBenefitShopAllianceTests {
+public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
      private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
      private final Long packageId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.redPacketId")) ;
@@ -63,7 +58,7 @@ public class ShopShouldHasMemberBenefitShopAllianceTests {
 
 
         //执行定时定时任务：店铺更新定时任务
-        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.shop.index.update.id"));
+        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
 
     }
 
