@@ -1,16 +1,18 @@
 package com.miller.market.login;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.market.constants.ResponseConstant;
-import com.miller.market.login.mapper.UserMapper;
 import com.miller.market.login.flow.MarketLoginFlow;
 import com.miller.market.login.request.MarketLoginRequestDTO;
 import com.miller.market.login.response.MarketLoginResponseDTO;
+import com.miller.market.mapper.user.UserMapper;
 import com.miller.market.util.DBUtils;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
-import com.panda.market.dal.dto.UserDto;
+import com.panda.market.common.enums.IsDeleteEnum;
+import com.panda.market.dal.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,11 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MarketLoginTests {
     private static String token;
     private static UserMapper userMapper;
-
-    private static SqlSession sqlSession;
     @BeforeAll
-    public static void beforeAll() {
-        sqlSession = DBUtils.getDBOfPandaTest();
+    static void beforeAll() {
+        SqlSession sqlSession = DBUtils.getDBOfFreshTest();
         userMapper = sqlSession.getMapper(UserMapper.class);
 
     }
@@ -62,9 +62,10 @@ public class MarketLoginTests {
         assertThat(marketLoginResponseDTO.getData().getToken()).isNotNull();
         // 获取token
         token = marketLoginResponseDTO.getData().getToken();
-        UserDto userDto = userMapper.getUser(249222);
-        System.out.println(userDto);
-
+        QueryWrapper<User> userLambdaQueryWrapper = new QueryWrapper<>();
+        userLambdaQueryWrapper.eq("user_name", "18968046019");
+        User user1 = userMapper.selectOne(userLambdaQueryWrapper);
+        System.out.println("-------------hhhhhhh-----------"+user1.getUserName());
     }
 
 }

@@ -4,10 +4,17 @@ package com.miller.userapp.module.pay.payment;
 import com.hungrypanda.app.server.api.req.payment.AliWalletInstallReq;
 import com.hungrypanda.app.server.api.req.payment.AppWalletInstallReq;
 import com.hungrypanda.app.server.api.req.payment.WechatWalletInstallReq;
+import com.hungrypanda.payserver.entity.PayOrder;
+import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.cache.CacheUtils;
+import com.miller.service.framework.util.SleepUtils;
+import com.miller.userapp.module.data.pay.db.PayOrderSql;
+import com.miller.userapp.module.order.create.response.CreateOrderResponseDTO;
 import com.miller.userapp.module.pay.payment.flow.StripePaymentFlow;
 import com.miller.userapp.module.pay.payment.request.StripePaymentRequest;
+import com.miller.userapp.util.DBUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -26,6 +33,12 @@ public class StripePaymentOnlyTest {
     @DisplayName("正常流程_Stripe支付")
     void shouldStripePaymentSuccessfully(StripePaymentRequest stripePaymentRequest) {
         StripePaymentFlow.StripeSDKPayment(stripePaymentRequest);
+        SleepUtils.sleep(1000);
+        CreateOrderResponseDTO createOrderResponseDTO = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class);
+        String orderSn = createOrderResponseDTO.getResult().getOrderSn();
+        PayOrderSql payOrderSql = new PayOrderSql(DBUtils.getDBOfPandaPayTest());
+        PayOrder payOrder = payOrderSql.getPayOrder(orderSn);
+        assertThat(payOrder.getTradeStatus()).isEqualTo(1);
 //        System.out.println("result: "+ JSON.toJSON(result));
 //        assertThat(Objects.nonNull(result)).isTrue();
     }

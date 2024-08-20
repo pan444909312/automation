@@ -8,8 +8,6 @@ import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
@@ -23,8 +21,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -35,14 +31,13 @@ import java.util.stream.Stream;
         scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_新客爆品_首页-商卡二期：新客爆品25",
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
-@TestFramework
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopNewUserDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
 
     //新客爆品的活动sn
-    private String discountSn = "5452LGZTXY";
+    private String discountSn = new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.new.user.discountSn");
 
     @BeforeAll
     void beforeAll() {

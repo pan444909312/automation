@@ -22,7 +22,7 @@
             <id>miller</id>
             <name>Miller Shan</name>
             <roles>
-                <role>Owner </role>
+                <role>Owner</role>
             </roles>
         </developer>
     </developers>
@@ -44,7 +44,8 @@
                 <exclusion>
                     <groupId>org.junit.jupiter</groupId>
                     <artifactId>junit-jupiter</artifactId>
-                </exclusion></exclusions>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- lombok 工具 -->
         <dependency>
@@ -198,6 +199,15 @@
             <version>2.41.2</version>
         </dependency>
 
+        <!-- JUnit Report for Grafana
+          https://medium.com/detesters/how-to-store-junit-tests-in-an-influxdb-7faf63dd562a
+          -->
+        <dependency>
+            <groupId>io.github.vanbadasselt</groupId>
+            <artifactId>junit-listener-influxdb</artifactId>
+            <version>2.0</version>
+        </dependency>
+
         <!-- Java 操作 Git 的客户端工具 -->
         <dependency>
             <groupId>org.eclipse.jgit</groupId>
@@ -208,7 +218,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-exec</artifactId>
         </dependency>
-
 
 
     </dependencies>

@@ -7,7 +7,7 @@ import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
@@ -31,7 +31,9 @@ import java.util.stream.Stream;
  * @since 2024/8/1 11:44
  */
 @EnvTag.Test
-@TestFramework
+@Scenario(scenarioID = "01J5AKPH46ETH3N1W167KCY6B3",
+        scenarioName = "普通店铺配送商卡_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 满减红包",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFullSubCouponScenarioTests {
    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));

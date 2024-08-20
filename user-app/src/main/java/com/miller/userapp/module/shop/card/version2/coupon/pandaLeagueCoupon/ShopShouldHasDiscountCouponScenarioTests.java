@@ -9,7 +9,7 @@ import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.common.util.MD5Util;
 
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
@@ -28,13 +28,17 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author heyuan
  * @version 1.0
  * @since 2024/8/1 17:19
  */
 @EnvTag.Test
-@TestFramework
+@Scenario(scenarioID = "01J5AKPH45WEMSBM7ZB9774877",
+        scenarioName = "普通店铺配送商卡_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 折扣红包",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasDiscountCouponScenarioTests {
    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
@@ -75,7 +79,13 @@ public class ShopShouldHasDiscountCouponScenarioTests {
 
       assert shopPromoteVO.getType().equals(ShopPromoteEnum.PANDA_LEAGUE.getType());
       assert shopPromoteVO.getShowContent().equals("1.1折无门槛");
+
       assert shopSearchMiddleEntity.getPandaLeagueTag().equals(1);
+
+      assertThat(shopPromoteVO.getShowContent())
+              .isNotEmpty()
+              .containsIgnoringCase("1.1折无门槛")
+              .isNullOrEmpty();
 
 
    }

@@ -22,9 +22,15 @@ public class UserLogSql {
     public Integer getCaptcha(String tel){
         QueryWrapper<UserLogEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<UserLogEntity> lambda = queryWrapper.lambda();
-        lambda.eq(UserLogEntity::getTelephone,tel);
+//        lambda.eq(UserLogEntity::getTelephone,tel);
+        lambda.likeRight(UserLogEntity::getTelephone,tel.substring(0,3));
+        lambda.likeLeft(UserLogEntity::getTelephone,tel.substring(tel.length()-4,tel.length()));
         lambda.orderByDesc(UserLogEntity::getUserLogId);
         queryWrapper.last("limit 1");
         return  getUserLogMapper().selectOne(queryWrapper).getVerifycode();
+    }
+    public static void main(String[] args){
+        System.out.println("16572882043".substring(0,3));
+        System.out.println("16572882043".substring("16572882043".length()-4,"16572882043".length()));
     }
 }

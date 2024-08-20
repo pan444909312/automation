@@ -1,7 +1,7 @@
 package com.miller.takeaway.order.master.delivery.yourself;
 
-import com.miller.erp.login.ERPLoginTests;
-import com.miller.erp.service.customer.refund.duty.DutyTests;
+import com.miller.erp.moudle.login.ERPLoginTests;
+import com.miller.erp.moudle.service.customer.refund.duty.DutyTests;
 import com.miller.merchant.login.MerchantLoginTests;
 import com.miller.merchant.order.outing.OutingOrderTests;
 import com.miller.merchant.order.waiting.receiving.ReceivingOrderTests;

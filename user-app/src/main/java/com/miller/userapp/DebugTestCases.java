@@ -9,6 +9,11 @@ import com.miller.userapp.module.pay.notify.airwallex.AirwallexPayNotificationTe
 import com.miller.userapp.module.pay.notify.ele.ElePayNotificationTest;
 import com.miller.userapp.module.pay.notify.ronghan.RonghanPayNotificationTest;
 import com.miller.userapp.module.pay.payment.DefaultPaymentTest;
+import com.miller.userapp.module.shop.card.version2.promotion.indexListLabel.ShopShouldHasIndexListLabelScenarioTests;
+import com.miller.userapp.module.shop.card.version2.promotion.indexListLabel.ShopShouldNotIndexListLabelScenarioTests;
+import com.miller.userapp.module.shop.card.version2.promotion.offlinePayment.ShopShouldHasOfflinePaymentScenarioTests;
+import com.miller.userapp.module.shop.card.version2.promotion.offlinePayment.ShopShouldNotOfflinePaymentScenarioTests;
+import com.miller.userapp.module.shop.card.version2.promotion.takeself.ShopShouldHasSelfTakeTagScenarioTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -24,13 +29,13 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 用户登录
         UserLoginTests.class,
         // 添加商品到购物车
-        ShoppingCarTests.class,
+//        ShoppingCarTests.class,
 //         创建订单-结算
 //        SettlementCarTests.class,
         // 创建订单-结算-会员结算
 //        SettlementWithMemberTests.class,
         // 创建订单-平台配送
-        CreateOrderByPlatformDeliveryTests.class,
+//        CreateOrderByPlatformDeliveryTests.class,
         // 创建订单-商家配送
 //        CreateOrderByMerchantDeliveryTests.class,
         // 创建订单-用户自取
@@ -86,7 +91,11 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        ElePayNotificationTest.class
 //        AirwallexPayNotificationTest.class
 //        AirwallexCreateCardTest.class
-        RonghanPayNotificationTest.class
+//        RonghanPayNotificationTest.class,
+//        ShopShouldHasOfflinePaymentScenarioTests.class,
+//        ShopShouldNotOfflinePaymentScenarioTests.class,
+//        ShopShouldHasIndexListLabelScenarioTests.class,
+//        ShopShouldNotIndexListLabelScenarioTests.class
 
 
 })

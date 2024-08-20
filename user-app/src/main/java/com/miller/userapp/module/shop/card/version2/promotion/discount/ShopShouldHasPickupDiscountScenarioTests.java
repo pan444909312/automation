@@ -44,7 +44,8 @@ public class ShopShouldHasPickupDiscountScenarioTests {
     private ProductDiscountMapper productDiscountMapper;
     private DBUtils dbUtils;
     //单品折扣使用渠道为自取的活动sn
-    private String discountSn = "545257587K";
+    private String discountSn = new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.pickup.discountSn");
+
 
     @BeforeAll
     void beforeAll() {

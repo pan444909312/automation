@@ -4,7 +4,6 @@ import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.baseinfo.flow.ShopListFlow;
@@ -26,7 +25,6 @@ import java.util.stream.Stream;
         scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_新客爆品_首页-商卡二期：新客爆品25-不展示",
         developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
-@TestFramework
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoShopNewUserDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.blank.compare.shopId"));

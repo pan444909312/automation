@@ -12,4 +12,6 @@ public class ResponseConstantOfERP {
      * 业务响应的状态码
      */
     public static final Integer resultCode = 1;
+    public static final Integer code = 1000;
+
 }

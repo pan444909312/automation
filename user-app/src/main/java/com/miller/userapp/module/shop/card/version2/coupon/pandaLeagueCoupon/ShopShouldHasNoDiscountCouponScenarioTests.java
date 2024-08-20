@@ -1,30 +1,22 @@
 package com.miller.userapp.module.shop.card.version2.coupon.pandaLeagueCoupon;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
-import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
-import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version2.baseinfo.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.baseinfo.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.baseinfo.response.ShopListResponseDTO;
-import com.miller.userapp.util.RequestUtils;
-import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.HashMap;
 import java.util.stream.Stream;
 
 /**
@@ -33,7 +25,9 @@ import java.util.stream.Stream;
  * @since 2024/8/1 18:20
  */
 @EnvTag.Test
-@TestFramework
+@Scenario(scenarioID = "01J5AKPH46ETH3N1W167KCY6B4",
+        scenarioName = "普通店铺配送商卡_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 无折扣红包 - 不展示",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoDiscountCouponScenarioTests {
    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));

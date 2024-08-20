@@ -1,12 +1,16 @@
 package com.miller.merchant.util;
 
 import com.alibaba.fastjson.JSON;
+import com.miller.merchant.admin.enums.ContentTypeEnum;
 import com.miller.merchant.constants.BusinessConstant;
 import com.miller.service.framework.util.MapUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import com.miller.service.framework.http.HttpUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 
 /**
  * 对请求工具的参数进行封装，统一处理参数中的副作用，比如：加密、解密等。
@@ -15,11 +19,18 @@ import java.util.Objects;
  * @version 1.0
  * @since 2023/12/14 21:08:37
  */
-public class RequestUtils {
+public class RequestUtils extends HttpUtils {
+
+
+
     /**
      * 请求体为json格式对应的请求头
      */
-    private static Map<String, Object> headers = null;
+    private static Map<String, Object> headers;
+
+    static {
+        headers = commonHeaders();
+    }
 
     /**
      * 公共请求头
@@ -64,6 +75,23 @@ public class RequestUtils {
         // 自定义请求头
         if (Objects.nonNull(myHeaders)) headers.putAll(myHeaders);
     }
+
+    /**
+     * 单独设置请求头参数
+     */
+    public static void setHeaders(String key ,Object value) {
+        if (!(ObjectUtils.isEmpty(key) && ObjectUtils.isEmpty(value) )){
+            headers.put(key,value);
+        }
+    }
+
+    /**
+     * 根据枚举设置请求头信息
+     */
+    public static void setContentType(ContentTypeEnum contentType) {
+        setHeaders("Content-Type",contentType.getValue());
+    }
+
 
     private static void checkHeaders(Map<String, Object> headers) {
         if (Objects.isNull(headers.get("Content-Type"))) {
@@ -132,4 +160,17 @@ public class RequestUtils {
         // 请求参数的额外操作
         return stringObjectMap;
     }
+
+
+
+
+    public static Map<String, Object> sendGetRequest(String uri, Map<String, Object> params) {
+        return sendGetRequest(uri, params, headers, null);
+    }
+
+
+
+
+
+
 }
