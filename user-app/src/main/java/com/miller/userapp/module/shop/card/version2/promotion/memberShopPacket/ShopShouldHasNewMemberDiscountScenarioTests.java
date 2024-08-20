@@ -1,6 +1,5 @@
 package com.miller.userapp.module.shop.card.version2.promotion.memberShopPacket;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
@@ -19,8 +18,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.HashMap;
 import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01J5N6H0ZQ4TWS22GMGETP4K69",
@@ -29,7 +26,7 @@ import java.util.stream.Stream;
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasNewMemberDiscountTests {
+public class ShopShouldHasNewMemberDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
 
@@ -40,9 +37,9 @@ public class ShopShouldHasNewMemberDiscountTests {
         userLoginRequestDTO = new UserLoginRequestDTO();
         userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.member.account"));
         userLoginRequestDTO.setPassword(MD5Util.string2MD5(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.member.password")));
-        userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.distinctId"));
-        userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type")));
-        userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode"));
+        userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.distinctId"));
+        userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.public.login.type")));
+        userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.callingCode"));
           UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
 
 
@@ -62,7 +59,6 @@ public class ShopShouldHasNewMemberDiscountTests {
         System.out.println("会员红包"+memberPacket);
         assert memberPacket.getShowContentList().get(0).equals("9.8折无门槛");
         assert memberPacket.getShowContentList().get(1).equals("免运费");
-
 
 
     }

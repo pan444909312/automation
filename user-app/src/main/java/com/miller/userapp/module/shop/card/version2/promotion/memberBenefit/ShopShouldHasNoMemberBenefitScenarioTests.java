@@ -1,14 +1,12 @@
 package com.miller.userapp.module.shop.card.version2.promotion.memberBenefit;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.entity.member.MemberCityEntity;
 import com.hungrypanda.app.server.entity.member.MemberPacketEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.member.MemberCityMapper;
@@ -36,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasNoMemberBenefitTests {
+public class ShopShouldHasNoMemberBenefitScenarioTests {
         private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     //     用户未登录，会员店铺配置了运费减免，展示运费减免红包
         private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
