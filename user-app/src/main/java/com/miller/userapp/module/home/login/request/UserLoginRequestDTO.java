@@ -10,7 +10,5 @@ import com.hungrypanda.app.server.api.req.user.UserLoginReq;
  * @since 2023/12/6 19:49:23
  */
 public class UserLoginRequestDTO extends UserLoginReq {
-    public void getAccount(String property) {
 
-    }
 }
