@@ -39,7 +39,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     /**
      * 自动化测试执行通知开关
      */
-    private static final Boolean isSendNotification = true;
+    private static final Boolean isSendNotification =true;
 
     /**
      * 存储成功的测试方法
