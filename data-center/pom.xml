@@ -296,6 +296,10 @@
                     <groupId>org.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>mybatis-plus-annotation</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
                 <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
 
             </exclusions>
@@ -636,6 +640,14 @@
                 <exclusion>
                     <groupId>org.panda</groupId>
                     <artifactId>risk-control-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mybatis-plus-generator</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
