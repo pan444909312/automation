@@ -1,12 +1,11 @@
 package com.miller.market.TestScenario;
 
 import com.miller.market.goods.getCategory.MarketGetCategoryLoginTests;
-
 import com.miller.market.goods.getGoodsByFirstCategory.MarketGetGoodsByFirstCategoryLoginTests;
 import com.miller.market.index.getIndex.MarketGetIndexLoginTests;
-
+import com.miller.market.user.center.MarketCenterTests;
 import com.miller.market.user.login.MarketLoginTests;
-
+import com.miller.market.user.loginOut.MarketLoginOutTests;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -16,19 +15,17 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SelectClasses({
         // 用户登录
         MarketLoginTests.class,
-        //获取首页
-        MarketGetIndexLoginTests.class,
-        // 获取分类页：分类信息
-        MarketGetCategoryLoginTests.class,
-        // 获取分类页：商品信息
-        MarketGetGoodsByFirstCategoryLoginTests.class,
+        //查看个人中心
+        MarketCenterTests.class,
+        // 登出
+        MarketLoginOutTests.class
 
 })
 
 @Suite
-@SuiteDisplayName("【主干场景】登录 - 获取首页-获取分类页：分类信息 - 获取分类页：商品信息")
-@Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E78",
-        scenarioName = "【主干场景】登录 - 获取首页-获取分类页：分类信息 - 获取分类页：商品信息",
+@SuiteDisplayName("【主干场景】登录 - 查看个人中心 - 登出")
+@Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E79",
+        scenarioName = "【主干场景】登录 - 查看个人中心 - 登出",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-public class IndexToCategoryScenarioTests {
+public class UserLoginCenterOutScenarioTests {
 }

@@ -2,7 +2,7 @@ package com.miller.market.TestScenario;
 
 import com.miller.market.address.getAddress.MarketGetAddressTests;
 import com.miller.market.deliveryTime.MarketDeliveryTimeTests;
-import com.miller.market.login.MarketLoginTests;
+import com.miller.market.user.login.MarketLoginTests;
 import com.miller.market.order.createOrder.MarketCreateOrderDeliveryTimeTests;
 import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoDeliveryTimeTests;
 import com.miller.market.shopCart.addShopCart.MarketAddShopCartTests;

@@ -14,8 +14,10 @@ import org.junit.jupiter.api.Test;
 /**
  * 分类页
  */
+@Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E76",
+        scenarioName = "正常流程_未登录_获取分类页",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
-@TestFramework
 @DisplayName("分类页")
 public class MarketGetCategoryWithoutLoginScenarioTests {
 

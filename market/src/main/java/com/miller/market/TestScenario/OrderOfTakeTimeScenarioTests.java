@@ -1,6 +1,6 @@
 package com.miller.market.TestScenario;
 
-import com.miller.market.login.MarketLoginTests;
+import com.miller.market.user.login.MarketLoginTests;
 import com.miller.market.order.createOrder.MarketCreateOrderTakeTimeTests;
 import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoTakeTimeTests;
 import com.miller.market.shopCart.addShopCart.MarketAddShopCartTests;

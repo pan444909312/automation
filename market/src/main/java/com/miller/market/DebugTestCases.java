@@ -2,7 +2,9 @@ package com.miller.market;
 
 import com.miller.market.address.getAddress.MarketGetAddressTests;
 import com.miller.market.index.getIndex.MarketGetIndexLoginTests;
-import com.miller.market.login.MarketLoginTests;
+import com.miller.market.user.center.MarketCenterTests;
+import com.miller.market.user.login.MarketLoginTests;
+import com.miller.market.user.loginOut.MarketLoginOutTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -13,11 +15,12 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SelectClasses({
         // 用户登录
         MarketLoginTests.class,
-        MarketGetIndexLoginTests.class,
+        MarketLoginOutTests.class,
+        MarketCenterTests.class,
         //新增收获地址
 //        MarketAddAddressTests.class,
         // 收货地址（登录-收货地址）
-        MarketGetAddressTests.class,
+//        MarketGetAddressTests.class,
 //        //获取配送时间(登录-收货地址-配送时间)
 //        MarketDeliveryTimeTests.class,
 //        //获取自取时间（登录-自取时间）
