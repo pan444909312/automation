@@ -1,28 +1,30 @@
-package com.miller.market.login;
+package com.miller.market.user.login;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.ResponseConstant;
-import com.miller.market.login.flow.MarketLoginFlow;
-import com.miller.market.login.request.MarketLoginRequestDTO;
-import com.miller.market.login.response.MarketLoginResponseDTO;
+import com.miller.market.user.login.flow.MarketLoginFlow;
+import com.miller.market.user.login.request.MarketLoginRequestDTO;
+import com.miller.market.user.login.response.MarketLoginResponseDTO;
 import com.miller.market.mapper.user.UserMapper;
 import com.miller.market.util.DBUtils;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.panda.market.common.enums.IsDeleteEnum;
 import com.panda.market.dal.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /**
@@ -52,7 +54,7 @@ public class MarketLoginTests {
         assertThat(RequestUtils.getHeaders().get("authorization")).isNotNull();
     }
 
-    @MethodSource("com.miller.market.login.provider.MarketLoginDataProvider#loginDataProviderFromDB")
+    @MethodSource("staticUserDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_用户登录")
     void shouldLoginSuccessfully(MarketLoginRequestDTO marketLoginRequestDTO) {
@@ -68,4 +70,19 @@ public class MarketLoginTests {
         System.out.println("-------------hhhhhhh-----------"+user1.getUserName());
     }
 
+    /**
+     * 测试用例数据提供者
+     */
+    static Stream<Arguments> staticUserDataProvider() {
+        MarketLoginRequestDTO user1 = new MarketLoginRequestDTO();
+        user1.setAreaCode("86");
+        user1.setPhone("17700004444");
+        user1.setCode("888888");
+        user1.setRegistrationId("171976fa8b8cf2806d9");
+        user1.setDistinctId(BusinessConstant.deviceNumber);
+
+        return Stream.of(
+                arguments(user1)
+        );
+    }
 }

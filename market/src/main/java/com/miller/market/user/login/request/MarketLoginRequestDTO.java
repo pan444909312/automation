@@ -1,4 +1,4 @@
-package com.miller.market.login.request;
+package com.miller.market.user.login.request;
 
 import com.panda.market.dal.vo.user.UserLoginVO;
 

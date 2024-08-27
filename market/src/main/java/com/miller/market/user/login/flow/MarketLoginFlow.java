@@ -1,10 +1,9 @@
-package com.miller.market.login.flow;
+package com.miller.market.user.login.flow;
 
 import com.alibaba.fastjson.JSON;
-import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.SystemConfigConstant;
-import com.miller.market.login.request.MarketLoginRequestDTO;
-import com.miller.market.login.response.MarketLoginResponseDTO;
+import com.miller.market.user.login.request.MarketLoginRequestDTO;
+import com.miller.market.user.login.response.MarketLoginResponseDTO;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
