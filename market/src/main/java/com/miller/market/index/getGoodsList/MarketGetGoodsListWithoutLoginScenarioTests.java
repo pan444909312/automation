@@ -1,22 +1,15 @@
 package com.miller.market.index.getGoodsList;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.index.getGoodsList.flow.MarketGetGoodsListWithoutLoginFlow;
 import com.miller.market.index.getGoodsList.request.MarketGetGoodsListRequestDTO;
 import com.miller.market.index.getGoodsList.response.MarketGetGoodsListResponseDTO;
 import com.miller.market.index.getIndex.flow.MarketGetIndexWithoutLoginFlow;
 import com.miller.market.index.getIndex.response.MarketGetIndexResponseDTO;
-import com.miller.market.mapper.frontGroups.FrontGroupsMapper;
-import com.miller.market.util.DBUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.panda.market.dal.dto.IndexItemDTO;
 import com.panda.market.dal.dto.IndexListDTO;
-import com.panda.market.dal.entity.FrontGroups;
-import org.apache.ibatis.session.SqlSession;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +28,7 @@ import java.util.stream.Stream;
  * 首页商品流
  */
 @Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E77",
-        scenarioName = "正常流程_未登录_获取首页商品流",
+        scenarioName = "正常流程_未登录_获取首页第一个商品流_获取第二个商品流",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("首页商品流")
