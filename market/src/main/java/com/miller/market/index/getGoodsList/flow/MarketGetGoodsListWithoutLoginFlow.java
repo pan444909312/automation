@@ -1,23 +1,24 @@
-package com.miller.market.getIndex.flow;
+package com.miller.market.index.getGoodsList.flow;
 
 import com.miller.market.constants.BusinessConstant;
-import com.miller.market.getIndex.response.MarketGetIndexResponseDTO;
+import com.miller.market.index.getGoodsList.request.MarketGetGoodsListRequestDTO;
+import com.miller.market.index.getGoodsList.response.MarketGetGoodsListResponseDTO;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
 import java.util.HashMap;
 
 /**
- * 首页
+ * 首页商品流
  *
  */
-public class MarketGetIndexWithoutLoginFlow {
+public class MarketGetGoodsListWithoutLoginFlow {
     /**
-     * 首页接口
+     * 获取首页商品流
      */
-    private static final String uri = BusinessConstant.DOMAIN + "/index/getIndex";
+    private static final String uri = BusinessConstant.DOMAIN + "/index/getGoodsList";
 
-    public static MarketGetIndexResponseDTO getIndex() {
+    public static MarketGetGoodsListResponseDTO getGoodsList(MarketGetGoodsListRequestDTO marketGetGoodsListRequestDTO) {
         var header = new HashMap<String, Object>();
         header.put("Content-Type", "application/json;charset=UTF-8");
         RequestUtils.setHeaders(header);
@@ -25,8 +26,8 @@ public class MarketGetIndexWithoutLoginFlow {
 //        RequestUtils.getHeaders().put("Content-Type", "application/json;charset=UTF-8");
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null,RequestUtils.getHeaders(),
                 // 所有的请求体请使用带加密的请求体{@code RequestUtils.putBodyOfJson(Object)}
-                // 无请求参数
-                RequestUtils.putBodyOfJson(RequestUtils.getHeaders()), null, MarketGetIndexResponseDTO.class);
+                // 有请求参数
+                RequestUtils.putBodyOfJson(marketGetGoodsListRequestDTO), null, MarketGetGoodsListResponseDTO.class);
     }
 
 
