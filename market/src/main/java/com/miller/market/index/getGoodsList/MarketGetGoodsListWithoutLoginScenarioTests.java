@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 /**
  * 首页商品流
  */
-@Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E77",
+@Scenario(scenarioID = "01J6ESBX6E0MVFNH5AC2TP0BH7",
         scenarioName = "正常流程_未登录_获取首页第一个商品流_获取第二个商品流",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
