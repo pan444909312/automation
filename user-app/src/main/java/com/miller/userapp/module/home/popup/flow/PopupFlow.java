@@ -5,11 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.entity.popup.ActivityPopupRedPacketGroupRedPacketCollect;
 import com.hungrypanda.app.server.entity.popup.reissue.ActivityPopupReissueRecordEntity;
 import com.hungrypanda.app.server.entity.redpacket.UserCdKeyEntity;
-import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.mapper.redpacket.ActivityPopupRedPacketGroupRedPacketCollectMapper;
 import com.miller.userapp.mapper.redpacket.ActivityPopupReissueRecordMapper;
 import com.miller.userapp.mapper.redpacket.UserCdKeyMapper;
-import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.util.DBUtils;
 import com.miller.userapp.util.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +18,13 @@ import org.apache.ibatis.session.SqlSession;
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2024/08/29 18:59:46
+ * @since 2024/08/29 17:59:46
  */
 @Slf4j
 public class PopupFlow {
 
     public static void main(String[] args) {
-        // cleanSkyWindowData(1398664550, "九江市");
+         cleanSkyWindowData(121321331, "杭州市");
     }
 
     /**
