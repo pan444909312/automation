@@ -23,9 +23,11 @@ import java.util.concurrent.TimeUnit;
  */
 @Data
 public class RedisService extends AbstractCacheService {
-    private RedisService() {
+    protected RedisService() {
     }
-
+    /**
+     * springframework 原生 RedisTemplate 对象
+     */
     private RedisTemplate<String, Object> redisTemplate;
     private static RedisService redisService;
 
