@@ -24,7 +24,7 @@ import org.apache.ibatis.session.SqlSession;
 public class PopupFlow {
 
     public static void main(String[] args) {
-         cleanSkyWindowData(121321331, "杭州市");
+        cleanSkyWindowData(1398664550, "九江市");
     }
 
     /**
@@ -81,5 +81,10 @@ public class PopupFlow {
         // 删除天降首次弹窗的联盟红包和神券红包结果 ，用于给联盟频道使用的红包，缓存
         RedisUtils.getRedisInstance().delete("popup.league.frp." + userId + "." + cityName);
         log.info("删除用户{}在{}天降首次弹窗的联盟红包和神券红包结果", userId, cityName);
+
+        log.info("天降弹窗前置条件初始化完成,如果还是出不来弹窗请按照以下步骤检查:\n" +
+                "Step1: 检查【ERP-天降弹窗-运营红包配置-人群圈选】查看自己的用户是否在标签中，如果不在自行修改用户标签表hp_data_user_labels，也可以给用户添加标签，添加完需要重新部署服务;\n" +
+                "Step2: 待后人补充。。。。"
+        );
     }
 }
