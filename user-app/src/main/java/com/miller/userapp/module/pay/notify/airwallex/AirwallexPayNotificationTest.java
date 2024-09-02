@@ -73,7 +73,7 @@ public class AirwallexPayNotificationTest {
     }
 
     static Stream<Arguments> airwallexPayNotificationDataProvider(){
-        String airwallexPayNotificationJSON = new ResourceUtils().readFileFromResourcesPath(AirwallexPayNotificationTest.class,
+        String airwallexPayNotificationJSON = new ResourceUtils().readTestCaseDataFromResourcesPath(AirwallexPayNotificationTest.class,
                  "airwallex_card_notification.json" );
         PayOrder payOrder = payOrderSql.getPayOrder(orderSn,false);
         AirwallexPayNotificationRequest request = JSON.parseObject(airwallexPayNotificationJSON, AirwallexPayNotificationRequest.class);

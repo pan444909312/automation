@@ -26,7 +26,7 @@ public class RonghanPayNotificationFlow {
         String content = JSON.toJSONString(request);
         TreeMap<String, String> notifyMap = JSONObject.parseObject(content, new TypeReference<TreeMap<String, String>>(){});
         String signContent = strcatValueSign(notifyMap,NO_SIGN_PARAMETER);
-        String rongHanPayKey = "3b7b21432c3c441ea262e2563918789d";
+        String rongHanPayKey = "403208097b7b4f978d237ebafe5e3622";
         String sign = signSha256(rongHanPayKey,signContent);
         request.setSign(sign);
         return HttpUtils.sendPostRequestReturnBody(uri, null, RequestUtils.getHeaders(),
