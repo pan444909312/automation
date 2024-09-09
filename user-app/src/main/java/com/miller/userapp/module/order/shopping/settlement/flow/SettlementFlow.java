@@ -62,4 +62,7 @@ public class SettlementFlow {
         return settlementProduct(settlementRequestDTO).getResult().getPriceInfo().getTotalAmount();
     }
 
+
+
+
 }

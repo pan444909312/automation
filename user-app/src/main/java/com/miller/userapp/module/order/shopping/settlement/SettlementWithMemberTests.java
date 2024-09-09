@@ -27,6 +27,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,25 +68,34 @@ public class SettlementWithMemberTests {
                 .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
 
         // 配送费折扣价 = 配送费（delivery）-VIP配送优惠金额（memberDeliveryDiscount）
-        Integer discountDelivery = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+        Integer discountDeliveryResult = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
                 .filter(value -> value.getItemKey().equalsIgnoreCase("discountDelivery"))
                 .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
         // 配送费
-        Integer delivery = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+        Integer discountDelivery = 0;
+        Optional<OrderAmountVO> discountDelivery1 = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
                 .filter(value -> value.getItemKey().equalsIgnoreCase("discountDelivery"))
-                .findFirst().get()
-                .getMergeList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("delivery"))
-                .findFirst()
-                .map(OrderAmountVO::getItemAmount).orElse(0);
+                .findFirst();
+        if (discountDelivery1.isPresent()) {
+            discountDelivery = discountDelivery1.get()
+                    .getMergeList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("delivery"))
+                    .findFirst()
+                    .map(OrderAmountVO::getItemAmount).orElse(0);
+        }
+
         // VIP配送优惠金额
-        Integer memberDeliveryDiscount = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+        Integer memberDeliveryDiscount = 0;
+        Optional<OrderAmountVO> discountDelivery2 = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
                 .filter(value -> value.getItemKey().equalsIgnoreCase("discountDelivery"))
-                .findFirst().get()
-                .getMergeList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("memberDeliveryDiscount"))
-                .findFirst()
-                .map(OrderAmountVO::getItemAmount).orElse(0);
+                .findFirst();
+        if (discountDelivery2.isPresent()) {
+            memberDeliveryDiscount = discountDelivery2.get().getMergeList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("memberDeliveryDiscount"))
+                    .findFirst()
+                    .map(OrderAmountVO::getItemAmount).orElse(0);
+        }
+
         // 校验配送费折扣价
-        assertThat(discountDelivery).isEqualTo(delivery - memberDeliveryDiscount);
+        assertThat(discountDeliveryResult).isEqualTo(discountDelivery - memberDeliveryDiscount);
 
         // 新增收费项cn
         Integer deliveryAddFee622 = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
@@ -102,10 +112,15 @@ public class SettlementWithMemberTests {
                 .filter(value -> value.getItemKey().equalsIgnoreCase("buyMember"))
                 .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
 
+        // 配送费
+        Integer delivery = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("delivery"))
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
 
-        // 订单金额 = 商品小计 + 打包费 + 配送费折扣价(配送费-VIP配送优惠金额）+ 开通会员价格 + 新增收费项cn - 红包优惠
+
+        // 订单金额 = 商品小计 + 打包费 + 配送费 +  配送费折扣价(配送费-VIP配送优惠金额）+ 开通会员价格 + 新增收费项cn - 红包优惠
         Integer totalAmount = settlementResponseDTO.getResult().getPriceInfo().getTotalAmount();
-        assertThat(totalAmount).isEqualTo(product + packaging + discountDelivery + deliveryAddFee622
+        assertThat(totalAmount).isEqualTo(product + packaging + delivery + discountDeliveryResult + deliveryAddFee622
                 + buyMember - redPacketDiscount);
 
     }
