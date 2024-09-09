@@ -2,16 +2,19 @@ package com.miller.userapp.module.order.shopping.settlement.flow;
 
 import com.alibaba.fastjson.JSON;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
-import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
-import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
+import com.hungrypanda.app.server.api.res.order.OrderAmountVO;
+import com.hungrypanda.app.server.common.enums.order.OrderAmountTypeEnum;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.order.shopping.settlement.request.SettlementRequestDTO;
 import com.miller.userapp.module.order.shopping.settlement.response.SettlementResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 流程_结算页(由于历史原因，也叫创建虚单)
@@ -63,6 +66,89 @@ public class SettlementFlow {
     }
 
 
+    /**
+     * 获取结算页收费明细，提取结算页订单总金额，结算页计算的金额
+     *
+     * @param settlementResponseDTO 结算页返回的订单信息
+     * @return 结算页收费明细的键值对， key 通过{@link OrderAmountTypeEnum}获取
+     */
+    public static HashMap<OrderAmountTypeEnum, Integer> getSettlementDetailFee(SettlementResponseDTO settlementResponseDTO) {
+
+        var settlementTotalFee = new HashMap<OrderAmountTypeEnum, Integer>();
+
+
+        // 商品小记费
+        Integer product = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("product"))
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
+        settlementTotalFee.put(OrderAmountTypeEnum.PRODUCT, product);
+
+        // 打包费
+        Integer packaging = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("packaging"))
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
+        settlementTotalFee.put(OrderAmountTypeEnum.PACKING_FEE, packaging);
+
+        // 配送费折扣价 = 配送费（delivery）-VIP配送优惠金额（memberDeliveryDiscount）
+        Integer discountDeliveryResult = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("discountDelivery"))
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
+        settlementTotalFee.put(OrderAmountTypeEnum.DISCOUNT_DELIVERY_FEE, discountDeliveryResult);
+
+        // 配送折扣
+        Integer discountDelivery = 0;
+        Optional<OrderAmountVO> discountDelivery1 = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("discountDelivery"))
+                .findFirst();
+        if (discountDelivery1.isPresent()) {
+            discountDelivery = discountDelivery1.get()
+                    .getMergeList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("delivery"))
+                    .findFirst()
+                    .map(OrderAmountVO::getItemAmount).orElse(0);
+        }
+        settlementTotalFee.put(OrderAmountTypeEnum.DELIVERY_FEE, discountDelivery);
+
+        // VIP配送优惠金额
+        Integer memberDeliveryDiscount = 0;
+        Optional<OrderAmountVO> discountDelivery2 = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("discountDelivery"))
+                .findFirst();
+        if (discountDelivery2.isPresent()) {
+            memberDeliveryDiscount = discountDelivery2.get().getMergeList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("memberDeliveryDiscount"))
+                    .findFirst()
+                    .map(OrderAmountVO::getItemAmount).orElse(0);
+        }
+        settlementTotalFee.put(OrderAmountTypeEnum.MEMBER_DELIVERY_DISCOUNT, memberDeliveryDiscount);
+
+        // 校验配送费折扣价
+        assertThat(discountDeliveryResult).isEqualTo(discountDelivery - memberDeliveryDiscount);
+
+        // 新增收费项cn
+        Integer deliveryAddFee622 = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("DELIVERY_ADD_FEE622"))
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
+        settlementTotalFee.put(OrderAmountTypeEnum.DELIVERY_ADD_FEE, deliveryAddFee622);
+
+        // 红包优惠
+        Integer redPacketDiscount = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("redPacketDiscount"))
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
+        settlementTotalFee.put(OrderAmountTypeEnum.RED_PACKET, redPacketDiscount);
+
+        // 开通会员费用
+        Integer buyMember = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("buyMember"))
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
+        settlementTotalFee.put(OrderAmountTypeEnum.BUY_MEMBER, buyMember);
+
+        // 配送费
+        Integer delivery = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
+                .filter(value -> value.getItemKey().equalsIgnoreCase("delivery"))
+                .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
+        settlementTotalFee.put(OrderAmountTypeEnum.DELIVERY_FEE, delivery);
+
+        return settlementTotalFee;
+    }
 
 
 }
