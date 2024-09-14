@@ -1,7 +1,7 @@
 package com.miller.userapp.module.shop.card.version2.promotion.firstOrder;
 
+
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.entity.user.UserLabelEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
@@ -24,7 +24,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -32,15 +31,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01J5AR3YV3N89R1REPKA1A3GYP", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1"
+@Scenario(scenarioID = "01J7QY2D2DYTX4CZ7DMMR4BDX7", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1")
-public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
+public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
-//    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
+    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
     private final Integer type=35;
-
 
     @BeforeAll
     static void beforeAll() {
@@ -59,24 +57,22 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         user.setType(Integer.valueOf(loginType));
         user.setDistinctId(distinctId);
         UserLoginFlow.loginAndPutToken(user);
-//        更新数据库，将user_label表数据label_id设置为1
+//        更新数据库，将user_label表数据label_id设置为0
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
         shopNewUserLabelMapper.update(
-                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
+                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,0)
         );
     }
-
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    void hasFirstOrderTagCrowdOne(ShopListRequestDTO ShopListRequestdto){
+    void hasNoFirstOrderTagCrowdZero(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlowLogin.getShopList(ShopListRequestdto);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
-        assertThat(shopPromoteTypeList.size()).isEqualTo(1);
-        String showContent=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getShowContent).orElseThrow();
-        assertThat(showContent).isEqualTo("无门槛减¥9");
+//        校验营销标签中无新人标签
+        assertThat(shopPromoteTypeList.size()).isEqualTo(0);
     }
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
@@ -84,4 +80,5 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         shopListRequestDTO.setFiltering(false);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
+
 }

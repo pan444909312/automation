@@ -1,19 +1,9 @@
 package com.miller.userapp;
 
 import com.miller.userapp.module.home.login.UserLoginTests;
-import com.miller.userapp.module.order.create.*;
-import com.miller.userapp.module.order.shopping.car.ShoppingCarTests;
-import com.miller.userapp.module.order.shopping.preorder.SettlementWithPreorderTest;
-import com.miller.userapp.module.pay.card.general.AirwallexCreateCardTest;
-import com.miller.userapp.module.pay.notify.airwallex.AirwallexPayNotificationTest;
-import com.miller.userapp.module.pay.notify.ele.ElePayNotificationTest;
-import com.miller.userapp.module.pay.notify.ronghan.RonghanPayNotificationTest;
-import com.miller.userapp.module.pay.payment.DefaultPaymentTest;
-import com.miller.userapp.module.shop.card.version2.promotion.indexListLabel.ShopShouldHasIndexListLabelScenarioTests;
-import com.miller.userapp.module.shop.card.version2.promotion.indexListLabel.ShopShouldNotIndexListLabelScenarioTests;
-import com.miller.userapp.module.shop.card.version2.promotion.offlinePayment.ShopShouldHasOfflinePaymentScenarioTests;
-import com.miller.userapp.module.shop.card.version2.promotion.offlinePayment.ShopShouldNotOfflinePaymentScenarioTests;
-import com.miller.userapp.module.shop.card.version2.promotion.takeself.ShopShouldHasSelfTakeTagScenarioTests;
+import com.miller.userapp.module.shop.card.version2.promotion.firstOrder.*;
+import com.miller.userapp.module.shop.card.version2.promotion.takeself.ShopShouldHasSendMoneyCDeliveryScenarioTests;
+import com.miller.userapp.module.shop.card.version2.promotion.takeself.ShopShouldHasSendMoneyDiscountScenarioTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -27,7 +17,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  */
 @SelectClasses({
         // 用户登录
-        UserLoginTests.class,
+//        UserLoginTests.class,
         // 添加商品到购物车
 //        ShoppingCarTests.class,
 //         创建订单-结算
@@ -96,6 +86,16 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 //        ShopShouldNotOfflinePaymentScenarioTests.class,
 //        ShopShouldHasIndexListLabelScenarioTests.class,
 //        ShopShouldNotIndexListLabelScenarioTests.class
+//        ShopShouldHasFirstOrderTagCrowdOneScenarioTests.class,
+//        ShopShouldHasFirstOrderTagCrowdSecondScenarioTests.class,
+//        ShopShouldHasFirstOrderTagCrowdThirdScenarioTests.class,
+//        ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests.class,
+//        ShopShouldHasNoFirstOrderTagControlGroupTests.class
+        ShopShouldHasSendMoneyDiscountScenarioTests.class,
+        ShopShouldHasSendMoneyCDeliveryScenarioTests.class
+
+
+
 
 
 })

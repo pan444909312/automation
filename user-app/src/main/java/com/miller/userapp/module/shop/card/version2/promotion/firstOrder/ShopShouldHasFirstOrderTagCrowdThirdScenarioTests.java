@@ -1,12 +1,16 @@
 package com.miller.userapp.module.shop.card.version2.promotion.firstOrder;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.user.UserLabelEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
+import com.miller.userapp.module.data.device.db.DeviceAutoRenewSql;
+import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.promotion.firstOrder.flow.ShopListFlowNoLogin;
 import com.miller.userapp.module.shop.card.version2.promotion.firstOrder.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.promotion.firstOrder.response.ShopListResponseDTO;
@@ -26,34 +30,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
+@Scenario(scenarioID = "01J5AR3YVWZXP63E9TYKMBH5E3", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1"
+        , developmentTime = 60, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
 public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
 //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
-    private static ShopNewUserLabelMapper ShopNewUserLabelMapper;
     private final Integer type=35;
 
     @BeforeAll
     static void beforeAll() {
 //        人群3为未登录，无需登陆
 //        UserLoginFlow.loginByDefaultUser();
+        //        测试数据预处理，将user_label表数据label_id设置为3
+        PropertiesUtils propertiesUtils=new PropertiesUtils();
+        String distinctId = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.distinctId");
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        ShopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
+        ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
+        shopNewUserLabelMapper.update(
+                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).set(UserLabelEntity::getLabelId,3)
+        );
+//        清除设备对应的活动数据
+        DeviceAutoRenewSql deviceAutoRenewSql = new DeviceAutoRenewSql();
+        deviceAutoRenewSql.deviceAutoRenew(distinctId);
     }
 
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdThird(ShopListRequestDTO ShopListRequestdto){
-        HashMap<String, Object> map = new HashMap<>();
-        String deviceId = "d88a89d4913c70bd";
-        map.put("device_id", deviceId);
-        List<UserLabelEntity> resultList = ShopNewUserLabelMapper.selectByMap(map);
-        System.out.println("label表查询结果："+resultList);
-//        测试数据预处理，将user_label表数据label_id设置为3
-        UpdateWrapper<UserLabelEntity> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("device_id", deviceId).set("label_id",3);
-        ShopNewUserLabelMapper.update(null,updateWrapper);
         ShopListResponseDTO ShopListResponsedto= ShopListFlowNoLogin.getShopList(ShopListRequestdto);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();

@@ -1,8 +1,10 @@
 package com.miller.userapp.module.shop.card.version2.promotion.takeself;
 
+import com.hungrypanda.app.server.common.utils.DateUtils;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.module.shop.card.version2.promotion.takeself.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.promotion.takeself.request.ShopListRequestDTO;
@@ -19,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
+@Scenario(scenarioID = "01J7QY2D2DYTX4CZ7DMMR4BDXA", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-首页-商卡二期：可自取33 - 不展示"
+        , developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-首页-商卡二期：可自取33 - 不展示")
 public class ShopShouldNotHasSelfTagScenarioTests {
     //    采用店铺2的数据，标签类型：33，content:可自取
@@ -33,6 +37,9 @@ public class ShopShouldNotHasSelfTagScenarioTests {
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
         System.out.println(shopPromoteTypeList);
+        long time1=1725749999999L;
+        int validDays = DateUtils.diffDay(time1, 1725568577000L).intValue();
+        System.out.println("validDays:"+validDays);
         assertThat(shopPromoteTypeList.size()).isEqualTo(0);
 
     }
