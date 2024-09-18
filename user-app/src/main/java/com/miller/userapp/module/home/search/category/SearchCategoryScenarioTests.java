@@ -2,6 +2,7 @@ package com.miller.userapp.module.home.search.category;
 
 
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.module.home.search.category.flow.SearchCategoryFlow;
 import com.miller.userapp.module.home.search.category.request.SearchCategoryRequestDTO;
@@ -18,8 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
+@Scenario(scenarioID = "01J821AKXRZ9E55WEVWG44TQJD", scenarioName = "用户-搜索-搜索中间页-品类返回接口"
+        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("搜索中间页-品类返回接口")
-public class SearchCategoryTests {
+public class SearchCategoryScenarioTests {
     @MethodSource("provideSearchCategoryData")
     @ParameterizedTest
     @DisplayName("搜索中间页-品类返回接口")

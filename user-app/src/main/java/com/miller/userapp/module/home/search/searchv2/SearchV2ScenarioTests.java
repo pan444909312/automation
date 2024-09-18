@@ -5,6 +5,7 @@ import com.hungrypanda.app.server.api.req.shop.TagDTO;
 import com.hungrypanda.app.server.entity.user.SearchHotEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.module.home.search.searchv2.flow.SearchV2Flow;
@@ -23,9 +24,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
+@Scenario(scenarioID = "01J821AKXRZ9E55WEVWG44TQJG", scenarioName = "APP-进入用户首页-点击热搜词-结果需要返回热搜词商家"
+        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("APP-首页点击热搜词")
-public class SearchV2Tests {
-
+public class SearchV2ScenarioTests {
     @DisplayName("APP-进入用户首页-点击热搜词-结果需要返回热搜词商家")
     @MethodSource("provideSearchV2Data")
     @ParameterizedTest

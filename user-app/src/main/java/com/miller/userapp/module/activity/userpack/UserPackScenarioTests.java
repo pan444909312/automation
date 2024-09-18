@@ -1,6 +1,7 @@
 package com.miller.userapp.module.activity.userpack;
 
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.userapp.module.activity.userpack.flow.UserPackFlow;
 import com.miller.userapp.module.activity.userpack.request.UserPackRequestDTO;
@@ -18,8 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
+@Scenario(scenarioID = "01J821AKXQZVJGGQEWNPF6J2SX", scenarioName = "用户-首页-底部tab-自取商家列表"
+        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("首页-自取tab商家列表")
-public class UserPackTests {
+public class UserPackScenarioTests {
     /**
      * @param UserPackRequestDTO :首页-自取tab商家列表请求入参
      */

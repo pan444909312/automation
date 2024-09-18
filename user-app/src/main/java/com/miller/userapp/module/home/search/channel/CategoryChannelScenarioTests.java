@@ -1,8 +1,7 @@
 package com.miller.userapp.module.home.search.channel;
 
-import com.miller.data.center.user.CreateOrderResponseDTO;
-import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.module.home.search.category.response.SearchCategoryResponseDTO;
@@ -20,9 +19,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
+@Scenario(scenarioID = "01J821AKXRZ9E55WEVWG44TQJE", scenarioName = "用户-搜索-搜索中间页-品类频道接口"
+        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("搜索中间页-进入品类频道")
-public class CategoryChannelTests {
-    @MethodSource("com.miller.userapp.search.channel.provider.CategoryChannelDataProvider#provideCategoryChannelData")
+public class CategoryChannelScenarioTests {
+    @MethodSource("provideCategoryChannelData")
     @ParameterizedTest
     @DisplayName("搜索中间页-进入品类频道")
     public void shouldReturnCategoryChannelShops(CategoryChannelRequestDTO CategoryChannelRequestDTO) {
@@ -36,7 +37,6 @@ public class CategoryChannelTests {
         CategoryChannelRequestDTO CategoryChannelRequestDTO = new CategoryChannelRequestDTO();
         CategoryChannelRequestDTO.setFiltering(Boolean.FALSE);
         CategoryChannelRequestDTO.setIsNeedMarketCategory(1);
-        String orderSn = CacheUtils.get(TestCaseDataForUserConstant.ORDER_ID_OBJECT_KEY, CreateOrderResponseDTO.class).getResult().getOrderSn();
 //    读取缓存中SearchCategoryId
         Long SearchCategoryId =CacheUtils.get("SEARCH_CATEGORY_OBJECT_KEY", SearchCategoryResponseDTO.class).getResult().getSearchCategoryGroups().get(0).getSearchCategories().get(0).getSearchCategoryId();
         CategoryChannelRequestDTO.setSearchCategoryId(Math.toIntExact(SearchCategoryId));

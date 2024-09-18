@@ -2,6 +2,7 @@ package com.miller.userapp.module.home.search.modulelist;
 
 import com.hungrypanda.app.server.entity.user.SearchHotEntity;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.userapp.module.home.search.modulelist.flow.IndexOperateModuleListFlow;
@@ -16,8 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
+@Scenario(scenarioID = "01J821AKXRZ9E55WEVWG44TQJF", scenarioName = "APP-进入用户首页-需要返回必吃榜全国维度热搜词"
+        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("APP-进入用户首页")
-public class IndexOperateModuleListTests {
+public class IndexOperateModuleListScenarioTests {
     @Test
     @DisplayName("APP-进入用户首页-需要返回必吃榜全国维度热搜词")
     public void shouldReturnIndexOperateList(){
