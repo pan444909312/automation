@@ -1,14 +1,19 @@
-package com.miller.userapp.module.shop.card.version2.promotion.takeself;
+package com.miller.userapp.module.shop.card.version2.feature.sendMoney;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.hungrypanda.app.server.entity.address.CityFunctionConfigEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.userapp.mapper.shop.CityFunctionConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.promotion.takeself.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.promotion.takeself.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.promotion.takeself.response.ShopListResponseDTO;
+import com.miller.userapp.util.DBUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,18 +30,24 @@ import static org.assertj.core.api.Assertions.assertThat;
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-运费减免优惠-首页-商卡二期：运费减免优惠")
 public class ShopShouldHasSendMoneyDiscountScenarioTests {
-    //    测试店铺：店铺1,测试标签类型：33，content：可自取
+    //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.blank.compare.shopId"));
 
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
+        //        开启地址配置-城市功能管理-九江市-商卡配送费优惠开关
+        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
+        CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
+        cityFunctionConfigMapper.update(
+                new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,9).set(CityFunctionConfigEntity::getStatus,1)
+        );
     }
 
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-运费减免优惠-首页-商卡二期：运费减免优惠")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto) {
+    void hasSendMoneyDiscountInfo(ShopListRequestDTO ShopListRequestdto) {
         ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopList(ShopListRequestdto);
         Long sendMoneyDiscount = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getSendMoneyDiscount).orElseThrow();
         assertThat(sendMoneyDiscount).isEqualTo(100);
