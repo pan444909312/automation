@@ -351,7 +351,12 @@
                 <artifactId>commons-exec</artifactId>
                 <version>1.4.0</version>
             </dependency>
-
+            <!-- 代码生成器 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>3.5.7</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
