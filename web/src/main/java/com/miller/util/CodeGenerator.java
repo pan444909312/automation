@@ -17,7 +17,8 @@ public class CodeGenerator {
                 .globalConfig(builder -> {
                     builder.author("panjuxiang")// 设置作者
                             .outputDir(projectPath + "/src/main/java") // 输出目录
-                            .enableSwagger()
+//                            .enableSwagger()
+                            .enableSpringdoc()
                             .disableOpenDir();
                 })
                 .packageConfig(builder -> {
