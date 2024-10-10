@@ -1,7 +1,9 @@
 package com.miller.common.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * 日期工具类
@@ -11,6 +13,10 @@ import java.util.Date;
  * @since 2023/09/28 09:51:54
  */
 public class DateUtils {
+
+    public static final String yyyy_MM_dd = "yyyy-MM-dd";
+    public static final String yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
+
     /**
      * 生成13位时间戳
      *
@@ -30,5 +36,48 @@ public class DateUtils {
 
         // 格式化当前日期和时间
         return formatter.format(now);
+    }
+
+    /**
+     * 获取某个时区下某个日期当天的开始时间戳
+     *
+     * @param dateStr
+     * @param timeZoneId
+     * @return
+     */
+    public static long get0h0m0sMillsByDateAndZone(String dateStr, String timeZoneId) throws Exception {
+        if (StringUtils.isBlank(dateStr) || StringUtils.isBlank(timeZoneId)) {
+            return 0;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(yyyy_MM_dd);
+        sdf.setTimeZone(TimeZone.getTimeZone(timeZoneId));
+        Date parse = sdf.parse(dateStr);
+        return parse.getTime();
+    }
+
+    /**
+     * 日期转换为时间戳(毫秒)
+     *
+     * @param dateStr
+     * @param timeZone
+     * @return
+     */
+    public static Long getTimestamp(String dateStr, String timeZone){
+        if (StringUtils.isBlank(dateStr) || StringUtils.isBlank(timeZone)) {
+            return 0L;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(yyyy_MM_dd_HH_mm_ss);
+        sdf.setTimeZone(TimeZone.getTimeZone(timeZone));
+        Date parse = null;
+        try {
+            parse = sdf.parse(dateStr);
+        } catch (ParseException e) {
+            System.out.println("date parse exception:{}"+ e);
+        }
+
+        if (parse == null) {
+            return 0L;
+        }
+        return  parse.getTime();
     }
 }

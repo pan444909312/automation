@@ -1,14 +1,20 @@
 package com.miller.service.framework.lifecycle;
 
-import com.miller.common.util.DateUtils;
+import com.miller.service.data.entity.AutoCaseRoiLogEntity;
+import com.miller.service.data.sql.AutoCaseRoiLogSql;
+import com.miller.service.data.sql.AutoCaseRoiSql;
 import com.miller.service.framework.annotation.MethodInvoked;
-import com.miller.service.framework.listenner.TestResultWatcher;
-import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.data.entity.AutoCaseRoiEntity;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.util.ReflectionUtils;
+import com.miller.service.util.AutoDBUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.extension.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -37,11 +43,15 @@ import java.util.Objects;
  * @since 2023/10/18 11:03:13
  */
 public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
-
+    private SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
+    private AutoCaseRoiSql autoCaseRoiSql = new AutoCaseRoiSql(automationSession);
+    private AutoCaseRoiLogSql autoCaseRoiLogSql = new AutoCaseRoiLogSql(automationSession);
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " beforeAll() callback invoked.");
+        storeExecutableScenarioValues(extensionContext);
     }
+
 
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
@@ -95,4 +105,105 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         // 执行发生异常时把异常抛出来
         throw throwable;
     }
+
+    /**
+     * 保存@scenario注解的值
+     * @param context
+     */
+    private void storeExecutableScenarioValues(ExtensionContext context)  {
+
+
+
+        //如果测试类本身就有@Scenario注解，则获取注解value
+        saveAutoCaseRoi(context.getRequiredTestClass());
+
+        //如果是@Suite集合，则root里获取@Scenario注解,注意只获取一次，子执行类多次root只一次
+        ExtensionContext rootContext = context.getRoot();
+        String uniqueCls = rootContext.getUniqueId();
+        System.out.println("uniqueCls: "+ uniqueCls);
+        if(!uniqueCls.contains("suite:")) return;
+        String saveUniqueCls = rootContext.getStore(ExtensionContext.Namespace.create(LifecycleCallback.class)).get("uniqueCls",String.class);
+        System.out.println("saveUniqueCls: "+ saveUniqueCls);
+        if(!uniqueCls.equals(saveUniqueCls)){ //不相等表示首个子类进来，root统计一次
+            rootContext.getStore(ExtensionContext.Namespace.create(LifecycleCallback.class)).put("uniqueCls",rootContext.getUniqueId());
+            String begin = uniqueCls.substring(uniqueCls.indexOf("suite:")+"suite:".length());
+            String suiteCls  = begin.substring(0,begin.indexOf("]"));
+            try {
+                Class<?> cls = Class.forName(suiteCls); //拿到root父类
+                saveAutoCaseRoi(cls);
+            }catch (ClassNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+
+    }
+    private String getExecutor(){
+        // 获取执行人员
+        String executor = "";
+        String hostNameOfOS = OSUtils.getHostNameOfOS();
+        // 如果是测试环境，则执行人员为DevOps平台
+        if (hostNameOfOS.contains("hk-test-")) {
+            executor = "DevOps Platform";
+        } else {
+            // 获取git用户名
+            executor = JGitUtils.getGitEmail().split("@")[0];
+        }
+        return executor;
+    }
+    private void saveAutoCaseRoi(Class<?> cls){
+        Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
+        String executor = getExecutor();
+        if(Objects.isNull(scenario)) return;
+        String scenarioId = scenario.scenarioID();
+        AutoCaseRoiEntity autoCaseRoiDB = autoCaseRoiSql.getAutoCaseRoi(scenarioId);
+        if(Objects.nonNull(autoCaseRoiDB)){
+            autoCaseRoiDB.setScenarioName(scenario.scenarioName());
+            autoCaseRoiDB.setDevelopmentTime(scenario.developmentTime());
+            autoCaseRoiDB.setMaintenanceTime(scenario.maintenanceTime());
+            autoCaseRoiDB.setManualTestTime(scenario.manualTestTime());
+            Integer times = autoCaseRoiDB.getTimes()+1;
+            Integer saveTimes =autoCaseRoiDB.getSaveTime() +  autoCaseRoiDB.getManualTestTime()   ; //每次执行一次,*1
+//            Integer sumCostTimes = autoCaseRoiDB.getDevelopmentTime() + autoCaseRoiDB.getMaintenanceTime();
+//            BigDecimal roi = new BigDecimal(saveTimes).divide(new BigDecimal(sumCostTimes),9, RoundingMode.HALF_UP);
+            autoCaseRoiDB.setTimes(times); //每执行一次+1
+            autoCaseRoiDB.setSaveTime(saveTimes);
+            autoCaseRoiDB.setRoi( calculateRoi(autoCaseRoiDB));
+            autoCaseRoiDB.setExecutionUser(executor);
+            autoCaseRoiSql.updateAutoCaseRoi(autoCaseRoiDB);
+            autoCaseRoiLogSql.saveAutoCaseRoiLog(getAutoCaseRoiLog(autoCaseRoiDB));
+            System.out.println("autoCaseRoi: "+ autoCaseRoiDB);
+        }else {
+            AutoCaseRoiEntity autoCaseRoi = new AutoCaseRoiEntity();
+            autoCaseRoi.setScenarioId(scenarioId);
+            autoCaseRoi.setScenarioName(scenario.scenarioName());
+            autoCaseRoi.setDevelopmentTime(scenario.developmentTime());
+            autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
+            autoCaseRoi.setManualTestTime(scenario.manualTestTime());
+            autoCaseRoi.setTimes(1);
+            autoCaseRoi.setSaveTime(scenario.manualTestTime());
+            autoCaseRoi.setRoi(calculateRoi(autoCaseRoi));
+            autoCaseRoi.setCreateTime(System.currentTimeMillis());
+            autoCaseRoi.setUpdateTime(System.currentTimeMillis());
+            autoCaseRoi.setExecutionUser(executor);
+            autoCaseRoiSql.saveAutoCaseRoi(autoCaseRoi);
+            autoCaseRoiLogSql.saveAutoCaseRoiLog(getAutoCaseRoiLog(autoCaseRoi));
+            System.out.println("autoCaseRoi: "+ autoCaseRoi);
+        }
+    }
+    private String calculateRoi(AutoCaseRoiEntity autoCaseRoi){
+        Integer saveTimes = autoCaseRoi.getSaveTime();
+        Integer sumCostTimes = autoCaseRoi.getDevelopmentTime() + autoCaseRoi.getMaintenanceTime();
+        BigDecimal roi = new BigDecimal(saveTimes).divide(new BigDecimal(sumCostTimes),9, RoundingMode.HALF_UP);
+        return roi.toString();
+    }
+    private AutoCaseRoiLogEntity getAutoCaseRoiLog(AutoCaseRoiEntity autoCaseRoi){
+        AutoCaseRoiLogEntity autoCaseRoiLog = new AutoCaseRoiLogEntity();
+        autoCaseRoiLog.setScenarioId(autoCaseRoi.getScenarioId());
+        autoCaseRoiLog.setSaveTime(autoCaseRoi.getSaveTime());
+        autoCaseRoiLog.setRoi(autoCaseRoi.getRoi());
+        autoCaseRoiLog.setExecutionUser(autoCaseRoi.getExecutionUser());
+        autoCaseRoiLog.setCreateTime(System.currentTimeMillis());
+        return autoCaseRoiLog;
+    }
+
 }

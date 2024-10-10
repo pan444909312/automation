@@ -108,11 +108,6 @@ public class AddUserCdkeyFlow {
         userCdkey.setRedPacketCode(StringUtils.isNotBlank(req.getRedPacketCode()) ? req.getRedPacketCode() : UUID.randomUUID().toString());
 //        userCdkey.setLockStatus(req.getLockStatus().byteValue() == byteNull ? StatusEnum.NO.getCode().byteValue() : req.getLockStatus().byteValue());
         userCdkey.setCdKey(StringUtils.isBlank(req.getCdKey()) ? StringUtils.EMPTY : req.getCdKey());
-//        userCdkey.setPacketType(req.getMemberPacketType().byteValue() == byteNull ? NumberUtils.INTEGER_ZERO.byteValue() : req.getMemberPacketType().byteValue());
-//        userCdkey.setMemberCityId(req.getMemberCityId() == null ? NumberUtils.LONG_ZERO : req.getMemberCityId());
-  //      userCdkey.setMemberEntityId(req.getMemberEntityId() == null ? NumberUtils.LONG_ZERO : req.getMemberEntityId());
- //       userCdkey.setBenefitType(req.getBenefitType().byteValue() == byteNull ? NumberUtils.INTEGER_ZERO.byteValue() : req.getBenefitType().byteValue());
-//        userCdkey.setMemberBenefitHistoryId(req.getMemberBenefitHistoryId() == null ? NumberUtils.LONG_ZERO : req.getMemberBenefitHistoryId());
         userCdkey.setUserId(req.getUserId());
 
         long nowTime = System.currentTimeMillis();
