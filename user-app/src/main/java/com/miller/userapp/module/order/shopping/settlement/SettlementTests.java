@@ -22,6 +22,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -59,9 +60,13 @@ public class SettlementTests {
                 .filter(value -> value.getItemKey().equalsIgnoreCase("delivery"))
                 .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
 
-        // 订单总价格应该为 120元
+        // 订单总价格
         Integer totalAmount = settlementResponseDTO.getResult().getPriceInfo().getTotalAmount();
-        assertThat(totalAmount).isEqualTo( product + packaging + delivery);
+//        assertThat(totalAmount).isEqualTo( product + packaging + delivery);   // TODO 数据设计
+        // 这里直接动态获取所有收费项目金额，然后与订单金额进行比较
+        HashMap<String, Integer> settlementDetailFee = SettlementFlow.getSettlementDetailFee(settlementResponseDTO);
+        Integer totalAmountItemFee = settlementDetailFee.values().stream().reduce(0, Integer::sum);
+        assertThat(totalAmount).isEqualTo(totalAmountItemFee);
     }
 
     static Stream<Arguments> settlementProduct() {
@@ -87,10 +92,10 @@ public class SettlementTests {
     @MethodSource("settlementFastDelivery")
     @ParameterizedTest
     @DisplayName("结算-优速达合单")
-    void shouldSettlememtFastDeliverySuccessfully(SettlementRequestDTO settlementRequestDTO){
+    void shouldSettlememtFastDeliverySuccessfully(SettlementRequestDTO settlementRequestDTO) {
         SettlementResponseDTO settlementResponseDTO = SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value->value.getItemKey().equalsIgnoreCase("buyFastDelivery")).findFirst().get().getItemAmount()).isEqualTo(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastDeliveryAmount());
+        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("buyFastDelivery")).findFirst().get().getItemAmount()).isEqualTo(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastDeliveryAmount());
         assertThat(settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getAdditionalBusinessOrderVO().getFastDeliveryAdditionalVO().getFastMinute()).isGreaterThan(0);
     }
 

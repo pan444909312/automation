@@ -3,6 +3,7 @@ package com.miller.userapp.module.order.shopping.settlement.flow;
 import com.alibaba.fastjson.JSON;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
 import com.hungrypanda.app.server.api.res.order.OrderAmountVO;
+import com.hungrypanda.app.server.common.consants.OrderVirtualConstants;
 import com.hungrypanda.app.server.common.enums.order.OrderAmountTypeEnum;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
@@ -36,8 +37,7 @@ public class SettlementFlow {
     public static SettlementResponseDTO settlementProduct(SettlementRequestDTO settlementRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
         RequestUtils.getHeaders().put("Content-Type", "application/json");
-        return HttpUtils.sendPostRequestReturnJavaObject(uri, null,
-                RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(settlementRequestDTO), null, SettlementResponseDTO.class);
+        return HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(settlementRequestDTO), null, SettlementResponseDTO.class);
     }
 
     /**
@@ -49,8 +49,7 @@ public class SettlementFlow {
      * @param productCartList 商品信息字符串，比如："[{\"skuId\":0,\"productId\":81669204}]"
      * @return 总金额
      */
-    public static Integer queryOrderPriceFormSettlementPage(Integer orderType, Integer deliveryType,
-                                                            Long shopId, List<ProductCart> productCartList) {
+    public static Integer queryOrderPriceFormSettlementPage(Integer orderType, Integer deliveryType, Long shopId, List<ProductCart> productCartList) {
         // 计算订单金额，只需要传3个字段， 订单类型、店铺ID、商品信息
         SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
         // 订单类型
@@ -67,16 +66,17 @@ public class SettlementFlow {
 
 
     /**
-     * 获取结算页收费明细，提取结算页订单总金额，结算页计算的金额
+     * 获取结算页收费明细的键值对、结算页订单总金额
+     * <p>
+     * 注意: 枚举{@link OrderAmountTypeEnum}名称与接口返回名称{@link OrderVirtualConstants}不是对应的关系，所以不能用枚举名称。
+     * 优先使用常量名称{@link OrderVirtualConstants}获取key，这样基本能与接口字段对应上，但是可能有些接口返回的字段名称不再常量中，则使用枚举值的名称转化为小写。
      *
      * @param settlementResponseDTO 结算页返回的订单信息
-     * @return 结算页收费明细的键值对， key 通过{@link OrderAmountTypeEnum}获取
+     * @return 结算页收费明细的键值对， key 通过 {@link OrderVirtualConstants}当作key可以进行获取，参考{@link OrderAmountTypeEnum}
      */
-    public static HashMap<OrderAmountTypeEnum, Integer> getSettlementDetailFee(SettlementResponseDTO settlementResponseDTO) {
-
-        var settlementTotalFee = new HashMap<OrderAmountTypeEnum, Integer>();
-
-
+    public static HashMap<String, Integer> getSettlementDetailFee(SettlementResponseDTO settlementResponseDTO) {
+        var settlementTotalFee = new HashMap<String, Integer>();
+/*
         // 商品小记费
         Integer product = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
                 .filter(value -> value.getItemKey().equalsIgnoreCase("product"))
@@ -146,7 +146,11 @@ public class SettlementFlow {
                 .filter(value -> value.getItemKey().equalsIgnoreCase("delivery"))
                 .findFirst().map(OrderAmountVO::getItemAmount).orElse(0);
         settlementTotalFee.put(OrderAmountTypeEnum.DELIVERY_FEE, delivery);
-
+*/
+        // 获取结算页所有收费项
+        settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().forEach(
+                item -> settlementTotalFee.put(item.getItemKey(), item.getItemAmount())
+        );
         return settlementTotalFee;
     }
 

@@ -9,7 +9,7 @@ public class SendRedPacket {
         AddUserCdkeyRequestDTO addUserCdkeyRequestDTO=new AddUserCdkeyRequestDTO();
         addUserCdkeyRequestDTO.setRedPacketId(10096518L);
         addUserCdkeyRequestDTO.setUserId(1398661268L);
-        addUserCdkeyRequestDTO.setDeviceId("c5b9471ecc93a603");
+//        addUserCdkeyRequestDTO.setDeviceId("c5b9471ecc93a603");
         addUserCdkeyRequestDTO.setLockStatus(0);
         addUserCdkeyRequestDTO.setCdKey("");
 

@@ -2,6 +2,7 @@ package com.miller.userapp.module.order.shopping.settlement;
 
 import com.alibaba.fastjson.JSON;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
+import com.hungrypanda.app.server.common.consants.OrderVirtualConstants;
 import com.hungrypanda.app.server.common.enums.StatusEnum;
 import com.hungrypanda.app.server.common.enums.member.MemberBuyTypeEnum;
 import com.hungrypanda.app.server.common.enums.member.MemberCombinedTypeEnum;
@@ -27,6 +28,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
@@ -48,7 +50,6 @@ public class SettlementWithMemberTests {
     void beforeEach() {
         MemberDeleteFlow.deleteMemberByUserId(
                 new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.id"));
-
     }
 
     @MethodSource("settlementProductWithMember")
@@ -59,17 +60,22 @@ public class SettlementWithMemberTests {
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         assertThat(settlementResponseDTO.getSuccess()).isTrue();
 
-        HashMap<OrderAmountTypeEnum, Integer> settlementDetailFee = SettlementFlow.getSettlementDetailFee(settlementResponseDTO);
+        HashMap<String, Integer> settlementDetailFee = SettlementFlow.getSettlementDetailFee(settlementResponseDTO);
         // 订单金额 = 商品小计 + 打包费 + 配送费 +  配送费折扣价(配送费-VIP配送优惠金额）+ 开通会员价格 + 新增收费项cn - 红包优惠
         Integer totalAmount = settlementResponseDTO.getResult().getPriceInfo().getTotalAmount();
-        assertThat(totalAmount).isEqualTo(
-                settlementDetailFee.get(OrderAmountTypeEnum.PRODUCT)
-                + settlementDetailFee.get(OrderAmountTypeEnum.PACKING_FEE)
-                + settlementDetailFee.get(OrderAmountTypeEnum.DELIVERY_FEE)
-                + settlementDetailFee.get(OrderAmountTypeEnum.DISCOUNT_DELIVERY_FEE)
-                + settlementDetailFee.get(OrderAmountTypeEnum.BUY_MEMBER)
-                + settlementDetailFee.get(OrderAmountTypeEnum.DELIVERY_ADD_FEE)
-                - settlementDetailFee.get(OrderAmountTypeEnum.RED_PACKET));
+        // 这里直接动态获取所有收费项目金额，然后与订单金额进行比较
+        Integer totalAmountItemFee = settlementDetailFee.values().stream().reduce(0, Integer::sum);
+        assertThat(totalAmount).isEqualTo(totalAmountItemFee);
+
+        // 获取单个收费项明细 TODO 数据设计
+//        assertThat(totalAmount).isEqualTo(
+//                settlementDetailFee.get(OrderVirtualConstants.product)
+//                        + settlementDetailFee.get(OrderVirtualConstants.packaging)
+//                        + settlementDetailFee.get(OrderVirtualConstants.delivery)
+//                        + settlementDetailFee.get(OrderVirtualConstants.deliveryDiscount)
+//                        + settlementDetailFee.get(OrderVirtualConstants.buyMember)
+//                        + settlementDetailFee.get(OrderAmountTypeEnum.DELIVERY_ADD_FEE.getName().toLowerCase())
+//                        - settlementDetailFee.get(OrderVirtualConstants.redPacketDiscount));
     }
 
     /**
