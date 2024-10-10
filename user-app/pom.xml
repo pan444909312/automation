@@ -30,17 +30,6 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.hungrypanda</groupId>
-            <artifactId>app-server-impl</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.panda.promotion.server</groupId>
-            <artifactId>promotion-dal</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
 
     </dependencies>
 
