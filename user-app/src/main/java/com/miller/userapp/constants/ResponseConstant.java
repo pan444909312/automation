@@ -18,5 +18,5 @@ public class ResponseConstant implements Serializable {
      * 业务响应的状态码
      */
     public static final Integer resultCode = ResultCode.SUCCESS.getCode();
-
+    public static final Integer BUY_LIMIT_MIN_FAIL=ResultCode.BUY_LIMIT_MIN_FAIL.getCode();
 }
