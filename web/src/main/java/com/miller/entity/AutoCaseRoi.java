@@ -3,12 +3,8 @@ package com.miller.entity;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * <p>
@@ -55,7 +51,7 @@ public class AutoCaseRoi implements Serializable {
 
     @Schema(description = "总节省成本")
     @TableField("save_time")
-    private Integer saveTime;
+    private Long saveTime;
 
     @Schema(description = "场景ROI")
     @TableField("roi")
@@ -71,7 +67,6 @@ public class AutoCaseRoi implements Serializable {
 
     @Schema(description = "更新时间")
     @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
-
     private Long updateTime;
 
     @Schema(description = "删除标记（0:可用 1:不可用）")
