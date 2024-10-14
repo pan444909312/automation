@@ -3,7 +3,6 @@ package com.miller.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.common.util.Response;
-import com.miller.common.util.Result;
 import com.miller.entity.AutoCaseRoi;
 import com.miller.entity.constant.SortEnum;
 import com.miller.entity.dto.AddAutoCaseRoiDTO;
@@ -21,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -43,7 +40,7 @@ public class AutoCaseRoiController {
 
     @Operation(description = "分页查询自动化用例roi数据")
     @PostMapping("/list")
-    public Result listAutoCase(@RequestBody PageAutoCaseRoiDto pageAutoCaseRoiDto) {
+    public Map<String,Object> listAutoCase(@RequestBody PageAutoCaseRoiDto pageAutoCaseRoiDto) {
         System.out.println(pageAutoCaseRoiDto);
         Page<AutoCaseRoi> autoCaseRoiVoPage = new Page<>(pageAutoCaseRoiDto.getPageNo(), pageAutoCaseRoiDto.getPageSize());
         QueryWrapper<AutoCaseRoi> queryWrapper = new QueryWrapper<>();
@@ -97,11 +94,12 @@ public class AutoCaseRoiController {
             autoCaseRoiVoList.add(autoCaseRoiVo);
         }
 
-        System.out.println(total);
-        System.out.println(records);
 
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("total",total);
+        result.put("list",autoCaseRoiVoList);
 
-        return Result.success().data("total", total).data("list", autoCaseRoiVoList);
+        return result;
     }
 
     @Operation(description = "添加roi")

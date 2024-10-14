@@ -2,7 +2,6 @@ package com.miller.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.common.util.Result;
 import com.miller.entity.AutoExecutionRecord;
 import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
 import com.miller.service.AutoExecutionRecordService;
@@ -14,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -33,7 +34,7 @@ public class AutoExecutionRecordController {
 
     @Operation(description = "分页查询自动化用例执行记录")
     @PostMapping("/list")
-    public Result listAutoCase(@RequestBody PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO) {
+    public Map<String,Object> listAutoCase(@RequestBody PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO) {
 
         Page<AutoExecutionRecord> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordDTO.getPageNo(), pageAutoCaseExecutionRecordDTO.getPageSize());
         QueryWrapper<AutoExecutionRecord> queryWrapperWrapper = new QueryWrapper<>();
@@ -49,8 +50,11 @@ public class AutoExecutionRecordController {
         List<AutoExecutionRecord> records = page.getRecords();
         long total = page.getTotal();
 
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("total",total);
+        result.put("list",records);
 
-        return Result.success().data("list",records).data("total",total);
+        return result;
     }
 
 }
