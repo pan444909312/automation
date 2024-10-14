@@ -10,9 +10,7 @@ import com.miller.market.mapper.frontGroups.FrontGroupsMapper;
 import com.miller.market.util.DBUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import com.panda.market.dal.entity.FrontGroups;
-import com.panda.market.dal.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,7 +27,7 @@ import java.util.stream.Stream;
  */
 @Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E77",
         scenarioName = "正常流程_未登录_获取分类页商品",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
 @EnvTag.Test
 @DisplayName("分类页商品")
 public class MarketGetGoodsByFirstCategoryWithoutLoginScenarioTests {

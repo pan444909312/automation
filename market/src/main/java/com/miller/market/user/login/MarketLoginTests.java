@@ -64,6 +64,7 @@ public class MarketLoginTests {
         assertThat(marketLoginResponseDTO.getData().getToken()).isNotNull();
         // 获取token
         token = marketLoginResponseDTO.getData().getToken();
+        BusinessConstant.userId = marketLoginResponseDTO.getData().getUser().getUserId();
         QueryWrapper<User> userLambdaQueryWrapper = new QueryWrapper<>();
         userLambdaQueryWrapper.eq("user_name", "18968046019");
         User user1 = userMapper.selectOne(userLambdaQueryWrapper);

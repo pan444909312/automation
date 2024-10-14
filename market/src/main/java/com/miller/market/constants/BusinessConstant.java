@@ -75,7 +75,7 @@ public class BusinessConstant {
     public static String authCode;
     public static String androidSafeToken;
     public static String uniqueToken;
-    public static String unionId;
+    public static Long userId;
     public static String pandaAppId = "com.hungrypanda.waimai";
     // 默认给个空字符串
     public static String authorization = "";

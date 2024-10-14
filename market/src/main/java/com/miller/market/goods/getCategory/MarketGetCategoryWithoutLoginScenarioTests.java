@@ -5,7 +5,6 @@ import com.miller.market.goods.getCategory.flow.MarketGetCategoryWithoutLoginFlo
 import com.miller.market.goods.getCategory.response.MarketGetCategoryResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E76",
         scenarioName = "正常流程_未登录_获取分类页",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
 @EnvTag.Test
 @DisplayName("分类页")
 public class MarketGetCategoryWithoutLoginScenarioTests {
