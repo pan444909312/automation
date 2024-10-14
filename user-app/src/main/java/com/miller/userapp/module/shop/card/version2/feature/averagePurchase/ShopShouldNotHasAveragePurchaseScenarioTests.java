@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01J8SEAGBWX0F9MF3935C0ZX0J", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭"
+@Scenario(scenarioID = "01JA4X96GFYJAWZVM2JCX9TFP7", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭"
         , developmentTime = 20, maintenanceTime = 0, manualTestTime = 0)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
 public class ShopShouldNotHasAveragePurchaseScenarioTests {
