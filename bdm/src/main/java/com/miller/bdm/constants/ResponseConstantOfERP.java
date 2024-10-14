@@ -16,4 +16,5 @@ public class ResponseConstantOfERP {
      * 业务响应的状态 成功or失败
      */
     public static final String resultMessage = "成功";
+    public static final String resultMessageTwo = "SUCCESS";
 }
