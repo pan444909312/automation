@@ -43,10 +43,8 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
         sysAppConfigMapper.update(
                 new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey,"AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue,"{\"open\":1}")
         );
-//        调用搜索索引定时任务,等待20s
+//        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
-        Thread.sleep(20000);
-
     }
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均")
     @MethodSource("showLabelDataProvider")
