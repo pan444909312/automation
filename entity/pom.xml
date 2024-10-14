@@ -27,9 +27,18 @@
         </dependency>
 
         <!-- Java Bean 会使用 Swagger 的注解，所以引入 API文档自动化生成器swagger -->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
         </dependency>
 
         <!-- Java Bean 中使用了 MyBatis-plus 的注解，所以 Entity 添加了依赖  -->

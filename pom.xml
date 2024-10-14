@@ -101,13 +101,24 @@
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
+            <!--springdoc-->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>2.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+                <version>2.2.0</version>
+            </dependency>
 
             <!-- 统一管理 swagger 版本 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>3.0.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.springfox</groupId>-->
+<!--                <artifactId>springfox-boot-starter</artifactId>-->
+<!--                <version>3.0.0</version>-->
+<!--            </dependency>-->
             <!-- 统一管理 lombok 版本 -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

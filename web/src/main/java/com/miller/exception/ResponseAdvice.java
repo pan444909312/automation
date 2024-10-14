@@ -26,8 +26,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @since 2024/7/15 14:03:52
  */
 // 指定需要扫描的包，否则访问swagger也会被拦截返回统一响应体
-//@RestControllerAdvice(basePackages = "com.miller.controller")
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.miller.controller")
+//@RestControllerAdvice
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     /**
      * 是否支持advice功能
