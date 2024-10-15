@@ -52,7 +52,7 @@ public class BusinessConstant {
     /**
      * 版本号
      */
-    public static String version = "4.24.0";
+    public static String version = "8.45.0";
 
     public static String system = "PandaFresh";
     /**

@@ -107,6 +107,32 @@ public class RedisService extends AbstractCacheService {
         return redisTemplate;
     }
 
+    /**
+     * Redis 单机模式-指定db
+     *
+     * @param host     IP
+     * @param port     端口
+     * @param password 密码
+     * @return {@link RedisTemplate}
+     */
+    public RedisTemplate<String, Object> connectionBySingleDB(String host, Integer port, String password,Integer database) {
+        //单机模式
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+        redisStandaloneConfiguration.setPort(port);
+        redisStandaloneConfiguration.setPassword(password);
+        redisStandaloneConfiguration.setHostName(host);
+        redisStandaloneConfiguration.setDatabase(database);
+
+        // 使用 Lettuce 连接池
+        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration);
+        lettuceConnectionFactory.afterPropertiesSet();
+
+        this.redisTemplate = new RedisTemplate<>();
+        redisSerializerConfig(redisTemplate, lettuceConnectionFactory);
+
+        return redisTemplate;
+    }
+
     private void redisSerializerConfig(RedisTemplate<String, Object> redisTemplate, LettuceConnectionFactory lettuceConnectionFactory) {
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);
 
