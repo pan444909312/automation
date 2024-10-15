@@ -3,10 +3,10 @@ package com.miller.market.user.login;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.ResponseConstant;
+import com.miller.market.mapper.user.UserMapper;
 import com.miller.market.user.login.flow.MarketLoginFlow;
 import com.miller.market.user.login.request.MarketLoginRequestDTO;
 import com.miller.market.user.login.response.MarketLoginResponseDTO;
-import com.miller.market.mapper.user.UserMapper;
 import com.miller.market.util.DBUtils;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
@@ -32,8 +32,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-登录")
-public class MarketLoginTests {
+@DisplayName("用户-使用验证码登录")
+public class MarketLoginWithCodeTests {
     private static String token;
     private static UserMapper userMapper;
     @BeforeAll
@@ -56,7 +56,7 @@ public class MarketLoginTests {
 
     @MethodSource("staticUserDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_用户登录")
+    @DisplayName("正常流程_用户验证码登录")
     void shouldLoginSuccessfully(MarketLoginRequestDTO marketLoginRequestDTO) {
         MarketLoginResponseDTO marketLoginResponseDTO = MarketLoginFlow.loginReturnBodyObject(marketLoginRequestDTO);
 
@@ -65,10 +65,7 @@ public class MarketLoginTests {
         // 获取token
         token = marketLoginResponseDTO.getData().getToken();
         BusinessConstant.userId = marketLoginResponseDTO.getData().getUser().getUserId();
-        QueryWrapper<User> userLambdaQueryWrapper = new QueryWrapper<>();
-        userLambdaQueryWrapper.eq("user_name", "18968046019");
-        User user1 = userMapper.selectOne(userLambdaQueryWrapper);
-        System.out.println("-------------hhhhhhh-----------"+user1.getUserName());
+
     }
 
     /**
@@ -77,9 +74,8 @@ public class MarketLoginTests {
     static Stream<Arguments> staticUserDataProvider() {
         MarketLoginRequestDTO user1 = new MarketLoginRequestDTO();
         user1.setAreaCode("86");
-        user1.setPhone("17700004444");
-        //测试、beta环境万能验证码
-        user1.setCode("888888");
+        user1.setPhone(BusinessConstant.phone);
+        user1.setCode(BusinessConstant.code);
         user1.setRegistrationId("171976fa8b8cf2806d9");
         user1.setDistinctId(BusinessConstant.deviceNumber);
 

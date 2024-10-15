@@ -1,5 +1,6 @@
 package com.miller.market.order.createOrder;
 
+import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.order.createOrder.flow.MarketCreateOrderFlow;
 import com.miller.market.order.createOrder.request.MarketCreateOrderRequestDTO;
@@ -25,10 +26,13 @@ public class MarketCreateOrderDeliveryTimeTests {
     @ParameterizedTest
     @DisplayName("正常流程_订单创建成功-送货上门")
     void createOrderDeliveryTimeSuccessfully(MarketCreateOrderRequestDTO marketCreateOrderRequestDTO) {
-        MarketCreateOrderResponseDTO marketCreateOrderResponseDTO = MarketCreateOrderFlow.createOrder(marketCreateOrderRequestDTO);
+        MarketCreateOrderResponseDTO responseDTO = MarketCreateOrderFlow.createOrder(marketCreateOrderRequestDTO);
 
-        assertThat(marketCreateOrderResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        assertThat(marketCreateOrderResponseDTO.getData()).isNotNull();
+        assertThat(responseDTO.getCode()).isEqualTo(ResponseConstant.code);
+        assertThat(responseDTO.getData()).isNotNull();
+
+        BusinessConstant.orderSn = responseDTO.getData().getOrderSn();
+        BusinessConstant.orderId = responseDTO.getData().getOrderId();
 
     }
 
