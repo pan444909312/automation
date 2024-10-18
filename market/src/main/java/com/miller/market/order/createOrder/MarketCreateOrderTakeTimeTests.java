@@ -1,5 +1,6 @@
 package com.miller.market.order.createOrder;
 
+import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.order.createOrder.flow.MarketCreateOrderFlow;
 import com.miller.market.order.createOrder.request.MarketCreateOrderRequestDTO;
@@ -24,11 +25,14 @@ public class MarketCreateOrderTakeTimeTests {
     @MethodSource("com.miller.market.order.createOrder.provider.MarketCreateOrderDataProvider#marketTakeTimeDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_订单创建成功-自取")
-    void createOrderTakeTimeSuccessfully(MarketCreateOrderRequestDTO marketCreateOrderRequestDTO) {
-        MarketCreateOrderResponseDTO marketCreateOrderResponseDTO = MarketCreateOrderFlow.createOrder(marketCreateOrderRequestDTO);
+    void createOrderTakeTimeSuccessfully(MarketCreateOrderRequestDTO requestDTO) {
+        MarketCreateOrderResponseDTO responseDTO = MarketCreateOrderFlow.createOrder(requestDTO);
 
-        assertThat(marketCreateOrderResponseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        assertThat(marketCreateOrderResponseDTO.getData()).isNotNull();
+        assertThat(responseDTO.getCode()).isEqualTo(ResponseConstant.code);
+        assertThat(responseDTO.getData()).isNotNull();
+
+        BusinessConstant.orderSn = responseDTO.getData().getOrderSn();
+        BusinessConstant.orderId = responseDTO.getData().getOrderId();
     }
 
 }

@@ -5,7 +5,7 @@ import com.panda.market.dal.dto.CreateOrderResultDTO;
 
 
 /**
- * 创建订单响应对象
+ * 订单响应对象
  */
 public class MarketCreateOrderResponseDTO extends BasicResponseDTO<CreateOrderResultDTO> {
 

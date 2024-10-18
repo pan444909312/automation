@@ -1,5 +1,7 @@
 package com.miller.market.TestScenario;
 
+import com.miller.market.order.cancelOrder.MarketCancelNoPayOrderTests;
+import com.miller.market.order.orderDetail.MarketOrderDetailTests;
 import com.miller.market.user.login.MarketLoginTests;
 import com.miller.market.order.createOrder.MarketCreateOrderTakeTimeTests;
 import com.miller.market.order.getPreOrderInfo.MarketGetPreOrderInfoTakeTimeTests;
@@ -29,9 +31,13 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
         // 自取下单(登录-获取自取时间-加购-结算-预订单（自取-有时间）-下单)
         MarketCreateOrderTakeTimeTests.class,
+        //查看订单详情
+        MarketOrderDetailTests.class,
+        //取消订单
+        MarketCancelNoPayOrderTests.class,
 })
 
 @Suite
-@SuiteDisplayName("【主干场景】登录-获取自取时间-加购-结算-预订单（自取-有时间）-下单")
+@SuiteDisplayName("【主干场景】登录-获取自取时间-加购-结算-预订单（自取-有时间）-下单 -查看订单详情 - 取消订单")
 public class OrderOfTakeTimeScenarioTests {
 }

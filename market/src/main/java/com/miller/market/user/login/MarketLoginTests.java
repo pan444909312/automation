@@ -64,6 +64,7 @@ public class MarketLoginTests {
         assertThat(marketLoginResponseDTO.getData().getToken()).isNotNull();
         // 获取token
         token = marketLoginResponseDTO.getData().getToken();
+        BusinessConstant.userId = marketLoginResponseDTO.getData().getUser().getUserId();
         QueryWrapper<User> userLambdaQueryWrapper = new QueryWrapper<>();
         userLambdaQueryWrapper.eq("user_name", "18968046019");
         User user1 = userMapper.selectOne(userLambdaQueryWrapper);
@@ -77,6 +78,7 @@ public class MarketLoginTests {
         MarketLoginRequestDTO user1 = new MarketLoginRequestDTO();
         user1.setAreaCode("86");
         user1.setPhone("17700004444");
+        //测试、beta环境万能验证码
         user1.setCode("888888");
         user1.setRegistrationId("171976fa8b8cf2806d9");
         user1.setDistinctId(BusinessConstant.deviceNumber);

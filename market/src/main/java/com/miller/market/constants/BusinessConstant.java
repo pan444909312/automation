@@ -2,6 +2,7 @@ package com.miller.market.constants;
 
 import com.panda.common.enums.CountryEnum;
 import com.panda.common.enums.LanguageEnum;
+import com.panda.market.dal.pay.PayItemBean;
 
 /**
  * 业务配置常量
@@ -52,7 +53,7 @@ public class BusinessConstant {
     /**
      * 版本号
      */
-    public static String version = "4.24.0";
+    public static String version = "4.25.0";
 
     public static String system = "PandaFresh";
     /**
@@ -75,7 +76,12 @@ public class BusinessConstant {
     public static String authCode;
     public static String androidSafeToken;
     public static String uniqueToken;
-    public static String unionId;
+    public static Long userId;
+
+    public static String phone = "17700004444";
+
+    //短信验证码
+    public static String code;
     public static String pandaAppId = "com.hungrypanda.waimai";
     // 默认给个空字符串
     public static String authorization = "";
@@ -83,5 +89,13 @@ public class BusinessConstant {
     //pfabtest
     public static String abTestGroups = "101,102,103,104,105,106";
 
+    public static String orderSn;
+    public static Long orderId;
 
+    //支付方式
+    public static PayItemBean payItemBean;
+
+    public static String paymentMethodId;
+
+    public static String payOrderNo;
 }
