@@ -23,10 +23,10 @@ public class BusinessConstant {
      * 经度
      */
     public static String longitude = "120.216552";
-    public static String version = "5.38.0";
+    public static String version = "5.48.0";
     public static String platform = "ANDROID_DELIVERY";
     public static String type = "3";
-    public static String userAgent = "5.38.0";
+    public static String userAgent = "5.48.0";
     public static String locale = "zh-CN";
     public static String operatingSystem = "1";
     public static String brand = "HUAWEI";

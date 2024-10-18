@@ -1,6 +1,5 @@
 package com.miller.deliveryapp.module.order;
 
-import com.miller.deliveryapp.login.DeliveryLoginByDefaultAccountTests;
 import com.miller.deliveryapp.module.login.DriverLoginTests;
 import com.miller.deliveryapp.module.order.complete.*;
 import com.miller.deliveryapp.module.order.create.CreateDeliveryOrderBySqlTests;

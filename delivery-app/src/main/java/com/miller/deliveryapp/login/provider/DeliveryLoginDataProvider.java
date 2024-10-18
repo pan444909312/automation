@@ -23,7 +23,7 @@ public class DeliveryLoginDataProvider {
     static Stream<Arguments> loginDataProvider() {
         DeliveryLoginRequestDTO user1 = new DeliveryLoginRequestDTO();
         user1.setAreaCode("86");
-        user1.setAccount("13251016326");
+        user1.setAccount("13251016325");
         user1.setPassword(MD5Util.string2MD5("Test1234"));
 
         return Stream.of(

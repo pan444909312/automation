@@ -2,9 +2,10 @@ package com.miller.deliveryapp.module.login;
 
 import com.miller.common.util.MD5Util;
 import com.miller.deliveryapp.constants.ResponseConstant;
-import com.miller.deliveryapp.login.flow.DeliveryLoginFlow;
-import com.miller.deliveryapp.login.request.DeliveryLoginRequestDTO;
-import com.miller.deliveryapp.login.response.DeliveryLoginResponseDTO;
+
+import com.miller.deliveryapp.module.login.flow.DriverLoginFlow;
+import com.miller.deliveryapp.module.login.request.DriverLoginRequestDTO;
+import com.miller.deliveryapp.module.login.response.DriverLoginResponseDTO;
 import com.miller.deliveryapp.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
@@ -50,20 +51,20 @@ public class DriverLoginTests {
     @MethodSource("loginDataProvider")
     @ParameterizedTest
     @DisplayName("正常流程_骑手登录")
-    void shouldLoginSuccessfully(DeliveryLoginRequestDTO deliveryLoginRequestDTO) {
-        DeliveryLoginResponseDTO deliveryLoginResponseDTO = DeliveryLoginFlow.loginReturnBodyObject(deliveryLoginRequestDTO);
+    void shouldLoginSuccessfully(DriverLoginRequestDTO driverLoginRequestDTO) {
+        DriverLoginResponseDTO driverLoginResponseDTO = DriverLoginFlow.loginReturnBodyObject(driverLoginRequestDTO);
 
-        assertThat(deliveryLoginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
-        assertThat(deliveryLoginResponseDTO.getResult().getAccessToken()).isNotNull();
+        assertThat(driverLoginResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(driverLoginResponseDTO.getResult().getAccessToken()).isNotNull();
         // 获取token
-        token = deliveryLoginResponseDTO.getResult().getAccessToken();
+        token = driverLoginResponseDTO.getResult().getAccessToken();
     }
 
     /**
      * 登陆测试用例数据提供者，数据来自于DB
      */
     static Stream<Arguments> loginDataProvider() {
-        DeliveryLoginRequestDTO user1 = new DeliveryLoginRequestDTO();
+        DriverLoginRequestDTO user1 = new DriverLoginRequestDTO();
         user1.setAreaCode("86");
         user1.setAccount("13251016325");
         user1.setPassword(MD5Util.string2MD5("Test1234"));

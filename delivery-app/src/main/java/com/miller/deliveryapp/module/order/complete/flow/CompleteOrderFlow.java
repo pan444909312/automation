@@ -3,8 +3,6 @@ package com.miller.deliveryapp.module.order.complete.flow;
 import com.miller.deliveryapp.constants.BusinessConstant;
 import com.miller.deliveryapp.module.order.complete.request.CompleteOrderRequesDTO;
 import com.miller.deliveryapp.module.order.complete.response.CompleteOrderRequesResponse;
-import com.miller.deliveryapp.order.status.request.ModifyOrderStatusRequestDTO;
-import com.miller.deliveryapp.order.status.response.ModifyOrderStatusResponseDTO;
 import com.miller.deliveryapp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
 
