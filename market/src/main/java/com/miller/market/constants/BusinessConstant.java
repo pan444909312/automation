@@ -91,6 +91,7 @@ public class BusinessConstant {
 
     public static String orderSn;
     public static Long orderId;
+    public static Long specialOrderId;
 
     //支付方式
     public static PayItemBean payItemBean;

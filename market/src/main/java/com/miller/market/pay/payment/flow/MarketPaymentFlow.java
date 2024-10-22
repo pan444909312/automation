@@ -18,7 +18,7 @@ public class MarketPaymentFlow {
 
     public static MarketPaymentResponseDTO getPaymentPattern(MarketPaymentRequestDTO requestDTO) {
         RequestUtils.getHeaders().put("Content-Type", "application/json;charset=UTF-8");
-        RequestUtils.getHeaders().put("channel",50);
+        RequestUtils.getHeaders().put("channel",BusinessConstant.payItemBean.getPayType());
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null,RequestUtils.getHeaders(),
                 // 所有的请求体请使用带加密的请求体{@code RequestUtils.putBodyOfJson(Object)}
                 RequestUtils.putBodyOfJson(requestDTO), null, MarketPaymentResponseDTO.class);

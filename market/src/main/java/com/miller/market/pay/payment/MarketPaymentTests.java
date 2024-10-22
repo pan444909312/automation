@@ -52,6 +52,7 @@ public class MarketPaymentTests {
         requestDTO.setPaymentMethodId(BusinessConstant.paymentMethodId);
         requestDTO.setRoutingFloatingType(BusinessConstant.payItemBean.getFloatingType());
         requestDTO.setSysType("1");
+        requestDTO.setCountryCode("CN");
         return Stream.of(Arguments.of(requestDTO));
     }
 

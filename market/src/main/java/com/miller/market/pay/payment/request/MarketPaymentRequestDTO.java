@@ -9,7 +9,12 @@ import com.panda.market.service.dto.PayCenterDTO;
 public class MarketPaymentRequestDTO extends PayCenterDTO {
 
     private String sysType;
+    private String countryCode;
     public void setSysType(final String sysType) {
         this.sysType = sysType;
+    }
+
+    public void setCountryCode(final String countryCode) {
+        this.sysType = countryCode;
     }
 }

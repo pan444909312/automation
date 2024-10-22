@@ -37,6 +37,7 @@ public class RequestUtils {
         headers.put("portalId", BusinessConstant.portalId);
         headers.put("regionId", BusinessConstant.regionId);
         headers.put("cityId", BusinessConstant.cityId);
+        headers.put("system", BusinessConstant.system);
 //        headers.put("_sign",BusinessConstant._sign);
 //        headers.put("_ts",BusinessConstant._ts);
 
