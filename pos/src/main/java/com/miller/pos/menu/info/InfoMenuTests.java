@@ -1,10 +1,11 @@
-package com.miller.pos.menu.edit.info;
+package com.miller.pos.menu.info;
 
-import com.miller.pos.menu.edit.info.response.InfoMenuResponseDTO;
-import com.miller.pos.menu.edit.info.flow.InfoMenuFlow;
+import com.miller.pos.menu.info.response.InfoMenuResponseDTO;
+import com.miller.pos.menu.info.flow.InfoMenuFlow;
 import com.miller.pos.token.flow.AccessTokenFlow;
 import com.miller.pos.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,8 +13,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @EnvTag.Test
-@TestFramework
-@DisplayName("pos-Menu-菜单详情")
+@Scenario(
+        scenarioID="01J5N2G49FNJH4YPS4N5BP1CJE",
+        scenarioName = "POS 开放接口 - 菜单 - 菜单详情",
+        developmentTime = 30,
+        maintenanceTime = 0 ,
+        manualTestTime = 5
+)
 public class InfoMenuTests {
 
 

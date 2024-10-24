@@ -6,7 +6,7 @@ import com.miller.pos.menu.add.response.AddMenuResponseDTO;
 import com.miller.pos.token.flow.AccessTokenFlow;
 import com.miller.pos.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.annotation.Scenario;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +15,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 
 @EnvTag.Test
-@TestFramework
-@DisplayName("pos-Menu-新增菜单")
+@Scenario(
+        scenarioID="01J5N2G49FNJH4YPS4N5BP1CJC",
+        scenarioName = "POS 开放接口 - 菜单 - 新增菜单",
+        developmentTime = 30,
+        maintenanceTime = 0 ,
+        manualTestTime = 5
+)
 public class AddMenuTests {
 
 

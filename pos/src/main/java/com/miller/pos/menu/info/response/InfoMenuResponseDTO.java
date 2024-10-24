@@ -1,4 +1,4 @@
-package com.miller.pos.menu.edit.info.response;
+package com.miller.pos.menu.info.response;
 
 import com.panda.pos.server.api.dto.open.OpenApiResponse;
 import com.panda.pos.server.api.dto.open.menu.MenuResponse;
