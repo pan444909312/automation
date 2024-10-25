@@ -2,6 +2,9 @@ package com.miller.service;
 
 import com.miller.entity.AutoExecutionRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -12,5 +15,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2024-10-10
  */
 public interface AutoExecutionRecordService extends IService<AutoExecutionRecord> {
+
+    Map<String,Object> listAutoCase(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO);
+    Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO);
 
 }
