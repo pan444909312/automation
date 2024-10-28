@@ -29,8 +29,8 @@ public @interface Scenario {
     /**
      * 自动化开发成本: 单位分钟
      * <ul>最终的值单位是分钟，写法可<b>参考</b>如下格式：
-     *     <li>10 分钟: developmentTime = 10; </li>
-     *     <li>1小时: developmentTime = 60;</li>
+     *     <li>10 分钟: developmentTime = 10</li>
+     *     <li>1小时: developmentTime = 60</li>
      *     <li>2小时: developmentTime = 2 * 60</li>
      *     <li>2小时: developmentTime = 120</li>
      *     <li>1天: developmentTime = 24 * 60</li>
@@ -41,8 +41,8 @@ public @interface Scenario {
     /**
      * 自动化维护成本: 单位分钟
      * <ul>最终的值单位是分钟，写法可<b>参考</b>如下格式：
-     *     <li>10 分钟: maintenanceTime = 10; </li>
-     *     <li>1小时: maintenanceTime = 60;</li>
+     *     <li>10 分钟: maintenanceTime = 10</li>
+     *     <li>1小时: maintenanceTime = 60</li>
      *     <li>2小时: maintenanceTime = 2 * 60</li>
      *     <li>2小时: maintenanceTime = 120</li>
      *     <li>1天: maintenanceTime = 24 * 60</li>
@@ -53,8 +53,8 @@ public @interface Scenario {
     /**
      * 手工测试成本: 单位分钟
      * <ul>最终的值单位是分钟，写法可<b>参考</b>如下格式：
-     *     <li>10 分钟: manualTestTime = 10; </li>
-     *     <li>1小时: manualTestTime = 60;</li>
+     *     <li>10 分钟: manualTestTime = 10</li>
+     *     <li>1小时: manualTestTime = 60</li>
      *     <li>2小时: manualTestTime = 2 * 60</li>
      *     <li>2小时: manualTestTime = 120</li>
      *     <li>1天: manualTestTime = 24 * 60</li>
