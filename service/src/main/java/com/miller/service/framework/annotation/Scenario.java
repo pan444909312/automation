@@ -33,7 +33,8 @@ public @interface Scenario {
      *     <li>1小时: developmentTime = 60</li>
      *     <li>2小时: developmentTime = 2 * 60</li>
      *     <li>2小时: developmentTime = 120</li>
-     *     <li>1天: developmentTime = 24 * 60</li>
+     *     <li>8小时: developmentTime = 8 * 60</li>
+     *     <li>8小时: developmentTime = 480</li>
      * </ul>
      */
     int developmentTime();
@@ -45,7 +46,9 @@ public @interface Scenario {
      *     <li>1小时: maintenanceTime = 60</li>
      *     <li>2小时: maintenanceTime = 2 * 60</li>
      *     <li>2小时: maintenanceTime = 120</li>
-     *     <li>1天: maintenanceTime = 24 * 60</li>
+     *     <li>8小时: maintenanceTime = 8 * 60</li>
+     *     <li>8小时: maintenanceTime = 480</li>
+     *
      * </ul>
      */
     int maintenanceTime();
@@ -57,7 +60,8 @@ public @interface Scenario {
      *     <li>1小时: manualTestTime = 60</li>
      *     <li>2小时: manualTestTime = 2 * 60</li>
      *     <li>2小时: manualTestTime = 120</li>
-     *     <li>1天: manualTestTime = 24 * 60</li>
+     *     <li>8小时: manualTestTime = 8 * 60</li>
+     *     <li>8小时: maintenanceTime = 480</li>
      * </ul>
      */
     int manualTestTime();
