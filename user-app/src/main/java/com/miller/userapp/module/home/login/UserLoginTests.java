@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.entity.device.DeviceLoginInfoEntity;
 import com.hungrypanda.app.server.entity.user.UserEntity;
 import com.miller.common.util.MD5Util;
-import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.mapper.device.DeviceLoginInfoMapper;
@@ -37,8 +36,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * @version 1.0
  * @since 2023/12/7 20:31:39
  */
-@EnvTag.Test
-@TestFramework
+@Scenario(scenarioID = "01JASK7KAP424JJJNP35ESPKTF",
+        scenarioName = "用户-登录",
+        developmentTime = 20, maintenanceTime = 10, manualTestTime = 5)
 @DisplayName("用户-登录")
 public class UserLoginTests {
     private static String token;
