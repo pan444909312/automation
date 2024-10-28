@@ -8,6 +8,7 @@ import com.miller.pos.menu.seq.response.BatchMenuSeqResponseDTO;
 import com.miller.pos.token.flow.AccessTokenFlow;
 import com.miller.pos.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.panda.pos.server.api.dto.open.menu.MenuSeqRequest;
 import org.assertj.core.api.Assertions;
@@ -18,7 +19,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 @EnvTag.Test
-@TestFramework
+@Scenario(
+        scenarioID="01J5N2G49FNJH4YPS4N5BP1CJ7",
+        scenarioName = "POS 开放接口 - 菜单 - 批量修改菜单排序",
+        developmentTime = 30,
+        maintenanceTime = 0 ,
+        manualTestTime = 5
+)
 @DisplayName("pos-Menu-批量修改菜单排序")
 public class BatchMenuSeqTests {
 

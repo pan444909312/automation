@@ -10,7 +10,7 @@ import java.util.Date;
  * @since 2024/9/29 11:26
  */
 @Data
-public class PageAutoCaseRoiDto {
+public class PageAutoCaseRoiDTO {
 
     @Schema(description = "分页页码")
     private int pageNo = 1;

@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2024/9/29 11:23
  */
 @Data
-public class AutoCaseRoiVo {
+public class AutoCaseRoiVO {
     @Schema(description = "ID 自增")
     private Long id;
 

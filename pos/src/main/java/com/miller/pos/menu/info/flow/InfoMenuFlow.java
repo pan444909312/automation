@@ -1,7 +1,7 @@
-package com.miller.pos.menu.edit.info.flow;
+package com.miller.pos.menu.info.flow;
 
 import com.miller.pos.constants.BusinessConstant;
-import com.miller.pos.menu.edit.info.response.InfoMenuResponseDTO;
+import com.miller.pos.menu.info.response.InfoMenuResponseDTO;
 import com.miller.pos.util.RequestUtils;
 
 import java.util.HashMap;

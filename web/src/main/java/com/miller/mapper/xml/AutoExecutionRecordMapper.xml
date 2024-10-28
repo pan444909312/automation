@@ -2,4 +2,93 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miller.mapper.AutoExecutionRecordMapper">
 
+    <resultMap id="selectPageByConditionMap" type="com.miller.entity.AutoExecutionRecordEntity">
+<!--        <result property="id" column="id"/>-->
+<!--        <result property="scenario_id" column="scenarioId"/>-->
+<!--        <result property="execution_type" column="executionType"/>-->
+<!--        <result property="execution_time" column="executionTime"/>-->
+<!--        <result property="execution_status" column="executionStatus"/>-->
+<!--        <result property="execution_user" column="executionUser"/>-->
+<!--        <result property="create_time" column="createTime"/>-->
+<!--        <result property="update_time" column="updateTime"/>-->
+<!--        <result property="is_deleted" column="isDeleted"/>-->
+<!--        <result property="development_time" column="developmentTime"/>-->
+<!--        <result property="maintenance_time" column="maintenanceTime"/>-->
+<!--        <result property="manual_test_time" column="manualTestTime"/>-->
+<!--        <result property="scenario_name" column="scenarioName"/>-->
+    </resultMap>
+
+    <select id="selectPageByCondition" resultMap="selectPageByConditionMap">
+
+        SELECT aer.*,r.development_time,r.maintenance_time,r.manual_test_time,r.scenario_name
+        FROM auto_execution_record aer LEFT JOIN auto_case_roi r on aer.scenario_id = r.scenario_id
+        where aer.is_deleted = 0
+        <if test="req.scenarioId != null and req.scenarioId.length()>0">
+            and aer.scenario_id = #{req.scenarioId}
+        </if>
+        <if test="req.executionStartTime != null">
+            and aer.execution_time >  UNIX_TIMESTAMP(#{req.executionStartTime})* 1000
+        </if>
+        <if test="req.executionEndTime != null">
+            and aer.execution_time &lt; UNIX_TIMESTAMP(#{req.executionEndTime})* 1000
+        </if>
+
+        <if test="req.executionUserList != null and req.executionUserList.size()>0">
+            and aer.execution_user in
+            <foreach collection="req.executionUserList" item="user" separator="," open="(" close=")">
+                #{user}
+            </foreach>
+        </if>
+        <if test="req.executionStatusList != null and req.executionStatusList.size()>0">
+            and aer.execution_status in
+            <foreach collection="req.executionStatusList" item="status" separator="," open="(" close=")">
+                #{status}
+            </foreach>
+        </if>
+        <if test="req.executionTypeList != null and req.executionTypeList.size()>0">
+            and aer.execution_type in
+            <foreach collection="req.executionTypeList" item="type" separator="," open="(" close=")">
+                #{type}
+            </foreach>
+        </if>
+
+        <if test="req.developmentTimeSymbol == 1">
+            and r.development_time &lt; #{req.developmentTime}
+        </if>
+        <if test="req.developmentTimeSymbol == 2">
+            and r.development_time = #{req.developmentTime}
+        </if>
+        <if test="req.developmentTimeSymbol == 3">
+            and r.development_time > #{req.developmentTime}
+        </if>
+
+        <if test="req.maintenanceTimeSymbol == 1">
+            and r.maintenance_time &lt; #{req.maintenanceTime}
+        </if>
+        <if test="req.maintenanceTimeSymbol == 2">
+            and r.maintenance_time = #{req.maintenanceTime}
+        </if>
+        <if test="req.maintenanceTimeSymbol == 3">
+            and r.maintenance_time > #{req.maintenanceTime}
+        </if>
+
+        <if test="req.manualTestTimeSymbol == 1">
+            and r.manual_test_time &lt; #{req.manualTestTime}
+        </if>
+        <if test="req.manualTestTimeSymbol == 2">
+            and r.manual_test_time = #{req.manualTestTime}
+        </if>
+        <if test="req.manualTestTimeSymbol == 3">
+            and r.manual_test_time > #{req.manualTestTime}
+        </if>
+        <if test="req.orderBy == 1">
+            ORDER BY execution_time DESC
+        </if>
+        <if test="req.orderBy == 0">
+            ORDER BY execution_time ASC
+        </if>
+
+    </select>
+
+
 </mapper>
