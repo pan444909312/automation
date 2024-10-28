@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 测试场景注解
+ * 测试场景注解,用于测试框架识别测试用例为场景。并且自动统计分析每个场景的开发、维护、人工成本，计算最终ROI。
  *
  * @author Miller Shan
  * @version 1.0
@@ -27,20 +27,29 @@ public @interface Scenario {
     String scenarioName();
 
     /**
-     * 开发成本: 单位分钟
-     * 例如: 10 分钟: developmentTime = 1 * 10; 1小时: developmentTime = 1 * 60;
+     * 自动化开发成本: 单位分钟
+     * <ul>例如
+     *     <li>10 分钟: developmentTime = 1 * 10; </li>
+     *     <li>1小时: developmentTime = 1 * 60;</li>
+     * </ul>
      */
     int developmentTime();
 
     /**
-     * 维护成本: 单位分钟
-     * 例如: 10 分钟: maintenanceTime = 1 * 10; 1小时: maintenanceTime = 1 * 60;
+     * 自动化维护成本: 单位分钟
+     * <ul>例如
+     *     <li>10 分钟: maintenanceTime = 1 * 10; </li>
+     *     <li>1小时: maintenanceTime = 1 * 60;</li>
+     * </ul>
      */
     int maintenanceTime();
 
     /**
-     * 人工测试成本: 单位分钟
-     * 例如: 10 分钟: manualTestTime = 1 * 10; 1小时: manualTestTime = 1 * 60;
+     * 手工测试成本: 单位分钟
+     * <ul>例如
+     *     <li>10 分钟: manualTestTime = 1 * 10; </li>
+     *     <li>1小时: manualTestTime = 1 * 60;</li>
+     * </ul>
      */
     int manualTestTime();
 }
