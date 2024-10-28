@@ -7,9 +7,7 @@ import com.miller.entity.AutoExecutionRecordEntity;
 import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 /**
  * <p>
@@ -20,6 +18,7 @@ import java.util.List;
  * @since 2024-10-10
  */
 
+@Mapper
 public interface AutoExecutionRecordMapper extends BaseMapper<AutoExecutionRecord> {
 
 
