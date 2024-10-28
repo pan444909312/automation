@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(scenarioID = "01JA4ZPKGMEJSHP04GZWZZPQE3",
         scenarioName = "正常流程_未登录_获取站点信息",
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 0)
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("获取站点")
 public class MarketGetPortalWithoutLoginScenarioTests {

@@ -29,6 +29,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】登录 - 查看个人中心 - 新增地址 - 修改地址 - 登出")
 @Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E79",
         scenarioName = "【主干场景】登录 - 查看个人中心 - 新增地址 - 修改地址 - 登出",
-        developmentTime = 30, maintenanceTime = 30, manualTestTime = 0)
+        developmentTime = 30, maintenanceTime = 30, manualTestTime = 15)
 public class UserLoginCenterOutScenarioTests {
 }
