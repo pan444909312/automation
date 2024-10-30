@@ -42,9 +42,10 @@ public class TestCaseController {
     public static void main(String[] args) {
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(
-                        selectPackage("com.miller.userapp.module.home.login")
+                        selectPackage("com.miller.userapp.module.pay.suite")
                 ).filters(
-                        includeClassNamePatterns(".*Scenario[s]?Test[s]?")
+//                        includeClassNamePatterns(".*Scenario[s]?Test[s]?")
+                        includeClassNamePatterns(".*Test[s]?")
                 ).build();
         new TestCaseRunnerLauncher().executeRequest(request);
 

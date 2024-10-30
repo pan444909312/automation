@@ -58,7 +58,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
 })
 @Disabled
-@Scenario(scenarioID = "01HK72EK786CKN8N2QYVXRJ1AD", scenarioName = "【调试场景集】", developmentTime = 0, maintenanceTime = 0, manualTestTime = 0)
+@Scenario(scenarioID = "01HK72EK786CKN8N2QYVXRJ1AD", scenarioName = "【调试场景集】", developmentTime = 1, maintenanceTime = 0, manualTestTime = 15)
 @Suite
 @SuiteDisplayName("调试场景集")
 public class DebugScenarios {

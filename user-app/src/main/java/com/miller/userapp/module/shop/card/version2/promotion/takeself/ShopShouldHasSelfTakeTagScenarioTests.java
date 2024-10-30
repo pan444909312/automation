@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestFramework
 @Scenario(scenarioID = "01J7QY2D2DYTX4CZ7DMMR4BDX9", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-首页-商卡二期：可自取33"
-        , developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
+        , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-首页-商卡二期：可自取33")
 public class ShopShouldHasSelfTakeTagScenarioTests {
 //    测试店铺：店铺1,测试标签类型：33，content：可自取

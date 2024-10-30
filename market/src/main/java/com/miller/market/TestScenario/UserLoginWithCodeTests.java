@@ -22,6 +22,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】发送验证码 - 登录")
 @Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KM",
         scenarioName = "【主干场景】发送验证码 - 登录",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class UserLoginWithCodeTests {
 }

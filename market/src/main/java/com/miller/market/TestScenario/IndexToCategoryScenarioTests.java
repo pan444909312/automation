@@ -32,6 +32,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】登录 - 获取首页-获取分类页：分类信息 - 获取分类页：商品信息")
 @Scenario(scenarioID = "01J5SGFNY03AZH1TY0GQ8Q7E78",
         scenarioName = "【主干场景】登录 - 获取首页-首页商品流-获取分类页：分类信息 - 获取分类页：商品信息",
-        developmentTime = 30, maintenanceTime = 20, manualTestTime = 0)
+        developmentTime = 30, maintenanceTime = 20, manualTestTime = 15)
 public class IndexToCategoryScenarioTests {
 }

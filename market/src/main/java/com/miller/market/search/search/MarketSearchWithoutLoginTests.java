@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  */
 @Scenario(scenarioID = "01JA4ZPKGMEJSHP04GZWZZPQE1",
         scenarioName = "正常流程_未登录_搜索商品",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("客户端搜索")
 public class MarketSearchWithoutLoginTests {

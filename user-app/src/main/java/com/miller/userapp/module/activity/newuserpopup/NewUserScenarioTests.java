@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01J820W2DA6A0BHJ4F0WQW3BFM", scenarioName = "用户-点捷营销-新人权益-未登录新人弹窗"
-        , developmentTime = 30, maintenanceTime = 0, manualTestTime = 0)
+        , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class NewUserScenarioTests {
 
     static PropertiesUtils propertiesUtils=new PropertiesUtils();
