@@ -5,6 +5,7 @@ import com.miller.deliveryapp.module.order.complete.*;
 import com.miller.deliveryapp.module.order.create.CreateDeliveryOrderBySqlTests;
 import com.miller.deliveryapp.module.order.grab.GrabDeliveryOrderTests;
 import com.miller.deliveryapp.module.driver.online.DriverOnlineTests;
+import com.miller.service.framework.annotation.Scenario;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -28,7 +29,10 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         DeliveryConsumerTest.class,
 
 })
+@Scenario(scenarioID = "01JBBNREVYZG830J5CZ2XZPZPS",
+        scenarioName = "【主干场景】骑手完单流程：造D侧派送订单->骑手登录app->上线->抢单->到店->未出餐->取餐->送达",
+        developmentTime = 16 * 60, maintenanceTime = 0, manualTestTime = 60)
 @Suite
-@SuiteDisplayName("骑手完单流程：登录app-->上线-->抢单-->到店-->取餐-->派送-->签收订单")
+@SuiteDisplayName("【主干场景】骑手完单流程：造D侧派送订单->骑手登录app->上线->抢单->到店->未出餐->取餐->送达")
 public class CompleteDeliveryOrderScenarioTest {
 }

@@ -1,23 +1,10 @@
 package com.miller.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.entity.AutoCaseRoi;
-import com.miller.entity.AutoExecutionRecord;
-import com.miller.entity.constant.ExecutionStatusEnum;
-import com.miller.entity.constant.ExecutionTypeEnum;
-import com.miller.entity.constant.SortEnum;
 import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
-import com.miller.entity.vo.AutoCaseExecutionRecordVO;
-import com.miller.mapper.AutoExecutionRecordMapper;
-import com.miller.service.AutoCaseRoiService;
 import com.miller.service.AutoExecutionRecordService;
-import com.miller.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

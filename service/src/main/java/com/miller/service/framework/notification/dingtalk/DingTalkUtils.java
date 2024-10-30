@@ -33,6 +33,8 @@ public class DingTalkUtils {
      */
     public static final String CUSTOM_ROBOT_TOKEN = "0de7c87ac7e3e8506c142d1929068a9c15feea710152aca9c2eeb1e9aa3202ff";
 
+
+
     /**
      * 钉钉机器人管理中的 安全设置，加签密钥
      */

@@ -6,6 +6,7 @@ import com.miller.service.data.sql.AutoCaseRoiSql;
 import com.miller.service.framework.annotation.MethodInvoked;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.data.entity.AutoCaseRoiEntity;
+import com.miller.service.framework.exception.TestFrameworkException;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.util.ReflectionUtils;
@@ -154,6 +155,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
         String executor = getExecutor();
         if(Objects.isNull(scenario)) return;
+        if(scenario.developmentTime()<= 0 || scenario.manualTestTime() <= 0 )
+            throw new TestFrameworkException(cls.getName() + "developmentTime ,manualTestTime must > 0");
         String scenarioId = scenario.scenarioID();
         AutoCaseRoiEntity autoCaseRoiDB = autoCaseRoiSql.getAutoCaseRoi(scenarioId);
         if(Objects.nonNull(autoCaseRoiDB)){
