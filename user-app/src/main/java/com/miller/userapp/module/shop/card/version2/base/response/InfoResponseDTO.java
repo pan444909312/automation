@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.response;
+package com.miller.userapp.module.shop.card.version2.base.response;
 
 import com.hungrypanda.app.server.dto.shop.ShopBaseInfoDTO;
 import com.miller.userapp.dto.BasicResponseDTO;

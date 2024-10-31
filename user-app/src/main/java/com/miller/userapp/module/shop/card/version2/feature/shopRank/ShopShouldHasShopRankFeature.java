@@ -1,7 +1,6 @@
 package com.miller.userapp.module.shop.card.version2.feature.shopRank;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hungrypanda.app.server.common.consants.IndexListConstants;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.ShopFeatureVO;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
@@ -11,9 +10,9 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ShopFeatureTypeConstant;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.baseinfo.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.baseinfo.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.baseinfo.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

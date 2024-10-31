@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.baseinfo.request;
+package com.miller.userapp.module.shop.card.version2.home.request;
 
 import com.hungrypanda.app.server.api.req.shop.ShopListReq;
 

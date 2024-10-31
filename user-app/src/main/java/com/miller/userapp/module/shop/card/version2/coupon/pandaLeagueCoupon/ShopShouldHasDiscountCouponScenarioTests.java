@@ -15,9 +15,9 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.baseinfo.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.baseinfo.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.baseinfo.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;

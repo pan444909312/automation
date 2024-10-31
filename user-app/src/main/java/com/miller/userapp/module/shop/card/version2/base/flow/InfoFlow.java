@@ -1,9 +1,9 @@
-package com.miller.userapp.module.shop.card.version2.flow;
+package com.miller.userapp.module.shop.card.version2.base.flow;
 
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-import com.miller.userapp.module.shop.card.version2.request.InfoRequestDTO;
-import com.miller.userapp.module.shop.card.version2.response.InfoResponseDTO;
+import com.miller.userapp.module.shop.card.version2.base.request.InfoRequestDTO;
+import com.miller.userapp.module.shop.card.version2.base.response.InfoResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**

@@ -1,30 +1,21 @@
 package com.miller.userapp.module.shop.card.version2.promotion.discount;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
-import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
-import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
-import com.miller.userapp.mapper.shop.ProductDiscountMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.baseinfo.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.baseinfo.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.baseinfo.response.ShopListResponseDTO;
-import com.panda.erp.server.dal.dataobject.product.ProductDiscountEntity;
-import org.apache.ibatis.session.SqlSession;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Map;
 import java.util.stream.Stream;
 
 /**
