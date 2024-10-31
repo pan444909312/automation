@@ -2,7 +2,6 @@ package com.miller.market.TestScenario;
 
 import com.miller.market.specialOrder.getDetail.MarketSpecialOrderDetailTests;
 import com.miller.market.specialOrder.getPageList.MarketSpecialOrderListlTests;
-import com.miller.market.topic.getSpecialTopicGoods.*;
 import com.miller.market.user.login.MarketLoginTests;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.platform.suite.api.SelectClasses;
@@ -26,5 +25,5 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KQ",
         scenarioName = "【主干场景】登录 -查看特殊单列表 - 特殊单详情",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-public class GetSpecialOrderDataTests {
+public class GetSpecialOrderDataScenarioTests {
 }
