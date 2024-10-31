@@ -82,10 +82,10 @@ public class MarketAddAddressTests {
         Address address = addressMapper.selectOne(queryWrapper);
 
         //删除新增的地址
-        new LambdaUpdateChainWrapper<>(addressMapper)
-                .set(Address::getIsDel, IsDeleteEnum.DELETE.getCode())
-                .eq(Address::getAddressId,address.getAddressId())
-                .update();
+//        new LambdaUpdateChainWrapper<>(addressMapper)
+//                .set(Address::getIsDel, IsDeleteEnum.DELETE.getCode())
+//                .eq(Address::getAddressId,address.getAddressId())
+//                .update();
 
     }
 
