@@ -2,7 +2,6 @@ package com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.membe
 
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
-
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.RequestUtils;

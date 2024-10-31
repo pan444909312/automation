@@ -9,8 +9,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
-
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,6 +17,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
 import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01J5N6H0ZQ4TWS22GMGETP4K69",

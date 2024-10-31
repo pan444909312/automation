@@ -11,7 +11,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.member.MemberCityMapper;
 import com.miller.userapp.mapper.member.MemberPacketMapper;
-import com.miller.userapp.module.shop.card.version2.home.baseinfo.ShopShouldHasLabelScenarioTests;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.baseinfo.ShopShouldHasLabelScenarioTests;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.memberBenefit.flow.ShopListFlowNoLogin;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.memberBenefit.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.memberBenefit.response.ShopListResponseDTO;

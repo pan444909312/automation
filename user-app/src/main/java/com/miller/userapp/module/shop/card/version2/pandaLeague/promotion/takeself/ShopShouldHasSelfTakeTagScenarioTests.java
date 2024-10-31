@@ -7,17 +7,18 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.takeself.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.takeself.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.takeself.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-//import com.hungrypanda.app.server.vo.index;
+
 import java.util.List;
 import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
