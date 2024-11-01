@@ -71,7 +71,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             String scenarioId = scenario.scenarioID();
             ExecutionStatusEnum value  = scenarioResultMap.get(scenarioId);
             AutoExecutionRecord autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
-            AutoExecutionRecord autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
+            AutoExecutionRecord autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecordBySuite(scenarioId);
             if(Objects.nonNull(autoExecutionRecord)){
                 autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
             }

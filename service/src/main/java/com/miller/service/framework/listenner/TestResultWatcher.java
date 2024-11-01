@@ -265,7 +265,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                 value = ExecutionStatusEnum.DISABLE;
                 break;
             case "Aborted":
-                if(ExecutionStatusEnum.PASS.equals(value)){
+                if(Objects.nonNull(value)){
                     return;
                 }
                 value = ExecutionStatusEnum.PASS;

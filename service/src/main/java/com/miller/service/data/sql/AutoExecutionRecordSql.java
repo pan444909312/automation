@@ -26,15 +26,17 @@ public class AutoExecutionRecordSql {
         LambdaQueryWrapper<AutoExecutionRecord> lambda = queryWrapper.lambda();
         lambda.eq(AutoExecutionRecord::getScenarioId,scenarioId);
         lambda.eq(AutoExecutionRecord::getExecutionStatus,-1);
+        lambda.orderByDesc(AutoExecutionRecord::getId);
         lambda.last("limit 1");
         return  getAutoExecutionRecordMapper().selectOne(queryWrapper);
     }
-    public AutoExecutionRecord getAutoExecutionRecordByOne(String scenarioId){
+    public AutoExecutionRecord getAutoExecutionRecordBySuite(String scenarioId){ //suite可能更新多次，查找已经更新过的
         QueryWrapper<AutoExecutionRecord> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<AutoExecutionRecord> lambda = queryWrapper.lambda();
         lambda.eq(AutoExecutionRecord::getScenarioId,scenarioId);
         lambda.ne(AutoExecutionRecord::getExecutionStatus,-1);
-        lambda.orderByAsc(AutoExecutionRecord::getUpdateTime);
+        lambda.orderByDesc(AutoExecutionRecord::getUpdateTime);
+        lambda.last("limit 1");
         return  getAutoExecutionRecordMapper().selectOne(queryWrapper);
     }
     public int updateAutoExecutionRecord(Long id ,int result){
