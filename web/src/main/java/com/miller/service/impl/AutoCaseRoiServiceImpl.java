@@ -1,9 +1,11 @@
 package com.miller.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.AutoCaseRoi;
 import com.miller.mapper.AutoCaseRoiMapper;
 import com.miller.service.AutoCaseRoiService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoCaseRoi> implements AutoCaseRoiService {
 
+    @Autowired
+    AutoCaseRoiMapper autoCaseRoiMapper;
+    @Override
+    public String getAutoCaseNameByScenarioId(String scenarioId) {
+        AutoCaseRoi autoCaseRoi = autoCaseRoiMapper.selectOne(new QueryWrapper<AutoCaseRoi>().eq("scenario_id", scenarioId));
+        return autoCaseRoi.getScenarioName();
+    }
 }

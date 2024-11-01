@@ -17,13 +17,13 @@ public class AutoExecutionRecordEntity {
     private String scenarioId;
 
     @Schema(description = "执行策略 1:日常巡检;2:质量保证;3:效率提升")
-    private String executionType;
+    private Integer executionType;
 
     @Schema(description = "执行时间")
     private Long executionTime;
 
     @Schema(description = "执行结果 -1:执行异常;1:执行成功;2:执行失败")
-    private String executionStatus;
+    private Integer executionStatus;
 
     @Schema(description = "执行人员名称")
     private String executionUser;

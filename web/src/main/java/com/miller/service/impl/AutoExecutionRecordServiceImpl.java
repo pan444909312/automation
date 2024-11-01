@@ -39,11 +39,6 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
     @Autowired
     AutoCaseRoiService autoCaseRoiService;
 
-    /**
-     * 已废弃
-     * @param pageAutoCaseExecutionRecordDTO
-     * @return
-     */
     @Override
     public Map<String,Object> listAutoCase(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO){
         IPage<AutoExecutionRecord> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordDTO.getPageNo(), pageAutoCaseExecutionRecordDTO.getPageSize());
@@ -59,6 +54,9 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         Integer developmentTimeSymbol = pageAutoCaseExecutionRecordDTO.getDevelopmentTimeSymbol();
         Integer maintenanceTimeSymbol = pageAutoCaseExecutionRecordDTO.getMaintenanceTimeSymbol();
         Integer manualTestTimeSymbol = pageAutoCaseExecutionRecordDTO.getManualTestTimeSymbol();
+        Integer developmentTime = pageAutoCaseExecutionRecordDTO.getDevelopmentTime();
+        Integer maintenanceTime = pageAutoCaseExecutionRecordDTO.getMaintenanceTime();
+        Integer manualTestTime = pageAutoCaseExecutionRecordDTO.getManualTestTime();
 
         // 查询数据判断
         if (!StringUtils.isEmpty(scenarioId)){
@@ -79,8 +77,36 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         if (executionTypeList != null && !executionTypeList.isEmpty()){
             queryWrapper.in("execution_type",executionTypeList);
         }
-        // todo 各时间成本判断
 
+        if (developmentTimeSymbol == 1){
+            queryWrapper.lt("development_time",developmentTime);
+        }
+        if (developmentTimeSymbol == 2){
+            queryWrapper.eq("development_time",developmentTime);
+        }
+        if (developmentTimeSymbol == 3){
+            queryWrapper.gt("development_time",developmentTime);
+        }
+
+        if (maintenanceTimeSymbol == 1){
+            queryWrapper.lt("maintenance_time",maintenanceTime);
+        }
+        if (maintenanceTimeSymbol == 2){
+            queryWrapper.eq("maintenance_time",maintenanceTime);
+        }
+        if (maintenanceTimeSymbol == 3){
+            queryWrapper.gt("maintenance_time",maintenanceTime);
+        }
+
+        if (manualTestTimeSymbol == 1){
+            queryWrapper.lt("manual_test_time",manualTestTime);
+        }
+        if (manualTestTimeSymbol == 2){
+            queryWrapper.eq("manual_test_time",manualTestTime);
+        }
+        if (manualTestTimeSymbol == 3){
+            queryWrapper.gt("manual_test_time",manualTestTime);
+        }
 
         if (orderBy == 1) {
             queryWrapper.orderByDesc("execution_time");
@@ -99,15 +125,11 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         for (AutoExecutionRecord record : records) {
             autoCaseExecutionRecordVO = new AutoCaseExecutionRecordVO();
             BeanUtils.copyProperties(record,autoCaseExecutionRecordVO);
-            autoCaseExecutionRecordVO.setExecutionStatusDesc(ExecutionStatusEnum.getValueByKey(Integer.parseInt(record.getExecutionStatus())));
-            autoCaseExecutionRecordVO.setExecutionTypeDesc(ExecutionTypeEnum.getValueByKey(Integer.parseInt(record.getExecutionType())));
+            autoCaseExecutionRecordVO.setExecutionStatusDesc(ExecutionStatusEnum.getValueByKey(record.getExecutionStatus()));
+            autoCaseExecutionRecordVO.setExecutionTypeDesc(ExecutionTypeEnum.getValueByKey(record.getExecutionType()));
             autoCaseExecutionRecordVO.setExecutionTime(TimestampUtils.timestampToDateStr(record.getExecutionTime()));
 
-            AutoCaseRoi autoCaseRoi = autoCaseRoiService.getOne(new QueryWrapper<AutoCaseRoi>().eq("scenario_id", record.getScenarioId()));
-            autoCaseExecutionRecordVO.setScenarioName(autoCaseRoi.getScenarioName());
-            autoCaseExecutionRecordVO.setMaintenanceTime(autoCaseRoi.getTimes());
-            autoCaseExecutionRecordVO.setDevelopmentTime(autoCaseRoi.getDevelopmentTime());
-            autoCaseExecutionRecordVO.setManualTestTime(autoCaseRoi.getManualTestTime());
+            autoCaseExecutionRecordVO.setScenarioName(autoCaseRoiService.getAutoCaseNameByScenarioId(record.getScenarioId()));
 
             autoCaseExecutionRecordVOS.add(autoCaseExecutionRecordVO);
         }
@@ -117,6 +139,7 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         result.put("list",autoCaseExecutionRecordVOS);
         return result;
     }
+
 
     @Override
     public  Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO){
