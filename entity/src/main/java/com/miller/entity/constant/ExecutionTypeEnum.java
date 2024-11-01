@@ -7,12 +7,13 @@ package com.miller.entity.constant;
 public enum ExecutionTypeEnum {
 
 
-
+    UNKNOWN_STRATEGY(0, "未知策略"),
     DAILY_CHECK(1, "日常巡检"),
 
     QUALITY_ASSURANCE(2, "质量保证"),
 
     EFFICIENCY_IMPROVEMENT(3, "效率提升"),
+
     ;
 
 

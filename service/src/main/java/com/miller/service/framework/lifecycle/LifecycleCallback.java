@@ -1,12 +1,17 @@
 package com.miller.service.framework.lifecycle;
 
+import com.miller.entity.AutoExecutionRecord;
+import com.miller.entity.constant.ExecutionStatusEnum;
+import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.service.data.entity.AutoCaseRoiLogEntity;
 import com.miller.service.data.sql.AutoCaseRoiLogSql;
 import com.miller.service.data.sql.AutoCaseRoiSql;
+import com.miller.service.data.sql.AutoExecutionRecordSql;
 import com.miller.service.framework.annotation.MethodInvoked;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.data.entity.AutoCaseRoiEntity;
 import com.miller.service.framework.exception.TestFrameworkException;
+import com.miller.service.framework.listenner.TestResultWatcher;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.util.ReflectionUtils;
@@ -16,7 +21,7 @@ import org.junit.jupiter.api.extension.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * JUnit 生命周期回调。
@@ -47,6 +52,10 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
     private AutoCaseRoiSql autoCaseRoiSql = new AutoCaseRoiSql(automationSession);
     private AutoCaseRoiLogSql autoCaseRoiLogSql = new AutoCaseRoiLogSql(automationSession);
+    private AutoExecutionRecordSql autoExecutionRecordSql = new AutoExecutionRecordSql(automationSession);
+    private Set<Class<?>> autoTestClasses = new HashSet<>();
+    private Map<String,ExecutionStatusEnum> scenarioResultMap = TestResultWatcher.getExecutionStatus();
+
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " beforeAll() callback invoked.");
@@ -57,6 +66,22 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
+        autoTestClasses.stream().forEach(cls ->{
+            Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
+            String scenarioId = scenario.scenarioID();
+            ExecutionStatusEnum value  = scenarioResultMap.get(scenarioId);
+            AutoExecutionRecord autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
+            AutoExecutionRecord autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
+            if(Objects.nonNull(autoExecutionRecord)){
+                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
+            }
+            //suite会多次（子类多个），所以如果不是失败的需要再次更新（map已校验） && !autoExecutionRecordSuite.getExecutionStatus().equals(ExecutionStatusEnum.FAIL.getCode())
+            if(Objects.nonNull(autoExecutionRecordSuite) && !autoExecutionRecordSuite.getExecutionStatus().equals(value.getCode())){
+                //不等才更新
+                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
+            }
+        });
+
     }
 
     @Override
@@ -112,12 +137,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * @param context
      */
     private void storeExecutableScenarioValues(ExtensionContext context)  {
-
-
-
         //如果测试类本身就有@Scenario注解，则获取注解value
         saveAutoCaseRoi(context.getRequiredTestClass());
-
         //如果是@Suite集合，则root里获取@Scenario注解,注意只获取一次，子执行类多次root只一次
         ExtensionContext rootContext = context.getRoot();
         String uniqueCls = rootContext.getUniqueId();
@@ -136,7 +157,6 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
                 e.printStackTrace();
             }
         }
-
     }
     private String getExecutor(){
         // 获取执行人员
@@ -153,30 +173,30 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     }
     private void saveAutoCaseRoi(Class<?> cls){
         Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
-        String executor = getExecutor();
+        String executor= getExecutor();
         if(Objects.isNull(scenario)) return;
-        if(scenario.developmentTime()<= 0 || scenario.manualTestTime() <= 0 )
+        autoTestClasses.add(cls);
+        if(scenario.developmentTime() <= 0 || scenario.manualTestTime() <= 0 )
             throw new TestFrameworkException(cls.getName() + "developmentTime ,manualTestTime must > 0");
         String scenarioId = scenario.scenarioID();
-        AutoCaseRoiEntity autoCaseRoiDB = autoCaseRoiSql.getAutoCaseRoi(scenarioId);
-        if(Objects.nonNull(autoCaseRoiDB)){
-            autoCaseRoiDB.setScenarioName(scenario.scenarioName());
-            autoCaseRoiDB.setDevelopmentTime(scenario.developmentTime());
-            autoCaseRoiDB.setMaintenanceTime(scenario.maintenanceTime());
-            autoCaseRoiDB.setManualTestTime(scenario.manualTestTime());
-            Integer times = autoCaseRoiDB.getTimes()+1;
-            Integer saveTimes =autoCaseRoiDB.getSaveTime() +  autoCaseRoiDB.getManualTestTime()   ; //每次执行一次,*1
+        AutoCaseRoiEntity autoCaseRoi = autoCaseRoiSql.getAutoCaseRoi(scenarioId);
+        if(Objects.nonNull(autoCaseRoi)){
+            autoCaseRoi.setScenarioName(scenario.scenarioName());
+            autoCaseRoi.setDevelopmentTime(scenario.developmentTime());
+            autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
+            autoCaseRoi.setManualTestTime(scenario.manualTestTime());
+            Integer times = autoCaseRoi.getTimes()+1;
+            Integer saveTimes =autoCaseRoi.getSaveTime() +  autoCaseRoi.getManualTestTime()   ; //每次执行一次,*1
 //            Integer sumCostTimes = autoCaseRoiDB.getDevelopmentTime() + autoCaseRoiDB.getMaintenanceTime();
 //            BigDecimal roi = new BigDecimal(saveTimes).divide(new BigDecimal(sumCostTimes),9, RoundingMode.HALF_UP);
-            autoCaseRoiDB.setTimes(times); //每执行一次+1
-            autoCaseRoiDB.setSaveTime(saveTimes);
-            autoCaseRoiDB.setRoi( calculateRoi(autoCaseRoiDB));
-            autoCaseRoiDB.setExecutionUser(executor);
-            autoCaseRoiSql.updateAutoCaseRoi(autoCaseRoiDB);
-            autoCaseRoiLogSql.saveAutoCaseRoiLog(getAutoCaseRoiLog(autoCaseRoiDB));
-            System.out.println("autoCaseRoi: "+ autoCaseRoiDB);
+            autoCaseRoi.setTimes(times); //每执行一次+1
+            autoCaseRoi.setSaveTime(saveTimes);
+            autoCaseRoi.setRoi( calculateRoi(autoCaseRoi));
+            autoCaseRoi.setExecutionUser(executor);
+            autoCaseRoiSql.updateAutoCaseRoi(autoCaseRoi);
+//            System.out.println("autoCaseRoi: "+ autoCaseRoi);
         }else {
-            AutoCaseRoiEntity autoCaseRoi = new AutoCaseRoiEntity();
+            autoCaseRoi = new AutoCaseRoiEntity();
             autoCaseRoi.setScenarioId(scenarioId);
             autoCaseRoi.setScenarioName(scenario.scenarioName());
             autoCaseRoi.setDevelopmentTime(scenario.developmentTime());
@@ -189,9 +209,14 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setUpdateTime(System.currentTimeMillis());
             autoCaseRoi.setExecutionUser(executor);
             autoCaseRoiSql.saveAutoCaseRoi(autoCaseRoi);
-            autoCaseRoiLogSql.saveAutoCaseRoiLog(getAutoCaseRoiLog(autoCaseRoi));
-            System.out.println("autoCaseRoi: "+ autoCaseRoi);
+//            System.out.println("autoCaseRoi: "+ autoCaseRoi);
         }
+        AutoCaseRoiLogEntity autoCaseRoiLogEntity = getAutoCaseRoiLog(autoCaseRoi);
+        autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
+
+        AutoExecutionRecord autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity,executor);
+        autoExecutionRecordSql.saveAutoExecutionRecord(autoExecutionRecord);
+
     }
     private String calculateRoi(AutoCaseRoiEntity autoCaseRoi){
         Integer saveTimes = autoCaseRoi.getSaveTime();
@@ -204,9 +229,32 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         autoCaseRoiLog.setScenarioId(autoCaseRoi.getScenarioId());
         autoCaseRoiLog.setSaveTime(autoCaseRoi.getSaveTime());
         autoCaseRoiLog.setRoi(autoCaseRoi.getRoi());
+        autoCaseRoiLog.setDevelopmentTime(autoCaseRoi.getDevelopmentTime());
+        autoCaseRoiLog.setManualTestTime(autoCaseRoi.getManualTestTime());
+        autoCaseRoiLog.setMaintenanceTime(autoCaseRoi.getMaintenanceTime());
         autoCaseRoiLog.setExecutionUser(autoCaseRoi.getExecutionUser());
         autoCaseRoiLog.setCreateTime(System.currentTimeMillis());
         return autoCaseRoiLog;
+    }
+    private AutoExecutionRecord getAutoExecutionRecord(AutoCaseRoiLogEntity autoCaseRoiLog,String executor){
+        AutoExecutionRecord autoExecutionRecord = new AutoExecutionRecord();
+        autoExecutionRecord.setScenarioId(autoCaseRoiLog.getScenarioId());
+        autoExecutionRecord.setDevelopmentTime(autoCaseRoiLog.getDevelopmentTime());
+        autoExecutionRecord.setManualTestTime(autoCaseRoiLog.getManualTestTime());
+        autoExecutionRecord.setMaintenanceTime(autoCaseRoiLog.getMaintenanceTime());
+        if ("".equals(executor)){
+            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.UNKNOWN_STRATEGY.getCode());
+        }else if( "DevOps Platform".equals(executor)){
+            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.DAILY_CHECK.getCode());
+        }else {
+            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.QUALITY_ASSURANCE.getCode());
+        }
+        autoExecutionRecord.setExecutionUser(executor);
+        autoExecutionRecord.setCreateTime(System.currentTimeMillis());
+        autoExecutionRecord.setExecutionTime(System.currentTimeMillis());
+        autoExecutionRecord.setExecutionStatus(ExecutionStatusEnum.ERROR.getCode());
+        autoExecutionRecord.setUpdateTime(System.currentTimeMillis());
+        return autoExecutionRecord;
     }
 
 }

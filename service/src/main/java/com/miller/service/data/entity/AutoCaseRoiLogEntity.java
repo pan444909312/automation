@@ -36,4 +36,16 @@ public class AutoCaseRoiLogEntity implements Serializable {
     @TableField("create_time")
     private Long createTime;
 
+    @Schema(description = "开发成本")
+    @TableField("development_time")
+    private Integer developmentTime;
+
+    @Schema(description = "维护成本")
+    @TableField("maintenance_time")
+    private Integer maintenanceTime;
+
+    @Schema(description = "手工测试成本")
+    @TableField("manual_test_time")
+    private Integer manualTestTime;
+
 }

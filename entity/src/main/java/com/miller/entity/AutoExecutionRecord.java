@@ -33,7 +33,7 @@ public class AutoExecutionRecord implements Serializable {
 
     @Schema(description = "执行策略 1:日常巡检;2:质量保证;3:效率提升")
     @TableField("execution_type")
-    private String executionType;
+    private Integer executionType;
 
     @Schema(description = "执行时间")
     @TableField("execution_time")
@@ -41,7 +41,7 @@ public class AutoExecutionRecord implements Serializable {
 
     @Schema(description = "执行结果 -1:执行异常;1:执行成功;2:执行失败")
     @TableField("execution_status")
-    private String executionStatus;
+    private Integer executionStatus;
 
     @Schema(description = "执行人员名称")
     @TableField("execution_user")
@@ -59,4 +59,16 @@ public class AutoExecutionRecord implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Byte isDeleted;
+
+    @Schema(description = "开发成本")
+    @TableField("development_time")
+    private Integer developmentTime;
+
+    @Schema(description = "维护成本")
+    @TableField("maintenance_time")
+    private Integer maintenanceTime;
+
+    @Schema(description = "手工测试成本")
+    @TableField("manual_test_time")
+    private Integer manualTestTime;
 }
