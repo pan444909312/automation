@@ -40,6 +40,7 @@ import java.util.Enumeration;
 public class MyBatisPlusConfig {
     // Mapper 接口所在的包
     private String packageName = "com.miller";
+    private String mapperPath = "testMapper";
     private MybatisConfiguration configuration;
     private GlobalConfig globalConfig;
     private Environment environment;
@@ -73,7 +74,7 @@ public class MyBatisPlusConfig {
         environment = new Environment("test", new JdbcTransactionFactory(), dataSource);
         configuration.setEnvironment(environment);
         try {
-            this.registryMapperXml(configuration, "mapper", clazz);
+            this.registryMapperXml(configuration, mapperPath, clazz);
         } catch (IOException e) {
             log.error("解析mapper.xml文件失败", e);
             throw new RuntimeException(e);
