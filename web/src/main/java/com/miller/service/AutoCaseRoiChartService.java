@@ -2,6 +2,9 @@ package com.miller.service;
 
 import com.miller.entity.AutoCaseRoiChart;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.miller.entity.dto.PageAutoCaseRoiChartDTO;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AutoCaseRoiChartService extends IService<AutoCaseRoiChart> {
 
+    Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartDTO pageAutoCaseRoiChartDTO);
 }

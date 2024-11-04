@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AutoCaseRoiService extends IService<AutoCaseRoi> {
 
+    String getAutoCaseNameByScenarioId(String scenarioId);
+
 }

@@ -1,8 +1,16 @@
 package com.miller.controller;
 
+import com.miller.entity.dto.PageAutoCaseRoiChartDTO;
+import com.miller.service.AutoCaseRoiChartService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -16,5 +24,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/automation/autoCaseRoiChart")
 @Tag(name = "自动化用例执效益统计")
 public class AutoCaseRoiChartController {
+
+    @Autowired
+    AutoCaseRoiChartService autoCaseRoiChartService;
+
+
+    @Operation(description = "分页查询场景总ROI报表")
+    @PostMapping("/list")
+    public Map<String, Object> listAutoCaseRoiChart(@RequestBody PageAutoCaseRoiChartDTO pageAutoCaseRoiChartDTO) {
+
+        Map<String, Object> autoCaseRoiChartList = autoCaseRoiChartService.getAutoCaseRoiChartList(pageAutoCaseRoiChartDTO);
+
+        return autoCaseRoiChartList;
+    }
 
 }

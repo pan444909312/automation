@@ -16,10 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.function.Function;
@@ -143,5 +140,14 @@ public class AutoCaseRoiController {
     public String addAutoCaseRoi() {
 
         return ULIDUtils.generateULID();
+    }
+
+    @Operation(description = "删除 roi")
+    @PostMapping("/delete")
+    public String deleteAutoCaseRoi(@RequestParam("id")Integer id) {
+
+        boolean result = autoCaseRoiService.removeById(id);
+
+        return result ? "删除成功":"删除失败";
     }
 }

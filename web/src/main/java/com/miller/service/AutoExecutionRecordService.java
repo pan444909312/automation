@@ -17,6 +17,12 @@ import java.util.Map;
 public interface AutoExecutionRecordService extends IService<AutoExecutionRecord> {
 
     Map<String,Object> listAutoCase(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO);
+
+    /**
+     * 已废弃
+     * @param pageAutoCaseExecutionRecordDTO
+     * @return
+     */
     Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO);
 
 }
