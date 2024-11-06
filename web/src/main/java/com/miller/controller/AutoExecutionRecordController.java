@@ -1,5 +1,7 @@
 package com.miller.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.miller.entity.AutoExecutionRecord;
 import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
 import com.miller.service.AutoExecutionRecordService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,16 +44,21 @@ public class AutoExecutionRecordController {
     }
 
     /**
-     * todo
-     * 查询用户，用于筛选展示用户
+     *
+     * 查询执行人员，用于筛选展示用户
      *
      * @return
      */
-    @Operation(description = "查询用户")
-    @GetMapping("/getUser")
-    public Map<String, Object> getUser() {
+    @Operation(description = "查询执行人员列表")
+    @GetMapping("/getExecutionUserList")
+    public Map<String, Object> getExecutionUserList() {
 
-        return null;
+        List<AutoExecutionRecord> autoExecutionRecordList = autoExecutionRecordService.list(new QueryWrapper<AutoExecutionRecord>().groupBy("execution_user"));
+        ArrayList<String> executionUserList = new ArrayList<>();
+        autoExecutionRecordList.forEach(item -> executionUserList.add(item.getExecutionUser()));
+        Map<String, Object> result= new HashMap<>();
+        result.put("executionUserList",executionUserList);
+        return result;
     }
 
 

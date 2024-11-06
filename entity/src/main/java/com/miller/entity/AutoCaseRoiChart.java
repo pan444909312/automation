@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +18,7 @@ import lombok.Setter;
  * @author panjuxiang
  * @since 2024-10-15
  */
-@Getter
-@Setter
+@Data
 @TableName("auto_case_roi_chart")
 @Schema(name = "AutoCaseRoiChart", description = "测试场景总ROI表")
 public class AutoCaseRoiChart implements Serializable {
@@ -47,7 +47,7 @@ public class AutoCaseRoiChart implements Serializable {
 
     @Schema(description = "执行策略 0:所有策略 1:日常巡检;2:质量保证;3:效率提升")
     @TableField("execution_type")
-    private String executionType;
+    private Integer executionType;
 
     @Schema(description = "创建时间")
     @TableField("create_time")

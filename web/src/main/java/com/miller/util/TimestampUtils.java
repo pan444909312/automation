@@ -31,6 +31,27 @@ public class TimestampUtils {
         String formattedDate = localDateTime.format(formatter);
 
         return formattedDate;
+    }
 
+    /**
+     * 根据传入的时间戳，获取该时间戳昨天的0:00的时间戳
+     * @param timestamp
+     * @return
+     */
+    public static long timestampToYesterdayMidnight(long timestamp){
+
+        // 将时间戳转换为 LocalDateTime（使用系统默认时区）
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
+
+        // 获取前一天的日期，并设置为00:00:00
+        LocalDateTime previousDayMidnight = dateTime.minusDays(1).truncatedTo(java.time.temporal.ChronoUnit.DAYS);
+
+        // 将 LocalDateTime 转换回时间戳（毫秒）
+        long previousDayMidnightTimestamp = previousDayMidnight.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+        // 输出结果
+        System.out.println("Given timestamp: " + timestamp);
+        System.out.println("Previous day's midnight timestamp: " + previousDayMidnightTimestamp);
+        return previousDayMidnightTimestamp;
     }
 }

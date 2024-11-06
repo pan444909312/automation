@@ -2,9 +2,11 @@ package com.miller.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.entity.AutoCaseChartFutureData;
 import com.miller.entity.AutoCaseIncreaseChart;
 import com.miller.entity.dto.PageAutoCaseIncreaseChartDTO;
 import com.miller.entity.vo.AutoCaseIncreaseChartVO;
+import com.miller.service.AutoCaseChartFutureDataService;
 import com.miller.service.AutoCaseIncreaseChartService;
 import com.miller.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +35,9 @@ public class AutoCaseIncreaseChartController {
     @Autowired
     AutoCaseIncreaseChartService autoCaseIncreaseChartService;
 
+    @Autowired
+    AutoCaseChartFutureDataService autoCaseChartFutureDataService;
+
     @Operation(description = "分页查询自动化用例新增数据")
     @PostMapping("/list")
     public Map<String,Object> listAutoCaseIncreaseChart(@RequestBody PageAutoCaseIncreaseChartDTO pageAutoCaseIncreaseChartDTO){
@@ -49,13 +54,14 @@ public class AutoCaseIncreaseChartController {
         if (createEndTime != null) {
             queryWrapper.le("create_time", createEndTime.getTime());
         }
+        queryWrapper.orderByDesc("create_time");
 
         Page<AutoCaseIncreaseChart> autoCaseIncreaseChartPage = autoCaseIncreaseChartService.page(page, queryWrapper);
 
         List<AutoCaseIncreaseChart> records = autoCaseIncreaseChartPage.getRecords();
         long total = autoCaseIncreaseChartPage.getTotal();
 
-        List<AutoCaseIncreaseChartVO> list = new ArrayList<>();
+        LinkedList<AutoCaseIncreaseChartVO> list = new LinkedList<>();
         AutoCaseIncreaseChartVO autoCaseIncreaseChartVO;
 
         for (AutoCaseIncreaseChart record : records) {
@@ -65,6 +71,16 @@ public class AutoCaseIncreaseChartController {
             autoCaseIncreaseChartVO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
             list.add(autoCaseIncreaseChartVO);
         }
+
+        //未来日期数据处理
+        AutoCaseChartFutureData futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureData>()
+                .eq("chart_type", 2)
+                .orderByDesc("future_time")
+                .last("limit 1"));
+        AutoCaseIncreaseChartVO futureVo = new AutoCaseIncreaseChartVO();
+        futureVo.setIncreaseCase(futureData.getExpectedIncreaseCase());
+        futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
+        list.addFirst(futureVo);
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("total",total);

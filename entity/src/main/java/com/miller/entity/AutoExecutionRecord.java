@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +16,7 @@ import lombok.Setter;
  * @author panjuxiang
  * @since 2024-10-10
  */
-@Getter
-@Setter
+@Data
 @TableName("auto_execution_record")
 @Schema(name = "AutoExecutionRecord", description = "自动化用例执行记录表")
 public class AutoExecutionRecord implements Serializable {
