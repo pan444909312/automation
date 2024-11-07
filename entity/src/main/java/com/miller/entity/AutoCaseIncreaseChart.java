@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +18,7 @@ import lombok.Setter;
  * @author panjuxiang
  * @since 2024-10-15
  */
-@Getter
-@Setter
+@Data
 @TableName("auto_case_increase_chart")
 @Schema(name = "AutoCaseIncreaseChart", description = "自动化用例增长趋势表")
 public class AutoCaseIncreaseChart implements Serializable {
