@@ -37,7 +37,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ShopShouldHasFirstOrderTagCrowdSecondScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
-    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
     private final Integer type=35;
 
     @BeforeAll

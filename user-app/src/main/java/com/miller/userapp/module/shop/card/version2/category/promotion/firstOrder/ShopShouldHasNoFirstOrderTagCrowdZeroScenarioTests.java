@@ -37,12 +37,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
-    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
     private final Integer type=35;
 
     @BeforeAll
     static void beforeAll() {
-//        人群1为登陆新人账号，且当前不可领取新人权益，用户登陆数据如下
+//        人群1为登陆新人账号，且当前不可领取新人权益，用户登陆数据如
         PropertiesUtils propertiesUtils=new PropertiesUtils();
         String passWord =propertiesUtils.getProperty(UserLoginFlow.class,"user.app.account.for.shop.card.version2.first.order.user.password");
         String userName = propertiesUtils.getProperty(UserLoginFlow.class,"user.app.account.for.shop.card.version2.first.order.user.account1");

@@ -36,7 +36,7 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
 
     @BeforeAll
-    void beforeAll() throws InterruptedException {
+    void beforeAll()  {
         UserLoginFlow.loginByDefaultUser();
 //        开启配置管理AVERAGE_PURCHASE_SWITCH=1
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();

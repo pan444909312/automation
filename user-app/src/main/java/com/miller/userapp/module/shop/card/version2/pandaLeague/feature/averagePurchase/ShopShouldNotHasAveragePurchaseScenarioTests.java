@@ -36,7 +36,7 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
 
     @BeforeAll
-    void beforeAll() throws InterruptedException {
+    void beforeAll()  {
         UserLoginFlow.loginByDefaultUser();
 //        开启配置管理AVERAGE_PURCHASE_SWITCH=1
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
@@ -52,7 +52,8 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
     @ParameterizedTest
     void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
-        ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+        ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
+        assert shopIndexVO != null;
         assertThat(shopIndexVO.getAveragePurchase()).isNull();
 
     }
