@@ -12,9 +12,9 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.flow.ShopListFlowLogin;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -69,8 +69,8 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdOne(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlowLogin.getShopList(ShopListRequestdto);
-        List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
+        ShopListResponseDTO ShopListResponseDto= ShopListFlow.getShopList(ShopListRequestdto);
+        List<ShopPromoteVO> shopPromoteList =ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
         assertThat(shopPromoteTypeList.size()).isEqualTo(1);
         String showContent=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getShowContent).orElseThrow();

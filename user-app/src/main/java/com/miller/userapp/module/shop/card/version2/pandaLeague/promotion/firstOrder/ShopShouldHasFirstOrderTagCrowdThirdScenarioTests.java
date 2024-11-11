@@ -11,10 +11,11 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
 import com.miller.userapp.module.data.device.db.DeviceAutoRenewSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.firstOrder.flow.ShopListFlowNoLogin;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.firstOrder.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.firstOrder.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -29,9 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01J5AR3YVWZXP63E9TYKMBH5E3", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1"
+@Scenario(scenarioID = "01JC2QF8M4HPBFRPY0HMB62GHV", scenarioName = "用户-首页店铺流-熊猫联盟频道-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1"
         , developmentTime = 60, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
 public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
 //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
@@ -40,6 +42,12 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
     @BeforeAll
     static void beforeAll() {
 //        人群3为未登录，无需登陆
+        // 这里需要测试未登录的情况，所以 RequestUtils.setHeaders(header)
+        var myheaders = new HashMap<String, Object>();
+        String deviceId="d88a89d4913c70bd";
+        myheaders.put("Content-Type", "application/json");
+        myheaders.put("uniquetoken", deviceId);
+        RequestUtils.setHeaders(myheaders);
 //        UserLoginFlow.loginByDefaultUser();
         //        测试数据预处理，将user_label表数据label_id设置为3
         PropertiesUtils propertiesUtils=new PropertiesUtils();
@@ -54,11 +62,11 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
         deviceAutoRenewSql.deviceAutoRenew(distinctId);
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdThird(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlowNoLogin.getShopList(ShopListRequestdto);
+        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
         assertThat(shopPromoteTypeList.size()).isEqualTo(1);
