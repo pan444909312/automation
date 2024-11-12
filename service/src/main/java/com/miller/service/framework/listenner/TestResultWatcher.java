@@ -1,14 +1,19 @@
 package com.miller.service.framework.listenner;
 
+import com.alibaba.fastjson.JSON;
 import com.miller.common.util.DateUtils;
+import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.ApiDocs;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.apidoc.YApiUtils;
 import com.miller.service.framework.depend.DependsOnClass;
 import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
+import com.miller.service.util.AutoDBUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
@@ -49,6 +54,8 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      * 存储失败的类
      */
     private Set<String> failedTestClasses = new HashSet<>();
+    private static Map<String,ExecutionStatusEnum> scenarioResultMap = new HashMap<>();
+    private SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
 
     // 是否同步结果到 YAPI 平台的开关
     @Deprecated /* 已废弃，关闭开关 */
@@ -60,7 +67,9 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      * @see com.miller.service.framework.lifecycle.LifecycleCallback
      */
     private Set<String> apiDocsValues = new HashSet<>();
-
+    public static Map<String,ExecutionStatusEnum> getExecutionStatus(){
+        return scenarioResultMap;
+    }
     @Override
     public void testSuccessful(ExtensionContext context) {
         System.out.println(this.getClass().getName() + " testSuccessful method invoked...");
@@ -79,6 +88,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
             }
         }
         if (isSendNotification) sendExecuteNotification(context, "Successful");
+        updateAutoExecutionRecordTestResult(context,"Successful");
     }
 
     @Override
@@ -88,18 +98,21 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         String failedClassName = context.getTestClass().orElse(null).getName();
         failedTestClasses.add(failedClassName);
         if (isSendNotification) sendExecuteNotification(context, "Failed");
+        updateAutoExecutionRecordTestResult(context,"Failed");
     }
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
         System.out.println(this.getClass().getName() + " testDisabled method invoked...");
         if (isSendNotification) sendExecuteNotification(context, "Disabled");
+        updateAutoExecutionRecordTestResult(context,"Disabled");
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
         System.out.println(this.getClass().getName() + " testAborted method invoked...");
         if (isSendNotification) sendExecuteNotification(context, "Aborted");
+        updateAutoExecutionRecordTestResult(context,"Aborted");
     }
 
     /**
@@ -212,5 +225,54 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                         "- **<font color=black>测试名称:</font>**\t" + methodDisplayName + " \n " +
                         "- **<font color=black>执行结果:</font>**\t" + testResult + " \n ";
         DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
+    }
+    private void updateAutoExecutionRecordTestResult(ExtensionContext context,String result){
+        Scenario scenario = context.getRequiredTestClass().getDeclaredAnnotation(Scenario.class);////每个子项里
+        if (Objects.nonNull(scenario)){
+            updateAutoExecutionRecord(scenario,result);
+        }
+        ExtensionContext rootContext = context.getRoot();
+        String uniqueCls = rootContext.getUniqueId();
+        if(!uniqueCls.contains("suite:")) return;
+        String begin = uniqueCls.substring(uniqueCls.indexOf("suite:")+"suite:".length());
+        String suiteCls  = begin.substring(0,begin.indexOf("]"));
+        try {
+            Class<?> cls = Class.forName(suiteCls); //拿到root父类
+            Scenario scenarioSuite = cls.getDeclaredAnnotation(Scenario.class);
+            updateAutoExecutionRecord(scenarioSuite,result);
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
+    private void updateAutoExecutionRecord(Scenario scenario ,String result){
+        String scenarioId = scenario.scenarioID();
+        ExecutionStatusEnum value = scenarioResultMap.get(scenarioId);
+        switch (result){
+            case "Successful":
+                if(ExecutionStatusEnum.FAIL.equals(value)){
+                    return;
+                }
+                value = ExecutionStatusEnum.SUCCESS;
+                break;
+            case "Failed":
+                value = ExecutionStatusEnum.FAIL;
+                break;
+            case "Disabled":
+                if(ExecutionStatusEnum.FAIL.equals(value) || ExecutionStatusEnum.SUCCESS.equals(value)){
+                    return;
+                }
+                value = ExecutionStatusEnum.DISABLE;
+                break;
+            case "Aborted":
+                if(Objects.nonNull(value)){
+                    return;
+                }
+                value = ExecutionStatusEnum.PASS;
+                break;
+        }
+        if(Objects.nonNull(value))
+            scenarioResultMap.put(scenarioId,value);
+        System.out.println(JSON.toJSON(scenarioResultMap));
     }
 }

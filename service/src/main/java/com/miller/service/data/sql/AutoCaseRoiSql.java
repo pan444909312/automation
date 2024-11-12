@@ -20,6 +20,7 @@ public class AutoCaseRoiSql {
         QueryWrapper<AutoCaseRoiEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<AutoCaseRoiEntity> lambda = queryWrapper.lambda();
         lambda.eq(AutoCaseRoiEntity::getScenarioId,scenarioId);
+        lambda.eq(AutoCaseRoiEntity::getIsDeleted,0);
         return  getAutoCaseRoiMapper().selectOne(queryWrapper);
     }
     public int saveAutoCaseRoi(AutoCaseRoiEntity autoCaseRoi){
