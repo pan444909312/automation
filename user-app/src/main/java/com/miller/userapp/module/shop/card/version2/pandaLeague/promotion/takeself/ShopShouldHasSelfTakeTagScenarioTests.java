@@ -24,9 +24,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01J7QY2D2DYTX4CZ7DMMR4BDX9", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-首页-商卡二期：可自取33"
+@Scenario(scenarioID = "01JC2RBAP4FHVG66177QD4JGWN", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-首页-商卡二期：可自取33"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-首页-商卡二期：可自取33")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-首页-商卡二期：可自取33")
 public class ShopShouldHasSelfTakeTagScenarioTests {
 //    测试店铺：店铺1,测试标签类型：33，content：可自取
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -35,7 +35,7 @@ public class ShopShouldHasSelfTakeTagScenarioTests {
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-可自取-正常展示自取标签")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-正常展示自取标签")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){

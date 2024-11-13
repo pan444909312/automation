@@ -28,15 +28,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JA4X96GFYJAWZVM2JCX9TFP7", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭"
+@Scenario(scenarioID = "01JC2QF8M3FN8VZZ750Y21BT89", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭"
         , developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
 public class ShopShouldNotHasAveragePurchaseScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
 
     @BeforeAll
-    void beforeAll() throws InterruptedException {
+    void beforeAll()  {
         UserLoginFlow.loginByDefaultUser();
 //        开启配置管理AVERAGE_PURCHASE_SWITCH=1
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
@@ -47,12 +47,13 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
-        ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+        ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
+        assert shopIndexVO != null;
         assertThat(shopIndexVO.getAveragePurchase()).isNull();
 
     }

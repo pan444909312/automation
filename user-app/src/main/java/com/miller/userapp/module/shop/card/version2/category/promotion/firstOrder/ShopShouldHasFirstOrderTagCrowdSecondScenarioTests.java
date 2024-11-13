@@ -10,11 +10,12 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
+import com.miller.userapp.module.data.device.db.DeviceAutoRenewSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.category.promotion.firstOrder.flow.ShopListFlowLogin;
-import com.miller.userapp.module.shop.card.version2.category.promotion.firstOrder.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.category.promotion.firstOrder.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.category.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.category.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.category.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,13 +31,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01J5AR3YVPMTG269814YFZB7FH", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1"
+@Scenario(scenarioID = "01JC2PD4HEBHJEV7WBR9M4N87K", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群2")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群2")
 public class ShopShouldHasFirstOrderTagCrowdSecondScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
-    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
     private final Integer type=35;
 
     @BeforeAll
@@ -62,13 +62,16 @@ public class ShopShouldHasFirstOrderTagCrowdSecondScenarioTests {
         shopNewUserLabelMapper.update(
                 new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,2)
         );
+        //        清除设备对应的活动数据
+        DeviceAutoRenewSql deviceAutoRenewSql = new DeviceAutoRenewSql();
+        deviceAutoRenewSql.deviceAutoRenew(distinctId);
     }
 
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群2")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdSecond(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlowLogin.getShopList(ShopListRequestdto);
+        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
         assertThat(shopPromoteTypeList.size()).isEqualTo(1);
