@@ -87,5 +87,6 @@ public class TestCaseDataForMerchantConstant {
     public static Long productIdOfFoodCity2 = 81744208L;
     public static Long skuIdOfFoodCity2 = 0L;
 
+    public static Long shopTestDeliveryWay = 615477825L;
 
 }
