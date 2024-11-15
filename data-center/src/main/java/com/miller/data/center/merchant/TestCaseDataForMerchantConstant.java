@@ -89,4 +89,8 @@ public class TestCaseDataForMerchantConstant {
 
     public static Long shopTestDeliveryWay = 615477825L;
 
+    //默认餐具数和餐具费配置
+    public static int tablewarePrice = 111;
+    public static int defaultTablewareQuantity = 2;
+
 }

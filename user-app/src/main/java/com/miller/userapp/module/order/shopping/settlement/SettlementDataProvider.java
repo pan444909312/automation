@@ -37,4 +37,50 @@ public class SettlementDataProvider {
 
         return Stream.of(Arguments.of(settlementRequestDTO));
     }
+
+    //默认餐具数
+    static Stream<Arguments> shopDefaultTableware() {
+        SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
+        settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setTablewareCount(TestCaseDataForMerchantConstant.defaultTablewareQuantity);
+        settlementRequestDTO.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
+        settlementRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
+        settlementRequestDTO.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        settlementRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopTestDeliveryWay);
+        // 是否自动使用红包，不使用红包
+        settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.NO.getType());
+
+        var productCartList = new ArrayList<ProductCart>();
+        var productCart = new ProductCart();
+        productCart.setSkuId(0L);
+        productCart.setProductId(82351748L);
+        productCartList.add(productCart);
+        settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
+
+        return Stream.of(Arguments.of(settlementRequestDTO));
+    }
+
+    //不要餐具
+    static Stream<Arguments> shopNoTableware() {
+        SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
+        settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setTablewareCount(TestCaseDataForMerchantConstant.defaultTablewareQuantity);
+        settlementRequestDTO.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
+        settlementRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
+        settlementRequestDTO.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        settlementRequestDTO.setShopId(TestCaseDataForMerchantConstant.shopTestDeliveryWay);
+        // 是否自动使用红包，不使用红包
+        settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.NO.getType());
+
+        var productCartList = new ArrayList<ProductCart>();
+        var productCart = new ProductCart();
+        productCart.setSkuId(0L);
+        productCart.setProductId(82351748L);
+        productCartList.add(productCart);
+        settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
+
+        return Stream.of(Arguments.of(settlementRequestDTO));
+    }
 }

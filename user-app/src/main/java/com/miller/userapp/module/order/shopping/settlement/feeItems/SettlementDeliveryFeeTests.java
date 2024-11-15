@@ -1,4 +1,4 @@
-package com.miller.userapp.module.order.shopping.settlement;
+package com.miller.userapp.module.order.shopping.settlement.feeItems;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -25,7 +25,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Scenario(scenarioID = "01JCMXFHFZ6VEKMGDGSJZ6W2T9",
        scenarioName = "结算-店铺基础运费和加价",
-        developmentTime = 120, maintenanceTime = 0, manualTestTime = 15)
+        developmentTime = 150, maintenanceTime = 0, manualTestTime = 25)
 @DisplayName("结算-店铺基础运费和加价")
 public class SettlementDeliveryFeeTests {
     DeliveryDiscountShopEntity deliveryDiscountShopEntity;
