@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/9/25 18:12
  */
 @Scenario(scenarioID = "01J8MFQJYPKS8X8R4MENRKGDFP",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -49,7 +49,7 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
 
    @MethodSource("DataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间 ")
+   @DisplayName("普通店铺配送商卡-熊猫联盟频道_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
       ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
 
