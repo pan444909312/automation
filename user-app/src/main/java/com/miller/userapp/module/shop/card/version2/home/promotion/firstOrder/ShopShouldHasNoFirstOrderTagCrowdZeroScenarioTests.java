@@ -13,9 +13,9 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.flow.ShopListFlowLogin;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -37,7 +37,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
-    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
     private final Integer type=35;
 
     @BeforeAll
@@ -68,7 +67,7 @@ public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasNoFirstOrderTagCrowdZero(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlowLogin.getShopList(ShopListRequestdto);
+        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
 //        校验营销标签中无新人标签

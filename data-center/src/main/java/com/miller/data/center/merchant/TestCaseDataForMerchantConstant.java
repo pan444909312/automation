@@ -87,5 +87,10 @@ public class TestCaseDataForMerchantConstant {
     public static Long productIdOfFoodCity2 = 81744208L;
     public static Long skuIdOfFoodCity2 = 0L;
 
+    public static Long shopTestDeliveryWay = 615477825L;
+
+    //默认餐具数和餐具费配置
+    public static int tablewarePrice = 111;
+    public static int defaultTablewareQuantity = 2;
 
 }

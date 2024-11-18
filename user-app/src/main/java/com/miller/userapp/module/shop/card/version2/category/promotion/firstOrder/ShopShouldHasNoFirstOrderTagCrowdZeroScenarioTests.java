@@ -13,9 +13,9 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.category.promotion.firstOrder.flow.ShopListFlowLogin;
-import com.miller.userapp.module.shop.card.version2.category.promotion.firstOrder.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.category.promotion.firstOrder.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.category.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.category.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.category.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,18 +31,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01J7QY2D2DYTX4CZ7DMMR4BDX7", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群"
+@Scenario(scenarioID = "01JC2PD4HEBHJEV7WBR9M4N87P", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
 public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
-    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
     private final Integer type=35;
 
     @BeforeAll
     static void beforeAll() {
-//        人群1为登陆新人账号，且当前不可领取新人权益，用户登陆数据如下
+//        人群1为登陆新人账号，且当前不可领取新人权益，用户登陆数据如
         PropertiesUtils propertiesUtils=new PropertiesUtils();
         String passWord =propertiesUtils.getProperty(UserLoginFlow.class,"user.app.account.for.shop.card.version2.first.order.user.password");
         String userName = propertiesUtils.getProperty(UserLoginFlow.class,"user.app.account.for.shop.card.version2.first.order.user.account1");
@@ -64,11 +63,11 @@ public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
                 new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,0)
         );
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasNoFirstOrderTagCrowdZero(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlowLogin.getShopList(ShopListRequestdto);
+        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
 //        校验营销标签中无新人标签

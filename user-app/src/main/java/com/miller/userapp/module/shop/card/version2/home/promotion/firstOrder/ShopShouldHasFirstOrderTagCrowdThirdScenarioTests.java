@@ -11,10 +11,11 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
 import com.miller.userapp.module.data.device.db.DeviceAutoRenewSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.flow.ShopListFlowNoLogin;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -40,6 +42,12 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
     @BeforeAll
     static void beforeAll() {
 //        人群3为未登录，无需登陆
+        // 这里需要测试未登录的情况，所以 RequestUtils.setHeaders(header)
+        var myheaders = new HashMap<String, Object>();
+        String deviceId="d88a89d4913c70bd";
+        myheaders.put("Content-Type", "application/json");
+        myheaders.put("uniquetoken", deviceId);
+        RequestUtils.setHeaders(myheaders);
 //        UserLoginFlow.loginByDefaultUser();
         //        测试数据预处理，将user_label表数据label_id设置为3
         PropertiesUtils propertiesUtils=new PropertiesUtils();
@@ -58,8 +66,8 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdThird(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlowNoLogin.getShopList(ShopListRequestdto);
-        List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
+        ShopListResponseDTO ShopListResponseDto= ShopListFlow.getShopList(ShopListRequestdto);
+        List<ShopPromoteVO> shopPromoteList =ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
         assertThat(shopPromoteTypeList.size()).isEqualTo(1);
         String showContent=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getShowContent).orElseThrow();
