@@ -32,8 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/1 17:19
  */
 @EnvTag.Test
-@Scenario(scenarioID = "01J5AKPH45WEMSBM7ZB9774877",
-        scenarioName = "普通店铺配送商卡_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 折扣红包",
+@Scenario(scenarioID = "01JBV2ASGVVJSVMERWMRWQT5F6",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 折扣红包",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasDiscountCouponScenarioTests {
@@ -60,7 +60,7 @@ public class ShopShouldHasDiscountCouponScenarioTests {
 
    @MethodSource("couponDataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 折扣红包 ")
+   @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 折扣红包 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
 
       ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
@@ -80,8 +80,8 @@ public class ShopShouldHasDiscountCouponScenarioTests {
 
       assertThat(shopPromoteVO.getShowContent())
               .isNotEmpty()
-              .containsIgnoringCase("1.1折无门槛")
-              .isNullOrEmpty();
+              .containsIgnoringCase("1.1折无门槛");
+//              .isNullOrEmpty();
 
 
    }

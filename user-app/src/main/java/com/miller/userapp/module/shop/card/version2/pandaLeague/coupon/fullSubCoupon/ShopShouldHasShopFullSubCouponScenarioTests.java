@@ -26,8 +26,8 @@ import java.util.stream.Stream;
  * @since 2024/8/6 19:20
  */
 @EnvTag.Test
-@Scenario(scenarioID = "01J5AKPH45WEMSBM7ZB9774876",
-        scenarioName = "普通店铺配送商卡_优惠标签_已领满减红包_首页-商卡二期：已领满减红包38",
+@Scenario(scenarioID = "01JBV2ASGVVJSVMERWMRWQT5F5",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_已领满减红包_首页-商卡二期：已领满减红包38",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopFullSubCouponScenarioTests {
@@ -50,7 +50,7 @@ public class ShopShouldHasShopFullSubCouponScenarioTests {
 
    @MethodSource("couponDataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡_优惠标签_已领满减红包_首页-商卡二期：已领满减红包38 ")
+   @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_已领满减红包_首页-商卡二期：已领满减红包38 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
       ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
 
