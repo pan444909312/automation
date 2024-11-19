@@ -28,8 +28,8 @@ public class MemberEntitySql {
         lambda.eq(MemberEntityEntity::getUserId,userId);
         lambda.eq(MemberEntityEntity::getIsDel,0);
         lambda.eq(MemberEntityEntity::getStatus,1);
-        lambda.gt(MemberEntityEntity::getMemberStartTime,currentTime);
-        lambda.le(MemberEntityEntity::getMemberEndTime,currentTime);
+//        lambda.gt(MemberEntityEntity::getMemberStartTime,currentTime);
+//        lambda.le(MemberEntityEntity::getMemberEndTime,currentTime);
         queryWrapper.last("limit 1");
         return getMemberEntityMapper().selectOne(queryWrapper);
 
