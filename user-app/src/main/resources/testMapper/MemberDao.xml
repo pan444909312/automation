@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.userapp.mapper.member.MemberDao">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.hungrypanda.app.server.entity.member.MemberEntity" id="memberMap">
+        <result property="memberId" column="member_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="savePrice" column="save_price"/>
+        <result property="finishTime" column="finish_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDel" column="is_del"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="nowOrderNum" column="now_order_num"/>
+        <result property="isFinished" column="is_finished"/>
+        <result property="cityName" column="city_name"/>
+        <result property="memberCityId" column="member_city_id"/>
+        <result property="isGetTen" column="is_get_ten"/>
+        <result property="tenOrderTime" column="ten_order_time"/>
+        <result property="memberCardType" column="member_card_type"/>
+        <result property="memberCityId" column="member_city_id"/>
+        <result property="memberVersion" column="member_version"/>
+    </resultMap>
+    <resultMap id="memberCardInfo" type="com.hungrypanda.app.server.dto.member.MemberCardInfo">
+        <result property="cityId" column="member_city_id"/>
+        <result property="memberCityId" column="member_city_id"/>
+        <result property="addressConfigId" column="address_config_id"/>
+        <result property="cityName" column="city_name"/>
+        <result property="memberPrice" column="member_price"/>
+        <result property="savePrice" column="save_price"/>
+        <result property="deratePrice" column="derate_price"/>
+        <result property="country" column="country_name"/>
+        <result property="packetNum" column="packet_num"/>
+        <result property="title" column="title"/>
+        <result property="isOpenDeliveryDiscount" column="is_open_delivery_discount"/>
+        <result property="memberPrivilegeDesc" column="member_privilege_desc"/>
+        <result property="moduleActivityId" column="module_activity_id"/>
+        <result property="delStatus" column="is_del"/>
+        <result property="memberActivityName" column="member_activity_name"/>
+        <result property="popupsSts" column="popups_sts"/>
+        <result property="popupsMainTitle" column="popups_main_title"/>
+        <result property="popupsSubTitle" column="popups_sub_title"/>
+        <!--		<result property="popupsBtnText" column="popups_btn_text"/>-->
+        <result property="memberBenefit" column="member_benefit"/>
+        <result property="memberVersion" column="member_version"/>
+        <result property="memberCardType" column="member_card_type"/>
+        <result property="memberDiscountPrice" column="member_discount_price"/>
+        <result property="bulletin" column="bulletin"/>
+        <result property="memberCityId" column="member_city_id"/>
+        <result property="deliveryUseNum" column="delivery_use_num"/>
+        <result property="deliveryUseNumLimit" column="delivery_use_num_limit"/>
+
+
+    </resultMap>
+    <select id="getMemberByUserIdAndCityName" resultType="com.hungrypanda.app.server.dto.member.MemberInfo">
+        SELECT
+            m.*, me.benefit_version, me.id member_entity_id, me.delivery_remain_num, me.activity_sn, me.delivery_save_amount
+             , me.delivery_use_num, me.derate_price,me.delivery_use_num_limit,me.platform_fee_thrift_amount
+        FROM member_entity me
+                 LEFT JOIN member m
+                           ON m.user_id = me.user_id AND me.member_city_id = m.member_city_id
+                 LEFT JOIN member_city_relation mcr
+                           ON m.member_city_id = mcr.member_city_id
+        WHERE
+            m.is_finished = 0 AND m.is_del = 0
+          AND m.user_id = #{userId}
+          AND m.finish_time > #{nowTime}
+          AND mcr.city_name = #{cityName} AND mcr.is_delete = 0
+          AND me.`member_start_time` &lt;= #{nowTime}
+          AND me.`member_end_time` &gt;= #{nowTime}
+          AND me.`is_del` = 0 AND me.`status` = 1
+            LIMIT 1
+    </select>
+</mapper>
