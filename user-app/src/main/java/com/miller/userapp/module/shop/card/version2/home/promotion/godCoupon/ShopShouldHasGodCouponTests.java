@@ -21,7 +21,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01J5N6H1042KC3M5BAP200PKXC",
-        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：神券标签",
+        scenarioName = "普通店铺配送商卡_优惠标签_神券_首页-商卡二期：神券41-有神券正常展示",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -43,7 +43,7 @@ public class ShopShouldHasGodCouponTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_新会员优惠标签_首页-商卡二期：神券标签")
+    @DisplayName("普通店铺配送商卡_优惠标签_新会员优惠标签_首页-商卡二期：神券41-有神券正常展示")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
