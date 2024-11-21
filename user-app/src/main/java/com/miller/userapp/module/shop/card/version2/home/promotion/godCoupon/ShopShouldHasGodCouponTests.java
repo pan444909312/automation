@@ -1,4 +1,5 @@
 package com.miller.userapp.module.shop.card.version2.home.promotion.godCoupon;
+
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
@@ -19,7 +20,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "",
+@Scenario(scenarioID = "01J5N6H1042KC3M5BAP200PKXC",
         scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：神券标签",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
@@ -31,29 +32,26 @@ public class ShopShouldHasGodCouponTests {
      @BeforeAll
     void beforeAll() {
 
-        //          用户登录 user:17048460002  非会员、非新人，可展示会员神券
+        //   用户登录 user:17048460002  非会员、非新人，可展示会员神券
         userLoginRequestDTO = new UserLoginRequestDTO();
-        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.member.account2"));
-        userLoginRequestDTO.setPassword(MD5Util.string2MD5(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.member.password2")));
-        userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.distinctId"));
+        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.godCoupon.account"));
+        userLoginRequestDTO.setPassword(MD5Util.string2MD5(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.godCoupon.password")));
+        userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.godCoupon.distinctId"));
         userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.public.login.type")));
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.callingCode"));
-          UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
-
+        UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
      }
-
      @MethodSource("staticDataProvider")
     @ParameterizedTest
     @DisplayName("普通店铺配送商卡_优惠标签_新会员优惠标签_首页-商卡二期：神券标签")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
-        ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
+          ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
-        //遍历店铺的ShopPromoteList列表，
-        ShopPromoteVO memberPacket = shopIndexVO.getShopPromoteList().stream().
-                filter(item -> item.getType() == ShopPromoteEnum.SUPER_COUPON.getType()).findFirst().get();
-                assert memberPacket.getShowContent().equals("最高膨胀至10");
+      ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
+              filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst().get();
+                assert shopPromoteVO.getShowContent().equals("最高膨至¥10");
 
      }
 
