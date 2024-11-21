@@ -20,7 +20,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01JD75MYWPPNK52B1F5HW1PXNX",
+@Scenario(scenarioID = "01JD75MYX4R52EPYM45TP0SXCA",
         scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：神券标签",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
