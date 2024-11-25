@@ -13,6 +13,8 @@ import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -31,8 +33,8 @@ import java.util.stream.Stream;
  * @since 2024/8/1 11:44
  */
 @EnvTag.Test
-@Scenario(scenarioID = "01J5AKPH46ETH3N1W167KCY6B3",
-        scenarioName = "普通店铺配送商卡_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 满减红包",
+@Scenario(scenarioID = "01JBV2ASGVVJSVMERWMRWQT5F7",
+        scenarioName = "商卡(中文)普通店铺配送商卡-熊猫联盟频道_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 满减红包",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFullSubCouponScenarioTests {
@@ -58,9 +60,9 @@ public class ShopShouldHasFullSubCouponScenarioTests {
 
    @MethodSource("couponDataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 满减红包 ")
-   void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
-       ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+   @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 满减红包 ")
+   void shouldShowPandLeagueFullSubCouponLabel(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
+       ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
 
        ShopIndexVO shopIndexVO= shopList.getResult().getShopList().stream()
                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
@@ -80,11 +82,11 @@ public class ShopShouldHasFullSubCouponScenarioTests {
     * 测试用例数据提供者
     */
    static Stream<Arguments> couponDataProvider() {
-      ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+      ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
       // 可以不用传参数
-      shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+      shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
-      return Stream.of(Arguments.of(shopListRequestDTO));
+      return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
    }
 
 

@@ -7,6 +7,8 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/9/25 18:12
  */
 @Scenario(scenarioID = "01J8MFQJYPKS8X8R4MENRKGDFP",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -49,9 +51,9 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
 
    @MethodSource("DataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间 ")
-   void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
-      ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+   @DisplayName("普通店铺配送商卡-熊猫联盟频道_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间 ")
+   void shouldShowPandLeagueFullSubCouponLabel(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
+      ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
 
       Integer predictDeliveryTime= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getPredictDeliveryTime();
@@ -69,11 +71,11 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
     * 测试用例数据提供者
     */
    static Stream<Arguments> DataProvider() {
-      ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+      ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
       // 可以不用传参数
-      shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+      shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
-      return Stream.of(Arguments.of(shopListRequestDTO));
+      return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
    }
 
 }

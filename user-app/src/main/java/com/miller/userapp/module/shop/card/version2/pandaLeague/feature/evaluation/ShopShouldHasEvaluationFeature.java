@@ -11,7 +11,10 @@ import com.miller.userapp.constants.ShopFeatureTypeConstant;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.mapper.shop.ShopMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -29,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 16:34
  */
-@Scenario(scenarioID = "01J61TZX3QYPJKE76RVDW8AKS7",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签3_营销文案_首页-商卡二期：营销文案",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JD45ENK7YN8NHQ70HJBH4JQE",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_标签3_营销文案_熊猫联盟频道-商卡二期：营销文案",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasEvaluationFeature {
@@ -51,10 +54,10 @@ public class ShopShouldHasEvaluationFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_标签3_营销文案_首页-商卡二期：营销文案")
-    void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_营销标_标签3_营销文案_熊猫联盟频道-商卡二期：营销文案")
+    void shouldExistEvaluationFeature(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -74,10 +77,6 @@ public class ShopShouldHasEvaluationFeature {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }

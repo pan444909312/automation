@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.promotion.memberShopPacket;
+package com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.memberShopPacket;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
@@ -15,10 +15,9 @@ import com.miller.userapp.mapper.member.MemberCityMapper;
 import com.miller.userapp.mapper.member.MemberPacketMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
-
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,15 +25,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01J5N6H0ZQ4TWS22GMGETP4K69",
-        scenarioName = "普通店铺配送商卡_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37",
+@Scenario(scenarioID = "01JD75NTBJGBCPTEEMD4VCN1DK",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37",
         developmentTime = 30, maintenanceTime = 10, manualTestTime = 20)
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasNewMemberDiscountScenarioTests {
+public class PandaShopShouldHasNewMemberDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
     private final Long packageId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.redPacketId")) ;
@@ -74,9 +74,9 @@ public class ShopShouldHasNewMemberDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37")
-    void memberBenefitDeliveryDiscount(ShopListRequestDTO shopListRequestDTO) {
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37")
+    void memberBenefitDeliveryDiscount(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
+          ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -94,10 +94,10 @@ public class ShopShouldHasNewMemberDiscountScenarioTests {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+     ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        shopListPandaLeagueRequestDTO.setFiltering(false);
+        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
     }
 }
 

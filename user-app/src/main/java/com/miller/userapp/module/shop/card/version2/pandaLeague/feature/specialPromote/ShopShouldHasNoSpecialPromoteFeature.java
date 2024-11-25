@@ -9,7 +9,10 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ShopFeatureTypeConstant;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -27,9 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/23 9:29
  */
-@Scenario(scenarioID = "01J5WMVHCECNCSWBP13V103YFW",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签4_特惠商品_首页-商卡二期：特惠商品 - 无",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JD44SP2499CYMP1T6DSF44WD",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_标签4_特惠商品_熊猫联盟频道-商卡二期：特惠商品 - 无",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoSpecialPromoteFeature {
@@ -46,10 +49,10 @@ public class ShopShouldHasNoSpecialPromoteFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_标签4_特惠商品_首页-商卡二期：特惠商品 - 无")
-    void shouldNotExistSpecialPromoteFeature(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_营销标_标签4_特惠商品_熊猫联盟频道-商卡二期：特惠商品 - 无")
+    void shouldNotExistSpecialPromoteFeature(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
@@ -67,9 +70,6 @@ public class ShopShouldHasNoSpecialPromoteFeature {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }

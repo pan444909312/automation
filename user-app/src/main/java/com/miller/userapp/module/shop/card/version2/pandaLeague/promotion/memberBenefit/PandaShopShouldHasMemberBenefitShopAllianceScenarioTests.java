@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.promotion.memberBenefit;
+package com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.memberBenefit;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
@@ -12,10 +12,11 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.member.MemberCityMapper;
 import com.miller.userapp.mapper.member.MemberPacketMapper;
-import com.miller.userapp.module.shop.card.version2.home.promotion.memberBenefit.flow.ShopListFlowNoLogin;
-import com.miller.userapp.module.shop.card.version2.home.promotion.memberBenefit.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.promotion.memberBenefit.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -23,16 +24,17 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.HashMap;
 import java.util.stream.Stream;
 
 
-@Scenario(scenarioID = "01J5N6H105XEAS3JERB5KXJ043",
-        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券",
-        developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
+@Scenario(scenarioID = "01JD75NTAX2W336NMHP86ZEGXF",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
+public class PandaShopShouldHasMemberBenefitShopAllianceScenarioTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
      private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
      private final Long packageId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.redPacketId")) ;
@@ -41,6 +43,9 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
 
     @BeforeAll
      void beforeAll() {
+              var myheaders = new HashMap<String, Object>();
+            myheaders.put("Content-Type", "application/json");
+            RequestUtils.setHeaders(myheaders);
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         MemberCityMapper shopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
 //        修改会员城市表，修改会员城市表is_open_delivery_discount字段为0 运费减免关闭
@@ -63,12 +68,9 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券")
-    void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
-
-
-//        请求首页店铺数据
-        ShopListResponseDTO shopList = ShopListFlowNoLogin.getShopList(shopListRequestDTO);
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券")
+    void memberBenefitShopAllianCoupon(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
+          ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -82,10 +84,10 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+          ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        shopListPandaLeagueRequestDTO.setFiltering(false);
+        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
     }
 }
 

@@ -10,7 +10,10 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.SysAppConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -29,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/28 17:56
  */
-@Scenario(scenarioID = "01J6CDZ1N0GMN5RGTDRYNKE8SX",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_首单优先送_首页-商卡二期：首单优先送 - 不展示",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JD1Z7GRX0HNB6QKR8Z041G6M",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_熊猫联盟频道-商卡二期：首单优先送 - 不展示",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoFirstOrderDeliveryFeature {
@@ -69,10 +72,10 @@ public class ShopShouldHasNoFirstOrderDeliveryFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_首单优先送_首页-商卡二期：首单优先送 - 不展示")
-    void shouldNotExistFirstOrderDeliveryFeature(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_营销标_熊猫联盟频道-商卡二期：首单优先送 - 不展示")
+    void shouldNotExistFirstOrderDeliveryFeature(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -85,10 +88,7 @@ public class ShopShouldHasNoFirstOrderDeliveryFeature {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
 
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }

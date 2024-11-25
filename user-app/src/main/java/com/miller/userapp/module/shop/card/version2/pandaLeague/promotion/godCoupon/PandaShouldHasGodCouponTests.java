@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.promotion.godCoupon;
+package com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.godCoupon;
 
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
@@ -9,9 +9,9 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,12 +20,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01J5N6H1042KC3M5BAP200PKXC",
-        scenarioName = "普通店铺配送商卡_优惠标签_神券_首页-商卡二期：神券41-有神券正常展示",
+@Scenario(scenarioID = "01JD75MYX4R52EPYM45TP0SXCA",
+        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：神券标签",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasGodCouponTests {
+public class PandaShouldHasGodCouponTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
 
@@ -43,9 +43,9 @@ public class ShopShouldHasGodCouponTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_新会员优惠标签_首页-商卡二期：神券41-有神券正常展示")
-     void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
-          ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_熊猫联盟频道-商卡二期：神券41-有神券正常展示")
+     void pandaCouponGodDsicount(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
+          ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -59,10 +59,10 @@ public class ShopShouldHasGodCouponTests {
           * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        shopListPandaLeagueRequestDTO.setFiltering(false);
+        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
     }
 
 }
