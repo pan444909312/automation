@@ -26,7 +26,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Scenario(scenarioID = "01JCMXFHFZ6VEKMGDGSJZ6W2TB",
         scenarioName = "结算-打包费",
-        developmentTime = 40, maintenanceTime = 0, manualTestTime = 5)
+        developmentTime = 150, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("结算-打包费")
 public class SettlementPackings {
     static ShopExtraInfoMapper shopExtraInfoMapper;
@@ -47,19 +47,20 @@ public class SettlementPackings {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#productCartMore")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#sameSkuAndTag")
     @Order(1)
-    @DisplayName("结算-只有商品打包费，没有商家塑料打包费")
-    void settlementDefaultTableware(SettlementRequestDTO settlementRequestDTO){
+    @DisplayName("结算-只有商品打包费，没有商家塑料打包费-同规格-同配料")
+    void settlementOnlyProductPacking(SettlementRequestDTO settlementRequestDTO){
         UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<ShopExtraInfoEntity> lambda = updateWrapper.lambda();
         lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopExtraInfoEntity::getPlasticAmount,0 );
+        lambda.set(ShopExtraInfoEntity::getUsePlastic,1);
         shopExtraInfoMapper.update(updateWrapper);
 
         UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
         LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
-        lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductId);
+        lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
         lambdaProduct.set(Product::getPackingCharges,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
         productMapper.update(updateProduct);
 
@@ -68,6 +69,72 @@ public class SettlementPackings {
         assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("packaging")).findFirst().get().getItemAmount()).isEqualTo(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
     }
 
+    @ParameterizedTest
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#sameSkuDifferentdTag")
+    @Order(2)
+    @DisplayName("结算-只有商品打包费，没有商家塑料打包费-同规格-不同配料")
+    void settlementOnlyProductPacking2(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
+        lambda.set(ShopExtraInfoEntity::getPlasticAmount,0 );
+        lambda.set(ShopExtraInfoEntity::getUsePlastic,1);
+        shopExtraInfoMapper.update(updateWrapper);
 
+        UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
+        LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
+        lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
+        lambdaProduct.set(Product::getPackingCharges,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
+        productMapper.update(updateProduct);
 
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("packaging")).findFirst().get().getItemAmount()).isEqualTo(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking*2);
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#sameSkuAndTag")
+    @Order(3)
+    @DisplayName("结算-有商品打包费，有商家塑料打包费-同规格-同配料")
+    void settlementProductPackingAndPlastic(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
+        lambda.set(ShopExtraInfoEntity::getPlasticAmount,TestCaseDataForMerchantConstant.shopTestDeliveryWayPlasticAmount);
+        lambda.set(ShopExtraInfoEntity::getUsePlastic,1);
+        shopExtraInfoMapper.update(updateWrapper);
+
+        UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
+        LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
+        lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
+        lambdaProduct.set(Product::getPackingCharges,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
+        productMapper.update(updateProduct);
+
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("packaging")).findFirst().get().getItemAmount()).isEqualTo(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking+TestCaseDataForMerchantConstant.shopTestDeliveryWayPlasticAmount);
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#sameSkuAndTag")
+    @Order(3)
+    @DisplayName("结算-没有商品打包费，有商家塑料打包费-同规格-同配料")
+    void settlementOnlyPlastic(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
+        lambda.set(ShopExtraInfoEntity::getPlasticAmount,TestCaseDataForMerchantConstant.shopTestDeliveryWayPlasticAmount);
+        lambda.set(ShopExtraInfoEntity::getUsePlastic,1);
+        shopExtraInfoMapper.update(updateWrapper);
+
+        UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
+        LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
+        lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
+        lambdaProduct.set(Product::getPackingCharges,0);
+        productMapper.update(updateProduct);
+
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("packaging")).findFirst().get().getItemAmount()).isEqualTo(TestCaseDataForMerchantConstant.shopTestDeliveryWayPlasticAmount);
+    }
 }
