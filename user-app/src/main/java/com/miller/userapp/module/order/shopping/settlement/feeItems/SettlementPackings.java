@@ -1,0 +1,73 @@
+package com.miller.userapp.module.order.shopping.settlement.feeItems;
+
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.hungrypanda.app.server.entity.shop.ShopExtraInfoEntity;
+import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.userapp.constants.ResponseConstant;
+import com.miller.userapp.mapper.product.ProductMapper;
+import com.miller.userapp.mapper.shop.ShopExtraInfoMapper;
+import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
+import com.miller.userapp.module.order.shopping.settlement.request.SettlementRequestDTO;
+import com.miller.userapp.module.order.shopping.settlement.response.SettlementResponseDTO;
+import com.miller.userapp.util.DBUtils;
+import com.panda.market.dal.entity.Product;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@Scenario(scenarioID = "01JCMXFHFZ6VEKMGDGSJZ6W2TB",
+        scenarioName = "结算-打包费",
+        developmentTime = 40, maintenanceTime = 0, manualTestTime = 5)
+@DisplayName("结算-打包费")
+public class SettlementPackings {
+    static ShopExtraInfoMapper shopExtraInfoMapper;
+    static ProductMapper productMapper;
+    private static SqlSession sqlSession;
+
+    @BeforeAll
+    static void beforeAll() {
+        sqlSession = DBUtils.getDBOfPandaTest();
+        shopExtraInfoMapper = sqlSession.getMapper(ShopExtraInfoMapper.class);
+        productMapper = sqlSession.getMapper(ProductMapper.class);
+        UserLoginFlow.loginByDefaultUser();
+
+    }
+    @AfterAll
+    static void AfterAll(){
+        sqlSession.close();
+    }
+
+    @ParameterizedTest
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#productCartMore")
+    @Order(1)
+    @DisplayName("结算-只有商品打包费，没有商家塑料打包费")
+    void settlementDefaultTableware(SettlementRequestDTO settlementRequestDTO){
+        UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
+        LambdaUpdateWrapper<ShopExtraInfoEntity> lambda = updateWrapper.lambda();
+        lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
+        lambda.set(ShopExtraInfoEntity::getPlasticAmount,0 );
+        shopExtraInfoMapper.update(updateWrapper);
+
+        UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
+        LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
+        lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductId);
+        lambdaProduct.set(Product::getPackingCharges,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
+        productMapper.update(updateProduct);
+
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        assertThat(settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream().filter(value -> value.getItemKey().equalsIgnoreCase("packaging")).findFirst().get().getItemAmount()).isEqualTo(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
+    }
+
+
+
+}
