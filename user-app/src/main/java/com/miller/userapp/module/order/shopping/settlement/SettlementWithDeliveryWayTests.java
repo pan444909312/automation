@@ -45,7 +45,7 @@ public class SettlementWithDeliveryWayTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopSupportPandaDelAndPinckUp")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopSupportPandaDelAndPinckUp")
     @Order(1)
     @DisplayName("结算-店铺同时支持panda配送和自取")
     public void shopSupportPandaDelAndPinckUp(SettlementRequestDTO settlementRequestDTO){
@@ -65,7 +65,7 @@ public class SettlementWithDeliveryWayTests {
 
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopSupportPandaDelAndPinckUp")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopSupportPandaDelAndPinckUp")
     @Order(2)
     @DisplayName("结算-店铺同时支持店铺配送和自取")
     public void shopSupportShopDelAndPinckUp(SettlementRequestDTO settlementRequestDTO){
@@ -84,7 +84,7 @@ public class SettlementWithDeliveryWayTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopSupportPandaDelAndPinckUp")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopSupportPandaDelAndPinckUp")
     @Order(3)
     @DisplayName("结算-店铺仅支持panda配送")
     public void shopSupportPandaDel(SettlementRequestDTO settlementRequestDTO){
@@ -101,7 +101,7 @@ public class SettlementWithDeliveryWayTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopSupportPandaDelAndPinckUp")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopSupportPandaDelAndPinckUp")
     @Order(4)
     @DisplayName("结算-店铺仅支持自取")
     public void shopSupportPickUp(SettlementRequestDTO settlementRequestDTO){
