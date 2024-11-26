@@ -8,9 +8,11 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.category.promotion.memberShopPacket.flow.ShopListABFow;
+import com.miller.userapp.module.shop.card.version2.category.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.category.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.category.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,12 +23,12 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01J5N6H101R6PZ47NDZY6GHEFJ",
-        scenarioName = "普通店铺配送商卡_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37-不展示",
+@Scenario(scenarioID = "01JDKG150FKWJQX0WMRN4E99AS",
+        scenarioName = "普通店铺配送商卡-品类频道_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37-不展示",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasNoNewMemberDiscountScenarioTests {
+public class PandaShopShouldHasNoNewMemberDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
     @BeforeAll
@@ -43,11 +45,9 @@ public class ShopShouldHasNoNewMemberDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37-不展示")
+    @DisplayName("普通店铺配送商卡-品类频道_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37-不展示")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
-
-
-        ShopListResponseDTO shopList = ShopListABFow.getShopList(shopListRequestDTO);
+          ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -63,9 +63,9 @@ public class ShopShouldHasNoNewMemberDiscountScenarioTests {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+            ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+            shopListRequestDTO.setFiltering(false);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }
