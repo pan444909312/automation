@@ -11,11 +11,12 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.member.MemberCityMapper;
 import com.miller.userapp.mapper.member.MemberPacketMapper;
-import com.miller.userapp.module.shop.card.version2.category.baseinfo.ShopShouldHasLabelScenarioTests;
-import com.miller.userapp.module.shop.card.version2.category.promotion.memberBenefit.flow.ShopListFlowNoLogin;
-import com.miller.userapp.module.shop.card.version2.category.promotion.memberBenefit.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.category.promotion.memberBenefit.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.category.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.category.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.category.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.home.baseinfo.ShopShouldHasLabelScenarioTests;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,17 +25,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.HashMap;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01J5N6H107KVHD6JB39MSN4A16",
-        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：会员权益32-不展示",
+@Scenario(scenarioID = "01JDKG14ZSYWKP8B9HE7QN9XQN",
+        scenarioName = "普通店铺配送商卡-品类频道_优惠标签_会员权益_首页-商卡二期：会员权益32-不展示",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasNoMemberBenefitScenarioTests {
+public class CategoryShopShouldHasNoMemberBenefitScenarioTests {
         private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     //     用户未登录，会员店铺配置了运费减免，展示运费减免红包
         private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
@@ -44,6 +46,9 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
 
     @BeforeAll
     void beforeAll() {
+          var myheaders = new HashMap<String, Object>();
+            myheaders.put("Content-Type", "application/json");
+            RequestUtils.setHeaders(myheaders);
          SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         MemberCityMapper shopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
         MemberPacketMapper memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
@@ -88,12 +93,10 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：会员权益32-不展示")
+    @DisplayName("普通店铺配送商卡-品类频道_优惠标签_会员权益_首页-商卡二期：会员权益32-不展示")
 //    删除配置  会员运费减免+店铺联盟  则不展示
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
-//
-//        获取首页店铺列表数据
-        ShopListResponseDTO shopList = ShopListFlowNoLogin.getShopList(shopListRequestDTO);
+          ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -107,7 +110,7 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+     ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
         return Stream.of(Arguments.of(shopListRequestDTO));
