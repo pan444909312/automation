@@ -10,6 +10,8 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
@@ -51,8 +53,8 @@ public class ShopShouldHasShopDiscountCouponScenarioTests {
    @MethodSource("couponDataProvider")
    @ParameterizedTest
    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_已领折扣红包_首页-商卡二期：已领折扣红包39 ")
-   void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
-      ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+   void shouldShowPandLeagueFullSubCouponLabel(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
+      ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
 
       ShopIndexVO shopIndexVO= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
@@ -73,11 +75,11 @@ public class ShopShouldHasShopDiscountCouponScenarioTests {
     * 测试用例数据提供者
     */
    static Stream<Arguments> couponDataProvider() {
-      ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+      ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
       // 可以不用传参数
-      shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+      shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
-      return Stream.of(Arguments.of(shopListRequestDTO));
+      return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
    }
 
 }

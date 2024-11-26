@@ -11,6 +11,7 @@ import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.mapper.shop.AdsHpSearchDistanceMatrix;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.RequestUtils;
@@ -61,12 +62,12 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
    @MethodSource("DataProvider")
    @ParameterizedTest
    @DisplayName("普通店铺配送商卡-熊猫联盟频道_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离 ")
-   void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
+   void shouldShowPandLeagueFullSubCouponLabel(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
       RequestUtils.getHeaders().put("Content-Type", "application/json");
       RequestUtils.getHeaders().put("latitude", "29.7514799");
       RequestUtils.getHeaders().put("longitude", "115.9541");
       ShopListResponseDTO shopList = HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
-              RequestUtils.putBodyOfJson(shopListRequestDTO), null, ShopListResponseDTO.class);
+              RequestUtils.putBodyOfJson(shopListPandaLeagueRequestDTO), null, ShopListResponseDTO.class);
 
       String distance= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getDistance();
@@ -85,11 +86,11 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
     * 测试用例数据提供者
     */
    static Stream<Arguments> DataProvider() {
-      ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+      ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
       // 可以不用传参数
-      shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+      shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
-      return Stream.of(Arguments.of(shopListRequestDTO));
+      return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
    }
 
 }

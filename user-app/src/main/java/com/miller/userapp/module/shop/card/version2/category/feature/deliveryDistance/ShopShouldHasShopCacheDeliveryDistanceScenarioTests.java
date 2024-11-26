@@ -70,7 +70,7 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
 
       String distance= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getDistance();
-      AdsSearchDistanceMatrixEntity adsSearchDistanceMatrixEntity = adsHpSearchDistanceMatrix.selectOne(new QueryWrapper<AdsSearchDistanceMatrixEntity>().eq("target_tudustr", "115.984,29.669").eq("start_tudustr", "115.954,29.751"));
+      AdsSearchDistanceMatrixEntity adsSearchDistanceMatrixEntity = adsHpSearchDistanceMatrix.selectOne(new QueryWrapper<AdsSearchDistanceMatrixEntity>().eq("start_tudustr", "115.984,29.669").eq("target_tudustr", "115.954,29.751"));
 
           cacheDistance = (adsSearchDistanceMatrixEntity.getDistance().doubleValue())/1000;
       assertThat(distance).isEqualTo(cacheDistance+"km");
