@@ -3,7 +3,6 @@ package com.miller.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.entity.AutoCaseRoi;
 import com.miller.entity.AutoExecutionRecord;
 import com.miller.entity.AutoExecutionRecordEntity;
 import com.miller.entity.constant.ExecutionStatusEnum;

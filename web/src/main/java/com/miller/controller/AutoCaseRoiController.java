@@ -7,9 +7,11 @@ import com.miller.common.util.ULIDUtils;
 import com.miller.entity.AutoCaseRoi;
 import com.miller.entity.constant.SortEnum;
 import com.miller.entity.dto.AddAutoCaseRoiDTO;
+import com.miller.entity.dto.ApifoxAutoCaseRoiDto;
 import com.miller.entity.dto.PageAutoCaseRoiDTO;
 import com.miller.entity.vo.AutoCaseRoiVO;
 import com.miller.service.AutoCaseRoiService;
+import com.miller.service.data.entity.AutoCaseRoiEntity;
 import com.miller.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -135,6 +137,15 @@ public class AutoCaseRoiController {
         return Response.success(null);
     }
 
+    @PostMapping("/apifox/save")
+    public Response<Boolean> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
+        AutoCaseRoiEntity entity = new AutoCaseRoiEntity();
+        BeanUtils.copyProperties(dto, entity);
+        boolean res = autoCaseRoiService.saveOrUpdate(entity);
+        return Response.success(res);
+    }
+
+
     @Operation(description = "生成测试用例场景id（ULID）")
     @PostMapping("/generateULID")
     public String addAutoCaseRoi() {
@@ -144,10 +155,12 @@ public class AutoCaseRoiController {
 
     @Operation(description = "删除 roi")
     @PostMapping("/delete")
-    public String deleteAutoCaseRoi(@RequestParam("id")Integer id) {
+    public String deleteAutoCaseRoi(@RequestParam("id") Integer id) {
 
         boolean result = autoCaseRoiService.removeById(id);
 
-        return result ? "删除成功":"删除失败";
+        return result ? "删除成功" : "删除失败";
     }
+
+
 }

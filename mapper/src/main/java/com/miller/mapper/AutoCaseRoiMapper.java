@@ -12,7 +12,9 @@ import org.apache.ibatis.annotations.Mapper;
  * @author panjuxiang
  * @since 2024-09-19
  */
-
+@Mapper
 public interface AutoCaseRoiMapper extends BaseMapper<AutoCaseRoi> {
+
+    AutoCaseRoi findByScenarioId(String scenarioId);
 
 }
