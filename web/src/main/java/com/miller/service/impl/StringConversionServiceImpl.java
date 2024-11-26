@@ -1,7 +1,7 @@
 package com.miller.service.impl;
 
-import com.miller.entity.dto.StringConversionDto;
 import com.miller.service.StringConversionService;
+import com.miller.entity.dto.StringConversionDto;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -34,15 +34,15 @@ public class StringConversionServiceImpl implements StringConversionService {
         // 数据拆分组合
         String[] rows = sourceValue.split("\n");
         Map<String, List<String>> resMap = new HashMap<>();
-        for (int i = 0; i < rows.length; i++) {
-            List<String> colList = Arrays.asList(rows[i].split("\t"));
+        for (String row : rows) {
+            List<String> colList = Arrays.asList(row.split("\t"));
             String key = colList.get(0).trim();
 
             colList = colList.subList(1, colList.size());
             String value = String.valueOf(colList).trim();
             value = value.substring(1, value.length() - 1);
 
-            List<String> valueList = resMap.containsKey(key) ? resMap.get(key) : new ArrayList();
+            List<String> valueList = resMap.containsKey(key) ? resMap.get(key) : new ArrayList<>();
             valueList.add(value);
             resMap.put(key, valueList);
         }
