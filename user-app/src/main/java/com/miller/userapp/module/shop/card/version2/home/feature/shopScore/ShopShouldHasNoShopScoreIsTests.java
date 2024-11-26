@@ -42,7 +42,7 @@ public class ShopShouldHasNoShopScoreIsTests {
                          .set(EvaluationEntity::getComposite,0)
                          .set(EvaluationEntity::getCompositeManager,0));
 //       执行定时定时任务-店铺数据更新
-//        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.shop.index.update.id"));
+        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.shop.index.update.id"));
 
      }
      @MethodSource("staticDataProvider")
