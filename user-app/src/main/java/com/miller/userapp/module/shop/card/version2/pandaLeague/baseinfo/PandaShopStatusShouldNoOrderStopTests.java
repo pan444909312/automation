@@ -9,8 +9,8 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.shop.ShopMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -24,12 +24,12 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01J86YH7Y0T8WKQASENM6Z7D7Z",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据",
+@Scenario(scenarioID = "01JDKTPH6BJ84WMM9VCVHYT3X1",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据",
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopStatusShouldNoOrderStopTests {
+public class PandaShopStatusShouldNoOrderStopTests {
 //店铺已配置营业时间
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
@@ -51,10 +51,9 @@ void beforeAll() {
 }
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("商卡(中文)_普通店铺配送商卡_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据")
-    void OrderStop(ShopListRequestDTO shopListRequestDTO) {
-//        请求首页店铺数据
-     ShopListResponseDTO shopList= ShopListFlow.getShopList(shopListRequestDTO);
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据")
+    void OrderStop(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
+      ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         //遍历店铺的ShopPromoteList列表，
@@ -64,9 +63,10 @@ void beforeAll() {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+    ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+
+        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
     }
 }
