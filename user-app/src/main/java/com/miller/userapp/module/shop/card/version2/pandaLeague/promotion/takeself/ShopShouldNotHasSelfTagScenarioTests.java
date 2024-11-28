@@ -7,8 +7,8 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01JC2RBAP4FHVG66177QD4JGWP", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-首页-商卡二期：可自取33 - 不展示"
+@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF4", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-首页-商卡二期：可自取33 - 不展示"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-首页-商卡二期：可自取33 - 不展示")
 public class ShopShouldNotHasSelfTagScenarioTests {
@@ -35,22 +35,20 @@ public class ShopShouldNotHasSelfTagScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-首页-商卡二期：可自取33 - 不展示")
-    @MethodSource("showLabelDataProvider")
+    @MethodSource("DataProvider")
     @ParameterizedTest
-    void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
+    void hasSelfTakeTag(ShopListPandaLeagueRequestDTO ShopListRequestdto){
+        ShopListResponseDTO ShopListResponsedto= ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
         System.out.println(shopPromoteTypeList);
         assertThat(shopPromoteTypeList.size()).isEqualTo(0);
 
     }
-
-    //    DataProvider改为在测试用例文件里写,提供测试数据
-    static Stream<Arguments> showLabelDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+    static Stream<Arguments> DataProvider() {
+        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
     }
 }

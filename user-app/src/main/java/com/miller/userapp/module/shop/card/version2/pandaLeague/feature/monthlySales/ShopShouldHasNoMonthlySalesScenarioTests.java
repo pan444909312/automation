@@ -9,8 +9,8 @@ import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.CityFunctionConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JC2QF8M4HPBFRPY0HMB62GHN", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-首页-商卡二期：月售 - 月售展示开关禁用"
+@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDEW", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-首页-商卡二期：月售 - 月售展示开关禁用"
         , developmentTime = 10, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-首页-商卡二期：月售 - 月售展示开关禁用")
 public class ShopShouldHasNoMonthlySalesScenarioTests {
@@ -46,19 +46,18 @@ public class ShopShouldHasNoMonthlySalesScenarioTests {
 
     }
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-首页-商卡二期：月售 - 月售展示开关禁用")
-    @MethodSource("showLabelDataProvider")
+    @MethodSource("DataProvider")
     @ParameterizedTest
-    void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
+    void hasSendMoneyInfo(ShopListPandaLeagueRequestDTO ShopListRequestdto){
+        ShopListResponseDTO ShopListResponsedto= ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
         ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         assertThat(shopIndexVO.getShopMonthlySales()).isNull();
 
     }
-    //    DataProvider改为在测试用例文件里写,提供测试数据
-    static Stream<Arguments> showLabelDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+    static Stream<Arguments> DataProvider() {
+        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
     }
 }

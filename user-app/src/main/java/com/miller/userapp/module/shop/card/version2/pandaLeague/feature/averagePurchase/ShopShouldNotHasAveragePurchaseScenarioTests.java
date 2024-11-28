@@ -10,8 +10,8 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.shop.SysAppConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -28,8 +28,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JC2QF8M3FN8VZZ750Y21BT89", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭"
-        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
+@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF1", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭"
+        , developmentTime = 5, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
 public class ShopShouldNotHasAveragePurchaseScenarioTests {
     //    测试店铺
@@ -48,20 +48,23 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
     }
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
-    @MethodSource("showLabelDataProvider")
+    @MethodSource("DataProvider")
     @ParameterizedTest
-    void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
+    void hasAveragePurchaseInfo(ShopListPandaLeagueRequestDTO ShopListRequestdto){
+        ShopListResponseDTO ShopListResponsedto= ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
         ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
         assert shopIndexVO != null;
         assertThat(shopIndexVO.getAveragePurchase()).isNull();
 
     }
-    //    DataProvider改为在测试用例文件里写,提供测试数据
-    static Stream<Arguments> showLabelDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+    /**
+     * 测试用例数据提供者
+     */
+    static Stream<Arguments> DataProvider() {
+        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+
+        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
     }
 }
