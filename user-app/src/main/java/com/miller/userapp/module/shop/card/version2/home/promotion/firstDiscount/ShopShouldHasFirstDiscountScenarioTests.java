@@ -34,7 +34,7 @@ import java.util.stream.Stream;
  */
 @Scenario(scenarioID = "01J46NM6S9CZKNNX9JWDQ7KSGP",
         scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_门店新客_首页-商卡二期：平台首单23",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
@@ -48,8 +48,8 @@ public class ShopShouldHasFirstDiscountScenarioTests {
     @BeforeAll
     void beforeAll() {
         userLoginRequestDTO = new UserLoginRequestDTO();
-        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.new.user.account"));
-        userLoginRequestDTO.setPassword(MD5Util.string2MD5(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.new.user.password")));
+        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.new.user02.account"));
+        userLoginRequestDTO.setPassword(MD5Util.string2MD5(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.new.user02.password")));
         userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.distinctId"));
         userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type")));
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode"));
