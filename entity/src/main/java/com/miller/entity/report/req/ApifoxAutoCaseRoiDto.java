@@ -1,4 +1,4 @@
-package com.miller.entity.dto;
+package com.miller.entity.report.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

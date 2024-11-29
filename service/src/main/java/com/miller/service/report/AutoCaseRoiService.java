@@ -2,7 +2,6 @@ package com.miller.service.report;
 
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.miller.service.data.entity.AutoCaseRoiEntity;
 
 /**
  * <p>

@@ -15,6 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AutoCaseRoiMapper extends BaseMapper<AutoCaseRoiEntity> {
 
-    AutoCaseRoi findByScenarioId(String scenarioId);
+    AutoCaseRoiEntity findByScenarioId(String scenarioId);
 
 }

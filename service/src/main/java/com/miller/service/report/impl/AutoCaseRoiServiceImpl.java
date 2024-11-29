@@ -1,16 +1,12 @@
-package com.miller.service.impl;
+package com.miller.service.report.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.mapper.report.AutoCaseRoiMapper;
+import com.miller.service.report.AutoCaseRoiLogService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.common.util.StringUtils;
-import com.miller.entity.AutoCaseRoi;
-import com.miller.mapper.AutoCaseRoiMapper;
-import com.miller.service.AutoCaseRoiLogService;
-import com.miller.service.AutoCaseRoiService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.miller.service.data.entity.AutoCaseRoiEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
@@ -49,7 +45,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
             return false;
         }
 
-        AutoCaseRoi autoCaseRoi = autoCaseRoiMapper.findByScenarioId(scenarioId);
+        AutoCaseRoiEntity autoCaseRoi = autoCaseRoiMapper.findByScenarioId(scenarioId);
         long currentTimeMillis = System.currentTimeMillis();
 
         if (!ObjectUtils.isEmpty(autoCaseRoi)) {
@@ -64,13 +60,10 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
             final int times = Math.addExact(autoCaseRoi.getTimes(),1);
             autoCaseRoi.setTimes(times);
 
-
-
-
             autoCaseRoi.setUpdateTime(currentTimeMillis);
 
         }else {
-            autoCaseRoi = new AutoCaseRoi();
+            autoCaseRoi = new AutoCaseRoiEntity();
             BeanUtils.copyProperties(entity, autoCaseRoi);
 
             autoCaseRoi.setTimes(1);
@@ -78,13 +71,12 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         }
 
         //  总节省时间 = 执行次数 * 手工测试成本
-        final long saveTime = Math.multiplyExact(entity.getManualTestTime(),autoCaseRoi.getTimes());
+        final int saveTime = Math.multiplyExact(entity.getManualTestTime(),autoCaseRoi.getTimes());
         autoCaseRoi.setSaveTime(saveTime);
 
         // roi = (开发*维护)/总节省成本
         double roi = (double) autoCaseRoi.getSaveTime() / (Math.addExact(autoCaseRoi.getDevelopmentTime(), autoCaseRoi.getMaintenanceTime()));
         autoCaseRoi.setRoi(String.valueOf(roi));
-
 
         this.saveOrUpdate(autoCaseRoi);
 
