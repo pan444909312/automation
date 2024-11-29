@@ -71,7 +71,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         }
 
         //  总节省时间 = 执行次数 * 手工测试成本
-        final int saveTime = Math.multiplyExact(entity.getManualTestTime(),autoCaseRoi.getTimes());
+        final long saveTime = Math.multiplyExact(entity.getManualTestTime(),autoCaseRoi.getTimes());
         autoCaseRoi.setSaveTime(saveTime);
 
         // roi = (开发*维护)/总节省成本
