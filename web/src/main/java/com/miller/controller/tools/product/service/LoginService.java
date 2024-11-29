@@ -1,7 +1,5 @@
-package com.miller.service;
+package com.miller.controller.tools.product.service;
 
-
-import com.miller.entity.dao.LoginDao;
 
 public interface LoginService {
 

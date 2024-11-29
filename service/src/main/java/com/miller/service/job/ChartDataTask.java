@@ -1,10 +1,10 @@
-package com.miller.job;
+package com.miller.service.job;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.report.*;
 import com.miller.service.report.*;
 import com.miller.service.util.TimestampUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

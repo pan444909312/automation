@@ -1,9 +1,10 @@
-package com.miller.controller.tools;
+package com.miller.controller.tools.product;
 
 import com.miller.config.ExecutePoolConfig;
-import com.miller.entity.dao.BatchProductDao;
-import com.miller.service.LoginService;
-import com.miller.service.ProductService;
+import com.miller.controller.tools.ResultVO;
+import com.miller.controller.tools.product.dao.BatchProductDao;
+import com.miller.controller.tools.product.service.LoginService;
+import com.miller.controller.tools.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class ProductToolsController {
     private ExecutePoolConfig executePoolConfig ;
 
     @PostMapping("/batch/add")
-    public ResultVo batchAddProduct(@RequestBody BatchProductDao reqDao) {
+    public ResultVO batchAddProduct(@RequestBody BatchProductDao reqDao) {
         final String taskId = UUID.randomUUID().toString();
         //  登录并获取 Pc 站 Token
         String pcToken = loginService.pcLogin(reqDao.getShopId());
@@ -42,12 +43,12 @@ public class ProductToolsController {
         }
         executePoolConfig.setTaskPool(taskId);
         log.info("taskId:{}",taskId);
-        return ResultVo.success(taskId);
+        return ResultVO.success(taskId);
     }
 
     @GetMapping("/getThreadRes")
-    public ResultVo getThreadRes(@RequestParam String taskId) {
-        return ResultVo.success(executePoolConfig.getTaskPool(taskId));
+    public ResultVO getThreadRes(@RequestParam String taskId) {
+        return ResultVO.success(executePoolConfig.getTaskPool(taskId));
     }
 
 

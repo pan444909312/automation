@@ -1,11 +1,9 @@
-package com.miller.service.impl;
+package com.miller.controller.tools.product.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.miller.controller.tools.product.service.LoginService;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.erp.moudle.pc.authcode.flow.AuthCodeFlow;
 import com.miller.erp.moudle.pc.authlogin.flow.AuthLoginFlow;
-import com.miller.service.LoginService;
-import com.miller.entity.dao.LoginDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,6 @@ public class LoginServiceImpl implements LoginService {
 
     /**
      * erp 登录到获取 pc 站 token
-     * @param loginDao
      * @param shopId
      * @return pcToken
      */

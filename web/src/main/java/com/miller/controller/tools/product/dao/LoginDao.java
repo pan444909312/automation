@@ -1,4 +1,4 @@
-package com.miller.entity.dao;
+package com.miller.controller.tools.product.dao;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

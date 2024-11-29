@@ -1,7 +1,7 @@
-package com.miller.controller.tools;
+package com.miller.controller.tools.conversion;
 
-import com.miller.entity.dao.StringConversionDto;
-import com.miller.service.StringConversionService;
+import com.miller.controller.tools.ResultVO;
+import com.miller.controller.tools.product.service.StringConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +14,9 @@ public class StringConversionController {
     private StringConversionService stringConversionService;
 
     @PostMapping("/toPublishingFormat")
-    public ResultVo<String> toPublishingFormat(@RequestBody StringConversionDto body){
+    public ResultVO<String> toPublishingFormat(@RequestBody StringConversionDto body){
         final String resStr = stringConversionService.toPublishingFormat(body);
-        return ResultVo.success(resStr);
+        return ResultVO.success(resStr);
     }
 
 

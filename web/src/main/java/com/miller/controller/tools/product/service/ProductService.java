@@ -1,6 +1,6 @@
-package com.miller.service;
+package com.miller.controller.tools.product.service;
 
-import com.miller.entity.dao.BatchProductDao;
+import com.miller.controller.tools.product.dao.BatchProductDao;
 
 public interface ProductService {
 

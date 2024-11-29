@@ -1,4 +1,4 @@
-package com.miller.entity.dao;
+package com.miller.controller.tools.conversion;
 
 import lombok.Data;
 

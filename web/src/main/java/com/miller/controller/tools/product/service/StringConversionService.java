@@ -1,7 +1,7 @@
-package com.miller.service;
+package com.miller.controller.tools.product.service;
 
 
-import com.miller.entity.dao.StringConversionDto;
+import com.miller.controller.tools.conversion.StringConversionDto;
 
 import java.util.List;
 import java.util.Map;

@@ -1,14 +1,14 @@
-package com.miller.service.impl;
+package com.miller.controller.tools.product.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.miller.config.ExecutePoolConfig;
-import com.miller.entity.dao.BatchProductDao;
+import com.miller.controller.tools.product.dao.BatchProductDao;
+import com.miller.controller.tools.product.service.ProductService;
 import com.miller.erp.moudle.pc.product.flow.ProductSaveFlow;
 import com.miller.erp.moudle.pc.product.request.ProductSaveRequest;
 import com.miller.erp.moudle.pc.product.response.ProductSaveResponse;
 import com.miller.erp.util.RequestUtils;
-import com.miller.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
