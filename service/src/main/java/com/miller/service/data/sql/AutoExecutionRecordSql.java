@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.miller.entity.AutoExecutionRecord;
-import com.miller.service.data.entity.AutoCaseRoiEntity;
+import com.miller.entity.report.AutoExecutionRecord;
 
 import com.miller.service.data.mapper.AutoExecutionRecordMapper;
 import org.apache.ibatis.session.SqlSession;

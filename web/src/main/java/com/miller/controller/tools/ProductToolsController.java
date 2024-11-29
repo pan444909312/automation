@@ -2,8 +2,7 @@ package com.miller.controller.tools;
 
 import com.miller.config.ExecutePoolConfig;
 import com.miller.entity.dao.BatchProductDao;
-import com.miller.entity.dao.LoginDao;
-import com.miller.entity.vo.ResultVo;
+import com.miller.entity.report.vo.ResultVo;
 import com.miller.service.LoginService;
 import com.miller.service.ProductService;
 import lombok.extern.slf4j.Slf4j;

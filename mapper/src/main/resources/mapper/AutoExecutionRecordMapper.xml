@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.miller.mapper.AutoExecutionRecordMapper">
+<mapper namespace="com.miller.mapper.report.AutoExecutionRecordMapper">
 
-    <resultMap id="selectPageByConditionMap" type="com.miller.entity.AutoExecutionRecord">
+    <resultMap id="selectPageByConditionMap" type="com.miller.entity.report.AutoExecutionRecord">
 <!--        <result property="id" column="id"/>-->
 <!--        <result property="scenario_id" column="scenarioId"/>-->
 <!--        <result property="execution_type" column="executionType"/>-->

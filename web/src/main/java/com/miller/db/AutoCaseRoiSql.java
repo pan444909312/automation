@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.hungrypanda.app.server.entity.member.MemberOrderEntity;
-import com.miller.entity.AutoCaseRoi;
-import com.miller.mapper.AutoCaseRoiMapper;
-import com.miller.userapp.mapper.order.MemberOrderMapper;
+import com.miller.entity.report.AutoCaseRoi;
+import com.miller.mapper.report.AutoCaseRoiMapper;
 import org.apache.ibatis.session.SqlSession;
 
 public class AutoCaseRoiSql {

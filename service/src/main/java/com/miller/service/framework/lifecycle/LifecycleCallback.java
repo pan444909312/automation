@@ -1,6 +1,6 @@
 package com.miller.service.framework.lifecycle;
 
-import com.miller.entity.AutoExecutionRecord;
+import com.miller.entity.report.AutoExecutionRecord;
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.service.data.entity.AutoCaseRoiLogEntity;

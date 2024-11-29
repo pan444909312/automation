@@ -1,17 +1,15 @@
 package com.miller.job;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.miller.entity.*;
-import com.miller.service.*;
-import com.miller.util.TimestampUtils;
-import io.swagger.models.auth.In;
+import com.miller.entity.report.*;
+import com.miller.service.report.*;
+import com.miller.service.util.TimestampUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 图表数据定时任务
