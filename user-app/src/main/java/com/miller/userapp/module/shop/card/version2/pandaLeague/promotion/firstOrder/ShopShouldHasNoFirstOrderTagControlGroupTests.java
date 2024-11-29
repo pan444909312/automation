@@ -14,6 +14,7 @@ import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
@@ -33,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF8", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：对照组"
+@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF8", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-不展示：对照组"
         , developmentTime = 5, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：对照组")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-不展示：对照组")
 public class ShopShouldHasNoFirstOrderTagControlGroupTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
@@ -69,7 +70,7 @@ public class ShopShouldHasNoFirstOrderTagControlGroupTests {
         String newTestGroup= BusinessConstant.testGroup.replace("XRJ01","XRJ02").replace("SKXRB01","SKXRB02");
         RequestUtils.getHeaders().put("testGroup", newTestGroup);
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：对照组")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-不展示：对照组")
     @MethodSource("DataProvider")
     @ParameterizedTest
     void hasNoFirstOrderTagCrowdZero(ShopListPandaLeagueRequestDTO ShopListRequestdto){
@@ -79,11 +80,11 @@ public class ShopShouldHasNoFirstOrderTagControlGroupTests {
 //        校验营销标签中无新人标签
         assertThat(shopPromoteTypeList.size()).isEqualTo(0);
     }
+    /**
+     * 测试用例数据提供者
+     */
     static Stream<Arguments> DataProvider() {
-        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
-        // 可以不用传参数
-        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 
 }

@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JC2Q1RT5ESHJ6SGA0XM6A9WR", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-首页-商卡二期：人均"
+@Scenario(scenarioID = "01JC2Q1RT5ESHJ6SGA0XM6A9WR", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-品类频道-商卡二期：人均"
         , developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-首页-商卡二期：人均")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-品类频道-商卡二期：人均")
 public class ShopShouldHasAveragePurchaseScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -47,7 +47,7 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-首页-商卡二期：人均")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-品类频道-商卡二期：人均")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){

@@ -11,6 +11,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
 import com.miller.userapp.module.data.device.db.DeviceAutoRenewSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
@@ -31,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF7", scenarioName = "用户-首页店铺流-熊猫联盟频道-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1"
+@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF7", scenarioName = "用户-首页店铺流-熊猫联盟频道-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-新人人群1"
         , developmentTime = 10, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-新人人群3")
 public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
 //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
@@ -61,7 +62,7 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
         deviceAutoRenewSql.deviceAutoRenew(distinctId);
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群3")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-新人人群3")
     @MethodSource("DataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdThird(ShopListPandaLeagueRequestDTO ShopListRequestdto){
@@ -72,10 +73,10 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
         String showContent=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getShowContent).orElseThrow();
         assertThat(showContent).isEqualTo("无门槛减¥8");
     }
+    /**
+     * 测试用例数据提供者
+     */
     static Stream<Arguments> DataProvider() {
-        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
-        // 可以不用传参数
-        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }

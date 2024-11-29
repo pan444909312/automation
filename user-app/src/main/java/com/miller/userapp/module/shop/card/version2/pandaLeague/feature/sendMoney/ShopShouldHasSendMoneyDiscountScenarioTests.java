@@ -9,6 +9,7 @@ import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.CityFunctionConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
@@ -27,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDEZ", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-首页-商卡二期：运费减免优惠"
+@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDEZ", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-熊猫联盟频道-商卡二期：运费减免优惠"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-首页-商卡二期：运费减免优惠")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-熊猫联盟频道-商卡二期：运费减免优惠")
 public class ShopShouldHasSendMoneyDiscountScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.blank.compare.shopId"));
@@ -45,19 +46,19 @@ public class ShopShouldHasSendMoneyDiscountScenarioTests {
         );
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-首页-商卡二期：运费减免优惠")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-熊猫联盟频道-商卡二期：运费减免优惠")
     @MethodSource("DataProvider")
     @ParameterizedTest
     void hasSendMoneyDiscountInfo(ShopListPandaLeagueRequestDTO ShopListRequestdto) {
-        ShopListResponseDTO ShopListResponsedto = ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
-        Long sendMoneyDiscount = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getSendMoneyDiscount).orElseThrow();
+        ShopListResponseDTO ShopListResponseDto = ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
+        Long sendMoneyDiscount = ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getSendMoneyDiscount).orElseThrow();
         assertThat(sendMoneyDiscount).isEqualTo(100);
         //    DataProvider改为在测试用例文件里写,提供测试数据
     }
+    /**
+     * 测试用例数据提供者
+     */
     static Stream<Arguments> DataProvider() {
-        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
-        // 可以不用传参数
-        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }
