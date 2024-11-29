@@ -186,7 +186,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
             autoCaseRoi.setManualTestTime(scenario.manualTestTime());
             Integer times = autoCaseRoi.getTimes()+1;
-            Integer saveTimes =autoCaseRoi.getSaveTime() +  autoCaseRoi.getManualTestTime()   ; //每次执行一次,*1
+            Long saveTimes =autoCaseRoi.getSaveTime() +  autoCaseRoi.getManualTestTime()   ; //每次执行一次,*1
 //            Integer sumCostTimes = autoCaseRoiDB.getDevelopmentTime() + autoCaseRoiDB.getMaintenanceTime();
 //            BigDecimal roi = new BigDecimal(saveTimes).divide(new BigDecimal(sumCostTimes),9, RoundingMode.HALF_UP);
             autoCaseRoi.setTimes(times); //每执行一次+1
@@ -203,7 +203,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
             autoCaseRoi.setManualTestTime(scenario.manualTestTime());
             autoCaseRoi.setTimes(1);
-            autoCaseRoi.setSaveTime(scenario.manualTestTime());
+            autoCaseRoi.setSaveTime(Long.valueOf(scenario.manualTestTime()));
             autoCaseRoi.setRoi(calculateRoi(autoCaseRoi));
             autoCaseRoi.setCreateTime(System.currentTimeMillis());
             autoCaseRoi.setUpdateTime(System.currentTimeMillis());
@@ -219,7 +219,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 
     }
     private String calculateRoi(AutoCaseRoiEntity autoCaseRoi){
-        Integer saveTimes = autoCaseRoi.getSaveTime();
+        Long saveTimes = autoCaseRoi.getSaveTime();
         Integer sumCostTimes = autoCaseRoi.getDevelopmentTime() + autoCaseRoi.getMaintenanceTime();
         BigDecimal roi = new BigDecimal(saveTimes).divide(new BigDecimal(sumCostTimes),9, RoundingMode.HALF_UP);
         return roi.toString();
