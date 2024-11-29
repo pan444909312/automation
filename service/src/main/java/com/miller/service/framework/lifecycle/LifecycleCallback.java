@@ -1,21 +1,21 @@
 package com.miller.service.framework.lifecycle;
 
-import com.miller.entity.AutoExecutionRecord;
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
-import com.miller.service.data.entity.AutoCaseRoiLogEntity;
-import com.miller.service.data.sql.AutoCaseRoiLogSql;
-import com.miller.service.data.sql.AutoCaseRoiSql;
-import com.miller.service.data.sql.AutoExecutionRecordSql;
+import com.miller.entity.report.AutoExecutionRecordEntity;
+import com.miller.service.framework.report.entity.AutoCaseRoiLogEntity;
+import com.miller.service.framework.report.sql.AutoCaseRoiLogSql;
+import com.miller.service.framework.report.sql.AutoCaseRoiSql;
+import com.miller.service.framework.report.sql.AutoExecutionRecordSql;
 import com.miller.service.framework.annotation.MethodInvoked;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.data.entity.AutoCaseRoiEntity;
+import com.miller.service.framework.report.entity.AutoCaseRoiEntity;
 import com.miller.service.framework.exception.TestFrameworkException;
 import com.miller.service.framework.listenner.TestResultWatcher;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.util.ReflectionUtils;
-import com.miller.service.util.AutoDBUtils;
+import com.miller.service.framework.report.AutoDBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.extension.*;
 
@@ -70,8 +70,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
             String scenarioId = scenario.scenarioID();
             ExecutionStatusEnum value  = scenarioResultMap.get(scenarioId);
-            AutoExecutionRecord autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
-            AutoExecutionRecord autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecordBySuite(scenarioId);
+            AutoExecutionRecordEntity autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
+            AutoExecutionRecordEntity autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecordBySuite(scenarioId);
             if(Objects.nonNull(autoExecutionRecord)){
                 autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
             }
@@ -214,7 +214,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         AutoCaseRoiLogEntity autoCaseRoiLogEntity = getAutoCaseRoiLog(autoCaseRoi);
         autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
 
-        AutoExecutionRecord autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity,executor);
+        AutoExecutionRecordEntity autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity,executor);
         autoExecutionRecordSql.saveAutoExecutionRecord(autoExecutionRecord);
 
     }
@@ -236,8 +236,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         autoCaseRoiLog.setCreateTime(System.currentTimeMillis());
         return autoCaseRoiLog;
     }
-    private AutoExecutionRecord getAutoExecutionRecord(AutoCaseRoiLogEntity autoCaseRoiLog,String executor){
-        AutoExecutionRecord autoExecutionRecord = new AutoExecutionRecord();
+    private AutoExecutionRecordEntity getAutoExecutionRecord(AutoCaseRoiLogEntity autoCaseRoiLog,String executor){
+        AutoExecutionRecordEntity autoExecutionRecord = new AutoExecutionRecordEntity();
         autoExecutionRecord.setScenarioId(autoCaseRoiLog.getScenarioId());
         autoExecutionRecord.setDevelopmentTime(autoCaseRoiLog.getDevelopmentTime());
         autoExecutionRecord.setManualTestTime(autoCaseRoiLog.getManualTestTime());

@@ -40,7 +40,7 @@ import java.util.Enumeration;
 public class MyBatisPlusConfig {
     // Mapper 接口所在的包
     private String packageName = "com.miller";
-    private String mapperPath = "testMapper";
+    private String mapperPath = "mapper";
     private MybatisConfiguration configuration;
     private GlobalConfig globalConfig;
     private Environment environment;

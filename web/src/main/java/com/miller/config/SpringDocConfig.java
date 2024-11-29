@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * springDoc 配置
+ * 后台访问地址：http://127.0.0.1:9080/api/swagger-ui/index.html
  * @author panjuxiang
  * @since 2024/10/10 21:39
  */

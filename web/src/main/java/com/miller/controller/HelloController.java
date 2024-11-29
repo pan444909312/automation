@@ -4,10 +4,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.clz.ClassFindService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,5 +30,10 @@ public class HelloController {
                 .stream().filter(clz -> clz.isAnnotationPresent(Scenario.class)).toList();
         System.out.println(packageClass.size());
         packageClass.forEach(System.out::println);
+    }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
     }
 }
