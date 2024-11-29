@@ -2,6 +2,8 @@ package com.miller.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.common.util.BasePageResponse;
+import com.miller.common.util.Response;
 import com.miller.entity.AutoCaseChartFutureData;
 import com.miller.entity.AutoCaseExecutionChart;
 import com.miller.entity.dto.PageAutoCaseExecutionChartDTO;
@@ -10,8 +12,10 @@ import com.miller.service.AutoCaseChartFutureDataService;
 import com.miller.service.AutoCaseExecutionChartService;
 import com.miller.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.ws.rs.core.Link;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +45,11 @@ public class AutoCaseExecutionChartController {
 
     @Operation(description = "分页查询自动化用例执行数据")
     @PostMapping("/list")
-    public Map<String,Object> listAutoCaseExecutionChart(@RequestBody PageAutoCaseExecutionChartDTO pageAutoCaseExecutionChartDTO){
+    @ApiResponse(
+            responseCode = "200",
+            description = "OK",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutoCaseExecutionChartVO.class)))
+    public Response<BasePageResponse<AutoCaseExecutionChartVO>> listAutoCaseExecutionChart(@RequestBody PageAutoCaseExecutionChartDTO pageAutoCaseExecutionChartDTO){
 
         int pageNo = pageAutoCaseExecutionChartDTO.getPageNo();
         int pageSize = pageAutoCaseExecutionChartDTO.getPageSize();
@@ -84,11 +92,12 @@ public class AutoCaseExecutionChartController {
         list.addFirst(futureVo);
 
 
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("total",total);
-        result.put("list",list);
+//        HashMap<String, Object> result = new HashMap<>();
+        BasePageResponse<AutoCaseExecutionChartVO> response = new BasePageResponse<>(total,list);
+//        result.put("total",total);
+//        result.put("list",list);
 
 
-        return result;
+        return Response.success(response);
     }
 }

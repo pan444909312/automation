@@ -100,6 +100,7 @@ public class ChartDataTask {
 
 
         // 新增 自动化用例未来数据表 数据 todo
+        // chart_type = 1 的数据需要根据执行类型3种新增3条(有几个类型增加几条)，不然roi报表统计数据会有问题
 
 
     }

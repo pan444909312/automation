@@ -57,8 +57,8 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         if (createEndTime != null) {
             queryWrapper.le("create_time", createEndTime.getTime());
         }
-        if (executionTypeList != null && !executionTypeList.isEmpty()){
-            queryWrapper.in("execution_type",executionTypeList);
+        if (executionTypeList != null && !executionTypeList.isEmpty()) {
+            queryWrapper.in("execution_type", executionTypeList);
         }
         queryWrapper.orderByDesc("create_time");
 
@@ -85,13 +85,24 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         }
 
         //未来日期数据处理
-        AutoCaseChartFutureData futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureData>()
-                .eq("chart_type", 1)
-                .orderByDesc("future_time")
-                .last("limit 1"));
+        QueryWrapper<AutoCaseChartFutureData> autoCaseChartFutureDataQueryWrapper = new QueryWrapper<>();
+        autoCaseChartFutureDataQueryWrapper.eq("chart_type", 1);
+        if (executionTypeList != null && !executionTypeList.isEmpty()) {
+            autoCaseChartFutureDataQueryWrapper.in("execution_type", executionTypeList);
+        }
+        autoCaseChartFutureDataQueryWrapper.orderByDesc("future_time");
+        if (executionTypeList != null && !executionTypeList.isEmpty()) {
+            autoCaseChartFutureDataQueryWrapper.last("limit "+ executionTypeList.size());
+        }
+
+        List<AutoCaseChartFutureData> autoCaseChartFutureDataList = autoCaseChartFutureDataService.list(autoCaseChartFutureDataQueryWrapper);
         AutoCaseRoiChartVo futureVo = new AutoCaseRoiChartVo();
-        futureVo.setSaveTime(futureData.getExpectedSaveTime());
-        futureVo.setCreateTime(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
+        long sum = 0L;
+        for (AutoCaseChartFutureData futureData : autoCaseChartFutureDataList) {
+            sum = sum + futureData.getExpectedSaveTime();
+        }
+        futureVo.setSaveTime(sum);
+        futureVo.setCreateTime(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataList.get(0).getFutureTime()));
         autoCaseRoiChartVoList.addFirst(futureVo);
 
 
