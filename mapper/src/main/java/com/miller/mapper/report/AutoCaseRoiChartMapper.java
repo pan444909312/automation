@@ -1,6 +1,6 @@
 package com.miller.mapper.report;
 
-import com.miller.entity.report.AutoCaseRoiChart;
+import com.miller.entity.report.AutoCaseRoiChartEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2024-10-15
  */
 @Mapper
-public interface AutoCaseRoiChartMapper extends BaseMapper<AutoCaseRoiChart> {
+public interface AutoCaseRoiChartMapper extends BaseMapper<AutoCaseRoiChartEntity> {
 
 }

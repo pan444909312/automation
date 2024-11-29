@@ -1,7 +1,7 @@
 package com.miller.service;
 
 
-import com.miller.entity.dto.StringConversionDto;
+import com.miller.entity.dao.StringConversionDto;
 
 import java.util.List;
 import java.util.Map;

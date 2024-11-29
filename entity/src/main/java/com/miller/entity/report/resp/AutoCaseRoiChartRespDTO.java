@@ -1,8 +1,5 @@
-package com.miller.entity.report.vo;
+package com.miller.entity.report.resp;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -11,7 +8,7 @@ import lombok.Data;
  * @since 2024/10/31 21:34
  */
 @Data
-public class AutoCaseRoiChartVo {
+public class AutoCaseRoiChartRespDTO {
 
 
     @Schema(description = "ID 自增")

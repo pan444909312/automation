@@ -1,4 +1,4 @@
-package com.miller.entity.report.vo;
+package com.miller.controller.tools;
 
 import lombok.Data;
 

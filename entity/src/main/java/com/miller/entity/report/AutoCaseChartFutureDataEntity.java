@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Setter
 @TableName("auto_case_chart_future_data")
 @Schema(name = "AutoCaseChartFutureData", description = "自动化用例执行趋势表")
-public class AutoCaseChartFutureData implements Serializable {
+public class AutoCaseChartFutureDataEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

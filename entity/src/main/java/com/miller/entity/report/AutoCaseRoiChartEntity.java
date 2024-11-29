@@ -10,16 +10,16 @@ import lombok.Data;
 
 /**
  * <p>
- * 自动化用例增长趋势表
+ * 测试场景总ROI表
  * </p>
  *
  * @author panjuxiang
  * @since 2024-10-15
  */
 @Data
-@TableName("auto_case_increase_chart")
-@Schema(name = "AutoCaseIncreaseChart", description = "自动化用例增长趋势表")
-public class AutoCaseIncreaseChart implements Serializable {
+@TableName("auto_case_roi_chart")
+@Schema(name = "AutoCaseRoiChartEntity", description = "测试场景总ROI表")
+public class AutoCaseRoiChartEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,21 +27,25 @@ public class AutoCaseIncreaseChart implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @Schema(description = "新增用例数")
-    @TableField("increase_case")
-    private Integer increaseCase;
+    @Schema(description = "成本")
+    @TableField("cost_time")
+    private Long costTime;
 
-    @Schema(description = "总开发成本")
-    @TableField("development_time")
-    private Integer developmentTime;
+    @Schema(description = "投产次数")
+    @TableField("times")
+    private Integer times;
 
-    @Schema(description = "总手工测试成本")
-    @TableField("manual_test_time")
-    private Integer manualTestTime;
+    @Schema(description = "收益")
+    @TableField("save_time")
+    private Long saveTime;
 
-    @Schema(description = "备注")
-    @TableField("remarks")
-    private String remarks;
+    @Schema(description = "场景ROI")
+    @TableField("roi")
+    private String roi;
+
+    @Schema(description = "执行策略 0:所有策略 1:日常巡检;2:质量保证;3:效率提升")
+    @TableField("execution_type")
+    private Integer executionType;
 
     @Schema(description = "创建时间")
     @TableField("create_time")

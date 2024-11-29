@@ -1,7 +1,6 @@
 package com.miller.controller.tools;
 
-import com.miller.entity.dto.StringConversionDto;
-import com.miller.entity.report.vo.ResultVo;
+import com.miller.entity.dao.StringConversionDto;
 import com.miller.service.StringConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

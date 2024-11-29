@@ -1,4 +1,4 @@
-package com.miller.entity.dto;
+package com.miller.entity.report.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.util.Date;
  * @since 2024/10/17 22:10
  */
 @Data
-public class PageAutoCaseExecutionChartDTO {
+public class PageAutoCaseIncreaseChartReqDTO {
 
     @Schema(description = "分页页码")
     private int pageNo = 1;

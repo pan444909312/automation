@@ -1,6 +1,6 @@
 package com.miller.mapper.report;
 
-import com.miller.entity.report.AutoCaseRoi;
+import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2024-09-19
  */
 @Mapper
-public interface AutoCaseRoiMapper extends BaseMapper<AutoCaseRoi> {
+public interface AutoCaseRoiMapper extends BaseMapper<AutoCaseRoiEntity> {
 
 }

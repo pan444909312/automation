@@ -56,43 +56,43 @@ public class ChartDataTask {
         long yesterdayEnd = yesterdayStart + 60 * 60 * 24 * 1000;
 
         // 新增 自动化用例执行趋势表 数据
-        AutoCaseExecutionChart autoCaseExecutionChart = new AutoCaseExecutionChart();
+        AutoCaseExecutionChartEntity autoCaseExecutionChartEntity = new AutoCaseExecutionChartEntity();
 
-        QueryWrapper<AutoExecutionRecord> autoExecutionRecordQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<AutoExecutionRecordEntity> autoExecutionRecordQueryWrapper = new QueryWrapper<>();
         autoExecutionRecordQueryWrapper.ge("execution_time", yesterdayStart);
         autoExecutionRecordQueryWrapper.lt("execution_time", yesterdayEnd);
 
-        List<AutoExecutionRecord> autoExecutionRecordList = autoExecutionRecordService.list(autoExecutionRecordQueryWrapper);
-        List<AutoExecutionRecord> successList = autoExecutionRecordList.stream().filter(item -> item.getExecutionStatus() == 1).toList();
+        List<AutoExecutionRecordEntity> autoExecutionRecordList = autoExecutionRecordService.list(autoExecutionRecordQueryWrapper);
+        List<AutoExecutionRecordEntity> successList = autoExecutionRecordList.stream().filter(item -> item.getExecutionStatus() == 1).toList();
 
-        autoCaseExecutionChart.setExecutionCase(autoExecutionRecordList.size());
-        autoCaseExecutionChart.setExecutionSuccessTime(successList.size());
-        autoCaseExecutionChart.setExecutionFailTime(autoExecutionRecordList.size() - successList.size());
+        autoCaseExecutionChartEntity.setExecutionCase(autoExecutionRecordList.size());
+        autoCaseExecutionChartEntity.setExecutionSuccessTime(successList.size());
+        autoCaseExecutionChartEntity.setExecutionFailTime(autoExecutionRecordList.size() - successList.size());
 
-        autoCaseExecutionChartService.save(autoCaseExecutionChart);
+        autoCaseExecutionChartService.save(autoCaseExecutionChartEntity);
 
 
         // 新增 自动化用例增长趋势表 数据
-        AutoCaseIncreaseChart autoCaseIncreaseChart = new AutoCaseIncreaseChart();
+        AutoCaseIncreaseChartEntity autoCaseIncreaseChartEntity = new AutoCaseIncreaseChartEntity();
 
-        QueryWrapper<AutoCaseRoi> autoCaseRoiQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<AutoCaseRoiEntity> autoCaseRoiQueryWrapper = new QueryWrapper<>();
         autoCaseRoiQueryWrapper.ge("create_time",yesterdayStart);
         autoCaseRoiQueryWrapper.lt("create_time",yesterdayEnd);
 
-        List<AutoCaseRoi> autoCaseRoiList = autoCaseRoiService.list(autoCaseRoiQueryWrapper);
+        List<AutoCaseRoiEntity> autoCaseRoiEntityList = autoCaseRoiService.list(autoCaseRoiQueryWrapper);
 
-        autoCaseIncreaseChart.setIncreaseCase(autoCaseRoiList.size());
+        autoCaseIncreaseChartEntity.setIncreaseCase(autoCaseRoiEntityList.size());
 
-        autoCaseIncreaseChartService.save(autoCaseIncreaseChart);
+        autoCaseIncreaseChartService.save(autoCaseIncreaseChartEntity);
 
 
         // 新增 测试场景总ROI表 数据 todo
-        AutoCaseRoiChart autoCaseRoiChart = new AutoCaseRoiChart();
+        AutoCaseRoiChartEntity autoCaseRoiChartEntity = new AutoCaseRoiChartEntity();
 
-        autoCaseRoiChart.setCostTime(1L);
-        autoCaseRoiChart.setTimes(1);
-        autoCaseRoiChart.setSaveTime(1L);
-        autoCaseRoiChart.setExecutionType(1);
+        autoCaseRoiChartEntity.setCostTime(1L);
+        autoCaseRoiChartEntity.setTimes(1);
+        autoCaseRoiChartEntity.setSaveTime(1L);
+        autoCaseRoiChartEntity.setExecutionType(1);
 
 
 

@@ -1,4 +1,4 @@
-package com.miller.entity.report.vo;
+package com.miller.entity.report.resp;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2024/10/22 10:16
  */
 @Data
-public class AutoCaseExecutionRecordVO {
+public class AutoCaseExecutionRecordRespDTO {
     @Schema(description = "执行记录ID 自增")
     private Long id;
 

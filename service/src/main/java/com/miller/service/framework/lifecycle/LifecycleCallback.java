@@ -1,8 +1,8 @@
 package com.miller.service.framework.lifecycle;
 
-import com.miller.entity.report.AutoExecutionRecord;
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.service.data.entity.AutoCaseRoiLogEntity;
 import com.miller.service.data.sql.AutoCaseRoiLogSql;
 import com.miller.service.data.sql.AutoCaseRoiSql;
@@ -70,8 +70,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
             String scenarioId = scenario.scenarioID();
             ExecutionStatusEnum value  = scenarioResultMap.get(scenarioId);
-            AutoExecutionRecord autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
-            AutoExecutionRecord autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecordBySuite(scenarioId);
+            AutoExecutionRecordEntity autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
+            AutoExecutionRecordEntity autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecordBySuite(scenarioId);
             if(Objects.nonNull(autoExecutionRecord)){
                 autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
             }
@@ -214,7 +214,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         AutoCaseRoiLogEntity autoCaseRoiLogEntity = getAutoCaseRoiLog(autoCaseRoi);
         autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
 
-        AutoExecutionRecord autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity,executor);
+        AutoExecutionRecordEntity autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity,executor);
         autoExecutionRecordSql.saveAutoExecutionRecord(autoExecutionRecord);
 
     }
@@ -236,8 +236,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         autoCaseRoiLog.setCreateTime(System.currentTimeMillis());
         return autoCaseRoiLog;
     }
-    private AutoExecutionRecord getAutoExecutionRecord(AutoCaseRoiLogEntity autoCaseRoiLog,String executor){
-        AutoExecutionRecord autoExecutionRecord = new AutoExecutionRecord();
+    private AutoExecutionRecordEntity getAutoExecutionRecord(AutoCaseRoiLogEntity autoCaseRoiLog,String executor){
+        AutoExecutionRecordEntity autoExecutionRecord = new AutoExecutionRecordEntity();
         autoExecutionRecord.setScenarioId(autoCaseRoiLog.getScenarioId());
         autoExecutionRecord.setDevelopmentTime(autoCaseRoiLog.getDevelopmentTime());
         autoExecutionRecord.setManualTestTime(autoCaseRoiLog.getManualTestTime());

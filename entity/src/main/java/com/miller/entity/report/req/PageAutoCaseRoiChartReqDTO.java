@@ -1,4 +1,4 @@
-package com.miller.entity.dto;
+package com.miller.entity.report.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.List;
  * @since 2024/10/31 21:36
  */
 @Data
-public class PageAutoCaseRoiChartDTO {
+public class PageAutoCaseRoiChartReqDTO {
     @Schema(description = "分页页码")
     private int pageNo = 1;
     @Schema(description = "分页大小")

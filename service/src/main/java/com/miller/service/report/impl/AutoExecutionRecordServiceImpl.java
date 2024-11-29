@@ -3,11 +3,11 @@ package com.miller.service.report.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.entity.report.AutoExecutionRecord;
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
-import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
-import com.miller.entity.report.vo.AutoCaseExecutionRecordVO;
+import com.miller.entity.report.AutoExecutionRecordEntity;
+import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
 import com.miller.mapper.report.AutoExecutionRecordMapper;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.service.report.AutoExecutionRecordService;
@@ -29,7 +29,7 @@ import java.util.*;
  * @since 2024-10-10
  */
 @Service
-public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRecordMapper, AutoExecutionRecord> implements AutoExecutionRecordService {
+public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRecordMapper, AutoExecutionRecordEntity> implements AutoExecutionRecordService {
 
     @Autowired
     AutoExecutionRecordMapper autoExecutionRecordMapper;
@@ -38,23 +38,23 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
     AutoCaseRoiService autoCaseRoiService;
 
     @Override
-    public Map<String,Object> listAutoCase(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO){
-        IPage<AutoExecutionRecord> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordDTO.getPageNo(), pageAutoCaseExecutionRecordDTO.getPageSize());
-        QueryWrapper<AutoExecutionRecord> queryWrapper = new QueryWrapper<>();
+    public Map<String,Object> listAutoCase(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO){
+        IPage<AutoExecutionRecordEntity> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordReqDTO.getPageNo(), pageAutoCaseExecutionRecordReqDTO.getPageSize());
+        QueryWrapper<AutoExecutionRecordEntity> queryWrapper = new QueryWrapper<>();
 
-        String scenarioId = pageAutoCaseExecutionRecordDTO.getScenarioId();
-        Date executionStartTime = pageAutoCaseExecutionRecordDTO.getExecutionStartTime();
-        Date executionEndTime = pageAutoCaseExecutionRecordDTO.getExecutionEndTime();
-        List<String> executionUserList = pageAutoCaseExecutionRecordDTO.getExecutionUserList();
-        List<String> executionStatusList = pageAutoCaseExecutionRecordDTO.getExecutionStatusList();
-        List<String> executionTypeList = pageAutoCaseExecutionRecordDTO.getExecutionTypeList();
-        Integer orderBy = pageAutoCaseExecutionRecordDTO.getOrderBy();
-        Integer developmentTimeSymbol = pageAutoCaseExecutionRecordDTO.getDevelopmentTimeSymbol();
-        Integer maintenanceTimeSymbol = pageAutoCaseExecutionRecordDTO.getMaintenanceTimeSymbol();
-        Integer manualTestTimeSymbol = pageAutoCaseExecutionRecordDTO.getManualTestTimeSymbol();
-        Integer developmentTime = pageAutoCaseExecutionRecordDTO.getDevelopmentTime();
-        Integer maintenanceTime = pageAutoCaseExecutionRecordDTO.getMaintenanceTime();
-        Integer manualTestTime = pageAutoCaseExecutionRecordDTO.getManualTestTime();
+        String scenarioId = pageAutoCaseExecutionRecordReqDTO.getScenarioId();
+        Date executionStartTime = pageAutoCaseExecutionRecordReqDTO.getExecutionStartTime();
+        Date executionEndTime = pageAutoCaseExecutionRecordReqDTO.getExecutionEndTime();
+        List<String> executionUserList = pageAutoCaseExecutionRecordReqDTO.getExecutionUserList();
+        List<String> executionStatusList = pageAutoCaseExecutionRecordReqDTO.getExecutionStatusList();
+        List<String> executionTypeList = pageAutoCaseExecutionRecordReqDTO.getExecutionTypeList();
+        Integer orderBy = pageAutoCaseExecutionRecordReqDTO.getOrderBy();
+        Integer developmentTimeSymbol = pageAutoCaseExecutionRecordReqDTO.getDevelopmentTimeSymbol();
+        Integer maintenanceTimeSymbol = pageAutoCaseExecutionRecordReqDTO.getMaintenanceTimeSymbol();
+        Integer manualTestTimeSymbol = pageAutoCaseExecutionRecordReqDTO.getManualTestTimeSymbol();
+        Integer developmentTime = pageAutoCaseExecutionRecordReqDTO.getDevelopmentTime();
+        Integer maintenanceTime = pageAutoCaseExecutionRecordReqDTO.getMaintenanceTime();
+        Integer manualTestTime = pageAutoCaseExecutionRecordReqDTO.getManualTestTime();
 
         // 查询数据判断
         if (!StringUtils.isEmpty(scenarioId)){
@@ -113,38 +113,38 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         }
 
 
-        IPage<AutoExecutionRecord> page = autoExecutionRecordMapper.selectPage(autoExecutionRecordPage, queryWrapper);
-        List<AutoExecutionRecord> records = page.getRecords();
+        IPage<AutoExecutionRecordEntity> page = autoExecutionRecordMapper.selectPage(autoExecutionRecordPage, queryWrapper);
+        List<AutoExecutionRecordEntity> records = page.getRecords();
         long total = page.getTotal();
 
         // 数据组装
-        AutoCaseExecutionRecordVO autoCaseExecutionRecordVO;
-        ArrayList<AutoCaseExecutionRecordVO> autoCaseExecutionRecordVOS = new ArrayList<>();
-        for (AutoExecutionRecord record : records) {
-            autoCaseExecutionRecordVO = new AutoCaseExecutionRecordVO();
-            BeanUtils.copyProperties(record,autoCaseExecutionRecordVO);
-            autoCaseExecutionRecordVO.setExecutionStatusDesc(ExecutionStatusEnum.getValueByKey(record.getExecutionStatus()));
-            autoCaseExecutionRecordVO.setExecutionTypeDesc(ExecutionTypeEnum.getValueByKey(record.getExecutionType()));
-            autoCaseExecutionRecordVO.setExecutionTime(TimestampUtils.timestampToDateStr(record.getExecutionTime()));
+        AutoCaseExecutionRecordRespDTO autoCaseExecutionRecordRespDTO;
+        ArrayList<AutoCaseExecutionRecordRespDTO> autoCaseExecutionRecordRespDTOS = new ArrayList<>();
+        for (AutoExecutionRecordEntity record : records) {
+            autoCaseExecutionRecordRespDTO = new AutoCaseExecutionRecordRespDTO();
+            BeanUtils.copyProperties(record, autoCaseExecutionRecordRespDTO);
+            autoCaseExecutionRecordRespDTO.setExecutionStatusDesc(ExecutionStatusEnum.getValueByKey(record.getExecutionStatus()));
+            autoCaseExecutionRecordRespDTO.setExecutionTypeDesc(ExecutionTypeEnum.getValueByKey(record.getExecutionType()));
+            autoCaseExecutionRecordRespDTO.setExecutionTime(TimestampUtils.timestampToDateStr(record.getExecutionTime()));
 
-            autoCaseExecutionRecordVO.setScenarioName(autoCaseRoiService.getAutoCaseNameByScenarioId(record.getScenarioId()));
+            autoCaseExecutionRecordRespDTO.setScenarioName(autoCaseRoiService.getAutoCaseNameByScenarioId(record.getScenarioId()));
 
-            autoCaseExecutionRecordVOS.add(autoCaseExecutionRecordVO);
+            autoCaseExecutionRecordRespDTOS.add(autoCaseExecutionRecordRespDTO);
         }
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("total",total);
-        result.put("list",autoCaseExecutionRecordVOS);
+        result.put("list", autoCaseExecutionRecordRespDTOS);
         return result;
     }
 
 
     @Override
-    public  Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO){
-        Page<AutoExecutionRecord> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordDTO.getPageNo(), pageAutoCaseExecutionRecordDTO.getPageSize());
+    public  Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO){
+        Page<AutoExecutionRecordEntity> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordReqDTO.getPageNo(), pageAutoCaseExecutionRecordReqDTO.getPageSize());
 
-        Page<AutoExecutionRecord> autoExecutionRecordEntityPage = autoExecutionRecordMapper.selectPageByCondition(autoExecutionRecordPage,pageAutoCaseExecutionRecordDTO);
-        List<AutoExecutionRecord> records = autoExecutionRecordEntityPage.getRecords();
+        Page<AutoExecutionRecordEntity> autoExecutionRecordEntityPage = autoExecutionRecordMapper.selectPageByCondition(autoExecutionRecordPage, pageAutoCaseExecutionRecordReqDTO);
+        List<AutoExecutionRecordEntity> records = autoExecutionRecordEntityPage.getRecords();
         long total = autoExecutionRecordEntityPage.getTotal();
 
         HashMap<String, Object> result = new HashMap<>();

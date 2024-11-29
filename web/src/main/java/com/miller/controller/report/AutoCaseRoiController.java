@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.common.util.Response;
 import com.miller.common.util.ULIDUtils;
-import com.miller.entity.report.AutoCaseRoi;
+import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.constant.SortEnum;
-import com.miller.entity.dto.AddAutoCaseRoiDTO;
-import com.miller.entity.dto.PageAutoCaseRoiDTO;
-import com.miller.entity.report.vo.AutoCaseRoiVO;
+import com.miller.entity.report.req.AddAutoCaseRoiReqDTO;
+import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
+import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.service.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,23 +41,23 @@ public class AutoCaseRoiController {
     /**
      * 分页查询自动化用例roi数据
      *
-     * @param pageAutoCaseRoiDto
+     * @param pageAutoCaseRoiReqDto
      * @return
      */
     @Operation(description = "分页查询自动化用例roi数据")
     @PostMapping("/list")
-    public Map<String, Object> listAutoCase(@RequestBody PageAutoCaseRoiDTO pageAutoCaseRoiDto) {
-        System.out.println(pageAutoCaseRoiDto);
-        Page<AutoCaseRoi> autoCaseRoiVoPage = new Page<>(pageAutoCaseRoiDto.getPageNo(), pageAutoCaseRoiDto.getPageSize());
-        QueryWrapper<AutoCaseRoi> queryWrapper = new QueryWrapper<>();
-        String executionUser = pageAutoCaseRoiDto.getExecutionUser();
-        String scenarioIdOrName = pageAutoCaseRoiDto.getScenarioIdOrName();
-        Date createStartTime = pageAutoCaseRoiDto.getCreateStartTime();
-        Date createEndTime = pageAutoCaseRoiDto.getCreateEndTime();
-        Date updateStartTime = pageAutoCaseRoiDto.getUpdateStartTime();
-        Date updateEndTime = pageAutoCaseRoiDto.getUpdateEndTime();
-        Integer orderBy = pageAutoCaseRoiDto.getOrderBy();
-        Integer sort = pageAutoCaseRoiDto.getSort();
+    public Map<String, Object> listAutoCase(@RequestBody PageAutoCaseRoiReqDTO pageAutoCaseRoiReqDto) {
+        System.out.println(pageAutoCaseRoiReqDto);
+        Page<AutoCaseRoiEntity> autoCaseRoiVoPage = new Page<>(pageAutoCaseRoiReqDto.getPageNo(), pageAutoCaseRoiReqDto.getPageSize());
+        QueryWrapper<AutoCaseRoiEntity> queryWrapper = new QueryWrapper<>();
+        String executionUser = pageAutoCaseRoiReqDto.getExecutionUser();
+        String scenarioIdOrName = pageAutoCaseRoiReqDto.getScenarioIdOrName();
+        Date createStartTime = pageAutoCaseRoiReqDto.getCreateStartTime();
+        Date createEndTime = pageAutoCaseRoiReqDto.getCreateEndTime();
+        Date updateStartTime = pageAutoCaseRoiReqDto.getUpdateStartTime();
+        Date updateEndTime = pageAutoCaseRoiReqDto.getUpdateEndTime();
+        Integer orderBy = pageAutoCaseRoiReqDto.getOrderBy();
+        Integer sort = pageAutoCaseRoiReqDto.getSort();
         if (!StringUtils.isEmpty(executionUser)) {
             queryWrapper.eq("execution_user", executionUser);
         }
@@ -84,14 +84,14 @@ public class AutoCaseRoiController {
         }
 
 
-        Page<AutoCaseRoi> page = autoCaseRoiService.page(autoCaseRoiVoPage, queryWrapper);
+        Page<AutoCaseRoiEntity> page = autoCaseRoiService.page(autoCaseRoiVoPage, queryWrapper);
 
-        List<AutoCaseRoi> records = page.getRecords();
+        List<AutoCaseRoiEntity> records = page.getRecords();
         long total = page.getTotal();
-        if (pageAutoCaseRoiDto.getIsRepeat() == 0) {
+        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0) {
             records = new ArrayList<>(records.stream()
                     .collect(Collectors.toMap(
-                            AutoCaseRoi::getScenarioName, // 指定用作键的属性（这里是id）
+                            AutoCaseRoiEntity::getScenarioName, // 指定用作键的属性（这里是id）
                             Function.identity(), // 使用对象本身作为值
                             (existing, replacement) -> existing // 如果有重复，保留现有的（或选择replacement）
                     ))
@@ -99,21 +99,21 @@ public class AutoCaseRoiController {
         }
 
 
-        ArrayList<AutoCaseRoiVO> autoCaseRoiVoList = new ArrayList<>();
-        AutoCaseRoiVO autoCaseRoiVo;
-        for (AutoCaseRoi record : records) {
-            autoCaseRoiVo = new AutoCaseRoiVO();
-            BeanUtils.copyProperties(record, autoCaseRoiVo);
-            autoCaseRoiVo.setCreateTime(TimestampUtils.timestampToDateStr(record.getCreateTime()));
-            autoCaseRoiVo.setUpdateTime(TimestampUtils.timestampToDateStr(record.getUpdateTime()));
+        ArrayList<AutoCaseRoiRespDTO> autoCaseRoiRespDTOList = new ArrayList<>();
+        AutoCaseRoiRespDTO autoCaseRoiRespDTO;
+        for (AutoCaseRoiEntity record : records) {
+            autoCaseRoiRespDTO = new AutoCaseRoiRespDTO();
+            BeanUtils.copyProperties(record, autoCaseRoiRespDTO);
+            autoCaseRoiRespDTO.setCreateTime(TimestampUtils.timestampToDateStr(record.getCreateTime()));
+            autoCaseRoiRespDTO.setUpdateTime(TimestampUtils.timestampToDateStr(record.getUpdateTime()));
 
-            autoCaseRoiVoList.add(autoCaseRoiVo);
+            autoCaseRoiRespDTOList.add(autoCaseRoiRespDTO);
         }
 
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("total", total);
-        result.put("list", autoCaseRoiVoList);
+        result.put("list", autoCaseRoiRespDTOList);
 
         return result;
     }
@@ -122,15 +122,15 @@ public class AutoCaseRoiController {
     /**
      * 调试造数据用
      *
-     * @param addAutoCaseRoiDTO
+     * @param addAutoCaseRoiReqDTO
      * @return
      */
     @Operation(description = "添加roi")
     @PostMapping("/add")
-    public Response<List<AutoCaseRoi>> addAutoCaseRoi(@RequestBody AddAutoCaseRoiDTO addAutoCaseRoiDTO) {
-        AutoCaseRoi autoCaseRoi = new AutoCaseRoi();
-        BeanUtils.copyProperties(addAutoCaseRoiDTO, autoCaseRoi);
-        autoCaseRoiService.save(autoCaseRoi);
+    public Response<List<AutoCaseRoiEntity>> addAutoCaseRoi(@RequestBody AddAutoCaseRoiReqDTO addAutoCaseRoiReqDTO) {
+        AutoCaseRoiEntity autoCaseRoiEntity = new AutoCaseRoiEntity();
+        BeanUtils.copyProperties(addAutoCaseRoiReqDTO, autoCaseRoiEntity);
+        autoCaseRoiService.save(autoCaseRoiEntity);
 
         return Response.success(null);
     }

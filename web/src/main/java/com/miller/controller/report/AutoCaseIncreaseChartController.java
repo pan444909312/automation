@@ -2,10 +2,10 @@ package com.miller.controller.report;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.entity.report.AutoCaseChartFutureData;
-import com.miller.entity.report.AutoCaseIncreaseChart;
-import com.miller.entity.dto.PageAutoCaseIncreaseChartDTO;
-import com.miller.entity.report.vo.AutoCaseIncreaseChartVO;
+import com.miller.entity.report.AutoCaseChartFutureDataEntity;
+import com.miller.entity.report.req.PageAutoCaseIncreaseChartReqDTO;
+import com.miller.entity.report.AutoCaseIncreaseChartEntity;
+import com.miller.entity.report.resp.AutoCaseIncreaseChartRespDTO;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseIncreaseChartService;
 import com.miller.service.util.TimestampUtils;
@@ -40,14 +40,14 @@ public class AutoCaseIncreaseChartController {
 
     @Operation(description = "分页查询自动化用例新增数据")
     @PostMapping("/list")
-    public Map<String,Object> listAutoCaseIncreaseChart(@RequestBody PageAutoCaseIncreaseChartDTO pageAutoCaseIncreaseChartDTO){
+    public Map<String,Object> listAutoCaseIncreaseChart(@RequestBody PageAutoCaseIncreaseChartReqDTO pageAutoCaseIncreaseChartReqDTO){
 
-        int pageNo = pageAutoCaseIncreaseChartDTO.getPageNo();
-        int pageSize = pageAutoCaseIncreaseChartDTO.getPageSize();
-        Date createEndTime = pageAutoCaseIncreaseChartDTO.getCreateEndTime();
-        Date createStartTime = pageAutoCaseIncreaseChartDTO.getCreateStartTime();
-        Page<AutoCaseIncreaseChart> page = new Page<>(pageNo, pageSize);
-        QueryWrapper<AutoCaseIncreaseChart> queryWrapper = new QueryWrapper<>();
+        int pageNo = pageAutoCaseIncreaseChartReqDTO.getPageNo();
+        int pageSize = pageAutoCaseIncreaseChartReqDTO.getPageSize();
+        Date createEndTime = pageAutoCaseIncreaseChartReqDTO.getCreateEndTime();
+        Date createStartTime = pageAutoCaseIncreaseChartReqDTO.getCreateStartTime();
+        Page<AutoCaseIncreaseChartEntity> page = new Page<>(pageNo, pageSize);
+        QueryWrapper<AutoCaseIncreaseChartEntity> queryWrapper = new QueryWrapper<>();
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
@@ -56,28 +56,28 @@ public class AutoCaseIncreaseChartController {
         }
         queryWrapper.orderByDesc("create_time");
 
-        Page<AutoCaseIncreaseChart> autoCaseIncreaseChartPage = autoCaseIncreaseChartService.page(page, queryWrapper);
+        Page<AutoCaseIncreaseChartEntity> autoCaseIncreaseChartPage = autoCaseIncreaseChartService.page(page, queryWrapper);
 
-        List<AutoCaseIncreaseChart> records = autoCaseIncreaseChartPage.getRecords();
+        List<AutoCaseIncreaseChartEntity> records = autoCaseIncreaseChartPage.getRecords();
         long total = autoCaseIncreaseChartPage.getTotal();
 
-        LinkedList<AutoCaseIncreaseChartVO> list = new LinkedList<>();
-        AutoCaseIncreaseChartVO autoCaseIncreaseChartVO;
+        LinkedList<AutoCaseIncreaseChartRespDTO> list = new LinkedList<>();
+        AutoCaseIncreaseChartRespDTO autoCaseIncreaseChartRespDTO;
 
-        for (AutoCaseIncreaseChart record : records) {
-            autoCaseIncreaseChartVO = new AutoCaseIncreaseChartVO();
-            autoCaseIncreaseChartVO.setRemarks(record.getRemarks());
-            autoCaseIncreaseChartVO.setIncreaseCase(record.getIncreaseCase());
-            autoCaseIncreaseChartVO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
-            list.add(autoCaseIncreaseChartVO);
+        for (AutoCaseIncreaseChartEntity record : records) {
+            autoCaseIncreaseChartRespDTO = new AutoCaseIncreaseChartRespDTO();
+            autoCaseIncreaseChartRespDTO.setRemarks(record.getRemarks());
+            autoCaseIncreaseChartRespDTO.setIncreaseCase(record.getIncreaseCase());
+            autoCaseIncreaseChartRespDTO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
+            list.add(autoCaseIncreaseChartRespDTO);
         }
 
         //未来日期数据处理
-        AutoCaseChartFutureData futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureData>()
+        AutoCaseChartFutureDataEntity futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureDataEntity>()
                 .eq("chart_type", 2)
                 .orderByDesc("future_time")
                 .last("limit 1"));
-        AutoCaseIncreaseChartVO futureVo = new AutoCaseIncreaseChartVO();
+        AutoCaseIncreaseChartRespDTO futureVo = new AutoCaseIncreaseChartRespDTO();
         futureVo.setIncreaseCase(futureData.getExpectedIncreaseCase());
         futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
         list.addFirst(futureVo);

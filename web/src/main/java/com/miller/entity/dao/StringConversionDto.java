@@ -1,4 +1,4 @@
-package com.miller.entity.dto;
+package com.miller.entity.dao;
 
 import lombok.Data;
 

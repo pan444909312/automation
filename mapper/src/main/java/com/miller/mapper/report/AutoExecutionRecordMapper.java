@@ -1,9 +1,9 @@
 package com.miller.mapper.report;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.entity.report.AutoExecutionRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
+import com.miller.entity.report.AutoExecutionRecordEntity;
+import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,10 +18,10 @@ import org.apache.ibatis.annotations.Param;
  */
 
 @Mapper
-public interface AutoExecutionRecordMapper extends BaseMapper<AutoExecutionRecord> {
+public interface AutoExecutionRecordMapper extends BaseMapper<AutoExecutionRecordEntity> {
 
 
-    Page<AutoExecutionRecord> selectPageByCondition(Page<?> page,@Param("req") PageAutoCaseExecutionRecordDTO req);
+    Page<AutoExecutionRecordEntity> selectPageByCondition(Page<?> page, @Param("req") PageAutoCaseExecutionRecordReqDTO req);
 
 
 }

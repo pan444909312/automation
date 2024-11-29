@@ -1,6 +1,6 @@
 package com.miller.controller.report;
 
-import com.miller.entity.dto.PageAutoCaseRoiChartDTO;
+import com.miller.entity.report.req.PageAutoCaseRoiChartReqDTO;
 import com.miller.service.report.AutoCaseRoiChartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,9 +31,9 @@ public class AutoCaseRoiChartController {
 
     @Operation(description = "分页查询场景总ROI报表")
     @PostMapping("/list")
-    public Map<String, Object> listAutoCaseRoiChart(@RequestBody PageAutoCaseRoiChartDTO pageAutoCaseRoiChartDTO) {
+    public Map<String, Object> listAutoCaseRoiChart(@RequestBody PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
 
-        Map<String, Object> autoCaseRoiChartList = autoCaseRoiChartService.getAutoCaseRoiChartList(pageAutoCaseRoiChartDTO);
+        Map<String, Object> autoCaseRoiChartList = autoCaseRoiChartService.getAutoCaseRoiChartList(pageAutoCaseRoiChartReqDTO);
 
         return autoCaseRoiChartList;
     }

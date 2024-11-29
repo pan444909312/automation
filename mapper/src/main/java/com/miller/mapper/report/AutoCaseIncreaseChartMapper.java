@@ -1,7 +1,7 @@
 package com.miller.mapper.report;
 
-import com.miller.entity.report.AutoCaseIncreaseChart;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.miller.entity.report.AutoCaseIncreaseChartEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2024-10-15
  */
 @Mapper
-public interface AutoCaseIncreaseChartMapper extends BaseMapper<AutoCaseIncreaseChart> {
+public interface AutoCaseIncreaseChartMapper extends BaseMapper<AutoCaseIncreaseChartEntity> {
 
 }

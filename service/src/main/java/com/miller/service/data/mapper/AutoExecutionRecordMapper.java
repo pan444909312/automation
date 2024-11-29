@@ -1,7 +1,8 @@
 package com.miller.service.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.miller.entity.report.AutoExecutionRecord;
+import com.miller.entity.report.AutoExecutionRecordEntity;
 
-public interface AutoExecutionRecordMapper extends BaseMapper<AutoExecutionRecord> {
+
+public interface AutoExecutionRecordMapper extends BaseMapper<AutoExecutionRecordEntity> {
 }

@@ -1,7 +1,7 @@
 package com.miller.service.report;
 
-import com.miller.entity.report.AutoCaseIncreaseChart;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.miller.entity.report.AutoCaseIncreaseChartEntity;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author panjuxiang
  * @since 2024-10-15
  */
-public interface AutoCaseIncreaseChartService extends IService<AutoCaseIncreaseChart> {
+public interface AutoCaseIncreaseChartService extends IService<AutoCaseIncreaseChartEntity> {
 
 }

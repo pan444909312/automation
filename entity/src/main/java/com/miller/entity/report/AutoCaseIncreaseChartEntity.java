@@ -10,16 +10,16 @@ import lombok.Data;
 
 /**
  * <p>
- * 自动化用例执行趋势表
+ * 自动化用例增长趋势表
  * </p>
  *
  * @author panjuxiang
  * @since 2024-10-15
  */
 @Data
-@TableName("auto_case_execution_chart")
-@Schema(name = "AutoCaseExecutionChart", description = "自动化用例执行趋势表")
-public class AutoCaseExecutionChart implements Serializable {
+@TableName("auto_case_increase_chart")
+@Schema(name = "AutoCaseIncreaseChartEntity", description = "自动化用例增长趋势表")
+public class AutoCaseIncreaseChartEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,17 +27,17 @@ public class AutoCaseExecutionChart implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @Schema(description = "执行用例数")
-    @TableField("execution_case")
-    private Integer executionCase;
+    @Schema(description = "新增用例数")
+    @TableField("increase_case")
+    private Integer increaseCase;
 
-    @Schema(description = "执行成功数量")
-    @TableField("execution_success_time")
-    private Integer executionSuccessTime;
+    @Schema(description = "总开发成本")
+    @TableField("development_time")
+    private Integer developmentTime;
 
-    @Schema(description = "执行失败数量")
-    @TableField("execution_fail_time")
-    private Integer executionFailTime;
+    @Schema(description = "总手工测试成本")
+    @TableField("manual_test_time")
+    private Integer manualTestTime;
 
     @Schema(description = "备注")
     @TableField("remarks")

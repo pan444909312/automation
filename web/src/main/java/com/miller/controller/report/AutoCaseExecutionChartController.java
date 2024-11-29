@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.common.util.BasePageResponse;
 import com.miller.common.util.Response;
-import com.miller.entity.report.AutoCaseChartFutureData;
-import com.miller.entity.report.AutoCaseExecutionChart;
-import com.miller.entity.dto.PageAutoCaseExecutionChartDTO;
-import com.miller.entity.report.vo.AutoCaseExecutionChartVO;
+import com.miller.entity.report.AutoCaseChartFutureDataEntity;
+import com.miller.entity.report.AutoCaseExecutionChartEntity;
+import com.miller.entity.report.req.PageAutoCaseExecutionChartReqDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionChartRespDTO;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseExecutionChartService;
 import com.miller.service.util.TimestampUtils;
@@ -48,15 +48,15 @@ public class AutoCaseExecutionChartController {
     @ApiResponse(
             responseCode = "200",
             description = "OK",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutoCaseExecutionChartVO.class)))
-    public Response<BasePageResponse<AutoCaseExecutionChartVO>> listAutoCaseExecutionChart(@RequestBody PageAutoCaseExecutionChartDTO pageAutoCaseExecutionChartDTO){
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutoCaseExecutionChartRespDTO.class)))
+    public Response<BasePageResponse<AutoCaseExecutionChartRespDTO>> listAutoCaseExecutionChart(@RequestBody PageAutoCaseExecutionChartReqDTO pageAutoCaseExecutionChartDTO){
 
         int pageNo = pageAutoCaseExecutionChartDTO.getPageNo();
         int pageSize = pageAutoCaseExecutionChartDTO.getPageSize();
         Date createEndTime = pageAutoCaseExecutionChartDTO.getCreateEndTime();
         Date createStartTime = pageAutoCaseExecutionChartDTO.getCreateStartTime();
-        Page<AutoCaseExecutionChart> page = new Page<>(pageNo, pageSize);
-        QueryWrapper<AutoCaseExecutionChart> queryWrapper = new QueryWrapper<>();
+        Page<AutoCaseExecutionChartEntity> page = new Page<>(pageNo, pageSize);
+        QueryWrapper<AutoCaseExecutionChartEntity> queryWrapper = new QueryWrapper<>();
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
@@ -65,35 +65,35 @@ public class AutoCaseExecutionChartController {
         }
         queryWrapper.orderByDesc("create_time");
 
-        Page<AutoCaseExecutionChart> autoCaseExecutionChartPage = autoCaseExecutionChartService.page(page, queryWrapper);
+        Page<AutoCaseExecutionChartEntity> autoCaseExecutionChartPage = autoCaseExecutionChartService.page(page, queryWrapper);
 
-        List<AutoCaseExecutionChart> records = autoCaseExecutionChartPage.getRecords();
+        List<AutoCaseExecutionChartEntity> records = autoCaseExecutionChartPage.getRecords();
         long total = autoCaseExecutionChartPage.getTotal();
 
-        LinkedList<AutoCaseExecutionChartVO> list = new LinkedList<>();
-        AutoCaseExecutionChartVO autoCaseExecutionChartVO;
+        LinkedList<AutoCaseExecutionChartRespDTO> list = new LinkedList<>();
+        AutoCaseExecutionChartRespDTO autoCaseExecutionChartRespDTO;
 
-        for (AutoCaseExecutionChart record : records) {
-            autoCaseExecutionChartVO = new AutoCaseExecutionChartVO();
-            autoCaseExecutionChartVO.setRemarks(record.getRemarks());
-            autoCaseExecutionChartVO.setExecutionCase(record.getExecutionCase());
-            autoCaseExecutionChartVO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
-            list.add(autoCaseExecutionChartVO);
+        for (AutoCaseExecutionChartEntity record : records) {
+            autoCaseExecutionChartRespDTO = new AutoCaseExecutionChartRespDTO();
+            autoCaseExecutionChartRespDTO.setRemarks(record.getRemarks());
+            autoCaseExecutionChartRespDTO.setExecutionCase(record.getExecutionCase());
+            autoCaseExecutionChartRespDTO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
+            list.add(autoCaseExecutionChartRespDTO);
         }
 
         //未来日期数据处理
-        AutoCaseChartFutureData futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureData>()
+        AutoCaseChartFutureDataEntity futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureDataEntity>()
                 .eq("chart_type", 3)
                 .orderByDesc("future_time")
                 .last("limit 1"));
-        AutoCaseExecutionChartVO futureVo = new AutoCaseExecutionChartVO();
+        AutoCaseExecutionChartRespDTO futureVo = new AutoCaseExecutionChartRespDTO();
         futureVo.setExecutionCase(futureData.getExpectedExecutionCase());
         futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
         list.addFirst(futureVo);
 
 
 //        HashMap<String, Object> result = new HashMap<>();
-        BasePageResponse<AutoCaseExecutionChartVO> response = new BasePageResponse<>(total,list);
+        BasePageResponse<AutoCaseExecutionChartRespDTO> response = new BasePageResponse<>(total,list);
 //        result.put("total",total);
 //        result.put("list",list);
 

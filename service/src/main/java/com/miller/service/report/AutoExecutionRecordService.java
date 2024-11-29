@@ -1,8 +1,8 @@
 package com.miller.service.report;
 
-import com.miller.entity.report.AutoExecutionRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
+import com.miller.entity.report.AutoExecutionRecordEntity;
+import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 
 import java.util.Map;
 
@@ -14,15 +14,15 @@ import java.util.Map;
  * @author panjuxiang
  * @since 2024-10-10
  */
-public interface AutoExecutionRecordService extends IService<AutoExecutionRecord> {
+public interface AutoExecutionRecordService extends IService<AutoExecutionRecordEntity> {
 
-    Map<String,Object> listAutoCase(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO);
+    Map<String,Object> listAutoCase(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO);
 
     /**
      * 已废弃
-     * @param pageAutoCaseExecutionRecordDTO
+     * @param pageAutoCaseExecutionRecordReqDTO
      * @return
      */
-    Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO);
+    Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO);
 
 }

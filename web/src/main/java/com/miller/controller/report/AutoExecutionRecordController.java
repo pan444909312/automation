@@ -1,8 +1,8 @@
 package com.miller.controller.report;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.miller.entity.report.AutoExecutionRecord;
-import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
+import com.miller.entity.report.AutoExecutionRecordEntity;
+import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import com.miller.service.report.AutoExecutionRecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,17 +30,17 @@ public class AutoExecutionRecordController {
 
     @Operation(description = "分页查询自动化用例执行记录,测试用")
     @PostMapping("/list-test")
-    public Map<String, Object> listAutoCaseForTest(@RequestBody PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO) {
+    public Map<String, Object> listAutoCaseForTest(@RequestBody PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO) {
 
-//        return autoExecutionRecordService.listAutoCase(pageAutoCaseExecutionRecordDTO);
-        return autoExecutionRecordService.listAutoCaseRecord(pageAutoCaseExecutionRecordDTO);
+//        return autoExecutionRecordService.listAutoCase(pageAutoCaseExecutionRecordReqDTO);
+        return autoExecutionRecordService.listAutoCaseRecord(pageAutoCaseExecutionRecordReqDTO);
     }
 
     @Operation(description = "分页查询自动化用例执行记录")
     @PostMapping("/list")
-    public Map<String, Object> listAutoCase(@RequestBody PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO) {
+    public Map<String, Object> listAutoCase(@RequestBody PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO) {
 
-        return autoExecutionRecordService.listAutoCase(pageAutoCaseExecutionRecordDTO);
+        return autoExecutionRecordService.listAutoCase(pageAutoCaseExecutionRecordReqDTO);
     }
 
     /**
@@ -53,7 +53,7 @@ public class AutoExecutionRecordController {
     @GetMapping("/getExecutionUserList")
     public Map<String, Object> getExecutionUserList() {
 
-        List<AutoExecutionRecord> autoExecutionRecordList = autoExecutionRecordService.list(new QueryWrapper<AutoExecutionRecord>().groupBy("execution_user"));
+        List<AutoExecutionRecordEntity> autoExecutionRecordList = autoExecutionRecordService.list(new QueryWrapper<AutoExecutionRecordEntity>().groupBy("execution_user"));
         ArrayList<String> executionUserList = new ArrayList<>();
         autoExecutionRecordList.forEach(item -> executionUserList.add(item.getExecutionUser()));
         Map<String, Object> result= new HashMap<>();

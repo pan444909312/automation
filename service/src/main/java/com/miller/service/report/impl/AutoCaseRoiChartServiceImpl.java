@@ -2,10 +2,10 @@ package com.miller.service.report.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.entity.report.AutoCaseChartFutureData;
-import com.miller.entity.report.AutoCaseRoiChart;
-import com.miller.entity.dto.PageAutoCaseRoiChartDTO;
-import com.miller.entity.report.vo.AutoCaseRoiChartVo;
+import com.miller.entity.report.AutoCaseChartFutureDataEntity;
+import com.miller.entity.report.AutoCaseRoiChartEntity;
+import com.miller.entity.report.req.PageAutoCaseRoiChartReqDTO;
+import com.miller.entity.report.resp.AutoCaseRoiChartRespDTO;
 import com.miller.mapper.report.AutoCaseRoiChartMapper;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseRoiChartService;
@@ -28,7 +28,7 @@ import java.util.*;
  * @since 2024-10-15
  */
 @Service
-public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMapper, AutoCaseRoiChart> implements AutoCaseRoiChartService {
+public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMapper, AutoCaseRoiChartEntity> implements AutoCaseRoiChartService {
 
     @Autowired
     AutoCaseRoiChartMapper autoCaseRoiChartMapper;
@@ -37,19 +37,19 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
     AutoCaseChartFutureDataService autoCaseChartFutureDataService;
 
     /**
-     * @param pageAutoCaseRoiChartDTO
+     * @param pageAutoCaseRoiChartReqDTO
      * @return
      */
     @Override
-    public Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartDTO pageAutoCaseRoiChartDTO) {
+    public Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
 
-        int pageNo = pageAutoCaseRoiChartDTO.getPageNo();
-        int pageSize = pageAutoCaseRoiChartDTO.getPageSize();
-        Page<AutoCaseRoiChart> page = new Page<>(pageNo, pageSize);
-        QueryWrapper<AutoCaseRoiChart> queryWrapper = new QueryWrapper<>();
-        Date createStartTime = pageAutoCaseRoiChartDTO.getCreateStartTime();
-        Date createEndTime = pageAutoCaseRoiChartDTO.getCreateEndTime();
-        List<Integer> executionTypeList = pageAutoCaseRoiChartDTO.getExecutionTypeList();
+        int pageNo = pageAutoCaseRoiChartReqDTO.getPageNo();
+        int pageSize = pageAutoCaseRoiChartReqDTO.getPageSize();
+        Page<AutoCaseRoiChartEntity> page = new Page<>(pageNo, pageSize);
+        QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<>();
+        Date createStartTime = pageAutoCaseRoiChartReqDTO.getCreateStartTime();
+        Date createEndTime = pageAutoCaseRoiChartReqDTO.getCreateEndTime();
+        List<Integer> executionTypeList = pageAutoCaseRoiChartReqDTO.getExecutionTypeList();
         //查询条件处理
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
@@ -63,29 +63,29 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         queryWrapper.orderByDesc("create_time");
 
 
-        Page<AutoCaseRoiChart> autoCaseRoiChartPage = autoCaseRoiChartMapper.selectPage(page, queryWrapper);
-        List<AutoCaseRoiChart> records = autoCaseRoiChartPage.getRecords();
+        Page<AutoCaseRoiChartEntity> autoCaseRoiChartPage = autoCaseRoiChartMapper.selectPage(page, queryWrapper);
+        List<AutoCaseRoiChartEntity> records = autoCaseRoiChartPage.getRecords();
         long total = autoCaseRoiChartPage.getTotal();
 
         //数据组装
-        LinkedList<AutoCaseRoiChartVo> autoCaseRoiChartVoList = new LinkedList<>();
-        AutoCaseRoiChartVo autoCaseRoiChartVo;
-        for (AutoCaseRoiChart record : records) {
-            autoCaseRoiChartVo = new AutoCaseRoiChartVo();
-            BeanUtils.copyProperties(record, autoCaseRoiChartVo);
+        LinkedList<AutoCaseRoiChartRespDTO> autoCaseRoiChartRespDTOList = new LinkedList<>();
+        AutoCaseRoiChartRespDTO autoCaseRoiChartRespDTO;
+        for (AutoCaseRoiChartEntity record : records) {
+            autoCaseRoiChartRespDTO = new AutoCaseRoiChartRespDTO();
+            BeanUtils.copyProperties(record, autoCaseRoiChartRespDTO);
 
             //节省人日 = 累计收益/60/8 , 四舍五入 保留3位小数
             BigDecimal bd = BigDecimal.valueOf(Double.parseDouble(String.valueOf(record.getSaveTime())) / 60 / 8);
             bd = bd.setScale(3, RoundingMode.HALF_UP);
             Double roundedValue = bd.doubleValue();
-            autoCaseRoiChartVo.setSavePersonDay(roundedValue);
+            autoCaseRoiChartRespDTO.setSavePersonDay(roundedValue);
 
-            autoCaseRoiChartVo.setCreateTime(TimestampUtils.timestampToDateStr(record.getCreateTime()));
-            autoCaseRoiChartVoList.add(autoCaseRoiChartVo);
+            autoCaseRoiChartRespDTO.setCreateTime(TimestampUtils.timestampToDateStr(record.getCreateTime()));
+            autoCaseRoiChartRespDTOList.add(autoCaseRoiChartRespDTO);
         }
 
         //未来日期数据处理
-        QueryWrapper<AutoCaseChartFutureData> autoCaseChartFutureDataQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataQueryWrapper = new QueryWrapper<>();
         autoCaseChartFutureDataQueryWrapper.eq("chart_type", 1);
         if (executionTypeList != null && !executionTypeList.isEmpty()) {
             autoCaseChartFutureDataQueryWrapper.in("execution_type", executionTypeList);
@@ -95,19 +95,19 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
             autoCaseChartFutureDataQueryWrapper.last("limit "+ executionTypeList.size());
         }
 
-        List<AutoCaseChartFutureData> autoCaseChartFutureDataList = autoCaseChartFutureDataService.list(autoCaseChartFutureDataQueryWrapper);
-        AutoCaseRoiChartVo futureVo = new AutoCaseRoiChartVo();
+        List<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataEntityList = autoCaseChartFutureDataService.list(autoCaseChartFutureDataQueryWrapper);
+        AutoCaseRoiChartRespDTO futureVo = new AutoCaseRoiChartRespDTO();
         long sum = 0L;
-        for (AutoCaseChartFutureData futureData : autoCaseChartFutureDataList) {
+        for (AutoCaseChartFutureDataEntity futureData : autoCaseChartFutureDataEntityList) {
             sum = sum + futureData.getExpectedSaveTime();
         }
         futureVo.setSaveTime(sum);
-        futureVo.setCreateTime(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataList.get(0).getFutureTime()));
-        autoCaseRoiChartVoList.addFirst(futureVo);
+        futureVo.setCreateTime(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
+        autoCaseRoiChartRespDTOList.addFirst(futureVo);
 
 
         Map<String, Object> result = new HashMap<>();
-        result.put("list", autoCaseRoiChartVoList);
+        result.put("list", autoCaseRoiChartRespDTOList);
         result.put("total", total);
         return result;
     }

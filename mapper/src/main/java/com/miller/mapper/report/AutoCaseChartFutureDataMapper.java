@@ -1,6 +1,6 @@
 package com.miller.mapper.report;
 
-import com.miller.entity.report.AutoCaseChartFutureData;
+import com.miller.entity.report.AutoCaseChartFutureDataEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2024-11-05
  */
 @Mapper
-public interface AutoCaseChartFutureDataMapper extends BaseMapper<AutoCaseChartFutureData> {
+public interface AutoCaseChartFutureDataMapper extends BaseMapper<AutoCaseChartFutureDataEntity> {
 
 }

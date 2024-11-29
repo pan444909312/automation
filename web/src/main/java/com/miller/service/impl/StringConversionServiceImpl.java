@@ -1,7 +1,7 @@
 package com.miller.service.impl;
 
 import com.miller.service.StringConversionService;
-import com.miller.entity.dto.StringConversionDto;
+import com.miller.entity.dao.StringConversionDto;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 

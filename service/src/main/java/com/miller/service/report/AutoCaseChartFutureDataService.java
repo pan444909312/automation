@@ -1,6 +1,6 @@
 package com.miller.service.report;
 
-import com.miller.entity.report.AutoCaseChartFutureData;
+import com.miller.entity.report.AutoCaseChartFutureDataEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author panjuxiang
  * @since 2024-11-05
  */
-public interface AutoCaseChartFutureDataService extends IService<AutoCaseChartFutureData> {
+public interface AutoCaseChartFutureDataService extends IService<AutoCaseChartFutureDataEntity> {
 
 }
