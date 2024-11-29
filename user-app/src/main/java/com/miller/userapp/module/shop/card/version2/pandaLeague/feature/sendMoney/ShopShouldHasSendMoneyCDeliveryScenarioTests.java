@@ -6,6 +6,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
@@ -37,15 +38,15 @@ public class ShopShouldHasSendMoneyCDeliveryScenarioTests {
     @MethodSource("DataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListPandaLeagueRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
-        Integer sendMoney =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getSendMoney).orElseThrow();
-        String sendMoneyMsg =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getSendMoneyMsg).orElseThrow();
+        ShopListResponseDTO ShopListResponseDto= ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
+        Integer sendMoney =ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getSendMoney).orElseThrow();
+        String sendMoneyMsg =ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getSendMoneyMsg).orElseThrow();
         assertThat(sendMoney).isEqualTo(210);
         assertThat(sendMoneyMsg).isEqualTo("配送¥2.1起");}
+    /**
+     * 测试用例数据提供者
+     */
     static Stream<Arguments> DataProvider() {
-        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
-        // 可以不用传参数
-        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }

@@ -9,6 +9,7 @@ import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.CityFunctionConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
@@ -49,15 +50,15 @@ public class ShopShouldHasMonthlySalesScenarioTests {
     @MethodSource("DataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListPandaLeagueRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
-        String monthlySales =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopMonthlySales).orElseThrow();
+        ShopListResponseDTO ShopListResponseDto= ShopListPandaLeagueFlow.getShopList(ShopListRequestdto);
+        String monthlySales =ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopMonthlySales).orElseThrow();
         assertThat(monthlySales).isEqualTo("月售6000+");
     }
+    /**
+     * 测试用例数据提供者
+     */
     static Stream<Arguments> DataProvider() {
-        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
-        // 可以不用传参数
-        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 
 }
