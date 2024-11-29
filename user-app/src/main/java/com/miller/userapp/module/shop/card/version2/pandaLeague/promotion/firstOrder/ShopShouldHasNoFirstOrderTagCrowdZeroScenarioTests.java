@@ -32,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF9", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群"
+@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF9", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-不展示：非人群"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-不展示：非人群")
 public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
@@ -64,7 +64,7 @@ public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
                 new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,0)
         );
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-不展示：非人群")
     @MethodSource("DataProvider")
     @ParameterizedTest
     void hasNoFirstOrderTagCrowdZero(ShopListPandaLeagueRequestDTO ShopListRequestdto){

@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRAJTXHNQ5TJQDPDZ1K", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-首页-商卡二期：月售"
+@Scenario(scenarioID = "01JDR9SSRAJTXHNQ5TJQDPDZ1K", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-熊猫联盟频道-商卡二期：月售"
         , developmentTime = 5, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-首页-商卡二期：月售")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-熊猫联盟频道-商卡二期：月售")
 public class ShopShouldHasMonthlySalesScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -46,7 +46,7 @@ public class ShopShouldHasMonthlySalesScenarioTests {
         );
 
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-首页-商卡二期：月售")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-熊猫联盟频道-商卡二期：月售")
     @MethodSource("DataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListPandaLeagueRequestDTO ShopListRequestdto){

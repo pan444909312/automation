@@ -23,9 +23,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRCPFQ00ECRA2RG74G0", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-首页-商卡二期：类目"
+@Scenario(scenarioID = "01JDR9SSRCPFQ00ECRA2RG74G0", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目"
         , developmentTime = 10, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-首页-商卡二期：类目")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目")
 public class ShopShouldHasCategoryNameScenarioTests {
 
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.blank.compare.shopId"));
@@ -35,7 +35,7 @@ public class ShopShouldHasCategoryNameScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-首页-商卡二期：类目")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目")
     @MethodSource("DataProvider")
     @ParameterizedTest()
     void hasCategoryName(ShopListPandaLeagueRequestDTO shopListRequestDTO) {

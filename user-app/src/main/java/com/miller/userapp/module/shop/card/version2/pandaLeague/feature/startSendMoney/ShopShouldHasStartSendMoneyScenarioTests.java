@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.pandaLeague.feature.categoryName;
+package com.miller.userapp.module.shop.card.version2.pandaLeague.feature.startSendMoney;
 
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
@@ -23,28 +23,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRCPFQ00ECRA2RG74G1", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目 - 无数据"
-        , developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目 - 无数据")
-public class ShopShouldNotHasCategoryNameScenarioTests {
+@Scenario(scenarioID = "01JDR9SSRCPFQ00ECRA2RG74GC", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-起送价-熊猫联盟频道-商卡二期：起送价"
+        , developmentTime = 5, maintenanceTime = 0, manualTestTime = 15)
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-起送价-熊猫联盟频道-商卡二期：起送价")
+public class ShopShouldHasStartSendMoneyScenarioTests {
 
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.blank.02.compare.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目 - 无数据")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-起送价-熊猫联盟频道-商卡二期：起送价")
     @MethodSource("DataProvider")
     @ParameterizedTest()
-    void hasCategoryName(ShopListPandaLeagueRequestDTO shopListRequestDTO) {
+    void hasStartSendMoney(ShopListPandaLeagueRequestDTO shopListRequestDTO) {
         ShopListResponseDTO shopListResponseDTO = ShopListPandaLeagueFlow.getShopList(shopListRequestDTO);
-        String merchantCategoryName = shopListResponseDTO.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getMerchantCategoryName).orElseThrow();
-        Integer merchantCategoryId = shopListResponseDTO.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getMerchantCategoryId).orElseThrow();
-        assertThat(merchantCategoryName).isEqualTo("");
-        assertThat(merchantCategoryId).isEqualTo(0);
-
+        Integer startSendMoney = shopListResponseDTO.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getStartSendMoney).orElseThrow();
+        assertThat(startSendMoney).isEqualTo(1010);
     }
     /**
      * 测试用例数据提供者
@@ -53,3 +50,4 @@ public class ShopShouldNotHasCategoryNameScenarioTests {
         return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }
+

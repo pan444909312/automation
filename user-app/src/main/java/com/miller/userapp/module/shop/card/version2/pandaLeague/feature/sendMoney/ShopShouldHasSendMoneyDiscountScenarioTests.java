@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDEZ", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-首页-商卡二期：运费减免优惠"
+@Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDEZ", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-熊猫联盟频道-商卡二期：运费减免优惠"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-首页-商卡二期：运费减免优惠")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-熊猫联盟频道-商卡二期：运费减免优惠")
 public class ShopShouldHasSendMoneyDiscountScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.blank.compare.shopId"));
@@ -46,7 +46,7 @@ public class ShopShouldHasSendMoneyDiscountScenarioTests {
         );
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-首页-商卡二期：运费减免优惠")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-运费减免优惠-熊猫联盟频道-商卡二期：运费减免优惠")
     @MethodSource("DataProvider")
     @ParameterizedTest
     void hasSendMoneyDiscountInfo(ShopListPandaLeagueRequestDTO ShopListRequestdto) {
