@@ -1,7 +1,7 @@
-package com.miller.service.data.sql;
+package com.miller.service.framework.report.sql;
 
-import com.miller.service.data.entity.AutoCaseRoiLogEntity;
-import com.miller.service.data.mapper.AutoCaseRoiLogMapper;
+import com.miller.service.framework.report.entity.AutoCaseRoiLogEntity;
+import com.miller.service.framework.report.mapper.AutoCaseRoiLogMapper;
 import org.apache.ibatis.session.SqlSession;
 
 public class AutoCaseRoiLogSql {

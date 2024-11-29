@@ -1,4 +1,4 @@
-package com.miller.service.data.sql;
+package com.miller.service.framework.report.sql;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.miller.entity.report.AutoExecutionRecordEntity;
-import com.miller.service.data.mapper.AutoExecutionRecordMapper;
+import com.miller.service.framework.report.mapper.AutoExecutionRecordMapper;
 import org.apache.ibatis.session.SqlSession;
 
 public class AutoExecutionRecordSql {

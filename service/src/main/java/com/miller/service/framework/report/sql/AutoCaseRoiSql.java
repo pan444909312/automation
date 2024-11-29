@@ -1,11 +1,11 @@
-package com.miller.service.data.sql;
+package com.miller.service.framework.report.sql;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.miller.service.data.entity.AutoCaseRoiEntity;
-import com.miller.service.data.mapper.AutoCaseRoiMapper;
+import com.miller.service.framework.report.entity.AutoCaseRoiEntity;
+import com.miller.service.framework.report.mapper.AutoCaseRoiMapper;
 import org.apache.ibatis.session.SqlSession;
 
 public class AutoCaseRoiSql {

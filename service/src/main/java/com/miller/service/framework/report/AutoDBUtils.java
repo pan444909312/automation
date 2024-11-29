@@ -1,16 +1,22 @@
-package com.miller.service.util;
+package com.miller.service.framework.report;
 
 import com.miller.service.framework.db.mybatis.DataSourceConfig;
 import com.miller.service.framework.db.mybatis.MyBatisPlusConfig;
 import com.miller.service.framework.util.PropertiesUtils;
 import org.apache.ibatis.session.SqlSession;
 
+/**
+ * 获取数据库链接
+ *
+ * @author Miller Shan
+ * @version 1.0
+ * @since 2024/11/29 17:01:01
+ */
 public class AutoDBUtils {
     private static SqlSession sqlSessionOfAutomation;
 
-
     /**
-     * 获取数据库链接 “panda_test" 库
+     * 获取数据库链接 “automation" 库
      *
      * @return SqlSession
      */

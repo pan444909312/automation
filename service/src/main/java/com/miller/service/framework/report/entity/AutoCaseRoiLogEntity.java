@@ -1,4 +1,4 @@
-package com.miller.service.data.entity;
+package com.miller.service.framework.report.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -9,6 +9,13 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * 自动化测试执行记录日志  TODO 待伟哥确认是否还有使用的必要，是否可以和"AutoExecutionRecord" "自动化用例执行记录表" 合并)
+ *
+ * @author Miller Shan
+ * @version 1.0
+ * @since 2024/11/29 19:06:06
+ */
 @Data
 @TableName("auto_case_roi_log")
 public class AutoCaseRoiLogEntity implements Serializable {

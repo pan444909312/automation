@@ -1,4 +1,4 @@
-package com.miller.service.data.mapper;
+package com.miller.service.framework.report.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.miller.entity.report.AutoExecutionRecordEntity;
