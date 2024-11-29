@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
+ * 已废弃
  * @author panjuxiang
  * @since 2024/10/23 17:52
  */

@@ -13,8 +13,6 @@ import java.util.Date;
 @Data
 public class AutoCaseIncreaseChartVO {
 
-
-
     @Schema(description = "新增用例数")
     @TableField("increase_case")
     private Integer increaseCase;

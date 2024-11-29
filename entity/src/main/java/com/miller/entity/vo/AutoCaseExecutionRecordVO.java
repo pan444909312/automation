@@ -19,7 +19,7 @@ public class AutoCaseExecutionRecordVO {
 
     @Schema(description = "执行策略 1:日常巡检;2:质量保证;3:效率提升")
     @TableField("execution_type")
-    private String executionType;
+    private Integer executionType;
 
     @Schema(description = "执行策略 1:日常巡检;2:质量保证;3:效率提升")
     private String executionTypeDesc;
@@ -29,7 +29,7 @@ public class AutoCaseExecutionRecordVO {
 
     @Schema(description = "执行结果 -1:执行异常;1:执行成功;2:执行失败")
     @TableField("execution_status")
-    private String executionStatus;
+    private Integer executionStatus;
 
     @Schema(description = "执行结果 -1:执行异常;1:执行成功;2:执行失败")
     private String executionStatusDesc;

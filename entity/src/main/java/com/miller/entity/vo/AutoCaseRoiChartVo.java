@@ -30,7 +30,7 @@ public class AutoCaseRoiChartVo {
     private String roi;
 
     @Schema(description = "执行策略 0:所有策略 1:日常巡检;2:质量保证;3:效率提升")
-    private String executionType;
+    private Integer executionType;
 
     @Schema(description = "节省人日")
     private Double savePersonDay;

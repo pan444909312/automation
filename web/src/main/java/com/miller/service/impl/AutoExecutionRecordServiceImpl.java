@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.entity.AutoCaseRoi;
 import com.miller.entity.AutoExecutionRecord;
-import com.miller.entity.AutoExecutionRecordEntity;
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.dto.PageAutoCaseExecutionRecordDTO;
@@ -145,8 +144,8 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
     public  Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordDTO pageAutoCaseExecutionRecordDTO){
         Page<AutoExecutionRecord> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordDTO.getPageNo(), pageAutoCaseExecutionRecordDTO.getPageSize());
 
-        Page<AutoExecutionRecordEntity> autoExecutionRecordEntityPage = autoExecutionRecordMapper.selectPageByCondition(autoExecutionRecordPage,pageAutoCaseExecutionRecordDTO);
-        List<AutoExecutionRecordEntity> records = autoExecutionRecordEntityPage.getRecords();
+        Page<AutoExecutionRecord> autoExecutionRecordEntityPage = autoExecutionRecordMapper.selectPageByCondition(autoExecutionRecordPage,pageAutoCaseExecutionRecordDTO);
+        List<AutoExecutionRecord> records = autoExecutionRecordEntityPage.getRecords();
         long total = autoExecutionRecordEntityPage.getTotal();
 
         HashMap<String, Object> result = new HashMap<>();

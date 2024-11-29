@@ -38,6 +38,9 @@ public class AutoCaseChartFutureData implements Serializable {
     @TableField("chart_type")
     private Integer chartType;
 
+    @Schema(description = "执行策略 1:日常巡检;2:质量保证;3:效率提升")
+    private Integer executionType;
+
     @Schema(description = "预计累计收益")
     @TableField("expected_save_time")
     private Long expectedSaveTime;

@@ -31,7 +31,7 @@ public class AutoCaseRoiVO {
     private Integer times;
 
     @Schema(description = "总节省成本")
-    private Integer saveTime;
+    private long saveTime;
 
     @Schema(description = "场景ROI")
     private String roi;
