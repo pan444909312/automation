@@ -15,4 +15,5 @@ public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
 
     String getAutoCaseNameByScenarioId(String scenarioId);
 
+    boolean saveOrUpdate(AutoCaseRoiEntity entity);
 }

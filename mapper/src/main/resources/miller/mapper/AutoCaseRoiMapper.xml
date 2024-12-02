@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miller.mapper.report.AutoCaseRoiMapper">
 
+    <select id="findByScenarioId"  resultType="com.miller.entity.report.AutoCaseRoiEntity">
+        select * from auto_case_roi where scenario_id= #{scenarioId} limit 1
+    </select>
+
+
 </mapper>

@@ -29,7 +29,7 @@ public class AutoCaseRoiLogEntity implements Serializable {
 
     @Schema(description = "总节省成本")
     @TableField("save_time")
-    private Integer saveTime;
+    private Long saveTime;
 
     @Schema(description = "场景ROI")
     @TableField("roi")
