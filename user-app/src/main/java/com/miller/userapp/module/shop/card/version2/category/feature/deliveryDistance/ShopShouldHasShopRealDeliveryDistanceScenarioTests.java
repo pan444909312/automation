@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/9/26 10:57
  */
 @Scenario(scenarioID = "01J8MFQJYPKS8X8R4MENRKGDFX",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -66,7 +66,7 @@ public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
 
     @MethodSource("DataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重 ")
+    @DisplayName("普通店铺配送商卡-品类频道_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重 ")
     void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         String distance= shopList.getResult().getShopList().stream()

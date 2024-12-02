@@ -84,8 +84,8 @@ public class ShopShouldHasDiscountCouponScenarioTests {
 
       assertThat(shopPromoteVO.getShowContent())
               .isNotEmpty()
-              .containsIgnoringCase("1.1折无门槛")
-              .isNullOrEmpty();
+              .containsIgnoringCase("1.1折无门槛");
+//              .isNullOrEmpty();
 
 
    }

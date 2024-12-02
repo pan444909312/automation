@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/9/25 19:39
  */
 @Scenario(scenarioID = "01J8MFQJYPKS8X8R4MENRKGDFY",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -60,7 +60,7 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
 
    @MethodSource("DataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离 ")
+   @DisplayName("普通店铺配送商卡-品类频道_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
       RequestUtils.getHeaders().put("Content-Type", "application/json");
       RequestUtils.getHeaders().put("latitude", "29.7514799");
