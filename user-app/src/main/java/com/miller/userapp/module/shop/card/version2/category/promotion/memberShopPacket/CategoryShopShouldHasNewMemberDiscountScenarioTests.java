@@ -18,8 +18,6 @@ import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version2.category.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.category.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.category.response.ShopListResponseDTO;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,13 +28,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01JDKG1504FRWNTVP3V14S5NTQ",
+@Scenario(scenarioID = "01JDKTPH97MHWEKEFHV5FGTT7V",
         scenarioName = "普通店铺配送商卡-品类频道_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37",
         developmentTime = 30, maintenanceTime = 10, manualTestTime = 20)
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class PandaShopShouldHasNewMemberDiscountScenarioTests {
+public class CategoryShopShouldHasNewMemberDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
     private final Long packageId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.redPacketId")) ;
