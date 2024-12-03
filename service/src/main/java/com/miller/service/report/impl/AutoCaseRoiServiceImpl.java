@@ -2,11 +2,12 @@ package com.miller.service.report.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.report.AutoCaseRoiEntity;
+import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.mapper.report.AutoCaseRoiMapper;
-import com.miller.service.report.AutoCaseRoiLogService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.common.util.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.miller.service.report.AutoExecutionRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
@@ -29,7 +30,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
     AutoCaseRoiMapper autoCaseRoiMapper;
 
     @Autowired
-    AutoCaseRoiLogService autoCaseRoiLogService;
+    AutoExecutionRecordService executionRecordService;
 
     @Override
     public String getAutoCaseNameByScenarioId(String scenarioId) {
@@ -38,8 +39,10 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
     }
 
     // B 侧 Apifox 使用
-    public boolean saveOrUpdate(AutoCaseRoiEntity entity) {
-        String scenarioId = entity.getScenarioId();
+    public boolean apifoxSaveOrUpdate(ApifoxAutoCaseRoiDto dto) {
+
+
+        String scenarioId = dto.getScenarioId();
         if (StringUtils.isBlank(scenarioId)) {
             log.error("scenarioId 不能为空");
             return false;
@@ -49,11 +52,11 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         long currentTimeMillis = System.currentTimeMillis();
 
         if (!ObjectUtils.isEmpty(autoCaseRoi)) {
-            autoCaseRoi.setDevelopmentTime(entity.getDevelopmentTime());
-            autoCaseRoi.setManualTestTime(entity.getManualTestTime());
+            autoCaseRoi.setDevelopmentTime(dto.getDevelopmentTime());
+            autoCaseRoi.setManualTestTime(dto.getManualTestTime());
 
             // 维护成本累计 ： 已有的时间 + 新加的时间
-            final int maintenanceTime =  Math.addExact(autoCaseRoi.getMaintenanceTime(), entity.getMaintenanceTime());
+            final int maintenanceTime =  Math.addExact(autoCaseRoi.getMaintenanceTime(), dto.getMaintenanceTime());
             autoCaseRoi.setMaintenanceTime(maintenanceTime);
 
             //执行次数：每次+1
@@ -64,26 +67,25 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
 
         }else {
             autoCaseRoi = new AutoCaseRoiEntity();
-            BeanUtils.copyProperties(entity, autoCaseRoi);
+            BeanUtils.copyProperties(dto, autoCaseRoi);
 
             autoCaseRoi.setTimes(1);
             autoCaseRoi.setCreateTime(currentTimeMillis);
         }
 
         //  总节省时间 = 执行次数 * 手工测试成本
-        final long saveTime = Math.multiplyExact(entity.getManualTestTime(),autoCaseRoi.getTimes());
+        final long saveTime = Math.multiplyExact(dto.getManualTestTime(),autoCaseRoi.getTimes());
         autoCaseRoi.setSaveTime(saveTime);
 
         // roi = (开发*维护)/总节省成本
         double roi = (double) autoCaseRoi.getSaveTime() / (Math.addExact(autoCaseRoi.getDevelopmentTime(), autoCaseRoi.getMaintenanceTime()));
         autoCaseRoi.setRoi(String.valueOf(roi));
 
+        // 写入数据
         this.saveOrUpdate(autoCaseRoi);
 
-        //  组装 auto_case_roi_log 表数据
-        this.autoCaseRoiLogService.saveOrUpdate(autoCaseRoi);
 
-        return true;
+        return this.executionRecordService.apifoxSaveOrUpdate(autoCaseRoi,dto);
     }
 
 }

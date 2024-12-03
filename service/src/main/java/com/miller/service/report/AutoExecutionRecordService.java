@@ -1,7 +1,9 @@
 package com.miller.service.report;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
+import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 
 import java.util.Map;
@@ -24,5 +26,8 @@ public interface AutoExecutionRecordService extends IService<AutoExecutionRecord
      * @return
      */
     Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO);
+
+
+    boolean apifoxSaveOrUpdate(AutoCaseRoiEntity caseRoiEntity, ApifoxAutoCaseRoiDto caseRoiDto);
 
 }
