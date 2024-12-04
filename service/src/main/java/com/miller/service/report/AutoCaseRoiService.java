@@ -2,6 +2,7 @@ package com.miller.service.report;
 
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 
 /**
  * <p>
@@ -15,5 +16,5 @@ public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
 
     String getAutoCaseNameByScenarioId(String scenarioId);
 
-    boolean saveOrUpdate(AutoCaseRoiEntity entity);
+    boolean apifoxSaveOrUpdate(ApifoxAutoCaseRoiDto apifoxAutoCaseRoiDto);
 }

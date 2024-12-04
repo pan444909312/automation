@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
+import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
 import com.miller.mapper.report.AutoExecutionRecordMapper;
@@ -151,5 +153,24 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         result.put("total",total);
         result.put("list",records);
         return result;
+    }
+
+    @Override
+    public boolean apifoxSaveOrUpdate(AutoCaseRoiEntity autoCaseRoi, ApifoxAutoCaseRoiDto caseRoiDto) {
+        AutoExecutionRecordEntity entity = new AutoExecutionRecordEntity();
+        BeanUtils.copyProperties(autoCaseRoi,entity);
+
+        // 设置执行状态
+        entity.setExecutionType(caseRoiDto.getExecutionType());
+        entity.setExecutionStatus(caseRoiDto.getExecutionStatus());
+
+
+        //  当前时间为：执行时间
+        long currentTimeMillis = System.currentTimeMillis();
+        entity.setExecutionTime(currentTimeMillis);
+        entity.setUpdateTime(currentTimeMillis);
+
+        entity.setId(null);
+        return this.saveOrUpdate(entity);
     }
 }
