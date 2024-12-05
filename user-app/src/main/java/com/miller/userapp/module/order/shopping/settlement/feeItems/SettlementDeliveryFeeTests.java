@@ -28,7 +28,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
         developmentTime = 150, maintenanceTime = 0, manualTestTime = 25)
 @DisplayName("结算-店铺基础运费和加价")
 public class SettlementDeliveryFeeTests {
-    DeliveryDiscountShopEntity deliveryDiscountShopEntity;
     static DeliveryDiscountShopMapper deliveryDiscountShopMapper;
     private static SqlSession sqlSession;
 
@@ -50,7 +49,7 @@ public class SettlementDeliveryFeeTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopSupportPandaDelAndPinckUp")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopSupportPandaDelAndPinckUp")
     @Order(1)
     @DisplayName("结算-基础配送费")
     void settlementBaseDeliveryFee(SettlementRequestDTO settlementRequestDTO){
@@ -61,7 +60,7 @@ public class SettlementDeliveryFeeTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopSupportPandaDelAndPinckUp")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopSupportPandaDelAndPinckUp")
     @Order(2)
     @DisplayName("结算-加价-新增收费项加价")
     void settlementAddDeliveryFeeNew(SettlementRequestDTO settlementRequestDTO){
@@ -73,7 +72,7 @@ public class SettlementDeliveryFeeTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopSupportPandaDelAndPinckUp")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopSupportPandaDelAndPinckUp")
     @Order(3)
     @DisplayName("结算-加价-配送费原价加价")
     void settlementAddDeliveryFeeOrg(SettlementRequestDTO settlementRequestDTO){

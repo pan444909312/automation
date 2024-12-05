@@ -5,11 +5,11 @@ import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,14 +26,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/28 17:54
  */
-@Scenario(scenarioID = "01J6CDZ1N0GMN5RGTDRYNKE8SW",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_首单优先送_首页-商卡二期：首单优先送",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JD1Z7S4GG6MCKTMCZ1FBYEC7",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_首单优先送_熊猫联盟频道-商卡二期：首单优先送",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFirstOrderDeliveryFeature {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
-    private ShopSearchMiddleMapper shopSearchMiddleMapper;
     private UserLoginRequestDTO userLoginRequestDTO ;
 
 
@@ -47,16 +46,14 @@ public class ShopShouldHasFirstOrderDeliveryFeature {
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode"));
 
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
-        SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
-        shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
     }
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_首单优先送_首页-商卡二期：首单优先送")
-    void shouldExistFirstOrderDeliveryFeature(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_营销标_首单优先送_熊猫联盟频道-商卡二期：首单优先送")
+    void shouldExistFirstOrderDeliveryFeature(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -69,10 +66,7 @@ public class ShopShouldHasFirstOrderDeliveryFeature {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
 
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }

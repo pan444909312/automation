@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01J5N6H105XEAS3JERB5KXJ043",
         scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -56,7 +56,6 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
                 .eq(MemberPacketEntity::getMemberCityId, memberCityID)
                 .set(MemberPacketEntity::getIsDel, 0));
 
-
         //执行定时定时任务：店铺更新定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
 
@@ -76,7 +75,8 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
         //遍历店铺的ShopPromoteList列表，
         ShopPromoteVO memberPacket = shopIndexVO.getShopPromoteList().stream().
                 filter(item -> item.getType() == ShopPromoteEnum.INDEX_MEMBER_PACKET.getType()).findFirst().get();
-        assert memberPacket.getShowContent().equals("¥15会员红包");
+        assert memberPacket.getShowContent().equals("¥15无门槛");
+
     }
     /**
      * 测试用例数据提供者

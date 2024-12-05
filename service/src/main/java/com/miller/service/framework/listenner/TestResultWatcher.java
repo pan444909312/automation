@@ -12,7 +12,7 @@ import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
-import com.miller.service.util.AutoDBUtils;
+import com.miller.service.framework.report.AutoDBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;

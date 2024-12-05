@@ -9,7 +9,10 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ShopFeatureTypeConstant;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -27,9 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/27 9:37
  */
-@Scenario(scenarioID = "01J61TZX3QYPJKE76RVDW8AKSC",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签7_出餐准时_首页-商卡二期：出餐准时 - 不展示",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JD43VJBJSB7D51W0VEBE7CWJ",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_标签7_出餐准时_熊猫联盟频道-商卡二期：出餐准时 - 不展示",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoMealsOnTimeFeature {
@@ -46,10 +49,10 @@ public class ShopShouldHasNoMealsOnTimeFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_标签7_出餐准时_首页-商卡二期：出餐准时 - 不展示")
-    void shouldNotExistMealsOnTimeFeature(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_营销标_标签7_出餐准时_熊猫联盟频道-商卡二期：出餐准时 - 不展示")
+    void shouldNotExistMealsOnTimeFeature(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
@@ -66,9 +69,6 @@ public class ShopShouldHasNoMealsOnTimeFeature {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }

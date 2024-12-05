@@ -88,6 +88,18 @@ public class TestCaseDataForMerchantConstant {
     public static Long skuIdOfFoodCity2 = 0L;
 
     public static Long shopTestDeliveryWay = 615477825L;
+    public static Integer shopTestDeliveryWayPlasticAmount = 120;
+    public static Long shopTestDeliveryWayProductId = 82351748L;
+
+    public static Long shopTestDeliveryWayProductIdForPacking = 82351766L;
+    public static Long shopTestDeliveryWayProductSkuId = 40296118L;
+    public static Long shopTestDeliveryWayProductTagId1 = 5501508L;
+    public static Long shopTestDeliveryWayProductTagId2 = 5501510L;
+    public static Integer shopTestDeliveryWayProductPacking = 110;
+    public static Long memberAddressId = 1398670114L;
+    public static Long shopIDFormemberOrder = 59750820L;
+    public static Long productIDFormemberOrder = 81669198L;
+
 
     //默认餐具数和餐具费配置
     public static int tablewarePrice = 111;

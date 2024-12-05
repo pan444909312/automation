@@ -13,7 +13,10 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.mapper.shop.ProductDiscountMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -30,8 +33,8 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:03
  */
-@Scenario(scenarioID = "01J3VJ3JN01244DZ1EHJMQWD63",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_商品折扣_自取可用_首页-商卡二期:商品折扣28-自取可用",
+@Scenario(scenarioID = "01JDRD88GFJRBECSZR2GR0XC1X",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_商品折扣_熊猫联盟频道-商卡二期:商品折扣28-自取可用",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
@@ -58,10 +61,10 @@ public class ShopShouldHasPickupDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-自取可用")
-    void shouldExistPickupDiscount(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_商品折扣_自取可用_熊猫联盟频道-商卡二期:商品折扣28-自取可用")
+    void shouldExistPickupDiscount(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -92,12 +95,6 @@ public class ShopShouldHasPickupDiscountScenarioTests {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
-
-
 }

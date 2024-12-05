@@ -12,7 +12,10 @@ import com.miller.userapp.constants.ShopFeatureTypeConstant;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.mapper.shop.CityFunctionConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -31,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/23 9:24
  */
-@Scenario(scenarioID = "01J5WMVHCECNCSWBP13V103YFT",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签3_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JD459DEEVR37DTW1R0P6SNFH",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_标签3_回头客_熊猫联盟频道-商卡二期：回头客 - 回头客展示开关禁用",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoReturnedVisitorFeature {
@@ -69,10 +72,10 @@ public class ShopShouldHasNoReturnedVisitorFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_标签3_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用")
-    void shouldNotExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_营销标_标签3_回头客_熊猫联盟频道-商卡二期：回头客 - 回头客展示开关禁用")
+    void shouldNotExistReturnedVisitorFeature(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
@@ -90,9 +93,6 @@ public class ShopShouldHasNoReturnedVisitorFeature {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }

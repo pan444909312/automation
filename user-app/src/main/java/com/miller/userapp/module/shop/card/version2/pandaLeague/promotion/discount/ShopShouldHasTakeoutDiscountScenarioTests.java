@@ -12,7 +12,10 @@ import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -29,8 +32,8 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:02
  */
-@Scenario(scenarioID = "01J3VJ3JN37RWFDN1HG4498PDQ",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:商品折扣28-外卖可用",
+@Scenario(scenarioID = "01JDRD8EWT5T1W4VCMY6HG26T4",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_商品折扣_熊猫联盟频道-商卡二期:商品折扣28-外卖可用",
         developmentTime = 40, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
@@ -55,10 +58,10 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-外卖可用")
-    void shouldExistTakeoutDiscount(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_基础信息_店铺角标_熊猫联盟频道-商卡二期:商品折扣28-外卖可用")
+    void shouldExistTakeoutDiscount(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -83,11 +86,6 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-
-        return Stream.of(Arguments.of(shopListRequestDTO));
+        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
-
 }

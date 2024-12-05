@@ -48,7 +48,7 @@ public class SettlementTablewareFeeTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopDefaultTableware")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopDefaultTableware")
     @Order(1)
     @DisplayName("结算-店铺默认餐具费")
     void settlementDefaultTableware(SettlementRequestDTO settlementRequestDTO){
@@ -59,8 +59,8 @@ public class SettlementTablewareFeeTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopSupportPandaDelAndPinckUp")
-    @Order(1)
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopSupportPandaDelAndPinckUp")
+    @Order(2)
     @DisplayName("结算-店铺指定餐具数")
     void settlementAppointTableware(SettlementRequestDTO settlementRequestDTO){
 
@@ -70,8 +70,8 @@ public class SettlementTablewareFeeTests {
     }
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.SettlementDataProvider#shopNoTableware")
-    @Order(1)
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#shopNoTableware")
+    @Order(3)
     @DisplayName("结算-店铺不需要餐具数")
     void settlementNoTableware(SettlementRequestDTO settlementRequestDTO){
 

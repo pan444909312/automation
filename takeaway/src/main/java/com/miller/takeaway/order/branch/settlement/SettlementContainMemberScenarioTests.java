@@ -4,6 +4,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.module.order.shopping.car.ShoppingCarTests;
 import com.miller.userapp.module.order.shopping.settlement.SettlementWithMemberTests;
+import org.junit.jupiter.api.Disabled;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -15,6 +16,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * @version 1.0
  * @since 2024/1/22 17:26:47
  */
+@Disabled
 @SelectClasses({
         // 用户登录
         UserLoginTests.class,

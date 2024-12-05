@@ -24,9 +24,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JC2Q1RT5ESHJ6SGA0XM6A9WX", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-可自取-首页-商卡二期：可自取33"
+@Scenario(scenarioID = "01JC2Q1RT5ESHJ6SGA0XM6A9WX", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-可自取-品类频道-商卡二期：可自取33"
         , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-可自取-首页-商卡二期：可自取33")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-可自取-品类频道-商卡二期：可自取33")
 public class ShopShouldHasSelfTakeTagScenarioTests {
 //    测试店铺：店铺1,测试标签类型：33，content：可自取
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -39,8 +39,8 @@ public class ShopShouldHasSelfTakeTagScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
-        List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
+        ShopListResponseDTO ShopListResponseDto= ShopListFlow.getShopList(ShopListRequestdto);
+        List<ShopPromoteVO> shopPromoteList =ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         String showContent=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getShowContent).orElseThrow();
         assertThat(showContent).isEqualTo("可自取");
     }
