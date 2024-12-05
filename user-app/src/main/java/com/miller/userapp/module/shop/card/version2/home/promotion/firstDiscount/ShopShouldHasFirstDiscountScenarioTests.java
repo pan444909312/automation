@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * @since 2024/7/31 14:54
  */
 @Scenario(scenarioID = "01J46NM6S9CZKNNX9JWDQ7KSGP",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_门店新客_首页-商卡二期：平台首单23",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_平台首单_首页-商卡二期：平台首单23",
         developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -62,7 +62,7 @@ public class ShopShouldHasFirstDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_门店新客_首页-商卡二期：平台首单23")
+    @DisplayName("普通店铺配送商卡_优惠标签_平台首单_首页-商卡二期：平台首单23")
     void shouldExistFirstDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);

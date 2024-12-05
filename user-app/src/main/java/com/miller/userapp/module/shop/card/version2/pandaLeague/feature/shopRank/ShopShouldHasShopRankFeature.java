@@ -72,6 +72,7 @@ public class ShopShouldHasShopRankFeature {
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
+
         return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
 }
