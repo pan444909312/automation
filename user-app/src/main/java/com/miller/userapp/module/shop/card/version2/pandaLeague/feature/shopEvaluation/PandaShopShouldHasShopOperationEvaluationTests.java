@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.pandaLeague.feature.shopScore;
+package com.miller.userapp.module.shop.card.version2.pandaLeague.feature.shopEvaluation;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.shop.EvaluationEntity;
@@ -28,7 +28,7 @@ import java.util.stream.Stream;
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class PandaShopShouldHasShopScoreIsOperationScoreTests {
+public class PandaShopShouldHasShopOperationEvaluationTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
      @BeforeAll

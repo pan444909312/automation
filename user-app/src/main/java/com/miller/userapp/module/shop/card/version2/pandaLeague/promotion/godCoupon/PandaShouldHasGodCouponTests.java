@@ -9,6 +9,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
@@ -21,7 +22,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01JD75MYX4R52EPYM45TP0SXCA",
-        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_首页-商卡二期：神券标签",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道_优惠标签_神券_首页-商卡二期：神券标签41-最高膨胀至X",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -43,10 +44,10 @@ public class PandaShouldHasGodCouponTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_熊猫联盟频道-商卡二期：神券41-有神券正常展示")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_神券_首页-商卡二期：神券标签41-最高膨胀至X")
      void pandaCouponGodDsicount(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
-          ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
-          ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
+        ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
       ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
@@ -59,10 +60,8 @@ public class PandaShouldHasGodCouponTests {
           * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
-        // 可以不用传参数
-        shopListPandaLeagueRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
+         return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
+
     }
 
 }

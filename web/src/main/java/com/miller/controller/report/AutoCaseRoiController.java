@@ -137,9 +137,7 @@ public class AutoCaseRoiController {
 
     @PostMapping("/apifox/save")
     public Response<Boolean> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
-        AutoCaseRoiEntity entity = new AutoCaseRoiEntity();
-        BeanUtils.copyProperties(dto, entity);
-        boolean res = autoCaseRoiService.saveOrUpdate(entity);
+        boolean res = autoCaseRoiService.apifoxSaveOrUpdate(dto);
         return Response.success(res);
     }
 
