@@ -67,7 +67,7 @@ public class SettlementMemberDeliveryFeeTests {
 
 
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.MemberAndOrder.SettlementMemberDataProvider#memberDeliveryFeeData")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.MemberOrder.SettlementMemberDataProvider#memberDeliveryFeeData")
     @Order(1)
     @DisplayName("用户是会员并且会员权益有运费减免，会员运费减免剩余次数>0，配送费-运费减免>会员运费减免金额")
     void settlementMemberDeliveryFee(SettlementRequestDTO settlementRequestDTO){
@@ -97,7 +97,7 @@ public class SettlementMemberDeliveryFeeTests {
 
     }
     @ParameterizedTest
-    @MethodSource("com.miller.userapp.module.order.shopping.settlement.MemberAndOrder.SettlementMemberDataProvider#memberDeliveryFeeData")
+    @MethodSource("com.miller.userapp.module.order.shopping.settlement.MemberOrder.SettlementMemberDataProvider#memberDeliveryFeeData")
     @Order(2)
     @DisplayName("用户是会员并且会员权益有运费减免，会员运费减免剩余次数>0，配送费-运费减免<=会员运费减免金额")
     void settlementMemberDeliveryFreeFee(SettlementRequestDTO settlementRequestDTO){
