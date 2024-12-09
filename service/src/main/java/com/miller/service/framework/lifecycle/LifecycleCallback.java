@@ -9,7 +9,7 @@ import com.miller.service.framework.report.sql.AutoCaseRoiSql;
 import com.miller.service.framework.report.sql.AutoExecutionRecordSql;
 import com.miller.service.framework.annotation.MethodInvoked;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.report.entity.AutoCaseRoiEntity;
+import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.service.framework.exception.TestFrameworkException;
 import com.miller.service.framework.listenner.TestResultWatcher;
 import com.miller.service.framework.util.JGitUtils;
