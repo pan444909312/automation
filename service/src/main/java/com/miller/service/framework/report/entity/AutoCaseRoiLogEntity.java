@@ -23,6 +23,7 @@ public class AutoCaseRoiLogEntity implements Serializable {
     @Schema(description = "ID 自增")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+
     @Schema(description = "场景id")
     @TableField("scenario_id")
     private String scenarioId;

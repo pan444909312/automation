@@ -22,9 +22,9 @@ public class AutoDBUtils {
      */
     public static synchronized SqlSession getDBOfAutomationTest() {
         if (sqlSessionOfAutomation != null) return sqlSessionOfAutomation;
-        var mySqlUrl = new PropertiesUtils().getProperty(AutoDBUtils.class, "spring.datasource.automation.url");
-        var userName = new PropertiesUtils().getProperty(AutoDBUtils.class, "spring.datasource.automation.username");
-        var passWord = new PropertiesUtils().getProperty(AutoDBUtils.class, "spring.datasource.automation.password");
+        var mySqlUrl = new PropertiesUtils().getProperty(AutoDBUtils.class, "datasource.url.automation");
+        var userName = new PropertiesUtils().getProperty(AutoDBUtils.class, "datasource.username.automation");
+        var passWord = new PropertiesUtils().getProperty(AutoDBUtils.class, "datasource.password.automation");
         var myBatisPlusConfig = new MyBatisPlusConfig();
         sqlSessionOfAutomation = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), AutoDBUtils.class);
         return sqlSessionOfAutomation;
