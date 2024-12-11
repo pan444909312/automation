@@ -2,7 +2,8 @@ package com.miller.userapp.module.order.shopping.settlement.discount;
 
 public enum ShopsEnum {
     SKUDiscount(615477825L,"skuDiscount",1),
-    SHOPDiscount(931800485L,"shopDiscount",2);
+    SHOPDiscount(931800485L,"shopDiscount",2),
+    EXSHOPDiscount(772245152L,"ExclusiveShopDiscount",3);//独享全店
     private Long shopId;
     private String desc;
     private Integer type;
