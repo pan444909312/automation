@@ -17,4 +17,10 @@ public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
     String getAutoCaseNameByScenarioId(String scenarioId);
 
     boolean apifoxSaveOrUpdate(ApifoxAutoCaseRoiDto apifoxAutoCaseRoiDto);
+
+    /**
+     *
+     * @return 获取所有测试场景的总节省成本的总和
+     */
+    long getAllScenarioSaveTime();
 }

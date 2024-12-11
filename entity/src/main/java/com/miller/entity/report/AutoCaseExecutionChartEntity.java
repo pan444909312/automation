@@ -1,9 +1,7 @@
 package com.miller.entity.report;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -43,15 +41,20 @@ public class AutoCaseExecutionChartEntity implements Serializable {
     @TableField("remarks")
     private String remarks;
 
+    @Schema(description = "执行策略 0:未知策略 1:日常巡检;2:质量保证;3:效率提升")
+    @TableField("execution_type")
+    private Integer executionType;
+
     @Schema(description = "创建时间")
-    @TableField("create_time")
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
     private Long createTime;
 
     @Schema(description = "更新时间")
-    @TableField("update_time")
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Long updateTime;
 
     @Schema(description = "删除标记（0:可用 1:不可用）")
     @TableField("is_deleted")
+    @TableLogic
     private Byte isDeleted;
 }

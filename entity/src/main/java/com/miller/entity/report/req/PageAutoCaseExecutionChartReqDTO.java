@@ -1,9 +1,11 @@
 package com.miller.entity.report.req;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author panjuxiang
@@ -22,5 +24,8 @@ public class PageAutoCaseExecutionChartReqDTO {
 
     @Schema(description = "创建结束时间")
     private Date createEndTime;
+
+    @Schema(description = "执行策略 0:未知策略 1:日常巡检;2:质量保证;3:效率提升")
+    private List<Integer> executionTypeList;
 
 }

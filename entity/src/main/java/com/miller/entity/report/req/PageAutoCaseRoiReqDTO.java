@@ -39,7 +39,7 @@ public class PageAutoCaseRoiReqDTO {
     private Integer isRepeat = 1;
 
     @Schema(description = "排序字段，1：场景id ，2：场景名称 ，3：开发成本 ，4：维护成本 ，5：单次节省成本，6：场景roi，7：创建时间")
-    private Integer sort = 1;
+    private Integer sort = 7;
 
     @Schema(description = "排序规则，0：正序 ，1：逆序")
     private Integer orderBy = 0;

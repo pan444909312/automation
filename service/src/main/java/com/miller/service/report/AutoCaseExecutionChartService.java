@@ -13,4 +13,20 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AutoCaseExecutionChartService extends IService<AutoCaseExecutionChartEntity> {
 
+    /**
+     *
+     * 通过传入月份months，计算前months月至今的executionType类型的平均执行用例数
+     * @param months
+     * @param executionType
+     * @return
+     */
+    Integer getMonthsAverageExecutionCase(int months,int executionType);
+
+    /**
+     * 检查自动化用例执行趋势表，今日是否同步过对应执行类型的数据
+     * @param executionType 执行策略
+     * @return 是 返回true，否 返回 false
+     */
+    boolean checkTodayHasData(int executionType);
+
 }
