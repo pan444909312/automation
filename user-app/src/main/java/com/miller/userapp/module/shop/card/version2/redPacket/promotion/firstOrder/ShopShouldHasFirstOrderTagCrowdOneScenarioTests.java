@@ -61,8 +61,7 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
         shopNewUserLabelMapper.update(
-                new UserLabelEntity(),
-                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
+                                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
         );
     }
 

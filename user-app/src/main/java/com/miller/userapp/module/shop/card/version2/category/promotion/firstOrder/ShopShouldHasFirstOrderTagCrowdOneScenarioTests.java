@@ -36,16 +36,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
-//    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
-    private final Integer type=35;
+    //    private static com.miller.userapp.mapper.shop.ShopNewUserLabelMapper ShopNewUserLabelMapper;
+    private final Integer type = 35;
 
 
     @BeforeAll
     static void beforeAll() {
 //        人群1为登陆新人账号，且当前不可领取新人权益，用户登陆数据如下
-        PropertiesUtils propertiesUtils=new PropertiesUtils();
-        String passWord =propertiesUtils.getProperty(UserLoginFlow.class,"user.app.account.for.shop.card.version2.first.order.user.password");
-        String userName = propertiesUtils.getProperty(UserLoginFlow.class,"user.app.account.for.shop.card.version2.first.order.user.account1");
+        PropertiesUtils propertiesUtils = new PropertiesUtils();
+        String passWord = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.password");
+        String userName = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.account1");
         String loginType = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type");
         String callingCode = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode");
         String distinctId = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.distinctId");
@@ -61,22 +61,22 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
         shopNewUserLabelMapper.update(
-                new UserLabelEntity(),
-                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
+                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId, distinctId).eq(UserLabelEntity::getUserId, userId).set(UserLabelEntity::getLabelId, 1)
         );
     }
 
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-新人首单标签-品类频道-商卡二期：新人首单标签35-新人人群1")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    void hasFirstOrderTagCrowdOne(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponseDto= ShopListFlow.getShopList(ShopListRequestdto);
-        List<ShopPromoteVO> shopPromoteList =ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
-        List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
+    void hasFirstOrderTagCrowdOne(ShopListRequestDTO ShopListRequestdto) {
+        ShopListResponseDTO ShopListResponseDto = ShopListFlow.getShopList(ShopListRequestdto);
+        List<ShopPromoteVO> shopPromoteList = ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getShopPromoteList).orElseThrow();
+        List<ShopPromoteVO> shopPromoteTypeList = shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
         assertThat(shopPromoteTypeList.size()).isEqualTo(1);
-        String showContent=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getShowContent).orElseThrow();
+        String showContent = shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map(ShopPromoteVO::getShowContent).orElseThrow();
         assertThat(showContent).isEqualTo("无门槛减¥9");
     }
+
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数

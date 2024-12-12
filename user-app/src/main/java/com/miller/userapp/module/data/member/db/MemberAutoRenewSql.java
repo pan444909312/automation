@@ -31,15 +31,12 @@ public class MemberAutoRenewSql {
     }
 
     public Integer updateMemberAutoRenew(Long nextAutoTime, Long userId) {
-        MemberAutoRenewEntity memberAutoRenewEntity = new MemberAutoRenewEntity();
-        memberAutoRenewEntity.setNextAutoTime(nextAutoTime);
-        memberAutoRenewEntity.setUserId(userId);
 //        String sql = "update hp_member_auto_renew set next_auto_time = ? where user_id = ? ";
         UpdateWrapper<MemberAutoRenewEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<MemberAutoRenewEntity> lambda = updateWrapper.lambda();
         lambda.eq(MemberAutoRenewEntity::getUserId, userId);
         lambda.set(MemberAutoRenewEntity::getNextAutoTime, nextAutoTime);
 
-        return getMemberAutoRenewMapper().update(memberAutoRenewEntity, updateWrapper);
+        return getMemberAutoRenewMapper().update(updateWrapper);
     }
 }

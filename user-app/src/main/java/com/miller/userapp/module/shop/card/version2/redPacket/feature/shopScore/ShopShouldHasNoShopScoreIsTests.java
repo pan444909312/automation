@@ -35,7 +35,7 @@ public class ShopShouldHasNoShopScoreIsTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopSearchMiddleMapper shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
 //update evaluation_score=100 where shopid=xxxx  没有则不展示
-         shopSearchMiddleMapper.update(new ShopSearchMiddleEntity(), new LambdaUpdateWrapper<ShopSearchMiddleEntity>()
+         shopSearchMiddleMapper.update(new LambdaUpdateWrapper<ShopSearchMiddleEntity>()
                  .eq(ShopSearchMiddleEntity::getShopId, shopId)
                  .set(ShopSearchMiddleEntity::getPraiseAverage,0)
                  .set(ShopSearchMiddleEntity::getShowShopEvaluation,0)

@@ -33,29 +33,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-品类频道-商卡二期：人均")
 public class ShopShouldHasAveragePurchaseScenarioTests {
     //    测试店铺
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
     @BeforeAll
-    void beforeAll()  {
+    void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
 //        开启配置管理AVERAGE_PURCHASE_SWITCH=1
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         SysAppConfigMapper sysAppConfigMapper = sqlSession.getMapper(SysAppConfigMapper.class);
-        sysAppConfigMapper.update(new SysAppConfigEntity(),
-                new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey,"AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue,"{\"open\":1}")
+        sysAppConfigMapper.update(new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey, "AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue, "{\"open\":1}")
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
     }
+
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-品类频道-商卡二期：人均")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
-        String averagePurchase =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getAveragePurchase).orElseThrow();
+    void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto) {
+        ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopList(ShopListRequestdto);
+        String averagePurchase = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getAveragePurchase).orElseThrow();
         assertThat(averagePurchase).isEqualTo("人均¥55");
 
     }
+
     //    DataProvider改为在测试用例文件里写,提供测试数据
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();

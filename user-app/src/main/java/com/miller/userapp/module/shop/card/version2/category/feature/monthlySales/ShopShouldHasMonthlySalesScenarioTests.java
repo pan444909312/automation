@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-月售-品类频道-商卡二期：月售")
 public class ShopShouldHasMonthlySalesScenarioTests {
     //    测试店铺
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
     @BeforeAll
     void beforeAll() {
@@ -41,20 +41,21 @@ public class ShopShouldHasMonthlySalesScenarioTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
         cityFunctionConfigMapper.update(
-                new CityFunctionConfigEntity(), 
-                new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,7).set(CityFunctionConfigEntity::getStatus,1)
+                new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId, 508).eq(CityFunctionConfigEntity::getType, 7).set(CityFunctionConfigEntity::getStatus, 1)
         );
 
     }
+
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-月售-品类频道-商卡二期：月售")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
-        String monthlySales =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopMonthlySales).orElseThrow();
+    void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto) {
+        ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopList(ShopListRequestdto);
+        String monthlySales = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getShopMonthlySales).orElseThrow();
         assertThat(monthlySales).isEqualTo("月售6000+");
 
     }
+
     //    DataProvider改为在测试用例文件里写,提供测试数据
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();

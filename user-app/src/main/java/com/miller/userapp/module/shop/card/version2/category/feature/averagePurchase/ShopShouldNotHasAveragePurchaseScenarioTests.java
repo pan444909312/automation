@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
 public class ShopShouldNotHasAveragePurchaseScenarioTests {
     //    测试店铺
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
     @BeforeAll
     void beforeAll() {
@@ -42,22 +42,23 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         SysAppConfigMapper sysAppConfigMapper = sqlSession.getMapper(SysAppConfigMapper.class);
         sysAppConfigMapper.update(
-                new SysAppConfigEntity(), 
-                new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey,"AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue,"{\"open\":0}")
+                new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey, "AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue, "{\"open\":0}")
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
     }
+
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
-        ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
+    void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto) {
+        ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopList(ShopListRequestdto);
+        ShopIndexVO shopIndexVO = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
         assert shopIndexVO != null;
         assertThat(shopIndexVO.getAveragePurchase()).isNull();
 
     }
+
     //    DataProvider改为在测试用例文件里写,提供测试数据
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();

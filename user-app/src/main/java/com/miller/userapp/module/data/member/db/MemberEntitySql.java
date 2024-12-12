@@ -39,14 +39,11 @@ public class MemberEntitySql {
     }
 
     public Integer updateMemberEntity(Long memberEndTime, Long userId) {
-        MemberEntityEntity memberEntityEntity = new MemberEntityEntity();
-        memberEntityEntity.setMemberEndTime(memberEndTime);
-        memberEntityEntity.setUserId(userId);
 //        String sql = "update member_entity set member_end_time = ? where user_id = ?";
         UpdateWrapper<MemberEntityEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<MemberEntityEntity> lambda = updateWrapper.lambda();
         lambda.eq(MemberEntityEntity::getUserId, userId);
         lambda.set(MemberEntityEntity::getMemberEndTime, memberEndTime);
-        return getMemberEntityMapper().update(memberEntityEntity, updateWrapper);
+        return getMemberEntityMapper().update( updateWrapper);
     }
 }
