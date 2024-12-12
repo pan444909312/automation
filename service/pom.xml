@@ -139,21 +139,6 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>xml-path</artifactId>
         </dependency>
-        <!-- 链接 MySql 驱动 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!-- Spring JDBC 依赖 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-        <!-- 阿里巴巴数据库连接池工具 druid  -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>
         <!--Spring Data Redis 客户端，配合 pool2 连接池一起用-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

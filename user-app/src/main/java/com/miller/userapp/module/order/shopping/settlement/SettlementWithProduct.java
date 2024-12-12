@@ -48,7 +48,7 @@ public class SettlementWithProduct {
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
                 .set(ProductEntity::getBuyLimitMin, buyLimitMin);
-        productMapper.update(lambdaUpdateWrapper);
+        productMapper.update(new ProductEntity(), lambdaUpdateWrapper);
     }
 
     @AfterEach
@@ -59,7 +59,7 @@ public class SettlementWithProduct {
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
                 .set(ProductEntity::getBuyLimitMin, 1);
-        productMapper.update(lambdaUpdateWrapper);
+        productMapper.update(new ProductEntity(), lambdaUpdateWrapper);
     }
     @ParameterizedTest
     @MethodSource("buyLimitMinProduct")

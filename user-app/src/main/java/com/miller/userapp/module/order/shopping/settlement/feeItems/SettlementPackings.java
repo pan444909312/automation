@@ -56,13 +56,13 @@ public class SettlementPackings {
         lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopExtraInfoEntity::getPlasticAmount,0 );
         lambda.set(ShopExtraInfoEntity::getUsePlastic,1);
-        shopExtraInfoMapper.update(updateWrapper);
+        shopExtraInfoMapper.update(new ShopExtraInfoEntity(), updateWrapper);
 
         UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
         LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
         lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
         lambdaProduct.set(Product::getPackingCharges,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
-        productMapper.update(updateProduct);
+        productMapper.update(new Product(), updateProduct);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
@@ -79,13 +79,13 @@ public class SettlementPackings {
         lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopExtraInfoEntity::getPlasticAmount,0 );
         lambda.set(ShopExtraInfoEntity::getUsePlastic,1);
-        shopExtraInfoMapper.update(updateWrapper);
+        shopExtraInfoMapper.update(new ShopExtraInfoEntity(), updateWrapper);
 
         UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
         LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
         lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
         lambdaProduct.set(Product::getPackingCharges,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
-        productMapper.update(updateProduct);
+        productMapper.update(new Product(), updateProduct);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
@@ -102,13 +102,13 @@ public class SettlementPackings {
         lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopExtraInfoEntity::getPlasticAmount,TestCaseDataForMerchantConstant.shopTestDeliveryWayPlasticAmount);
         lambda.set(ShopExtraInfoEntity::getUsePlastic,1);
-        shopExtraInfoMapper.update(updateWrapper);
+        shopExtraInfoMapper.update(new ShopExtraInfoEntity(), updateWrapper);
 
         UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
         LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
         lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
         lambdaProduct.set(Product::getPackingCharges,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductPacking);
-        productMapper.update(updateProduct);
+        productMapper.update(new Product(), updateProduct);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
@@ -125,13 +125,13 @@ public class SettlementPackings {
         lambda.eq(ShopExtraInfoEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopExtraInfoEntity::getPlasticAmount,TestCaseDataForMerchantConstant.shopTestDeliveryWayPlasticAmount);
         lambda.set(ShopExtraInfoEntity::getUsePlastic,1);
-        shopExtraInfoMapper.update(updateWrapper);
+        shopExtraInfoMapper.update(new ShopExtraInfoEntity(), updateWrapper);
 
         UpdateWrapper<Product> updateProduct = new UpdateWrapper<>();
         LambdaUpdateWrapper<Product> lambdaProduct = updateProduct.lambda();
         lambdaProduct.eq(Product::getProductId,TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
         lambdaProduct.set(Product::getPackingCharges,0);
-        productMapper.update(updateProduct);
+        productMapper.update(new Product(), updateProduct);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

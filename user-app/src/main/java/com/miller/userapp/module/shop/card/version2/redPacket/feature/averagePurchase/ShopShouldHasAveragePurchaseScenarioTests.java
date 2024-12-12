@@ -42,6 +42,7 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         SysAppConfigMapper sysAppConfigMapper = sqlSession.getMapper(SysAppConfigMapper.class);
         sysAppConfigMapper.update(
+                new SysAppConfigEntity(), 
                 new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey,"AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue,"{\"open\":1}")
         );
 //        调用搜索索引定时任务

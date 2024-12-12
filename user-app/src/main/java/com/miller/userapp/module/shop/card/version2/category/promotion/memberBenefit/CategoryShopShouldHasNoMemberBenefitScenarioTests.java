@@ -55,13 +55,13 @@ public class CategoryShopShouldHasNoMemberBenefitScenarioTests {
 //        删除配置  会员运费减免+店铺联盟  则不展示
 //        修改会员运费减免 状态为关闭
 //        update member_city set is_open_delivery_discount=0 where member_city_id=1111378;
-         shopMemberCityMapper.update(new LambdaUpdateWrapper<MemberCityEntity>()
+         shopMemberCityMapper.update(new MemberCityEntity(), new LambdaUpdateWrapper<MemberCityEntity>()
                 .eq(MemberCityEntity::getMemberCityId, memberCityID)
                  .set(MemberCityEntity::getIsOpenDeliveryDiscount, 0));
 
          //        修改会员权益店铺联盟券的=已删除
 //        update member_packet set is_del=1 where packet_id=888890186 and member_city_id=1111378;
-        memberPacketMapper.update(new LambdaUpdateWrapper<MemberPacketEntity>()
+        memberPacketMapper.update(new MemberPacketEntity(), new LambdaUpdateWrapper<MemberPacketEntity>()
                 .eq(MemberPacketEntity::getPacketId, packageId)
                 .eq(MemberPacketEntity::getMemberCityId, memberCityID)
                 .set(MemberPacketEntity::getIsDel, 1));
@@ -76,11 +76,11 @@ public class CategoryShopShouldHasNoMemberBenefitScenarioTests {
         MemberCityMapper shopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
         MemberPacketMapper memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
 //        还原数据  会员运费减免+店铺联盟  均开启
-      shopMemberCityMapper.update(new LambdaUpdateWrapper<MemberCityEntity>()
+      shopMemberCityMapper.update(new MemberCityEntity(), new LambdaUpdateWrapper<MemberCityEntity>()
                 .eq(MemberCityEntity::getMemberCityId, memberCityID)
                  .set(MemberCityEntity::getIsOpenDeliveryDiscount, 1));
 
-       memberPacketMapper.update(new LambdaUpdateWrapper<MemberPacketEntity>()
+       memberPacketMapper.update(new MemberPacketEntity(), new LambdaUpdateWrapper<MemberPacketEntity>()
                 .eq(MemberPacketEntity::getPacketId, packageId)
                 .eq(MemberPacketEntity::getMemberCityId, memberCityID)
                 .set(MemberPacketEntity::getIsDel, 0));

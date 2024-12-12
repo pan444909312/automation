@@ -37,7 +37,7 @@ public class PandaShopShouldHasShopHistoryEvaluationTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         EvaluationMapper evaluationMapper = sqlSession.getMapper(EvaluationMapper.class);
 //update evaluation_score=100 where shopid=xxxx  设置历史分数为100  则为100/2
-         evaluationMapper.update(new LambdaUpdateWrapper<EvaluationEntity>()
+         evaluationMapper.update(new EvaluationEntity(), new LambdaUpdateWrapper<EvaluationEntity>()
                  .eq(EvaluationEntity::getShopId, shopId)
                          .set(EvaluationEntity::getComposite,100)
                          .set(EvaluationEntity::getCompositeManager,0));

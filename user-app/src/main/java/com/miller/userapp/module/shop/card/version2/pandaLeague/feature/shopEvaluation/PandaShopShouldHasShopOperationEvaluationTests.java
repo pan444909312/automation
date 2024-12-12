@@ -37,7 +37,7 @@ public class PandaShopShouldHasShopOperationEvaluationTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         EvaluationMapper evaluationMapper = sqlSession.getMapper(EvaluationMapper.class);
 //update evaluation_score=100 where shopid=xxxx  设置手动分数4.0，历史5.0 优先级为手动>历史
-         evaluationMapper.update(new LambdaUpdateWrapper<EvaluationEntity>()
+         evaluationMapper.update(new EvaluationEntity(), new LambdaUpdateWrapper<EvaluationEntity>()
                  .eq(EvaluationEntity::getShopId, shopId)
                          .set(EvaluationEntity::getComposite,100)
                          .set(EvaluationEntity::getCompositeManager,80));

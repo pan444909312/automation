@@ -41,6 +41,7 @@ public class ShopShouldHasSendMoneyCDeliveryOffScenarioTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
         cityFunctionConfigMapper.update(
+                new CityFunctionConfigEntity(), 
                 new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,9).set(CityFunctionConfigEntity::getStatus,0)
         );
 

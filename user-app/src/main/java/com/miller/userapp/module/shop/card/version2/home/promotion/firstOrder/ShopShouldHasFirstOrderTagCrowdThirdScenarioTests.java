@@ -55,6 +55,7 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
         shopNewUserLabelMapper.update(
+                new UserLabelEntity(),
                 new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).set(UserLabelEntity::getLabelId,3)
         );
 //        清除设备对应的活动数据

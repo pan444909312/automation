@@ -34,31 +34,31 @@ import java.util.stream.Stream;
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class CategoryShopShouldHasMemberBenefitDeliveryDsicountScenarioTests {
-     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
-     private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
-     private final Long packageId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.redPacketId")) ;
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+    private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
+    private final Long packageId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shop.redPacketId"));
 
-     //     用户未登录，会员店铺配置了运费减免，展示运费减免红包
+    //     用户未登录，会员店铺配置了运费减免，展示运费减免红包
     @BeforeAll
     void beforeAll() {
-           var myheaders = new HashMap<String, Object>();
-            myheaders.put("Content-Type", "application/json");
-            RequestUtils.setHeaders(myheaders);
+        var myheaders = new HashMap<String, Object>();
+        myheaders.put("Content-Type", "application/json");
+        RequestUtils.setHeaders(myheaders);
         //        运费减免开启。
-             SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-            MemberCityMapper shopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
-              shopMemberCityMapper.update(new LambdaUpdateWrapper<MemberCityEntity>()
+        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
+        MemberCityMapper shopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
+        shopMemberCityMapper.update(new MemberCityEntity(), new LambdaUpdateWrapper<MemberCityEntity>()
                 .eq(MemberCityEntity::getMemberCityId, memberCityID)
-                 .set(MemberCityEntity::getIsOpenDeliveryDiscount, 1));
+                .set(MemberCityEntity::getIsOpenDeliveryDiscount, 1));
 
 //                update member_packet set is_del=0 where member_city_id=1111378 and packet_id=888890186;
-         MemberPacketMapper memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
-         memberPacketMapper.update(new LambdaUpdateWrapper<MemberPacketEntity>()
+        MemberPacketMapper memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
+        memberPacketMapper.update(new MemberPacketEntity(), new LambdaUpdateWrapper<MemberPacketEntity>()
                 .eq(MemberPacketEntity::getPacketId, packageId)
                 .eq(MemberPacketEntity::getMemberCityId, memberCityID)
                 .set(MemberPacketEntity::getIsDel, 1));
 
-                   //执行定时定时任务：店铺更新定时任务
+        //执行定时定时任务：店铺更新定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
 
     }
@@ -67,7 +67,7 @@ public class CategoryShopShouldHasMemberBenefitDeliveryDsicountScenarioTests {
     @ParameterizedTest
     @DisplayName("普通店铺配送商卡-品类频道_优惠标签_会员权益_首页-商卡二期：会员权益32-会员运费免减")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
-          ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -77,13 +77,13 @@ public class CategoryShopShouldHasMemberBenefitDeliveryDsicountScenarioTests {
         assert memberPacket.getShowContent().equals("免运费");
 
 
-
     }
+
     /**
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-     ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
         return Stream.of(Arguments.of(shopListRequestDTO));

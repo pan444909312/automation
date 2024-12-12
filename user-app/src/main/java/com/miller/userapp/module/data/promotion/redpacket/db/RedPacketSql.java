@@ -10,34 +10,38 @@ import org.apache.ibatis.session.SqlSession;
 
 public class RedPacketSql {
     private SqlSession sqlSession;
-    public  RedPacketSql(SqlSession sqlSession){
+
+    public RedPacketSql(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
-    public RedPacketMapper getRedPacketMapper(){
+
+    public RedPacketMapper getRedPacketMapper() {
         return sqlSession.getMapper(RedPacketMapper.class);
     }
 
-    public RedPacketEntity selectOneByRedPacketId(Long redPacketId){
+    public RedPacketEntity selectOneByRedPacketId(Long redPacketId) {
         QueryWrapper<RedPacketEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<RedPacketEntity> lambda = queryWrapper.lambda();
-        lambda.eq(RedPacketEntity::getRedPacketId,redPacketId);
+        lambda.eq(RedPacketEntity::getRedPacketId, redPacketId);
         return getRedPacketMapper().selectOne(queryWrapper);
     }
 
-    public RedPacketEntity selectEffectRedPacket(Long redPacketId){
+    public RedPacketEntity selectEffectRedPacket(Long redPacketId) {
         QueryWrapper<RedPacketEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<RedPacketEntity> lambda = queryWrapper.lambda();
-        lambda.eq(RedPacketEntity::getRedPacketId,redPacketId);
-        lambda.eq(RedPacketEntity::getStatus,0);
-        lambda.eq(RedPacketEntity::getIsDel,0);
+        lambda.eq(RedPacketEntity::getRedPacketId, redPacketId);
+        lambda.eq(RedPacketEntity::getStatus, 0);
+        lambda.eq(RedPacketEntity::getIsDel, 0);
         return getRedPacketMapper().selectOne(queryWrapper);
     }
 
-    public int updateSendNum(Long redPacketId){
-        UpdateWrapper<RedPacketEntity> updateWrapper=new UpdateWrapper<>();
+    public int updateSendNum(Long redPacketId) {
+        RedPacketEntity redPacketEntity = new RedPacketEntity();
+        redPacketEntity.setRedPacketId(redPacketId);
+        UpdateWrapper<RedPacketEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<RedPacketEntity> lamda = updateWrapper.lambda();
-        lamda.eq(RedPacketEntity::getRedPacketId,redPacketId);
+        lamda.eq(RedPacketEntity::getRedPacketId, redPacketId);
         lamda.setSql("`send_number`=`send_number`+1");
-        return getRedPacketMapper().update(updateWrapper);
+        return getRedPacketMapper().update(redPacketEntity, updateWrapper);
     }
 }

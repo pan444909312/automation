@@ -39,7 +39,7 @@ public class ShopStatusShouldNoOrderStopTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopMapper shopMapper = sqlSession.getMapper(ShopMapper.class);
 //设置为正常营业，无暂停营业
-        shopMapper.update(new LambdaUpdateWrapper<ShopEntity>()
+        shopMapper.update(new ShopEntity(), new LambdaUpdateWrapper<ShopEntity>()
                 .eq(ShopEntity::getShopId, shopId)
                 .set(ShopEntity::getShopOrderStopStatus, 0)
                 .set(ShopEntity::getShopOrderStopKeepTime, 0)

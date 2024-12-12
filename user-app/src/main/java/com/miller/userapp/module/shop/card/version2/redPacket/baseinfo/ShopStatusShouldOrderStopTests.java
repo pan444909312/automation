@@ -44,7 +44,7 @@ public class ShopStatusShouldOrderStopTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopMapper shopMapper = sqlSession.getMapper(ShopMapper.class);
 //update shop_order_stop_status=0,shop_order_stop_keep_time=15,shop_order_stop_start_time=nowDate where shopid=
-        shopMapper.update(new LambdaUpdateWrapper<ShopEntity>()
+        shopMapper.update(new ShopEntity(), new LambdaUpdateWrapper<ShopEntity>()
                 .eq(ShopEntity::getShopId, shopId)
                 .set(ShopEntity::getShopOrderStopStatus, 1)
                 .set(ShopEntity::getShopOrderStopKeepTime, 15)
@@ -60,7 +60,7 @@ public class ShopStatusShouldOrderStopTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopMapper shopMapper = sqlSession.getMapper(ShopMapper.class);
 //        回复店铺数据=营业
-        shopMapper.update(new LambdaUpdateWrapper<ShopEntity>()
+        shopMapper.update(new ShopEntity(), new LambdaUpdateWrapper<ShopEntity>()
                 .eq(ShopEntity::getShopId, shopId)
                 .set(ShopEntity::getShopOrderStopStatus, 0)
                 .set(ShopEntity::getShopOrderStopKeepTime, 0)

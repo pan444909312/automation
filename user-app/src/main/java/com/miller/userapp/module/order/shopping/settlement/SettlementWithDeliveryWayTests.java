@@ -54,7 +54,7 @@ public class SettlementWithDeliveryWayTests {
         lambda.eq(ShopEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopEntity::getDeliveryType,DeliveryTypeEnum.PANDA_DELIVERY.getCode());
         lambda.set(ShopEntity::getIsUserPack, StatusEnum.YES.getCode());
-        shopMapper.update(updateWrapper);
+        shopMapper.update(new ShopEntity(), updateWrapper);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
@@ -74,7 +74,7 @@ public class SettlementWithDeliveryWayTests {
         lambda.eq(ShopEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopEntity::getDeliveryType,DeliveryTypeEnum.SHOP_DELIVERY.getCode());
         lambda.set(ShopEntity::getIsUserPack, StatusEnum.YES.getCode());
-        shopMapper.update(updateWrapper);
+        shopMapper.update(new ShopEntity(), updateWrapper);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
@@ -93,7 +93,7 @@ public class SettlementWithDeliveryWayTests {
         lambda.eq(ShopEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopEntity::getDeliveryType,DeliveryTypeEnum.PANDA_DELIVERY.getCode());
         lambda.set(ShopEntity::getIsUserPack, StatusEnum.NO.getCode());
-        shopMapper.update(updateWrapper);
+        shopMapper.update(new ShopEntity(), updateWrapper);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
@@ -110,7 +110,7 @@ public class SettlementWithDeliveryWayTests {
         lambda.eq(ShopEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopEntity::getDeliveryType,DeliveryTypeEnum.NO_DELIVERY.getCode());
         lambda.set(ShopEntity::getIsUserPack, StatusEnum.YES.getCode());
-        shopMapper.update(updateWrapper);
+        shopMapper.update(new ShopEntity(), updateWrapper);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);

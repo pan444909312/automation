@@ -88,7 +88,7 @@ public class SettlementMemberDeliveryFeeTests {
         LambdaUpdateWrapper<MemberEntityDeliveryPriceEntity> lamda1 = updateWrapper1.lambda();
         lamda1.eq(MemberEntityDeliveryPriceEntity::getMemberEntityId, id);
         lamda1.set(MemberEntityDeliveryPriceEntity::getDeliveryType, 0);
-        memberEntityDeliveryPriceMapper.update(updateWrapper1);
+        memberEntityDeliveryPriceMapper.update(new MemberEntityDeliveryPriceEntity(), updateWrapper1);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         OrderAmountVO discountDelivery = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
@@ -118,7 +118,7 @@ public class SettlementMemberDeliveryFeeTests {
         LambdaUpdateWrapper<MemberEntityDeliveryPriceEntity> lamda1 = updateWrapper1.lambda();
         lamda1.eq(MemberEntityDeliveryPriceEntity::getMemberEntityId, id);
         lamda1.set(MemberEntityDeliveryPriceEntity::getDeliveryType, 1);
-        memberEntityDeliveryPriceMapper.update(updateWrapper1);
+        memberEntityDeliveryPriceMapper.update(new MemberEntityDeliveryPriceEntity(), updateWrapper1);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         OrderAmountVO discountDelivery = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
