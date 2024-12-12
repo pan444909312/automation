@@ -1,6 +1,5 @@
 package com.miller.market.user.login;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.mapper.user.UserMapper;
@@ -11,7 +10,6 @@ import com.miller.market.util.DBUtils;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.panda.market.dal.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,7 +1,5 @@
 package com.miller.market.address.search;
 
-import com.miller.market.address.getAddress.flow.MarketGetAddressFlow;
-import com.miller.market.address.getAddress.response.MarketGetAddressResponseDTO;
 import com.miller.market.address.search.flow.MarketSearchAddressFlow;
 import com.miller.market.address.search.request.MarketSearchAddressRequestDTO;
 import com.miller.market.address.search.response.MarketSearchAddressResponseDTO;

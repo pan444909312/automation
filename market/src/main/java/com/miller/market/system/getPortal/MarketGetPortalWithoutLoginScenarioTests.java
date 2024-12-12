@@ -5,7 +5,6 @@ import com.miller.market.system.getPortal.flow.MarketGetPortalWithoutLoginFlow;
 import com.miller.market.system.getPortal.response.MarketGetPortalResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

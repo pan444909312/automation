@@ -1,7 +1,6 @@
 package com.miller.market.address.addAddress;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.miller.market.address.addAddress.flow.MarketAddAddressFlow;
 import com.miller.market.address.addAddress.request.MarketAddAddressRequestDTO;
 import com.miller.market.address.addAddress.response.MarketAddAddressResponseDTO;
@@ -10,7 +9,6 @@ import com.miller.market.mapper.user.AddressMapper;
 import com.miller.market.util.DBUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.panda.market.common.enums.IsDeleteEnum;
 import com.panda.market.dal.entity.Address;
 import org.apache.ibatis.session.SqlSession;
 import org.assertj.core.api.Assertions;

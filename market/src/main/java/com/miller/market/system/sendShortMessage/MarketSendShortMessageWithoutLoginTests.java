@@ -7,7 +7,6 @@ import com.miller.market.system.sendShortMessage.request.MarketSendShortMessageR
 import com.miller.market.system.sendShortMessage.response.MarketSendShortMessageResponseDTO;
 import com.miller.market.util.RedisUtils;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.panda.market.common.constants.Constants;
 import org.assertj.core.api.Assertions;
