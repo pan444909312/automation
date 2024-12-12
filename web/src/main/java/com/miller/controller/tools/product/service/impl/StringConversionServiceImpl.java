@@ -97,7 +97,7 @@ public class StringConversionServiceImpl implements StringConversionService {
         // 打印输出
         List<String> keys = resMap.keySet().stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
         keys.forEach(key ->{
-            System.out.println("【".concat(key).concat("】"));
+            System.out.println("\n【".concat(key).concat("】"));
             List<String> values = resMap.get(key);
             for (int i = 0; i < values.size(); i++) {
                 System.out.println("\t".concat(String.valueOf(i + 1)).concat(". ").concat(values.get(i)));

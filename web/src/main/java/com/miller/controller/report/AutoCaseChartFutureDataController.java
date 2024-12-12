@@ -1,7 +1,17 @@
 package com.miller.controller.report;
 
+import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
+import com.miller.service.job.ChartDataTask;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,6 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/autoCaseChartFutureData")
+@Tag(name = "测试job")
 public class AutoCaseChartFutureDataController {
+
+    @Autowired
+    ChartDataTask chartDataTask;
+
+    @Operation(description = "定时任务测试")
+    @PostMapping("/test")
+    public Map<String, Object> listAutoCase() {
+        HashMap<String, Object> result = new HashMap<>();
+        chartDataTask.initChartData();
+        chartDataTask.execute();
+
+        return result;
+    }
 
 }
