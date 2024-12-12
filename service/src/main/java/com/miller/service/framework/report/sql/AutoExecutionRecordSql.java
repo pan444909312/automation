@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.mapper.report.AutoExecutionRecordMapper;
 import org.apache.ibatis.session.SqlSession;
@@ -38,12 +38,11 @@ public class AutoExecutionRecordSql {
         lambda.last("limit 1");
         return  getAutoExecutionRecordMapper().selectOne(queryWrapper);
     }
-    public int updateAutoExecutionRecord(Long id ,int result){
-        UpdateWrapper<AutoExecutionRecordEntity> updateWrapper = new UpdateWrapper<>();
-        LambdaUpdateWrapper<AutoExecutionRecordEntity> lambda = updateWrapper.lambda();
-        lambda.eq(AutoExecutionRecordEntity::getId,id);
-        lambda.set(AutoExecutionRecordEntity::getExecutionStatus,result);
-        lambda.set(AutoExecutionRecordEntity::getUpdateTime,System.currentTimeMillis());
-        return  getAutoExecutionRecordMapper().update(updateWrapper);
+    public int updateAutoExecutionRecord(AutoExecutionRecordEntity autoExecutionRecordEntity , ExecutionStatusEnum value){
+        LambdaUpdateWrapper<AutoExecutionRecordEntity> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(AutoExecutionRecordEntity::getId,autoExecutionRecordEntity.getId());
+        updateWrapper.set(AutoExecutionRecordEntity::getExecutionStatus,value.getCode());
+        updateWrapper.set(AutoExecutionRecordEntity::getUpdateTime,System.currentTimeMillis());
+        return  getAutoExecutionRecordMapper().update(autoExecutionRecordEntity, updateWrapper);
     }
 }
