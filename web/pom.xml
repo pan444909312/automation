@@ -38,6 +38,24 @@
             <groupId>com.miller</groupId>
             <artifactId>takeaway</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>bdm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>merchant</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>pos</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>market</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>com.baomidou</groupId>
