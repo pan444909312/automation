@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("首页")
+@DisplayName("PF_首页")
 public class MarketGetIndexLoginTests {
 
     @Test
-    @DisplayName("正常流程_已登录_获取首页")
+    @DisplayName("PF_正常流程_已登录_获取首页")
     void getIndexSuccessfully() {
         MarketGetIndexResponseDTO marketGetIndexResponseDTO = MarketGetIndexLoginFlow.getIndex();
 

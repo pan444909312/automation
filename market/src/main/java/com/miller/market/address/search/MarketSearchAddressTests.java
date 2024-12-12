@@ -22,13 +22,13 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("搜索地址")
+@DisplayName("PF_搜索地址")
 public class MarketSearchAddressTests {
 
 
     @MethodSource("staticAddressDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_搜索地址")
+    @DisplayName("PF_正常流程_搜索地址")
     void addAddressSuccessfully(MarketSearchAddressRequestDTO requestDTO) {
         MarketSearchAddressResponseDTO responseDTO = MarketSearchAddressFlow.searchAddress(requestDTO);
 

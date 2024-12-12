@@ -24,13 +24,13 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("发信短信验证码")
+@DisplayName("PF_发信短信验证码")
 public class MarketSendShortMessageWithoutLoginTests {
 
 
     @MethodSource("staticPhoneProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_发送验证码成功")
+    @DisplayName("PF_正常流程_发送验证码成功")
     void sendShortMessageSuccessfully(MarketSendShortMessageRequestDTO marketSendShortMessageRequestDTO) {
         MarketSendShortMessageResponseDTO marketSendShortMessageResponseDTO = MarketSendShortMessageFlow.sendShortMessage(marketSendShortMessageRequestDTO);
 

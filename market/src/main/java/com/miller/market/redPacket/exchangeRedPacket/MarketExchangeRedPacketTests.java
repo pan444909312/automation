@@ -38,7 +38,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("兑换红包")
+@DisplayName("PF_兑换红包")
 public class MarketExchangeRedPacketTests {
 
     private static RedPacketUserMapper redPacketUserMapper;
@@ -65,7 +65,7 @@ public class MarketExchangeRedPacketTests {
 
     @MethodSource("staticRedPacketDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_兑换红包成功")
+    @DisplayName("PF_正常流程_兑换红包成功")
     void exchangeRedPacketSuccessfully(MarketExchangeRedPacketRequestDTO marketExchangeRedPacketRequestDTO) {
         MarketExchangeRedPacketResponseDTO marketExchangeRedPacketResponseDTO = MarketExchangeRedPacketFlow.exchangeRedPacket(marketExchangeRedPacketRequestDTO);
 

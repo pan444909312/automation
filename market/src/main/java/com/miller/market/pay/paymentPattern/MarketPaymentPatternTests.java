@@ -25,12 +25,12 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("获取支付信息")
+@DisplayName("PF_获取支付信息")
 public class MarketPaymentPatternTests {
 
     @MethodSource("staticOrderDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取支付信息")
+    @DisplayName("PF_正常流程_已登录_获取支付信息")
     void getPaymentPatternSuccessfully(MarketPaymentPatternRequestDTO requestDTO) {
         MarketPaymentPatternResponseDTO responseDTO = MarketPaymentPatternFlow.getPaymentPattern(requestDTO);
 

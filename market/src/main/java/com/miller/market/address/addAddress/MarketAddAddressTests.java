@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("新增收货地址")
+@DisplayName("PF_新增收货地址")
 public class MarketAddAddressTests {
 
     static AddressMapper addressMapper ;
@@ -59,7 +59,7 @@ public class MarketAddAddressTests {
 
     @MethodSource("marketAddressDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_新增收货地址")
+    @DisplayName("PF_正常流程_新增收货地址")
     void addAddressSuccessfully(MarketAddAddressRequestDTO marketAddAddressRequestDTO) {
         MarketAddAddressResponseDTO marketAddAddressResponseDTO = MarketAddAddressFlow.addAddress(marketAddAddressRequestDTO);
 

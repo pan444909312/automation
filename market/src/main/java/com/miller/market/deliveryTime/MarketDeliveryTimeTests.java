@@ -19,12 +19,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("配送时间接口")
+@DisplayName("PF_配送时间接口")
 public class MarketDeliveryTimeTests {
 
     @MethodSource("com.miller.market.deliveryTime.provider.MarketGetDeliveryTimeDataProvider#marketDeliveryTimeDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_获取配送时间")
+    @DisplayName("PF_正常流程_获取配送时间")
     void getDeliveryTimeSuccessfully(MarketGetDeliveryTimeRequestDTO marketGetDeliveryTimeRequestDTO) {
         MarketGetDeliveryTimeResponseDTO marketGetDeliveryTimeResponseDTO = MarketGetDeliveryTimeFlow.getDeliveryTime(marketGetDeliveryTimeRequestDTO);
 

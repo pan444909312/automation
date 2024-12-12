@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("分类页")
+@DisplayName("PF_分类页")
 public class MarketGetCategoryLoginTests {
 
     @Test
-    @DisplayName("正常流程_已登录_获取分类页")
+    @DisplayName("PF_正常流程_已登录_获取分类页")
     void getCategoryLoginSuccessfully() {
         MarketGetCategoryResponseDTO marketGetCategoryResponseDTO = MarketGetCategoryLoginFlow.getCategory();
 

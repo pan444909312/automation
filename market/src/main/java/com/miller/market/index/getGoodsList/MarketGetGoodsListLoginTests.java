@@ -35,7 +35,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("首页商品流")
+@DisplayName("PF_首页商品流")
 public class MarketGetGoodsListLoginTests {
     private static MarketGetIndexResponseDTO marketGetIndexResponseDTO = new MarketGetIndexResponseDTO();
     private static List<IndexListDTO> indexList = new ArrayList<>();
@@ -47,7 +47,7 @@ public class MarketGetGoodsListLoginTests {
     }
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取首页商品流")
+    @DisplayName("PF_正常流程_已登录_获取首页商品流")
     void getGoodsByFirstCategoryLoginSuccessfully(MarketGetGoodsListRequestDTO marketGetGoodsListRequestDTO) {
         MarketGetGoodsListResponseDTO marketGetGoodsListResponseDTO = MarketGetGoodsListLoginFlow.getGoodsList(marketGetGoodsListRequestDTO);
 

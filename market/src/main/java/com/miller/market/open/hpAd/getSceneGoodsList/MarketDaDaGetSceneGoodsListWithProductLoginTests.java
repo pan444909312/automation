@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("达达获取店铺场景商品列表")
+@DisplayName("PF_达达获取店铺场景商品列表")
 public class MarketDaDaGetSceneGoodsListWithProductLoginTests {
 
     private static MarketGetShopAdListResponseDTO marketGetShopAdListResponseDTO = new MarketGetShopAdListResponseDTO();
@@ -40,7 +40,7 @@ public class MarketDaDaGetSceneGoodsListWithProductLoginTests {
     }
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取达达二级菜单及商品-不过滤烟-过滤烟")
+    @DisplayName("PF_正常流程_已登录_获取达达二级菜单及商品-不过滤烟-过滤烟")
     void getSceneGoodsListLoginSuccessfully(MarketGetSceneGoodsListWithProductRequestDTO requestDTO) {
         //不过滤烟
         MarketGetSceneGoodsListWithProductResponseDTO responseDTO = MarketGetSceneGoodsListWithProductLoginFlow.getSceneGoodsList(requestDTO);

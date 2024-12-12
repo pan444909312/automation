@@ -17,11 +17,11 @@ import org.junit.jupiter.api.Test;
         scenarioName = "正常流程_未登录_获取分类页",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("分类页")
+@DisplayName("PF_分类页")
 public class MarketGetCategoryWithoutLoginScenarioTests {
 
     @Test
-    @DisplayName("正常流程_未登录_获取分类页")
+    @DisplayName("PF_正常流程_未登录_获取分类页")
     void getCategoryWithoutLoginSuccessfully() {
         MarketGetCategoryResponseDTO marketGetCategoryResponseDTO = MarketGetCategoryWithoutLoginFlow.getCategory();
 
