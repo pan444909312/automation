@@ -132,8 +132,10 @@ public class SettlementMemberDeliveryFeeTests {
 
             }
         }
+        Integer memberDeliveryFee = mergeList.get(0).getItemAmount()-mergeList.get(2).getItemAmount();
         assertThat(discountDelivery.getItemAmount()).isEqualTo(0);
         assertThat(itemKeyList.toString().contains("memberDeliveryDiscount"));
+        assertThat(memberDeliveryFee).isEqualTo(mergeList.get(1).getItemAmount());
 
     }
 
