@@ -26,7 +26,7 @@ import java.util.stream.Stream;
         scenarioName = "正常流程_未登录_获取店铺场景商品列表-不过滤烟-过滤烟",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("达达获取店铺场景商品列表")
+@DisplayName("PF_达达获取店铺场景商品列表")
 public class MarketDaDaGetSceneGoodsListWithProductWithoutLoginScenarioTests {
 
     private static MarketGetShopAdListResponseDTO marketGetShopAdListResponseDTO = new MarketGetShopAdListResponseDTO();
@@ -41,7 +41,7 @@ public class MarketDaDaGetSceneGoodsListWithProductWithoutLoginScenarioTests {
     }
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_未登录_获取达达二级菜单及商品-不过滤烟-过滤烟")
+    @DisplayName("PF_正常流程_未登录_获取达达二级菜单及商品-不过滤烟-过滤烟")
     void getSceneGoodsListWithoutLoginSuccessfully(MarketGetSceneGoodsListWithProductRequestDTO requestDTO) {
         //不过滤烟
         MarketGetSceneGoodsListWithProductResponseDTO responseDTO= MarketGetSceneGoodsListWithProductWithoutLoginFlow.getSceneGoodsList(requestDTO);

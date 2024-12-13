@@ -22,11 +22,11 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("达达首页商品流")
+@DisplayName("PF_达达首页商品流")
 public class MarketDaDaGetGoodsFlowLoginTests {
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取达达首页商品流-不过滤烟-过滤烟")
+    @DisplayName("PF_正常流程_已登录_获取达达首页商品流-不过滤烟-过滤烟")
     void getGoodsByFirstCategoryLoginSuccessfully(MarketGetGoodsFlowRequestDTO requestDTO) {
         //不过滤烟
         MarketGetGoodsFlowResponseDTO responseDTO = MarketGetGoodsFlowLoginFlow.getGoodsList(requestDTO);

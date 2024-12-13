@@ -21,12 +21,12 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("支付客户端通知接口")
+@DisplayName("PF_支付客户端通知接口")
 public class MarketPaymentNotifyTests {
 
     @MethodSource("staticPayDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_支付通知回调")
+    @DisplayName("PF_正常流程_已登录_支付通知回调")
     void getPaymentPatternSuccessfully(MarketPaymentNotifyRequestDTO requestDTO) throws InterruptedException {
         Thread.sleep(10000);
         MarketPaymentNotifyResponseDTO responseDTO = MarketPaymentNotifyFlow.getPaymentNotify(requestDTO);

@@ -1,8 +1,10 @@
 package com.miller.service.report.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.entity.report.AutoCaseChartFutureDataEntity;
+import com.miller.entity.report.AutoCaseExecutionChartEntity;
 import com.miller.entity.report.AutoCaseRoiChartEntity;
 import com.miller.entity.report.req.PageAutoCaseRoiChartReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiChartRespDTO;
@@ -37,8 +39,10 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
     AutoCaseChartFutureDataService autoCaseChartFutureDataService;
 
     /**
-     * @param pageAutoCaseRoiChartReqDTO
-     * @return
+     * 条件分页查询测试场景总ROI表
+     *
+     * @param pageAutoCaseRoiChartReqDTO 查询对象
+     * @return查询对象
      */
     @Override
     public Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
@@ -92,7 +96,7 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         }
         autoCaseChartFutureDataQueryWrapper.orderByDesc("future_time");
         if (executionTypeList != null && !executionTypeList.isEmpty()) {
-            autoCaseChartFutureDataQueryWrapper.last("limit "+ executionTypeList.size());
+            autoCaseChartFutureDataQueryWrapper.last("limit " + executionTypeList.size());
         }
 
         List<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataEntityList = autoCaseChartFutureDataService.list(autoCaseChartFutureDataQueryWrapper);
@@ -110,5 +114,64 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         result.put("list", autoCaseRoiChartRespDTOList);
         result.put("total", total);
         return result;
+    }
+
+    @Override
+    public long getTotalDevelopTime(int executionType) {
+        if (getLatestData(executionType) != null)
+            return getLatestData(executionType).getTotalDevelopmentTime();
+        return 0;
+    }
+
+    @Override
+    public long getTotalMaintenanceTime(int executionType) {
+        if (getLatestData(executionType) != null)
+            return getLatestData(executionType).getTotalMaintenanceTime();
+        return 0;
+    }
+
+    @Override
+    public int getTotalTimes(int executionType) {
+        if (getLatestData(executionType) != null)
+            return getLatestData(executionType).getTimes();
+        return 0;
+    }
+
+    @Override
+    public long getTotalSaveTime(int executionType) {
+        if (getLatestData(executionType) != null)
+            return getLatestData(executionType).getSaveTime();
+        return 0;
+    }
+
+    /**
+     * 检查自动化用例执行趋势表，今日是否同步过对应执行类型的数据
+     * @param executionType 执行策略
+     * @return 是 返回true，否 返回 false
+     */
+    @Override
+    public boolean checkTodayHasData(int executionType) {
+        // 昨天0：00
+        long yesterdayStart = TimestampUtils.timestampToYesterdayMidnight(System.currentTimeMillis());
+        // 今日0：00
+        long yesterdayEnd = yesterdayStart + 60 * 60 * 24 * 1000;
+
+        List<AutoCaseRoiChartEntity> autoCaseRoiChartEntityList = autoCaseRoiChartMapper.selectList(new QueryWrapper<AutoCaseRoiChartEntity>()
+                .ge("create_time", yesterdayEnd)
+                .eq("execution_type",executionType));
+        return !autoCaseRoiChartEntityList.isEmpty();
+    }
+
+    /**
+     * 获取最新的一条测试场景总ROI数据对象
+     *
+     * @return
+     */
+    private AutoCaseRoiChartEntity getLatestData(int executionType) {
+        QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<AutoCaseRoiChartEntity>()
+                .eq("execution_type",executionType)
+                .orderByDesc("create_time")
+                .last("limit 1");
+        return autoCaseRoiChartMapper.selectOne(queryWrapper);
     }
 }

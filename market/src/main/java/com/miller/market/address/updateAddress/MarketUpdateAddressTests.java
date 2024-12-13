@@ -22,13 +22,13 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("修改收货地址")
+@DisplayName("PF_修改收货地址")
 public class MarketUpdateAddressTests {
 
 
     @MethodSource("staticAddressDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_修改收货地址")
+    @DisplayName("PF_正常流程_修改收货地址")
     void addAddressSuccessfully(MarketUpdateAddressRequestDTO marketUpdateAddressRequestDTO) {
         MarketUpdateAddressResponseDTO marketUpdateAddressResponseDTO = MarketUpdateAddressFlow.updateAddress(marketUpdateAddressRequestDTO);
 

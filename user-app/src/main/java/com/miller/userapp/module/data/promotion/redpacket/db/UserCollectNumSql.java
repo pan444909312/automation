@@ -30,6 +30,11 @@ public class UserCollectNumSql {
     }
 
     public int updateNumByUserIdAndRedPacketId(Long time,Long userId,Long redPacketId) {
+        UserCollectNumEntity userCollectNumEntity = new UserCollectNumEntity();
+        userCollectNumEntity.setUpdateTime(time);
+        userCollectNumEntity.setUserId(userId);
+        userCollectNumEntity.setRedPacketId(redPacketId);
+
         UpdateWrapper<UserCollectNumEntity> queryWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<UserCollectNumEntity> lamda = queryWrapper.lambda();
         lamda.eq(UserCollectNumEntity::getUserId, userId);
@@ -39,6 +44,6 @@ public class UserCollectNumSql {
         lamda.setSql("`collect_num`=`collect_num`+1");
         lamda.setSql("`un_used_num`=`un_used_num`+1");
 
-        return  getUserCollectNumMapper().update(queryWrapper);
+        return  getUserCollectNumMapper().update(userCollectNumEntity, queryWrapper);
     }
 }

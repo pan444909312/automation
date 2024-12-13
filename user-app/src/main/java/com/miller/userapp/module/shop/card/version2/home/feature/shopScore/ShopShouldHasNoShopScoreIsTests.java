@@ -27,33 +27,34 @@ import java.util.stream.Stream;
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoShopScoreIsTests {
-     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
-     @BeforeAll
+    @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopSearchMiddleMapper shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
 //update evaluation_score=100 where shopid=xxxx  没有则不展示
-         shopSearchMiddleMapper.update(new LambdaUpdateWrapper<ShopSearchMiddleEntity>()
-                 .eq(ShopSearchMiddleEntity::getShopId, shopId)
-                 .set(ShopSearchMiddleEntity::getPraiseAverage,0)
-                 .set(ShopSearchMiddleEntity::getShowShopEvaluation,0)
-                 .set(ShopSearchMiddleEntity::getPraiseAverageNew,0));
+        shopSearchMiddleMapper.update(new LambdaUpdateWrapper<ShopSearchMiddleEntity>()
+                .eq(ShopSearchMiddleEntity::getShopId, shopId)
+                .set(ShopSearchMiddleEntity::getPraiseAverage, 0)
+                .set(ShopSearchMiddleEntity::getShowShopEvaluation, 0)
+                .set(ShopSearchMiddleEntity::getPraiseAverageNew, 0));
 
-     }
-     @MethodSource("staticDataProvider")
+    }
+
+    @MethodSource("staticDataProvider")
     @ParameterizedTest
     @DisplayName("商卡(中文)_普通店铺配送商卡_辅助信息_店铺评分_首页-商卡二期：店铺评分-无数据")
-     void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
-          ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
-          ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
+    void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
+        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-                assert shopIndexVO.getPraiseAverage().equals("0");
-     }
+        assert shopIndexVO.getPraiseAverage().equals("0");
+    }
 
-/*
-          * 测试用例数据提供者
+    /*
+     * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();

@@ -17,12 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("购物车列表")
+@DisplayName("PF_购物车列表")
 public class MarketGetShopCartListTests {
 
 
     @Test
-    @DisplayName("正常流程_获取购物车列表")
+    @DisplayName("PF_正常流程_获取购物车列表")
     void getShopCartListSuccessfully() {
         MarketGetShopCartListResponseDTO marketGetShopCartListResponseDTO = MarketGetShopCartListFlow.getShopCartList();
 

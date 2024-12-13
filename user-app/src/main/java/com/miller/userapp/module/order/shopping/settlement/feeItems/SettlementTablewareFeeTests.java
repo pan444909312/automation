@@ -40,7 +40,7 @@ public class SettlementTablewareFeeTests {
         lambda.eq(ShopEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lambda.set(ShopEntity::getTablewarePrice,TestCaseDataForMerchantConstant.tablewarePrice );
         lambda.set(ShopEntity::getDefaultTablewareQuantity, TestCaseDataForMerchantConstant.defaultTablewareQuantity);
-        shopMapper.update(updateWrapper);
+        shopMapper.update(new ShopEntity(), updateWrapper);
     }
     @AfterAll
     static void AfterAll(){

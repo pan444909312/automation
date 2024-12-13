@@ -11,20 +11,27 @@ import org.apache.ibatis.session.SqlSession;
 
 public class IntegralSql {
     private SqlSession sqlSession;
-    public  IntegralSql(SqlSession sqlSession){
+
+    public IntegralSql(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
-    public IntegralMapper getIntegralMapper(){
+
+    public IntegralMapper getIntegralMapper() {
         return sqlSession.getMapper(IntegralMapper.class);
     }
-    public void insert(IntegralEntity integral){
+
+    public void insert(IntegralEntity integral) {
         getIntegralMapper().insert(integral);
     }
-    public int update(String userId,Long integral){
+
+    public int update(String userId, Long integral) {
+        IntegralEntity integralEntity = new IntegralEntity();
+        integralEntity.setUserId(Long.valueOf(userId));
+        integralEntity.setIntergral(integral);
         UpdateWrapper<IntegralEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<IntegralEntity> lambda = updateWrapper.lambda();
-        lambda.eq(IntegralEntity::getUserId,userId);
-        lambda.set(IntegralEntity::getIntergral,integral);
-        return getIntegralMapper().update(updateWrapper);
+        lambda.eq(IntegralEntity::getUserId, userId);
+        lambda.set(IntegralEntity::getIntergral, integral);
+        return getIntegralMapper().update(integralEntity, updateWrapper);
     }
 }

@@ -29,7 +29,7 @@ public class AutoExecutionRecordEntity implements Serializable {
     @TableField("scenario_id")
     private String scenarioId;
 
-    @Schema(description = "执行策略 1:日常巡检;2:质量保证;3:效率提升")
+    @Schema(description = "执行策略 0:未知策略1:日常巡检;2:质量保证;3:效率提升")
     @TableField("execution_type")
     private Integer executionType;
 

@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("获取订单pf红包&优惠券列表")
+@DisplayName("PF_获取订单pf红包&优惠券列表")
 public class MarketGetRedPacketListByOrderTests {
     private static OrderMapper orderMapper;
     @BeforeAll
@@ -35,7 +35,7 @@ public class MarketGetRedPacketListByOrderTests {
     }
     @MethodSource("staticRedPacketProvider")
     @ParameterizedTest
-    @DisplayName("正常流程-获取订单pf红包列表")
+    @DisplayName("PF_正常流程-获取订单pf红包列表")
     void getRedPacketListByOrderSuccessfully(MarketGetRedPacketListByOrderRequestDTO marketGetRedPacketListByOrderRequestDTO) {
         MarketGetRedPacketListByOrderResponseDTO marketGetRedPacketListByOrderResponseDTO = MarketGetRedPacketListByOrderFlow.getRedPacketListByOrder(marketGetRedPacketListByOrderRequestDTO);
 
@@ -46,7 +46,7 @@ public class MarketGetRedPacketListByOrderTests {
 
     @MethodSource("staticCouponProvider")
     @ParameterizedTest
-    @DisplayName("正常流程-获取订单pf优惠券列表")
+    @DisplayName("PF_正常流程-获取订单pf优惠券列表")
     void getCouponListByOrderSuccessfully(MarketGetRedPacketListByOrderRequestDTO marketGetRedPacketListByOrderRequestDTO) {
 
         MarketGetRedPacketListByOrderResponseDTO marketGetRedPacketListByOrderResponseDTO = MarketGetRedPacketListByOrderFlow.getRedPacketListByOrder(marketGetRedPacketListByOrderRequestDTO);

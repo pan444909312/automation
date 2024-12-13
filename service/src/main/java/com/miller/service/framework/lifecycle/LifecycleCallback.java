@@ -9,7 +9,7 @@ import com.miller.service.framework.report.sql.AutoCaseRoiSql;
 import com.miller.service.framework.report.sql.AutoExecutionRecordSql;
 import com.miller.service.framework.annotation.MethodInvoked;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.report.entity.AutoCaseRoiEntity;
+import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.service.framework.exception.TestFrameworkException;
 import com.miller.service.framework.listenner.TestResultWatcher;
 import com.miller.service.framework.util.JGitUtils;
@@ -73,12 +73,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             AutoExecutionRecordEntity autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
             AutoExecutionRecordEntity autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecordBySuite(scenarioId);
             if(Objects.nonNull(autoExecutionRecord)){
-                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
+                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord,value);
             }
             //suite会多次（子类多个），所以如果不是失败的需要再次更新（map已校验） && !autoExecutionRecordSuite.getExecutionStatus().equals(ExecutionStatusEnum.FAIL.getCode())
             if(Objects.nonNull(autoExecutionRecordSuite) && !autoExecutionRecordSuite.getExecutionStatus().equals(value.getCode())){
                 //不等才更新
-                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
+                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord,value);
             }
         });
 

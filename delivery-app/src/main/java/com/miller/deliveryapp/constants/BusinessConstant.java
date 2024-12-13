@@ -16,17 +16,17 @@ public class BusinessConstant {
     public static final String DOMAIN = "https://app-deliverytest.hungrypanda.cn";
 
     /**
-     * 纬度
+     * 纬度。最好用户、商家、骑手保持一致，避免因为定位问题接口报错。如果要测试远距离请用例中更新此数据
      */
-    public static String latitude = "30.20353";
+    public static String latitude = "29.6705668154";
     /**
-     * 经度
+     * 经度。最好用户、商家、骑手保持一致，避免因为定位问题接口报错。如果要测试远距离请用例中更新此数据
      */
-    public static String longitude = "120.216552";
-    public static String version = "5.48.0";
+    public static String longitude = "115.9432964166";
+    public static String version = "5.52.0";
     public static String platform = "ANDROID_DELIVERY";
     public static String type = "3";
-    public static String userAgent = "5.48.0";
+    public static String userAgent = "5.52.0";
     public static String locale = "zh-CN";
     public static String operatingSystem = "1";
     public static String brand = "HUAWEI";

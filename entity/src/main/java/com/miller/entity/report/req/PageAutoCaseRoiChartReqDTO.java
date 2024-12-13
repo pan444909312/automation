@@ -23,7 +23,7 @@ public class PageAutoCaseRoiChartReqDTO {
     @Schema(description = "创建结束时间")
     private Date createEndTime;
 
-    @Schema(description = "执行策略 1:日常巡检;2:质量保证;3:效率提升")
+    @Schema(description = "执行策略 0:未知策略 1:日常巡检;2:质量保证;3:效率提升")
     private List<Integer> executionTypeList;
 
 

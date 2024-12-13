@@ -26,7 +26,7 @@ import java.util.stream.Stream;
  * @since 2024/7/31 14:54
  */
 @Scenario(scenarioID = "01JDRAVZPN08TM5K3JE7BXFW6A",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_新客爆品_熊猫联盟频道-商卡二期：平台首单23 - 不展示",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_平台首单_熊猫联盟频道-商卡二期：平台首单23 - 不展示",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -41,7 +41,7 @@ public class ShopShouldHasNoFirstDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_新客爆品_熊猫联盟频道-商卡二期：平台首单23 - 不展示")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_平台首单_熊猫联盟频道-商卡二期：平台首单23 - 不展示")
     void shouldNotExistFirstDiscount(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);

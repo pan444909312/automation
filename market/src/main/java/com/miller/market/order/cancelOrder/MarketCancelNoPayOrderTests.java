@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("取消待支付订单")
+@DisplayName("PF_取消待支付订单")
 public class MarketCancelNoPayOrderTests {
     private static OrderMapper orderMapper;
     @BeforeAll
@@ -39,7 +39,7 @@ public class MarketCancelNoPayOrderTests {
     }
     @MethodSource("staticNoPayOrderDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_取消待支付订单")
+    @DisplayName("PF_正常流程_取消待支付订单")
     void cancelNoPayOrderSuccessfully(MarketCancelOrderRequestDTO marketCancelOrderRequestDTO) {
         MarketCancelOrderResponseDTO marketCancelOrderResponseDTO = MarketCancelOrderFlow.cancelOrder(marketCancelOrderRequestDTO);
 

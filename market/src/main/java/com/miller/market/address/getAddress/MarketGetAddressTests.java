@@ -10,19 +10,17 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 
 /**
  * 收货地址
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("收货地址列表")
+@DisplayName("PF_收货地址列表")
 public class MarketGetAddressTests {
 
     @Test
-    @DisplayName("正常流程_获取收货地址列表")
+    @DisplayName("PF_正常流程_获取收货地址列表")
     void getAddressSuccessfully() {
         MarketGetAddressResponseDTO marketGetAddressResponseDTO = MarketGetAddressFlow.getAddresses();
 

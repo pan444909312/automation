@@ -16,12 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-登出")
+@DisplayName("PF_用户-登出")
 public class MarketLoginOutTests {
 
 
     @Test
-    @DisplayName("正常流程_用户登出")
+    @DisplayName("PF_正常流程_用户登出")
     void LoginOutSuccessfully() {
         MarketLoginOutResponseDTO marketLoginOutResponseDTO = MarketLoginOutFlow.loginOut();
 
