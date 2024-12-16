@@ -46,7 +46,18 @@
             <artifactId>mybatis-plus-extension</artifactId>
             <version>3.4.2</version>
         </dependency>
-
+        <!-- 测试框架单独使用的 MyBatisPlus  -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+        <!-- 指定 mybatis-plus 的 mybatis 版本  -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.9</version>
+        </dependency>
     </dependencies>
 
 
