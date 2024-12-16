@@ -172,7 +172,7 @@
                 <artifactId>spring-boot-starter-aop</artifactId>
                 <version>2.5.5</version>
             </dependency>
-            <!-- 测试平台 Spring Boot3 使用 MyBatisPlus 3.4.2 -->
+            <!-- 测试平台 Spring Boot3 使用 MyBatisPlus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
@@ -184,7 +184,7 @@
                 <artifactId>mybatis-plus</artifactId>
                 <version>3.5.5</version>
             </dependency>
-            <!-- 指定 mybatis-plus 的 mybatis 版本  -->
+            <!-- 指定 mybatis-plus 对应的 mybatis 版本  -->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
