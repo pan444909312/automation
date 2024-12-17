@@ -7,7 +7,6 @@ import com.miller.market.system.sendShortMessage.request.MarketSendShortMessageR
 import com.miller.market.system.sendShortMessage.response.MarketSendShortMessageResponseDTO;
 import com.miller.market.util.RedisUtils;
 import com.miller.service.framework.annotation.EnvTag;
-import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.panda.market.common.constants.Constants;
 import org.assertj.core.api.Assertions;
@@ -24,13 +23,13 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("发信短信验证码")
+@DisplayName("PF_发信短信验证码")
 public class MarketSendShortMessageWithoutLoginTests {
 
 
     @MethodSource("staticPhoneProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_发送验证码成功")
+    @DisplayName("PF_正常流程_发送验证码成功")
     void sendShortMessageSuccessfully(MarketSendShortMessageRequestDTO marketSendShortMessageRequestDTO) {
         MarketSendShortMessageResponseDTO marketSendShortMessageResponseDTO = MarketSendShortMessageFlow.sendShortMessage(marketSendShortMessageRequestDTO);
 

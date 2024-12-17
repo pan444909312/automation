@@ -41,7 +41,7 @@ public class ShopShouldHasNoMonthlySalesScenarioTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
         cityFunctionConfigMapper.update(
-                new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,7).set(CityFunctionConfigEntity::getStatus,0)
+                                new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,7).set(CityFunctionConfigEntity::getStatus,0)
         );
 
     }

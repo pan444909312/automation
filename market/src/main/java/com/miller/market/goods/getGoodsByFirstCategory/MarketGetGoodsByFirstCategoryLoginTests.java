@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("分类页商品")
+@DisplayName("PF_分类页商品")
 public class MarketGetGoodsByFirstCategoryLoginTests {
     private static FrontGroupsMapper frontGroupsMapper;
     @BeforeAll
@@ -39,7 +39,7 @@ public class MarketGetGoodsByFirstCategoryLoginTests {
     }
     @MethodSource("staticCategoryDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取分类页商品")
+    @DisplayName("PF_正常流程_已登录_获取分类页商品")
     void getGoodsByFirstCategoryLoginSuccessfully(MarketGetGoodsByFirstCategoryRequestDTO marketGetGoodsByFirstCategoryRequestDTO) {
         MarketGetGoodsByFirstCategoryResponseDTO marketGetGoodsByFirstCategoryResponseDTO = MarketGetGoodsByFirstCategoryLoginFlow.getCategoryGoods(marketGetGoodsByFirstCategoryRequestDTO);
 

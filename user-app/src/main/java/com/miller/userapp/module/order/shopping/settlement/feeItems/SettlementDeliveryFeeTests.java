@@ -40,7 +40,7 @@ public class SettlementDeliveryFeeTests {
         LambdaUpdateWrapper<DeliveryDiscountShopEntity> lamda = updateWrapper.lambda();
         lamda.eq(DeliveryDiscountShopEntity::getShopId, TestCaseDataForMerchantConstant.shopTestDeliveryWay);
         lamda.set(DeliveryDiscountShopEntity::getIsDel, StatusEnum.YES.getCode());
-        deliveryDiscountShopMapper.update(updateWrapper);
+        deliveryDiscountShopMapper.update(new DeliveryDiscountShopEntity(), updateWrapper);
 
     }
     @AfterAll

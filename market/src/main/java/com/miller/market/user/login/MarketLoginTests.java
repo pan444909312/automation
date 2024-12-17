@@ -32,7 +32,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("用户-登录")
+@DisplayName("PF_用户-登录")
 public class MarketLoginTests {
     private static String token;
     private static UserMapper userMapper;
@@ -56,7 +56,7 @@ public class MarketLoginTests {
 
     @MethodSource("staticUserDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_用户登录")
+    @DisplayName("PF_正常流程_用户登录")
     void shouldLoginSuccessfully(MarketLoginRequestDTO marketLoginRequestDTO) {
         MarketLoginResponseDTO marketLoginResponseDTO = MarketLoginFlow.loginReturnBodyObject(marketLoginRequestDTO);
 

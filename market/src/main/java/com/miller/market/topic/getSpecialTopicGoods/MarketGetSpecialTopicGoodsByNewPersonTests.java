@@ -29,7 +29,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("新人专题商品")
+@DisplayName("PF_新人专题商品")
 public class MarketGetSpecialTopicGoodsByNewPersonTests {
     private static SpecialTopicMapper specialTopicMapper;
     @BeforeAll
@@ -40,7 +40,7 @@ public class MarketGetSpecialTopicGoodsByNewPersonTests {
     }
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_获取新人专题商品")
+    @DisplayName("PF_正常流程_获取新人专题商品")
     void getDetailOneOfInByCustomizeSuccessfully(MarketGetSpecialTopicGoodsRequestDTO requestDTO) {
         MarketGetSpecialTopicGoodsResponseDTO responseDTO = MarketGetSpecialTopicGoodsFlow.getSpecialTopicGoods(requestDTO);
 

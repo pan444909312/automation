@@ -30,61 +30,63 @@ import java.util.stream.Stream;
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class PandaShopStatusShouldOrderStopTests {
-//获取当前时间为毫秒
-        private final long nowDate = DateUtils.getNowTime();
-//        设置为15分钟暂停接单，转换后毫秒；当前时间+15分钟=结果
-        private final long resultTime = nowDate+15*60*1000;
-//        "CTT", "Asia/Shanghai"  结果为上海时间HH:MM
-        private final String resultDate =DateUtils.getHourAndMinuteByLongTime(resultTime,"Asia/Shanghai");
-        private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+    //获取当前时间为毫秒
+    private final long nowDate = DateUtils.getNowTime();
+    //        设置为15分钟暂停接单，转换后毫秒；当前时间+15分钟=结果
+    private final long resultTime = nowDate + 15 * 60 * 1000;
+    //        "CTT", "Asia/Shanghai"  结果为上海时间HH:MM
+    private final String resultDate = DateUtils.getHourAndMinuteByLongTime(resultTime, "Asia/Shanghai");
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
-@BeforeAll
-void beforeAll() {
-     UserLoginFlow.loginByDefaultUser();
-     SqlSession sqlSession = DBUtils.getDBOfPandaTest();
+    @BeforeAll
+    void beforeAll() {
+        UserLoginFlow.loginByDefaultUser();
+        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopMapper shopMapper = sqlSession.getMapper(ShopMapper.class);
 //update shop_order_stop_status=0,shop_order_stop_keep_time=15,shop_order_stop_start_time=nowDate where shopid=
-         shopMapper.update(new LambdaUpdateWrapper<ShopEntity>()
+        shopMapper.update(new LambdaUpdateWrapper<ShopEntity>()
                 .eq(ShopEntity::getShopId, shopId)
-                 .set(ShopEntity::getShopOrderStopStatus, 1)
-                 .set(ShopEntity::getShopOrderStopKeepTime, 15)
-                 .set(ShopEntity::getShopOrderStopStartTime,nowDate));
+                .set(ShopEntity::getShopOrderStopStatus, 1)
+                .set(ShopEntity::getShopOrderStopKeepTime, 15)
+                .set(ShopEntity::getShopOrderStopStartTime, nowDate));
 
 //       执行定时定时任务-店铺数据更新
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.shop.index.update.id"));
 
-}
-@AfterAll
+    }
+
+    @AfterAll
     void afterAll() {
-      SqlSession sqlSession = DBUtils.getDBOfPandaTest();
+        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopMapper shopMapper = sqlSession.getMapper(ShopMapper.class);
 //        回复店铺数据=营业
-         shopMapper.update(new LambdaUpdateWrapper<ShopEntity>()
+        shopMapper.update(new LambdaUpdateWrapper<ShopEntity>()
                 .eq(ShopEntity::getShopId, shopId)
-                 .set(ShopEntity::getShopOrderStopStatus, 0)
-                 .set(ShopEntity::getShopOrderStopKeepTime, 0)
-                 .set(ShopEntity::getShopOrderStopStartTime,0));
+                .set(ShopEntity::getShopOrderStopStatus, 0)
+                .set(ShopEntity::getShopOrderStopKeepTime, 0)
+                .set(ShopEntity::getShopOrderStopStartTime, 0));
 
-}
+    }
+
     @MethodSource("staticDataProvider")
     @ParameterizedTest
     @DisplayName("普通店铺配送商卡-熊猫联盟频道_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约")
     void OrderStop(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
-      ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         //遍历店铺的ShopPromoteList列表，
         //ShopStatusTimeStr=HH:MM  修改时间+15分钟
-        assert  shopIndexVO.getShopStatusTimeStr().equals(resultDate);
-
+        assert shopIndexVO.getShopStatusTimeStr().equals(resultDate);
 
 
     }
+
     /**
      * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-      ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
+        ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
         // 可以不用传参数
         shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 

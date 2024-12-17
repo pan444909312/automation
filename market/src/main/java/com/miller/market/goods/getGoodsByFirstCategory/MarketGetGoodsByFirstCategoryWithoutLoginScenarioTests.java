@@ -29,7 +29,7 @@ import java.util.stream.Stream;
         scenarioName = "正常流程_未登录_获取分类页商品",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("分类页商品")
+@DisplayName("PF_分类页商品")
 public class MarketGetGoodsByFirstCategoryWithoutLoginScenarioTests {
     private static FrontGroupsMapper frontGroupsMapper;
     @BeforeAll
@@ -41,7 +41,7 @@ public class MarketGetGoodsByFirstCategoryWithoutLoginScenarioTests {
 
     @MethodSource("staticCategoryDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_未登录_获取分类页商品")
+    @DisplayName("PF_正常流程_未登录_获取分类页商品")
     void getGoodsByFirstCategoryWithoutLoginSuccessfully(MarketGetGoodsByFirstCategoryRequestDTO marketGetGoodsByFirstCategoryRequestDTO) {
         MarketGetGoodsByFirstCategoryResponseDTO marketGetGoodsByFirstCategoryResponseDTO = MarketGetGoodsByFirstCategoryWithoutLoginFlow.getCategoryGoods(marketGetGoodsByFirstCategoryRequestDTO);
 

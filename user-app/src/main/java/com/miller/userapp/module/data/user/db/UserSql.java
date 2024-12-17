@@ -47,11 +47,15 @@ public class UserSql {
     }
 
     public int updatePassword(Long userId,String salt,String pwd){
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        userEntity.setUserSalt(salt);
+        userEntity.setUserPassword(pwd);
         UpdateWrapper<UserEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<UserEntity> lambda = updateWrapper.lambda();
         lambda.eq(UserEntity::getUserId,userId);
         lambda.set(UserEntity::getUserSalt,salt);
         lambda.set(UserEntity::getUserPassword,pwd);
-        return getUserMapper().update(updateWrapper);
+        return getUserMapper().update(userEntity, updateWrapper);
     }
 }

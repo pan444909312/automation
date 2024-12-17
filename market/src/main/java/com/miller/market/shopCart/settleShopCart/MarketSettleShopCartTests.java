@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("购物车结算")
+@DisplayName("PF_购物车结算")
 public class MarketSettleShopCartTests {
     @BeforeAll
     static void beforeAll() {
@@ -32,7 +32,7 @@ public class MarketSettleShopCartTests {
     }
     @MethodSource("com.miller.market.shopCart.settleShopCart.provider.MarketSettleShopCartDataProvider#marketSettleShopCartDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_加购结算成功")
+    @DisplayName("PF_正常流程_加购结算成功")
     void addShopCartSuccessfully(MarketSettleShopCartRequestDTO marketSettleShopCartRequestDTO) {
         MarketSettleShopCartResponseDTO marketSettleShopCartResponseDTO = MarketSettleShopCartFlow.settleShopCart(marketSettleShopCartRequestDTO);
 

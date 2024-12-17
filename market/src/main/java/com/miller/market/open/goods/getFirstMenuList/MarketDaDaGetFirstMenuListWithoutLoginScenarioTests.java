@@ -22,12 +22,12 @@ import java.util.stream.Stream;
         scenarioName = "正常流程_未登录_获取达达分类页一级分类-不过滤烟-过滤烟",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("达达分类页-一级分类")
+@DisplayName("PF_达达分类页-一级分类")
 public class MarketDaDaGetFirstMenuListWithoutLoginScenarioTests {
 
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_未登录_获取达达分类页一级分类-不过滤烟-过滤烟")
+    @DisplayName("PF_正常流程_未登录_获取达达分类页一级分类-不过滤烟-过滤烟")
     void getGoodsByFirstCategoryWithoutLoginSuccessfully(MarketGetFirstMenuListRequestDTO requestDTO) {
         //不过滤烟
         MarketGetFirstMenuListResponseDTO responseDTO= MarketGetFirstMenuListWithoutLoginFlow.getFirstMenuList(requestDTO);

@@ -31,7 +31,7 @@ import java.util.stream.Stream;
         scenarioName = "正常流程_未登录_获取首页第一个商品流_获取第二个商品流",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("首页商品流")
+@DisplayName("PF_首页商品流")
 public class MarketGetGoodsListWithoutLoginScenarioTests {
     private static MarketGetIndexResponseDTO marketGetIndexResponseDTO = new MarketGetIndexResponseDTO();
     private static List<IndexListDTO>  indexList = new ArrayList<>();
@@ -44,7 +44,7 @@ public class MarketGetGoodsListWithoutLoginScenarioTests {
 
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_未登录_获取首页第一个商品流_获取第二个商品流")
+    @DisplayName("PF_正常流程_未登录_获取首页第一个商品流_获取第二个商品流")
     void getGoodsByFirstCategoryWithoutLoginSuccessfully(MarketGetGoodsListRequestDTO marketGetGoodsListRequestDTO) {
         //第一个商品流
         MarketGetGoodsListResponseDTO marketGetGoodsListResponseDTO= MarketGetGoodsListWithoutLoginFlow.getGoodsList(marketGetGoodsListRequestDTO);

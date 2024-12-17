@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("达达二级菜单及商品")
+@DisplayName("PF_达达二级菜单及商品")
 public class MarketDaDaGetSecondMenuWithProductLoginTests {
 
     private static MarketGetFirstMenuListResponseDTO marketGetFirstMenuListResponseDTO = new MarketGetFirstMenuListResponseDTO();
@@ -40,7 +40,7 @@ public class MarketDaDaGetSecondMenuWithProductLoginTests {
     }
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取达达二级菜单及商品-不过滤烟-过滤烟")
+    @DisplayName("PF_正常流程_已登录_获取达达二级菜单及商品-不过滤烟-过滤烟")
     void getGoodsByFirstCategoryLoginSuccessfully(MarketGetSecondMenuWithProductRequestDTO requestDTO) {
         //不过滤烟
         MarketGetSecondMenuWithProductResponseDTO responseDTO = MarketGetSecondMenuWithProductLoginFlow.getSecondMenuWithProduct(requestDTO);

@@ -60,14 +60,21 @@ public class MemberDeleteFlow {
      * @param userId 用户主键ID
      */
     public static void deleteMemberByUserId(String userId) {
+
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
 
-        MemberEntityMapper mapper = sqlSession.getMapper(MemberEntityMapper.class);
-        mapper.update(
-                new LambdaUpdateWrapper<MemberEntityEntity>()
-                        .eq(MemberEntityEntity::getUserId, userId)
-                        .set(MemberEntityEntity::getIsDel, Byte.valueOf("1"))
-        );
+        MemberEntityMapper memberEntityMapper = sqlSession.getMapper(MemberEntityMapper.class);
+        LambdaUpdateWrapper<MemberEntityEntity> memberEntityEntityLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        memberEntityEntityLambdaUpdateWrapper.eq(MemberEntityEntity::getUserId, userId);
+//        memberEntityEntityLambdaUpdateWrapper.set(MemberEntityEntity::getIsDel, Byte.parseByte("1"));
+//        memberEntityEntityLambdaUpdateWrapper.set(MemberEntityEntity::getStatus, Byte.parseByte("1"));
+//        memberEntityMapper.update(new MemberEntityEntity(), memberEntityEntityLambdaUpdateWrapper);
+        memberEntityMapper.delete(memberEntityEntityLambdaUpdateWrapper);
+//        mapper.update(
+//                new LambdaUpdateWrapper<MemberEntityEntity>()
+//                        .eq(MemberEntityEntity::getUserId, userId)
+//                        .set(MemberEntityEntity::getIsDel, Byte.valueOf("1"))
+//        );
 
     }
 }

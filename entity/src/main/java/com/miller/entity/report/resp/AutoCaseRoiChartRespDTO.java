@@ -1,5 +1,6 @@
 package com.miller.entity.report.resp;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -14,19 +15,28 @@ public class AutoCaseRoiChartRespDTO {
     @Schema(description = "ID 自增")
     private Long id;
 
-    @Schema(description = "成本")
-    private Long costTime;
+    @Schema(description = "累计维护成本")
+    @TableField("total_maintenance_time")
+    private Long totalMaintenanceTime;
 
-    @Schema(description = "投产次数")
+    @Schema(description = "累计开发成本")
+    @TableField("total_development_time")
+    private Long totalDevelopmentTime;
+
+    @Schema(description = "累计执行次数")
+    @TableField("times")
     private Integer times;
 
-    @Schema(description = "收益")
+    @Schema(description = "累计收益")
+    @TableField("save_time")
     private Long saveTime;
 
     @Schema(description = "场景ROI")
+    @TableField("roi")
     private String roi;
 
-    @Schema(description = "执行策略 0:所有策略 1:日常巡检;2:质量保证;3:效率提升")
+    @Schema(description = "执行策略 0:未知策略 1:日常巡检;2:质量保证;3:效率提升")
+    @TableField("execution_type")
     private Integer executionType;
 
     @Schema(description = "节省人日")

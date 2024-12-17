@@ -39,6 +39,6 @@ public class AutoCaseRoiSql {
         lambda.set(AutoCaseRoiEntity::getMaintenanceTime,autoCaseRoi.getMaintenanceTime());
         lambda.set(AutoCaseRoiEntity::getDevelopmentTime,autoCaseRoi.getDevelopmentTime());
         lambda.set(AutoCaseRoiEntity::getManualTestTime,autoCaseRoi.getManualTestTime());
-        return  getAutoCaseRoiMapper().update(updateWrapper);
+        return  getAutoCaseRoiMapper().update(autoCaseRoi, updateWrapper);
     }
 }

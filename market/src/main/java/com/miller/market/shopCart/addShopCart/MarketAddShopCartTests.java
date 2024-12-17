@@ -18,12 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("购物车加购")
+@DisplayName("PF_购物车加购")
 public class MarketAddShopCartTests {
 
     @MethodSource("com.miller.market.shopCart.addShopCart.provider.MarketAddShopCartDataProvider#marketAddShopCartDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_加购成功")
+    @DisplayName("PF_正常流程_加购成功")
     void addShopCartSuccessfully(MarketAddShopCartRequestDTO marketAddShopCartRequestDTO) {
         MarketAddShopCartResponseDTO marketAddShopCartResponseDTO = MarketAddShopCartFlow.addShopCart(marketAddShopCartRequestDTO);
 

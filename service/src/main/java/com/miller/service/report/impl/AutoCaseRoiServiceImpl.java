@@ -88,4 +88,13 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         return this.executionRecordService.apifoxSaveOrUpdate(autoCaseRoi,dto);
     }
 
+    /**
+     *
+     * @return 获取所有测试场景的总节省成本的总和
+     */
+    @Override
+    public long getAllScenarioSaveTime() {
+        return 0;
+    }
+
 }

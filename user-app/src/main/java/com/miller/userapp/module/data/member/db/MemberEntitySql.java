@@ -11,23 +11,25 @@ import org.apache.ibatis.session.SqlSession;
 public class MemberEntitySql {
 
     private SqlSession sqlSession;
-    public MemberEntitySql(SqlSession sqlSession){
+
+    public MemberEntitySql(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
-    public MemberEntityMapper getMemberEntityMapper(){
-        return  sqlSession.getMapper(MemberEntityMapper.class);
+
+    public MemberEntityMapper getMemberEntityMapper() {
+        return sqlSession.getMapper(MemberEntityMapper.class);
     }
 
-    public MemberEntityEntity getMemberEntity(Long userId){
+    public MemberEntityEntity getMemberEntity(Long userId) {
         Long currentTime = System.currentTimeMillis();
 //
 //        String sql = "select * from member_entity where user_id = ? and is_del = 0 and status = 1 and member_start_time <= "
 //                + currentTime + " and member_end_time > "+currentTime + " limit 1";
         QueryWrapper<MemberEntityEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<MemberEntityEntity> lambda = queryWrapper.lambda();
-        lambda.eq(MemberEntityEntity::getUserId,userId);
-        lambda.eq(MemberEntityEntity::getIsDel,0);
-        lambda.eq(MemberEntityEntity::getStatus,1);
+        lambda.eq(MemberEntityEntity::getUserId, userId);
+        lambda.eq(MemberEntityEntity::getIsDel, 0);
+        lambda.eq(MemberEntityEntity::getStatus, 1);
 //        lambda.gt(MemberEntityEntity::getMemberStartTime,currentTime);
 //        lambda.le(MemberEntityEntity::getMemberEndTime,currentTime);
         queryWrapper.last("limit 1");
@@ -35,12 +37,13 @@ public class MemberEntitySql {
 
 
     }
-    public Integer updateMemberEntity(Long memberEndTime,Long userId){
+
+    public Integer updateMemberEntity(Long memberEndTime, Long userId) {
 //        String sql = "update member_entity set member_end_time = ? where user_id = ?";
         UpdateWrapper<MemberEntityEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<MemberEntityEntity> lambda = updateWrapper.lambda();
-        lambda.eq(MemberEntityEntity::getUserId,userId);
-        lambda.set(MemberEntityEntity::getMemberEndTime,memberEndTime);
-        return getMemberEntityMapper().update(updateWrapper);
+        lambda.eq(MemberEntityEntity::getUserId, userId);
+        lambda.set(MemberEntityEntity::getMemberEndTime, memberEndTime);
+        return getMemberEntityMapper().update( updateWrapper);
     }
 }

@@ -97,6 +97,11 @@
             </dependency>
             <dependency>
                 <groupId>com.miller</groupId>
+                <artifactId>merchant</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
                 <artifactId>pos</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
@@ -167,22 +172,34 @@
                 <artifactId>spring-boot-starter-aop</artifactId>
                 <version>2.5.5</version>
             </dependency>
-            <!-- Spring Boot3 引入 MyBatisPlus 3.5.6 -->
+            <!-- 测试平台 Spring Boot3 使用 MyBatisPlus 3.4.2 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-                <version>3.5.6</version>
+                <version>3.5.5</version>
+            </dependency>
+            <!-- 测试框架单独使用的 MyBatisPlus  -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>3.5.5</version>
+            </dependency>
+            <!-- 指定 mybatis-plus 的 mybatis 版本  -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.15</version>
             </dependency>
             <!-- 添加 mybatis-plus-extension 用于加载插件 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
-                <version>3.5.6</version>
+                <version>3.5.5</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
-                <version>3.5.6</version>
+                <version>3.5.5</version>
             </dependency>
 
             <!-- 统一管理 JUnit 版本. 5.9.x 版本 Jupiter 已经包含了 api, engine, params相关依赖 -->
@@ -366,7 +383,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.5.7</version>
+                <version>3.5.5</version>
             </dependency>
 
         </dependencies>

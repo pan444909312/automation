@@ -1,21 +1,15 @@
 package com.miller.market.index.getGoodsList;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.index.getGoodsList.flow.MarketGetGoodsListLoginFlow;
 import com.miller.market.index.getGoodsList.request.MarketGetGoodsListRequestDTO;
 import com.miller.market.index.getGoodsList.response.MarketGetGoodsListResponseDTO;
 import com.miller.market.index.getIndex.flow.MarketGetIndexWithoutLoginFlow;
 import com.miller.market.index.getIndex.response.MarketGetIndexResponseDTO;
-import com.miller.market.mapper.frontGroups.FrontGroupsMapper;
-import com.miller.market.util.DBUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.panda.market.dal.dto.IndexListDTO;
-import com.panda.market.dal.entity.FrontGroups;
-import org.apache.ibatis.session.SqlSession;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +29,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("首页商品流")
+@DisplayName("PF_首页商品流")
 public class MarketGetGoodsListLoginTests {
     private static MarketGetIndexResponseDTO marketGetIndexResponseDTO = new MarketGetIndexResponseDTO();
     private static List<IndexListDTO> indexList = new ArrayList<>();
@@ -47,7 +41,7 @@ public class MarketGetGoodsListLoginTests {
     }
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取首页商品流")
+    @DisplayName("PF_正常流程_已登录_获取首页商品流")
     void getGoodsByFirstCategoryLoginSuccessfully(MarketGetGoodsListRequestDTO marketGetGoodsListRequestDTO) {
         MarketGetGoodsListResponseDTO marketGetGoodsListResponseDTO = MarketGetGoodsListLoginFlow.getGoodsList(marketGetGoodsListRequestDTO);
 

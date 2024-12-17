@@ -21,11 +21,11 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("达达获取店铺广告列表")
+@DisplayName("PF_达达获取店铺广告列表")
 public class MarketDaDaGetShopAdListLoginTests {
     @MethodSource("staticGetGoodsListDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取店铺广告列表-不过滤烟-过滤烟")
+    @DisplayName("PF_正常流程_已登录_获取店铺广告列表-不过滤烟-过滤烟")
     void getShopAdListLoginSuccessfully(MarketGetShopAdListRequestDTO requestDTO) {
         //不过滤烟
         MarketGetShopAdListResponseDTO responseDTO = MarketGetShopAdListLoginFlow.getShopAdList(requestDTO);

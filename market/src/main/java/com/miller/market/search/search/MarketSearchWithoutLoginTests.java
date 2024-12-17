@@ -23,11 +23,11 @@ import java.util.stream.Stream;
         scenarioName = "正常流程_未登录_搜索商品",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("客户端搜索")
+@DisplayName("PF_客户端搜索")
 public class MarketSearchWithoutLoginTests {
     @MethodSource("staticSearchKeyWordProvider")
     @ParameterizedTest
-    @DisplayName("正常流程-搜索商品")
+    @DisplayName("PF_正常流程-搜索商品")
     void searchSuccessfully(MarketSearchRequestDTO marketSearchRequestDTO) {
         MarketSearchResponseDTO marketSearchResponseDTO = MarketSearchWithoutLoginFlow.search(marketSearchRequestDTO);
 

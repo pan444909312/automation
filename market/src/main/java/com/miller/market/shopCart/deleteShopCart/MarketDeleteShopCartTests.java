@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("购物车删除接口")
+@DisplayName("PF_购物车删除接口")
 public class MarketDeleteShopCartTests {
     @BeforeAll
     static void beforeAll() {
@@ -32,7 +32,7 @@ public class MarketDeleteShopCartTests {
     }
     @MethodSource("com.miller.market.shopCart.deleteShopCart.provider.MarketDeleteShopCartDataProvider#marketDeleteShopCartDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_购物车删除成功")
+    @DisplayName("PF_正常流程_购物车删除成功")
     void deleteShopCartSuccessfully(MarketDeleteShopCartRequestDTO marketDeleteShopCartRequestDTO) {
         MarketDeleteShopCartResponseDTO marketDeleteShopCartResponseDTO = MarketDeleteShopCartFlow.deleteShopCart(marketDeleteShopCartRequestDTO);
 

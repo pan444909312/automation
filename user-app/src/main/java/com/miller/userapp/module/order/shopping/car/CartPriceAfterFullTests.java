@@ -37,12 +37,17 @@ public class CartPriceAfterFullTests {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         UserCdKeyMapper userCdKeyMapper = sqlSession.getMapper(UserCdKeyMapper.class);
         Long time = System.currentTimeMillis();
+        UserCdKeyEntity userCdKeyEntity = new UserCdKeyEntity();
+        userCdKeyEntity.setUserId(1398708422L);
+        userCdKeyEntity.setEndTime(time);
+        userCdKeyEntity.setIsUsed(Byte.valueOf("1"));
+
         var lambdaUpdateWrapper = new LambdaUpdateWrapper<UserCdKeyEntity>();
         lambdaUpdateWrapper
                 .eq(UserCdKeyEntity::getUserId, 1398708422L)
                 .gt(UserCdKeyEntity::getEndTime, time)
                 .set(UserCdKeyEntity::getIsUsed, 1);
-        userCdKeyMapper.update(lambdaUpdateWrapper);
+        userCdKeyMapper.update(userCdKeyEntity, lambdaUpdateWrapper);
     }
 
     @AfterEach

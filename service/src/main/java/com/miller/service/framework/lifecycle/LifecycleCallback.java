@@ -73,12 +73,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             AutoExecutionRecordEntity autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
             AutoExecutionRecordEntity autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecordBySuite(scenarioId);
             if(Objects.nonNull(autoExecutionRecord)){
-                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
+                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord,value);
             }
             //suite会多次（子类多个），所以如果不是失败的需要再次更新（map已校验） && !autoExecutionRecordSuite.getExecutionStatus().equals(ExecutionStatusEnum.FAIL.getCode())
             if(Objects.nonNull(autoExecutionRecordSuite) && !autoExecutionRecordSuite.getExecutionStatus().equals(value.getCode())){
                 //不等才更新
-                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord.getId(),value.getCode());
+                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord,value);
             }
         });
 

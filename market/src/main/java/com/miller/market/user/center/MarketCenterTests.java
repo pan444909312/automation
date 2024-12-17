@@ -16,12 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("个人中心")
+@DisplayName("PF_个人中心")
 public class MarketCenterTests {
 
 
     @Test
-    @DisplayName("正常流程_个人中心")
+    @DisplayName("PF_正常流程_个人中心")
     void LoginOutSuccessfully() {
         MarketCenterResponseDTO marketCenterResponseDTO = MarketCenterFlow.center();
 

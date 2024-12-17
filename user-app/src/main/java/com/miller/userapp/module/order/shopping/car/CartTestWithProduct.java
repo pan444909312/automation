@@ -38,11 +38,14 @@ public class CartTestWithProduct {
         // 初始化，链接数据库
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ProcuctMapper productMapper = sqlSession.getMapper(ProcuctMapper.class);
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProductId(buyLimitMinProductTest);
+        productEntity.setBuyLimitMin(buyLimitMin);
         var lambdaUpdateWrapper = new LambdaUpdateWrapper<ProductEntity>();
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
                 .set(ProductEntity::getBuyLimitMin, buyLimitMin);
-        productMapper.update(lambdaUpdateWrapper);
+        productMapper.update(productEntity, lambdaUpdateWrapper);
     }
 
     @AfterEach
@@ -53,7 +56,7 @@ public class CartTestWithProduct {
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
                 .set(ProductEntity::getBuyLimitMin, 1);
-        productMapper.update(lambdaUpdateWrapper);
+        productMapper.update(new ProductEntity(), lambdaUpdateWrapper);
     }
 
     @MethodSource("buyLimitMinProduct")

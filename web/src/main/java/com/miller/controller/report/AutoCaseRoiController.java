@@ -9,6 +9,7 @@ import com.miller.entity.report.req.AddAutoCaseRoiReqDTO;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
+import com.miller.service.job.ChartDataTask;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.service.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -122,17 +123,16 @@ public class AutoCaseRoiController {
     /**
      * 调试造数据用
      *
-     * @param addAutoCaseRoiReqDTO
      * @return
      */
     @Operation(description = "添加roi")
     @PostMapping("/add")
-    public Response<List<AutoCaseRoiEntity>> addAutoCaseRoi(@RequestBody AddAutoCaseRoiReqDTO addAutoCaseRoiReqDTO) {
+    public Response<AutoCaseRoiEntity> addAutoCaseRoi() {
         AutoCaseRoiEntity autoCaseRoiEntity = new AutoCaseRoiEntity();
-        BeanUtils.copyProperties(addAutoCaseRoiReqDTO, autoCaseRoiEntity);
+        autoCaseRoiEntity.setScenarioId(ULIDUtils.generateULID());
         autoCaseRoiService.save(autoCaseRoiEntity);
 
-        return Response.success(null);
+        return Response.success(autoCaseRoiEntity);
     }
 
     @PostMapping("/apifox/save")
@@ -144,7 +144,7 @@ public class AutoCaseRoiController {
 
     @Operation(description = "生成测试用例场景id（ULID）")
     @PostMapping("/generateULID")
-    public String addAutoCaseRoi() {
+    public String generateULID() {
 
         return ULIDUtils.generateULID();
     }

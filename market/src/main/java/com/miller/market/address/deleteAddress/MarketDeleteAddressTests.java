@@ -22,13 +22,13 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("删除收货地址")
+@DisplayName("PF_删除收货地址")
 public class MarketDeleteAddressTests {
 
 
     @MethodSource("staticAddressDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_删除收货地址")
+    @DisplayName("PF_正常流程_删除收货地址")
     void addAddressSuccessfully(MarketDeleteAddressRequestDTO requestDTO) {
         MarketDeleteAddressResponseDTO responseDTO = MarketDeleteAddressFlow.deleteAddress(requestDTO);
 

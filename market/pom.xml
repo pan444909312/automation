@@ -29,7 +29,8 @@
             <groupId>com.miller</groupId>
             <artifactId>service</artifactId>
         </dependency>
-        <!-- 指定 mybatis-plus-annotation 的版本否则会报找不到类的错误
+        <!-- PF 项目必须使用 3.4.2 版本
+        指定 mybatis-plus-annotation 的版本否则会报找不到类的错误
          java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'
          -->
         <dependency>

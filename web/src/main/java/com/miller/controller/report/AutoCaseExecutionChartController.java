@@ -55,6 +55,7 @@ public class AutoCaseExecutionChartController {
         int pageSize = pageAutoCaseExecutionChartDTO.getPageSize();
         Date createEndTime = pageAutoCaseExecutionChartDTO.getCreateEndTime();
         Date createStartTime = pageAutoCaseExecutionChartDTO.getCreateStartTime();
+        List<Integer> executionTypeList = pageAutoCaseExecutionChartDTO.getExecutionTypeList();
         Page<AutoCaseExecutionChartEntity> page = new Page<>(pageNo, pageSize);
         QueryWrapper<AutoCaseExecutionChartEntity> queryWrapper = new QueryWrapper<>();
         if (createStartTime != null) {
@@ -62,6 +63,9 @@ public class AutoCaseExecutionChartController {
         }
         if (createEndTime != null) {
             queryWrapper.le("create_time", createEndTime.getTime());
+        }
+        if (executionTypeList != null && !executionTypeList.isEmpty()) {
+            queryWrapper.in("execution_type", executionTypeList);
         }
         queryWrapper.orderByDesc("create_time");
 
@@ -81,7 +85,7 @@ public class AutoCaseExecutionChartController {
             list.add(autoCaseExecutionChartRespDTO);
         }
 
-        //未来日期数据处理
+        //未来日期数据处理  todo  新增执行类型 需要修改
         AutoCaseChartFutureDataEntity futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureDataEntity>()
                 .eq("chart_type", 3)
                 .orderByDesc("future_time")
