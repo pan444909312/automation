@@ -1,4 +1,4 @@
-package com.miller.userapp.module.order.shopping.settlement.discount.full;
+package com.miller.userapp.module.order.shopping.settlement.discount.first;
 
 import com.alibaba.fastjson.JSON;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
@@ -7,7 +7,6 @@ import com.hungrypanda.app.server.common.enums.StatusEnum;
 import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
-import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
@@ -29,32 +28,29 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01JF9QXJSJC06FW7Y92DV1P6ES",
-        scenarioName = "正常流程_结算_优惠项-满减",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@EnvTag.Test
-@DisplayName("满减优惠")
-public class FullDiscountForSettlementTest {
+@Scenario(scenarioID = "01JFA2RKBP5TB9D6JE8GMXQ5FS",
+        scenarioName = "正常流程_结算_优惠项-首单/门店新客",
+        developmentTime = 50, maintenanceTime = 0, manualTestTime = 30)
+public class FirstDiscountForSettlementTest {
     @BeforeAll
     static void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
     }
 
     @ParameterizedTest
-    @MethodSource("settlementFullDiscount")
-    @DisplayName("结算-优惠-满减-配置满10-2，当前商品无折扣，售价100")
+    @MethodSource("settlementWithFirstDiscount")
+    @DisplayName("结算-优惠-门店新客-新客减2")
     void settlementWithFullDiscount(SettlementRequestDTO settlementRequestDTO){
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         List<OrderAmountVO> orderAmountItemList = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList();
-        OrderAmountVO OrderAmountItemDiscount = orderAmountItemList.stream().filter(i ->i.getItemKey().equals("fullDiscount")).findFirst().get();
+        OrderAmountVO OrderAmountItemDiscount = orderAmountItemList.stream().filter(i ->i.getItemKey().equals("shopFirstDiscount")).findFirst().get();
         assertThat(OrderAmountItemDiscount.getItemAmount()).isEqualTo(200);
 
     }
-
-    //新人sku原价¥100，折扣6.5折
-    static Stream<Arguments> settlementFullDiscount() {
+    //门店折扣
+    static Stream<Arguments> settlementWithFirstDiscount() {
 
         SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
         settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
@@ -69,7 +65,7 @@ public class FullDiscountForSettlementTest {
         var productCartList = new ArrayList<ProductCart>();
         var productCart = new ProductCart();
         productCart.setSkuId(0L);
-        productCart.setProductId(82351756L);
+        productCart.setProductId(82351760L);
         productCartList.add(productCart);
         settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
 
