@@ -7,7 +7,7 @@ public enum ShopsEnum {
     private Long shopId;
     private String desc;
     private Integer type;
-    private ShopsEnum(Long shopId,String desc,Integer type){
+    ShopsEnum(Long shopId,String desc,Integer type){
         this.shopId = shopId;
         this.desc = desc;
         this.type = type;
