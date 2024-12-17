@@ -30,8 +30,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JET8DV4XRPF8V5NGVNK3STBB",
         scenarioName = "正常流程_结算_优惠项-独享折扣",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-public class ProductExclusiveDiscountForSettlement {
+        developmentTime = 120, maintenanceTime = 0, manualTestTime = 0)
+public class ProductExclusiveDiscountForSettlementTest {
     @BeforeAll
     static void beforeAll() {
         UserLoginFlow.loginByDefaultUser();

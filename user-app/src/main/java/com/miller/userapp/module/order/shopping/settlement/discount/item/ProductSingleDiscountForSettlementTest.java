@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JET73S1548TV3ZGFGTX5QKG8",
         scenarioName = "正常流程_结算_优惠项-单品折扣",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        developmentTime = 120, maintenanceTime = 0, manualTestTime = 0)
 @EnvTag.Test
 @DisplayName("单品折扣")
 public class ProductSingleDiscountForSettlementTest {
