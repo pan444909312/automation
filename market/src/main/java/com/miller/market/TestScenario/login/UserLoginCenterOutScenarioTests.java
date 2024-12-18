@@ -1,4 +1,4 @@
-package com.miller.market.TestScenario;
+package com.miller.market.TestScenario.login;
 
 import com.miller.market.address.addAddress.MarketAddAddressTests;
 import com.miller.market.address.updateAddress.MarketUpdateAddressTests;
