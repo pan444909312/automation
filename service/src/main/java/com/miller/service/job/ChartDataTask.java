@@ -197,10 +197,12 @@ public class ChartDataTask {
         if (slotTimes != 0) {
             avgSaveTime = (double) slotSaveTime / slotTimes;
         }
-        double dynamicF = 0;
-        if (thirdMonthAgoSaveTime != 0) {
-            dynamicF = (double) sixthMonthAgoSaveTime / thirdMonthAgoSaveTime;
-        }
+
+        double dynamicF = 1.0;
+        // F(当前日期往前6个月的那一天累计收益值 / 当前日期往前3个月的那一天累计收益值，当前默认设置为1.0)
+//        if (thirdMonthAgoSaveTime != 0) {
+//            dynamicF = (double) sixthMonthAgoSaveTime / thirdMonthAgoSaveTime == 0 ? 1:(double) sixthMonthAgoSaveTime / thirdMonthAgoSaveTime;
+//        }
 
         double expectedSaveTime = avgSaveTime * dynamicF + autoCaseRoiChartService.getTotalSaveTime(executionType);
         log.info("executionType=" + executionType + ",预计累计收益 ：" + expectedSaveTime);
@@ -233,13 +235,7 @@ public class ChartDataTask {
             if (totalMaintenanceTimeLatest + totalDevelopTimeLatest != 0) {
                 roi = (double) totalSaveTimeLatest / (totalMaintenanceTimeLatest + totalDevelopTimeLatest);
             }
-            autoCaseRoiChartEntity.setExecutionType(executionType);
-            autoCaseRoiChartEntity.setTotalMaintenanceTime(totalMaintenanceTimeLatest);
-            autoCaseRoiChartEntity.setTotalDevelopmentTime(totalDevelopTimeLatest);
-            autoCaseRoiChartEntity.setTimes(totalTimesLatest);
-            autoCaseRoiChartEntity.setSaveTime(totalSaveTimeLatest);
-            autoCaseRoiChartEntity.setRoi(roi == 0 ? "0" : String.valueOf(roi));
-            return autoCaseRoiChartService.save(autoCaseRoiChartEntity);
+            return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTimeLatest,totalDevelopTimeLatest,totalTimesLatest,totalSaveTimeLatest,roi,executionType));
         }
 
         long saveTime = 0;
@@ -266,14 +262,7 @@ public class ChartDataTask {
             roi = (double) totalSaveTime / (totalMaintenanceTime + totalDevelopTime);
         }
 
-        autoCaseRoiChartEntity.setExecutionType(executionType);
-        autoCaseRoiChartEntity.setTotalMaintenanceTime(totalMaintenanceTime);
-        autoCaseRoiChartEntity.setTotalDevelopmentTime(totalDevelopTime);
-        autoCaseRoiChartEntity.setTimes(totalTimes);
-        autoCaseRoiChartEntity.setSaveTime(totalSaveTime);
-        autoCaseRoiChartEntity.setRoi(roi == 0 ? "0" : String.valueOf(roi));
-
-        return autoCaseRoiChartService.save(autoCaseRoiChartEntity);
+        return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTime,totalDevelopTime,totalTimes,totalSaveTime,roi,executionType));
 
     }
 
