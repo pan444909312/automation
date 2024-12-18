@@ -24,37 +24,12 @@
             <artifactId>erp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
-<!--        &lt;!&ndash; PF 项目必须使用 3.4.2 版本-->
-<!--        指定 mybatis-plus-annotation 的版本否则会报找不到类的错误-->
-<!--         java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'-->
-<!--         &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>mybatis-plus-annotation</artifactId>-->
-<!--            <version>3.4.2</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; 添加 mybatis-plus-extension 用于加载插件，否则会报找不到类的错误-->
-<!--         Exception in thread "main" java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'-->
-<!--         &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>mybatis-plus-extension</artifactId>-->
-<!--            <version>3.4.2</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; 测试框架单独使用的 MyBatisPlus  &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>mybatis-plus</artifactId>-->
-<!--            <version>3.4.2</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; 指定 mybatis-plus 的 mybatis 版本  &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis</groupId>-->
-<!--            <artifactId>mybatis</artifactId>-->
-<!--            <version>3.5.9</version>-->
-<!--        </dependency>-->
-
+        <!-- PF 项目必须使用 3.4.2 版本 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.4.2</version>
+        </dependency>
 
     </dependencies>
 
