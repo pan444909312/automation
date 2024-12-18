@@ -19,15 +19,10 @@
     </properties>
 
     <dependencies>
-        <!-- 测试用例之间的公共数据；请求、响应对象使用研发仓库中的数据-->
         <dependency>
             <groupId>com.miller</groupId>
-            <artifactId>data-center</artifactId>
-        </dependency>
-        <!-- 测试框架服务 -->
-        <dependency>
-            <groupId>com.miller</groupId>
-            <artifactId>service</artifactId>
+            <artifactId>erp</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- PF 项目必须使用 3.4.2 版本
         指定 mybatis-plus-annotation 的版本否则会报找不到类的错误
