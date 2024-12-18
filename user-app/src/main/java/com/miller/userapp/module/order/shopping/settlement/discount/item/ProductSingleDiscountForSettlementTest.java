@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JET73S1548TV3ZGFGTX5QKG8",
         scenarioName = "正常流程_结算_优惠项-单品折扣",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        developmentTime = 120, maintenanceTime = 0, manualTestTime = 20)
 @EnvTag.Test
 @DisplayName("单品折扣")
 public class ProductSingleDiscountForSettlementTest {
@@ -75,6 +75,19 @@ public class ProductSingleDiscountForSettlementTest {
         List<OrderAmountVO> orderAmountItemList = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList();
         OrderAmountVO OrderAmountItemDiscount = orderAmountItemList.stream().filter(i ->i.getItemKey().equals("productDiscount")).findFirst().get();
         assertThat(OrderAmountItemDiscount.getItemAmount()).isEqualTo(2000); //直降10
+
+    }
+
+    @ParameterizedTest
+    @MethodSource("settlementProductItemsNewUser")
+    @DisplayName("结算-使用新人折扣-sku原价¥100，折扣6.5折")
+    void settlementWithNewUserDiscount(SettlementRequestDTO settlementRequestDTO){
+
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        List<OrderAmountVO> orderAmountItemList = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList();
+        OrderAmountVO OrderAmountItemDiscount = orderAmountItemList.stream().filter(i ->i.getItemKey().equals("productDiscount")).findFirst().get();
+        assertThat(OrderAmountItemDiscount.getItemAmount()).isEqualTo(3500);
 
     }
 
@@ -166,6 +179,29 @@ public class ProductSingleDiscountForSettlementTest {
         productCart3.setProductId(82351770L);
         productCartList.add(productCart3);
 
+        settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
+
+        return Stream.of(Arguments.of(settlementRequestDTO));
+    }
+
+    //新人sku原价¥100，折扣6.5折
+    static Stream<Arguments> settlementProductItemsNewUser() {
+
+        SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
+        settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setTablewareCount(1);
+        settlementRequestDTO.setOrderReqType(OrderReqTypeEnum.COMMON_ORDER.getType());
+        settlementRequestDTO.setDeliveryType(DeliveryTypeEnum.third_party.getCode());
+        settlementRequestDTO.setAddressId(TestCaseDataForUserConstant.addressId);
+        settlementRequestDTO.setPayType(PayTypeEnum.PAY_WAY_BALANCE.getCode());
+        settlementRequestDTO.setShopId(ShopsEnum.SKUDiscount.getShopId());
+        // 是否自动使用红包，不使用红包
+        settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.NO.getType());
+        var productCartList = new ArrayList<ProductCart>();
+        var productCart = new ProductCart();
+        productCart.setSkuId(0L);
+        productCart.setProductId(82351758L);
+        productCartList.add(productCart);
         settlementRequestDTO.setProductCartList(JSON.toJSONString(productCartList));
 
         return Stream.of(Arguments.of(settlementRequestDTO));

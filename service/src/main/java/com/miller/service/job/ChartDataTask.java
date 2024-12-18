@@ -197,10 +197,12 @@ public class ChartDataTask {
         if (slotTimes != 0) {
             avgSaveTime = (double) slotSaveTime / slotTimes;
         }
-        double dynamicF = 0;
-        if (thirdMonthAgoSaveTime != 0) {
-            dynamicF = (double) sixthMonthAgoSaveTime / thirdMonthAgoSaveTime;
-        }
+
+        double dynamicF = 1.0;
+        // F(当前日期往前6个月的那一天累计收益值 / 当前日期往前3个月的那一天累计收益值，当前默认设置为1.0)
+//        if (thirdMonthAgoSaveTime != 0) {
+//            dynamicF = (double) sixthMonthAgoSaveTime / thirdMonthAgoSaveTime == 0 ? 1:(double) sixthMonthAgoSaveTime / thirdMonthAgoSaveTime;
+//        }
 
         double expectedSaveTime = avgSaveTime * dynamicF + autoCaseRoiChartService.getTotalSaveTime(executionType);
         log.info("executionType=" + executionType + ",预计累计收益 ：" + expectedSaveTime);
@@ -221,11 +223,19 @@ public class ChartDataTask {
         queryWrapper.eq("execution_type", executionType);
         List<AutoExecutionRecordEntity> autoExecutionRecordList = autoExecutionRecordService.list(queryWrapper);
         AutoCaseRoiChartEntity autoCaseRoiChartEntity = new AutoCaseRoiChartEntity();
+
+        long totalMaintenanceTimeLatest = autoCaseRoiChartService.getTotalMaintenanceTime(executionType);
+        long totalDevelopTimeLatest = autoCaseRoiChartService.getTotalDevelopTime(executionType);
+        int totalTimesLatest = autoCaseRoiChartService.getTotalTimes(executionType);
+        long totalSaveTimeLatest = autoCaseRoiChartService.getTotalSaveTime(executionType);
+        double roi = 0;
+
         if (autoExecutionRecordList.isEmpty()) {
             log.info("昨日[auto_execution_record]表没有[execution_type=" + executionType + "]的执行记录");
-            autoCaseRoiChartEntity.setRoi("0");
-            autoCaseRoiChartEntity.setExecutionType(executionType);
-            return autoCaseRoiChartService.save(autoCaseRoiChartEntity);
+            if (totalMaintenanceTimeLatest + totalDevelopTimeLatest != 0) {
+                roi = (double) totalSaveTimeLatest / (totalMaintenanceTimeLatest + totalDevelopTimeLatest);
+            }
+            return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTimeLatest,totalDevelopTimeLatest,totalTimesLatest,totalSaveTimeLatest,roi,executionType));
         }
 
         long saveTime = 0;
@@ -239,28 +249,20 @@ public class ChartDataTask {
         }
 
         // 累计维护成本计算，累计昨日的maintenance_time 总和 + 当前记录的累计维护成本
-        long totalMaintenanceTime = maintenanceTime + autoCaseRoiChartService.getTotalMaintenanceTime(executionType);
+        long totalMaintenanceTime = maintenanceTime + totalMaintenanceTimeLatest;
         // 累计开发成本计算，累计昨日的development_time 总和 + 当前记录的累计开发成本
-        long totalDevelopTime = developTime + autoCaseRoiChartService.getTotalDevelopTime(executionType);
+        long totalDevelopTime = developTime + totalDevelopTimeLatest;
         // 累计执行次数计算，累计昨日的执行次数总和 + 当前记录的累计执行次数
-        int totalTimes = autoExecutionRecordList.size() + autoCaseRoiChartService.getTotalTimes(executionType);
+        int totalTimes = autoExecutionRecordList.size() + totalTimesLatest;
         // 累计收益计算，累计昨日的manual_test_time 总和 + 当前记录的累计收益
-        long totalSaveTime = saveTime + autoCaseRoiChartService.getTotalSaveTime(executionType);
+        long totalSaveTime = saveTime + totalSaveTimeLatest;
 
-        double roi = 0;
         // 收益(ROI) = 累计收益 / （累计开发成本 + 累计维护成本）
         if (totalMaintenanceTime + totalDevelopTime != 0) {
             roi = (double) totalSaveTime / (totalMaintenanceTime + totalDevelopTime);
         }
 
-        autoCaseRoiChartEntity.setExecutionType(executionType);
-        autoCaseRoiChartEntity.setTotalMaintenanceTime(totalMaintenanceTime);
-        autoCaseRoiChartEntity.setTotalDevelopmentTime(totalDevelopTime);
-        autoCaseRoiChartEntity.setTimes(totalTimes);
-        autoCaseRoiChartEntity.setSaveTime(totalSaveTime);
-        autoCaseRoiChartEntity.setRoi(roi == 0 ? "0" : String.valueOf(roi));
-
-        return autoCaseRoiChartService.save(autoCaseRoiChartEntity);
+        return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTime,totalDevelopTime,totalTimes,totalSaveTime,roi,executionType));
 
     }
 
