@@ -19,8 +19,6 @@ import com.miller.userapp.mapper.shop.DeliveryTimeConfigDataMapper;
 import com.miller.userapp.mapper.shop.ShopDeliveryTimeDataConfigMapper;
 import com.miller.userapp.mapper.shop.ShopMapper;
 import com.miller.userapp.mapper.shop.ShopTimeConfigMapper;
-import com.panda.market.dal.entity.Shop;
-import org.apache.commons.jexl3.parser.StringParser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Value;
