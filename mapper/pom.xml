@@ -25,11 +25,7 @@
             <artifactId>entity</artifactId>
         </dependency>
 
-        <!-- 测试平台 Spring Boot3 使用 MyBatisPlus 3.5.6 -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-        </dependency>
+
 
         <!-- java连接mysql驱动 -->
         <dependency>
@@ -42,6 +38,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- 测试平台 Spring Boot3 使用 MyBatisPlus 3.5.6 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
         </dependency>
 
         <!-- 测试框架单独使用的 MyBatisPlus -->
