@@ -1,7 +1,5 @@
 package com.miller.market.constants;
 
-import com.panda.common.enums.CountryEnum;
-import com.panda.common.enums.LanguageEnum;
 import com.panda.market.dal.pay.PayItemBean;
 
 /**
@@ -66,8 +64,8 @@ public class BusinessConstant {
      * 每页数量
      */
     public static String pageSize;
-    public static String countryCode = CountryEnum.CHINA.getCode();
-    public static String language = LanguageEnum.CN.getKey();
+    public static String countryCode = "CN";
+    public static String language = "CN";
     public static String platform = "IOS";
     public static String hpPlatform = "IOS_USER";
     public static String _sign = "3f6d878d3bf68ac4f0425449e6c96d07";
