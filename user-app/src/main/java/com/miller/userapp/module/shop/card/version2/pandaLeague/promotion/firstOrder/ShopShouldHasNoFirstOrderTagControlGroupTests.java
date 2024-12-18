@@ -62,8 +62,7 @@ public class ShopShouldHasNoFirstOrderTagControlGroupTests {
 //        更新数据库，将user_label表数据label_id设置为1
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
-        shopNewUserLabelMapper.update(
-                                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
+        shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
         );
         // 这里将新人价实验组(默认)改为对照组,需要改两个实验
         RequestUtils.getHeaders().put("Content-Type", "application/json");

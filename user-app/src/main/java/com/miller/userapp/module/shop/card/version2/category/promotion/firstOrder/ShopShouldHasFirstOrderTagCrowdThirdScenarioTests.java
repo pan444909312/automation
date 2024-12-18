@@ -54,8 +54,7 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
         String distinctId = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.distinctId");
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
-        shopNewUserLabelMapper.update(
-                                new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).set(UserLabelEntity::getLabelId,3)
+        shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).set(UserLabelEntity::getLabelId,3)
         );
 //        清除设备对应的活动数据
         DeviceAutoRenewSql deviceAutoRenewSql = new DeviceAutoRenewSql();
