@@ -24,11 +24,11 @@
             <artifactId>erp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- PF 项目必须使用 3.4.2 版本 -->
+        <!-- PF 项目需要单独引入 3.4.2 版本，但是改成 3.4.2 SpringBoot 启动报错。项目默认使用的是 3.5.5，可以不用单独引入 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
-            <version>3.4.2</version>
+            <version>3.5.5</version>
         </dependency>
 
     </dependencies>
