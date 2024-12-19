@@ -36,6 +36,17 @@
             <artifactId>mybatis</artifactId>
         </dependency>
 
+        <!--
+        PF 项目需要单独引入 3.4.2 版本，不引入执行会报错，引入之后IDEA执行成功，但是启动 SpringBoot 执行用例依然报错。
+        改成 3.4.2 SpringBoot 启动报错，项目默认使用的是 3.5.5，可以不用单独引入 -->
+<!--        <dependency>-->
+<!--            <groupId>com.baomidou</groupId>-->
+<!--            <artifactId>mybatis-plus-extension</artifactId>-->
+<!--            <version>3.4.2</version>-->
+<!--&lt;!&ndash;            <version>3.5.5</version>&ndash;&gt;-->
+<!--        </dependency>-->
+
+
         <!-- PF 端工程依赖开发相关的库 -->
         <!-- hp-market-server
         PF 生鲜超市项目
