@@ -1,4 +1,4 @@
-package com.miller.market.TestScenario;
+package com.miller.market.TestScenario.login;
 
 import com.miller.market.system.sendShortMessage.MarketSendShortMessageWithoutLoginTests;
 import com.miller.market.user.login.MarketLoginWithCodeTests;

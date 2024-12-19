@@ -42,8 +42,7 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
 //        开启配置管理AVERAGE_PURCHASE_SWITCH=1
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         SysAppConfigMapper sysAppConfigMapper = sqlSession.getMapper(SysAppConfigMapper.class);
-        sysAppConfigMapper.update(
-                                new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey,"AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue,"{\"open\":1}")
+        sysAppConfigMapper.update(null, new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey,"AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue,"{\"open\":1}")
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));

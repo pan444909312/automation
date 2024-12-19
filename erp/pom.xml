@@ -23,6 +23,17 @@
         <dependency>
             <groupId>com.miller</groupId>
             <artifactId>service</artifactId>
+            <exclusions>
+                <!-- 需要排除然后单独引用，否则执行会报找不到MBP中的方法 -->
+                <exclusion>
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
         </dependency>
 
         <!-- 数据中心。测试用例之间的公共数据；请求、响应对象使用研发仓库中的数据 -->

@@ -44,6 +44,6 @@ public class MemberEntitySql {
         LambdaUpdateWrapper<MemberEntityEntity> lambda = updateWrapper.lambda();
         lambda.eq(MemberEntityEntity::getUserId, userId);
         lambda.set(MemberEntityEntity::getMemberEndTime, memberEndTime);
-        return getMemberEntityMapper().update( updateWrapper);
+        return getMemberEntityMapper().update(null, updateWrapper);
     }
 }

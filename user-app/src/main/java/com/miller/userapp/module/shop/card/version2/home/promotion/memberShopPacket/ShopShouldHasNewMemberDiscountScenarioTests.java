@@ -47,13 +47,13 @@ public class ShopShouldHasNewMemberDiscountScenarioTests {
         MemberCityMapper shopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
 //        修改会员城市表，修改会员城市表is_open_delivery_discount字段为1 运费减免开启
 //        update member_city set is_open_delivery_discount=0 where member_city_id=1111378;
-         shopMemberCityMapper.update(new LambdaUpdateWrapper<MemberCityEntity>()
+         shopMemberCityMapper.update(null, new LambdaUpdateWrapper<MemberCityEntity>()
                 .eq(MemberCityEntity::getMemberCityId, memberCityID)
                  .set(MemberCityEntity::getIsOpenDeliveryDiscount, 1));
          //         update member_packet set is_del=0 where member_city_id=1111378 and packet_id=888890186;
 //        开启会员店铺红包
          MemberPacketMapper memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
-         memberPacketMapper.update(new LambdaUpdateWrapper<MemberPacketEntity>()
+         memberPacketMapper.update(null, new LambdaUpdateWrapper<MemberPacketEntity>()
                 .eq(MemberPacketEntity::getPacketId, packageId)
                 .eq(MemberPacketEntity::getMemberCityId, memberCityID)
                 .set(MemberPacketEntity::getIsDel, 0));
