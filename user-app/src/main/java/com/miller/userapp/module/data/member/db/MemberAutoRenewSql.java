@@ -37,6 +37,6 @@ public class MemberAutoRenewSql {
         lambda.eq(MemberAutoRenewEntity::getUserId, userId);
         lambda.set(MemberAutoRenewEntity::getNextAutoTime, nextAutoTime);
 
-        return getMemberAutoRenewMapper().update(updateWrapper);
+        return getMemberAutoRenewMapper().update(null, updateWrapper);
     }
 }

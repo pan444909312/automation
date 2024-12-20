@@ -25,11 +25,7 @@
             <artifactId>entity</artifactId>
         </dependency>
 
-        <!-- 测试平台 Spring Boot3 使用 MyBatisPlus 3.5.6 -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-        </dependency>
+
 
         <!-- java连接mysql驱动 -->
         <dependency>
@@ -44,30 +40,12 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- 测试框架单独使用的 MyBatisPlus -->
+        <!-- 测试平台 Spring Boot3 使用 MyBatisPlus 3.5.6 -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
         </dependency>
-        <!-- 指定 mybatis-plus 的 mybatis 版本  -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
-        <!-- 指定 mybatis-plus-annotation 的版本否则会报找不到类的错误
-         java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'
-         -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-annotation</artifactId>
-        </dependency>
-        <!-- 添加 mybatis-plus-extension 用于加载插件，否则会报找不到类的错误
-         Exception in thread "main" java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'
-         -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-extension</artifactId>
-        </dependency>
+
         <!-- Spring JDBC 依赖 -->
         <dependency>
             <groupId>org.springframework</groupId>

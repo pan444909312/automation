@@ -42,13 +42,13 @@ public class ShopShouldHasMemberBenefitDeliveryDsicountScenarioTests {
         //        运费减免开启。
              SqlSession sqlSession = DBUtils.getDBOfPandaTest();
             MemberCityMapper shopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
-              shopMemberCityMapper.update(new LambdaUpdateWrapper<MemberCityEntity>()
+              shopMemberCityMapper.update(null, new LambdaUpdateWrapper<MemberCityEntity>()
                 .eq(MemberCityEntity::getMemberCityId, memberCityID)
                  .set(MemberCityEntity::getIsOpenDeliveryDiscount, 1));
 
 //                update member_packet set is_del=0 where member_city_id=1111378 and packet_id=888890186;
          MemberPacketMapper memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
-         memberPacketMapper.update(new LambdaUpdateWrapper<MemberPacketEntity>()
+         memberPacketMapper.update(null, new LambdaUpdateWrapper<MemberPacketEntity>()
                 .eq(MemberPacketEntity::getPacketId, packageId)
                 .eq(MemberPacketEntity::getMemberCityId, memberCityID)
                 .set(MemberPacketEntity::getIsDel, 1));

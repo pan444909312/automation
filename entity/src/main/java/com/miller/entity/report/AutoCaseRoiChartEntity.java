@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -15,6 +16,7 @@ import lombok.Data;
  * @since 2024-10-15
  */
 @Data
+@NoArgsConstructor
 @TableName("auto_case_roi_chart")
 @Schema(name = "AutoCaseRoiChartEntity", description = "测试场景总ROI表")
 public class AutoCaseRoiChartEntity implements Serializable {
@@ -61,4 +63,13 @@ public class AutoCaseRoiChartEntity implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Byte isDeleted;
+
+    public AutoCaseRoiChartEntity(Long totalMaintenanceTime, Long totalDevelopmentTime, Integer times, Long saveTime, Double roi, Integer executionType) {
+        this.totalMaintenanceTime = totalMaintenanceTime;
+        this.totalDevelopmentTime = totalDevelopmentTime;
+        this.times = times;
+        this.saveTime = saveTime;
+        this.roi = roi == 0 ? "0" : String.valueOf(roi);
+        this.executionType = executionType;
+    }
 }

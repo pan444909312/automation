@@ -40,8 +40,7 @@ public class ShopShouldHasSendMoneyDiscountScenarioTests {
         //        开启地址配置-城市功能管理-九江市-商卡配送费优惠开关
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
-        cityFunctionConfigMapper.update(
-                                new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,9).set(CityFunctionConfigEntity::getStatus,1)
+        cityFunctionConfigMapper.update(null, new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,9).set(CityFunctionConfigEntity::getStatus,1)
         );
     }
 

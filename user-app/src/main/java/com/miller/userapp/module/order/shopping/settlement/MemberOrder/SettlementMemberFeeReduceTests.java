@@ -87,7 +87,7 @@ public class SettlementMemberFeeReduceTests {
         lamda1.set(MemberCityFeeReduceEntity::getReduceType, 1);
         lamda1.set(MemberCityFeeReduceEntity::getReducePrice, 50);
         lamda1.set(MemberCityFeeReduceEntity::getStatus, 1);
-        memberCityFeeReduceMapper.update(updateWrapper1);
+        memberCityFeeReduceMapper.update(null, updateWrapper1);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         OrderAmountVO discountPlatformFee = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
@@ -124,7 +124,7 @@ public class SettlementMemberFeeReduceTests {
         lamda1.set(MemberCityFeeReduceEntity::getReduceType, 1);
         lamda1.set(MemberCityFeeReduceEntity::getReducePrice, 100000);
         lamda1.set(MemberCityFeeReduceEntity::getStatus, 1);
-        memberCityFeeReduceMapper.update(updateWrapper1);
+        memberCityFeeReduceMapper.update(null, updateWrapper1);
 
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         OrderAmountVO discountPlatformFee = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
