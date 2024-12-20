@@ -110,4 +110,35 @@ public class PropertiesUtils {
         }
         return finalProperties;
     }
+
+    /**
+     * 读取 classpath 路径下的 application.properties 文件中 key 对应的值
+     *
+     * @param key application.properties 文件中 key
+     * @return application.properties 文件中 key 对应的值
+     */
+    public String getApplicationPropertiesFileValue(String key) {
+        Properties properties = new Properties();
+        // 使用ClassLoader获取InputStream
+        InputStream input = getClass().getClassLoader().getResourceAsStream("application.properties");
+        if (input == null) {
+            throw new IllegalArgumentException("application.properties file not found in the classpath.");
+        }
+        try {
+            // 加载属性文件
+            properties.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                input.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return properties.getProperty(key);
+    }
+
+
 }
