@@ -42,7 +42,7 @@ import java.util.*;
  */
 public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     /**
-     * 自动化测试执行通知开关
+     * 自动化测试执行通知消息开关
      */
     private static final Boolean isSendNotification =true;
 
@@ -54,6 +54,9 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      * 存储失败的类
      */
     private Set<String> failedTestClasses = new HashSet<>();
+    /**
+     * 存储场景执行结果
+     */
     private static Map<String,ExecutionStatusEnum> scenarioResultMap = new HashMap<>();
     private SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
 
@@ -227,7 +230,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
     }
     private void updateAutoExecutionRecordTestResult(ExtensionContext context,String result){
-        Scenario scenario = context.getRequiredTestClass().getDeclaredAnnotation(Scenario.class);////每个子项里
+        Scenario scenario = context.getRequiredTestClass().getDeclaredAnnotation(Scenario.class);
         if (Objects.nonNull(scenario)){
             updateAutoExecutionRecord(scenario,result);
         }
