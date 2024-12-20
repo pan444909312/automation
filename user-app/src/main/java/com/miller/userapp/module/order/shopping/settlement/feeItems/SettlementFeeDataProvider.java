@@ -103,7 +103,7 @@ public class SettlementFeeDataProvider {
             var productCart = new ProductCart();
             List<String> tagId = new ArrayList<>();
             tagId.add(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductTagId1+"-1");
-            productCart.setSkuId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductSkuId);
+            productCart.setSkuId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductSkuIdForPacking);
             productCart.setProductId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
             productCart.setTagId(tagId);
             productCartList.add(productCart);
@@ -132,7 +132,7 @@ public class SettlementFeeDataProvider {
             var productCart = new ProductCart();
             List<String> tagId = new ArrayList<>();
             tagId.add(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductTagId1+"-1");
-            productCart.setSkuId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductSkuId);
+            productCart.setSkuId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductSkuIdForPacking);
             productCart.setProductId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
             productCart.setTagId(tagId);
             productCartList.add(productCart);
@@ -143,7 +143,7 @@ public class SettlementFeeDataProvider {
             var productCart = new ProductCart();
             List<String> tagId = new ArrayList<>();
             tagId.add(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductTagId2+"-1");
-            productCart.setSkuId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductSkuId);
+            productCart.setSkuId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductSkuIdForPacking);
             productCart.setProductId(TestCaseDataForMerchantConstant.shopTestDeliveryWayProductIdForPacking);
             productCart.setTagId(tagId);
             productCartList.add(productCart);

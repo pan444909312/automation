@@ -6,7 +6,7 @@ import com.hungrypanda.app.server.entity.product.ProductEntity;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.mapper.shop.ProcuctMapper;
+import com.miller.userapp.mapper.shop.ProductMapper;
 import com.miller.userapp.module.order.shopping.car.flow.ShoppingCarFlow;
 import com.miller.userapp.module.order.shopping.car.request.ShoppingCarRequestDTO;
 import com.miller.userapp.module.order.shopping.car.response.ShoppingCarResponseDTO;
@@ -37,7 +37,7 @@ public class CartTestWithProduct {
     void beforeEach() {
         // 初始化，链接数据库
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        ProcuctMapper productMapper = sqlSession.getMapper(ProcuctMapper.class);
+        ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
         ProductEntity productEntity = new ProductEntity();
         productEntity.setProductId(buyLimitMinProductTest);
         productEntity.setBuyLimitMin(buyLimitMin);
@@ -51,7 +51,7 @@ public class CartTestWithProduct {
     @AfterEach
     void afterEach() {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        ProcuctMapper productMapper = sqlSession.getMapper(ProcuctMapper.class);
+        ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
         var lambdaUpdateWrapper = new LambdaUpdateWrapper<ProductEntity>();
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
