@@ -223,11 +223,11 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 //            System.out.println("autoCaseRoi: "+ autoCaseRoi);
         }
 
-        if (isSaveAutomationExecutionRecord) {
-            // 保存执行记录到测试框架执行记录表，用于记录日志
-            AutoCaseRoiLogEntity autoCaseRoiLogEntity = getAutoCaseRoiLog(autoCaseRoi);
-            autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
+        // 保存执行记录到测试框架执行记录表，用于记录日志
+        AutoCaseRoiLogEntity autoCaseRoiLogEntity = getAutoCaseRoiLog(autoCaseRoi);
+        autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
 
+        if (isSaveAutomationExecutionRecord) {
             // 保存执行记录到自动化测试执行记录表，用于统计
             AutoExecutionRecordEntity autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity, executor);
             autoExecutionRecordSql.saveAutoExecutionRecord(autoExecutionRecord);
