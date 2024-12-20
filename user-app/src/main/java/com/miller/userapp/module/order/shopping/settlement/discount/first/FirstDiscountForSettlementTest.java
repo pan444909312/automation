@@ -6,14 +6,18 @@ import com.hungrypanda.app.server.api.res.order.OrderAmountVO;
 import com.hungrypanda.app.server.common.enums.StatusEnum;
 import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
+import com.miller.common.util.MD5Util;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.constants.ResponseConstant;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.home.login.response.UserLoginResponseDTO;
 import com.miller.userapp.module.order.shopping.settlement.discount.ShopsEnum;
 import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.miller.userapp.module.order.shopping.settlement.request.SettlementRequestDTO;
 import com.miller.userapp.module.order.shopping.settlement.response.SettlementResponseDTO;
+import com.miller.userapp.util.RequestUtils;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,6 +27,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -32,16 +37,12 @@ import static org.assertj.core.api.Assertions.assertThat;
         scenarioName = "正常流程_结算_优惠项-首单/门店新客",
         developmentTime = 50, maintenanceTime = 0, manualTestTime = 30)
 public class FirstDiscountForSettlementTest {
-    @BeforeAll
-    static void beforeAll() {
-        UserLoginFlow.loginByDefaultUser();
-    }
 
     @ParameterizedTest
     @MethodSource("settlementWithFirstDiscount")
     @DisplayName("结算-优惠-门店新客-新客减2")
-    void settlementWithFullDiscount(SettlementRequestDTO settlementRequestDTO){
-
+    void settlementWithShopFirstDiscount(SettlementRequestDTO settlementRequestDTO){
+        UserLoginFlow.loginByDefaultUser();
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         List<OrderAmountVO> orderAmountItemList = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList();
@@ -49,9 +50,42 @@ public class FirstDiscountForSettlementTest {
         assertThat(OrderAmountItemDiscount.getItemAmount()).isEqualTo(200);
 
     }
+    @ParameterizedTest
+    @MethodSource("settlementWithFirstDiscount")
+    @DisplayName("结算-优惠-平台首单单-减3")
+    void settlementWithPlatformFirstDiscount(SettlementRequestDTO settlementRequestDTO){
+        // 构造请求数据，从数据库查询结果作为请求数据
+        UserLoginRequestDTO user = new UserLoginRequestDTO();
+        user.setAreaCode("86");
+        user.setAccount("17121193644");
+        user.setPassword(MD5Util.string2MD5("12345678"));
+        user.setType(2);
+        user.setDistinctId("ed99f8b03a64c6c1");
+
+        UserLoginResponseDTO userLoginResponseDTO = UserLoginFlow.loginReturnBodyObject(user);
+
+        // 获取token
+        var token = userLoginResponseDTO.getResult().getAccessToken();
+        // 获取token
+        var headers = new HashMap<String, Object>();
+        headers.put("Content-Type", "application/json");
+        headers.put("authorization", token);
+
+        // 更新全局请求头参数。设置测试用例的默认用户。
+        RequestUtils.setHeaders(headers);
+
+
+        SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+        assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
+        List<OrderAmountVO> orderAmountItemList = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList();
+        OrderAmountVO OrderAmountItemDiscount = orderAmountItemList.stream().filter(i ->i.getItemKey().equals("firstDiscount")).findFirst().get();
+        assertThat(OrderAmountItemDiscount.getItemAmount()).isEqualTo(300);
+
+    }
+
+
     //门店折扣
     static Stream<Arguments> settlementWithFirstDiscount() {
-
         SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
         settlementRequestDTO.setOrderType(CreateOrderTypeEnum.COMMON_ORDER.getType());
         settlementRequestDTO.setTablewareCount(1);
