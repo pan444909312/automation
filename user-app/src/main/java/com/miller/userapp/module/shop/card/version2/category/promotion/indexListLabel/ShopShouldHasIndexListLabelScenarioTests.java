@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author huyang
- * @since 2024/8/16 17:47
+ * @since 2024/12/20 18:07
  */
-@Scenario(scenarioID = "01J5D0D57WRRFD12T2A4XT58C6",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_货到付款_首页-商卡二期：营销标签tpye=22",
+@Scenario(scenarioID = "01JFHS6Q8084RYB7JK3JTCESMS",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_优惠标签_营销标签_首页-商卡二期：营销标签tpye=22",
         developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -38,7 +38,7 @@ public class ShopShouldHasIndexListLabelScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("普通店铺配送商卡_优惠标签_货到付款_首页-商卡二期：营销标签tpye=22")
+    @DisplayName("普通店铺配送商卡-品类频道_优惠标签_营销标签_首页-商卡二期：营销标签tpye=22")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
