@@ -38,10 +38,12 @@
 
         <!--
         PF 项目需要单独引入 3.4.2 版本，不引入执行会报错，引入之后IDEA执行成功，但是启动 SpringBoot 执行用例依然报错。
-        改成 3.4.2 SpringBoot 启动报错，项目默认使用的是 3.5.5，可以不用单独引入 -->
+        改成 3.4.2 SpringBoot 启动报错，项目默认使用的是 3.5.5，可以不用单独引入
+        解决方案:  在项目中考呗对应的类到 market 模块中。并且引入mybatis-plus-extension 3.5.5 的依赖，这样SpringBoot和Junit都可以运行-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
+<!--            <version>3.4.2</version>-->
             <version>3.5.5</version>
         </dependency>
 
@@ -137,10 +139,6 @@
                 <exclusion>
                     <groupId>org.panda</groupId>
                     <artifactId>risk-control-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>mybatis-plus-extension</artifactId>
-                    <groupId>com.baomidou</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
