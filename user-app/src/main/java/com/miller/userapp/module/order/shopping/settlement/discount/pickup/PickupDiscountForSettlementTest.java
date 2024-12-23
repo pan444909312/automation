@@ -23,6 +23,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -47,8 +49,19 @@ public class PickupDiscountForSettlementTest {
         SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
         assertThat(settlementResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
         List<OrderAmountVO> orderAmountItemList = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList();
+        final int[] baseAmount = {0,0};
+        orderAmountItemList.forEach(amount ->{
+            if(amount.getItemKey().contains("takeDiscount")) return;
+            if(amount.getItemKey().contains("Discount") ){
+                baseAmount[0] += amount.getItemAmount();
+            }else {
+                baseAmount[1] += amount.getItemAmount();
+            }
+        });
+        int actualAmount = new BigDecimal(baseAmount[1]-baseAmount[0]).multiply(new BigDecimal(0.1)).setScale(0, RoundingMode.HALF_UP).intValue();
         OrderAmountVO OrderAmountItemDiscount = orderAmountItemList.stream().filter(i ->i.getItemKey().equals("takeDiscount")).findFirst().get();
-        assertThat(OrderAmountItemDiscount.getItemAmount()).isEqualTo(900);
+        assertThat(OrderAmountItemDiscount.getItemAmount()).isEqualTo((actualAmount));
+
 
     }
     @ParameterizedTest
