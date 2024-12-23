@@ -12,7 +12,7 @@ import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.mapper.shop.ProcuctMapper;
+import com.miller.userapp.mapper.shop.ProductMapper;
 import com.miller.userapp.module.order.shopping.settlement.flow.SettlementFlow;
 import com.miller.userapp.module.order.shopping.settlement.request.SettlementRequestDTO;
 import com.miller.userapp.module.order.shopping.settlement.response.SettlementResponseDTO;
@@ -43,7 +43,7 @@ public class SettlementWithProduct {
     void beforeEach() {
         // 初始化，链接数据库
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        ProcuctMapper productMapper = sqlSession.getMapper(ProcuctMapper.class);
+        ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
         var lambdaUpdateWrapper = new LambdaUpdateWrapper<ProductEntity>();
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
@@ -54,7 +54,7 @@ public class SettlementWithProduct {
     @AfterEach
     void afterEach() {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        ProcuctMapper productMapper = sqlSession.getMapper(ProcuctMapper.class);
+        ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
         var lambdaUpdateWrapper = new LambdaUpdateWrapper<ProductEntity>();
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
