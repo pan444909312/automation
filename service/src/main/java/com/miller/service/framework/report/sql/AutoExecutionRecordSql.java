@@ -29,7 +29,8 @@ public class AutoExecutionRecordSql {
         lambda.last("limit 1");
         return  getAutoExecutionRecordMapper().selectOne(queryWrapper);
     }
-    public AutoExecutionRecordEntity getAutoExecutionRecordBySuite(String scenarioId){ //suite可能更新多次，查找已经更新过的
+    //suite可能更新多次，查找已经更新过的
+    public AutoExecutionRecordEntity getAutoExecutionRecordBySuite(String scenarioId){
         QueryWrapper<AutoExecutionRecordEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<AutoExecutionRecordEntity> lambda = queryWrapper.lambda();
         lambda.eq(AutoExecutionRecordEntity::getScenarioId,scenarioId);

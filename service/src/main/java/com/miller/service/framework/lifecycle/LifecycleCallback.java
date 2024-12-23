@@ -74,19 +74,23 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
         System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
+        // 遍历所有测试类，更新测试类执行结果到数据库
         autoTestClasses.stream().forEach(cls -> {
             Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
             String scenarioId = scenario.scenarioID();
             ExecutionStatusEnum value = scenarioResultMap.get(scenarioId);
             AutoExecutionRecordEntity autoExecutionRecord = autoExecutionRecordSql.getAutoExecutionRecord(scenarioId);
             AutoExecutionRecordEntity autoExecutionRecordSuite = autoExecutionRecordSql.getAutoExecutionRecordBySuite(scenarioId);
+            // 更新 TestCase 执行结果
             if (Objects.nonNull(autoExecutionRecord)) {
                 autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord, value);
             }
-            //suite会多次（子类多个），所以如果不是失败的需要再次更新（map已校验） && !autoExecutionRecordSuite.getExecutionStatus().equals(ExecutionStatusEnum.FAIL.getCode())
-            if (Objects.nonNull(autoExecutionRecordSuite) && !autoExecutionRecordSuite.getExecutionStatus().equals(value.getCode())) {
-                //不等才更新
-                autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecord, value);
+            //更新 TestSuite 执行结果。suite会多次（子类多个），所以如果不是失败的需要再次更新（map已校验） && !autoExecutionRecordSuite.getExecutionStatus().equals(ExecutionStatusEnum.FAIL.getCode())
+            if (Objects.nonNull(autoExecutionRecordSuite)) {
+                // 测试执行结果与数据库最新的一次执行记录不等才做更新操作，减少 update 操作
+                if (!autoExecutionRecordSuite.getExecutionStatus().equals(value.getCode())) {
+                    autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecordSuite, value);
+                }
             }
         });
 
@@ -143,7 +147,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     /**
      * 保存@scenario注解的值
      *
-     * @param context
+     * @param context ExtensionContext
      */
     private void storeExecutableScenarioValues(ExtensionContext context) {
         //如果测试类本身就有@Scenario注解，则获取注解value
@@ -168,8 +172,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         }
     }
 
+    /**
+     * 获取执行人员
+     *
+     * @return 执行人员
+     */
     private String getExecutor() {
-        // 获取执行人员
         String executor = "";
         String hostNameOfOS = OSUtils.getHostNameOfOS();
         // 如果是测试环境，则执行人员为DevOps平台
@@ -182,6 +190,11 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         return executor;
     }
 
+    /**
+     * 保存测试用例到数据库
+     *
+     * @param cls Class
+     */
     private void saveAutoCaseRoi(Class<?> cls) {
         Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
         String executor = getExecutor();
@@ -191,6 +204,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             throw new TestFrameworkException(cls.getName() + "developmentTime ,manualTestTime must > 0");
         String scenarioId = scenario.scenarioID();
         AutoCaseRoiEntity autoCaseRoi = autoCaseRoiSql.getAutoCaseRoi(scenarioId);
+        // ID 不为空表示已经保存过，不需要再保存，则做更新
         if (Objects.nonNull(autoCaseRoi)) {
             autoCaseRoi.setScenarioName(scenario.scenarioName());
             autoCaseRoi.setDevelopmentTime(scenario.developmentTime());
@@ -207,6 +221,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoiSql.updateAutoCaseRoi(autoCaseRoi);
 //            System.out.println("autoCaseRoi: "+ autoCaseRoi);
         } else {
+            // ID 为空表示第一次保存，则做插入
             autoCaseRoi = new AutoCaseRoiEntity();
             autoCaseRoi.setScenarioId(scenarioId);
             autoCaseRoi.setScenarioName(scenario.scenarioName());
@@ -227,8 +242,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         AutoCaseRoiLogEntity autoCaseRoiLogEntity = getAutoCaseRoiLog(autoCaseRoi);
         autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
 
+        // 保存执行记录到自动化测试执行记录表，用于统计 ROI
         if (isSaveAutomationExecutionRecord) {
-            // 保存执行记录到自动化测试执行记录表，用于统计
             AutoExecutionRecordEntity autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity, executor);
             autoExecutionRecordSql.saveAutoExecutionRecord(autoExecutionRecord);
         }
