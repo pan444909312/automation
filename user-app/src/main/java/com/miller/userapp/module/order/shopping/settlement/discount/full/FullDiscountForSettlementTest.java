@@ -53,7 +53,7 @@ public class FullDiscountForSettlementTest {
 
     }
 
-    //新人sku原价¥100，折扣6.5折
+    //满减-配置满10-2，当前商品无折扣，售价100
     static Stream<Arguments> settlementFullDiscount() {
 
         SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
