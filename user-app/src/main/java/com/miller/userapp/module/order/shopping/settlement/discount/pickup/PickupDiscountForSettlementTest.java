@@ -86,7 +86,7 @@ public class PickupDiscountForSettlementTest {
         return Stream.of(Arguments.of(settlementRequestDTO));
     }
 
-    //自取折扣-自取折扣9折，折扣上限20，自取折扣未达上限
+    //自取折扣-自取折扣9折，折扣上限20，自取折扣达到上限
     static Stream<Arguments> settlementPickupDiscountReach() {
 
         SettlementRequestDTO settlementRequestDTO = new SettlementRequestDTO();
