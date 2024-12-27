@@ -31,9 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/23 9:24
  */
-@Scenario(scenarioID = "01J5WMVHCECNCSWBP13V103YFT",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签3_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JG3GCFH65YA11JQVCHCMQMRQ",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_营销标_标签3_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoReturnedVisitorFeature {
@@ -69,7 +69,7 @@ public class ShopShouldHasNoReturnedVisitorFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_标签3_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用")
+    @DisplayName("普通店铺配送商卡-品类频道_营销标_标签3_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用")
     void shouldNotExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
