@@ -1,19 +1,19 @@
 package com.miller.service.report.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.AutoCaseChartFutureDataEntity;
-import com.miller.entity.report.AutoCaseExecutionChartEntity;
 import com.miller.entity.report.AutoCaseRoiChartEntity;
 import com.miller.entity.report.req.PageAutoCaseRoiChartReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiChartRespDTO;
+import com.miller.entity.util.BasePageResponse;
+import com.miller.entity.util.Response;
 import com.miller.mapper.report.AutoCaseRoiChartMapper;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseRoiChartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.miller.service.util.TimestampUtils;
-import org.springframework.beans.BeanUtils;
+import com.miller.entity.util.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,11 +45,14 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
      * @return查询对象
      */
     @Override
-    public Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
+    public Response<BasePageResponse<AutoCaseRoiChartRespDTO>> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
 
         int pageNo = pageAutoCaseRoiChartReqDTO.getPageNo();
-        int pageSize = pageAutoCaseRoiChartReqDTO.getPageSize();
+        // 分页的size，需要按执行策略的枚举类型乘上去，因为是按执行策略保存，不然会可能会差出来当天缺少某几个执行策略的数据
+        // 4条数据为一组，最后返回为一条数据
+        int pageSize = pageAutoCaseRoiChartReqDTO.getPageSize() * ExecutionTypeEnum.values().length;
         Page<AutoCaseRoiChartEntity> page = new Page<>(pageNo, pageSize);
+
         QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<>();
         Date createStartTime = pageAutoCaseRoiChartReqDTO.getCreateStartTime();
         Date createEndTime = pageAutoCaseRoiChartReqDTO.getCreateEndTime();
@@ -61,41 +64,57 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         if (createEndTime != null) {
             queryWrapper.le("create_time", createEndTime.getTime());
         }
-        if (executionTypeList != null && !executionTypeList.isEmpty()) {
-            queryWrapper.in("execution_type", executionTypeList);
-        }
         queryWrapper.orderByDesc("create_time");
-
 
         Page<AutoCaseRoiChartEntity> autoCaseRoiChartPage = autoCaseRoiChartMapper.selectPage(page, queryWrapper);
         List<AutoCaseRoiChartEntity> records = autoCaseRoiChartPage.getRecords();
-        long total = autoCaseRoiChartPage.getTotal();
+
+        // 总数需要除以执行策略的选择个数，不然算出来的总个数是所有日期的ROI乘执行策略个人的总数
+        long total = autoCaseRoiChartPage.getTotal() / ExecutionTypeEnum.values().length;
 
         //数据组装
         LinkedList<AutoCaseRoiChartRespDTO> autoCaseRoiChartRespDTOList = new LinkedList<>();
-        AutoCaseRoiChartRespDTO autoCaseRoiChartRespDTO;
+        long totalMaintenanceTimeSum = 0;
+        long totalDevelopmentTimeSum = 0;
+        int totalTimesSum = 0;
+        long saveTimeSum = 0;
+        double roi = 0;
+        String flag = records.get(0).getChartDate();
+        //  目前的个数是所以执行策略的，需要根据4个为一组，然后通过要查的执行策略，累加对应值计算 最终放进respList
         for (AutoCaseRoiChartEntity record : records) {
-            autoCaseRoiChartRespDTO = new AutoCaseRoiChartRespDTO();
-            BeanUtils.copyProperties(record, autoCaseRoiChartRespDTO);
+            if (!flag.equals(record.getChartDate())) {
 
-            //节省人日 = 累计收益/60/8 , 四舍五入 保留3位小数
-            BigDecimal bd = BigDecimal.valueOf(Double.parseDouble(String.valueOf(record.getSaveTime())) / 60 / 8);
-            bd = bd.setScale(3, RoundingMode.HALF_UP);
-            Double roundedValue = bd.doubleValue();
-            autoCaseRoiChartRespDTO.setSavePersonDay(roundedValue);
+                autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, record.getChartDate()));
 
-            autoCaseRoiChartRespDTO.setCreateTime(TimestampUtils.timestampToDateStr(record.getCreateTime()));
-            autoCaseRoiChartRespDTOList.add(autoCaseRoiChartRespDTO);
+                // 初始化下一组数据
+                flag = record.getChartDate();
+                totalMaintenanceTimeSum = 0;
+                totalDevelopmentTimeSum = 0;
+                totalTimesSum = 0;
+                saveTimeSum = 0;
+                roi = 0;
+            }
+
+            // 按照筛选的执行策略，累加各数值
+            if (executionTypeList.contains(record.getExecutionType())) {
+                totalMaintenanceTimeSum = totalMaintenanceTimeSum + record.getTotalMaintenanceTime();
+                totalDevelopmentTimeSum = totalDevelopmentTimeSum + record.getTotalDevelopmentTime();
+                totalTimesSum = totalTimesSum + record.getTimes();
+                saveTimeSum = saveTimeSum + record.getSaveTime();
+            }
         }
+        // 循环出来后 需要再保存最后的autoCaseRoiChartRespDTO，不然会丢了最后一条数据
+        autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, flag));
 
-        //未来日期数据处理
+
+        //未来日期数据处理 todo
         QueryWrapper<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataQueryWrapper = new QueryWrapper<>();
         autoCaseChartFutureDataQueryWrapper.eq("chart_type", 1);
-        if (executionTypeList != null && !executionTypeList.isEmpty()) {
+        if (!executionTypeList.isEmpty()) {
             autoCaseChartFutureDataQueryWrapper.in("execution_type", executionTypeList);
         }
         autoCaseChartFutureDataQueryWrapper.orderByDesc("future_time");
-        if (executionTypeList != null && !executionTypeList.isEmpty()) {
+        if (!executionTypeList.isEmpty()) {
             autoCaseChartFutureDataQueryWrapper.last("limit " + executionTypeList.size());
         }
 
@@ -113,7 +132,8 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         Map<String, Object> result = new HashMap<>();
         result.put("list", autoCaseRoiChartRespDTOList);
         result.put("total", total);
-        return result;
+        BasePageResponse<AutoCaseRoiChartRespDTO> response = new BasePageResponse<>(total, autoCaseRoiChartRespDTOList);
+        return Response.success(response);
     }
 
     @Override
@@ -146,6 +166,7 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
 
     /**
      * 检查自动化用例执行趋势表，今日是否同步过对应执行类型的数据
+     *
      * @param executionType 执行策略
      * @return 是 返回true，否 返回 false
      */
@@ -158,7 +179,7 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
 
         List<AutoCaseRoiChartEntity> autoCaseRoiChartEntityList = autoCaseRoiChartMapper.selectList(new QueryWrapper<AutoCaseRoiChartEntity>()
                 .ge("create_time", yesterdayEnd)
-                .eq("execution_type",executionType));
+                .eq("execution_type", executionType));
         return !autoCaseRoiChartEntityList.isEmpty();
     }
 
@@ -169,9 +190,47 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
      */
     private AutoCaseRoiChartEntity getLatestData(int executionType) {
         QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<AutoCaseRoiChartEntity>()
-                .eq("execution_type",executionType)
+                .eq("execution_type", executionType)
                 .orderByDesc("create_time")
                 .last("limit 1");
         return autoCaseRoiChartMapper.selectOne(queryWrapper);
+    }
+
+    /**
+     * 构建并返回roi报表的返回dto
+     *
+     * @param saveTimeSum
+     * @param totalDevelopmentTimeSum
+     * @param totalMaintenanceTimeSum
+     * @param totalTimesSum
+     * @param roi
+     * @param date
+     * @return
+     */
+    private AutoCaseRoiChartRespDTO saveAutoCaseRoiChartRespDTO(
+            long saveTimeSum,
+            long totalDevelopmentTimeSum,
+            long totalMaintenanceTimeSum,
+            int totalTimesSum,
+            double roi,
+            String date) {
+        AutoCaseRoiChartRespDTO autoCaseRoiChartRespDTO = new AutoCaseRoiChartRespDTO();
+
+        //节省人日 = 累计收益/60/8 , 四舍五入 保留3位小数
+        BigDecimal bd = BigDecimal.valueOf(Double.parseDouble(String.valueOf(saveTimeSum)) / 60 / 8);
+        bd = bd.setScale(3, RoundingMode.HALF_UP);
+        Double roundedValue = bd.doubleValue();
+        autoCaseRoiChartRespDTO.setSavePersonDay(roundedValue);
+
+        autoCaseRoiChartRespDTO.setTotalDevelopmentTime(totalDevelopmentTimeSum);
+        autoCaseRoiChartRespDTO.setTotalMaintenanceTime(totalMaintenanceTimeSum);
+        autoCaseRoiChartRespDTO.setTimes(totalTimesSum);
+        autoCaseRoiChartRespDTO.setSaveTime(saveTimeSum);
+        if (totalMaintenanceTimeSum + totalDevelopmentTimeSum != 0) {
+            roi = (double) saveTimeSum / (totalMaintenanceTimeSum + totalDevelopmentTimeSum);
+        }
+        autoCaseRoiChartRespDTO.setRoi(roi == 0 ? "0" : String.valueOf(roi));
+        autoCaseRoiChartRespDTO.setCreateTime(date);
+        return autoCaseRoiChartRespDTO;
     }
 }

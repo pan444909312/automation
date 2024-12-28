@@ -1,9 +1,13 @@
 package com.miller.controller.report;
 
 import com.miller.entity.report.req.PageAutoCaseRoiChartReqDTO;
+import com.miller.entity.report.resp.AutoCaseRoiChartRespDTO;
+import com.miller.entity.util.BasePageResponse;
+import com.miller.entity.util.Response;
 import com.miller.service.report.AutoCaseRoiChartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,11 +35,10 @@ public class AutoCaseRoiChartController {
 
     @Operation(description = "分页查询场景总ROI报表")
     @PostMapping("/list")
-    public Map<String, Object> listAutoCaseRoiChart(@RequestBody PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
+    public Response<BasePageResponse<AutoCaseRoiChartRespDTO>> listAutoCaseRoiChart(@Valid @RequestBody PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
 
-        Map<String, Object> autoCaseRoiChartList = autoCaseRoiChartService.getAutoCaseRoiChartList(pageAutoCaseRoiChartReqDTO);
+        return autoCaseRoiChartService.getAutoCaseRoiChartList(pageAutoCaseRoiChartReqDTO);
 
-        return autoCaseRoiChartList;
     }
 
 }

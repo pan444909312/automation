@@ -1,7 +1,7 @@
 package com.miller.exception;
 
 
-import com.miller.common.util.ResponseEnum;
+import com.miller.entity.util.ResponseEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

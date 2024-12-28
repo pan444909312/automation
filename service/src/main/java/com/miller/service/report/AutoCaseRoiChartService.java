@@ -3,8 +3,10 @@ package com.miller.service.report;
 import com.miller.entity.report.AutoCaseRoiChartEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.miller.entity.report.req.PageAutoCaseRoiChartReqDTO;
-
-import java.util.Map;
+import com.miller.entity.report.resp.AutoCaseExecutionChartRespDTO;
+import com.miller.entity.report.resp.AutoCaseRoiChartRespDTO;
+import com.miller.entity.util.BasePageResponse;
+import com.miller.entity.util.Response;
 
 /**
  * <p>
@@ -18,10 +20,11 @@ public interface AutoCaseRoiChartService extends IService<AutoCaseRoiChartEntity
 
     /**
      * 条件分页查询测试场景总ROI表
+     *
      * @param pageAutoCaseRoiChartReqDTO 条件分页查询测试场景总ROI表
      * @return
      */
-    Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO);
+    Response<BasePageResponse<AutoCaseRoiChartRespDTO>> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO);
 
 
     /**

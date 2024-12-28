@@ -8,7 +8,7 @@ import com.miller.entity.report.AutoCaseIncreaseChartEntity;
 import com.miller.entity.report.resp.AutoCaseIncreaseChartRespDTO;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseIncreaseChartService;
-import com.miller.service.util.TimestampUtils;
+import com.miller.entity.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,9 +3,12 @@ package com.miller.entity.report;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+
+import com.miller.entity.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * <p>
@@ -26,6 +29,10 @@ public class AutoCaseRoiChartEntity implements Serializable {
     @Schema(description = "ID 自增")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+
+    @Schema(description = "日期")
+    @TableField("chart_date")
+    private String chartDate;
 
     @Schema(description = "累计维护成本")
     @TableField("total_maintenance_time")
@@ -64,12 +71,13 @@ public class AutoCaseRoiChartEntity implements Serializable {
     @TableLogic
     private Byte isDeleted;
 
-    public AutoCaseRoiChartEntity(Long totalMaintenanceTime, Long totalDevelopmentTime, Integer times, Long saveTime, Double roi, Integer executionType) {
+    public AutoCaseRoiChartEntity(Long totalMaintenanceTime, Long totalDevelopmentTime, Integer times, Long saveTime, Double roi, Integer executionType,Long timestamp) {
         this.totalMaintenanceTime = totalMaintenanceTime;
         this.totalDevelopmentTime = totalDevelopmentTime;
         this.times = times;
         this.saveTime = saveTime;
         this.roi = roi == 0 ? "0" : String.valueOf(roi);
         this.executionType = executionType;
+        this.chartDate = TimestampUtils.timestampToDateStr(timestamp);
     }
 }
