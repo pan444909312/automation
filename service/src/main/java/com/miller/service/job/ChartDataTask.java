@@ -4,12 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.*;
 import com.miller.service.report.*;
-import com.miller.service.util.TimestampUtils;
+import com.miller.entity.util.TimestampUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.apache.bcel.generic.RET;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -133,7 +130,7 @@ public class ChartDataTask {
     /**
      * 根据不同执行策略，保存未来数据表中 自动化执行趋势表 的未来数据
      *
-     * @param executionType
+     * @param executionType 执行策略
      */
     private void autoCaseExecutionFutureDataCalculate(int executionType) {
         // 用例执行趋势表 未来数据计算
@@ -147,10 +144,10 @@ public class ChartDataTask {
     }
 
     /**
-     * 未来累计收益(E)= （当前日期的前3个月日期的累计值 / 3个月的累计次数） * F(当前日期往前6个月的那一天累计收益值 / 当前日期往前3个月的那一天累计收益值，当前默认设置为1.0) + 系统最后一次累计收益值
      * 根据不同执行策略，保存未来数据表中 场景总ROI表 的未来数据
+     * 未来累计收益(E)= （当前日期的前3个月日期的累计值 / 3个月的累计次数） * F(当前日期往前6个月的那一天累计收益值 / 当前日期往前3个月的那一天累计收益值，当前默认设置为1.0) + 系统最后一次累计收益值
      *
-     * @param executionType
+     * @param executionType 执行策略
      */
     private void roiFutureDataCalculate(int executionType) {
 
@@ -216,13 +213,12 @@ public class ChartDataTask {
      * 根据不同执行策略，保存测试场景总ROI表数据
      *
      * @param executionType 执行策略
-     * @param queryWrapper  条件构造器
+     * @param queryWrapper 条件构造器，这里内部使用方法，该参数传进来已设置时间为昨天一天的时间范围
      */
     private boolean addAutoCaseRoiChartData(int executionType, QueryWrapper<AutoExecutionRecordEntity> queryWrapper) {
 
         queryWrapper.eq("execution_type", executionType);
         List<AutoExecutionRecordEntity> autoExecutionRecordList = autoExecutionRecordService.list(queryWrapper);
-        AutoCaseRoiChartEntity autoCaseRoiChartEntity = new AutoCaseRoiChartEntity();
 
         long totalMaintenanceTimeLatest = autoCaseRoiChartService.getTotalMaintenanceTime(executionType);
         long totalDevelopTimeLatest = autoCaseRoiChartService.getTotalDevelopTime(executionType);
@@ -235,7 +231,8 @@ public class ChartDataTask {
             if (totalMaintenanceTimeLatest + totalDevelopTimeLatest != 0) {
                 roi = (double) totalSaveTimeLatest / (totalMaintenanceTimeLatest + totalDevelopTimeLatest);
             }
-            return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTimeLatest,totalDevelopTimeLatest,totalTimesLatest,totalSaveTimeLatest,roi,executionType));
+
+            return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTimeLatest,totalDevelopTimeLatest,totalTimesLatest,totalSaveTimeLatest,roi,executionType,System.currentTimeMillis()));
         }
 
         long saveTime = 0;
@@ -262,7 +259,7 @@ public class ChartDataTask {
             roi = (double) totalSaveTime / (totalMaintenanceTime + totalDevelopTime);
         }
 
-        return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTime,totalDevelopTime,totalTimes,totalSaveTime,roi,executionType));
+        return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTime,totalDevelopTime,totalTimes,totalSaveTime,roi,executionType,System.currentTimeMillis()));
 
     }
 
@@ -270,8 +267,8 @@ public class ChartDataTask {
     /**
      * 根据不同执行策略，保存自动化用例执行趋势表数据
      *
-     * @param executionType
-     * @param queryWrapper
+     * @param executionType 执行策略
+     * @param queryWrapper 条件构造器，这里内部使用方法，该参数传进来已设置时间为昨天一天的时间范围
      * @return
      */
     private boolean addAutoCaseExecutionChartData(int executionType, QueryWrapper<AutoExecutionRecordEntity> queryWrapper) {
@@ -282,6 +279,7 @@ public class ChartDataTask {
         autoCaseExecutionChartEntity.setExecutionType(executionType);
 
         if (autoExecutionRecordList.isEmpty()) {
+            autoCaseExecutionChartEntity.setChartDate(TimestampUtils.timestampToDateStr(System.currentTimeMillis()));
             return autoCaseExecutionChartService.save(autoCaseExecutionChartEntity);
         }
         List<AutoExecutionRecordEntity> successList = autoExecutionRecordList.stream().filter(item -> item.getExecutionStatus() == 1).toList();
@@ -289,6 +287,7 @@ public class ChartDataTask {
         autoCaseExecutionChartEntity.setExecutionCase(autoExecutionRecordList.size());
         autoCaseExecutionChartEntity.setExecutionSuccessTime(successList.size());
         autoCaseExecutionChartEntity.setExecutionFailTime(autoExecutionRecordList.size() - successList.size());
+        autoCaseExecutionChartEntity.setChartDate(TimestampUtils.timestampToDateStr(System.currentTimeMillis()));
 
         return autoCaseExecutionChartService.save(autoCaseExecutionChartEntity);
     }

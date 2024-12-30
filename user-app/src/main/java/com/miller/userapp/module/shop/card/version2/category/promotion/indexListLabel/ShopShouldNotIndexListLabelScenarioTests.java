@@ -22,11 +22,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author huyang
- * @since 2024/8/16 17:47
+ * @since 2024/12/20 18:07
  */
-@Scenario(scenarioID = "01J5D0D585C1RA0R3NF0EXF82C",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_货到付款_首页-商卡二期：营销标签tpye=22-不展示",
-        developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JFHS6Q8084RYB7JK3JTCESMT",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_优惠标签_营销标签_首页-商卡二期：营销标签tpye=22-不展示",
+        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldNotIndexListLabelScenarioTests {
@@ -38,7 +38,7 @@ public class ShopShouldNotIndexListLabelScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("普通店铺配送商卡_优惠标签_货到付款_首页-商卡二期：营销标签tpye=22-不展示")
+    @DisplayName("普通店铺配送商卡-品类频道_优惠标签_营销标签_首页-商卡二期：营销标签tpye=22-不展示")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){

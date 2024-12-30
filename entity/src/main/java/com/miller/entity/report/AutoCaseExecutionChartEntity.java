@@ -25,6 +25,10 @@ public class AutoCaseExecutionChartEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @Schema(description = "日期")
+    @TableField("chart_date")
+    private String chartDate;
+
     @Schema(description = "执行用例数")
     @TableField("execution_case")
     private Integer executionCase;
