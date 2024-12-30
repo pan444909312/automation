@@ -118,7 +118,7 @@ public class SettlementPackings {
 
     @ParameterizedTest
     @MethodSource("com.miller.userapp.module.order.shopping.settlement.feeItems.SettlementFeeDataProvider#sameSkuAndTag")
-    @Order(3)
+    @Order(4)
     @DisplayName("结算-没有商品打包费，有商家塑料打包费-同规格-同配料")
     void settlementOnlyPlastic(SettlementRequestDTO settlementRequestDTO) {
         UpdateWrapper<ShopExtraInfoEntity> updateWrapper = new UpdateWrapper<>();
