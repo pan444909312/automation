@@ -3,6 +3,7 @@ package com.miller.controller.report;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.report.resp.AutoCaseRoiChartRespDTO;
 import com.miller.entity.util.BasePageResponse;
 import com.miller.entity.util.Response;
 import com.miller.entity.report.AutoCaseChartFutureDataEntity;
@@ -86,34 +87,45 @@ public class AutoCaseExecutionChartController {
         LinkedList<AutoCaseExecutionChartRespDTO> list = new LinkedList<>();
         AutoCaseExecutionChartRespDTO autoCaseExecutionChartRespDTO;
         int executionCaseSum = 0;
-        String flag = records.get(0).getChartDate();
+        String lastChartDate = records.get(0).getChartDate();
         for (AutoCaseExecutionChartEntity record : records) {
-            if (!flag.equals(record.getChartDate())) {
+            if (!lastChartDate.equals(record.getChartDate())) {
 
                 autoCaseExecutionChartRespDTO = new AutoCaseExecutionChartRespDTO();
-                autoCaseExecutionChartRespDTO.setRemarks(record.getRemarks());
-                autoCaseExecutionChartRespDTO.setExecutionCase(record.getExecutionCase());
-                autoCaseExecutionChartRespDTO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
+                autoCaseExecutionChartRespDTO.setRemarks("");
+                autoCaseExecutionChartRespDTO.setExecutionCase(executionCaseSum);
+                autoCaseExecutionChartRespDTO.setDate(lastChartDate);
                 list.add(autoCaseExecutionChartRespDTO);
 
                 // 初始化下一组数据
-                flag = record.getChartDate();
+                lastChartDate = record.getChartDate();
                 executionCaseSum = 0;
             }
             if (executionTypeList.contains(record.getExecutionType())) {
                 executionCaseSum = executionCaseSum + record.getExecutionCase();
             }
         }
-        list.add(new AutoCaseExecutionChartRespDTO(executionCaseSum,"",flag));
+        list.add(new AutoCaseExecutionChartRespDTO(executionCaseSum,"",lastChartDate));
 
-        //未来日期数据处理  todo  新增执行类型 需要修改
-        AutoCaseChartFutureDataEntity futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureDataEntity>()
-                .eq("chart_type", 3)
-                .orderByDesc("future_time")
-                .last("limit 1"));
+        //未来日期数据处理
+        QueryWrapper<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataQueryWrapper = new QueryWrapper<>();
+        autoCaseChartFutureDataQueryWrapper.eq("chart_type", 3);
+        if (!executionTypeList.isEmpty()) {
+            autoCaseChartFutureDataQueryWrapper.in("execution_type", executionTypeList);
+        }
+        autoCaseChartFutureDataQueryWrapper.orderByDesc("future_time");
+        if (!executionTypeList.isEmpty()) {
+            autoCaseChartFutureDataQueryWrapper.last("limit " + executionTypeList.size());
+        }
+
+        List<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataEntityList = autoCaseChartFutureDataService.list(autoCaseChartFutureDataQueryWrapper);
         AutoCaseExecutionChartRespDTO futureVo = new AutoCaseExecutionChartRespDTO();
-        futureVo.setExecutionCase(futureData.getExpectedExecutionCase());
-        futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
+        int sum = 0;
+        for (AutoCaseChartFutureDataEntity futureData : autoCaseChartFutureDataEntityList) {
+            sum = sum + futureData.getExpectedExecutionCase();
+        }
+        futureVo.setExecutionCase(sum);
+        futureVo.setDate(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
         list.addFirst(futureVo);
 
 

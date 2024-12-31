@@ -79,15 +79,15 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         int totalTimesSum = 0;
         long saveTimeSum = 0;
         double roi = 0;
-        String flag = records.get(0).getChartDate();
+        String lastChartDate = records.get(0).getChartDate();
         //  目前的个数是所以执行策略的，需要根据4个为一组，然后通过要查的执行策略，累加对应值计算 最终放进respList
         for (AutoCaseRoiChartEntity record : records) {
-            if (!flag.equals(record.getChartDate())) {
+            if (!lastChartDate.equals(record.getChartDate())) {
 
-                autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, record.getChartDate()));
+                autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, lastChartDate));
 
                 // 初始化下一组数据
-                flag = record.getChartDate();
+                lastChartDate = record.getChartDate();
                 totalMaintenanceTimeSum = 0;
                 totalDevelopmentTimeSum = 0;
                 totalTimesSum = 0;
@@ -104,10 +104,10 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
             }
         }
         // 循环出来后 需要再保存最后的autoCaseRoiChartRespDTO，不然会丢了最后一条数据
-        autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, flag));
+        autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, lastChartDate));
 
 
-        //未来日期数据处理 todo
+        //未来日期数据处理
         QueryWrapper<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataQueryWrapper = new QueryWrapper<>();
         autoCaseChartFutureDataQueryWrapper.eq("chart_type", 1);
         if (!executionTypeList.isEmpty()) {
