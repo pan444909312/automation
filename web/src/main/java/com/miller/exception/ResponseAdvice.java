@@ -1,8 +1,8 @@
 package com.miller.exception;
 
 import com.alibaba.fastjson.JSON;
-import com.miller.common.util.Response;
-import com.miller.common.util.ResponseEnum;
+import com.miller.entity.util.Response;
+import com.miller.entity.util.ResponseEnum;
 import lombok.SneakyThrows;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

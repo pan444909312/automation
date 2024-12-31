@@ -2,20 +2,22 @@ package com.miller.controller.report;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.common.util.BasePageResponse;
-import com.miller.common.util.Response;
+import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.util.BasePageResponse;
+import com.miller.entity.util.Response;
 import com.miller.entity.report.AutoCaseChartFutureDataEntity;
 import com.miller.entity.report.AutoCaseExecutionChartEntity;
 import com.miller.entity.report.req.PageAutoCaseExecutionChartReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionChartRespDTO;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseExecutionChartService;
-import com.miller.service.util.TimestampUtils;
+import com.miller.entity.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,41 +51,60 @@ public class AutoCaseExecutionChartController {
             responseCode = "200",
             description = "OK",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutoCaseExecutionChartRespDTO.class)))
-    public Response<BasePageResponse<AutoCaseExecutionChartRespDTO>> listAutoCaseExecutionChart(@RequestBody PageAutoCaseExecutionChartReqDTO pageAutoCaseExecutionChartDTO){
+    public Response<BasePageResponse<AutoCaseExecutionChartRespDTO>> listAutoCaseExecutionChart(@Valid @RequestBody PageAutoCaseExecutionChartReqDTO pageAutoCaseExecutionChartDTO) {
+
 
         int pageNo = pageAutoCaseExecutionChartDTO.getPageNo();
-        int pageSize = pageAutoCaseExecutionChartDTO.getPageSize();
+        // 分页的size，需要按执行策略的枚举类型乘上去，因为是按执行策略保存，不然会可能会差出来当天缺少某几个执行策略的数据
+        // 4条数据为一组，最后返回为一条数据
+        int pageSize = pageAutoCaseExecutionChartDTO.getPageSize() * ExecutionTypeEnum.values().length;
+        Page<AutoCaseExecutionChartEntity> page = new Page<>(pageNo, pageSize);
+
+        QueryWrapper<AutoCaseExecutionChartEntity> queryWrapper = new QueryWrapper<>();
         Date createEndTime = pageAutoCaseExecutionChartDTO.getCreateEndTime();
         Date createStartTime = pageAutoCaseExecutionChartDTO.getCreateStartTime();
         List<Integer> executionTypeList = pageAutoCaseExecutionChartDTO.getExecutionTypeList();
-        Page<AutoCaseExecutionChartEntity> page = new Page<>(pageNo, pageSize);
-        QueryWrapper<AutoCaseExecutionChartEntity> queryWrapper = new QueryWrapper<>();
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
         if (createEndTime != null) {
             queryWrapper.le("create_time", createEndTime.getTime());
         }
-        if (executionTypeList != null && !executionTypeList.isEmpty()) {
-            queryWrapper.in("execution_type", executionTypeList);
-        }
+//        if (executionTypeList != null && !executionTypeList.isEmpty()) {
+//            queryWrapper.in("execution_type", executionTypeList);
+//        }
         queryWrapper.orderByDesc("create_time");
 
         Page<AutoCaseExecutionChartEntity> autoCaseExecutionChartPage = autoCaseExecutionChartService.page(page, queryWrapper);
 
         List<AutoCaseExecutionChartEntity> records = autoCaseExecutionChartPage.getRecords();
-        long total = autoCaseExecutionChartPage.getTotal();
+        // 总数需要除以执行策略的选择个数，不然算出来的总个数是所有日期的ROI乘执行策略个人的总数
+        long total = autoCaseExecutionChartPage.getTotal()/ ExecutionTypeEnum.values().length;
+
+        //数据组装
 
         LinkedList<AutoCaseExecutionChartRespDTO> list = new LinkedList<>();
         AutoCaseExecutionChartRespDTO autoCaseExecutionChartRespDTO;
-
+        int executionCaseSum = 0;
+        String flag = records.get(0).getChartDate();
         for (AutoCaseExecutionChartEntity record : records) {
-            autoCaseExecutionChartRespDTO = new AutoCaseExecutionChartRespDTO();
-            autoCaseExecutionChartRespDTO.setRemarks(record.getRemarks());
-            autoCaseExecutionChartRespDTO.setExecutionCase(record.getExecutionCase());
-            autoCaseExecutionChartRespDTO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
-            list.add(autoCaseExecutionChartRespDTO);
+            if (!flag.equals(record.getChartDate())) {
+
+                autoCaseExecutionChartRespDTO = new AutoCaseExecutionChartRespDTO();
+                autoCaseExecutionChartRespDTO.setRemarks(record.getRemarks());
+                autoCaseExecutionChartRespDTO.setExecutionCase(record.getExecutionCase());
+                autoCaseExecutionChartRespDTO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
+                list.add(autoCaseExecutionChartRespDTO);
+
+                // 初始化下一组数据
+                flag = record.getChartDate();
+                executionCaseSum = 0;
+            }
+            if (executionTypeList.contains(record.getExecutionType())) {
+                executionCaseSum = executionCaseSum + record.getExecutionCase();
+            }
         }
+        list.add(new AutoCaseExecutionChartRespDTO(executionCaseSum,"",flag));
 
         //未来日期数据处理  todo  新增执行类型 需要修改
         AutoCaseChartFutureDataEntity futureData = autoCaseChartFutureDataService.getOne(new QueryWrapper<AutoCaseChartFutureDataEntity>()
@@ -97,7 +118,7 @@ public class AutoCaseExecutionChartController {
 
 
 //        HashMap<String, Object> result = new HashMap<>();
-        BasePageResponse<AutoCaseExecutionChartRespDTO> response = new BasePageResponse<>(total,list);
+        BasePageResponse<AutoCaseExecutionChartRespDTO> response = new BasePageResponse<>(total, list);
 //        result.put("total",total);
 //        result.put("list",list);
 
