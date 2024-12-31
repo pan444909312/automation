@@ -9,7 +9,7 @@ import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
 import com.miller.service.report.AutoCaseRoiService;
-import com.miller.entity.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.BeanUtils;

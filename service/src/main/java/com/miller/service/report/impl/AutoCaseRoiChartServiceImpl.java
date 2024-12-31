@@ -13,7 +13,7 @@ import com.miller.mapper.report.AutoCaseRoiChartMapper;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseRoiChartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.miller.entity.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

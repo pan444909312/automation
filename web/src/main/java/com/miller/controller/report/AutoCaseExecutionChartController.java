@@ -11,7 +11,7 @@ import com.miller.entity.report.req.PageAutoCaseExecutionChartReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionChartRespDTO;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseExecutionChartService;
-import com.miller.entity.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
