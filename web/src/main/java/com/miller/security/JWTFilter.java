@@ -1,8 +1,9 @@
 package com.miller.security;
 
 import com.alibaba.fastjson.JSON;
-import com.miller.common.util.Response;
-import com.miller.common.util.ResponseEnum;
+
+import com.miller.entity.util.Response;
+import com.miller.entity.util.ResponseEnum;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
