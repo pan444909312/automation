@@ -14,7 +14,7 @@ import com.miller.mapper.report.AutoExecutionRecordMapper;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.service.report.AutoExecutionRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.miller.service.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

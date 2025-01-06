@@ -1,6 +1,5 @@
-package com.miller.service.util;
+package com.miller.common.util;
 
-import org.junit.jupiter.api.Test;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -86,8 +85,8 @@ public class TimestampUtils {
         ));
     }
 
-    @Test
-    public void test02(){
+//    @Test
+    private void test02(){
         // 假设给定的时间戳（以毫秒为单位）
         long givenTimestamp = 1733500800000L; // 这是一个示例时间戳，你应该替换为你自己的时间戳
 
@@ -107,8 +106,8 @@ public class TimestampUtils {
         System.out.println("使用ChronoUnit.DAYS.between()得到的完整天数差异: " + fullDaysDifference);
     }
 
-    @Test
-    public void dataTest() {
+//    @Test
+    private void dataTest() {
         // 获取当前日期
         LocalDate currentDate = LocalDate.now();
 

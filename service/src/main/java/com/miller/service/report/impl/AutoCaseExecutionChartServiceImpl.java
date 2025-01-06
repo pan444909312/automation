@@ -2,11 +2,10 @@ package com.miller.service.report.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.report.AutoCaseExecutionChartEntity;
-import com.miller.entity.report.AutoCaseIncreaseChartEntity;
 import com.miller.mapper.report.AutoCaseExecutionChartMapper;
 import com.miller.service.report.AutoCaseExecutionChartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.miller.service.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

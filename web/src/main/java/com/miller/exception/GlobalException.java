@@ -1,14 +1,17 @@
 package com.miller.exception;
 
-import com.miller.common.util.Response;
-import com.miller.common.util.ResponseEnum;
+import com.miller.entity.util.Response;
+import com.miller.entity.util.ResponseEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -107,5 +110,32 @@ public class GlobalException {
     public Response<Object> exception(Exception exception) {
         log.error("未知异常: {}", exception.getMessage(), exception);
         return new Response<>(ResponseEnum.FAILURE_SERVICE_ERROR.getCode(), ResponseEnum.FAILURE_SERVICE_ERROR.getMessage(), exception);
+    }
+
+    /**
+     * 指定ValidException异常并处理
+     * 返回不满足验证条件的字段名和设置的message
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public Response exceptionHandlerMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        String message = e.getMessage();
+        BindingResult bindingResult = e.getBindingResult();
+        String defaultMessage = bindingResult.getFieldError().getDefaultMessage();
+
+        //将错误信息返回给前台
+        String field, msg;
+        StringBuilder sb = new StringBuilder();
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+            // 获取错误验证字段名
+            field = fieldError.getField();
+            msg = fieldError.getDefaultMessage();
+            sb.append("参数名[").append(field).append("]").append(msg).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        return Response.fail(ResponseEnum.REQUEST_ARGS_ERROR.getCode(),ResponseEnum.REQUEST_ARGS_ERROR.getMessage(),sb.toString());
     }
 }

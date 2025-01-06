@@ -1,4 +1,3 @@
-package com.miller.common.util;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

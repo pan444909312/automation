@@ -1,7 +1,7 @@
 package com.miller.entity.report.req;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.Date;
@@ -26,6 +26,7 @@ public class PageAutoCaseExecutionChartReqDTO {
     private Date createEndTime;
 
     @Schema(description = "执行策略 0:未知策略 1:日常巡检;2:质量保证;3:效率提升")
+    @NotNull(message = "执行策略不能为空")
     private List<Integer> executionTypeList;
 
 }

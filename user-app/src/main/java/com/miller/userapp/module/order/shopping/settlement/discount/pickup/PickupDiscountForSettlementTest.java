@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 @Scenario(scenarioID = "01JFSBNCPDS55N3D32TXZN2HFG",
         scenarioName = "正常流程_结算_优惠项-自取折扣",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+        developmentTime = 60, maintenanceTime = 30, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("自取折扣")
 public class PickupDiscountForSettlementTest {

@@ -1,17 +1,16 @@
 package com.miller.controller.report;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.miller.common.util.Response;
+import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
+import com.miller.entity.util.Response;
 import com.miller.common.util.ULIDUtils;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.constant.SortEnum;
-import com.miller.entity.report.req.AddAutoCaseRoiReqDTO;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
-import com.miller.service.job.ChartDataTask;
 import com.miller.service.report.AutoCaseRoiService;
-import com.miller.service.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.BeanUtils;
@@ -151,9 +150,9 @@ public class AutoCaseRoiController {
 
     @Operation(description = "删除 roi")
     @PostMapping("/delete")
-    public String deleteAutoCaseRoi(@RequestParam("id")Integer id) {
+    public String deleteAutoCaseRoi(@RequestBody RemoveAutoCaseRoiReqDTO removeAutoCaseRoiReqDTO) {
 
-        boolean result = autoCaseRoiService.removeById(id);
+        boolean result = autoCaseRoiService.removeById(removeAutoCaseRoiReqDTO.getId());
 
         return result ? "删除成功":"删除失败";
     }

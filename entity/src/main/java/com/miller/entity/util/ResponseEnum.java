@@ -1,4 +1,4 @@
-package com.miller.common.util;
+package com.miller.entity.util;
 
 /**
  * 统一响应体信息

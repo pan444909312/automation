@@ -1,4 +1,4 @@
-package com.miller.common.util;
+package com.miller.entity.util;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -33,8 +33,12 @@ public class Response<T> implements Serializable {
     }
 
     // 通用的错误响应构造方法
-    public static <T> Response<T> fail(String message) {
-        return new Response<T>(ResponseEnum.FAILURE_SERVICE_ERROR.getCode(), ResponseEnum.FAILURE_SERVICE_ERROR.getMessage(), null);
+    public static <T> Response<T> fail(T data) {
+        return new Response<T>(ResponseEnum.FAILURE_SERVICE_ERROR.getCode(), ResponseEnum.FAILURE_SERVICE_ERROR.getMessage(), data);
+    }
+
+    public static <T> Response<T> fail(Integer code,String message,T data) {
+        return new Response<T>(code,message, data);
     }
 
 }

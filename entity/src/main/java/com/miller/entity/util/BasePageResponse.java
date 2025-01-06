@@ -1,4 +1,4 @@
-package com.miller.common.util;
+package com.miller.entity.util;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
