@@ -41,20 +41,6 @@
         <dependency>
             <groupId>com.miller</groupId>
             <artifactId>bdm</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>shiro-core</artifactId>
-                    <groupId>org.apache.shiro</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>delivery-app-common</artifactId>
-                    <groupId>com.panda.delivery.app.server</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>erp-common</artifactId>
-                    <groupId>com.panda.erp.server</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.miller</groupId>
