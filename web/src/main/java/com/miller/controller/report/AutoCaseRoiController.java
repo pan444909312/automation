@@ -1,6 +1,7 @@
 package com.miller.controller.report;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
 import com.miller.entity.util.Response;
 import com.miller.common.util.ULIDUtils;
 import com.miller.entity.report.AutoCaseRoiEntity;
@@ -149,9 +150,9 @@ public class AutoCaseRoiController {
 
     @Operation(description = "删除 roi")
     @PostMapping("/delete")
-    public String deleteAutoCaseRoi(@RequestParam("id")Integer id) {
+    public String deleteAutoCaseRoi(@RequestBody RemoveAutoCaseRoiReqDTO removeAutoCaseRoiReqDTO) {
 
-        boolean result = autoCaseRoiService.removeById(id);
+        boolean result = autoCaseRoiService.removeById(removeAutoCaseRoiReqDTO.getId());
 
         return result ? "删除成功":"删除失败";
     }
