@@ -8,7 +8,6 @@ import com.miller.service.report.AutoCaseRoiService;
 import com.miller.common.util.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.service.report.AutoExecutionRecordService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +22,13 @@ import org.springframework.stereotype.Service;
  * @since 2024-09-19
  */
 @Service
-@Slf4j
 public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoCaseRoiEntity> implements AutoCaseRoiService {
 
     @Autowired
     AutoCaseRoiMapper autoCaseRoiMapper;
 
     @Autowired
-    AutoExecutionRecordService executionRecordService;
+    AutoExecutionRecordService autoExecutionRecordService;
 
     @Override
     public String getAutoCaseNameByScenarioId(String scenarioId) {
@@ -85,7 +83,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         this.saveOrUpdate(autoCaseRoi);
 
 
-        return this.executionRecordService.apifoxSaveOrUpdate(autoCaseRoi,dto);
+        return this.autoExecutionRecordService.apifoxSaveOrUpdate(autoCaseRoi,dto);
     }
 
     /**
