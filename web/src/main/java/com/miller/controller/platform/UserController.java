@@ -1,8 +1,8 @@
 package com.miller.controller.platform;
 
 import com.miller.common.constants.PermissionConstants;
-import com.miller.common.util.ResponseEnum;
 import com.miller.entity.platform.User;
+import com.miller.entity.util.ResponseEnum;
 import com.miller.exception.AutomationException;
 import com.miller.security.JWTToken;
 import com.miller.security.JWTUtils;
