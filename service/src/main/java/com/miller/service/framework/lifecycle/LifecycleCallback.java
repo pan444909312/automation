@@ -58,8 +58,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * 是否保存自动化测试执行记录到数据库表中的开关。
      * 调试时设置为 false， 设置为 true 则会把执行记录保存到数据库中，会影响测试用例的 ROI 统计。
      */
-    private boolean isSaveAutomationExecutionRecord = Boolean.parseBoolean(
-            new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.save.automation.execution.record"));
+    private boolean isNotSaveAutomationExecutionRecord = Boolean.parseBoolean(
+            new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.not.save.automation.execution.record"));
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
@@ -239,7 +239,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
 
         // 保存执行记录到自动化测试执行记录表，用于统计 ROI
-        if (isSaveAutomationExecutionRecord) {
+        if (!isNotSaveAutomationExecutionRecord) {
             AutoExecutionRecordEntity autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity, executor);
             autoExecutionRecordSql.saveAutoExecutionRecord(autoExecutionRecord);
         }
@@ -254,9 +254,9 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private static void checkScenarioAnnotationValueAreCorrect(Class<?> cls, Scenario scenario) {
         if (scenario.developmentTime() <= 0 || scenario.manualTestTime() <= 0)
             throw new TestFrameworkException(cls.getName() + "developmentTime ,manualTestTime must > 0");
-//        if (scenario.author().toLowerCase().endsWith("@hungrypandagroup.com")) {
-//            throw new TestFrameworkException(cls.getName() + "author 字段必须为公司邮箱 @hungrypandagroup.com 格式.");
-//        }
+        if (scenario.author().toLowerCase().endsWith("@hungrypandagroup.com")) {
+            throw new TestFrameworkException(cls.getName() + "author 字段必须为公司邮箱 @hungrypandagroup.com 格式.");
+        }
     }
 
     private String calculateRoi(AutoCaseRoiEntity autoCaseRoi) {
