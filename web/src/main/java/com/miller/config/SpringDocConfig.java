@@ -29,8 +29,6 @@ public class SpringDocConfig {
                 .title("SpringBoot3集成Swagger3")
                 // 配置文档描述
                 .description("SpringBoot3集成Swagger3示例文档")
-                // 配置作者信息
-                .contact(new Contact().name("panjuxiang").url("https://www.baidu.com").email("pan_hz001@163.com"))
                 // 配置License许可证信息
                 .license(new License().name("Apache 2.0").url("https://www.baidu.com"))
                 // 概述信息

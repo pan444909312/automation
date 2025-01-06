@@ -3,6 +3,10 @@ package com.miller.exception;
 import com.miller.common.util.Response;
 import com.miller.common.util.ResponseEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.ExpiredCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -36,8 +40,8 @@ public class GlobalException {
     /**
      * 处理业务异常
      */
-    @ExceptionHandler(TestCaseException.class)
-    public Response<Object> handleCTException(TestCaseException testCaseException) {
+    @ExceptionHandler({TestCaseException.class, AutomationException.class})
+    public Response<Object> handleAutomationException(TestCaseException testCaseException) {
         log.error("业务异常: {}", testCaseException.getMessage());
         return new Response<>(testCaseException.getCode(), testCaseException.getMessage(), testCaseException);
     }
@@ -68,6 +72,31 @@ public class GlobalException {
         log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", httpServletRequest.getMethod(), httpServletRequest.getServletPath(), e);
         return new Response<>(ResponseEnum.REQUEST_METHOD_ERROR.getCode(), ResponseEnum.REQUEST_METHOD_ERROR.getMessage(), e);
     }
+
+    @ExceptionHandler(value = ExpiredCredentialsException.class)
+    public Response handler(ExpiredCredentialsException e) {
+        log.warn("账号已过期：----------------{}", e.getMessage());
+        return new Response(ResponseEnum.ACCOUNT_EXPIRE.getCode(), ResponseEnum.ACCOUNT_EXPIRE.getMessage(), null);
+    }
+
+    @ExceptionHandler(value = UnauthenticatedException.class)
+    public Response handler(UnauthenticatedException e) {
+        log.warn("账号被禁用：----------------{}", e);
+        return new Response(ResponseEnum.ACCOUNT_DISABLE.getCode(), ResponseEnum.ACCOUNT_DISABLE.getMessage(), null);
+    }
+
+    @ExceptionHandler(value = UnknownAccountException.class)
+    public Response handler(UnknownAccountException e) {
+        log.warn("未知账号：----------------{}", e);
+        return new Response(ResponseEnum.UNKNOWN_ACCOUNT.getCode(), ResponseEnum.UNKNOWN_ACCOUNT.getMessage(), null);
+    }
+
+    @ExceptionHandler(value = UnauthorizedException.class)
+    public Response handler(UnauthorizedException e) {
+        log.warn("无权限操作：----------------{}", e.getMessage());
+        return new Response(ResponseEnum.ACCOUNT_UNAUTHORIZED.getCode(), ResponseEnum.ACCOUNT_UNAUTHORIZED.getMessage(), null);
+    }
+
 
     /**
      * 处理所有不可知的异常
