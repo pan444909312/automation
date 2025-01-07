@@ -137,14 +137,14 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         }
 
         HashMap<String, Object> result = new HashMap<>();
-        result.put("total", total);
+        result.put("total",total);
         result.put("list", autoCaseExecutionRecordRespDTOS);
         return result;
     }
 
 
     @Override
-    public Map<String, Object> listAutoCaseRecord(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO) {
+    public  Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO){
         Page<AutoExecutionRecordEntity> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordReqDTO.getPageNo(), pageAutoCaseExecutionRecordReqDTO.getPageSize());
 
         Page<AutoExecutionRecordEntity> autoExecutionRecordEntityPage = autoExecutionRecordMapper.selectPageByCondition(autoExecutionRecordPage, pageAutoCaseExecutionRecordReqDTO);
@@ -152,18 +152,24 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         long total = autoExecutionRecordEntityPage.getTotal();
 
         HashMap<String, Object> result = new HashMap<>();
-        result.put("total", total);
-        result.put("list", records);
+        result.put("total",total);
+        result.put("list",records);
         return result;
     }
 
     @Override
     public boolean apifoxSaveOrUpdate(AutoCaseRoiEntity autoCaseRoi, ApifoxAutoCaseRoiDto caseRoiDto) {
         AutoExecutionRecordEntity entity = new AutoExecutionRecordEntity();
-        BeanUtils.copyProperties(autoCaseRoi, entity);
+        BeanUtils.copyProperties(autoCaseRoi,entity);
 
         // 设置执行状态
-        entity.setExecutionType(caseRoiDto.getExecutionType());
+        List<Integer> executionTypeList = Arrays.stream(ExecutionTypeEnum.values()).map(ExecutionTypeEnum::getCode).toList();
+        if (executionTypeList.contains(caseRoiDto.getExecutionType())){
+            entity.setExecutionType(caseRoiDto.getExecutionType());
+        }else {
+            entity.setExecutionType(ExecutionTypeEnum.UNKNOWN_STRATEGY.getCode());
+        }
+
         entity.setExecutionStatus(caseRoiDto.getExecutionStatus());
 
 
