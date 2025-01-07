@@ -12,10 +12,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.service.framework.exception.TestFrameworkException;
 import com.miller.service.framework.listenner.TestResultWatcher;
-import com.miller.service.framework.util.JGitUtils;
-import com.miller.service.framework.util.OSUtils;
-import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.service.framework.util.ReflectionUtils;
+import com.miller.service.framework.util.*;
 import com.miller.service.framework.report.AutoDBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.extension.*;
@@ -61,8 +58,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * 是否保存自动化测试执行记录到数据库表中的开关。
      * 调试时设置为 false， 设置为 true 则会把执行记录保存到数据库中，会影响测试用例的 ROI 统计。
      */
-    private boolean isSaveAutomationExecutionRecord = Boolean.parseBoolean(
-            new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.save.automation.execution.record"));
+    private boolean isNotSaveAutomationExecutionRecord = Boolean.parseBoolean(
+            new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.not.save.automation.execution.record"));
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
@@ -200,8 +197,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         String executor = getExecutor();
         if (Objects.isNull(scenario)) return;
         autoTestClasses.add(cls);
-        if (scenario.developmentTime() <= 0 || scenario.manualTestTime() <= 0)
-            throw new TestFrameworkException(cls.getName() + "developmentTime ,manualTestTime must > 0");
+        checkScenarioAnnotationValueAreCorrect(cls, scenario);
         String scenarioId = scenario.scenarioID();
         AutoCaseRoiEntity autoCaseRoi = autoCaseRoiSql.getAutoCaseRoi(scenarioId);
         // ID 不为空表示已经保存过，不需要再保存，则做更新
@@ -243,10 +239,24 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
 
         // 保存执行记录到自动化测试执行记录表，用于统计 ROI
-        if (isSaveAutomationExecutionRecord) {
+        if (!isNotSaveAutomationExecutionRecord) {
             AutoExecutionRecordEntity autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity, executor);
             autoExecutionRecordSql.saveAutoExecutionRecord(autoExecutionRecord);
         }
+    }
+
+    /**
+     * 校验场景注解值是否正确
+     *
+     * @param cls
+     * @param scenario
+     */
+    private static void checkScenarioAnnotationValueAreCorrect(Class<?> cls, Scenario scenario) {
+        if (scenario.developmentTime() <= 0 || scenario.manualTestTime() <= 0)
+            throw new TestFrameworkException(cls.getName() + "developmentTime ,manualTestTime must > 0");
+//        if (scenario.author().toLowerCase().endsWith("@hungrypandagroup.com")) {
+//            throw new TestFrameworkException(cls.getName() + "author 字段必须为公司邮箱 @hungrypandagroup.com 格式.");
+//        }
     }
 
     private String calculateRoi(AutoCaseRoiEntity autoCaseRoi) {

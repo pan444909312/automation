@@ -65,4 +65,9 @@ public @interface Scenario {
      * </ul>
      */
     int manualTestTime();
+
+    /**
+     * 作者: 格式为公司邮箱
+     */
+//    String author();
 }
