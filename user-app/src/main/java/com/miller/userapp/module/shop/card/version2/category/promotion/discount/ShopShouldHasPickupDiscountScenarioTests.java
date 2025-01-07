@@ -30,8 +30,8 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:03
  */
-@Scenario(scenarioID = "01J3VJ3JN01244DZ1EHJMQWD63",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-自取可用",
+@Scenario(scenarioID = "01JG3GCFH65YA11JQVCHCMQMRT",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_优惠标签_商品折扣_品类频道-商卡二期:商品折扣28-自取可用",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
@@ -47,10 +47,9 @@ public class ShopShouldHasPickupDiscountScenarioTests {
 
     @BeforeAll
     void beforeAll() {
-        dbUtils = new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.url"),
-                new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.username"),
-                new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.password"));
-        UserLoginFlow.loginByDefaultUser();
+        dbUtils = new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "datasource.url.panda_test"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.username.panda_test"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.password.panda_test"));       UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
         productDiscountMapper = sqlSession.getMapper(ProductDiscountMapper.class);
@@ -58,7 +57,7 @@ public class ShopShouldHasPickupDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-自取可用")
+    @DisplayName("普通店铺配送商卡-品类频道_优惠标签_商品折扣_品类频道-商卡二期:商品折扣28-自取可用")
     void shouldExistPickupDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
