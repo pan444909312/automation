@@ -52,7 +52,7 @@ public class AutoCaseExecutionChartController {
             responseCode = "200",
             description = "OK",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutoCaseExecutionChartRespDTO.class)))
-    public Response<BasePageResponse<AutoCaseExecutionChartRespDTO>> listAutoCaseExecutionChart(@Valid @RequestBody PageAutoCaseExecutionChartReqDTO pageAutoCaseExecutionChartDTO) {
+    public Response<BasePageResponse<AutoCaseExecutionChartRespDTO>> listAutoCaseExecutionChart(@RequestBody PageAutoCaseExecutionChartReqDTO pageAutoCaseExecutionChartDTO) {
 
 
         int pageNo = pageAutoCaseExecutionChartDTO.getPageNo();
@@ -65,6 +65,13 @@ public class AutoCaseExecutionChartController {
         Date createEndTime = pageAutoCaseExecutionChartDTO.getCreateEndTime();
         Date createStartTime = pageAutoCaseExecutionChartDTO.getCreateStartTime();
         List<Integer> executionTypeList = pageAutoCaseExecutionChartDTO.getExecutionTypeList();
+        if (executionTypeList == null){
+            //如果为空则默认 查所有类型
+            executionTypeList = new ArrayList<>();
+            for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
+                executionTypeList.add(item.getCode());
+            }
+        }
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }

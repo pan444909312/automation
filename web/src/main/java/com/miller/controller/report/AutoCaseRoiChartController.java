@@ -35,7 +35,7 @@ public class AutoCaseRoiChartController {
 
     @Operation(description = "分页查询场景总ROI报表")
     @PostMapping("/list")
-    public Response<BasePageResponse<AutoCaseRoiChartRespDTO>> listAutoCaseRoiChart(@Valid @RequestBody PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
+    public Response<BasePageResponse<AutoCaseRoiChartRespDTO>> listAutoCaseRoiChart(@RequestBody PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
 
         return autoCaseRoiChartService.getAutoCaseRoiChartList(pageAutoCaseRoiChartReqDTO);
 

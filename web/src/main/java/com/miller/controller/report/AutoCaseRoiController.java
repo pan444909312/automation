@@ -77,6 +77,9 @@ public class AutoCaseRoiController {
         if (updateEndTime != null) {
             queryWrapper.le("update_time", updateEndTime.getTime());
         }
+        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0){
+            queryWrapper.groupBy("scenario_name");
+        }
         if (orderBy == 1) {
             queryWrapper.orderByDesc(SortEnum.getValueByKey(String.valueOf(sort)));
         } else {
@@ -88,16 +91,6 @@ public class AutoCaseRoiController {
 
         List<AutoCaseRoiEntity> records = page.getRecords();
         long total = page.getTotal();
-        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0) {
-            records = new ArrayList<>(records.stream()
-                    .collect(Collectors.toMap(
-                            AutoCaseRoiEntity::getScenarioName, // 指定用作键的属性（这里是id）
-                            Function.identity(), // 使用对象本身作为值
-                            (existing, replacement) -> existing // 如果有重复，保留现有的（或选择replacement）
-                    ))
-                    .values());
-        }
-
 
         ArrayList<AutoCaseRoiRespDTO> autoCaseRoiRespDTOList = new ArrayList<>();
         AutoCaseRoiRespDTO autoCaseRoiRespDTO;

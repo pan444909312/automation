@@ -57,6 +57,13 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         Date createStartTime = pageAutoCaseRoiChartReqDTO.getCreateStartTime();
         Date createEndTime = pageAutoCaseRoiChartReqDTO.getCreateEndTime();
         List<Integer> executionTypeList = pageAutoCaseRoiChartReqDTO.getExecutionTypeList();
+        if (executionTypeList == null){
+            //如果为空则默认 查所有类型
+            executionTypeList = new ArrayList<>();
+            for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
+                executionTypeList.add(item.getCode());
+            }
+        }
         //查询条件处理
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
