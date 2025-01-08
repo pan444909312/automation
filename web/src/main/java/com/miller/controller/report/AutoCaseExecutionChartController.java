@@ -52,7 +52,7 @@ public class AutoCaseExecutionChartController {
             responseCode = "200",
             description = "OK",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutoCaseExecutionChartRespDTO.class)))
-    public Response<BasePageResponse<AutoCaseExecutionChartRespDTO>> listAutoCaseExecutionChart(@RequestBody PageAutoCaseExecutionChartReqDTO pageAutoCaseExecutionChartDTO) {
+    public Map<String, Object> listAutoCaseExecutionChart(@RequestBody PageAutoCaseExecutionChartReqDTO pageAutoCaseExecutionChartDTO) {
 
 
         int pageNo = pageAutoCaseExecutionChartDTO.getPageNo();
@@ -133,15 +133,14 @@ public class AutoCaseExecutionChartController {
         }
         futureVo.setExecutionCase(sum);
         futureVo.setDate(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
-        list.addFirst(futureVo);
 
 
-//        HashMap<String, Object> result = new HashMap<>();
-        BasePageResponse<AutoCaseExecutionChartRespDTO> response = new BasePageResponse<>(total, list);
-//        result.put("total",total);
-//        result.put("list",list);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("total",total);
+        result.put("list",list);
+        result.put("futureData",futureVo);
 
 
-        return Response.success(response);
+        return result;
     }
 }

@@ -45,7 +45,7 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
      * @return查询对象
      */
     @Override
-    public Response<BasePageResponse<AutoCaseRoiChartRespDTO>> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
+    public Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
 
         int pageNo = pageAutoCaseRoiChartReqDTO.getPageNo();
         // 分页的size，需要按执行策略的枚举类型乘上去，因为是按执行策略保存，不然会可能会差出来当天缺少某几个执行策略的数据
@@ -133,14 +133,13 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         }
         futureVo.setSaveTime(sum);
         futureVo.setCreateTime(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
-        autoCaseRoiChartRespDTOList.addFirst(futureVo);
 
 
         Map<String, Object> result = new HashMap<>();
         result.put("list", autoCaseRoiChartRespDTOList);
         result.put("total", total);
-        BasePageResponse<AutoCaseRoiChartRespDTO> response = new BasePageResponse<>(total, autoCaseRoiChartRespDTOList);
-        return Response.success(response);
+        result.put("futureData",futureVo);
+        return result;
     }
 
     @Override

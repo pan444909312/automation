@@ -80,11 +80,11 @@ public class AutoCaseIncreaseChartController {
         AutoCaseIncreaseChartRespDTO futureVo = new AutoCaseIncreaseChartRespDTO();
         futureVo.setIncreaseCase(futureData.getExpectedIncreaseCase());
         futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
-        list.addFirst(futureVo);
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("total",total);
         result.put("list",list);
+        result.put("futureData",futureVo);
         return result;
     }
 
