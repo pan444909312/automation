@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.mapper.platform.PermissionMapper">
+
+    <select id="getAllPermissionCodeByUsername" resultType="java.lang.String">
+        SELECT p.permission_code
+        FROM user u
+                 LEFT OUTER JOIN
+             user_bind_role ubr ON u.user_id = ubr.user_id
+                 LEFT OUTER JOIN
+             role_bind_permission rbp ON ubr.role_id = rbp.role_id
+                 LEFT OUTER JOIN
+             permission p ON rbp.permission_id = p.permission_id
+        WHERE u.email = #{username};
+    </select>
+    <select id="getParentPermissionByUsername" resultType="com.miller.entity.platform.Permission">
+        SELECT p.permission_id,
+               p.permission_code,
+               p.parent_id,
+               p.is_menu,
+               p.permission_name,
+               p.path
+        FROM user u
+                 LEFT OUTER JOIN
+             user_bind_role ubr ON u.user_id = ubr.user_id
+                 LEFT OUTER JOIN
+             role_bind_permission rbp ON ubr.role_id = rbp.role_id
+                 LEFT OUTER JOIN
+             permission p ON rbp.permission_id = p.permission_id
+        WHERE u.email = #{username}
+          AND p.parent_id = '0'
+          AND p.is_menu = '1';
+    </select>
+    <select id="getChildrenPermissionByParentId" resultType="com.miller.entity.platform.Permission">
+        SELECT p.permission_id,
+               p.permission_code,
+               p.parent_id,
+               p.is_menu,
+               p.permission_name,
+               p.path
+        FROM permission p
+        where parent_id = #{parentId}
+          and is_menu = '1';
+
+    </select>
+</mapper>

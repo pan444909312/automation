@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J3VJ3JN01244DZ1EHJMQWD63",
         scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-自取可用",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
@@ -49,9 +49,9 @@ public class ShopShouldHasPickupDiscountScenarioTests {
 
     @BeforeAll
     void beforeAll() {
-        dbUtils = new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.url"),
-                new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.username"),
-                new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.password"));
+        dbUtils = new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "datasource.url.panda_test"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.username.panda_test"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.password.panda_test"));
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);

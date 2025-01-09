@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.*;
 import com.miller.service.report.*;
-import com.miller.entity.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -232,7 +232,7 @@ public class ChartDataTask {
                 roi = (double) totalSaveTimeLatest / (totalMaintenanceTimeLatest + totalDevelopTimeLatest);
             }
 
-            return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTimeLatest,totalDevelopTimeLatest,totalTimesLatest,totalSaveTimeLatest,roi,executionType,System.currentTimeMillis()));
+            return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTimeLatest,totalDevelopTimeLatest,totalTimesLatest,totalSaveTimeLatest,roi,executionType,TimestampUtils.timestampToDateStr(System.currentTimeMillis())));
         }
 
         long saveTime = 0;
@@ -259,7 +259,7 @@ public class ChartDataTask {
             roi = (double) totalSaveTime / (totalMaintenanceTime + totalDevelopTime);
         }
 
-        return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTime,totalDevelopTime,totalTimes,totalSaveTime,roi,executionType,System.currentTimeMillis()));
+        return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTime,totalDevelopTime,totalTimes,totalSaveTime,roi,executionType,TimestampUtils.timestampToDateStr(System.currentTimeMillis())));
 
     }
 

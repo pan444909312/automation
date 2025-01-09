@@ -1,6 +1,7 @@
 package com.miller.controller.report;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
 import com.miller.entity.util.Response;
 import com.miller.common.util.ULIDUtils;
 import com.miller.entity.report.AutoCaseRoiEntity;
@@ -9,7 +10,7 @@ import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
 import com.miller.service.report.AutoCaseRoiService;
-import com.miller.entity.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.BeanUtils;
@@ -76,6 +77,9 @@ public class AutoCaseRoiController {
         if (updateEndTime != null) {
             queryWrapper.le("update_time", updateEndTime.getTime());
         }
+        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0){
+            queryWrapper.groupBy("scenario_name");
+        }
         if (orderBy == 1) {
             queryWrapper.orderByDesc(SortEnum.getValueByKey(String.valueOf(sort)));
         } else {
@@ -87,16 +91,6 @@ public class AutoCaseRoiController {
 
         List<AutoCaseRoiEntity> records = page.getRecords();
         long total = page.getTotal();
-        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0) {
-            records = new ArrayList<>(records.stream()
-                    .collect(Collectors.toMap(
-                            AutoCaseRoiEntity::getScenarioName, // 指定用作键的属性（这里是id）
-                            Function.identity(), // 使用对象本身作为值
-                            (existing, replacement) -> existing // 如果有重复，保留现有的（或选择replacement）
-                    ))
-                    .values());
-        }
-
 
         ArrayList<AutoCaseRoiRespDTO> autoCaseRoiRespDTOList = new ArrayList<>();
         AutoCaseRoiRespDTO autoCaseRoiRespDTO;
@@ -149,9 +143,9 @@ public class AutoCaseRoiController {
 
     @Operation(description = "删除 roi")
     @PostMapping("/delete")
-    public String deleteAutoCaseRoi(@RequestParam("id")Integer id) {
+    public String deleteAutoCaseRoi(@RequestBody RemoveAutoCaseRoiReqDTO removeAutoCaseRoiReqDTO) {
 
-        boolean result = autoCaseRoiService.removeById(id);
+        boolean result = autoCaseRoiService.removeById(removeAutoCaseRoiReqDTO.getId());
 
         return result ? "删除成功":"删除失败";
     }

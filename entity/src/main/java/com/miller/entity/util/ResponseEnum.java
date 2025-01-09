@@ -20,7 +20,7 @@ public enum ResponseEnum {
 
     RESOURCES_NOT_EXIST(404, "请求的资源不存在"),
 
-    REQUEST_METHOD_ERROR(405, "请求方法错误"),
+    REQUEST_METHOD_ERROR(405, "请求的 Method 错误"),
 
     ACCOUNT_EXPIRE(401, "登录已过期"),
 
@@ -38,18 +38,25 @@ public enum ResponseEnum {
     ID_IS_EMPTY(300, "ID不能为空"),
 
     RECODE_LESS_THAN_ZERO(301, "影响的记录数小于1，更新或者删除数据失败"),
-    ;
+
+    // 缺陷管理模块 110 00x
+    PROJECT_ID_NOT_EXIST(110001, "项目ID为空或不存在"),
+
+    // 用户管理模块 120 00x
+    ACCOUNT_OR_PASSWORD_EMPTY(120001, "账号或密码不能为空"),
+
+    Authorization_EXPIRE(120002, "Token 无效");
 
     // 系统设置模块 119 00x
 
     /**
      * 自定义状态码
      **/
-    private final int code;
+    private int code;
     /**
      * 自定义描述
      **/
-    private final String message;
+    private String message;
 
     ResponseEnum(int code, String message) {
         this.code = code;
@@ -63,5 +70,6 @@ public enum ResponseEnum {
     public String getMessage() {
         return message;
     }
+
 
 }

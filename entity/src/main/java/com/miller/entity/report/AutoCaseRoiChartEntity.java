@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 
-import com.miller.entity.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * <p>
@@ -71,13 +69,13 @@ public class AutoCaseRoiChartEntity implements Serializable {
     @TableLogic
     private Byte isDeleted;
 
-    public AutoCaseRoiChartEntity(Long totalMaintenanceTime, Long totalDevelopmentTime, Integer times, Long saveTime, Double roi, Integer executionType,Long timestamp) {
+    public AutoCaseRoiChartEntity(Long totalMaintenanceTime, Long totalDevelopmentTime, Integer times, Long saveTime, Double roi, Integer executionType,String timestampStr) {
         this.totalMaintenanceTime = totalMaintenanceTime;
         this.totalDevelopmentTime = totalDevelopmentTime;
         this.times = times;
         this.saveTime = saveTime;
         this.roi = roi == 0 ? "0" : String.valueOf(roi);
         this.executionType = executionType;
-        this.chartDate = TimestampUtils.timestampToDateStr(timestamp);
+        this.chartDate = timestampStr;
     }
 }

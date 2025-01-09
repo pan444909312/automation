@@ -5,7 +5,7 @@ import com.miller.entity.report.AutoCaseIncreaseChartEntity;
 import com.miller.mapper.report.AutoCaseIncreaseChartMapper;
 import com.miller.service.report.AutoCaseIncreaseChartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.miller.entity.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

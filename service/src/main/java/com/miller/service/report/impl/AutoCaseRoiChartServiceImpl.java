@@ -13,7 +13,7 @@ import com.miller.mapper.report.AutoCaseRoiChartMapper;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseRoiChartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.miller.entity.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,7 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
      * @return查询对象
      */
     @Override
-    public Response<BasePageResponse<AutoCaseRoiChartRespDTO>> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
+    public Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
 
         int pageNo = pageAutoCaseRoiChartReqDTO.getPageNo();
         // 分页的size，需要按执行策略的枚举类型乘上去，因为是按执行策略保存，不然会可能会差出来当天缺少某几个执行策略的数据
@@ -57,6 +57,13 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         Date createStartTime = pageAutoCaseRoiChartReqDTO.getCreateStartTime();
         Date createEndTime = pageAutoCaseRoiChartReqDTO.getCreateEndTime();
         List<Integer> executionTypeList = pageAutoCaseRoiChartReqDTO.getExecutionTypeList();
+        if (executionTypeList == null){
+            //如果为空则默认 查所有类型
+            executionTypeList = new ArrayList<>();
+            for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
+                executionTypeList.add(item.getCode());
+            }
+        }
         //查询条件处理
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
@@ -79,15 +86,15 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         int totalTimesSum = 0;
         long saveTimeSum = 0;
         double roi = 0;
-        String flag = records.get(0).getChartDate();
+        String lastChartDate = records.get(0).getChartDate();
         //  目前的个数是所以执行策略的，需要根据4个为一组，然后通过要查的执行策略，累加对应值计算 最终放进respList
         for (AutoCaseRoiChartEntity record : records) {
-            if (!flag.equals(record.getChartDate())) {
+            if (!lastChartDate.equals(record.getChartDate())) {
 
-                autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, record.getChartDate()));
+                autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, lastChartDate));
 
                 // 初始化下一组数据
-                flag = record.getChartDate();
+                lastChartDate = record.getChartDate();
                 totalMaintenanceTimeSum = 0;
                 totalDevelopmentTimeSum = 0;
                 totalTimesSum = 0;
@@ -104,10 +111,10 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
             }
         }
         // 循环出来后 需要再保存最后的autoCaseRoiChartRespDTO，不然会丢了最后一条数据
-        autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, flag));
+        autoCaseRoiChartRespDTOList.add(saveAutoCaseRoiChartRespDTO(saveTimeSum, totalDevelopmentTimeSum, totalMaintenanceTimeSum, totalTimesSum, roi, lastChartDate));
 
 
-        //未来日期数据处理 todo
+        //未来日期数据处理
         QueryWrapper<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataQueryWrapper = new QueryWrapper<>();
         autoCaseChartFutureDataQueryWrapper.eq("chart_type", 1);
         if (!executionTypeList.isEmpty()) {
@@ -126,14 +133,13 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         }
         futureVo.setSaveTime(sum);
         futureVo.setCreateTime(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
-        autoCaseRoiChartRespDTOList.addFirst(futureVo);
 
 
         Map<String, Object> result = new HashMap<>();
         result.put("list", autoCaseRoiChartRespDTOList);
         result.put("total", total);
-        BasePageResponse<AutoCaseRoiChartRespDTO> response = new BasePageResponse<>(total, autoCaseRoiChartRespDTOList);
-        return Response.success(response);
+        result.put("futureData",futureVo);
+        return result;
     }
 
     @Override

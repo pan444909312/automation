@@ -30,16 +30,26 @@ public class ClassFindService {
     public static final ClassLoader clzLoader = ClassFindService.class.getClassLoader();
 
     @PostConstruct
-    public void scanAllClass() throws IOException {
+    public void scanAllClass() {
         String basePackage = "com.miller";
         String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + ClassUtils.convertClassNameToResourcePath(applicationContext.getEnvironment().resolveRequiredPlaceholders(basePackage)) + '/' + "**/*.class";
         // 根据路径转换为Resource,本质是一个输入流
-        org.springframework.core.io.Resource[] resources = getResourcePatternResolver(applicationContext).getResources(packageSearchPath);
+        org.springframework.core.io.Resource[] resources = null;
+        try {
+            resources = getResourcePatternResolver(applicationContext).getResources(packageSearchPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         String packageDir = "/" + basePackage.replace('.', '/') + "/";
 
         for (int i = 0; i < resources.length; i++) {
-            String urlPath = resources[i].getURL().getPath();
+            String urlPath = null;
+            try {
+                urlPath = resources[i].getURL().getPath();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             int idx = urlPath.indexOf(packageDir);
             if (idx < 0 || !urlPath.endsWith(".class")) {
                 continue;

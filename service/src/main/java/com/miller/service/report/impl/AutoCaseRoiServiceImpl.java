@@ -30,12 +30,16 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
     AutoCaseRoiMapper autoCaseRoiMapper;
 
     @Autowired
-    AutoExecutionRecordService executionRecordService;
+    AutoExecutionRecordService autoExecutionRecordService;
 
     @Override
     public String getAutoCaseNameByScenarioId(String scenarioId) {
         AutoCaseRoiEntity autoCaseRoiEntity = autoCaseRoiMapper.selectOne(new QueryWrapper<AutoCaseRoiEntity>().eq("scenario_id", scenarioId));
-        return autoCaseRoiEntity.getScenarioName();
+        if (autoCaseRoiEntity == null) {
+            log.info("【" + scenarioId + "】没有获取到该执行id的名称");
+            return "（已删除）";
+        } else
+            return autoCaseRoiEntity.getScenarioName();
     }
 
     // B 侧 Apifox 使用
@@ -56,16 +60,16 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
             autoCaseRoi.setManualTestTime(dto.getManualTestTime());
 
             // 维护成本累计 ： 已有的时间 + 新加的时间
-            final int maintenanceTime =  Math.addExact(autoCaseRoi.getMaintenanceTime(), dto.getMaintenanceTime());
+            final int maintenanceTime = Math.addExact(autoCaseRoi.getMaintenanceTime(), dto.getMaintenanceTime());
             autoCaseRoi.setMaintenanceTime(maintenanceTime);
 
             //执行次数：每次+1
-            final int times = Math.addExact(autoCaseRoi.getTimes(),1);
+            final int times = Math.addExact(autoCaseRoi.getTimes(), 1);
             autoCaseRoi.setTimes(times);
 
             autoCaseRoi.setUpdateTime(currentTimeMillis);
 
-        }else {
+        } else {
             autoCaseRoi = new AutoCaseRoiEntity();
             BeanUtils.copyProperties(dto, autoCaseRoi);
 
@@ -74,7 +78,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         }
 
         //  总节省时间 = 执行次数 * 手工测试成本
-        final long saveTime = Math.multiplyExact(dto.getManualTestTime(),autoCaseRoi.getTimes());
+        final long saveTime = Math.multiplyExact(dto.getManualTestTime(), autoCaseRoi.getTimes());
         autoCaseRoi.setSaveTime(saveTime);
 
         // roi = (开发*维护)/总节省成本
@@ -85,11 +89,10 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         this.saveOrUpdate(autoCaseRoi);
 
 
-        return this.executionRecordService.apifoxSaveOrUpdate(autoCaseRoi,dto);
+        return this.autoExecutionRecordService.apifoxSaveOrUpdate(autoCaseRoi, dto);
     }
 
     /**
-     *
      * @return 获取所有测试场景的总节省成本的总和
      */
     @Override

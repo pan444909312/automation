@@ -1,4 +1,4 @@
-package com.miller.entity.util;
+package com.miller.common.util;
 
 
 import java.time.*;

@@ -8,7 +8,7 @@ import com.miller.entity.report.AutoCaseIncreaseChartEntity;
 import com.miller.entity.report.resp.AutoCaseIncreaseChartRespDTO;
 import com.miller.service.report.AutoCaseChartFutureDataService;
 import com.miller.service.report.AutoCaseIncreaseChartService;
-import com.miller.entity.util.TimestampUtils;
+import com.miller.common.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,11 +80,11 @@ public class AutoCaseIncreaseChartController {
         AutoCaseIncreaseChartRespDTO futureVo = new AutoCaseIncreaseChartRespDTO();
         futureVo.setIncreaseCase(futureData.getExpectedIncreaseCase());
         futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
-        list.addFirst(futureVo);
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("total",total);
         result.put("list",list);
+        result.put("futureData",futureVo);
         return result;
     }
 
