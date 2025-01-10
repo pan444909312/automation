@@ -27,9 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/27 9:37
  */
-@Scenario(scenarioID = "01J61TZX3QYPJKE76RVDW8AKSC",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签7_出餐准时_首页-商卡二期：出餐准时 - 不展示",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JH7C6EZWY6D9ASSG7GT6EY7E",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_营销标_标签7_出餐准时_品类频道-商卡二期：出餐准时 - 不展示",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoMealsOnTimeFeature {
@@ -46,7 +46,7 @@ public class ShopShouldHasNoMealsOnTimeFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_标签7_出餐准时_首页-商卡二期：出餐准时 - 不展示")
+    @DisplayName("普通店铺配送商卡-品类频道_营销标_标签7_出餐准时_品类频道-商卡二期：出餐准时 - 不展示")
     void shouldNotExistMealsOnTimeFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
