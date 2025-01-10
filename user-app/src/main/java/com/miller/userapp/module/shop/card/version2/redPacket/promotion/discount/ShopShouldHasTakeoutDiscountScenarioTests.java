@@ -31,7 +31,7 @@ import java.util.stream.Stream;
  */
 @Scenario(scenarioID = "01JE82TMN1QB8J6E85RCJETMAW",
         scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_优惠标签_商品折扣_首页-商卡二期:商品折扣28-外卖可用",
-        developmentTime = 40, maintenanceTime = 0, manualTestTime = 15)
+        developmentTime = 5, maintenanceTime = 5, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
@@ -45,9 +45,9 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
 
     @BeforeAll
     void beforeAll() {
-        dbUtils = new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.url"),
-                new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.username"),
-                new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.password"));
+        dbUtils = new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "datasource.url.panda_test"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.username.panda_test"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.password.panda_test"));
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
