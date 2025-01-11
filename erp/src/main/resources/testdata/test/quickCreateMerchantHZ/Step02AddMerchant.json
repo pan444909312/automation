@@ -1,0 +1,46 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": "自动化测试_东东萧山剧院"
+          }
+        ]
+      },
+      {
+        "lang": "EN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": "AutoTest_103919"
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国浙江省杭州市萧山区311200",
+      "city": "杭州市",
+      "longitude": 120.2637799186,
+      "latitude": 30.1861190888,
+      "postCode": "311200"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 1389,
+        "type": 0
+      },
+      {
+        "businessCategoryId": 1395,
+        "type": 1
+      }
+    ],
+    "managerId": 439,
+    "extraManagerId": 0,
+    "merchantNotes": "东东熟悉业务商家\n经度：120.2637799186\n维度：30.1861190888"
+  }
+}
