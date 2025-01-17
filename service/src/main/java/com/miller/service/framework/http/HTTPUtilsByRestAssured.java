@@ -1,13 +1,17 @@
 package com.miller.service.framework.http;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
+import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.util.*;
 
 import static io.restassured.config.EncoderConfig.encoderConfig;
@@ -194,6 +198,40 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
                 }
             }
             request.cookies(cookies);
+        }
+        //
+        else if (contentType.toLowerCase(Locale.ROOT).contains("multipart/form-data")){
+            log.info("处理Content-Type为:{} 的请求body.", contentType);
+            // 参数包含中文需要添加 charset=UTF-8 ，不在框架层处理这个逻辑了，在业务层处理
+            if (!contentType.toLowerCase(Locale.ROOT).contains("charset=UTF-8")) {
+                // headers.put("ContentType", "application/x-www-form-urlencoded;charset=UTF-8");
+                log.warn("If not support Chinese words, suggest add charset. For example:{} ", "application/x-www-form-urlencoded;charset=UTF-8");
+                request.headers(headers);
+                request.queryParams(params);
+                if (body instanceof Map) {
+                    try {
+                        Map<String,Object> mutilPartMap = (Map<String,Object>) body;
+                        for(Map.Entry<String,Object> part : mutilPartMap.entrySet()){
+                            String multiValue = String.valueOf(part.getValue());
+                            if (StringUtils.isEmpty(multiValue) )continue;
+                            if(part.getValue() instanceof File){
+                                MultiPartSpecification multiPartSpecification = new MultiPartSpecBuilder(part.getValue())
+                                        .fileName(multiValue)
+                                        .controlName(part.getKey())
+                                        .mimeType("application/octet-stream")
+                                        .build();
+                                request.multiPart(multiPartSpecification);
+                            }else
+                                request.multiPart(part.getKey(),multiValue);
+                        }
+
+                    } catch (IllegalArgumentException illegalArgumentException) {
+                        log.error("Please serialize body {} to JSON then convert to Map", body);
+                        throw illegalArgumentException;
+                    }
+                }
+                request.cookies(cookies);
+            }
         }
         // 请求头中没有写 Content-Type 则无法判断类型
         else {
