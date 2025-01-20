@@ -129,7 +129,7 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
             BeanUtils.copyProperties(record, autoCaseExecutionRecordRespDTO);
             autoCaseExecutionRecordRespDTO.setExecutionStatusDesc(ExecutionStatusEnum.getValueByKey(record.getExecutionStatus()));
             autoCaseExecutionRecordRespDTO.setExecutionTypeDesc(ExecutionTypeEnum.getValueByKey(record.getExecutionType()));
-            autoCaseExecutionRecordRespDTO.setExecutionTime(TimestampUtils.timestampToDateStr(record.getExecutionTime()));
+            autoCaseExecutionRecordRespDTO.setExecutionTime(TimestampUtils.timestampToDateStr(record.getExecutionTime(),"yyyy/MM/dd HH:mm:ss"));
 
             autoCaseExecutionRecordRespDTO.setScenarioName(autoCaseRoiService.getAutoCaseNameByScenarioId(record.getScenarioId()));
 

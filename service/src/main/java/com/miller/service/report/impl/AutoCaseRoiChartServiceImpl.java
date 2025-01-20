@@ -71,7 +71,10 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         if (createEndTime != null) {
             queryWrapper.le("create_time", createEndTime.getTime());
         }
-        queryWrapper.orderByDesc("create_time");
+        if (createStartTime != null || createEndTime != null){
+            queryWrapper.or().eq("chart_date","2099/01/01");
+        }
+        queryWrapper.orderByDesc("chart_date");
 
         Page<AutoCaseRoiChartEntity> autoCaseRoiChartPage = autoCaseRoiChartMapper.selectPage(page, queryWrapper);
         List<AutoCaseRoiChartEntity> records = autoCaseRoiChartPage.getRecords();
@@ -120,7 +123,9 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         if (!executionTypeList.isEmpty()) {
             autoCaseChartFutureDataQueryWrapper.in("execution_type", executionTypeList);
         }
-        autoCaseChartFutureDataQueryWrapper.orderByDesc("future_time");
+        // 不能用future_time，如果改了未来日期计算几个月的配置值，会有问题
+//        autoCaseChartFutureDataQueryWrapper.orderByDesc("future_time");
+        autoCaseChartFutureDataQueryWrapper.orderByDesc("create_time");
         if (!executionTypeList.isEmpty()) {
             autoCaseChartFutureDataQueryWrapper.last("limit " + executionTypeList.size());
         }
@@ -133,7 +138,9 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         }
         futureVo.setSaveTime(sum);
         futureVo.setCreateTime(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
-
+        if (pageNo == 1 && Objects.equals(autoCaseRoiChartRespDTOList.get(0).getCreateTime(), "2099/01/01")){
+            autoCaseRoiChartRespDTOList.set(0,futureVo);
+        }
 
         Map<String, Object> result = new HashMap<>();
         result.put("list", autoCaseRoiChartRespDTOList);

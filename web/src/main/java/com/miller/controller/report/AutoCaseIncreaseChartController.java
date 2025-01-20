@@ -54,7 +54,10 @@ public class AutoCaseIncreaseChartController {
         if (createEndTime != null) {
             queryWrapper.le("create_time", createEndTime.getTime());
         }
-        queryWrapper.orderByDesc("create_time");
+        if (createStartTime != null || createEndTime != null){
+            queryWrapper.or().eq("chart_date","2099/01/01");
+        }
+        queryWrapper.orderByDesc("chart_date");
 
         Page<AutoCaseIncreaseChartEntity> autoCaseIncreaseChartPage = autoCaseIncreaseChartService.page(page, queryWrapper);
 
@@ -68,7 +71,7 @@ public class AutoCaseIncreaseChartController {
             autoCaseIncreaseChartRespDTO = new AutoCaseIncreaseChartRespDTO();
             autoCaseIncreaseChartRespDTO.setRemarks(record.getRemarks());
             autoCaseIncreaseChartRespDTO.setIncreaseCase(record.getIncreaseCase());
-            autoCaseIncreaseChartRespDTO.setDate(TimestampUtils.timestampToDateStr(record.getCreateTime()));
+            autoCaseIncreaseChartRespDTO.setDate(record.getChartDate());
             list.add(autoCaseIncreaseChartRespDTO);
         }
 
@@ -80,6 +83,11 @@ public class AutoCaseIncreaseChartController {
         AutoCaseIncreaseChartRespDTO futureVo = new AutoCaseIncreaseChartRespDTO();
         futureVo.setIncreaseCase(futureData.getExpectedIncreaseCase());
         futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
+
+        //未来数据替换列表占位数据
+        if (pageNo == 1 && Objects.equals(list.get(0).getDate(), "2099/01/01")){
+            list.set(0,futureVo);
+        }
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("total",total);

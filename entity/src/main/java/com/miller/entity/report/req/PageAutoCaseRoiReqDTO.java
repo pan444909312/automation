@@ -42,5 +42,5 @@ public class PageAutoCaseRoiReqDTO {
     private Integer sort = 7;
 
     @Schema(description = "排序规则，0：正序 ，1：逆序")
-    private Integer orderBy = 0;
+    private Integer orderBy = 1;
 }

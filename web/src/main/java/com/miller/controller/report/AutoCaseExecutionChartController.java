@@ -81,7 +81,10 @@ public class AutoCaseExecutionChartController {
 //        if (executionTypeList != null && !executionTypeList.isEmpty()) {
 //            queryWrapper.in("execution_type", executionTypeList);
 //        }
-        queryWrapper.orderByDesc("create_time");
+        if (createStartTime != null || createEndTime != null){
+            queryWrapper.or().eq("chart_date","2099/01/01");
+        }
+        queryWrapper.orderByDesc("chart_date");
 
         Page<AutoCaseExecutionChartEntity> autoCaseExecutionChartPage = autoCaseExecutionChartService.page(page, queryWrapper);
 
@@ -133,7 +136,9 @@ public class AutoCaseExecutionChartController {
         }
         futureVo.setExecutionCase(sum);
         futureVo.setDate(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
-
+        if (pageNo == 1 && Objects.equals(list.get(0).getDate(), "2099/01/01")){
+            list.set(0,futureVo);
+        }
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("total",total);

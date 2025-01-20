@@ -19,16 +19,20 @@ public class TimestampUtils {
      */
     public static String timestampToDateStr(long timestamp) {
 
+        return timestampToDateStr(timestamp,"yyyy/MM/dd");
+    }
+
+    public static String timestampToDateStr(long timestamp,String pattern) {
+
         // 将时间戳转换为LocalDateTime（需要指定时区）
         // 这里使用系统默认时区，但你也可以根据需要指定其他时区，如ZoneId.of("Asia/Shanghai")
         LocalDateTime localDateTime = Instant.ofEpochMilli(timestamp).atZone(ZoneId.systemDefault()).toLocalDateTime();
 
         // 定义日期格式
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         // 将LocalDateTime格式化为字符串
-        String formattedDate = localDateTime.format(formatter);
 
-        return formattedDate;
+        return localDateTime.format(formatter);
     }
 
     /**
