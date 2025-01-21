@@ -3,6 +3,7 @@ package com.miller.service.report.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.common.util.DateUtils;
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.AutoCaseRoiEntity;
@@ -47,8 +48,8 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         QueryWrapper<AutoExecutionRecordEntity> queryWrapper = new QueryWrapper<>();
 
         String scenarioId = pageAutoCaseExecutionRecordReqDTO.getScenarioId();
-        Date executionStartTime = pageAutoCaseExecutionRecordReqDTO.getExecutionStartTime();
-        Date executionEndTime = pageAutoCaseExecutionRecordReqDTO.getExecutionEndTime();
+        Date executionStartTime = DateUtils.strToDate(pageAutoCaseExecutionRecordReqDTO.getExecutionStartTime(), "yyyy-MM-dd");
+        Date executionEndTime = DateUtils.strToDate(pageAutoCaseExecutionRecordReqDTO.getExecutionEndTime(), "yyyy-MM-dd");
         List<String> executionUserList = pageAutoCaseExecutionRecordReqDTO.getExecutionUserList();
         List<String> executionStatusList = pageAutoCaseExecutionRecordReqDTO.getExecutionStatusList();
         List<String> executionTypeList = pageAutoCaseExecutionRecordReqDTO.getExecutionTypeList();
@@ -68,7 +69,7 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
             queryWrapper.ge("execution_time", executionStartTime.getTime());
         }
         if (executionEndTime != null) {
-            queryWrapper.le("execution_time", executionEndTime.getTime());
+            queryWrapper.le("execution_time", executionEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
         if (executionUserList != null && !executionUserList.isEmpty()) {
             queryWrapper.in("execution_user", executionUserList);
@@ -129,7 +130,7 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
             BeanUtils.copyProperties(record, autoCaseExecutionRecordRespDTO);
             autoCaseExecutionRecordRespDTO.setExecutionStatusDesc(ExecutionStatusEnum.getValueByKey(record.getExecutionStatus()));
             autoCaseExecutionRecordRespDTO.setExecutionTypeDesc(ExecutionTypeEnum.getValueByKey(record.getExecutionType()));
-            autoCaseExecutionRecordRespDTO.setExecutionTime(TimestampUtils.timestampToDateStr(record.getExecutionTime(),"yyyy/MM/dd HH:mm:ss"));
+            autoCaseExecutionRecordRespDTO.setExecutionTime(TimestampUtils.timestampToDateStr(record.getExecutionTime(), "yyyy/MM/dd HH:mm:ss"));
 
             autoCaseExecutionRecordRespDTO.setScenarioName(autoCaseRoiService.getAutoCaseNameByScenarioId(record.getScenarioId()));
 
@@ -137,14 +138,14 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         }
 
         HashMap<String, Object> result = new HashMap<>();
-        result.put("total",total);
+        result.put("total", total);
         result.put("list", autoCaseExecutionRecordRespDTOS);
         return result;
     }
 
 
     @Override
-    public  Map<String,Object> listAutoCaseRecord(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO){
+    public Map<String, Object> listAutoCaseRecord(PageAutoCaseExecutionRecordReqDTO pageAutoCaseExecutionRecordReqDTO) {
         Page<AutoExecutionRecordEntity> autoExecutionRecordPage = new Page<>(pageAutoCaseExecutionRecordReqDTO.getPageNo(), pageAutoCaseExecutionRecordReqDTO.getPageSize());
 
         Page<AutoExecutionRecordEntity> autoExecutionRecordEntityPage = autoExecutionRecordMapper.selectPageByCondition(autoExecutionRecordPage, pageAutoCaseExecutionRecordReqDTO);
@@ -152,21 +153,21 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         long total = autoExecutionRecordEntityPage.getTotal();
 
         HashMap<String, Object> result = new HashMap<>();
-        result.put("total",total);
-        result.put("list",records);
+        result.put("total", total);
+        result.put("list", records);
         return result;
     }
 
     @Override
     public boolean apifoxSaveOrUpdate(AutoCaseRoiEntity autoCaseRoi, ApifoxAutoCaseRoiDto caseRoiDto) {
         AutoExecutionRecordEntity entity = new AutoExecutionRecordEntity();
-        BeanUtils.copyProperties(autoCaseRoi,entity);
+        BeanUtils.copyProperties(autoCaseRoi, entity);
 
         // 设置执行状态
         List<Integer> executionTypeList = Arrays.stream(ExecutionTypeEnum.values()).map(ExecutionTypeEnum::getCode).toList();
-        if (executionTypeList.contains(caseRoiDto.getExecutionType())){
+        if (executionTypeList.contains(caseRoiDto.getExecutionType())) {
             entity.setExecutionType(caseRoiDto.getExecutionType());
-        }else {
+        } else {
             entity.setExecutionType(ExecutionTypeEnum.UNKNOWN_STRATEGY.getCode());
         }
 

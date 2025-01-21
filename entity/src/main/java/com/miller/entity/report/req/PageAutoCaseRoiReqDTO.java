@@ -24,16 +24,16 @@ public class PageAutoCaseRoiReqDTO {
     private String executionUser;
 
     @Schema(description = "创建开始时间")
-    private Date createStartTime;
+    private String createStartTime;
 
     @Schema(description = "创建结束时间")
-    private Date createEndTime;
+    private String createEndTime;
 
     @Schema(description = "更新开始时间")
-    private Date updateStartTime;
+    private String updateStartTime;
 
     @Schema(description = "更新结束时间")
-    private Date updateEndTime;
+    private String updateEndTime;
 
     @Schema(description = "名称是否可以重复，0：不可以 ，1：可以")
     private Integer isRepeat = 1;

@@ -22,10 +22,10 @@ public class PageAutoCaseExecutionRecordReqDTO {
     private String scenarioId;
 
     @Schema(description = "执行开始时间")
-    private Date executionStartTime;
+    private String executionStartTime;
 
     @Schema(description = "执行结束时间")
-    private Date executionEndTime;
+    private String executionEndTime;
 
     @Schema(description = "执行人员")
     private List<String> executionUserList;

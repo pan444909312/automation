@@ -2,6 +2,7 @@ package com.miller.controller.report;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.common.util.DateUtils;
 import com.miller.entity.report.AutoCaseChartFutureDataEntity;
 import com.miller.entity.report.req.PageAutoCaseIncreaseChartReqDTO;
 import com.miller.entity.report.AutoCaseIncreaseChartEntity;
@@ -40,22 +41,22 @@ public class AutoCaseIncreaseChartController {
 
     @Operation(description = "分页查询自动化用例新增数据")
     @PostMapping("/list")
-    public Map<String,Object> listAutoCaseIncreaseChart(@RequestBody PageAutoCaseIncreaseChartReqDTO pageAutoCaseIncreaseChartReqDTO){
+    public Map<String, Object> listAutoCaseIncreaseChart(@RequestBody PageAutoCaseIncreaseChartReqDTO pageAutoCaseIncreaseChartReqDTO) {
 
         int pageNo = pageAutoCaseIncreaseChartReqDTO.getPageNo();
         int pageSize = pageAutoCaseIncreaseChartReqDTO.getPageSize();
-        Date createEndTime = pageAutoCaseIncreaseChartReqDTO.getCreateEndTime();
-        Date createStartTime = pageAutoCaseIncreaseChartReqDTO.getCreateStartTime();
+        Date createEndTime = DateUtils.strToDate(pageAutoCaseIncreaseChartReqDTO.getCreateEndTime(), "yyyy-MM-dd");
+        Date createStartTime = DateUtils.strToDate(pageAutoCaseIncreaseChartReqDTO.getCreateStartTime(), "yyyy-MM-dd");
         Page<AutoCaseIncreaseChartEntity> page = new Page<>(pageNo, pageSize);
         QueryWrapper<AutoCaseIncreaseChartEntity> queryWrapper = new QueryWrapper<>();
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
         if (createEndTime != null) {
-            queryWrapper.le("create_time", createEndTime.getTime());
+            queryWrapper.le("create_time", createEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
-        if (createStartTime != null || createEndTime != null){
-            queryWrapper.or().eq("chart_date","2099/01/01");
+        if (createStartTime != null || createEndTime != null) {
+            queryWrapper.or().eq("chart_date", "2099/01/01");
         }
         queryWrapper.orderByDesc("chart_date");
 
@@ -85,14 +86,14 @@ public class AutoCaseIncreaseChartController {
         futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
 
         //未来数据替换列表占位数据
-        if (pageNo == 1 && Objects.equals(list.get(0).getDate(), "2099/01/01")){
-            list.set(0,futureVo);
+        if (pageNo == 1 && Objects.equals(list.get(0).getDate(), "2099/01/01")) {
+            list.set(0, futureVo);
         }
 
         HashMap<String, Object> result = new HashMap<>();
-        result.put("total",total);
-        result.put("list",list);
-        result.put("futureData",futureVo);
+        result.put("total", total);
+        result.put("list", list);
+        result.put("futureData", futureVo);
         return result;
     }
 

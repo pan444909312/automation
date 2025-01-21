@@ -1,6 +1,8 @@
 package com.miller.controller.report;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.common.util.DateUtils;
 import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
 import com.miller.entity.util.Response;
 import com.miller.common.util.ULIDUtils;
@@ -52,10 +54,10 @@ public class AutoCaseRoiController {
         QueryWrapper<AutoCaseRoiEntity> queryWrapper = new QueryWrapper<>();
         String executionUser = pageAutoCaseRoiReqDto.getExecutionUser();
         String scenarioIdOrName = pageAutoCaseRoiReqDto.getScenarioIdOrName();
-        Date createStartTime = pageAutoCaseRoiReqDto.getCreateStartTime();
-        Date createEndTime = pageAutoCaseRoiReqDto.getCreateEndTime();
-        Date updateStartTime = pageAutoCaseRoiReqDto.getUpdateStartTime();
-        Date updateEndTime = pageAutoCaseRoiReqDto.getUpdateEndTime();
+        Date createStartTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getCreateStartTime(), "yyyy-MM-dd");
+        Date createEndTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getCreateEndTime(), "yyyy-MM-dd");
+        Date updateStartTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getUpdateStartTime(), "yyyy-MM-dd");
+        Date updateEndTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getUpdateEndTime(), "yyyy-MM-dd");
         Integer orderBy = pageAutoCaseRoiReqDto.getOrderBy();
         Integer sort = pageAutoCaseRoiReqDto.getSort();
         if (!StringUtils.isEmpty(executionUser)) {
@@ -69,15 +71,15 @@ public class AutoCaseRoiController {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
         if (createEndTime != null) {
-            queryWrapper.le("create_time", createEndTime.getTime());
+            queryWrapper.le("create_time", createEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
         if (updateStartTime != null) {
             queryWrapper.ge("update_time", updateStartTime.getTime());
         }
         if (updateEndTime != null) {
-            queryWrapper.le("update_time", updateEndTime.getTime());
+            queryWrapper.le("update_time", updateEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
-        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0){
+        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0) {
             queryWrapper.groupBy("scenario_name");
         }
         if (orderBy == 1) {
@@ -147,6 +149,6 @@ public class AutoCaseRoiController {
 
         boolean result = autoCaseRoiService.removeById(removeAutoCaseRoiReqDTO.getId());
 
-        return result ? "删除成功":"删除失败";
+        return result ? "删除成功" : "删除失败";
     }
 }

@@ -2,6 +2,7 @@ package com.miller.controller.report;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.common.util.DateUtils;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.resp.AutoCaseRoiChartRespDTO;
 import com.miller.entity.util.BasePageResponse;
@@ -62,10 +63,10 @@ public class AutoCaseExecutionChartController {
         Page<AutoCaseExecutionChartEntity> page = new Page<>(pageNo, pageSize);
 
         QueryWrapper<AutoCaseExecutionChartEntity> queryWrapper = new QueryWrapper<>();
-        Date createEndTime = pageAutoCaseExecutionChartDTO.getCreateEndTime();
-        Date createStartTime = pageAutoCaseExecutionChartDTO.getCreateStartTime();
+        Date createEndTime = DateUtils.strToDate(pageAutoCaseExecutionChartDTO.getCreateEndTime(), "yyyy-MM-dd");
+        Date createStartTime = DateUtils.strToDate(pageAutoCaseExecutionChartDTO.getCreateStartTime(), "yyyy-MM-dd");
         List<Integer> executionTypeList = pageAutoCaseExecutionChartDTO.getExecutionTypeList();
-        if (executionTypeList == null){
+        if (executionTypeList == null) {
             //如果为空则默认 查所有类型
             executionTypeList = new ArrayList<>();
             for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
@@ -76,13 +77,13 @@ public class AutoCaseExecutionChartController {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
         if (createEndTime != null) {
-            queryWrapper.le("create_time", createEndTime.getTime());
+            queryWrapper.le("create_time", createEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
 //        if (executionTypeList != null && !executionTypeList.isEmpty()) {
 //            queryWrapper.in("execution_type", executionTypeList);
 //        }
-        if (createStartTime != null || createEndTime != null){
-            queryWrapper.or().eq("chart_date","2099/01/01");
+        if (createStartTime != null || createEndTime != null) {
+            queryWrapper.or().eq("chart_date", "2099/01/01");
         }
         queryWrapper.orderByDesc("chart_date");
 
@@ -90,7 +91,7 @@ public class AutoCaseExecutionChartController {
 
         List<AutoCaseExecutionChartEntity> records = autoCaseExecutionChartPage.getRecords();
         // 总数需要除以执行策略的选择个数，不然算出来的总个数是所有日期的ROI乘执行策略个人的总数
-        long total = autoCaseExecutionChartPage.getTotal()/ ExecutionTypeEnum.values().length;
+        long total = autoCaseExecutionChartPage.getTotal() / ExecutionTypeEnum.values().length;
 
         //数据组装
 
@@ -115,7 +116,7 @@ public class AutoCaseExecutionChartController {
                 executionCaseSum = executionCaseSum + record.getExecutionCase();
             }
         }
-        list.add(new AutoCaseExecutionChartRespDTO(executionCaseSum,"",lastChartDate));
+        list.add(new AutoCaseExecutionChartRespDTO(executionCaseSum, "", lastChartDate));
 
         //未来日期数据处理
         QueryWrapper<AutoCaseChartFutureDataEntity> autoCaseChartFutureDataQueryWrapper = new QueryWrapper<>();
@@ -136,14 +137,14 @@ public class AutoCaseExecutionChartController {
         }
         futureVo.setExecutionCase(sum);
         futureVo.setDate(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
-        if (pageNo == 1 && Objects.equals(list.get(0).getDate(), "2099/01/01")){
-            list.set(0,futureVo);
+        if (pageNo == 1 && Objects.equals(list.get(0).getDate(), "2099/01/01")) {
+            list.set(0, futureVo);
         }
 
         HashMap<String, Object> result = new HashMap<>();
-        result.put("total",total);
-        result.put("list",list);
-        result.put("futureData",futureVo);
+        result.put("total", total);
+        result.put("list", list);
+        result.put("futureData", futureVo);
 
 
         return result;

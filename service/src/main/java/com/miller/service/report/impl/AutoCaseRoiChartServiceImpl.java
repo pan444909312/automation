@@ -2,6 +2,7 @@ package com.miller.service.report.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.common.util.DateUtils;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.AutoCaseChartFutureDataEntity;
 import com.miller.entity.report.AutoCaseRoiChartEntity;
@@ -54,8 +55,8 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         Page<AutoCaseRoiChartEntity> page = new Page<>(pageNo, pageSize);
 
         QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<>();
-        Date createStartTime = pageAutoCaseRoiChartReqDTO.getCreateStartTime();
-        Date createEndTime = pageAutoCaseRoiChartReqDTO.getCreateEndTime();
+        Date createStartTime = DateUtils.strToDate(pageAutoCaseRoiChartReqDTO.getCreateStartTime(),"yyyy-MM-dd");
+        Date createEndTime = DateUtils.strToDate(pageAutoCaseRoiChartReqDTO.getCreateStartTime(),"yyyy-MM-dd");
         List<Integer> executionTypeList = pageAutoCaseRoiChartReqDTO.getExecutionTypeList();
         if (executionTypeList == null){
             //如果为空则默认 查所有类型
@@ -69,7 +70,7 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
         if (createEndTime != null) {
-            queryWrapper.le("create_time", createEndTime.getTime());
+            queryWrapper.le("create_time", createEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
         if (createStartTime != null || createEndTime != null){
             queryWrapper.or().eq("chart_date","2099/01/01");
