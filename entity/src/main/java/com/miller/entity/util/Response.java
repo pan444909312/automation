@@ -41,4 +41,8 @@ public class Response<T> implements Serializable {
         return new Response<T>(code,message, data);
     }
 
+    public static <T> Response<T> fail(String message) {
+        return new Response<T>(ResponseEnum.FAILURE_SERVICE_ERROR.getCode(),message, null);
+    }
+
 }

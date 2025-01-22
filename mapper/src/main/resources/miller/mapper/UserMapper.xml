@@ -10,4 +10,9 @@
         WHERE u.user_id = #{userId}
            or u.email = #{userId};
     </select>
+
+    <select id="selectByName" resultType="com.miller.entity.platform.User">
+        select * from user where name = #{name}   limit 1
+    </select>
+
 </mapper>

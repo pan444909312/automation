@@ -3,6 +3,8 @@ package com.miller.controller.report;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.common.util.DateUtils;
+import com.miller.entity.platform.Dept;
+import com.miller.entity.platform.User;
 import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
 import com.miller.entity.util.Response;
 import com.miller.common.util.ULIDUtils;
@@ -11,12 +13,19 @@ import com.miller.entity.constant.SortEnum;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
+import com.miller.mapper.platform.DeptMapper;
+import com.miller.mapper.platform.UserMapper;
+import com.miller.service.report.ApifoxAutoCaseRoiService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.common.util.TimestampUtils;
+import com.miller.service.report.UserBindDeptService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +44,23 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/automation/autoCaseRoi")
 @Tag(name = "自动化用例roi统计")
+@Slf4j
 public class AutoCaseRoiController {
 
     @Autowired
     AutoCaseRoiService autoCaseRoiService;
+
+    @Autowired
+    ApifoxAutoCaseRoiService apifoxAutoCaseRoiService;
+
+    @Autowired
+    DeptMapper deptMapper;
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    UserBindDeptService userBindDeptService;
 
     /**
      * 分页查询自动化用例roi数据
@@ -130,8 +152,32 @@ public class AutoCaseRoiController {
     }
 
     @PostMapping("/apifox/save")
+    @Transactional
     public Response<Boolean> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
-        boolean res = autoCaseRoiService.apifoxSaveOrUpdate(dto);
+
+        //  校验小组归属小组是否存在
+        Dept dept = deptMapper.selectByName(dto.getDept());
+        if (ObjectUtils.isEmpty(dept)) {
+            return Response.fail("dept 归属组为空");
+        }
+
+        //  校验是否有此实现人
+        User user = userMapper.selectByName(dto.getAuthor());
+        if (ObjectUtils.isEmpty(user)) {
+            return Response.fail("查不到该用户:" + dto.getAuthor() + ",请联系开发添加");
+        }
+        dto.setEmail(user.getEmail());
+
+        // 场景 ID 为空
+        if (com.miller.common.util.StringUtils.isBlank(dto.getScenarioId())) {
+            return Response.fail("scenarioId 不能为空");
+        }
+
+        boolean res = apifoxAutoCaseRoiService.apifoxSaveOrUpdate(dto);
+
+        // 校验 user 和 dept 是否有映射关系，没有则创建一个
+        userBindDeptService.saveOrUpdate(dept.getDeptId(),user.getUserId());
+
         return Response.success(res);
     }
 

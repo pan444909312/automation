@@ -61,6 +61,14 @@ public class AutoCaseRoiEntity implements Serializable {
     @TableField("execution_user")
     private String executionUser;
 
+    @Schema(description = "用例负责人，邮箱地址")
+    @TableField("author")
+    private String author;
+
+    @Schema(description = "优先级")
+    @TableField("priority")
+    private Integer priority;
+
     @Schema(description = "创建时间")
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private Long createTime;

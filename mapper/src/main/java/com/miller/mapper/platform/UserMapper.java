@@ -23,4 +23,10 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     List<String> getProjectListByUserIdOrEmail(String userId);
+
+    /**
+     * 根据用户名称查询
+     */
+    User selectByName(String name);
+
 }
