@@ -93,9 +93,12 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
         autoCaseRoi.setRoi(String.valueOf(roi));
 
         // 写入负责人邮箱
+
         autoCaseRoi.setAuthor(dto.getEmail());
 
-        autoCaseRoi.setPriority(dto.getPriority());
+
+        Integer priority = ObjectUtils.isNotEmpty(dto.getPriority()) ? dto.getPriority() : 0;
+        autoCaseRoi.setPriority(priority);
 
 
         // 写入数据

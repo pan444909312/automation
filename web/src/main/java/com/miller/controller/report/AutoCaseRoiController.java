@@ -156,13 +156,22 @@ public class AutoCaseRoiController {
     public Response<Boolean> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
 
         //  校验小组归属小组是否存在
-        Dept dept = deptMapper.selectByName(dto.getDept());
+        Dept dept = null;
+        if (!ObjectUtils.isEmpty(dto.getDept())) {
+            dept = deptMapper.selectByName(dto.getDept());
+        }
         if (ObjectUtils.isEmpty(dept)) {
-            return Response.fail("dept 归属组为空");
+            dept = deptMapper.selectByName("B-商家组");
         }
 
+
+
         //  校验是否有此实现人
-        User user = userMapper.selectByName(dto.getAuthor());
+        String author = ObjectUtils.isNotEmpty(dto.getAuthor()) ? dto.getAuthor() : dto.getExecutionUser();
+        if (ObjectUtils.isEmpty(author)){
+            return Response.fail("executionUser 和 author 必填一个，不然Case 无法归属用户");
+        }
+        User user = userMapper.selectByName(author);
         if (ObjectUtils.isEmpty(user)) {
             return Response.fail("查不到该用户:" + dto.getAuthor() + ",请联系开发添加");
         }
@@ -176,7 +185,7 @@ public class AutoCaseRoiController {
         boolean res = apifoxAutoCaseRoiService.apifoxSaveOrUpdate(dto);
 
         // 校验 user 和 dept 是否有映射关系，没有则创建一个
-        userBindDeptService.saveOrUpdate(dept.getDeptId(),user.getUserId());
+        userBindDeptService.saveOrUpdate(dept.getDeptId(), user.getUserId());
 
         return Response.success(res);
     }
