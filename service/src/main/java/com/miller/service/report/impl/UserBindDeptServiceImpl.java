@@ -35,7 +35,6 @@ public class UserBindDeptServiceImpl  extends ServiceImpl<UserBindDeptMapper, Us
                 .setUserId(userId)
                 .setDeptId(deptId)
                 .setUpdateTime(currentTimeMillis);
-        ;
 
         this.saveOrUpdate(userBindDept);
     }

@@ -2,9 +2,7 @@ package com.miller.service.platform.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.common.util.ULIDUtils;
-import com.miller.entity.platform.UserBindDept;
 import com.miller.entity.platform.UserBindProject;
-import com.miller.mapper.platform.UserBindDeptMapper;
 import com.miller.mapper.platform.UserBindProjectMapper;
 import com.miller.service.platform.UserBindProjectService;
 import org.apache.commons.lang3.ObjectUtils;

@@ -3,7 +3,6 @@ package com.miller.controller.report;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.common.util.DateUtils;
-import com.miller.entity.platform.Dept;
 import com.miller.entity.platform.Project;
 import com.miller.entity.platform.User;
 import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
@@ -14,15 +13,12 @@ import com.miller.entity.constant.SortEnum;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
-import com.miller.mapper.platform.DeptMapper;
-import com.miller.mapper.platform.ProjectMapper;
 import com.miller.mapper.platform.UserMapper;
 import com.miller.service.platform.ProjectService;
 import com.miller.service.platform.UserBindProjectService;
 import com.miller.service.report.ApifoxAutoCaseRoiService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.common.util.TimestampUtils;
-import com.miller.service.report.UserBindDeptService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -32,10 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -58,13 +51,7 @@ public class AutoCaseRoiController {
     ApifoxAutoCaseRoiService apifoxAutoCaseRoiService;
 
     @Autowired
-    DeptMapper deptMapper;
-
-    @Autowired
     UserMapper userMapper;
-
-    @Autowired
-    UserBindDeptService userBindDeptService;
 
     @Autowired
     private ProjectService projectService;

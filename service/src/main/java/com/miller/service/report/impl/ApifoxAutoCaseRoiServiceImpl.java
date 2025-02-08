@@ -28,11 +28,6 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
     @Autowired
     AutoExecutionRecordService autoExecutionRecordService;
 
-    @Autowired
-    DeptMapper deptMapper;
-
-    @Autowired
-    UserMapper userMapper;
 
     @Autowired
     private UserBindDeptService userBindDeptService;
