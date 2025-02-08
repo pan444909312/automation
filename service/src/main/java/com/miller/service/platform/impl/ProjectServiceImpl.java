@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.entity.platform.Project;
 import com.miller.mapper.platform.ProjectMapper;
 import com.miller.service.platform.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> implements ProjectService {
 
+    @Autowired
+    private ProjectMapper projectMapper;
+
+    @Override
+    public Project findByName(String name) {
+        return projectMapper.findByName(name);
+    }
 }

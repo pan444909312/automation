@@ -13,4 +13,6 @@ import com.miller.entity.platform.Project;
  */
 public interface ProjectService extends IService<Project> {
 
+    Project findByName(String name);
+
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.common.util.DateUtils;
 import com.miller.entity.platform.Dept;
+import com.miller.entity.platform.Project;
 import com.miller.entity.platform.User;
 import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
 import com.miller.entity.util.Response;
@@ -14,7 +15,10 @@ import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
 import com.miller.mapper.platform.DeptMapper;
+import com.miller.mapper.platform.ProjectMapper;
 import com.miller.mapper.platform.UserMapper;
+import com.miller.service.platform.ProjectService;
+import com.miller.service.platform.UserBindProjectService;
 import com.miller.service.report.ApifoxAutoCaseRoiService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.common.util.TimestampUtils;
@@ -61,6 +65,13 @@ public class AutoCaseRoiController {
 
     @Autowired
     UserBindDeptService userBindDeptService;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private UserBindProjectService userBindProjectService;
+
 
     /**
      * 分页查询自动化用例roi数据
@@ -155,20 +166,30 @@ public class AutoCaseRoiController {
     @Transactional
     public Response<Boolean> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
 
-        //  校验小组归属小组是否存在
-        Dept dept = null;
+        /**
+         //  校验小组归属小组是否存在
+         Dept dept;
+         if (!ObjectUtils.isEmpty(dto.getDept())) {
+         dept = deptMapper.selectByName(dto.getDept());
+         }else {
+         dept = deptMapper.selectByName("B-商家组");
+         }
+         ***/
+
+        Project project = null;
         if (!ObjectUtils.isEmpty(dto.getDept())) {
-            dept = deptMapper.selectByName(dto.getDept());
+            project = projectService.findByName(dto.getDept());
         }
-        if (ObjectUtils.isEmpty(dept)) {
-            dept = deptMapper.selectByName("B-商家组");
+        if (ObjectUtils.isEmpty(project)){
+            log.error("查不到项目：{}，默认使用 B-商家组 查询",dto.getDept());
+            project = projectService.findByName("B端-商家组");
         }
 
 
 
         //  校验是否有此实现人
         String author = ObjectUtils.isNotEmpty(dto.getAuthor()) ? dto.getAuthor() : dto.getExecutionUser();
-        if (ObjectUtils.isEmpty(author)){
+        if (ObjectUtils.isEmpty(author)) {
             return Response.fail("executionUser 和 author 必填一个，不然Case 无法归属用户");
         }
         User user = userMapper.selectByName(author);
@@ -185,7 +206,7 @@ public class AutoCaseRoiController {
         boolean res = apifoxAutoCaseRoiService.apifoxSaveOrUpdate(dto);
 
         // 校验 user 和 dept 是否有映射关系，没有则创建一个
-        userBindDeptService.saveOrUpdate(dept.getDeptId(), user.getUserId());
+        userBindProjectService.saveOrUpdate(project.getProjectId(), user.getUserId());
 
         return Response.success(res);
     }
