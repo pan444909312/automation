@@ -46,7 +46,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JKJ8KJHV1DZ44QX4K7N839A4",
         scenarioName = "正常流程_结算_优惠项-红包减免-用户会员",
-        developmentTime = 240, maintenanceTime = 30, manualTestTime = 60)
+        developmentTime = 300, maintenanceTime = 30, manualTestTime = 60)
 @EnvTag.Test
 @DisplayName("红包减免-用户会员")
 public class RedPacketDiscountByMemberForSettlementTest {
