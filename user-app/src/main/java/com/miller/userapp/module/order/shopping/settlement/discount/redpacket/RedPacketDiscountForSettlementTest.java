@@ -149,7 +149,7 @@ public class RedPacketDiscountForSettlementTest {
         settlementRequestDTO.setShopId(ShopsEnum.SKUDiscount.getShopId());
         // 是否自动使用红包，使用红包
         settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.YES.getType());
-        settlementRequestDTO.setRedUseSn("9516f2aa-51f4-4422-8870-ceeaa8d9d98a");
+        settlementRequestDTO.setRedUseSn("932ffe91-f12d-457a-af62-a8078b2ed3b5");
         var productCartList = new ArrayList<ProductCart>();
         var productCart = new ProductCart();
         productCart.setSkuId(0L);
@@ -171,7 +171,7 @@ public class RedPacketDiscountForSettlementTest {
         settlementRequestDTO.setShopId(ShopsEnum.SKUDiscount.getShopId());
         // 是否自动使用红包，使用红包
         settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.YES.getType());
-        settlementRequestDTO.setRedUseSn("e735f472-8269-4721-959c-b0090df7d8ef");
+        settlementRequestDTO.setRedUseSn("6cef6841-025c-4671-ae31-e8d7b79428f6");
         var productCartList = new ArrayList<ProductCart>();
         var productCart = new ProductCart();
         productCart.setSkuId(0L);
@@ -193,7 +193,7 @@ public class RedPacketDiscountForSettlementTest {
         settlementRequestDTO.setShopId(ShopsEnum.SKUDiscount.getShopId());
         // 是否自动使用红包，使用红包
         settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.YES.getType());
-        settlementRequestDTO.setRedUseSn("d4f9b04c-2f0c-42ac-a068-2aaa116efca8");
+        settlementRequestDTO.setRedUseSn("0c20f148-c26f-482a-98e4-e4eeb3fe87c5");
         var productCartList = new ArrayList<ProductCart>();
         var productCart = new ProductCart();
         productCart.setSkuId(0L);
@@ -215,7 +215,7 @@ public class RedPacketDiscountForSettlementTest {
         settlementRequestDTO.setShopId(ShopsEnum.SKUDiscount.getShopId());
         // 是否自动使用红包，使用红包
         settlementRequestDTO.setAutoUseRedPacketStatus(StatusEnum.YES.getType());
-        settlementRequestDTO.setRedUseSn("d4f9b04c-2f0c-42ac-a068-2aaa116efca8");
+        settlementRequestDTO.setRedUseSn("0c20f148-c26f-482a-98e4-e4eeb3fe87c5");
         var productCartList = new ArrayList<ProductCart>();
         var productCart = new ProductCart();
         productCart.setSkuId(0L);
