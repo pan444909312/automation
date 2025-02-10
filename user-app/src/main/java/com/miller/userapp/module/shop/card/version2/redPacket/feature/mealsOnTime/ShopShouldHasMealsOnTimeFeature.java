@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX6Z",
         scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_营销标_标签7_出餐准时_首页-商卡二期：出餐准时",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        developmentTime = 5, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasMealsOnTimeFeature {
@@ -55,14 +55,20 @@ public class ShopShouldHasMealsOnTimeFeature {
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
-        ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
-                filter(item -> item.getType().equals(ShopFeatureTypeConstant.MEALS_ONT_IME)).findFirst().get();
 
-        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+        ShopFeatureVO shopFeatureVO = null;
+        try {
+            shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
+                    filter(item -> item.getType().equals(ShopFeatureTypeConstant.MEALS_ONT_IME)).findFirst().get();
+        }catch (Exception e){
 
-        assertThat(shopIndexVO.getMealsOnTime()).isEqualTo(1);
-        assertThat(shopSearchMiddleEntity.getMealsOnTime().intValue()).isEqualTo(1);
-        assertThat(shopFeatureVO.getShowContent()).isEqualTo(IndexListConstants.MEALS_ON_TIME);
+        }
+        // 需求修改，该标签被删除
+        assertThat(shopFeatureVO).isEqualTo(null);
+//        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+//        assertThat(shopIndexVO.getMealsOnTime()).isEqualTo(1);
+//        assertThat(shopSearchMiddleEntity.getMealsOnTime().intValue()).isEqualTo(1);
+//        assertThat(shopFeatureVO.getShowContent()).isEqualTo(IndexListConstants.MEALS_ON_TIME);
     }
 
 

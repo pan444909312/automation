@@ -29,9 +29,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/27 9:37
  */
-@Scenario(scenarioID = "01J61TZX3QYPJKE76RVDW8AKSB",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签7_出餐准时_首页-商卡二期：出餐准时",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JH7BS7TS8N57AHGPE7WW23XN",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_营销标_标签7_出餐准时_品类频道-商卡二期：出餐准时",
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasMealsOnTimeFeature {
@@ -48,21 +48,25 @@ public class ShopShouldHasMealsOnTimeFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_标签7_出餐准时_首页-商卡二期：出餐准时")
+    @DisplayName("普通店铺配送商卡-品类频道_营销标_标签7_出餐准时_品类频道-商卡二期：出餐准时")
     void shouldExistMealsOnTimeFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+        ShopFeatureVO shopFeatureVO = null;
+        try {
+            shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
+                    filter(item -> item.getType().equals(ShopFeatureTypeConstant.MEALS_ONT_IME)).findFirst().get();
+        }catch (Exception e){
 
-        ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
-                filter(item -> item.getType().equals(ShopFeatureTypeConstant.MEALS_ONT_IME)).findFirst().get();
-
-        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
-
-        assertThat(shopIndexVO.getMealsOnTime()).isEqualTo(1);
-        assertThat(shopSearchMiddleEntity.getMealsOnTime().intValue()).isEqualTo(1);
-        assertThat(shopFeatureVO.getShowContent()).isEqualTo(IndexListConstants.MEALS_ON_TIME);
+        }
+        // 需求修改，该标签被删除
+        assertThat(shopFeatureVO).isEqualTo(null);
+//        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+//        assertThat(shopIndexVO.getMealsOnTime()).isEqualTo(1);
+//        assertThat(shopSearchMiddleEntity.getMealsOnTime().intValue()).isEqualTo(1);
+//        assertThat(shopFeatureVO.getShowContent()).isEqualTo(IndexListConstants.MEALS_ON_TIME);
     }
 
 

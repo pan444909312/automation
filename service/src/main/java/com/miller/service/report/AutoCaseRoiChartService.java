@@ -8,6 +8,8 @@ import com.miller.entity.report.resp.AutoCaseRoiChartRespDTO;
 import com.miller.entity.util.BasePageResponse;
 import com.miller.entity.util.Response;
 
+import java.util.Map;
+
 /**
  * <p>
  * 测试场景总ROI表 服务类
@@ -24,7 +26,7 @@ public interface AutoCaseRoiChartService extends IService<AutoCaseRoiChartEntity
      * @param pageAutoCaseRoiChartReqDTO 条件分页查询测试场景总ROI表
      * @return
      */
-    Response<BasePageResponse<AutoCaseRoiChartRespDTO>> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO);
+    Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO);
 
 
     /**

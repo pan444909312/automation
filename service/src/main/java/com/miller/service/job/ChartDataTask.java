@@ -1,7 +1,9 @@
 package com.miller.service.job;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.constant.SysConfigConstants;
 import com.miller.entity.report.*;
 import com.miller.service.report.*;
 import com.miller.common.util.TimestampUtils;
@@ -40,17 +42,47 @@ public class ChartDataTask {
     @Autowired
     AutoCaseRoiService autoCaseRoiService;
 
+    @Autowired
+    ConfigService configService;
+
 
     /**
      * todo 初始化各报表数据
      */
     public void initChartData() {
-        // 初始化用例增长趋势表数据
+        // 初始化用例增长趋势表数据 未来数据替换用
+        AutoCaseIncreaseChartEntity increaseChartFutureData = autoCaseIncreaseChartService.getOne(new LambdaQueryWrapper<AutoCaseIncreaseChartEntity>().eq(AutoCaseIncreaseChartEntity::getIncreaseCase, -1));
+        if (increaseChartFutureData == null){
+            AutoCaseIncreaseChartEntity autoCaseIncreaseChartEntity = new AutoCaseIncreaseChartEntity();
+            autoCaseIncreaseChartEntity.setChartDate("2099/01/01");
+            autoCaseIncreaseChartEntity.setRemarks("未来数据占位");
+            autoCaseIncreaseChartService.save(autoCaseIncreaseChartEntity);
+        }
 
-        // 初始化用例执行趋势表数据
+        // 初始化用例执行趋势表数据 未来数据替换用
+        AutoCaseExecutionChartEntity executionChartFutureData = autoCaseExecutionChartService.getOne(new LambdaQueryWrapper<AutoCaseExecutionChartEntity>().eq(AutoCaseExecutionChartEntity::getExecutionCase, -1));
+        if (executionChartFutureData == null){
+            AutoCaseExecutionChartEntity autoCaseExecutionChartEntity ;
+            for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
+                autoCaseExecutionChartEntity = new AutoCaseExecutionChartEntity();
+                autoCaseExecutionChartEntity.setRemarks("未来数据占位");
+                autoCaseExecutionChartEntity.setChartDate("2099/01/01");
+                autoCaseExecutionChartEntity.setExecutionType(item.getCode());
+                autoCaseExecutionChartService.save(autoCaseExecutionChartEntity);
+            }
+        }
 
-        // 初始化测试场景总ROI表数据
-        System.out.println(1111111111);
+        // 初始化测试场景总ROI表数据 未来数据替换用
+        AutoCaseRoiChartEntity roiFutureData = autoCaseRoiChartService.getOne(new LambdaQueryWrapper<AutoCaseRoiChartEntity>().eq(AutoCaseRoiChartEntity::getChartDate, "2099/01/01"));
+        if (roiFutureData == null){
+            AutoCaseRoiChartEntity autoCaseRoiChartEntity ;
+            for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
+                autoCaseRoiChartEntity = new AutoCaseRoiChartEntity();
+                autoCaseRoiChartEntity.setChartDate("2099/01/01");
+                autoCaseRoiChartEntity.setExecutionType(item.getCode());
+                autoCaseRoiChartService.save(autoCaseRoiChartEntity);
+            }
+        }
 
     }
 
@@ -84,6 +116,7 @@ public class ChartDataTask {
                 autoCaseIncreaseChartEntity.setIncreaseCase(autoCaseRoiEntityList.size());
                 autoCaseIncreaseChartEntity.setDevelopmentTime(increaseCaseDevelopmentTime);
                 autoCaseIncreaseChartEntity.setManualTestTime(increaseCaseManualTestTime);
+                autoCaseIncreaseChartEntity.setChartDate(TimestampUtils.timestampToDateStr(System.currentTimeMillis()));
             }
             autoCaseIncreaseChartService.save(autoCaseIncreaseChartEntity);
         }
@@ -117,7 +150,7 @@ public class ChartDataTask {
         // 用例增长趋势表 未来数据计算
 
         AutoCaseChartFutureDataEntity autoCaseChartFutureDataIncreaseEntity = new AutoCaseChartFutureDataEntity();
-        autoCaseChartFutureDataIncreaseEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(3));
+        autoCaseChartFutureDataIncreaseEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(SysConfigConstants.DEFAULT_FUTURE_DATE)));
         autoCaseChartFutureDataIncreaseEntity.setChartType(2);
         autoCaseChartFutureDataIncreaseEntity.setExecutionType(-1);
         autoCaseChartFutureDataIncreaseEntity.setExpectedIncreaseCase(autoCaseIncreaseChartService.getMonthsAverageIncreaseCase(3));
@@ -135,7 +168,7 @@ public class ChartDataTask {
     private void autoCaseExecutionFutureDataCalculate(int executionType) {
         // 用例执行趋势表 未来数据计算
         AutoCaseChartFutureDataEntity autoCaseChartFutureDataExecutionEntity = new AutoCaseChartFutureDataEntity();
-        autoCaseChartFutureDataExecutionEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(3));
+        autoCaseChartFutureDataExecutionEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(configService.getConfigByKey(SysConfigConstants.DEFAULT_FUTURE_DATE))));
         autoCaseChartFutureDataExecutionEntity.setChartType(3);
         autoCaseChartFutureDataExecutionEntity.setExecutionType(executionType);
         autoCaseChartFutureDataExecutionEntity.setExpectedExecutionCase(autoCaseExecutionChartService.getMonthsAverageExecutionCase(3, executionType));
@@ -186,7 +219,8 @@ public class ChartDataTask {
 
         AutoCaseChartFutureDataEntity autoCaseChartFutureDataEntity = new AutoCaseChartFutureDataEntity();
 
-        autoCaseChartFutureDataEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(3));
+
+        autoCaseChartFutureDataEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(configService.getConfigByKey(SysConfigConstants.DEFAULT_FUTURE_DATE))));
         autoCaseChartFutureDataEntity.setChartType(1);
         autoCaseChartFutureDataEntity.setExecutionType(executionType);
 

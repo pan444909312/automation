@@ -2,6 +2,7 @@ package com.miller.service.report.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.common.util.DateUtils;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.AutoCaseChartFutureDataEntity;
 import com.miller.entity.report.AutoCaseRoiChartEntity;
@@ -45,7 +46,7 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
      * @return查询对象
      */
     @Override
-    public Response<BasePageResponse<AutoCaseRoiChartRespDTO>> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
+    public Map<String, Object> getAutoCaseRoiChartList(PageAutoCaseRoiChartReqDTO pageAutoCaseRoiChartReqDTO) {
 
         int pageNo = pageAutoCaseRoiChartReqDTO.getPageNo();
         // 分页的size，需要按执行策略的枚举类型乘上去，因为是按执行策略保存，不然会可能会差出来当天缺少某几个执行策略的数据
@@ -54,17 +55,27 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         Page<AutoCaseRoiChartEntity> page = new Page<>(pageNo, pageSize);
 
         QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<>();
-        Date createStartTime = pageAutoCaseRoiChartReqDTO.getCreateStartTime();
-        Date createEndTime = pageAutoCaseRoiChartReqDTO.getCreateEndTime();
+        Date createStartTime = DateUtils.strToDate(pageAutoCaseRoiChartReqDTO.getCreateStartTime(),"yyyy-MM-dd");
+        Date createEndTime = DateUtils.strToDate(pageAutoCaseRoiChartReqDTO.getCreateStartTime(),"yyyy-MM-dd");
         List<Integer> executionTypeList = pageAutoCaseRoiChartReqDTO.getExecutionTypeList();
+        if (executionTypeList == null){
+            //如果为空则默认 查所有类型
+            executionTypeList = new ArrayList<>();
+            for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
+                executionTypeList.add(item.getCode());
+            }
+        }
         //查询条件处理
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
         if (createEndTime != null) {
-            queryWrapper.le("create_time", createEndTime.getTime());
+            queryWrapper.le("create_time", createEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
-        queryWrapper.orderByDesc("create_time");
+        if (createStartTime != null || createEndTime != null){
+            queryWrapper.or().eq("chart_date","2099/01/01");
+        }
+        queryWrapper.orderByDesc("chart_date");
 
         Page<AutoCaseRoiChartEntity> autoCaseRoiChartPage = autoCaseRoiChartMapper.selectPage(page, queryWrapper);
         List<AutoCaseRoiChartEntity> records = autoCaseRoiChartPage.getRecords();
@@ -113,7 +124,9 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         if (!executionTypeList.isEmpty()) {
             autoCaseChartFutureDataQueryWrapper.in("execution_type", executionTypeList);
         }
-        autoCaseChartFutureDataQueryWrapper.orderByDesc("future_time");
+        // 不能用future_time，如果改了未来日期计算几个月的配置值，会有问题
+//        autoCaseChartFutureDataQueryWrapper.orderByDesc("future_time");
+        autoCaseChartFutureDataQueryWrapper.orderByDesc("create_time");
         if (!executionTypeList.isEmpty()) {
             autoCaseChartFutureDataQueryWrapper.last("limit " + executionTypeList.size());
         }
@@ -126,14 +139,15 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         }
         futureVo.setSaveTime(sum);
         futureVo.setCreateTime(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
-        autoCaseRoiChartRespDTOList.addFirst(futureVo);
-
+        if (pageNo == 1 && Objects.equals(autoCaseRoiChartRespDTOList.get(0).getCreateTime(), "2099/01/01")){
+            autoCaseRoiChartRespDTOList.set(0,futureVo);
+        }
 
         Map<String, Object> result = new HashMap<>();
         result.put("list", autoCaseRoiChartRespDTOList);
         result.put("total", total);
-        BasePageResponse<AutoCaseRoiChartRespDTO> response = new BasePageResponse<>(total, autoCaseRoiChartRespDTOList);
-        return Response.success(response);
+        result.put("futureData",futureVo);
+        return result;
     }
 
     @Override

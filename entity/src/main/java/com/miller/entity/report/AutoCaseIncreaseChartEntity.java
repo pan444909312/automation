@@ -25,6 +25,10 @@ public class AutoCaseIncreaseChartEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @Schema(description = "日期")
+    @TableField("chart_date")
+    private String chartDate;
+
     @Schema(description = "新增用例数")
     @TableField("increase_case")
     private Integer increaseCase;

@@ -19,13 +19,13 @@ public class PageAutoCaseRoiChartReqDTO {
     private int pageSize = 10;
 
     @Schema(description = "创建开始时间")
-    private Date createStartTime;
+    private String createStartTime;
 
     @Schema(description = "创建结束时间")
-    private Date createEndTime;
+    private String createEndTime;
 
     @Schema(description = "执行策略 0:未知策略 1:日常巡检;2:质量保证;3:效率提升")
-    @NotNull(message = "执行策略不能为空")
+//    @NotNull(message = "执行策略不能为空")
     private List<Integer> executionTypeList;
 
 

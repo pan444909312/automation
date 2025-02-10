@@ -48,9 +48,9 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
 
     @BeforeAll
     void beforeAll() {
-        dbUtils = new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.url"),
-                new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.username"),
-                new PropertiesUtils().getProperty(this.getClass(), "spring.datasource.password"));
+        dbUtils = new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "datasource.url.panda_test"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.username.panda_test"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.password.panda_test"));
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);

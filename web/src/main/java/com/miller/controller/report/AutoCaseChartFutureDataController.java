@@ -29,7 +29,17 @@ public class AutoCaseChartFutureDataController {
 
     @Operation(description = "定时任务测试")
     @PostMapping("/test")
-    public Map<String, Object> listAutoCase() {
+    public Map<String, Object> jobTest() {
+        HashMap<String, Object> result = new HashMap<>();
+        chartDataTask.initChartData();
+        chartDataTask.execute();
+
+        return result;
+    }
+
+    @Operation(description = "初始化未来数据")
+    @PostMapping("/init")
+    public Map<String, Object> init() {
         HashMap<String, Object> result = new HashMap<>();
         chartDataTask.initChartData();
         chartDataTask.execute();

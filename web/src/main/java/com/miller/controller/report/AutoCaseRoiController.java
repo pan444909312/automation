@@ -1,6 +1,10 @@
 package com.miller.controller.report;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.miller.common.util.DateUtils;
+import com.miller.entity.platform.Project;
+import com.miller.entity.platform.User;
 import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
 import com.miller.entity.util.Response;
 import com.miller.common.util.ULIDUtils;
@@ -9,18 +13,22 @@ import com.miller.entity.constant.SortEnum;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
+import com.miller.mapper.platform.UserMapper;
+import com.miller.service.platform.ProjectService;
+import com.miller.service.platform.UserBindProjectService;
+import com.miller.service.report.ApifoxAutoCaseRoiService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.common.util.TimestampUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -33,10 +41,24 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/automation/autoCaseRoi")
 @Tag(name = "自动化用例roi统计")
+@Slf4j
 public class AutoCaseRoiController {
 
     @Autowired
     AutoCaseRoiService autoCaseRoiService;
+
+    @Autowired
+    ApifoxAutoCaseRoiService apifoxAutoCaseRoiService;
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private UserBindProjectService userBindProjectService;
+
 
     /**
      * 分页查询自动化用例roi数据
@@ -52,10 +74,10 @@ public class AutoCaseRoiController {
         QueryWrapper<AutoCaseRoiEntity> queryWrapper = new QueryWrapper<>();
         String executionUser = pageAutoCaseRoiReqDto.getExecutionUser();
         String scenarioIdOrName = pageAutoCaseRoiReqDto.getScenarioIdOrName();
-        Date createStartTime = pageAutoCaseRoiReqDto.getCreateStartTime();
-        Date createEndTime = pageAutoCaseRoiReqDto.getCreateEndTime();
-        Date updateStartTime = pageAutoCaseRoiReqDto.getUpdateStartTime();
-        Date updateEndTime = pageAutoCaseRoiReqDto.getUpdateEndTime();
+        Date createStartTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getCreateStartTime(), "yyyy-MM-dd");
+        Date createEndTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getCreateEndTime(), "yyyy-MM-dd");
+        Date updateStartTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getUpdateStartTime(), "yyyy-MM-dd");
+        Date updateEndTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getUpdateEndTime(), "yyyy-MM-dd");
         Integer orderBy = pageAutoCaseRoiReqDto.getOrderBy();
         Integer sort = pageAutoCaseRoiReqDto.getSort();
         if (!StringUtils.isEmpty(executionUser)) {
@@ -69,13 +91,16 @@ public class AutoCaseRoiController {
             queryWrapper.ge("create_time", createStartTime.getTime());
         }
         if (createEndTime != null) {
-            queryWrapper.le("create_time", createEndTime.getTime());
+            queryWrapper.le("create_time", createEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
         if (updateStartTime != null) {
             queryWrapper.ge("update_time", updateStartTime.getTime());
         }
         if (updateEndTime != null) {
-            queryWrapper.le("update_time", updateEndTime.getTime());
+            queryWrapper.le("update_time", updateEndTime.getTime() + 1000 * 60 * 60 * 24);
+        }
+        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0) {
+            queryWrapper.groupBy("scenario_name");
         }
         if (orderBy == 1) {
             queryWrapper.orderByDesc(SortEnum.getValueByKey(String.valueOf(sort)));
@@ -88,16 +113,6 @@ public class AutoCaseRoiController {
 
         List<AutoCaseRoiEntity> records = page.getRecords();
         long total = page.getTotal();
-        if (pageAutoCaseRoiReqDto.getIsRepeat() == 0) {
-            records = new ArrayList<>(records.stream()
-                    .collect(Collectors.toMap(
-                            AutoCaseRoiEntity::getScenarioName, // 指定用作键的属性（这里是id）
-                            Function.identity(), // 使用对象本身作为值
-                            (existing, replacement) -> existing // 如果有重复，保留现有的（或选择replacement）
-                    ))
-                    .values());
-        }
-
 
         ArrayList<AutoCaseRoiRespDTO> autoCaseRoiRespDTOList = new ArrayList<>();
         AutoCaseRoiRespDTO autoCaseRoiRespDTO;
@@ -135,8 +150,51 @@ public class AutoCaseRoiController {
     }
 
     @PostMapping("/apifox/save")
+    @Transactional
     public Response<Boolean> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
-        boolean res = autoCaseRoiService.apifoxSaveOrUpdate(dto);
+
+        /**
+         //  校验小组归属小组是否存在
+         Dept dept;
+         if (!ObjectUtils.isEmpty(dto.getDept())) {
+         dept = deptMapper.selectByName(dto.getDept());
+         }else {
+         dept = deptMapper.selectByName("B-商家组");
+         }
+         ***/
+
+        Project project = null;
+        if (!ObjectUtils.isEmpty(dto.getDept())) {
+            project = projectService.findByName(dto.getDept());
+        }
+        if (ObjectUtils.isEmpty(project)){
+            log.error("查不到项目：{}，默认使用 B-商家组 查询",dto.getDept());
+            project = projectService.findByName("B端-商家组");
+        }
+
+
+
+        //  校验是否有此实现人
+        String author = ObjectUtils.isNotEmpty(dto.getAuthor()) ? dto.getAuthor() : dto.getExecutionUser();
+        if (ObjectUtils.isEmpty(author)) {
+            return Response.fail("executionUser 和 author 必填一个，不然Case 无法归属用户");
+        }
+        User user = userMapper.selectByName(author);
+        if (ObjectUtils.isEmpty(user)) {
+            return Response.fail("查不到该用户:" + dto.getAuthor() + ",请联系开发添加");
+        }
+        dto.setEmail(user.getEmail());
+
+        // 场景 ID 为空
+        if (com.miller.common.util.StringUtils.isBlank(dto.getScenarioId())) {
+            return Response.fail("scenarioId 不能为空");
+        }
+
+        boolean res = apifoxAutoCaseRoiService.apifoxSaveOrUpdate(dto);
+
+        // 校验 user 和 dept 是否有映射关系，没有则创建一个
+        userBindProjectService.saveOrUpdate(project.getProjectId(), user.getUserId());
+
         return Response.success(res);
     }
 
@@ -154,6 +212,6 @@ public class AutoCaseRoiController {
 
         boolean result = autoCaseRoiService.removeById(removeAutoCaseRoiReqDTO.getId());
 
-        return result ? "删除成功":"删除失败";
+        return result ? "删除成功" : "删除失败";
     }
 }

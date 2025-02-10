@@ -16,7 +16,6 @@ public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
 
     String getAutoCaseNameByScenarioId(String scenarioId);
 
-    boolean apifoxSaveOrUpdate(ApifoxAutoCaseRoiDto apifoxAutoCaseRoiDto);
 
     /**
      *

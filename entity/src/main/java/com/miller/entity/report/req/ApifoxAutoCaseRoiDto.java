@@ -1,7 +1,7 @@
 package com.miller.entity.report.req;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -31,5 +31,25 @@ public class ApifoxAutoCaseRoiDto {
 
     @Schema(description = "执行人员名称")
     private String executionUser;
+
+    @Schema(description = "实现日期")
+    private String createTime;
+
+    @Schema(description = "初始化执行次数")
+    private Integer times;
+
+    @Schema(description = "优先级")
+    private Integer priority;
+
+    @Schema(description = "负责人")
+    private String author;
+
+    @Schema(description = "归属小组")
+    @NotBlank(message = "归属小组不能为空，枚举值有：B-商家组、P-平台组、C-导购组、D-配送组")
+    private String dept;
+
+    @Schema(description = "邮箱")
+    private String email;
+
 
 }

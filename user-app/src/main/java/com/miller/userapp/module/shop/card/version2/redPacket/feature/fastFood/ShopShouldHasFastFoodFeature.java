@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX6V",
         scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_营销标_标签7_快速出餐_首页-商卡二期：快速出餐",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        developmentTime = 5, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFastFoodFeature {
@@ -55,14 +55,23 @@ public class ShopShouldHasFastFoodFeature {
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
-        ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
-                filter(item -> item.getType().equals(ShopFeatureTypeConstant.FAST_FOOD)).findFirst().get();
+        ShopFeatureVO shopFeatureVO = null;
+        try {
 
-        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+            shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
+                    filter(item -> item.getType().equals(ShopFeatureTypeConstant.FAST_FOOD)).findFirst().get();
+        } catch (Exception e) {
 
-        assertThat(shopIndexVO.getIsFastFood()).isEqualTo(1);
-        assertThat(shopSearchMiddleEntity.getIsFastFood()).isEqualTo(1);
-        assertThat(shopFeatureVO.getShowContent()).isEqualTo(IndexListConstants.FAST_FOOD);
+        }
+        // 需求修改 该标签删除
+        assertThat(shopFeatureVO).isEqualTo(null);
+
+
+//        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+//
+//        assertThat(shopIndexVO.getIsFastFood()).isEqualTo(1);
+//        assertThat(shopSearchMiddleEntity.getIsFastFood()).isEqualTo(1);
+//        assertThat(shopFeatureVO.getShowContent()).isEqualTo(IndexListConstants.FAST_FOOD);
     }
 
 

@@ -13,4 +13,8 @@ import com.miller.entity.platform.UserBindProject;
  */
 public interface UserBindProjectService extends IService<UserBindProject> {
 
+    UserBindProject selectByUserId(String userId);
+
+    void saveOrUpdate(String deptId, String userId);
+
 }
