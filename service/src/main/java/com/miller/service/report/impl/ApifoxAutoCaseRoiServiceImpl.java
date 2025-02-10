@@ -28,11 +28,6 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
     @Autowired
     AutoExecutionRecordService autoExecutionRecordService;
 
-    @Autowired
-    DeptMapper deptMapper;
-
-    @Autowired
-    UserMapper userMapper;
 
     @Autowired
     private UserBindDeptService userBindDeptService;
@@ -65,7 +60,7 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
             BeanUtils.copyProperties(dto, autoCaseRoi);
 
             // 初始化执行次数
-            Integer times = ObjectUtils.isNotEmpty(dto.getTimes()) || dto.getTimes() > 0 ? dto.getTimes() : 1;
+            Integer times = ObjectUtils.isNotEmpty(dto.getTimes()) && dto.getTimes() > 0 ? dto.getTimes() : 1;
             autoCaseRoi.setTimes(times);
 
             //  初始化创建时间:  时间格式不对则当前创建时间

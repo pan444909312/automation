@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Deprecated
 public class UserBindDeptServiceImpl  extends ServiceImpl<UserBindDeptMapper, UserBindDept> implements UserBindDeptService {
 
     @Autowired
@@ -34,7 +35,6 @@ public class UserBindDeptServiceImpl  extends ServiceImpl<UserBindDeptMapper, Us
                 .setUserId(userId)
                 .setDeptId(deptId)
                 .setUpdateTime(currentTimeMillis);
-        ;
 
         this.saveOrUpdate(userBindDept);
     }
