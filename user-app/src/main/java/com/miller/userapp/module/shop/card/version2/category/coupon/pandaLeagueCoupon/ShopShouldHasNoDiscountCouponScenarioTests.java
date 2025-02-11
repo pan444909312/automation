@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  * @since 2024/8/1 18:20
  */
 @EnvTag.Test
-@Scenario(scenarioID = "01J5AKPH46ETH3N1W167KCY6B4",
+@Scenario(scenarioID = "01JKSWF87G92SY8E6XBBJARJ68",
         scenarioName = "普通店铺配送商卡-品类频道_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 无折扣红包 - 不展示",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")

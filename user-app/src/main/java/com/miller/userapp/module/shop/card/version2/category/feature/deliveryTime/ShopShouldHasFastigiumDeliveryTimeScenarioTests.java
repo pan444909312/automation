@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/25 18:12
  */
-@Scenario(scenarioID = "01J8MFQJYPKS8X8R4MENRKGDFP",
+@Scenario(scenarioID = "01JKSWF87G92SY8E6XBBJARJ6B",
         scenarioName = "商卡(中文)_普通店铺配送商卡-品类频道_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test

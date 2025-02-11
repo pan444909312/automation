@@ -81,7 +81,7 @@ public class GroupPopupScenarioTests {
         assertThat(redPacketGroupPopupInfoVO.getRedPacketList().get(0).getRedPacketId()).isEqualTo(888893280L);
         assertThat(redPacketGroupPopupInfoVO.getRedPacketList().get(1).getRedPacketId()).isEqualTo(888893278L);
         assertThat(redPacketGroupPopupInfoVO.getRedPacketList().get(2).getRedPacketId()).isEqualTo(888893276L);
-
+//      开始领取
     }
     private static Stream<Arguments> popupDataProvider(){
         UserPopupRequestDTO popupRequestDTO = new UserPopupRequestDTO();
