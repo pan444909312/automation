@@ -36,6 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01JKSWF87HHXZMJ276T2V6BQXR",
         scenarioName = "商卡(中文)_普通店铺配送商卡_品类频道_基础信息_店铺logo_静图_首页-商卡二期:店铺logo-静图",
+        author = "shandongdong@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
