@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J61TZX3QYPJKE76RVDW8AKS9",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签7_快速出餐_首页-商卡二期：快速出餐",
-        developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFastFoodFeature {

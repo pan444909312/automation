@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01JD43VBR4MDPP84K05MCJAHNZ",
         scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_标签7_出餐准时_熊猫联盟频道-商卡二期：出餐准时 - 不展示 - 优先级",
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoMealsOnTimeCausePriorityFeature {

@@ -25,7 +25,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Scenario(scenarioID = "01JCMXFHFZ6VEKMGDGSJZ6W2T9",
        scenarioName = "结算-店铺基础运费和加价",
-        developmentTime = 150, maintenanceTime = 0, manualTestTime = 25)
+        author = "zhangcheng@hungrypandagroup.com", developmentTime = 150, maintenanceTime = 0, manualTestTime = 25)
 @DisplayName("结算-店铺基础运费和加价")
 public class SettlementDeliveryFeeTests {
     static DeliveryDiscountShopMapper deliveryDiscountShopMapper;

@@ -23,6 +23,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】登录 - 兑换红包 - 查看订单详情pf红包&优惠券列表")
 @Scenario(scenarioID = "01JA4ZPKGMEJSHP04GZWZZPQE2",
         scenarioName = "【主干场景】登录 - 兑换红包 - 查看订单详情pf红包&优惠券列表",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 15)
 public class ExchageRedPacketAndGetListScenarioTests {
 }

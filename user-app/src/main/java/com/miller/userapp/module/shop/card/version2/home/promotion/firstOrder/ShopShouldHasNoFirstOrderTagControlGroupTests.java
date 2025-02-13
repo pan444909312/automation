@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01J7QY2D2DYTX4CZ7DMMR4BDX6", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：对照组"
-        , developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：对照组")
 public class ShopShouldHasNoFirstOrderTagControlGroupTests {
     //    测试数据：店铺04，营销标签类型：35

@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
-@Scenario(scenarioID = "01J9QNPACXKVRS7D0NGX917QYW", scenarioName = "结算-商品限购", developmentTime = 40, maintenanceTime = 0, manualTestTime = 15)
+@Scenario(scenarioID = "01J9QNPACXKVRS7D0NGX917QYW", scenarioName = "结算-商品限购", author = "zhangcheng@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("结算-商品限购")
 public class SettlementWithProduct {
     private Integer buyLimitMin = 2;

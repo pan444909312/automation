@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01JDKG1GHY8D4NQB43YPJB3GKP",
         scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_店铺评分_首页-商卡二期：店铺评分-历史评分",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopScoreIsHistoryScoreTests {

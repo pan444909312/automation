@@ -24,6 +24,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】登录 -查看特殊单列表 - 特殊单详情")
 @Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KQ",
         scenarioName = "【主干场景】登录 -查看特殊单列表 - 特殊单详情",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class GetSpecialOrderDataScenarioTests {
 }

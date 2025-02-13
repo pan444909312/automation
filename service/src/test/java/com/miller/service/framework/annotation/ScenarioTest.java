@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  */
 @Disabled
 @TestFramework
-@Scenario(scenarioID = "01J4KETZ7AFZXVWE02JSM7P3Z7", scenarioName = "测试场景", developmentTime = 1, maintenanceTime = 1, manualTestTime = 1)
+@Scenario(scenarioID = "01J4KETZ7AFZXVWE02JSM7P3Z7", scenarioName = "测试场景", author = "shandongdong@hungrypandagroup.com", developmentTime = 1, maintenanceTime = 1, manualTestTime = 1)
 public class ScenarioTest {
     @Test
     void test() {

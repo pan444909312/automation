@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestFramework
 @Scenario(scenarioID = "01JDR9SSRCPFQ00ECRA2RG74FW", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-类目-品类频道-商卡二期：类目"
-        , developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-辅助信息-类目-品类频道-商卡二期：类目")
 public class ShopShouldHasCategoryNameScenarioTests {
 

@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestFramework
 @Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX7G", scenarioName = "商卡(中文)-普通店铺配送商卡-红包适用商家列表-辅助信息-起送价-商卡二期：起送价"
-        , developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("商卡(中文)-普通店铺配送商卡-红包适用商家列表-辅助信息-起送价-商卡二期：起送价")
 public class ShopShouldHasStartSendMoneyScenarioTests {
 

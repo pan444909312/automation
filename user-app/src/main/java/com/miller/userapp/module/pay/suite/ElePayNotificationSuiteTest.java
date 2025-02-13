@@ -13,7 +13,7 @@ import org.junit.platform.suite.api.Suite;
 
 @Scenario(scenarioID = "01J6RVDWT6K7T2X5ET7FFVFKB6",
         scenarioName = "支付_普通支付_日本ElePay支付_ElePay支付回调",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+        author = "luwei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("日本ele支付回调")
 @SelectClasses({

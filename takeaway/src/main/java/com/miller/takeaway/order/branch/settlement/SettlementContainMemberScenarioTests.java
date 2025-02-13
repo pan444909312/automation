@@ -27,7 +27,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Scenario(scenarioID = "01HK72EK786CKN8N2QYVXRJ1AD",
         scenarioName = "【分支场景】【订单结算】 订单金额 = 商品小计 + 打包费 + 配送费折扣价(配送费-VIP配送优惠金额）+ 开通会员价格 + 新增收费项cn - 红包优惠",
-        developmentTime = 12 * 60, maintenanceTime = 60, manualTestTime = 2 * 60)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 12 * 60, maintenanceTime = 60, manualTestTime = 2 * 60)
 @SuiteDisplayName("【分支场景】【订单结算】 订单金额 = 商品小计 + 打包费 + 配送费折扣价(配送费-VIP配送优惠金额）+ 开通会员价格 + 新增收费项cn - 红包优惠")
 @Suite
 public class SettlementContainMemberScenarioTests {

@@ -38,7 +38,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @Scenario(scenarioID = "01JASK7KAP424JJJNP35ESPKTF",
         scenarioName = "用户-登录",
-        developmentTime = 20, maintenanceTime = 10, manualTestTime = 5)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 10, manualTestTime = 5)
 @DisplayName("用户-登录")
 public class UserLoginTests {
     private static String token;

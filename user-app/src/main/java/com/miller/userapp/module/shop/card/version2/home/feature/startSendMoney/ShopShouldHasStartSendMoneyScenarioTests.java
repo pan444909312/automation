@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 @TestFramework
 @Scenario(scenarioID = "01JDR9SSRCPFQ00ECRA2RG74GA", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-起送价-商卡二期：起送价"
-        , developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-起送价-商卡二期：起送价")
 public class ShopShouldHasStartSendMoneyScenarioTests {
 

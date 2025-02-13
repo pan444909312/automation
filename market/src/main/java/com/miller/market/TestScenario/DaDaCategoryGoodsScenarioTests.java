@@ -24,6 +24,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】登录-达达分类页-一级分类-二级分类-商品")
 @Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KS",
         scenarioName = "【主干场景】登录-达达分类页-一级分类-二级分类-商品",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 public class DaDaCategoryGoodsScenarioTests {
 }

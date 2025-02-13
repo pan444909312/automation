@@ -24,6 +24,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】登录-达达获取场景广告列表-获取场景广告商品")
 @Scenario(scenarioID = "01JDKRYYZ2E061J4C0Q29WQ74A",
         scenarioName = "【主干场景】登录-达达获取场景广告列表-获取场景广告商品",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 public class DaDaHpAdScenarioTests {
 }

@@ -36,7 +36,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 @Scenario(scenarioID = "01JJ461JE3X761GWRNPWW835NV",
         scenarioName = "正常流程_结算_优惠项-红包减免",
-        developmentTime = 480, maintenanceTime = 30, manualTestTime = 120)
+        author = "luwei@hungrypandagroup.com", developmentTime = 480, maintenanceTime = 30, manualTestTime = 120)
 @EnvTag.Test
 @DisplayName("红包减免")
 public class RedPacketDiscountForSettlementTest {

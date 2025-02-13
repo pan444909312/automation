@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J3VJ3JM9NZNW9BH5JEBWCN2G",
         scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示",
-        developmentTime = 4 * 60, maintenanceTime = 0, manualTestTime = 30)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 4 * 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasLabelScenarioTests {

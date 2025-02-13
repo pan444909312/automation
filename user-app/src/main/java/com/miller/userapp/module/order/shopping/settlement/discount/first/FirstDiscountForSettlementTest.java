@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JFA2RKBP5TB9D6JE8GMXQ5FS",
         scenarioName = "正常流程_结算_优惠项-首单/门店新客",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
+        author = "luwei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 public class FirstDiscountForSettlementTest {
 
     @ParameterizedTest

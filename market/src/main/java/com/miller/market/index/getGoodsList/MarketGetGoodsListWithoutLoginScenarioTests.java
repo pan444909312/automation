@@ -29,7 +29,7 @@ import java.util.stream.Stream;
  */
 @Scenario(scenarioID = "01J6ESBX6E0MVFNH5AC2TP0BH7",
         scenarioName = "正常流程_未登录_获取首页第一个商品流_获取第二个商品流",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("PF_首页商品流")
 public class MarketGetGoodsListWithoutLoginScenarioTests {

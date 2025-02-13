@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JF9QXJSJC06FW7Y92DV1P6ES",
         scenarioName = "正常流程_结算_优惠项-满减",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "luwei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("满减优惠")
 public class FullDiscountForSettlementTest {

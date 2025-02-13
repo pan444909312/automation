@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestFramework
 @Scenario(scenarioID = "01JDR9SSRB28118W2EDV5WVDF1", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-熊猫联盟频道-商卡二期：人均 - 人均展示开关关闭"
-        , developmentTime = 5, maintenanceTime = 0, manualTestTime = 15)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 5, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-熊猫联盟频道-商卡二期：人均 - 人均展示开关关闭")
 public class ShopShouldNotHasAveragePurchaseScenarioTests {
     //    测试店铺

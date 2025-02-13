@@ -20,7 +20,7 @@ import java.util.UUID;
 @Scenario(
         scenarioID="01J5N1X0M0JW76719QVGXXDXPX",
         scenarioName = "POS 开放接口 - 菜单 - 编辑菜单",
-        developmentTime = 30,
+        author = "yuwei@hungrypandagroup.com", developmentTime = 30,
         maintenanceTime = 0 ,
         manualTestTime = 5
 )

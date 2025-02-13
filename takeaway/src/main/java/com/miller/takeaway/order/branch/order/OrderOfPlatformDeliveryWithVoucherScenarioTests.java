@@ -60,6 +60,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @Suite
 @SuiteDisplayName("【分支场景】【平台配送】【代金券合单】用户下单时购买代金券")
 @Scenario(scenarioID = "01HK72EK7DJP4HJAH7BX02ZM3D", scenarioName = "【分支场景】【平台配送】【代金券合单】用户下单时购买代金券"
-        , developmentTime = 12 * 60, maintenanceTime = 60, manualTestTime = 60)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 12 * 60, maintenanceTime = 60, manualTestTime = 60)
 public class OrderOfPlatformDeliveryWithVoucherScenarioTests {
 }

@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX7N",
         scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopStatusShouldOrderStopTests {

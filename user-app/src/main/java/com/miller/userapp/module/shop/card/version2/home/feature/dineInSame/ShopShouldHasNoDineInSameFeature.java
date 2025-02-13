@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J61TZX3QYPJKE76RVDW8AKS6",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签4_堂食同价_首页-商卡二期：堂食同价 - 不展示",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoDineInSameFeature {

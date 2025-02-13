@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01J5N6H1042KC3M5BAP200PKXC",
         scenarioName = "普通店铺配送商卡_优惠标签_神券_首页-商卡二期：神券41-有神券正常展示",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasGodCouponTests {

@@ -24,6 +24,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】登录 -查看自定义详情 - 查看热销榜单详情")
 @Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KN",
         scenarioName = "【主干场景】登录 -查看自定义详情 - 查看热销榜单详情",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class GetPersonalizeDetailScenarioTests {
 }

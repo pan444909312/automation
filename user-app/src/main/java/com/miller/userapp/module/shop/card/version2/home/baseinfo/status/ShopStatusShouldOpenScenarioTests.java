@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/07/28 17:17:39
  */
 @Scenario(scenarioID = "01J46NM6T95SRMR0NK5V3MG17E", scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-营业"
-        , developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopStatusShouldOpenScenarioTests {

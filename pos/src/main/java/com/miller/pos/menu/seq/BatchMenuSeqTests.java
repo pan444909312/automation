@@ -22,7 +22,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 @Scenario(
         scenarioID="01J5N2G49FNJH4YPS4N5BP1CJ7",
         scenarioName = "POS 开放接口 - 菜单 - 批量修改菜单排序",
-        developmentTime = 30,
+        author = "yuwei@hungrypandagroup.com", developmentTime = 30,
         maintenanceTime = 0 ,
         manualTestTime = 5
 )

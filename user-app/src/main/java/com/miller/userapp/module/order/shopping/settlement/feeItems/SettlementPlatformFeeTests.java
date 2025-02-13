@@ -37,7 +37,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Scenario(scenarioID = "01JCMXFHFZ6VEKMGDGSJZ6W2TC",
         scenarioName = "结算-平台服务费",
-        developmentTime = 200, maintenanceTime = 0, manualTestTime = 60)
+        author = "zhangcheng@hungrypandagroup.com", developmentTime = 200, maintenanceTime = 0, manualTestTime = 60)
 @DisplayName("结算-平台服务费")
 public class SettlementPlatformFeeTests {
 

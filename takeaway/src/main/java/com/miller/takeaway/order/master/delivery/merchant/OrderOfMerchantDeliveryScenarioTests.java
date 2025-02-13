@@ -60,6 +60,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束")
 @Scenario(scenarioID = "01HJQY9HH260WG8SH4S19CQY4Q",
         scenarioName = "【主干场景】【商家配送】用户选择配送方式为配送，支付成功，商家配送，用户确认已送达，订单主流程结束",
-        developmentTime = 12 * 60, maintenanceTime = 30, manualTestTime = 60)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 12 * 60, maintenanceTime = 30, manualTestTime = 60)
 public class OrderOfMerchantDeliveryScenarioTests {
 }

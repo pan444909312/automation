@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01JDKTPH7X34D50ZF581PWBBB4",
         scenarioName = "普通店铺配送商卡-熊猫联盟频道_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class PandaShopStatusShouldOrderStopTests {

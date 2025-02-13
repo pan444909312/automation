@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 @Scenario(scenarioID = "01JH5FNA6NGX03HVRNCB1EZV2A",
         scenarioName = "正常流程_结算_优惠项-代金券",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
+        author = "luwei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 public class VoucherDiscountForSettlementTest {
 
     @BeforeAll

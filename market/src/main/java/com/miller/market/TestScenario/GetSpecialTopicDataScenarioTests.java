@@ -33,6 +33,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】登录 -查看普通专题/n选1/组合促销/随心配/临期/新人专题/秒杀专题商品")
 @Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KP",
         scenarioName = "【主干场景】登录 -查看普通专题/n选1/组合促销/随心配/临期/新人专题/秒杀专题商品",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class GetSpecialTopicDataScenarioTests {
 }

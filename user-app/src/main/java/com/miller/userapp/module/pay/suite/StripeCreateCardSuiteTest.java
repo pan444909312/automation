@@ -11,7 +11,7 @@ import org.junit.platform.suite.api.Suite;
 
 @Scenario(scenarioID = "01J6RZQPWZV4C13EG3TDH9197V",
         scenarioName = "支付_普通支付_Stripe支付_Stripe解绑卡",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+        author = "luwei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("Stripe解绑卡")
 @SelectClasses({

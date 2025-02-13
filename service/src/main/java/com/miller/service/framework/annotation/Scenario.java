@@ -69,5 +69,5 @@ public @interface Scenario {
     /**
      * 作者: 格式为公司邮箱
      */
-//    String author();
+    String author();
 }

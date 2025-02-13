@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @EnvTag.Test
-@Scenario(scenarioID = "01J9QNPACXKVRS7D0NGX917QY0", scenarioName = "购物车-商品限购", developmentTime = 50, maintenanceTime = 0, manualTestTime = 5)
+@Scenario(scenarioID = "01J9QNPACXKVRS7D0NGX917QY0", scenarioName = "购物车-商品限购", author = "zhangcheng@hungrypandagroup.com", developmentTime = 50, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("购物车-商品限购")
 public class CartTestWithProduct {
     private Integer buyLimitMin = 2;

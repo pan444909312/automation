@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01JD75NTBJGBCPTEEMD4VCN1DK",
         scenarioName = "普通店铺配送商卡-熊猫联盟频道_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37",
-        developmentTime = 30, maintenanceTime = 10, manualTestTime = 20)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 20)
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")

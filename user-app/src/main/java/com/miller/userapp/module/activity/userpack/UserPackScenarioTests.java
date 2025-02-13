@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01J821AKXQZVJGGQEWNPF6J2SX", scenarioName = "用户-首页-底部tab-自取商家列表"
-        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("首页-自取tab商家列表")
 public class UserPackScenarioTests {
     /**

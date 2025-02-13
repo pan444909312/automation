@@ -63,6 +63,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】【用户自取】用户选择配送方式为自取，支付成功，商家出餐，用户确认已取餐并申请售后，订单结束")
 @Scenario(scenarioID = "01HK72EK70TPJVRYYZSS1V9AZ5",
         scenarioName = "【主干场景】【用户自取】用户选择配送方式为自取，支付成功，商家出餐，用户确认已取餐并申请售后，订单结束",
-        developmentTime = 2 * 60, maintenanceTime = 0, manualTestTime = 60)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 2 * 60, maintenanceTime = 0, manualTestTime = 60)
 public class OrderOfMyselfDeliveryThenMerchantOutOrderAndUserConfirmOrderAndRefundScenarioTests {
 }

@@ -23,7 +23,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         // 创建订单-结算
         SettlementTests.class,})
 @Scenario(scenarioID = "01HK72EK733AS48DCMJ8MCRGCM", scenarioName = "【分支场景】【订单结算】订单金额 = 商品小计 + 打包费 + 配送费",
-        developmentTime = 4 * 60, maintenanceTime = 60, manualTestTime = 120)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 4 * 60, maintenanceTime = 60, manualTestTime = 120)
 @SuiteDisplayName("【分支场景】【订单结算】订单金额 = 商品小计 + 打包费 + 配送费")
 @Suite
 public class SettlementContainPackageDeliveryFeeScenarioTests {

@@ -47,7 +47,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
  */
 @Scenario(scenarioID = "01JEDQDKGXRPDKC276AS7SPK0X",
         scenarioName = "用户是会员并且会员权益有服务费费减免，会员服务费减免剩余次数>0，店铺服务费>0，店铺服务费<=服务费减免金额",
-        developmentTime = 160, maintenanceTime = 0, manualTestTime = 20)
+        author = "heyuan@hungrypandagroup.com", developmentTime = 160, maintenanceTime = 0, manualTestTime = 20)
 @EnvTag.Test
 @DisplayName("结算-会员服务费减免")
 public class SettlementMemberFeeReduceTests {

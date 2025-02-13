@@ -100,7 +100,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/7 20:25:24
  */
 @Disabled
-@Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
+@Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家", author = "shandongdong@hungrypandagroup.com", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
 @Slf4j
 @DisplayName("一键自动创建商家")
 public class CreateMerchantTests {

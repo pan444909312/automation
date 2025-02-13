@@ -26,7 +26,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Scenario(scenarioID = "01JCMXFHFZ6VEKMGDGSJZ6W2TB",
         scenarioName = "结算-打包费",
-        developmentTime = 150, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangcheng@hungrypandagroup.com", developmentTime = 150, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("结算-打包费")
 public class SettlementPackings {
     static ShopExtraInfoMapper shopExtraInfoMapper;

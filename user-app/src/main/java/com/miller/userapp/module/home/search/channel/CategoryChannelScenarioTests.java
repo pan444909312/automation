@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01J821AKXRZ9E55WEVWG44TQJE", scenarioName = "用户-搜索-搜索中间页-品类频道接口"
-        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("搜索中间页-进入品类频道")
 public class CategoryChannelScenarioTests {
     @MethodSource("provideCategoryChannelData")
