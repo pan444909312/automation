@@ -89,6 +89,9 @@ public class DateUtils {
      * @return
      */
     public static Date strToDate(String dateStr, String pattern) {
+        if (StringUtils.isBlank(dateStr)){
+            return null;
+        }
         if (StringUtils.isBlank(pattern)){
             pattern = "yyyy-MM-dd HH:mm:ss";
         }

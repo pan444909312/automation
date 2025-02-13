@@ -286,7 +286,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         autoExecutionRecord.setManualTestTime(autoCaseRoiLog.getManualTestTime());
         autoExecutionRecord.setMaintenanceTime(autoCaseRoiLog.getMaintenanceTime());
         if ("".equals(executor)) {
-            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.UNKNOWN_STRATEGY.getCode());
+            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.DEFAULT_STRATEGY.getCode());
         } else if ("DevOps Platform".equals(executor)) {
             autoExecutionRecord.setExecutionType(ExecutionTypeEnum.DAILY_CHECK.getCode());
         } else {

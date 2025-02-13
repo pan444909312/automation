@@ -69,6 +69,11 @@ public class AutoCaseRoiChartEntity implements Serializable {
     @TableLogic
     private Byte isDeleted;
 
+    @Schema(description = "关联项目id")
+    @TableField("project_id")
+    private String projectId;
+
+
     public AutoCaseRoiChartEntity(Long totalMaintenanceTime, Long totalDevelopmentTime, Integer times, Long saveTime, Double roi, Integer executionType,String timestampStr) {
         this.totalMaintenanceTime = totalMaintenanceTime;
         this.totalDevelopmentTime = totalDevelopmentTime;

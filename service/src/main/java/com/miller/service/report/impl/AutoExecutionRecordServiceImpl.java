@@ -168,7 +168,7 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         if (executionTypeList.contains(caseRoiDto.getExecutionType())) {
             entity.setExecutionType(caseRoiDto.getExecutionType());
         } else {
-            entity.setExecutionType(ExecutionTypeEnum.UNKNOWN_STRATEGY.getCode());
+            entity.setExecutionType(ExecutionTypeEnum.DEFAULT_STRATEGY.getCode());
         }
 
         entity.setExecutionStatus(caseRoiDto.getExecutionStatus());

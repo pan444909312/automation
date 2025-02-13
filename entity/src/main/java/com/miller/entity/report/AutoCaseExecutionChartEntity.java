@@ -61,4 +61,9 @@ public class AutoCaseExecutionChartEntity implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Byte isDeleted;
+
+    @Schema(description = "关联项目id")
+    @TableField("project_id")
+    private String projectId;
+
 }
