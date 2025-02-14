@@ -29,6 +29,21 @@ public class UserLogSql {
         queryWrapper.last("limit 1");
         return  getUserLogMapper().selectOne(queryWrapper).getVerifycode();
     }
+
+    /**
+     * 获取最新登陆access_token
+     * @param userId
+     * @return
+     */
+    public UserLogEntity getUserLogEntity(Long userId){
+        QueryWrapper<UserLogEntity> queryWrapper = new QueryWrapper<>();
+        LambdaQueryWrapper<UserLogEntity> lambda = queryWrapper.lambda();
+        lambda.eq(UserLogEntity::getUserId,userId);
+        lambda.eq(UserLogEntity::getUserType,0);
+        lambda.orderByDesc(UserLogEntity::getUserLogId);
+        queryWrapper.last("limit 1");
+        return  getUserLogMapper().selectOne(queryWrapper);
+    }
     public static void main(String[] args){
         System.out.println("16572882043".substring(0,3));
         System.out.println("16572882043".substring("16572882043".length()-4,"16572882043".length()));
