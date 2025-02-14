@@ -4,13 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.common.enums.ShopStatusEnum;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.BaseShopIndexVO;
-import com.miller.common.util.MD5Util;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.erp.moudle.manage.merchant.business.config.time.status.flow.BusinessInfoUpdateStatusFlow;
 import com.miller.erp.moudle.manage.merchant.business.config.time.status.request.BusinessInfoUpdateStopOrderRequestDTO;
 import com.miller.erp.moudle.manage.merchant.business.config.time.status.response.BusinessInfoUpdateStopOrderResponseDTO;
-import com.miller.merchant.summi.login.flow.MerchantLoginFlow;
-import com.miller.merchant.summi.login.request.MerchantLoginRequestDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
@@ -33,7 +30,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JKSWF87HHXZMJ276T2V6BQXT", scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-暂停接单"
-        , developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+        ,author = "shandongdong@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopStatusShouldStopOrderScenarioTests {
