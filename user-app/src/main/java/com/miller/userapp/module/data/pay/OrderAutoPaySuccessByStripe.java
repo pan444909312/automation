@@ -63,7 +63,6 @@ public class OrderAutoPaySuccessByStripe {
         orderAutoPaySuccessByStripe.stringPaymentPattern(orderSn);
     }
     private void requireAuthorization(String orderSn,String passWord){
-        SecureServiceImpl secureService = new SecureServiceImpl();
         boolean isLogin = false;
         String accessToken="";
         OrderSql orderSql = new OrderSql(sqlSession);
