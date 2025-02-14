@@ -8,7 +8,10 @@ import com.hungrypanda.app.server.api.req.payment.WechatWalletInstallReq;
 import com.hungrypanda.app.server.api.res.payment.PaymentPatternDTO;
 import com.hungrypanda.app.server.entity.order.OrderEntity;
 import com.hungrypanda.app.server.entity.user.UserEntity;
+import com.hungrypanda.app.server.entity.user.UserLogEntity;
 import com.hungrypanda.app.server.service.pay.pandapay.payment.core.model.PayData;
+import com.hungrypanda.app.server.service.secure.SecureService;
+import com.hungrypanda.app.server.service.secure.impl.SecureServiceImpl;
 import com.hungrypanda.payserver.api.res.PaymentMethodInfoDTO;
 import com.miller.common.util.MD5Util;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
@@ -18,6 +21,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.module.data.pay.db.OrderSql;
+import com.miller.userapp.module.data.user.db.UserLogSql;
 import com.miller.userapp.module.data.user.db.UserSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
@@ -42,16 +46,16 @@ public class OrderAutoPaySuccessByStripe {
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/pandaPay/biz/payment";
     private static final String SDKURL ="https://api.stripe.com/v1/payment_intents/${paymentIntentId}/confirm";
     private static SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-    private static RedisService redisService = RedisService.getRedisServiceInstance();;
 //    public OrderAutoPaySuccessByStripe(){
 //
 //    }
     //按照订单号查找用户信息
     //查找登陆authorization信息，如果没有重新登陆
     //调用支付接口，生成交易号
-    //获取stripe ka列表，如果没有绑张卡
+    //获取stripe 卡列表，如果没有绑张卡
     //使用stripe支付
-    private static final String orderSn = "6224497559239767001313";
+    private static final String orderSn = "4204598579239760551214"; //合单也传外卖单子订单号,不支持会员自动续费合单
+    //没有登陆需要使用密码登陆
     private static final String PWD = "12345678";//password
     public static void main(String[] args){
         OrderAutoPaySuccessByStripe orderAutoPaySuccessByStripe = new OrderAutoPaySuccessByStripe();
@@ -59,28 +63,23 @@ public class OrderAutoPaySuccessByStripe {
         orderAutoPaySuccessByStripe.stringPaymentPattern(orderSn);
     }
     private void requireAuthorization(String orderSn,String passWord){
+        SecureServiceImpl secureService = new SecureServiceImpl();
         boolean isLogin = false;
         String accessToken="";
         OrderSql orderSql = new OrderSql(sqlSession);
         UserSql userSql = new UserSql(sqlSession);
+        UserLogSql userLogSql = new UserLogSql(sqlSession);
         OrderEntity orderEntity = orderSql.getOrderEntity(orderSn);
         if(orderEntity.getOrderStatusNew() == 8 || orderEntity.getPayStatus() != 0){
             throw new RuntimeException("订单已经取消或者已经被支付");
         }
         Long userId = orderEntity.getUserId();
         UserEntity userEntity = userSql.getUser(userId);
+        UserLogEntity userLogEntity = userLogSql.getUserLogEntity(userId);
         String userName = userEntity.getUserName();
-        redisService.connectionSlave("r-3nscqny4art27v9hrzpd.redis.rds.aliyuncs.com", 6379, "YNKAthEbNF3XoK8E");
-        Object obj  = redisService.get(String.valueOf(userId));
-        if(Objects.nonNull(obj)) isLogin = true;
+        if(Objects.nonNull(userLogEntity)) isLogin = true;
         if(isLogin) {
-            String[] tokenValues = obj.toString().split(",");
-            for (String val : tokenValues){
-                if(val.contains("accessToken=") ){
-                    accessToken = val.split("=")[1];
-                    break;
-                }
-            }
+            accessToken = userLogEntity.getAccessToken();
         }else {
             //重新登陆
             UserLoginRequestDTO user = new UserLoginRequestDTO();
@@ -148,7 +147,8 @@ public class OrderAutoPaySuccessByStripe {
 //        stripePaymentRequest.setBlackBox(RequestUtils.getHeaders().get("blackbox"));
         stripePaymentRequest.setCountryCode(RequestUtils.getHeaders().get("countryCode").toString());
         RequestUtils.getHeaders().put("channel","50");
-        stripePaymentRequest.setOrderSn(orderSn);
+        RequestUtils.getHeaders().put("version","99.99.99");
+
         PaymentPatternCheckOutResponseDTO ppcResponseDTO = PaymentPatternCheckOutFlow.getOrderCombineInfo(orderSn);
 
         PaymentMethodInfoDTO paymentMethod= GetPaymentMethodsFlow.getPaymentMethod();
@@ -157,6 +157,10 @@ public class OrderAutoPaySuccessByStripe {
         }
         if(ppcResponseDTO.getSuccess()){
             stripePaymentRequest.setPaymentType(ppcResponseDTO.getResult().getPaymentType());
+            if(Objects.nonNull(ppcResponseDTO.getResult().getCheckStandCombinedDTO())){
+                //合单
+                orderSn = ppcResponseDTO.getResult().getCheckStandCombinedDTO().getOrderCombinedSn();
+            }
             List<PaymentPatternDTO> patternDTOList= ppcResponseDTO.getResult().getPatternDTOList();
             PaymentPatternDTO paymentPatternDTO= patternDTOList.stream().filter(p->p.getPayType().equals(50)).findAny().orElse(null);
             if (Objects.nonNull(paymentPatternDTO)){
@@ -165,6 +169,7 @@ public class OrderAutoPaySuccessByStripe {
                 stripePaymentRequest.setRoutingFloatingRate(paymentPatternDTO.getFloatingRate());
             }
         }
+        stripePaymentRequest.setOrderSn(orderSn);
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
                 RequestUtils.putBodyOfForm(stripePaymentRequest), null, StripePaymentResponse.class);
 
