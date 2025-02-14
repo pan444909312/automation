@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX7M",
         scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopStatusShouldNoOrderStopTests {
