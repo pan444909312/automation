@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01JD459DEEVR37DTW1R0P6SNFH",
         scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_标签3_回头客_熊猫联盟频道-商卡二期：回头客 - 回头客展示开关禁用",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoReturnedVisitorFeature {

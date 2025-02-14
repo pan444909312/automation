@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01JD45ETHPYEQFRFDT3148C22C",
         scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_营销标_标签3_营销文案_熊猫联盟频道-商卡二期：营销文案 - 无数据",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoEvaluationFeature {

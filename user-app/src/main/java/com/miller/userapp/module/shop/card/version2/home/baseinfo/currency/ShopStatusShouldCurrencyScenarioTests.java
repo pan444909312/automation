@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01J87H7YDD0SRZDXX18B0D13D3",
         scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_首页-商卡二期：货币符号",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopStatusShouldCurrencyScenarioTests {

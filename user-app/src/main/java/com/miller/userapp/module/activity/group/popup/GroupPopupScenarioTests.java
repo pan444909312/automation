@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01JDR9SSRH9HJCMCQQ8RNXB6F9", scenarioName = "智能营销链路-天降弹窗-（基础金额开关开+手动领取模式+3张神券）"
-        , author = "shandongdong@hungrypandagroup.com", developmentTime = 120, maintenanceTime = 0, manualTestTime = 15)
+        , author = "yancancan@hungrypandagroup.com", developmentTime = 120, maintenanceTime = 0, manualTestTime = 15)
 public class GroupPopupScenarioTests {
     @BeforeAll
     public static void beforeAll() {

@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01JC2Q1RT5ESHJ6SGA0XM6A9WW", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-自取折扣-品类频道-商卡二期：自取折扣30 - 无独享商品折扣"
-        , author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-品类频道-优惠标签-自取折扣-品类频道-商卡二期：自取折扣30 - 无独享商品折扣")
 public class ShopShouldHasSelfTakeDiscountTagScenarioTests {
 //    采用店铺2的数据，标签类型：30，自取折扣

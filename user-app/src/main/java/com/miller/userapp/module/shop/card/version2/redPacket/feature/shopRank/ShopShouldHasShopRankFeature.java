@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX7A",
         scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_营销标_标签3_榜单_首页-商卡二期：榜单",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopRankFeature {
