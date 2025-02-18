@@ -4,6 +4,7 @@ import com.miller.entity.util.Response;
 import com.miller.entity.util.ResponseEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.ExpiredCredentialsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -88,9 +89,9 @@ public class GlobalException {
         return new Response(ResponseEnum.ACCOUNT_DISABLE.getCode(), ResponseEnum.ACCOUNT_DISABLE.getMessage(), null);
     }
 
-    @ExceptionHandler(value = UnknownAccountException.class)
+    @ExceptionHandler(value = {UnknownAccountException.class, IncorrectCredentialsException.class})
     public Response handler(UnknownAccountException e) {
-        log.warn("未知账号：----------------{}", e);
+        log.warn("账号或密码错误：----------------{}", e);
         return new Response(ResponseEnum.UNKNOWN_ACCOUNT.getCode(), ResponseEnum.UNKNOWN_ACCOUNT.getMessage(), null);
     }
 
