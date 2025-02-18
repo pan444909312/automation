@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.pandaLeague.feature.shopEvaluation;
+package com.miller.userapp.module.shop.card.version2.pandaLeague.feature.shopScore;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01JDKTPH8NG6ZQGYDP9R7X7QRJ",
         scenarioName = "普通店铺配送商卡-熊猫联盟频道_辅助信息_店铺评分_首页-商卡二期：店铺评分-无数据",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class PandaShopShouldHasNoShopEvaluationTests {

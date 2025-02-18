@@ -16,7 +16,8 @@ import org.junit.jupiter.api.Test;
  * @since 2024/10/28 21:48:29
  */
 @Disabled
-@Scenario(scenarioID = "01JB9P4468E7XZD6EJ8J5K0D94", scenarioName = "一键自动创建模板用户", author = "shandongdong@hungrypandagroup.com", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 2 * 60)
+@Scenario(scenarioID = "01JB9P4468E7XZD6EJ8J5K0D94",
+        scenarioName = "一键自动创建模板用户", author = "luwei@hungrypandagroup.com", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 2 * 60)
 @Slf4j
 @DisplayName("一键自动创建用户")
 public class CreateUserTests {

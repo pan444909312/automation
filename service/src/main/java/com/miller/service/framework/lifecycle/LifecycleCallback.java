@@ -254,7 +254,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private static void checkScenarioAnnotationValueAreCorrect(Class<?> cls, Scenario scenario) {
         if (scenario.developmentTime() <= 0 || scenario.manualTestTime() <= 0)
             throw new TestFrameworkException(cls.getName() + "developmentTime ,manualTestTime must > 0");
-        if (scenario.author().toLowerCase().endsWith("@hungrypandagroup.com")) {
+        if (!scenario.author().toLowerCase().endsWith("@hungrypandagroup.com")) {
             throw new TestFrameworkException(cls.getName() + "author 字段必须为公司邮箱 @hungrypandagroup.com 格式.");
         }
     }

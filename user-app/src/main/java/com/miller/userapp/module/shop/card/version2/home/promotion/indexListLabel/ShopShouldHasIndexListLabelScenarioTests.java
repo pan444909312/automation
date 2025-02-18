@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J5D0D57WRRFD12T2A4XT58C6",
         scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_营销标签_首页-商卡二期：营销标签tpye=22",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
+        author = "heyuan@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasIndexListLabelScenarioTests {

@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX7D",
         scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopScoreIsOperationScoreTests {
