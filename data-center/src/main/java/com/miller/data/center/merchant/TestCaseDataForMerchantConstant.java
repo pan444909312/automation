@@ -106,6 +106,8 @@ public class TestCaseDataForMerchantConstant {
     public static Integer shopPercentPlatformAmount = 10;
     public static Integer shopPercentPlatformFeeLowLimit = 100;
     public static Integer shopPercentPlatformFeeUpLimit = 500;
+    public static Long productIDFormemberCombineOrder = 81669210L;
+
 
     //默认餐具数和餐具费配置
     public static int tablewarePrice = 111;
