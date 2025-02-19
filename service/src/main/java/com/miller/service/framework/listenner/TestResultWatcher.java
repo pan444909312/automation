@@ -187,15 +187,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      */
     private void sendExecuteNotification(ExtensionContext context, String testResult) {
         // 获取执行人员
-        String executor = "";
-        String hostNameOfOS = OSUtils.getHostNameOfOS();
-        // 如果是测试环境，则执行人员为DevOps平台
-        if (hostNameOfOS.contains("hk-test-")) {
-            executor = "DevOps Platform";
-        } else {
-            // 获取git用户名
-            executor = JGitUtils.getGitEmail().split("@")[0];
-        }
+        String executor = OSUtils.getExecutor(context.getRequiredTestClass());
         // 用例名称
         String classDisplayName;
         Optional<DisplayName> optionalClassDisplayName = Optional.ofNullable(context.getRequiredTestClass().getAnnotation(DisplayName.class));
