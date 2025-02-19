@@ -177,7 +177,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private void saveAutoCaseRoi(Class<?> cls) {
         Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
         if (Objects.isNull(scenario)) return;
-        String executor = OSUtils.getExecutor(cls);
+        String executor = TestCaseUtils.getExecutor(cls);
         autoTestClasses.add(cls);
         checkScenarioAnnotationValueAreCorrect(cls, scenario);
         String scenarioId = scenario.scenarioID();

@@ -13,6 +13,7 @@ import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.report.AutoDBUtils;
+import com.miller.service.framework.util.TestCaseUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
@@ -187,7 +188,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      */
     private void sendExecuteNotification(ExtensionContext context, String testResult) {
         // 获取执行人员
-        String executor = OSUtils.getExecutor(context.getRequiredTestClass());
+        String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
         // 用例名称
         String classDisplayName;
         Optional<DisplayName> optionalClassDisplayName = Optional.ofNullable(context.getRequiredTestClass().getAnnotation(DisplayName.class));
