@@ -24,7 +24,7 @@ public enum ResponseEnum {
 
     ACCOUNT_EXPIRE(401, "登录已过期"),
 
-    UNKNOWN_ACCOUNT(401, "未知账号"),
+    UNKNOWN_ACCOUNT(401, "账号或密码错误"),
 
     ACCOUNT_DISABLE(402, "账号已禁用或未登入"),
 

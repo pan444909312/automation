@@ -13,6 +13,7 @@ import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.report.AutoDBUtils;
+import com.miller.service.framework.util.TestCaseUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
@@ -187,15 +188,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      */
     private void sendExecuteNotification(ExtensionContext context, String testResult) {
         // 获取执行人员
-        String executor = "";
-        String hostNameOfOS = OSUtils.getHostNameOfOS();
-        // 如果是测试环境，则执行人员为DevOps平台
-        if (hostNameOfOS.contains("hk-test-")) {
-            executor = "DevOps Platform";
-        } else {
-            // 获取git用户名
-            executor = JGitUtils.getGitEmail().split("@")[0];
-        }
+        String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
         // 用例名称
         String classDisplayName;
         Optional<DisplayName> optionalClassDisplayName = Optional.ofNullable(context.getRequiredTestClass().getAnnotation(DisplayName.class));

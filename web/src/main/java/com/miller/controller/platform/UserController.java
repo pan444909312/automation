@@ -83,10 +83,8 @@ public class UserController {
         try {
             // 开始登陆
             subject.login(jwtToken);
-        } catch (UnknownAccountException e) {
-            throw new AutomationException(ResponseEnum.UNKNOWN_ACCOUNT);
-        } catch (IncorrectCredentialsException e) {
-            throw new AutomationException(ResponseEnum.PASSWORD_ERROR);
+        } catch (UnknownAccountException | IncorrectCredentialsException e) {
+            throw new UnknownAccountException(ResponseEnum.UNKNOWN_ACCOUNT.getMessage());
         }
         User backUser = userService.getUserByEmail(user.getEmail());
         // 将用户信息和加密之后的token返回给前端
@@ -144,7 +142,7 @@ public class UserController {
      * @return {@literal List<User>}
      */
     @Operation(summary = "获取用户列表",
-                responses = {@ApiResponse(responseCode = "200", description = "OK",
+            responses = {@ApiResponse(responseCode = "200", description = "OK",
                     content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = List.class)))})},
             description = "获取用户列表"
     )

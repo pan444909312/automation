@@ -170,32 +170,14 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     }
 
     /**
-     * 获取执行人员
-     *
-     * @return 执行人员
-     */
-    private String getExecutor() {
-        String executor = "";
-        String hostNameOfOS = OSUtils.getHostNameOfOS();
-        // 如果是测试环境，则执行人员为DevOps平台
-        if (hostNameOfOS.contains("hk-test-")) {
-            executor = "DevOps Platform";
-        } else {
-            // 获取git用户名
-            executor = JGitUtils.getGitEmail().split("@")[0];
-        }
-        return executor;
-    }
-
-    /**
      * 保存测试用例到数据库
      *
      * @param cls Class
      */
     private void saveAutoCaseRoi(Class<?> cls) {
         Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
-        String executor = getExecutor();
         if (Objects.isNull(scenario)) return;
+        String executor = TestCaseUtils.getExecutor(cls);
         autoTestClasses.add(cls);
         checkScenarioAnnotationValueAreCorrect(cls, scenario);
         String scenarioId = scenario.scenarioID();
