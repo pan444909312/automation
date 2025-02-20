@@ -188,6 +188,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setDevelopmentTime(scenario.developmentTime());
             autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
             autoCaseRoi.setManualTestTime(scenario.manualTestTime());
+            autoCaseRoi.setAuthor(scenario.author());
             Integer times = autoCaseRoi.getTimes() + 1;
             Long saveTimes = autoCaseRoi.getSaveTime() + autoCaseRoi.getManualTestTime(); //每次执行一次,*1
 //            Integer sumCostTimes = autoCaseRoiDB.getDevelopmentTime() + autoCaseRoiDB.getMaintenanceTime();
@@ -206,6 +207,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setDevelopmentTime(scenario.developmentTime());
             autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
             autoCaseRoi.setManualTestTime(scenario.manualTestTime());
+            autoCaseRoi.setAuthor(scenario.author());
             autoCaseRoi.setTimes(1);
             autoCaseRoi.setSaveTime(Long.valueOf(scenario.manualTestTime()));
             autoCaseRoi.setRoi(calculateRoi(autoCaseRoi));
