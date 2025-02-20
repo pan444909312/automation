@@ -2,7 +2,6 @@ package com.miller.userapp.mapper.virtual;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.member.MemberCityFeeReduceEntity;
-import org.jsoup.Connection;
 
 /**
  * @author heyuan
