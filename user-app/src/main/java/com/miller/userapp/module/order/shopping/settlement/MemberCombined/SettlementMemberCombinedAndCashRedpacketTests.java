@@ -1,19 +1,18 @@
 package com.miller.userapp.module.order.shopping.settlement.MemberCombined;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
 import com.hungrypanda.app.server.api.res.member.MemberBuyDetailOrderShowRes;
-import com.hungrypanda.app.server.api.res.order.OrderAmountVO;
+import com.hungrypanda.app.server.api.res.order.RedPacketVO;
 import com.hungrypanda.app.server.common.enums.StatusEnum;
 import com.hungrypanda.app.server.common.enums.order.CreateOrderTypeEnum;
 import com.hungrypanda.app.server.common.enums.order.OrderReqTypeEnum;
 import com.hungrypanda.app.server.entity.address.CityFunctionConfigEntity;
 import com.hungrypanda.app.server.entity.member.MemberCityEntity;
 import com.hungrypanda.app.server.entity.member.MemberCityFeeReduceEntity;
-import com.hungrypanda.app.server.entity.member.MemberEntityDeliveryPriceEntity;
 import com.hungrypanda.app.server.entity.member.MemberPacketEntity;
 import com.hungrypanda.app.server.entity.redpacket.RedPacketEntity;
 import com.miller.common.util.MD5Util;
@@ -43,7 +42,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -53,7 +51,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
  * @version 1.0
  * @since 2025/2/10 16:17
  */
-@Scenario(scenarioID = "01JKQEJ6YQ5N9XD5G3DBG34DQ1", scenarioName = "会员合单", developmentTime = 160, maintenanceTime = 0, manualTestTime = 20, author = "hey")
+@Scenario(scenarioID = "01JKQEJ6YQ5N9XD5G3DBG34DQ1", scenarioName = "会员合单", developmentTime = 160, maintenanceTime = 0, manualTestTime = 20, author = "heyuan@hungrypandagroup.com")
 @EnvTag.Test
 @DisplayName("配置会员&代金券合单优先级：共同展示&会员权益配置仅现金红包")
 public class SettlementMemberCombinedAndCashRedpacketTests {
@@ -68,6 +66,7 @@ public class SettlementMemberCombinedAndCashRedpacketTests {
    static Long memberCityId = 1111378L;
    static Integer cityFunctionConfigId = 4058;
    static long memberPacketId = 2752L;
+   static Long redPacketId = 888893990L;
 //   static Integer cityId = 508;
    @BeforeAll
    void beforeAll() {
@@ -76,6 +75,8 @@ public class SettlementMemberCombinedAndCashRedpacketTests {
 //      memberDeliveryPriceMapper=sqlSession.getMapper(MemberDeliveryPriceMapper.class);
       memberCityFeeReduceMapper=sqlSession.getMapper(MemberCityFeeReduceMapper.class);
       redPacketMapper=sqlSession.getMapper(RedPacketMapper.class);
+      cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
+      memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
       //关闭会员运费减免
       UpdateWrapper<MemberCityEntity> updateWrapper1 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberCityEntity> lamda1 = updateWrapper1.lambda();
@@ -119,49 +120,39 @@ public class SettlementMemberCombinedAndCashRedpacketTests {
    @ParameterizedTest
    @MethodSource("memberDeliveryFeeData")
    @Order(1)
-   @DisplayName("结算不适用会员权益内红包")
-   void settlementMemberDeliveryFee(SettlementRequestDTO settlementRequestDTO){
+   @DisplayName("结算不适用会员权益-现金红包")
+   void settlementNoCashRedPacket(SettlementRequestDTO settlementRequestDTO){
       UpdateWrapper<RedPacketEntity> updateWrapper4 = new UpdateWrapper<>();
       LambdaUpdateWrapper<RedPacketEntity> lamda4 = updateWrapper4.lambda();
-      lamda4.eq(RedPacketEntity::getRedPacketId,888893990);
+      lamda4.eq(RedPacketEntity::getRedPacketId,redPacketId);
       lamda4.set(RedPacketEntity::getCity, "杭州市");
       redPacketMapper.update(new RedPacketEntity(), updateWrapper4);
 
 
       SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
       MemberBuyDetailOrderShowRes memberBuyDetailOrderShowRes = settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getMemberBuyDetailOrderShowRes();
-
-      assertThat(memberBuyDetailOrderShowRes==null);
+      assert memberBuyDetailOrderShowRes==null;
 
    }
    @ParameterizedTest
    @MethodSource("memberDeliveryFeeData")
    @Order(2)
-   @DisplayName("用户是会员并且会员权益有运费减免，会员运费减免剩余次数>0，配送费-运费减免<=会员运费减免金额")
-   void settlementMemberDeliveryFreeFee(SettlementRequestDTO settlementRequestDTO){
+   @DisplayName("结算适用会员权益-现金红包")
+   void settlementWithCashRedPacket(SettlementRequestDTO settlementRequestDTO){
+      UpdateWrapper<RedPacketEntity> updateWrapper4 = new UpdateWrapper<>();
+      LambdaUpdateWrapper<RedPacketEntity> lamda4 = updateWrapper4.lambda();
+      lamda4.eq(RedPacketEntity::getRedPacketId,redPacketId);
+      lamda4.set(RedPacketEntity::getCity, "九江市");
+      redPacketMapper.update(new RedPacketEntity(), updateWrapper4);
 
-      UpdateWrapper<MemberEntityDeliveryPriceEntity> updateWrapper1 = new UpdateWrapper<>();
-      LambdaUpdateWrapper<MemberEntityDeliveryPriceEntity> lamda1 = updateWrapper1.lambda();
-      lamda1.eq(MemberEntityDeliveryPriceEntity::getMemberEntityId, memberCityId);
-      lamda1.set(MemberEntityDeliveryPriceEntity::getDeliveryType, 1);
-//      memberEntityDeliveryPriceMapper.update(new MemberEntityDeliveryPriceEntity(), updateWrapper1);
+      RedPacketEntity redPacketEntity = redPacketMapper.selectOne(new QueryWrapper<RedPacketEntity>().eq("red_packet_id", redPacketId));
 
       SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
-      OrderAmountVO discountDelivery = settlementResponseDTO.getResult().getPriceInfo().getOrderAmountItemList().stream()
-              .filter(item -> item.getItemKey().equals("discountDelivery")).findFirst().get();
-      List<OrderAmountVO> mergeList = discountDelivery.getMergeList();
-      JSONArray itemKeyList = new JSONArray();
-      if (mergeList !=null){
 
-         for (OrderAmountVO orderAmountVO : mergeList) {
-            itemKeyList.add(orderAmountVO.getItemKey());
+      MemberBuyDetailOrderShowRes memberBuyDetailOrderShowRes = settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getMemberBuyDetailOrderShowRes();
+      RedPacketVO currentOrderRedPacket = memberBuyDetailOrderShowRes.getCurrentOrderRedPacket();
 
-         }
-      }
-      Integer memberDeliveryFee = mergeList.get(0).getItemAmount()-mergeList.get(2).getItemAmount();
-      assertThat(discountDelivery.getItemAmount()).isEqualTo(0);
-      assertThat(itemKeyList.toString().contains("memberDeliveryDiscount"));
-      assertThat(memberDeliveryFee).isEqualTo(mergeList.get(1).getItemAmount());
+      assertThat(currentOrderRedPacket.getRedPacketId().equals(redPacketEntity.getRedPacketId()));
 
    }
 
