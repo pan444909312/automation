@@ -49,12 +49,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 /**
  * @author heyuan
  * @version 1.0
- * @since 2025/2/10 16:17
+ * @since 2025/2/20 17:50
  */
-@Scenario(scenarioID = "01JKQEJ6YQ5N9XD5G3DBG34DQ1", scenarioName = "会员合单", developmentTime = 160, maintenanceTime = 0, manualTestTime = 20, author = "heyuan@hungrypandagroup.com")
+@Scenario(scenarioID = "01JKQEJ6YQ5N9XD5G3DBG34DQ2", scenarioName = "会员合单", developmentTime = 160, maintenanceTime = 0, manualTestTime = 20, author = "heyuan@hungrypandagroup.com")
 @EnvTag.Test
-@DisplayName("配置会员&代金券合单优先级：共同展示&会员权益配置仅现金红包")
-public class SettlementMemberCombinedAndCashRedpacketTests {
+@DisplayName("配置会员&代金券合单优先级：共同展示&会员权益配置仅神券")
+public class SettlementMemberCombinedAndGodCouponTests {
    private static SqlSession sqlSession;
    static MemberCityMapper memberCityMapper;
    static MemberCityFeeReduceMapper memberCityFeeReduceMapper;
@@ -65,46 +65,47 @@ public class SettlementMemberCombinedAndCashRedpacketTests {
    UserLoginRequestDTO userLoginRequestDTO;
    static Long memberCityId = 1111378L;
    static Integer cityFunctionConfigId = 4058;
-   static long memberPacketId = 2752L;
-   static Long redPacketId = 888893990L;
-//   static Integer cityId = 508;
+   static long memberPacketId = 2778L;
+   static Long redPacketId = 888894182L;
+
+   //   static Integer cityId = 508;
    @BeforeAll
    void beforeAll() {
       sqlSession = DBUtils.getDBOfPandaTest();
-      memberCityMapper=sqlSession.getMapper(MemberCityMapper.class);
+      memberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
 //      memberDeliveryPriceMapper=sqlSession.getMapper(MemberDeliveryPriceMapper.class);
-      memberCityFeeReduceMapper=sqlSession.getMapper(MemberCityFeeReduceMapper.class);
-      redPacketMapper=sqlSession.getMapper(RedPacketMapper.class);
+      memberCityFeeReduceMapper = sqlSession.getMapper(MemberCityFeeReduceMapper.class);
+      redPacketMapper = sqlSession.getMapper(RedPacketMapper.class);
       cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
       memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
       //关闭会员运费减免
       UpdateWrapper<MemberCityEntity> updateWrapper1 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberCityEntity> lamda1 = updateWrapper1.lambda();
-      lamda1.eq(MemberCityEntity::getMemberCityId,memberCityId);
+      lamda1.eq(MemberCityEntity::getMemberCityId, memberCityId);
       lamda1.set(MemberCityEntity::getIsOpenDeliveryDiscount, 0);
       lamda1.set(MemberCityEntity::getOnlineStatus, 1);
       memberCityMapper.update(new MemberCityEntity(), updateWrapper1);
       //关闭服务费减免
       UpdateWrapper<MemberCityFeeReduceEntity> updateWrapper2 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberCityFeeReduceEntity> lamda2 = updateWrapper2.lambda();
-      lamda2.eq(MemberCityFeeReduceEntity::getMemberCityId,memberCityId);
+      lamda2.eq(MemberCityFeeReduceEntity::getMemberCityId, memberCityId);
       lamda2.set(MemberCityFeeReduceEntity::getStatus, 0);
       memberCityFeeReduceMapper.update(new MemberCityFeeReduceEntity(), updateWrapper2);
       //会员&代金券合单优先级-共同展示
       UpdateWrapper<CityFunctionConfigEntity> updateWrapper3 = new UpdateWrapper<>();
       LambdaUpdateWrapper<CityFunctionConfigEntity> lamda3 = updateWrapper3.lambda();
-      lamda3.eq(CityFunctionConfigEntity::getId,cityFunctionConfigId);
+      lamda3.eq(CityFunctionConfigEntity::getId, cityFunctionConfigId);
       lamda3.set(CityFunctionConfigEntity::getStatus, 1);
       lamda3.set(CityFunctionConfigEntity::getCombinedOrderShowType, 1);
       cityFunctionConfigMapper.update(new CityFunctionConfigEntity(), updateWrapper3);
-      //新增现金红包
+      //新增神券
       UpdateWrapper<MemberPacketEntity> updateWrapper4 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberPacketEntity> lamda4 = updateWrapper4.lambda();
-      lamda4.eq(MemberPacketEntity::getMemberCityId,memberCityId);
-      lamda4.ne(MemberPacketEntity::getMemberPacketId,memberPacketId);
+      lamda4.eq(MemberPacketEntity::getMemberCityId, memberCityId);
+      lamda4.ne(MemberPacketEntity::getMemberPacketId, memberPacketId);
       lamda4.set(MemberPacketEntity::getIsDel, 1);
       memberPacketMapper.update(new MemberPacketEntity(), updateWrapper4);
-      //现金红包修改isdel=0
+      //神券修改isdel=0
       UpdateWrapper<MemberPacketEntity> updateWrapper5 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberPacketEntity> lamda5 = updateWrapper5.lambda();
       lamda5.eq(MemberPacketEntity::getMemberPacketId,memberPacketId);
@@ -126,34 +127,35 @@ public class SettlementMemberCombinedAndCashRedpacketTests {
    @ParameterizedTest
    @MethodSource("memberDeliveryFeeData")
    @Order(1)
-   @DisplayName("结算不适用会员权益-现金红包")
-   void settlementNoCashRedPacket(SettlementRequestDTO settlementRequestDTO){
+   @DisplayName("结算不适用会员权益-神券")
+   void settlementNoCashRedPacket(SettlementRequestDTO settlementRequestDTO) {
       UpdateWrapper<RedPacketEntity> updateWrapper4 = new UpdateWrapper<>();
       LambdaUpdateWrapper<RedPacketEntity> lamda4 = updateWrapper4.lambda();
-      lamda4.eq(RedPacketEntity::getRedPacketId,redPacketId);
+      lamda4.eq(RedPacketEntity::getRedPacketId, redPacketId);
       lamda4.set(RedPacketEntity::getCity, "杭州市");
       redPacketMapper.update(new RedPacketEntity(), updateWrapper4);
 
 
-      SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+      SettlementResponseDTO settlementResponseDTO = SettlementFlow.settlementProduct(settlementRequestDTO);
       MemberBuyDetailOrderShowRes memberBuyDetailOrderShowRes = settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getMemberBuyDetailOrderShowRes();
-      assert memberBuyDetailOrderShowRes==null;
+      assert memberBuyDetailOrderShowRes == null;
 
    }
+
    @ParameterizedTest
    @MethodSource("memberDeliveryFeeData")
    @Order(2)
-   @DisplayName("结算适用会员权益-现金红包")
-   void settlementWithCashRedPacket(SettlementRequestDTO settlementRequestDTO){
+   @DisplayName("结算适用会员权益-神券")
+   void settlementWithCashRedPacket(SettlementRequestDTO settlementRequestDTO) {
       UpdateWrapper<RedPacketEntity> updateWrapper4 = new UpdateWrapper<>();
       LambdaUpdateWrapper<RedPacketEntity> lamda4 = updateWrapper4.lambda();
-      lamda4.eq(RedPacketEntity::getRedPacketId,redPacketId);
+      lamda4.eq(RedPacketEntity::getRedPacketId, redPacketId);
       lamda4.set(RedPacketEntity::getCity, "九江市");
       redPacketMapper.update(new RedPacketEntity(), updateWrapper4);
 
 //      RedPacketEntity redPacketEntity = redPacketMapper.selectOne(new QueryWrapper<RedPacketEntity>().eq("red_packet_id", redPacketId));
 
-      SettlementResponseDTO settlementResponseDTO= SettlementFlow.settlementProduct(settlementRequestDTO);
+      SettlementResponseDTO settlementResponseDTO = SettlementFlow.settlementProduct(settlementRequestDTO);
 
       MemberBuyDetailOrderShowRes memberBuyDetailOrderShowRes = settlementResponseDTO.getResult().getOrderOpt().getOrderPaymentCombined().getMemberBuyDetailOrderShowRes();
       RedPacketVO currentOrderRedPacket = memberBuyDetailOrderShowRes.getCurrentOrderRedPacket();
