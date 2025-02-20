@@ -11,10 +11,8 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
 import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,31 +25,22 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * 商卡(中文)_普通店铺配送商卡_熊猫联盟频道_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-营业
- *
- * @author Miller Shan
- * @version 1.0
- * @since 2024/07/28 17:17:39
- */
-@Scenario(scenarioID = "01JKSWF87Q08HNV9H0JRWX6T5F", scenarioName = "商卡(中文)_普通店铺配送商卡_熊猫联盟频道_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-营业"
-        , author = "yancancan@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01JKSWF87Q08HNV9H0JRWX6T5H", scenarioName = "商卡(中文)_普通店铺配送商卡_熊猫联盟频道_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-打烊"
+        , author = "yancancan@hungrypandagroup.com",developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopStatusShouldOpenScenarioTests {
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+public class ShopStatusShouldCloseScenarioTests {
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId.close"));
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
-
     @BeforeAll
     static void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
     }
-
     @MethodSource("DataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-营业")
+    @DisplayName("普通店铺配送商卡_熊猫联盟频道_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-打烊")
     void showLabel(ShopListPandaLeagueRequestDTO shopListRequestDTO) {
         // Given
 
@@ -70,8 +59,8 @@ public class ShopStatusShouldOpenScenarioTests {
                 // 获取数据库字段值
                 .getShopStatus();
 
-        assertThat(interfaceResponse).isEqualTo(ShopStatusEnum.OPEN.getCode());
-        assertThat(databaseResponse).isFalse();
+        assertThat(interfaceResponse).isEqualTo(ShopStatusEnum.CLOSE.getCode());
+        assertThat(databaseResponse).isTrue();
     }
 
     /**
@@ -80,6 +69,5 @@ public class ShopStatusShouldOpenScenarioTests {
     static Stream<Arguments> DataProvider() {
         return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
     }
-
 
 }

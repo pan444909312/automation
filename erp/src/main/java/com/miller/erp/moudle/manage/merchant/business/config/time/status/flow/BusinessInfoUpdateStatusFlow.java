@@ -43,8 +43,7 @@ public class BusinessInfoUpdateStatusFlow {
      * @return
      */
     public static BusinessInfoUpdateStopOrderResponseDTO businessInfoUpdateStopOrder(BusinessInfoUpdateStopOrderRequestDTO ShopStopOrderReq) {
-//        RequestUtils.getHeaders().put("Content-Type", "application/json");
-        System.out.println(RequestUtils.getHeaders());
+        RequestUtils.getHeaders().put("Content-Type", "application/json");
         return HttpUtils.sendPostRequestReturnJavaObject(stopOrderUri, null, RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(ShopStopOrderReq), null, BusinessInfoUpdateStopOrderResponseDTO.class);
     }
     /**
