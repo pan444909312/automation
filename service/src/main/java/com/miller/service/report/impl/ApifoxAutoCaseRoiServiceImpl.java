@@ -3,13 +3,9 @@ package com.miller.service.report.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
-import com.miller.mapper.platform.DeptMapper;
-import com.miller.mapper.platform.UserBindDeptMapper;
-import com.miller.mapper.platform.UserMapper;
 import com.miller.mapper.report.AutoCaseRoiMapper;
 import com.miller.service.report.ApifoxAutoCaseRoiService;
 import com.miller.service.report.AutoExecutionRecordService;
-import com.miller.service.report.UserBindDeptService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +25,6 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
     AutoExecutionRecordService autoExecutionRecordService;
 
 
-    @Autowired
-    private UserBindDeptService userBindDeptService;
-
-    @Autowired
-    private UserBindDeptMapper userBindDeptMapper;
 
     // B 侧 Apifox 使用
     public boolean apifoxSaveOrUpdate(ApifoxAutoCaseRoiDto dto) {
