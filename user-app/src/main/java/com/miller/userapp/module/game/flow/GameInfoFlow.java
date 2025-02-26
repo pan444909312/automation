@@ -4,7 +4,6 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.game.request.GameRequestDTO;
 import com.miller.userapp.module.game.response.GameInfoResponseDTO;
-import com.miller.userapp.module.game.response.LuckyDrawResponseDTO;
 import com.miller.userapp.util.RequestUtils;
 
 /**
