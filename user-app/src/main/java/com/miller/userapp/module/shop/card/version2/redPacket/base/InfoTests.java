@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @create: 2024-04-30 16:52
  */
 @EnvTag.Test
-@Scenario(scenarioID = "01J5CW57N1KMMD1W7D0S2SKWYC", scenarioName = "店铺首页-店铺信息", author = "heyuan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
+@Scenario(scenarioID = "01J5CW57N1KMMD1W7D0S2SKWYC", scenarioName = "店铺首页-店铺信息", author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("店铺首页-店铺信息")
 public class InfoTests {
     @MethodSource("getBaseInfo")

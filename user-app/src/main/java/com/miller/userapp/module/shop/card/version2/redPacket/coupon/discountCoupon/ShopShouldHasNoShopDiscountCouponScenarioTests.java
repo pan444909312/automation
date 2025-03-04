@@ -26,7 +26,7 @@ import java.util.stream.Stream;
  */
 @Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX7H",
         scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_优惠标签_已领折扣红包_首页-商卡二期：已领折扣红包39 - 不展示",
-        author = "heyuan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoShopDiscountCouponScenarioTests {

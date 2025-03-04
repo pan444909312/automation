@@ -36,7 +36,7 @@ import java.util.stream.Stream;
 @EnvTag.Test
 @Scenario(scenarioID = "01JBV2ASGVVJSVMERWMRWQT5F7",
         scenarioName = "商卡(中文)普通店铺配送商卡-熊猫联盟频道_优惠标签_熊猫联盟券_首页-商卡二期：熊猫联盟券40 - 满减红包",
-        author = "heyuan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFullSubCouponScenarioTests {
    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
