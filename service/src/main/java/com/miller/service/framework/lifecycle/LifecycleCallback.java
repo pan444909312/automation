@@ -55,10 +55,16 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private Map<String, ExecutionStatusEnum> scenarioResultMap = TestResultWatcher.getExecutionStatus();
 
     /**
-     * 是否保存自动化测试执行记录到数据库表中的开关。
-     * 调试时设置为 false， 设置为 true 则会把执行记录保存到数据库中，会影响测试用例的 ROI 统计。
+     * 调试开关：默认false。
+     * 设置为 false 时会自动保存把执行记录保存到数据库中。
+     * 设置为 true 则不会保存执行记录到数据库中。
      */
-    private boolean isNotSaveAutomationExecutionRecord = Boolean.parseBoolean(new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.not.save.automation.execution.record"));
+    private boolean isDebugTestCase = Optional.ofNullable(
+                    new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.not.save.automation.execution.record"))
+            .map(String::trim)
+            .filter(s -> !s.isEmpty())
+            .map(Boolean::parseBoolean)
+            .orElse(false);
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
@@ -188,11 +194,13 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
             autoCaseRoi.setManualTestTime(scenario.manualTestTime());
             autoCaseRoi.setAuthor(scenario.author());
-            Integer times = autoCaseRoi.getTimes() + 1;
+            Integer times = autoCaseRoi.getTimes();
             Long saveTimes = autoCaseRoi.getSaveTime() + autoCaseRoi.getManualTestTime(); //每次执行一次,*1
-//            Integer sumCostTimes = autoCaseRoiDB.getDevelopmentTime() + autoCaseRoiDB.getMaintenanceTime();
-//            BigDecimal roi = new BigDecimal(saveTimes).divide(new BigDecimal(sumCostTimes),9, RoundingMode.HALF_UP);
-            autoCaseRoi.setTimes(times); //每执行一次+1
+
+            if (!isDebugTestCase) {
+                times = times + 1; //每执行一次+1
+            }
+            autoCaseRoi.setTimes(times);
             autoCaseRoi.setSaveTime(saveTimes);
             autoCaseRoi.setRoi(calculateRoi(autoCaseRoi));
             autoCaseRoi.setExecutionUser(executor);
@@ -222,7 +230,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         autoCaseRoiLogSql.saveAutoCaseRoiLog(autoCaseRoiLogEntity);
 
         // 保存执行记录到自动化测试执行记录表，用于统计 ROI
-        if (!isNotSaveAutomationExecutionRecord) {
+        if (!isDebugTestCase) {
             AutoExecutionRecordEntity autoExecutionRecord = getAutoExecutionRecord(autoCaseRoiLogEntity, executor);
             autoExecutionRecordSql.saveAutoExecutionRecord(autoExecutionRecord);
         }
