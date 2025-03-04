@@ -10,7 +10,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 自动化测试执行记录日志  TODO 待伟哥确认是否还有使用的必要，是否可以和"AutoExecutionRecord" "自动化用例执行记录表" 合并)
+ * 自动化测试执行记录日志，用于测试框架执行记录，与平台的分开
  *
  * @author Miller Shan
  * @version 1.0

@@ -8,13 +8,14 @@ public enum ExecutionTypeEnum {
 
 
     UNKNOWN_STRATEGY(-1, "异常策略"),
+
     DEFAULT_STRATEGY(0, "默认策略"),
+
     DAILY_CHECK(1, "日常巡检"),
 
     QUALITY_ASSURANCE(2, "质量保证"),
 
     EFFICIENCY_IMPROVEMENT(3, "效率提升"),
-
     ;
 
 

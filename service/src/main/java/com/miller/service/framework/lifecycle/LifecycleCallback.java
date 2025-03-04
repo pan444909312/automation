@@ -58,8 +58,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * 是否保存自动化测试执行记录到数据库表中的开关。
      * 调试时设置为 false， 设置为 true 则会把执行记录保存到数据库中，会影响测试用例的 ROI 统计。
      */
-    private boolean isNotSaveAutomationExecutionRecord = Boolean.parseBoolean(
-            new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.not.save.automation.execution.record"));
+    private boolean isNotSaveAutomationExecutionRecord = Boolean.parseBoolean(new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.not.save.automation.execution.record"));
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
@@ -263,18 +262,31 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         return autoCaseRoiLog;
     }
 
+    /**
+     * 自动化测试执行记录
+     *
+     * @param autoCaseRoiLog 执行记录
+     * @param executor 执行人
+     * @return AutoExecutionRecordEntity
+     */
     private AutoExecutionRecordEntity getAutoExecutionRecord(AutoCaseRoiLogEntity autoCaseRoiLog, String executor) {
         AutoExecutionRecordEntity autoExecutionRecord = new AutoExecutionRecordEntity();
         autoExecutionRecord.setScenarioId(autoCaseRoiLog.getScenarioId());
         autoExecutionRecord.setDevelopmentTime(autoCaseRoiLog.getDevelopmentTime());
         autoExecutionRecord.setManualTestTime(autoCaseRoiLog.getManualTestTime());
         autoExecutionRecord.setMaintenanceTime(autoCaseRoiLog.getMaintenanceTime());
-        if ("".equals(executor)) {
-            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.DEFAULT_STRATEGY.getCode());
-        } else if ("DevOps Platform".equals(executor)) {
+
+        // 执行策略，区分是人工提效，还是机器定时执行
+        if (executor.equals(TestCaseUtils.executorOfDevOps)) {
+            // 机器执行
             autoExecutionRecord.setExecutionType(ExecutionTypeEnum.DAILY_CHECK.getCode());
         } else {
-            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.QUALITY_ASSURANCE.getCode());
+            // 人工执行
+            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.EFFICIENCY_IMPROVEMENT.getCode());
+        }
+        // 如果执行人获取不到则无法判断是人工执行还是机器执行
+        if (executor.isBlank()) {
+            autoExecutionRecord.setExecutionType(ExecutionTypeEnum.UNKNOWN_STRATEGY.getCode());
         }
         autoExecutionRecord.setExecutionUser(executor);
         autoExecutionRecord.setCreateTime(System.currentTimeMillis());

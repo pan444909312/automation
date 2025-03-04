@@ -8,10 +8,16 @@ package com.miller.service.framework.util;
  * @since 2025/2/19 10:48:30
  */
 public class TestCaseUtils {
+
+    /**
+     * 用于标识执行人是机器执行，而非人工执行
+     */
+    public static final String executorOfDevOps = "DevOps";
+
     /**
      * 获取执行人员
      *
-     * @return 执行人员
+     * @return 执行人员。如果是测试环境，则返回“DevOps”，否则返回git用户名
      */
     public static String getExecutor(Class<?> cls) {
 //        // 执行人优先级使用注解中的作者。有问题：用例作者可能和执行人不是同一个人
@@ -24,7 +30,7 @@ public class TestCaseUtils {
         String hostNameOfOS = OSUtils.getHostNameOfOS();
         // 如果是测试环境，则执行人员为DevOps平台
         if (hostNameOfOS.contains("hk-test-")) {
-            executor = "DevOps Platform";
+            executor = executorOfDevOps;
         } else {
             // 获取git用户名
             executor = JGitUtils.getGitEmail().split("@")[0];
