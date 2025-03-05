@@ -6,54 +6,65 @@ VALUES (3, 4, 12);
 INSERT INTO calculator (first_number, second_number, result)
 VALUES (2, 3, 5);
 
--- 初始化用户表
+-- 初始化用户表，统一密码123456.
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('admin', '系统管理员', 'admin@hungrypandagroup.com', 'c47bf29f63392e008059e052de8aa229', '0', 1740758400000,
+VALUES ('admin', '系统管理员', 'admin@hungrypandagroup.com', 'b9f6c2f2f7a1e03c28d25f1ecc5901b2', '0', 1740758400000,
         1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('chenchunxia', '陈春霞', 'chenchunxia@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('chenchunxia', '陈春霞', 'chenchunxia@hungrypandagroup.com', 'c4074ba3c470800aca318a05c15c11eb', '0',
+        1740758400000, 1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('conan', '江彪', 'conan@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('conan', '江彪', 'conan@hungrypandagroup.com', '347d430d18769520d484bf63964f1cd2', '0', 1740758400000,
+        1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('heyuan', '贺院', 'heyuan@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('heyuan', '贺院', 'heyuan@hungrypandagroup.com', 'b9cfe0996694e938f134790cedaa2d38', '0', 1740758400000,
+        1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('huyang', '胡杨', 'huyang@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('huyang', '胡杨', 'huyang@hungrypandagroup.com', 'fe495268daaa1d882676069b19954259', '0', 1740758400000,
+        1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('lipan', '李攀', 'lipan@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('lipan', '李攀', 'lipan@hungrypandagroup.com', '3e97f30b1e9b6024d95469333b035762', '0', 1740758400000,
+        1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('liurufeng', '刘汝锋', 'liurufeng@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('liurufeng', '刘汝锋', 'liurufeng@hungrypandagroup.com', 'ad68fef26ace9d82c7671cd3ef89245b', '0', 1740758400000,
+        1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('luwei', '鲁伟', 'luwei@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('luwei', '鲁伟', 'luwei@hungrypandagroup.com', '062279282827f06682280d8b4e4a905d', '0', 1740758400000,
+        1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
 VALUES ('MengFanXu', '孟凡旭', 'mengfanxu@hungrypandagroup.com', '1397773c2f9e4cdc7f41bfd29adbe426', '0', 1740758400000,
         1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('panjuxiang', '潘炬翔', 'panjuxiang@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
-INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('shandongdong', '单东东', 'shandongdong@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
-INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('TestingConsultant', '彭路路', 'TestingConsultant@hungrypandagroup.com', null, '0', 1740758400000,
-        1740758400000);
-INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('testingconsultant2', '史欣月', 'testingconsultant2@hungrypandagroup.com', '1397773c2f9e4cdc7f41bfd29adbe426',
-        '0', 1740758400000, 1740758400000);
-INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('WangXiaoHao', '王晓皓', 'wangxiaohao@hungrypandagroup.com', '1397773c2f9e4cdc7f41bfd29adbe426', '0',
+VALUES ('panjuxiang', '潘炬翔', 'panjuxiang@hungrypandagroup.com', 'c84c65168a95f2d514afeff1ba6f225b', '0',
         1740758400000, 1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('yancancan', '严灿灿', 'yancancan@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('shandongdong', '单东东', 'shandongdong@hungrypandagroup.com', 'ae3f11b7494499b7dca4504322f1f44f', '0',
+        1740758400000, 1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('YuWei', '余薇', 'yuwei@hungrypandagroup.com', '1397773c2f9e4cdc7f41bfd29adbe426', '0', 1740758400000,
+VALUES ('TestingConsultant', '彭路路', 'TestingConsultant@hungrypandagroup.com', '71bd03086a0f54c3b0f22ee5bf8ffae7',
+        '0', 1740758400000, 1740758400000);
+INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
+VALUES ('testingconsultant2', '史欣月', 'testingconsultant2@hungrypandagroup.com', 'a57b469a0b063a680424622a4f460168',
+        '0', 1740758400000, 1740758400000);
+INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
+VALUES ('WangXiaoHao', '王晓皓', 'wangxiaohao@hungrypandagroup.com', 'fd14a0fc5db2d70d03d92a1154330b83', '0',
+        1740758400000, 1740758400000);
+INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
+VALUES ('yancancan', '严灿灿', 'yancancan@hungrypandagroup.com', 'b8d9363ae4539bff527e00b5afc80d97', '0', 1740758400000,
         1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('zhangcheng', '张成', 'zhangcheng@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
+VALUES ('YuWei', '余薇', 'yuwei@hungrypandagroup.com', '07c6fd9e900f1216389c538ec01c5f87', '0', 1740758400000,
+        1740758400000);
 INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
-VALUES ('zhangpei', '张培', 'zhangpei@hungrypandagroup.com', null, '0', 1740758400000, 1740758400000);
-
+VALUES ('zhangcheng', '张成', 'zhangcheng@hungrypandagroup.com', 'c038009d0e9b147670c8c5a8658af071', '0', 1740758400000,
+        1740758400000);
+INSERT INTO user (user_id, name, email, password, status, create_time, update_time)
+VALUES ('zhangpei', '张培', 'zhangpei@hungrypandagroup.com', '7714b8e7720d303e1601022da3e87128', '0', 1740758400000,
+        1740758400000);
 
 -- 初始化项目表
 INSERT INTO project (project_id, name, status, description, create_time, update_time)
-VALUES ('0d2ba138-79b6-4d43-92ed-5067a0390d12', '演示项目', 0, '分层自动化演示项目', 1740758400000, 1740758400000);
+VALUES ('0d2ba138-79b6-4d43-92ed-5067a0390d12', '演示项目', 0, '演示项目', 1740758400000, 1740758400000);
 INSERT INTO project (project_id, name, status, description, create_time, update_time)
 VALUES ('1', 'B端-商家组', 0, '', 1740758400000, 1740758400000);
 INSERT INTO project (project_id, name, status, description, create_time, update_time)
