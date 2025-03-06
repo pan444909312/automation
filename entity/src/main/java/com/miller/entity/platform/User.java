@@ -87,5 +87,5 @@ public class User implements Serializable {
     private String remark;
 
     @Schema(name = "手机号")
-    private String mobile;
+    private Integer mobile;
 }
