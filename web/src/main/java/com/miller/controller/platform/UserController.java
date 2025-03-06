@@ -77,7 +77,7 @@ public class UserController {
         }
         Subject subject = SecurityUtils.getSubject();
         // 手动创建一个 JWT Token
-        String token = JWTUtils.createJWT(user.getEmail(), "back", "user", 1000 * 60 * 60 * 24);
+        String token = JWTUtils.createJWT(user.getEmail(), "back", "user", 1000 * 60 * 60 * 24 * 365);
         // 使用用户输入的密码作为password
         JWTToken jwtToken = new JWTToken(token, user.getPassword());
         try {

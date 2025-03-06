@@ -2,6 +2,7 @@ package com.miller.exception;
 
 import com.miller.entity.util.Response;
 import com.miller.entity.util.ResponseEnum;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -77,7 +78,7 @@ public class GlobalException {
         return new Response<>(ResponseEnum.REQUEST_METHOD_ERROR.getCode(), ResponseEnum.REQUEST_METHOD_ERROR.getMessage(), e);
     }
 
-    @ExceptionHandler(value = ExpiredCredentialsException.class)
+    @ExceptionHandler(value = {ExpiredCredentialsException.class, ExpiredJwtException.class})
     public Response handler(ExpiredCredentialsException e) {
         log.warn("账号已过期：----------------{}", e.getMessage());
         return new Response(ResponseEnum.ACCOUNT_EXPIRE.getCode(), ResponseEnum.ACCOUNT_EXPIRE.getMessage(), null);
