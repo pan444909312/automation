@@ -85,4 +85,7 @@ public class User implements Serializable {
     @TableField(exist = false)
     @Schema(name = "备注信息")
     private String remark;
+
+    @Schema(name = "手机号")
+    private String mobile;
 }
