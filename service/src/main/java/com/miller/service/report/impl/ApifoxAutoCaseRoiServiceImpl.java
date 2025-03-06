@@ -85,10 +85,13 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
 
         Integer priority = ObjectUtils.isNotEmpty(dto.getPriority()) ? dto.getPriority() : 0;
         autoCaseRoi.setPriority(priority);
-
-
+        autoCaseRoi.setScenarioName(dto.getScenarioName());
+        if (ObjectUtils.isEmpty(autoCaseRoi.getExecutionUser())){
+            autoCaseRoi.setExecutionUser(dto.getAuthor());
+        }
         // 写入数据
         this.saveOrUpdate(autoCaseRoi);
+
         // 写入记录表
         this.autoExecutionRecordService.apifoxSaveOrUpdate(autoCaseRoi, dto);
 
