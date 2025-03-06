@@ -93,6 +93,4 @@ public class User implements Serializable {
     @Schema(name = "备注信息")
     private String remark;
 
-    @Schema(name = "手机号")
-    private String mobile;
 }
