@@ -43,4 +43,7 @@ public class PageAutoCaseRoiReqDTO {
 
     @Schema(description = "排序规则，0：正序 ，1：逆序")
     private Integer orderBy = 1;
+
+    @Schema(description = "关联项目id")
+    private String projectId;
 }

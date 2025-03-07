@@ -80,6 +80,10 @@ public class AutoCaseRoiController {
         Date updateEndTime = DateUtils.strToDate(pageAutoCaseRoiReqDto.getUpdateEndTime(), "yyyy-MM-dd");
         Integer orderBy = pageAutoCaseRoiReqDto.getOrderBy();
         Integer sort = pageAutoCaseRoiReqDto.getSort();
+        String projectId = pageAutoCaseRoiReqDto.getProjectId();
+        if (!StringUtils.isEmpty(projectId)) {
+            queryWrapper.eq("project_id", projectId);
+        }
         if (!StringUtils.isEmpty(executionUser)) {
             queryWrapper.eq("execution_user", executionUser);
         }
@@ -214,4 +218,19 @@ public class AutoCaseRoiController {
 
         return result ? "删除成功" : "删除失败";
     }
+
+    @Operation(description = "手动批量更新projectId")
+    @PostMapping("/updateProjectId")
+    public Map<String, Object> updateProjectId() {
+        List<AutoCaseRoiEntity> autoCaseRoiEntities = autoCaseRoiService.selectAutoCaseRoiProjectId();
+        autoCaseRoiService.updateBatchById(autoCaseRoiEntities);
+
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("result", autoCaseRoiEntities);
+
+        return result;
+    }
+
+
 }
