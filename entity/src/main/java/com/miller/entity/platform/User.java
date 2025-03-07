@@ -66,6 +66,13 @@ public class User implements Serializable {
     private String status;
 
     /**
+     * 用户手机号
+     */
+    @Schema(name = "用户手机号")
+    private String mobile;
+
+
+    /**
      * 创建用户的时间,单位:11位时间戳。例如:<pre>System.currentTimeMillis()</pre>
      */
     @Schema(name = "用户创建时间")
@@ -85,4 +92,5 @@ public class User implements Serializable {
     @TableField(exist = false)
     @Schema(name = "备注信息")
     private String remark;
+
 }
