@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 自动化用例ROI表 服务实现类
@@ -37,6 +39,12 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         } else {
             return autoCaseRoiEntity.getScenarioName();
         }
+    }
+
+    @Override
+    public List<AutoCaseRoiEntity> selectAutoCaseRoiProjectId() {
+        List<AutoCaseRoiEntity> autoCaseRoiEntities = autoCaseRoiMapper.selectAutoCaseRoiProjectId();
+        return autoCaseRoiEntities;
     }
 
     /**

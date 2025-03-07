@@ -3,7 +3,18 @@
 <mapper namespace="com.miller.mapper.report.AutoCaseRoiMapper">
 
     <select id="findByScenarioId"  resultType="com.miller.entity.report.AutoCaseRoiEntity">
-        select * from auto_case_roi where scenario_id= #{scenarioId} limit 1
+        select *
+        from auto_case_roi
+        where scenario_id = #{scenarioId}
+        limit 1
+    </select>
+
+    <select id="selectAutoCaseRoiProjectId" resultType="com.miller.entity.report.AutoCaseRoiEntity">
+        SELECT acr.id, ubp.project_id
+        FROM auto_case_roi acr
+                 LEFT JOIN `user` u on acr.author = u.email
+                 LEFT JOIN user_bind_project ubp on u.user_id = ubp.user_id
+        WHERE acr.project_id = "" and acr.is_deleted = 0
     </select>
 
 

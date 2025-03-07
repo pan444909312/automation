@@ -1,5 +1,6 @@
 package com.miller.entity.report.resp;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -44,5 +45,8 @@ public class AutoCaseRoiRespDTO {
 
     @Schema(description = "更新时间")
     private String updateTime;
+
+    @Schema(description = "关联项目id")
+    private String projectId;
 
 }

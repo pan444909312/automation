@@ -4,6 +4,8 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 
+import java.util.List;
+
 /**
  * <p>
  * 自动化用例ROI表 服务类
@@ -15,6 +17,8 @@ import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
 
     String getAutoCaseNameByScenarioId(String scenarioId);
+
+    List<AutoCaseRoiEntity> selectAutoCaseRoiProjectId();
 
 
     /**

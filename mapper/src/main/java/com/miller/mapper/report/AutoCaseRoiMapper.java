@@ -4,6 +4,8 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 自动化用例ROI表 Mapper 接口
@@ -17,4 +19,5 @@ public interface AutoCaseRoiMapper extends BaseMapper<AutoCaseRoiEntity> {
 
     AutoCaseRoiEntity findByScenarioId(String scenarioId);
 
+    List<AutoCaseRoiEntity> selectAutoCaseRoiProjectId();
 }
