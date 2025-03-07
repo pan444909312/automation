@@ -3,6 +3,7 @@ package com.miller.entity.report;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -70,11 +71,11 @@ public class AutoCaseRoiEntity implements Serializable {
     private Integer priority;
 
     @Schema(description = "创建时间")
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Long createTime;
 
     @Schema(description = "更新时间")
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private Long updateTime;
 
     @Schema(description = "删除标记（0:可用 1:不可用）")
@@ -85,4 +86,12 @@ public class AutoCaseRoiEntity implements Serializable {
     @Schema(description = "关联项目id")
     @TableField("project_id")
     private String projectId;
+
+    @Schema(description = "预期测试用例被执行的次数")
+    @TableField("expect_times")
+    private Integer expectTimes;
+
+    @Schema(description = "备注信息")
+    @TableField("remark")
+    private String remark;
 }
