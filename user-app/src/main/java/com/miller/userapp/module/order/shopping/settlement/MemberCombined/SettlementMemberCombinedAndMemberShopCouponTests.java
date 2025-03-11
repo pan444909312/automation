@@ -1,7 +1,6 @@
 package com.miller.userapp.module.order.shopping.settlement.MemberCombined;
 
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.api.req.order.ProductCart;
@@ -35,6 +34,7 @@ import com.miller.userapp.module.order.shopping.settlement.response.SettlementRe
 import com.miller.userapp.util.DBUtils;
 import com.panda.common.enums.DeliveryTypeEnum;
 import com.panda.common.enums.PayTypeEnum;
+import com.panda.promotion.server.dal.dao.template.CouponTemplateMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -51,12 +51,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 /**
  * @author heyuan
  * @version 1.0
- * @since 2025/2/20 17:50
+ * @since 2025/3/02 16:14
  */
-@Scenario(scenarioID = "01JKQEJ6YQ5N9XD5G3DBG34DQ2", scenarioName = "会员合单", developmentTime = 160, maintenanceTime = 0, manualTestTime = 20, author = "heyuan@hungrypandagroup.com")
+@Scenario(scenarioID = "01JKQEJ6YQ5N9XD5G3DBG34DQ3", scenarioName = "会员合单", developmentTime = 160, maintenanceTime = 0, manualTestTime = 20, author = "heyuan@hungrypandagroup.com")
 @EnvTag.Test
-@DisplayName("配置会员&代金券合单优先级：共同展示&会员权益配置仅神券")
-public class SettlementMemberCombinedAndGodCouponTests {
+@DisplayName("配置会员&代金券合单优先级：共同展示&会员权益配置仅会员店铺红包")
+public class SettlementMemberCombinedAndMemberShopCouponTests {
    private static SqlSession sqlSession;
    static MemberCityMapper memberCityMapper;
    static MemberCityFeeReduceMapper memberCityFeeReduceMapper;
@@ -65,12 +65,11 @@ public class SettlementMemberCombinedAndGodCouponTests {
    static RedPacketMapper redPacketMapper;
    static MemberShopRedPacketConfigurationMapper memberShopRedPacketConfigurationMapper;
 
-
    UserLoginRequestDTO userLoginRequestDTO;
    static Long memberCityId = 1111378L;
    static Integer cityFunctionConfigId = 4058;
    static long memberPacketId = 2778L;
-   static Long redPacketId = 888894182L;
+   static Long redPacketId = 888894214L;
 
    //   static Integer cityId = 508;
    @BeforeAll
@@ -83,12 +82,11 @@ public class SettlementMemberCombinedAndGodCouponTests {
       cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
       memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
       memberShopRedPacketConfigurationMapper =sqlSession.getMapper(MemberShopRedPacketConfigurationMapper.class);
-
       //关闭会员运费减免
       UpdateWrapper<MemberCityEntity> updateWrapper1 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberCityEntity> lamda1 = updateWrapper1.lambda();
       lamda1.eq(MemberCityEntity::getMemberCityId, memberCityId);
-      lamda1.set(MemberCityEntity::getIsOpenDeliveryDiscount, 0);
+      lamda1.set(MemberCityEntity::getIsOpenDeliveryDiscount, 1);
       lamda1.set(MemberCityEntity::getOnlineStatus, 1);
       memberCityMapper.update(new MemberCityEntity(), updateWrapper1);
       //关闭服务费减免
@@ -104,25 +102,26 @@ public class SettlementMemberCombinedAndGodCouponTests {
       lamda3.set(CityFunctionConfigEntity::getStatus, 1);
       lamda3.set(CityFunctionConfigEntity::getCombinedOrderShowType, 1);
       cityFunctionConfigMapper.update(new CityFunctionConfigEntity(), updateWrapper3);
-      //新增神券
+      //会员权益红包全部移除
       UpdateWrapper<MemberPacketEntity> updateWrapper4 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberPacketEntity> lamda4 = updateWrapper4.lambda();
       lamda4.eq(MemberPacketEntity::getMemberCityId, memberCityId);
-      lamda4.ne(MemberPacketEntity::getMemberPacketId, memberPacketId);
       lamda4.set(MemberPacketEntity::getIsDel, 1);
       memberPacketMapper.update(new MemberPacketEntity(), updateWrapper4);
-      //神券修改isdel=0
-      UpdateWrapper<MemberPacketEntity> updateWrapper5 = new UpdateWrapper<>();
-      LambdaUpdateWrapper<MemberPacketEntity> lamda5 = updateWrapper5.lambda();
-      lamda5.eq(MemberPacketEntity::getMemberPacketId,memberPacketId);
-      lamda5.set(MemberPacketEntity::getIsDel, 0);
-      memberPacketMapper.update(new MemberPacketEntity(), updateWrapper5);
       //关闭所有会员店铺红包
+      UpdateWrapper<MemberShopRedPacketConfigurationEntity> updateWrapper5 = new UpdateWrapper<>();
+      LambdaUpdateWrapper<MemberShopRedPacketConfigurationEntity> lamda5 = updateWrapper5.lambda();
+      lamda5.eq(MemberShopRedPacketConfigurationEntity::getMemberCityId, memberCityId);
+      lamda5.set(MemberShopRedPacketConfigurationEntity::getIsDel, 1);
+      memberShopRedPacketConfigurationMapper.update(new MemberShopRedPacketConfigurationEntity(), updateWrapper5);
+      //打开所需会员店铺红包计划
       UpdateWrapper<MemberShopRedPacketConfigurationEntity> updateWrapper6 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberShopRedPacketConfigurationEntity> lamda6 = updateWrapper6.lambda();
-      lamda6.eq(MemberShopRedPacketConfigurationEntity::getMemberCityId, memberCityId);
-      lamda6.set(MemberShopRedPacketConfigurationEntity::getIsDel, 1);
+      lamda6.eq(MemberShopRedPacketConfigurationEntity::getId, 336);
+      lamda6.set(MemberShopRedPacketConfigurationEntity::getIsDel, 0);
+      lamda6.set(MemberShopRedPacketConfigurationEntity::getGroupStatus, 0);
       memberShopRedPacketConfigurationMapper.update(new MemberShopRedPacketConfigurationEntity(), updateWrapper6);
+
 
 
       userLoginRequestDTO = new UserLoginRequestDTO();
@@ -139,7 +138,7 @@ public class SettlementMemberCombinedAndGodCouponTests {
    @ParameterizedTest
    @MethodSource("memberDeliveryFeeData")
    @Order(1)
-   @DisplayName("结算不适用会员权益-神券")
+   @DisplayName("结算不适用会员权益-会员店铺红包")
    void settlementNoCashRedPacket(SettlementRequestDTO settlementRequestDTO) {
       UpdateWrapper<RedPacketEntity> updateWrapper4 = new UpdateWrapper<>();
       LambdaUpdateWrapper<RedPacketEntity> lamda4 = updateWrapper4.lambda();
@@ -157,7 +156,7 @@ public class SettlementMemberCombinedAndGodCouponTests {
    @ParameterizedTest
    @MethodSource("memberDeliveryFeeData")
    @Order(2)
-   @DisplayName("结算适用会员权益-神券")
+   @DisplayName("结算适用会员权益-会员店铺红包")
    void settlementWithCashRedPacket(SettlementRequestDTO settlementRequestDTO) {
       UpdateWrapper<RedPacketEntity> updateWrapper4 = new UpdateWrapper<>();
       LambdaUpdateWrapper<RedPacketEntity> lamda4 = updateWrapper4.lambda();
