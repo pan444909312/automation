@@ -70,4 +70,17 @@ public @interface Scenario {
      * 作者: 格式为公司邮箱
      */
     String author();
+
+    /**
+     * 预期执行次数，默认为1次
+     * @return int
+     */
+    int expectTimes() default 1;
+
+    /**
+     * 用例备注信息
+     * @return 备注信息
+     */
+    String remark() default "";
+
 }

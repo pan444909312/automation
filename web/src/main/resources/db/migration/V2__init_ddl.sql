@@ -66,7 +66,11 @@ create table if not exists auto_case_roi
     is_deleted       tinyint      default 0  not null comment '删除标记（0:可用 1:不可用）',
     author           varchar(255)            null comment '用例作者',
     priority         tinyint      default 3  not null comment '优先级,0,1,2,3,4,5',
-    project_id       varchar(64)  default '' not null comment '关联项目id'
+    project_id       varchar(64)  default '' not null comment '关联项目id',
+    expect_times     int          default 1  not null comment '预期测试用例被执行的次数',
+    remark           text                    null comment '备注信息',
+    constraint auto_case_roi_pk
+        unique (scenario_id)
 )
     comment '自动化用例表';
 
