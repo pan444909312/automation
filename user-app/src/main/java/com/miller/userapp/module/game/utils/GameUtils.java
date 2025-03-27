@@ -9,6 +9,7 @@ import com.miller.userapp.mapper.game.ActivityGameMapper;
 import com.miller.userapp.mapper.game.ActivityGamePrizesMapper;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

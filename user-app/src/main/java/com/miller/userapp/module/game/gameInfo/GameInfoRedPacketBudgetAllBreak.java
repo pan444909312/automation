@@ -5,6 +5,7 @@ import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.userapp.mapper.game.ActivityConfigMapper;
 import com.miller.userapp.mapper.game.ActivityGamePrizesMapper;
 import com.miller.userapp.module.game.flow.GameInfoFlow;
 import com.miller.userapp.module.game.request.GameRequestDTO;
@@ -13,6 +14,7 @@ import com.miller.userapp.module.game.utils.GameUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.util.DBUtils;
+import com.panda.promotion.server.dal.dataobject.activity.ActivityConfigDO;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -28,20 +30,23 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2025/2/20 18:09
  */
-@Scenario(scenarioID = "01JMHDCMHB8T10EAZYG3G1NMPG",
-        scenarioName = "抽奖游戏_游戏信息-红包本身无库存，奖品无效",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15,author = "panjuxiang@hungrypandagroup.com"
+@Scenario(scenarioID = "01JMHDZJR5SHYZBH8B7F2MJ7AZ",
+        scenarioName = "抽奖游戏_游戏信息-红包预算全部熔断，奖品无效",
+        developmentTime = 50, maintenanceTime = 0, manualTestTime = 15,author = "panjuxiang@hungrypandagroup.com"
 )
 @EnvTag.Test
 @DisplayName("抽奖游戏")
-public class GameInfoRedPacketNoStock {
+public class GameInfoRedPacketBudgetAllBreak {
 
     private final String gameSn = new PropertiesUtils().getProperty(this.getClass(), "user.app.game.sn01");
-    private final String prizesId = new PropertiesUtils().getProperty(this.getClass(), "user.app.game.prizesId.redPacket.noStock");
+    private final String prizesId = new PropertiesUtils().getProperty(this.getClass(), "user.app.game.prizesId.redPacket.budgetBreak");
+    private final String activitySn = new PropertiesUtils().getProperty(this.getClass(), "user.app.game.redPacket.activitySn.01");
 
     private UserLoginRequestDTO userLoginRequestDTO;
 
     private ActivityGamePrizesMapper activityGamePrizesMapper;
+
+    private ActivityConfigMapper activityConfigMapper;
 
 
     @BeforeAll
@@ -56,14 +61,19 @@ public class GameInfoRedPacketNoStock {
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         activityGamePrizesMapper = sqlSession.getMapper(ActivityGamePrizesMapper.class);
+        activityConfigMapper = sqlSession.getMapper(ActivityConfigMapper.class);
         // 初始化奖品概率
         GameUtils.initGamePrizeOdds(gameSn);
     }
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("游戏信息-红包本身无库存，奖品无效")
+    @DisplayName("游戏信息-红包预算全部熔断，活动无效")
     void shouldExistFastFoodFeature(GameRequestDTO gameRequestDTO) {
+
+        //修改预算为全部熔断
+        activityConfigMapper.setActivityStatus(activitySn,3,2);
+
         ActivityGamePrizesEntity activityGamePrizesEntity = new ActivityGamePrizesEntity();
         activityGamePrizesEntity.setId(Long.valueOf(prizesId));
         activityGamePrizesEntity.setUserTypeOdds(100);
