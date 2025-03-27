@@ -138,10 +138,10 @@ public class ChartDataTask {
                 }
 
                 // 新增自动化用例未来数据表 chart_type = 1 的数据
-                roiFutureDataCalculate(item.getCode());
+                roiFutureDataCalculate(item.getCode(),project.getProjectId());
 
                 // 用例执行趋势表 未来数据计算
-                autoCaseExecutionFutureDataCalculate(item.getCode());
+                autoCaseExecutionFutureDataCalculate(item.getCode(),project.getProjectId());
             }
 
         }
@@ -176,13 +176,14 @@ public class ChartDataTask {
      *
      * @param executionType 执行策略
      */
-    private void autoCaseExecutionFutureDataCalculate(int executionType) {
+    private void autoCaseExecutionFutureDataCalculate(int executionType,String projectId) {
         // 用例执行趋势表 未来数据计算
         AutoCaseChartFutureDataEntity autoCaseChartFutureDataExecutionEntity = new AutoCaseChartFutureDataEntity();
         autoCaseChartFutureDataExecutionEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(configService.getConfigByKey(SysConfigConstants.DEFAULT_FUTURE_DATE))));
         autoCaseChartFutureDataExecutionEntity.setChartType(3);
         autoCaseChartFutureDataExecutionEntity.setExecutionType(executionType);
         autoCaseChartFutureDataExecutionEntity.setExpectedExecutionCase(autoCaseExecutionChartService.getMonthsAverageExecutionCase(3, executionType));
+        autoCaseChartFutureDataExecutionEntity.setProjectId(projectId);
         autoCaseChartFutureDataService.save(autoCaseChartFutureDataExecutionEntity);
 
     }
@@ -193,7 +194,7 @@ public class ChartDataTask {
      *
      * @param executionType 执行策略
      */
-    private void roiFutureDataCalculate(int executionType) {
+    private void roiFutureDataCalculate(int executionType,String projectId) {
 
         // 获取当前日期往前3个月那一天的roi报表对象
         AutoCaseRoiChartEntity autoCaseRoiChartEntityThreeMonthsAgo = autoCaseRoiChartService.getOne(
@@ -230,7 +231,7 @@ public class ChartDataTask {
 
         AutoCaseChartFutureDataEntity autoCaseChartFutureDataEntity = new AutoCaseChartFutureDataEntity();
 
-
+        autoCaseChartFutureDataEntity.setProjectId(projectId);
         autoCaseChartFutureDataEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(configService.getConfigByKey(SysConfigConstants.DEFAULT_FUTURE_DATE))));
         autoCaseChartFutureDataEntity.setChartType(1);
         autoCaseChartFutureDataEntity.setExecutionType(executionType);
