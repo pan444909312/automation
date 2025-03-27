@@ -74,7 +74,7 @@ public class AutoCaseRoiChartEntity implements Serializable {
     private String projectId;
 
 
-    public AutoCaseRoiChartEntity(Long totalMaintenanceTime, Long totalDevelopmentTime, Integer times, Long saveTime, Double roi, Integer executionType,String timestampStr) {
+    public AutoCaseRoiChartEntity(Long totalMaintenanceTime, Long totalDevelopmentTime, Integer times, Long saveTime, Double roi, Integer executionType,String timestampStr,String projectId) {
         this.totalMaintenanceTime = totalMaintenanceTime;
         this.totalDevelopmentTime = totalDevelopmentTime;
         this.times = times;
@@ -82,5 +82,6 @@ public class AutoCaseRoiChartEntity implements Serializable {
         this.roi = roi == 0 ? "0" : String.valueOf(roi);
         this.executionType = executionType;
         this.chartDate = timestampStr;
+        this.projectId = projectId;
     }
 }

@@ -50,5 +50,6 @@ public class AutoCaseExecutionRecordRespDTO {
     @Schema(description = "手工测试成本")
     private Integer manualTestTime;
 
-
+    @Schema(description = "关联项目id")
+    private Integer projectId;
 }

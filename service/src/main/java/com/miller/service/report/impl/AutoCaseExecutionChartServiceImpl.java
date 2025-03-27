@@ -26,8 +26,8 @@ public class AutoCaseExecutionChartServiceImpl extends ServiceImpl<AutoCaseExecu
     AutoCaseExecutionChartMapper autoCaseExecutionChartMapper;
 
     /**
-     *
      * 通过传入月份months，计算前months月至今的executionType类型的平均执行用例数
+     *
      * @param months
      * @param executionType
      * @return
@@ -38,11 +38,11 @@ public class AutoCaseExecutionChartServiceImpl extends ServiceImpl<AutoCaseExecu
         List<AutoCaseExecutionChartEntity> autoCaseIncreaseChartEntityList =
                 autoCaseExecutionChartMapper.selectList(
                         new QueryWrapper<AutoCaseExecutionChartEntity>()
-                                .ge("create_time",midnightTimestampPlusMonths)
-                                .eq("execution_type",executionType));
-        int betweenDays = (int)TimestampUtils.getTimestampToNowBetweenDays(midnightTimestampPlusMonths);
+                                .ge("create_time", midnightTimestampPlusMonths)
+                                .eq("execution_type", executionType));
+        int betweenDays = (int) TimestampUtils.getTimestampToNowBetweenDays(midnightTimestampPlusMonths);
 
-        if (autoCaseIncreaseChartEntityList.isEmpty()){
+        if (autoCaseIncreaseChartEntityList.isEmpty()) {
             return 0;
         }
 
@@ -55,11 +55,12 @@ public class AutoCaseExecutionChartServiceImpl extends ServiceImpl<AutoCaseExecu
 
     /**
      * 检查自动化用例执行趋势表，今日是否同步过对应执行类型的数据
+     *
      * @param executionType 执行策略
      * @return 是 返回true，否 返回 false
      */
     @Override
-    public boolean checkTodayHasData(int executionType) {
+    public boolean checkTodayHasData(int executionType, String projectId) {
         // 昨天0：00
         long yesterdayStart = TimestampUtils.timestampToYesterdayMidnight(System.currentTimeMillis());
         // 今日0：00
@@ -67,7 +68,8 @@ public class AutoCaseExecutionChartServiceImpl extends ServiceImpl<AutoCaseExecu
 
         List<AutoCaseExecutionChartEntity> autoCaseExecutionChartEntityList = autoCaseExecutionChartMapper.selectList(new QueryWrapper<AutoCaseExecutionChartEntity>()
                 .ge("create_time", yesterdayEnd)
-                .eq("execution_type",executionType));
+                .eq("execution_type", executionType)
+                .eq("project_id", projectId));
         return !autoCaseExecutionChartEntityList.isEmpty();
     }
 }

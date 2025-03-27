@@ -182,4 +182,9 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
         entity.setId(null);
         return this.saveOrUpdate(entity);
     }
+
+    @Override
+    public List<AutoCaseExecutionRecordRespDTO> listAutoExecutionRecordWithProjectId(long startTime, long endTime, int executionType, String projectId) {
+        return autoExecutionRecordMapper.selectAutoExecutionRecordWithProjectId(startTime, endTime, executionType, projectId);
+    }
 }

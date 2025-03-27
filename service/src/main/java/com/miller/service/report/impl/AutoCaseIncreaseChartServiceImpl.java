@@ -55,14 +55,15 @@ public class AutoCaseIncreaseChartServiceImpl extends ServiceImpl<AutoCaseIncrea
      * @return 是 返回true，否 返回 false
      */
     @Override
-    public boolean checkTodayHasData() {
+    public boolean checkTodayHasData(String projectId) {
         // 昨天0：00
         long yesterdayStart = TimestampUtils.timestampToYesterdayMidnight(System.currentTimeMillis());
         // 今日0：00
         long yesterdayEnd = yesterdayStart + 60 * 60 * 24 * 1000;
 
         List<AutoCaseIncreaseChartEntity> autoCaseIncreaseChartEntityList = autoCaseIncreaseChartMapper.selectList(new QueryWrapper<AutoCaseIncreaseChartEntity>()
-                .ge("create_time", yesterdayEnd));
+                .ge("create_time", yesterdayEnd)
+                .eq("project_id",projectId));
         return !autoCaseIncreaseChartEntityList.isEmpty();
     }
 }
