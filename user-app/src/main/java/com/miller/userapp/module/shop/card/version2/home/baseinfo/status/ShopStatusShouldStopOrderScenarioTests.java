@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.common.enums.ShopStatusEnum;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.BaseShopIndexVO;
-import com.miller.common.util.MD5Util;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.erp.moudle.manage.merchant.business.config.time.status.flow.BusinessInfoUpdateStatusFlow;
 import com.miller.erp.moudle.manage.merchant.business.config.time.status.request.BusinessInfoUpdateStopOrderRequestDTO;
@@ -60,8 +59,8 @@ public class ShopStatusShouldStopOrderScenarioTests {
         // Given
 
         // When
-        var shopList = ShopListFlow.getShopList(shopListRequestDTO);
-
+        var shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+        assert shopList != null;
         var interfaceResponse = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst()
                 // 获取接口返回的字段
