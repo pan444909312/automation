@@ -33,11 +33,10 @@ public class GetShopCardInfoScenarioTests {
     @BeforeAll
     public static void beforeAll() throws InterruptedException {
         //开启融合开关
-        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", true);
-        Thread.sleep(3000L);
+//        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", true);
+//        Thread.sleep(3000L);
     }
     static Stream<Arguments> marketShopDataProvider() {
-        // 地址标签：0-无标签，1-家，2-公司，3-学校
         requestDTO.setCityName("杭州市");
         requestDTO.setLatitude("30.20109");
         requestDTO.setLongitude("120.22150");
@@ -47,7 +46,6 @@ public class GetShopCardInfoScenarioTests {
         List<Long> getShopIdList = new ArrayList<>();
         getShopIdList.add(1314L);
         requestDTO.setShopIdList(getShopIdList);
-        // 使用默认值，1页10条
         return Stream.of(
                 Arguments.arguments(requestDTO)
         );
