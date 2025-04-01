@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01JQR10MSZYSGRZCNRX0RY7XZC", scenarioName = "APP-进入用户首页-检查融合开关开启"
-        , author = "zhangpei@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
+        , author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("APP-pf融合开关")
 public class GetHpfConfigOpenScenarioTests {
     @BeforeAll

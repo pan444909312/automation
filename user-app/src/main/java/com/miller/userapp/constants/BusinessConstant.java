@@ -15,6 +15,7 @@ public class BusinessConstant {
      * 接口请求的域名
      */
     public static final String DOMAIN = "https://app-test.hungrypanda.cn";
+    public static final String PFDOMAIN = "https://fresh-api-test.hungrypanda.cn";
 
     /**
      * 请求头公共参数.
