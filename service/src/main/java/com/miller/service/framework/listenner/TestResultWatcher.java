@@ -9,17 +9,19 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.apidoc.YApiUtils;
 import com.miller.service.framework.depend.DependsOnClass;
 import com.miller.service.framework.depend.DependsOnMethod;
+import com.miller.service.framework.lifecycle.LifecycleCallback;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.framework.util.JGitUtils;
 import com.miller.service.framework.util.OSUtils;
 import com.miller.service.framework.report.AutoDBUtils;
 import com.miller.service.framework.util.TestCaseUtils;
 import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
+import org.junit.jupiter.params.ParameterizedTest;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -28,10 +30,10 @@ import java.util.*;
  * 测试执行结果观察者
  *
  * <p>
- * 监听{@link org.junit.jupiter.api.Test @Test}, {@link org.junit.jupiter.api.TestTemplate @TestTemplate}方法，
- * 比如{@link org.junit.jupiter.api.RepeatedTest @RepeatedTest},
- * {@link org.junit.jupiter.params.ParameterizedTest @ParameterizedTest},
- * 监听结果结果包括{@link org.junit.jupiter.api.Disabled}, Successful, Aborted, Failed
+ * 监听{@link Test @Test}, {@link TestTemplate @TestTemplate}方法，
+ * 比如{@link RepeatedTest @RepeatedTest},
+ * {@link ParameterizedTest @ParameterizedTest},
+ * 监听结果结果包括{@link Disabled}, Successful, Aborted, Failed
  * </p>
  *
  * @author Miller Shan
@@ -45,7 +47,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     /**
      * 自动化测试执行通知消息开关
      */
-    private static final Boolean isSendNotification =true;
+    private static final Boolean isSendNotification = true;
 
     /**
      * 存储成功的测试方法
@@ -62,13 +64,12 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     private SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
 
     // 是否同步结果到 YAPI 平台的开关
-    @Deprecated /* 已废弃，关闭开关 */
-    private static final Boolean yApiEnabled = false;
+    @Deprecated /* 已废弃，关闭开关 */ private static final Boolean yApiEnabled = false;
 
     /**
      * 存储所有测试类上的{@link ApiDoc @ApiDoc} 上的 value。用于测试执行完成之后更新平台的状态.
      *
-     * @see com.miller.service.framework.lifecycle.LifecycleCallback
+     * @see LifecycleCallback
      */
     private Set<String> apiDocsValues = new HashSet<>();
 
@@ -189,6 +190,26 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     private void sendExecuteNotification(ExtensionContext context, String testResult) {
         // 获取执行人员
         String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
+        Optional<Scenario> scenarioAnnotation = Optional.ofNullable(context.getRequiredTestClass().getAnnotation(Scenario.class));
+        String scenarioName = "";
+        String scenarioID = "";
+        String remark = "";
+        String author = "";
+        int expectTimes = 1;
+        int maintenanceTime = 0;
+        int developmentTime = 0;
+        int manualTestTime = 0;
+        if (scenarioAnnotation.isPresent()) {
+            scenarioName = scenarioAnnotation.get().scenarioName();
+            scenarioID = scenarioAnnotation.get().scenarioID();
+            remark = scenarioAnnotation.get().remark();
+            author = scenarioAnnotation.get().author();
+            expectTimes = scenarioAnnotation.get().expectTimes();
+            maintenanceTime = scenarioAnnotation.get().maintenanceTime();
+            developmentTime = scenarioAnnotation.get().developmentTime();
+            manualTestTime = scenarioAnnotation.get().manualTestTime();
+        }
+
         // 用例名称
         String classDisplayName;
         Optional<DisplayName> optionalClassDisplayName = Optional.ofNullable(context.getRequiredTestClass().getAnnotation(DisplayName.class));
@@ -215,14 +236,30 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         if (testResult.trim().contains("Failed")) {
             testResult = "❌" + " **<font color=red>" + testResult + "</font>**";
         }
-        // 记录执行测试的事件
-        String content =
-                "- **执行人员**: " + executor + " \n " +
-                        "- **执行时间**:\t" + DateUtils.getCurrentDateTime() + " \n " +
-                        "- **<font color=black>用例名称:</font>**\t" + classDisplayName + " \n " +
-                        "- **<font color=black>测试名称:</font>**\t" + methodDisplayName + " \n " +
-                        "- **<font color=black>执行结果:</font>**\t" + testResult + " \n ";
-        DingTalkUtils.sendMarkdownMessage("自动化执行通知", content);
+
+        StringBuilder content = new StringBuilder();
+
+        // 构建执行人员信息
+        content.append("- **执行人员**: ").append(executor).append(" \n ");
+
+        // 构建执行时间信息
+        content.append("- **执行时间**: ").append(DateUtils.getCurrentDateTime()).append(" \n ");
+
+        // 构建用例名称信息
+        content.append("- **<font color=black>用例名称:</font>** ").append(classDisplayName).append(" \n ");
+
+        // 构建测试名称信息
+        content.append("- **<font color=black>测试名称:</font>** ").append(methodDisplayName).append(" \n ");
+
+        // 构建执行结果信息
+        content.append("- **<font color=black>执行结果:</font>** ").append(testResult).append(" \n ");
+
+        // 构建用例ID信息
+        if (!scenarioID.isEmpty()) {
+            content.append("- **<font color=black>用例ID:</font>** ").append(scenarioID).append(" \n ");
+        }
+
+        DingTalkUtils.sendMarkdownMessage("自动化执行通知", content.toString());
     }
 
     private void updateAutoExecutionRecordTestResult(ExtensionContext context, String result) {
@@ -277,8 +314,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                 value = ExecutionStatusEnum.PASS;
                 break;
         }
-        if (Objects.nonNull(value))
-            scenarioResultMap.put(scenarioId, value);
+        if (Objects.nonNull(value)) scenarioResultMap.put(scenarioId, value);
         System.out.println(JSON.toJSON(scenarioResultMap));
     }
 }
