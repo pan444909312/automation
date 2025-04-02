@@ -1,20 +1,18 @@
-package com.miller.userapp.constants;
+package com.miller.market.constants;
 
 import com.panda.common.enums.CountryEnum;
 import com.panda.common.enums.LanguageEnum;
 
 /**
- * 业务配置常量
- *
- * @author Miller Shan
- * @version 1.0
- * @since 2023/12/06 20:27:34
+ * PF融合业务配置常量
+
  */
-public class BusinessConstant {
+public class PFBusinessConstant {
     /**
      * 接口请求的域名
      */
-    public static final String DOMAIN = "https://app-test.hungrypanda.cn";
+    public static final String DOMAIN = "https://fresh-api-test.hungrypanda.cn";
+
 
     /**
      * 请求头公共参数.
@@ -67,4 +65,5 @@ public class BusinessConstant {
             "HPF,TESTE02,FASTD01,YSDCS02,YYYZM01,IST01,HYBQ01,SKEQ01,XRJ01,TJBQ01,JSYZQ02,HYXBQ01," +
             "TJTCX01,YBXS02,CCPRO01,ZDFQ01,SKXRB01,ABT02,XRTC01,QYTCD01,SMSS02,XMLM01,RRREC02," +
             "CCT01,ZFBMM01,SSJLY01,DFF01,SPSS01,MRBX01,ZNYX01";
+    public static Long userId=249222L;
 }

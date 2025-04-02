@@ -1,15 +1,13 @@
-package com.miller.userapp.module.pf.getShopCardInfo;
+package com.miller.market.pf.getShopCardInfo;
 
 
 
-import com.miller.service.dto.XXLConfigEnvEnum;
+import com.miller.market.pf.getShopCardInfo.request.GetShopCardInfoRequestDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.util.XXLConfUtils;
-import com.miller.userapp.module.pf.getShopCardInfo.flow.GetShopCardInfoFlow;
-import com.miller.userapp.module.pf.getShopCardInfo.request.GetShopCardInfoRequestDTO;
-import com.miller.userapp.module.pf.getShopCardInfo.response.GetShopCardInfoResponseDTO;
+import com.miller.market.pf.getShopCardInfo.flow.GetShopCardInfoFlow;
+import com.miller.market.pf.getShopCardInfo.response.GetShopCardInfoResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

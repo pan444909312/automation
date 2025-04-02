@@ -1,4 +1,4 @@
-package com.miller.userapp.module.pf.hpfOrder.request;
+package com.miller.market.pf.hpfOrder.request;
 
 import com.pandafresh.server.api.query.HpfOrderQuery;
 

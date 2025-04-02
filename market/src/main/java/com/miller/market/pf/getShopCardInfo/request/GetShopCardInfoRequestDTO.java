@@ -1,4 +1,4 @@
-package com.miller.userapp.module.pf.getShopCardInfo.request;
+package com.miller.market.pf.getShopCardInfo.request;
 
 import com.pandafresh.server.api.query.HpfShopCardQuery;
 

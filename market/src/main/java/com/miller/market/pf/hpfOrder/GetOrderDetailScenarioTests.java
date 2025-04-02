@@ -1,23 +1,19 @@
-package com.miller.userapp.module.pf.hpfOrder;
+package com.miller.market.pf.hpfOrder;
 
 
 
-import com.miller.service.dto.XXLConfigEnvEnum;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.util.XXLConfUtils;
-import com.miller.userapp.module.pf.hpfOrder.flow.GetOrderDetailFlow;
-import com.miller.userapp.module.pf.hpfOrder.request.GetOrderDetailRequestDTO;
-import com.miller.userapp.module.pf.hpfOrder.response.GetOrderDetailResponseDTO;
+import com.miller.market.pf.hpfOrder.flow.GetOrderDetailFlow;
+import com.miller.market.pf.hpfOrder.request.GetOrderDetailRequestDTO;
+import com.miller.market.pf.hpfOrder.response.GetOrderDetailResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -1,4 +1,4 @@
-package com.miller.userapp.module.pf.hpfOrder.response;
+package com.miller.market.pf.hpfOrder.response;
 
 import com.panda.common.base.Result;
 import com.pandafresh.server.api.vo.HpfOrderDetailVO;

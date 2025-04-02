@@ -1,4 +1,4 @@
-package com.miller.userapp.module.pf.getShopCardInfo.response;
+package com.miller.market.pf.getShopCardInfo.response;
 
 import com.panda.common.base.Result;
 import com.pandafresh.server.api.base.HpfWrapperList;
