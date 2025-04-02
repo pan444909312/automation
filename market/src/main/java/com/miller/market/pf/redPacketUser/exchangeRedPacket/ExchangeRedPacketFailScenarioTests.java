@@ -1,8 +1,8 @@
-package com.miller.market.pf.redPacket.exchangeRedPacket;
+package com.miller.market.pf.redPacketUser.exchangeRedPacket;
 
-import com.miller.market.pf.redPacket.exchangeRedPacket.flow.ExchangeRedPacketFlow;
-import com.miller.market.pf.redPacket.exchangeRedPacket.request.ExchangeRedPacketRequestDTO;
-import com.miller.market.pf.redPacket.exchangeRedPacket.response.ExchangeRedPacketResponseDTO;
+import com.miller.market.pf.redPacketUser.exchangeRedPacket.flow.ExchangeRedPacketFlow;
+import com.miller.market.pf.redPacketUser.exchangeRedPacket.request.ExchangeRedPacketRequestDTO;
+import com.miller.market.pf.redPacketUser.exchangeRedPacket.response.ExchangeRedPacketResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;

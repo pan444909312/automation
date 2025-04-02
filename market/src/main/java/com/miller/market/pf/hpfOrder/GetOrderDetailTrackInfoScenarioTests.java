@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
@@ -43,10 +43,10 @@ public class GetOrderDetailTrackInfoScenarioTests {
     @DisplayName("APP-进入用户首页-检查pf融合订单详情：三方物流信息")
     public void getShopCardInfoTests(GetOrderDetailRequestDTO requestDTO){
         GetOrderDetailResponseDTO responseDTO = GetOrderDetailFlow.getShopCardInfoFlow(requestDTO);
-//        assertThat(responseDTO.getData().getTrackInfo()).isNotNull();
-//        assertThat(responseDTO.getData().getTrackInfo().getTrackLink()).isNotNull();
-//        assertThat(responseDTO.getData().getTrackInfo().getTrackCompany()).isNotNull();
-//        assertThat(responseDTO.getData().getTrackInfo().getTrackNumber()).isNotNull();
+        assertThat(responseDTO.getData().getTrackInfo()).isNotNull();
+        assertThat(responseDTO.getData().getTrackInfo().getTrackLink()).isNotNull();
+        assertThat(responseDTO.getData().getTrackInfo().getTrackCompany()).isNotNull();
+        assertThat(responseDTO.getData().getTrackInfo().getTrackNumber()).isNotNull();
     }
 
 }

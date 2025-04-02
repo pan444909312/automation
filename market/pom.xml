@@ -47,7 +47,11 @@
             <version>3.5.5</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.pandafresh.server</groupId>
+            <artifactId>pandafresh-api</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
         <!-- PF 端工程依赖开发相关的库 -->
         <!-- hp-market-server
         PF 生鲜超市项目

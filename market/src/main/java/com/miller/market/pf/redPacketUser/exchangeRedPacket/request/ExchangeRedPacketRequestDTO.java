@@ -1,4 +1,4 @@
-package com.miller.market.pf.redPacket.exchangeRedPacket.request;
+package com.miller.market.pf.redPacketUser.exchangeRedPacket.request;
 
 
 import com.pandafresh.server.api.query.HpfRedPacketQuery;

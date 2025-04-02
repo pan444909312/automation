@@ -1,4 +1,4 @@
-package com.miller.market.pf.redPacket.exchangeRedPacket.response;
+package com.miller.market.pf.redPacketUser.exchangeRedPacket.response;
 
 
 import com.panda.common.base.Result;

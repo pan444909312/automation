@@ -1,10 +1,10 @@
-package com.miller.market.pf.redPacket.exchangeRedPacket.flow;
+package com.miller.market.pf.redPacketUser.exchangeRedPacket.flow;
 
 import com.miller.market.constants.PFBusinessConstant;
 import com.miller.market.util.PFRequestUtils;
 import com.miller.service.framework.http.HttpUtils;
-import com.miller.market.pf.redPacket.exchangeRedPacket.request.ExchangeRedPacketRequestDTO;
-import com.miller.market.pf.redPacket.exchangeRedPacket.response.ExchangeRedPacketResponseDTO;
+import com.miller.market.pf.redPacketUser.exchangeRedPacket.request.ExchangeRedPacketRequestDTO;
+import com.miller.market.pf.redPacketUser.exchangeRedPacket.response.ExchangeRedPacketResponseDTO;
 
 
 import java.util.HashMap;

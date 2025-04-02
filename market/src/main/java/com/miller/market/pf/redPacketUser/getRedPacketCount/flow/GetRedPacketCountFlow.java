@@ -1,0 +1,33 @@
+package com.miller.market.pf.redPacketUser.getRedPacketCount.flow;
+
+import com.miller.market.constants.PFBusinessConstant;
+import com.miller.market.pf.redPacketUser.getRedPacketCount.request.GetRedPacketCountRequestDTO;
+import com.miller.market.pf.redPacketUser.getRedPacketCount.response.GetRedPacketCountResponseDTO;
+import com.miller.market.util.PFRequestUtils;
+import com.miller.service.framework.http.HttpUtils;
+
+import java.util.HashMap;
+
+/**
+ * pf有效红包数量接口
+ *
+ */
+public class GetRedPacketCountFlow {
+    /**
+     * pf有效红包数量接口--用在hp个人中心-红包
+     */
+    private static final String uri = PFBusinessConstant.DOMAIN + "/pandafresh/api/getRedPacketCount";
+
+    public static GetRedPacketCountResponseDTO getRedPacketCount(GetRedPacketCountRequestDTO requestDTO) {
+        var myheaders = new HashMap<String, Object>();
+        myheaders.put("Content-Type", "application/json");
+        myheaders.put("latitude","30.20111");
+        myheaders.put("longitude","120.22136");
+        PFRequestUtils.setHeaders(myheaders);
+        return HttpUtils.sendPostRequestReturnJavaObject(uri, null,PFRequestUtils.getHeaders(),
+                // 所有的请求体请使用带加密的请求体{@code RequestUtils.putBodyOfJson(Object)}
+                PFRequestUtils.putBodyOfJson(requestDTO), null, GetRedPacketCountResponseDTO.class);
+    }
+
+
+}

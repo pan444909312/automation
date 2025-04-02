@@ -1,12 +1,12 @@
-package com.miller.market.pf.redPacket.exchangeRedPacket;
+package com.miller.market.pf.redPacketUser.exchangeRedPacket;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.miller.market.constants.PFBusinessConstant;
 import com.miller.market.mapper.redPacket.RedPacketUserMapper;
-import com.miller.market.pf.redPacket.exchangeRedPacket.flow.ExchangeRedPacketFlow;
-import com.miller.market.pf.redPacket.exchangeRedPacket.request.ExchangeRedPacketRequestDTO;
-import com.miller.market.pf.redPacket.exchangeRedPacket.response.ExchangeRedPacketResponseDTO;
+import com.miller.market.pf.redPacketUser.exchangeRedPacket.flow.ExchangeRedPacketFlow;
+import com.miller.market.pf.redPacketUser.exchangeRedPacket.request.ExchangeRedPacketRequestDTO;
+import com.miller.market.pf.redPacketUser.exchangeRedPacket.response.ExchangeRedPacketResponseDTO;
 import com.miller.market.util.DBUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
