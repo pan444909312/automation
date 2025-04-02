@@ -27,6 +27,6 @@ public interface AutoCaseExecutionChartService extends IService<AutoCaseExecutio
      * @param executionType 执行策略
      * @return 是 返回true，否 返回 false
      */
-    boolean checkTodayHasData(int executionType);
+    boolean checkTodayHasData(int executionType,String projectId);
 
 }

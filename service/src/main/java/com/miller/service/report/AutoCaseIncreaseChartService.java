@@ -24,6 +24,6 @@ public interface AutoCaseIncreaseChartService extends IService<AutoCaseIncreaseC
      * 检查自动化用例增长趋势表，今日是否同步过数据
      * @return 是 返回true，否 返回 false
      */
-    boolean checkTodayHasData();
+    boolean checkTodayHasData(String projectId);
 
 }

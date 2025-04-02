@@ -25,7 +25,6 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
     AutoExecutionRecordService autoExecutionRecordService;
 
 
-
     // B 侧 Apifox 使用
     public boolean apifoxSaveOrUpdate(ApifoxAutoCaseRoiDto dto) {
 
@@ -79,16 +78,21 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
         autoCaseRoi.setRoi(String.valueOf(roi));
 
         // 写入负责人邮箱
-
         autoCaseRoi.setAuthor(dto.getEmail());
 
 
         Integer priority = ObjectUtils.isNotEmpty(dto.getPriority()) ? dto.getPriority() : 0;
         autoCaseRoi.setPriority(priority);
         autoCaseRoi.setScenarioName(dto.getScenarioName());
-        if (ObjectUtils.isEmpty(autoCaseRoi.getExecutionUser())){
+        if (ObjectUtils.isEmpty(autoCaseRoi.getExecutionUser())) {
             autoCaseRoi.setExecutionUser(dto.getAuthor());
         }
+
+        // 写入预计执行时间
+        final Integer expectTimes = ObjectUtils.isEmpty(dto.getExpectTimes()) ? 1 : dto.getExpectTimes();
+        autoCaseRoi.setExpectTimes(expectTimes);
+        autoCaseRoi.setRemark(dto.getRemark());
+
         // 写入数据
         this.saveOrUpdate(autoCaseRoi);
 

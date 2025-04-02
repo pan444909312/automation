@@ -1,5 +1,6 @@
 package com.miller.entity.report.req;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -51,5 +52,10 @@ public class ApifoxAutoCaseRoiDto {
     @Schema(description = "邮箱")
     private String email;
 
+    @Schema(description = "预期测试用例被执行的次数")
+    private Integer expectTimes;
+
+    @Schema(description = "备注信息")
+    private String remark;
 
 }

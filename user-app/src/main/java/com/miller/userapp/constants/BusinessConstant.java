@@ -15,6 +15,7 @@ public class BusinessConstant {
      * 接口请求的域名
      */
     public static final String DOMAIN = "https://app-test.hungrypanda.cn";
+    public static final String PFDOMAIN = "https://fresh-api-test.hungrypanda.cn";
 
     /**
      * 请求头公共参数.
@@ -64,7 +65,7 @@ public class BusinessConstant {
     public static String authorization = "";
     public static String testGroup = "I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP," +
             "S_H_R_L_TEST_GROUP_7,22,23,31,32,NUMBER_MASKING_00,33,34,35,40,39,45,52,54," +
-            "TESTE02,FASTD01,YSDCS02,YYYZM01,IST01,HYBQ01,SKEQ01,XRJ01,TJBQ01,JSYZQ02,HYXBQ01," +
+            "HPF,TESTE02,FASTD01,YSDCS02,YYYZM01,IST01,HYBQ01,SKEQ01,XRJ01,TJBQ01,JSYZQ02,HYXBQ01," +
             "TJTCX01,YBXS02,CCPRO01,ZDFQ01,SKXRB01,ABT02,XRTC01,QYTCD01,SMSS02,XMLM01,RRREC02," +
             "CCT01,ZFBMM01,SSJLY01,DFF01,SPSS01,MRBX01,ZNYX01";
 }

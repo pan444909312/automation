@@ -31,9 +31,8 @@ public class AutoCaseChartFutureDataController {
     @PostMapping("/test")
     public Map<String, Object> jobTest() {
         HashMap<String, Object> result = new HashMap<>();
-        chartDataTask.initChartData();
+//        chartDataTask.initChartData();
         chartDataTask.execute();
-
         return result;
     }
 
@@ -41,7 +40,7 @@ public class AutoCaseChartFutureDataController {
     @PostMapping("/init")
     public Map<String, Object> init() {
         HashMap<String, Object> result = new HashMap<>();
-        chartDataTask.initChartData();
+//        chartDataTask.initChartData();
         chartDataTask.execute();
 
         return result;

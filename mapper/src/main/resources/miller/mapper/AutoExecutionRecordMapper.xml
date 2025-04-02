@@ -3,19 +3,19 @@
 <mapper namespace="com.miller.mapper.report.AutoExecutionRecordMapper">
 
     <resultMap id="selectPageByConditionMap" type="com.miller.entity.report.AutoExecutionRecordEntity">
-<!--        <result property="id" column="id"/>-->
-<!--        <result property="scenario_id" column="scenarioId"/>-->
-<!--        <result property="execution_type" column="executionType"/>-->
-<!--        <result property="execution_time" column="executionTime"/>-->
-<!--        <result property="execution_status" column="executionStatus"/>-->
-<!--        <result property="execution_user" column="executionUser"/>-->
-<!--        <result property="create_time" column="createTime"/>-->
-<!--        <result property="update_time" column="updateTime"/>-->
-<!--        <result property="is_deleted" column="isDeleted"/>-->
-<!--        <result property="development_time" column="developmentTime"/>-->
-<!--        <result property="maintenance_time" column="maintenanceTime"/>-->
-<!--        <result property="manual_test_time" column="manualTestTime"/>-->
-<!--        <result property="scenario_name" column="scenarioName"/>-->
+        <!--        <result property="id" column="id"/>-->
+        <!--        <result property="scenario_id" column="scenarioId"/>-->
+        <!--        <result property="execution_type" column="executionType"/>-->
+        <!--        <result property="execution_time" column="executionTime"/>-->
+        <!--        <result property="execution_status" column="executionStatus"/>-->
+        <!--        <result property="execution_user" column="executionUser"/>-->
+        <!--        <result property="create_time" column="createTime"/>-->
+        <!--        <result property="update_time" column="updateTime"/>-->
+        <!--        <result property="is_deleted" column="isDeleted"/>-->
+        <!--        <result property="development_time" column="developmentTime"/>-->
+        <!--        <result property="maintenance_time" column="maintenanceTime"/>-->
+        <!--        <result property="manual_test_time" column="manualTestTime"/>-->
+        <!--        <result property="scenario_name" column="scenarioName"/>-->
     </resultMap>
 
     <select id="selectPageByCondition" resultMap="selectPageByConditionMap">
@@ -27,7 +27,7 @@
             and aer.scenario_id = #{req.scenarioId}
         </if>
         <if test="req.executionStartTime != null">
-            and aer.execution_time >  UNIX_TIMESTAMP(#{req.executionStartTime})* 1000
+            and aer.execution_time > UNIX_TIMESTAMP(#{req.executionStartTime})* 1000
         </if>
         <if test="req.executionEndTime != null">
             and aer.execution_time &lt; UNIX_TIMESTAMP(#{req.executionEndTime})* 1000
@@ -88,6 +88,39 @@
             ORDER BY execution_time ASC
         </if>
 
+    </select>
+
+    <resultMap id="selectAutoExecutionRecordWithProjectIdMap" type="com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO">
+                <result property="id" column="id"/>
+                <result property="scenario_id" column="scenarioId"/>
+                <result property="execution_type" column="executionType"/>
+                <result property="execution_time" column="executionTime"/>
+                <result property="development_time" column="developmentTime"/>
+                <result property="maintenance_time" column="maintenanceTime"/>
+                <result property="manual_test_time" column="manualTestTime"/>
+                <result property="project_id" column="projectId"/>
+    </resultMap>
+
+    <select id="selectAutoExecutionRecordWithProjectId"
+            resultMap="selectAutoExecutionRecordWithProjectIdMap">
+        SELECT DISTINCT e.id,
+               e.scenario_id,
+               e.execution_type,
+               e.execution_time,
+               e.development_time,
+               e.maintenance_time,
+               e.manual_test_time,
+               e.execution_status,
+               c.project_id
+        from auto_execution_record e
+                 LEFT JOIN auto_case_roi c on e.scenario_id = c.scenario_id
+        WHERE e.is_deleted = 0
+          and c.is_deleted = 0
+          and e.execution_time >= #{startTime}
+          and e.execution_time &lt;= #{endTime}
+          and e.execution_type = #{executionType}
+          and c.project_id = #{projectId}
+        ORDER BY e.id desc
     </select>
 
 

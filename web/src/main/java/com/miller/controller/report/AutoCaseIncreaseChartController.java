@@ -85,10 +85,10 @@ public class AutoCaseIncreaseChartController {
         futureVo.setIncreaseCase(futureData.getExpectedIncreaseCase());
         futureVo.setDate(TimestampUtils.timestampToDateStr(futureData.getFutureTime()));
 
-        //未来数据替换列表占位数据
-        if (pageNo == 1 && Objects.equals(list.get(0).getDate(), "2099/01/01")) {
-            list.set(0, futureVo);
-        }
+//        //未来数据替换列表占位数据
+//        if (pageNo == 1 && Objects.equals(list.get(0).getDate(), "2099/01/01")) {
+//            list.set(0, futureVo);
+//        }
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("total", total);

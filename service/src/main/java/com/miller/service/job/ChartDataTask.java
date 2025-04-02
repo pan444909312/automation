@@ -6,6 +6,7 @@ import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.constant.ProjectTypeEnum;
 import com.miller.entity.constant.SysConfigConstants;
 import com.miller.entity.report.*;
+import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
 import com.miller.service.report.*;
 import com.miller.common.util.TimestampUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -49,6 +51,7 @@ public class ChartDataTask {
 
     /**
      * todo 初始化各报表数据
+     * 需要额外初始化 roi报表的数据
      */
     public void initChartData() {
         // 初始化用例增长趋势表数据 未来数据替换用
@@ -102,67 +105,70 @@ public class ChartDataTask {
         // 今日0：00
         long yesterdayEnd = yesterdayStart + 60 * 60 * 24 * 1000;
 
-        QueryWrapper<AutoCaseRoiEntity> autoCaseRoiQueryWrapper = new QueryWrapper<>();
-        autoCaseRoiQueryWrapper.ge("create_time", yesterdayStart);
-        autoCaseRoiQueryWrapper.lt("create_time", yesterdayEnd);
-
+        QueryWrapper<AutoCaseRoiEntity> autoCaseRoiQueryWrapper;
         QueryWrapper<AutoExecutionRecordEntity> autoExecutionRecordQueryWrapper;
 
         // 遍历不同项目的数据，以项目维度记录报表数据
         for (ProjectTypeEnum project : ProjectTypeEnum.values()) {
 
+            autoCaseRoiQueryWrapper = new QueryWrapper<>();
+            autoCaseRoiQueryWrapper.ge("create_time", yesterdayStart);
+            autoCaseRoiQueryWrapper.lt("create_time", yesterdayEnd);
             // 新增 自动化用例增长趋势表 数据
-            if (!autoCaseIncreaseChartService.checkTodayHasData()) {
-                addAutoCaseIncreaseChartData(autoCaseRoiQueryWrapper,project.getProjectId());
+            if (!autoCaseIncreaseChartService.checkTodayHasData(project.getProjectId())) {
+                addAutoCaseIncreaseChartData(autoCaseRoiQueryWrapper, project.getProjectId());
             }
+            // 用例增长趋势表 未来数据计算
+            autoCaseIncreaseFutureDataCalculate(project.getProjectId());
 
+            // chart_type = 1和3 的数据需要根据执行类型4种新增4条(有几个类型增加几条)
+            for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
+                // 构造自动化执行记录表的查询条件 设置昨天一天的时间
+                autoExecutionRecordQueryWrapper = new QueryWrapper<>();
+                autoExecutionRecordQueryWrapper.ge("execution_time", yesterdayStart);
+                autoExecutionRecordQueryWrapper.lt("execution_time", yesterdayEnd);
+
+                // 根据不同的执行策略 新增测试场景总ROI表 数据
+                if (!autoCaseRoiChartService.checkTodayHasData(item.getCode(), project.getProjectId())) {
+                    addAutoCaseRoiChartData(yesterdayStart, yesterdayEnd, item.getCode(), project.getProjectId());
+                }
+                // 根据不同的执行策略 新增自动化用例执行趋势表 数据
+                if (!autoCaseExecutionChartService.checkTodayHasData(item.getCode(), project.getProjectId())) {
+                    addAutoCaseExecutionChartData(yesterdayStart, yesterdayEnd, item.getCode(), project.getProjectId());
+                }
+
+                // 新增自动化用例未来数据表 chart_type = 1 的数据
+                roiFutureDataCalculate(item.getCode(),project.getProjectId());
+
+                // 用例执行趋势表 未来数据计算
+                autoCaseExecutionFutureDataCalculate(item.getCode(),project.getProjectId());
+            }
 
         }
-
-
-        // chart_type = 1和3 的数据需要根据执行类型4种新增4条(有几个类型增加几条)
-        for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
-            // 构造自动化执行记录表的查询条件 设置昨天一天的时间
-            autoExecutionRecordQueryWrapper = new QueryWrapper<>();
-            autoExecutionRecordQueryWrapper.ge("execution_time", yesterdayStart);
-            autoExecutionRecordQueryWrapper.lt("execution_time", yesterdayEnd);
-
-            // 根据不同的执行策略 新增测试场景总ROI表 数据
-            if (!autoCaseRoiChartService.checkTodayHasData(item.getCode())) {
-                addAutoCaseRoiChartData(item.getCode(), autoExecutionRecordQueryWrapper);
-            }
-            // 根据不同的执行策略 新增自动化用例执行趋势表 数据
-            if (!autoCaseExecutionChartService.checkTodayHasData(item.getCode())) {
-                addAutoCaseExecutionChartData(item.getCode(), autoExecutionRecordQueryWrapper);
-            }
-
-            // 新增自动化用例未来数据表 chart_type = 1 的数据
-            roiFutureDataCalculate(item.getCode());
-
-            // 用例执行趋势表 未来数据计算
-            autoCaseExecutionFutureDataCalculate(item.getCode());
-        }
-
-        // 用例增长趋势表 未来数据计算
-
-        AutoCaseChartFutureDataEntity autoCaseChartFutureDataIncreaseEntity = new AutoCaseChartFutureDataEntity();
-        autoCaseChartFutureDataIncreaseEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(SysConfigConstants.DEFAULT_FUTURE_DATE)));
-        autoCaseChartFutureDataIncreaseEntity.setChartType(2);
-        autoCaseChartFutureDataIncreaseEntity.setExecutionType(-1);
-        autoCaseChartFutureDataIncreaseEntity.setExpectedIncreaseCase(autoCaseIncreaseChartService.getMonthsAverageIncreaseCase(3));
-
-        autoCaseChartFutureDataService.save(autoCaseChartFutureDataIncreaseEntity);
 
 
     }
 
     /**
      * 更新auto_case_roi表 project_id数据
+     *
      * @return
      */
-    private boolean updateProjectId(){
+    private boolean updateProjectId() {
         List<AutoCaseRoiEntity> autoCaseRoiEntities = autoCaseRoiService.selectAutoCaseRoiProjectId();
+        log.info("更新的数量{}", autoCaseRoiEntities.size());
         return autoCaseRoiService.updateBatchById(autoCaseRoiEntities);
+    }
+
+    private void autoCaseIncreaseFutureDataCalculate(String projectId) {
+        AutoCaseChartFutureDataEntity autoCaseChartFutureDataIncreaseEntity = new AutoCaseChartFutureDataEntity();
+        autoCaseChartFutureDataIncreaseEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(configService.getConfigByKey(SysConfigConstants.DEFAULT_FUTURE_DATE))));
+        autoCaseChartFutureDataIncreaseEntity.setChartType(2);
+        autoCaseChartFutureDataIncreaseEntity.setExecutionType(-1);
+        autoCaseChartFutureDataIncreaseEntity.setProjectId(projectId);
+        autoCaseChartFutureDataIncreaseEntity.setExpectedIncreaseCase(autoCaseIncreaseChartService.getMonthsAverageIncreaseCase(3));
+
+        autoCaseChartFutureDataService.save(autoCaseChartFutureDataIncreaseEntity);
     }
 
     /**
@@ -170,13 +176,14 @@ public class ChartDataTask {
      *
      * @param executionType 执行策略
      */
-    private void autoCaseExecutionFutureDataCalculate(int executionType) {
+    private void autoCaseExecutionFutureDataCalculate(int executionType,String projectId) {
         // 用例执行趋势表 未来数据计算
         AutoCaseChartFutureDataEntity autoCaseChartFutureDataExecutionEntity = new AutoCaseChartFutureDataEntity();
         autoCaseChartFutureDataExecutionEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(configService.getConfigByKey(SysConfigConstants.DEFAULT_FUTURE_DATE))));
         autoCaseChartFutureDataExecutionEntity.setChartType(3);
         autoCaseChartFutureDataExecutionEntity.setExecutionType(executionType);
         autoCaseChartFutureDataExecutionEntity.setExpectedExecutionCase(autoCaseExecutionChartService.getMonthsAverageExecutionCase(3, executionType));
+        autoCaseChartFutureDataExecutionEntity.setProjectId(projectId);
         autoCaseChartFutureDataService.save(autoCaseChartFutureDataExecutionEntity);
 
     }
@@ -187,7 +194,7 @@ public class ChartDataTask {
      *
      * @param executionType 执行策略
      */
-    private void roiFutureDataCalculate(int executionType) {
+    private void roiFutureDataCalculate(int executionType,String projectId) {
 
         // 获取当前日期往前3个月那一天的roi报表对象
         AutoCaseRoiChartEntity autoCaseRoiChartEntityThreeMonthsAgo = autoCaseRoiChartService.getOne(
@@ -224,7 +231,7 @@ public class ChartDataTask {
 
         AutoCaseChartFutureDataEntity autoCaseChartFutureDataEntity = new AutoCaseChartFutureDataEntity();
 
-
+        autoCaseChartFutureDataEntity.setProjectId(projectId);
         autoCaseChartFutureDataEntity.setFutureTime(TimestampUtils.getMidnightTimestampPlusMonths(Integer.parseInt(configService.getConfigByKey(SysConfigConstants.DEFAULT_FUTURE_DATE))));
         autoCaseChartFutureDataEntity.setChartType(1);
         autoCaseChartFutureDataEntity.setExecutionType(executionType);
@@ -252,37 +259,53 @@ public class ChartDataTask {
      * 根据不同执行策略，保存测试场景总ROI表数据
      *
      * @param executionType 执行策略
-     * @param queryWrapper  条件构造器，这里内部使用方法，该参数传进来已设置时间为昨天一天的时间范围
      */
-    private boolean addAutoCaseRoiChartData(int executionType, QueryWrapper<AutoExecutionRecordEntity> queryWrapper) {
+    private boolean addAutoCaseRoiChartData(long startTime, long endTime, int executionType, String projectId) {
 
-        queryWrapper.eq("execution_type", executionType);
-        List<AutoExecutionRecordEntity> autoExecutionRecordList = autoExecutionRecordService.list(queryWrapper);
+//        queryWrapper.eq("execution_type", executionType);
+//        queryWrapper.eq("project_id", projectId);
+//        List<AutoExecutionRecordEntity> autoExecutionRecordList = autoExecutionRecordService.list(queryWrapper);
 
-        long totalMaintenanceTimeLatest = autoCaseRoiChartService.getTotalMaintenanceTime(executionType);
-        long totalDevelopTimeLatest = autoCaseRoiChartService.getTotalDevelopTime(executionType);
-        int totalTimesLatest = autoCaseRoiChartService.getTotalTimes(executionType);
-        long totalSaveTimeLatest = autoCaseRoiChartService.getTotalSaveTime(executionType);
+        // 获取昨日指定执行类型和项目的 执行记录
+        List<AutoCaseExecutionRecordRespDTO> autoExecutionRecordList = autoExecutionRecordService.listAutoExecutionRecordWithProjectId(startTime, endTime, executionType, projectId);
+
+        long totalMaintenanceTimeLatest = autoCaseRoiChartService.getTotalMaintenanceTime(executionType, projectId);
+        long totalDevelopTimeLatest = autoCaseRoiChartService.getTotalDevelopTime(executionType, projectId);
+        int totalTimesLatest = autoCaseRoiChartService.getTotalTimes(executionType, projectId);
+        long totalSaveTimeLatest = autoCaseRoiChartService.getTotalSaveTime(executionType, projectId);
         double roi = 0;
 
         if (autoExecutionRecordList.isEmpty()) {
+            //todo 该情况需不需要插表？？待确认
             log.info("昨日[auto_execution_record]表没有[execution_type=" + executionType + "]的执行记录");
             if (totalMaintenanceTimeLatest + totalDevelopTimeLatest != 0) {
                 roi = (double) totalSaveTimeLatest / (totalMaintenanceTimeLatest + totalDevelopTimeLatest);
             }
 
-            return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTimeLatest, totalDevelopTimeLatest, totalTimesLatest, totalSaveTimeLatest, roi, executionType, TimestampUtils.timestampToDateStr(System.currentTimeMillis())));
+            return autoCaseRoiChartService.save(
+                    new AutoCaseRoiChartEntity(
+                            totalMaintenanceTimeLatest,
+                            totalDevelopTimeLatest,
+                            totalTimesLatest,
+                            totalSaveTimeLatest,
+                            roi,
+                            executionType,
+                            TimestampUtils.timestampToDateStr(System.currentTimeMillis()),
+                            projectId
+                    )
+            );
         }
 
         long saveTime = 0;
         long developTime = 0;
         long maintenanceTime = 0;
 
-        for (AutoExecutionRecordEntity autoExecutionRecordEntity : autoExecutionRecordList) {
-            developTime = developTime + autoExecutionRecordEntity.getDevelopmentTime();
-            maintenanceTime = maintenanceTime + autoExecutionRecordEntity.getMaintenanceTime();
-            saveTime = saveTime + autoExecutionRecordEntity.getManualTestTime();
+        for (AutoCaseExecutionRecordRespDTO autoCaseExecutionRecordRespDTO : autoExecutionRecordList) {
+            developTime = developTime + autoCaseExecutionRecordRespDTO.getDevelopmentTime();
+            maintenanceTime = maintenanceTime + autoCaseExecutionRecordRespDTO.getMaintenanceTime();
+            saveTime = saveTime + autoCaseExecutionRecordRespDTO.getManualTestTime();
         }
+
 
         // 累计维护成本计算，累计昨日的maintenance_time 总和 + 当前记录的累计维护成本
         long totalMaintenanceTime = maintenanceTime + totalMaintenanceTimeLatest;
@@ -298,7 +321,7 @@ public class ChartDataTask {
             roi = (double) totalSaveTime / (totalMaintenanceTime + totalDevelopTime);
         }
 
-        return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTime, totalDevelopTime, totalTimes, totalSaveTime, roi, executionType, TimestampUtils.timestampToDateStr(System.currentTimeMillis())));
+        return autoCaseRoiChartService.save(new AutoCaseRoiChartEntity(totalMaintenanceTime, totalDevelopTime, totalTimes, totalSaveTime, roi, executionType, TimestampUtils.timestampToDateStr(System.currentTimeMillis()), projectId));
 
     }
 
@@ -307,21 +330,25 @@ public class ChartDataTask {
      * 根据不同执行策略，保存自动化用例执行趋势表数据
      *
      * @param executionType 执行策略
-     * @param queryWrapper  条件构造器，这里内部使用方法，该参数传进来已设置时间为昨天一天的时间范围
      * @return
      */
-    private boolean addAutoCaseExecutionChartData(int executionType, QueryWrapper<AutoExecutionRecordEntity> queryWrapper) {
+    private boolean addAutoCaseExecutionChartData(long startTime, long endTime, int executionType, String projectId) {
 
-        queryWrapper.eq("execution_type", executionType);
+//        queryWrapper.eq("execution_type", executionType);
+//        List<AutoExecutionRecordEntity> autoExecutionRecordList = autoExecutionRecordService.list(queryWrapper);
+
         AutoCaseExecutionChartEntity autoCaseExecutionChartEntity = new AutoCaseExecutionChartEntity();
-        List<AutoExecutionRecordEntity> autoExecutionRecordList = autoExecutionRecordService.list(queryWrapper);
         autoCaseExecutionChartEntity.setExecutionType(executionType);
+        autoCaseExecutionChartEntity.setProjectId(projectId);
+
+        List<AutoCaseExecutionRecordRespDTO> autoExecutionRecordList = autoExecutionRecordService.listAutoExecutionRecordWithProjectId(startTime, endTime, executionType, projectId);
+
 
         if (autoExecutionRecordList.isEmpty()) {
             autoCaseExecutionChartEntity.setChartDate(TimestampUtils.timestampToDateStr(System.currentTimeMillis()));
             return autoCaseExecutionChartService.save(autoCaseExecutionChartEntity);
         }
-        List<AutoExecutionRecordEntity> successList = autoExecutionRecordList.stream().filter(item -> item.getExecutionStatus() == 1).toList();
+        List<AutoCaseExecutionRecordRespDTO> successList = autoExecutionRecordList.stream().filter(item -> item.getExecutionStatus() == 1).toList();
 
         autoCaseExecutionChartEntity.setExecutionCase(autoExecutionRecordList.size());
         autoCaseExecutionChartEntity.setExecutionSuccessTime(successList.size());
@@ -333,19 +360,21 @@ public class ChartDataTask {
 
     /**
      * 根据不同项目id，保存自动化用例新增趋势表数据
+     *
      * @param autoCaseRoiQueryWrapper
-     * @param projectId 项目id
+     * @param projectId               项目id
      * @return
      */
-    private boolean addAutoCaseIncreaseChartData(QueryWrapper<AutoCaseRoiEntity> autoCaseRoiQueryWrapper,String projectId) {
+    private boolean addAutoCaseIncreaseChartData(QueryWrapper<AutoCaseRoiEntity> autoCaseRoiQueryWrapper, String projectId) {
 
-        autoCaseRoiQueryWrapper.eq("project_id",projectId);
+        autoCaseRoiQueryWrapper.eq("project_id", projectId);
 
         AutoCaseIncreaseChartEntity autoCaseIncreaseChartEntity = new AutoCaseIncreaseChartEntity();
 
         List<AutoCaseRoiEntity> autoCaseRoiEntityList = autoCaseRoiService.list(autoCaseRoiQueryWrapper);
         int increaseCaseDevelopmentTime = 0;
         int increaseCaseManualTestTime = 0;
+        log.info("项目id：" + projectId + " -- autoCaseRoiEntityList={}", autoCaseRoiEntityList);
         if (autoCaseRoiEntityList != null && !autoCaseRoiEntityList.isEmpty()) {
             for (AutoCaseRoiEntity autoCaseRoiEntity : autoCaseRoiEntityList) {
                 increaseCaseDevelopmentTime = increaseCaseDevelopmentTime + autoCaseRoiEntity.getDevelopmentTime();

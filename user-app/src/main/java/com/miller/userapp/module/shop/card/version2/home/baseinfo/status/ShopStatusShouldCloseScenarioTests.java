@@ -43,8 +43,8 @@ public class ShopStatusShouldCloseScenarioTests {
         // Given
 
         // When
-        var shopList = ShopListFlow.getShopList(shopListRequestDTO);
-
+        var shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+        assert shopList != null;
         var interfaceResponse = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst()
                 // 获取接口返回的字段

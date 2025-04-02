@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 
 @Scenario(scenarioID = "01JHSME1900G6TQ7JD3X0Y5VH3",
-        scenarioName = "抽奖游戏_游戏信息-红包作废，活动无效",
+        scenarioName = "抽奖游戏_游戏信息-红包作废，奖品无效",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15, author = "panjuxiang@hungrypandagroup.com"
 )
 @EnvTag.Test
@@ -63,7 +63,7 @@ public class GameInfoRedPacketCancel {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("游戏信息-红包作废，活动无效")
+    @DisplayName("游戏信息-红包作废，奖品无效")
     void shouldExistFastFoodFeature(GameRequestDTO gameRequestDTO) {
         ActivityGamePrizesEntity activityGamePrizesEntity = new ActivityGamePrizesEntity();
         activityGamePrizesEntity.setId(Long.valueOf(prizesId));
@@ -74,7 +74,6 @@ public class GameInfoRedPacketCancel {
         Integer state = gameInfoResponseDTO.getResult().getState();
         String drawInfo = gameInfoResponseDTO.getResult().getDrawInfo();
 
-        // 需求修改 该标签删除
         assertThat(gameInfoResponseDTO.getResult().getSn()).isEqualTo(gameSn);
         assertThat(state).isEqualTo(0);
         assertThat(drawInfo).isEqualTo("来晚了，活动已结束");

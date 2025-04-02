@@ -55,10 +55,10 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         Page<AutoCaseRoiChartEntity> page = new Page<>(pageNo, pageSize);
 
         QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<>();
-        Date createStartTime = DateUtils.strToDate(pageAutoCaseRoiChartReqDTO.getCreateStartTime(),"yyyy-MM-dd");
-        Date createEndTime = DateUtils.strToDate(pageAutoCaseRoiChartReqDTO.getCreateStartTime(),"yyyy-MM-dd");
+        Date createStartTime = DateUtils.strToDate(pageAutoCaseRoiChartReqDTO.getCreateStartTime(), "yyyy-MM-dd");
+        Date createEndTime = DateUtils.strToDate(pageAutoCaseRoiChartReqDTO.getCreateStartTime(), "yyyy-MM-dd");
         List<Integer> executionTypeList = pageAutoCaseRoiChartReqDTO.getExecutionTypeList();
-        if (executionTypeList == null){
+        if (executionTypeList == null) {
             //如果为空则默认 查所有类型
             executionTypeList = new ArrayList<>();
             for (ExecutionTypeEnum item : ExecutionTypeEnum.values()) {
@@ -72,8 +72,8 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         if (createEndTime != null) {
             queryWrapper.le("create_time", createEndTime.getTime() + 1000 * 60 * 60 * 24);
         }
-        if (createStartTime != null || createEndTime != null){
-            queryWrapper.or().eq("chart_date","2099/01/01");
+        if (createStartTime != null || createEndTime != null) {
+            queryWrapper.or().eq("chart_date", "2099/01/01");
         }
         queryWrapper.orderByDesc("chart_date");
 
@@ -139,14 +139,14 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
         }
         futureVo.setSaveTime(sum);
         futureVo.setCreateTime(TimestampUtils.timestampToDateStr(autoCaseChartFutureDataEntityList.get(0).getFutureTime()));
-        if (pageNo == 1 && Objects.equals(autoCaseRoiChartRespDTOList.get(0).getCreateTime(), "2099/01/01")){
-            autoCaseRoiChartRespDTOList.set(0,futureVo);
+        if (pageNo == 1 && Objects.equals(autoCaseRoiChartRespDTOList.get(0).getCreateTime(), "2099/01/01")) {
+            autoCaseRoiChartRespDTOList.set(0, futureVo);
         }
 
         Map<String, Object> result = new HashMap<>();
         result.put("list", autoCaseRoiChartRespDTOList);
         result.put("total", total);
-        result.put("futureData",futureVo);
+        result.put("futureData", futureVo);
         return result;
     }
 
@@ -158,9 +158,23 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
     }
 
     @Override
+    public long getTotalDevelopTime(int executionType, String projectId) {
+        if (getLatestData(executionType, projectId) != null)
+            return getLatestData(executionType, projectId).getTotalDevelopmentTime();
+        return 0;
+    }
+
+    @Override
     public long getTotalMaintenanceTime(int executionType) {
         if (getLatestData(executionType) != null)
             return getLatestData(executionType).getTotalMaintenanceTime();
+        return 0;
+    }
+
+    @Override
+    public long getTotalMaintenanceTime(int executionType, String projectId) {
+        if (getLatestData(executionType, projectId) != null)
+            return getLatestData(executionType, projectId).getTotalMaintenanceTime();
         return 0;
     }
 
@@ -172,9 +186,23 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
     }
 
     @Override
+    public int getTotalTimes(int executionType, String projectId) {
+        if (getLatestData(executionType, projectId) != null)
+            return getLatestData(executionType, projectId).getTimes();
+        return 0;
+    }
+
+    @Override
     public long getTotalSaveTime(int executionType) {
         if (getLatestData(executionType) != null)
             return getLatestData(executionType).getSaveTime();
+        return 0;
+    }
+
+    @Override
+    public long getTotalSaveTime(int executionType, String projectId) {
+        if (getLatestData(executionType, projectId) != null)
+            return getLatestData(executionType, projectId).getSaveTime();
         return 0;
     }
 
@@ -185,7 +213,7 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
      * @return 是 返回true，否 返回 false
      */
     @Override
-    public boolean checkTodayHasData(int executionType) {
+    public boolean checkTodayHasData(int executionType, String projectId) {
         // 昨天0：00
         long yesterdayStart = TimestampUtils.timestampToYesterdayMidnight(System.currentTimeMillis());
         // 今日0：00
@@ -193,7 +221,8 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
 
         List<AutoCaseRoiChartEntity> autoCaseRoiChartEntityList = autoCaseRoiChartMapper.selectList(new QueryWrapper<AutoCaseRoiChartEntity>()
                 .ge("create_time", yesterdayEnd)
-                .eq("execution_type", executionType));
+                .eq("execution_type", executionType)
+                .eq("project_id", projectId));
         return !autoCaseRoiChartEntityList.isEmpty();
     }
 
@@ -205,6 +234,15 @@ public class AutoCaseRoiChartServiceImpl extends ServiceImpl<AutoCaseRoiChartMap
     private AutoCaseRoiChartEntity getLatestData(int executionType) {
         QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<AutoCaseRoiChartEntity>()
                 .eq("execution_type", executionType)
+                .orderByDesc("create_time")
+                .last("limit 1");
+        return autoCaseRoiChartMapper.selectOne(queryWrapper);
+    }
+
+    private AutoCaseRoiChartEntity getLatestData(int executionType, String projectId) {
+        QueryWrapper<AutoCaseRoiChartEntity> queryWrapper = new QueryWrapper<AutoCaseRoiChartEntity>()
+                .eq("execution_type", executionType)
+                .eq("project_id", projectId)
                 .orderByDesc("create_time")
                 .last("limit 1");
         return autoCaseRoiChartMapper.selectOne(queryWrapper);

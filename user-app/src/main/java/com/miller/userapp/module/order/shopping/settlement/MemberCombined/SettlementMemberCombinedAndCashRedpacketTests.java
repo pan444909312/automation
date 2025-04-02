@@ -14,6 +14,7 @@ import com.hungrypanda.app.server.entity.address.CityFunctionConfigEntity;
 import com.hungrypanda.app.server.entity.member.MemberCityEntity;
 import com.hungrypanda.app.server.entity.member.MemberCityFeeReduceEntity;
 import com.hungrypanda.app.server.entity.member.MemberPacketEntity;
+import com.hungrypanda.app.server.entity.member.MemberShopRedPacketConfigurationEntity;
 import com.hungrypanda.app.server.entity.redpacket.RedPacketEntity;
 import com.miller.common.util.MD5Util;
 import com.miller.data.center.merchant.TestCaseDataForMerchantConstant;
@@ -22,6 +23,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.member.MemberCityMapper;
 import com.miller.userapp.mapper.member.MemberPacketMapper;
+import com.miller.userapp.mapper.member.MemberShopRedPacketConfigurationMapper;
 import com.miller.userapp.mapper.redpacket.RedPacketMapper;
 import com.miller.userapp.mapper.shop.CityFunctionConfigMapper;
 import com.miller.userapp.mapper.virtual.MemberCityFeeReduceMapper;
@@ -61,6 +63,8 @@ public class SettlementMemberCombinedAndCashRedpacketTests {
    static CityFunctionConfigMapper cityFunctionConfigMapper;
    static MemberPacketMapper memberPacketMapper;
    static RedPacketMapper redPacketMapper;
+   static MemberShopRedPacketConfigurationMapper memberShopRedPacketConfigurationMapper;
+
 
    UserLoginRequestDTO userLoginRequestDTO;
    static Long memberCityId = 1111378L;
@@ -77,6 +81,8 @@ public class SettlementMemberCombinedAndCashRedpacketTests {
       redPacketMapper=sqlSession.getMapper(RedPacketMapper.class);
       cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
       memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
+      memberShopRedPacketConfigurationMapper =sqlSession.getMapper(MemberShopRedPacketConfigurationMapper.class);
+
       //关闭会员运费减免
       UpdateWrapper<MemberCityEntity> updateWrapper1 = new UpdateWrapper<>();
       LambdaUpdateWrapper<MemberCityEntity> lamda1 = updateWrapper1.lambda();
@@ -110,6 +116,12 @@ public class SettlementMemberCombinedAndCashRedpacketTests {
       lamda5.eq(MemberPacketEntity::getMemberPacketId,memberPacketId);
       lamda5.set(MemberPacketEntity::getIsDel, 0);
       memberPacketMapper.update(new MemberPacketEntity(), updateWrapper5);
+      //关闭所有会员店铺红包
+      UpdateWrapper<MemberShopRedPacketConfigurationEntity> updateWrapper6 = new UpdateWrapper<>();
+      LambdaUpdateWrapper<MemberShopRedPacketConfigurationEntity> lamda6 = updateWrapper6.lambda();
+      lamda6.eq(MemberShopRedPacketConfigurationEntity::getMemberCityId, memberCityId);
+      lamda6.set(MemberShopRedPacketConfigurationEntity::getIsDel, 1);
+      memberShopRedPacketConfigurationMapper.update(new MemberShopRedPacketConfigurationEntity(), updateWrapper6);
 
 
       userLoginRequestDTO = new UserLoginRequestDTO();
