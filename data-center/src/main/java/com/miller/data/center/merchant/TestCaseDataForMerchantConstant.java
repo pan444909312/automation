@@ -97,7 +97,7 @@ public class TestCaseDataForMerchantConstant {
     public static Long shopTestDeliveryWayProductTagId1 = 5501508L;
     public static Long shopTestDeliveryWayProductTagId2 = 5501510L;
     public static Integer shopTestDeliveryWayProductPacking = 110;
-    public static Long memberAddressId = 1398670114L;
+    public static Long memberAddressId = 1398672680L;
     public static Long shopIDFormemberOrder = 59750820L;
     public static Long productIDFormemberOrder = 81669198L;
     public static Integer shopFixednessPlatformAmount = 222;
