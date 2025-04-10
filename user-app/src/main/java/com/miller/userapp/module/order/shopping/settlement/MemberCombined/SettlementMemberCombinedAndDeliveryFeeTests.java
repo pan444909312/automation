@@ -85,7 +85,7 @@ public class SettlementMemberCombinedAndDeliveryFeeTests {
     void beforeAll() {
         sqlSession = DBUtils.getDBOfPandaTest();
         memberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
-//      memberDeliveryPriceMapper=sqlSession.getMapper(MemberDeliveryPriceMapper.class);
+        memberDeliveryPriceMapper=sqlSession.getMapper(MemberDeliveryPriceMapper.class);
         memberCityFeeReduceMapper = sqlSession.getMapper(MemberCityFeeReduceMapper.class);
         redPacketMapper = sqlSession.getMapper(RedPacketMapper.class);
         cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
