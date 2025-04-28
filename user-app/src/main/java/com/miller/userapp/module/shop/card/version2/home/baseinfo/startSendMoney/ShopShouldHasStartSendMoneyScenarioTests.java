@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.feature.startSendMoney;
+package com.miller.userapp.module.shop.card.version2.home.baseinfo.startSendMoney;
 
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;

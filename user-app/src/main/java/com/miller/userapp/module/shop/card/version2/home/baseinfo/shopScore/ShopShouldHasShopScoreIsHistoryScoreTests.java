@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.feature.shopScore;
+package com.miller.userapp.module.shop.card.version2.home.baseinfo.shopScore;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.shop.EvaluationEntity;
