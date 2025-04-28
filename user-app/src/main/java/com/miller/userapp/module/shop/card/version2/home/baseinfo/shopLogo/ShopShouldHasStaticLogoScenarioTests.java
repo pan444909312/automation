@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.baseinfo;
+package com.miller.userapp.module.shop.card.version2.home.baseinfo.shopLogo;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;

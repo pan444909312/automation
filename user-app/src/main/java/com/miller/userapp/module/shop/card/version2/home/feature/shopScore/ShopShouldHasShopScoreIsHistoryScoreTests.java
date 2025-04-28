@@ -1,21 +1,15 @@
 package com.miller.userapp.module.shop.card.version2.home.feature.shopScore;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
 import com.hungrypanda.app.server.entity.shop.EvaluationEntity;
-import com.hungrypanda.app.server.entity.shop.ShopEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
-import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
-import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.shop.EvaluationMapper;
-import com.miller.userapp.mapper.shop.ShopMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.baseinfo.ShopShouldHasLabelScenarioTests;
+import com.miller.userapp.module.shop.card.version2.home.baseinfo.shopLabel.ShopShouldHasLabelScenarioTests;
 import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;

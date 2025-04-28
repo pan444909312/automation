@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.baseinfo;
+package com.miller.userapp.module.shop.card.version2.home.baseinfo.shopName;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
@@ -23,18 +23,18 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标
+ * 商卡(中文)_普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2024/06/25 21:17:39
+ * @since 2024/07/28 12:17:39
  */
-@Scenario(scenarioID = "01J3VJ3JM9NZNW9BH5JEBWCN2G",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示",
-        author = "shandongdong@hungrypandagroup.com", developmentTime = 4 * 60, maintenanceTime = 0, manualTestTime = 30)
+@Scenario(scenarioID = "01J3VJ3JM9NZNW9BH5JEBWCN2F",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称",
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 3 * 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasLabelScenarioTests {
+public class ShopShouldHasShopNameScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
 
@@ -45,9 +45,9 @@ public class ShopShouldHasLabelScenarioTests {
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
     }
 
-    @MethodSource("showLabelDataProvider")
+    @MethodSource("shopNameDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示")
+    @DisplayName("普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
@@ -56,17 +56,15 @@ public class ShopShouldHasLabelScenarioTests {
 
         var interfaceResponse = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst()
-                // 获取接口返回的字段
-                .map(BaseShopIndexVO::getNewShopLabelUrl).orElseThrow();
+                // 获取接口的字段值
+                .map(BaseShopIndexVO::getShopName).orElseThrow();
 
-        // Then. 校验接口返回的字段与数据库字段匹配, JSON.result.shopList[x].newShopLabelUrl = hp_shop_search_middle.new_channel_label_url（大于8.15版本返回字段为 new_channel_label_url）
+        // Then. 校验接口返回的字段与数据库字段匹配，hp_shop_search_middle.shop_name  = shop.shop_name
         var databaseResponse = shopSearchMiddleMapper.selectOne(
                         // 查询条件，店铺ID
                         new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId))
                 // 获取数据库字段值
-                .getNewChannelLabelUrl();
-        interfaceResponse = interfaceResponse.substring(interfaceResponse.lastIndexOf("/") + 1);
-        databaseResponse = databaseResponse.substring(databaseResponse.lastIndexOf("/") + 1);
+                .getShopName();
 
         assertThat(interfaceResponse).isEqualTo(databaseResponse);
     }
@@ -74,7 +72,7 @@ public class ShopShouldHasLabelScenarioTests {
     /**
      * 测试用例数据提供者
      */
-    static Stream<Arguments> showLabelDataProvider() {
+    static Stream<Arguments> shopNameDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的

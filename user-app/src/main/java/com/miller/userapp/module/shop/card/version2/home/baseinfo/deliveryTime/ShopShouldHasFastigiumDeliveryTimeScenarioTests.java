@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.feature.deliveryTime;
+package com.miller.userapp.module.shop.card.version2.home.baseinfo.deliveryTime;
 
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;

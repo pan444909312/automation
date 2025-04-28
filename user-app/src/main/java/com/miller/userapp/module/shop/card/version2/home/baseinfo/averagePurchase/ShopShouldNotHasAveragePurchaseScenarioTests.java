@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.feature.averagePurchase;
+package com.miller.userapp.module.shop.card.version2.home.baseinfo.averagePurchase;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.config.SysAppConfigEntity;
@@ -20,17 +20,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-//import com.hungrypanda.app.server.vo.index;
+
 import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01J8SEAGBWX0F9MF3935C0ZX0J", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均"
+@Scenario(scenarioID = "01JA4X96GFYJAWZVM2JCX9TFP7", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均")
-public class ShopShouldHasAveragePurchaseScenarioTests {
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
+public class ShopShouldNotHasAveragePurchaseScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
 
@@ -40,19 +41,20 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
 //        开启配置管理AVERAGE_PURCHASE_SWITCH=1
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         SysAppConfigMapper sysAppConfigMapper = sqlSession.getMapper(SysAppConfigMapper.class);
-        sysAppConfigMapper.update(null, new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey,"AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue,"{\"open\":1}")
+        sysAppConfigMapper.update(null, new LambdaUpdateWrapper<SysAppConfigEntity>().eq(SysAppConfigEntity::getConfigKey,"AVERAGE_PURCHASE_SWITCH").set(SysAppConfigEntity::getConfigValue,"{\"open\":0}")
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
         Thread.sleep(15000);
+
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
-        String averagePurchase =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getAveragePurchase).orElseThrow();
-        assertThat(averagePurchase).isEqualTo("人均¥55");
+        ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+        assertThat(shopIndexVO.getAveragePurchase()).isNull();
 
     }
     //    DataProvider改为在测试用例文件里写,提供测试数据

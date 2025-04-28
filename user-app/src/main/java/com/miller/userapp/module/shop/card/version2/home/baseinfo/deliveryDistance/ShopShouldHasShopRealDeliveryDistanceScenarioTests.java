@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.feature.deliveryDistance;
+package com.miller.userapp.module.shop.card.version2.home.baseinfo.deliveryDistance;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
