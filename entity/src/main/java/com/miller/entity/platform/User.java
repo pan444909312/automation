@@ -36,7 +36,7 @@ public class User implements Serializable {
      * WARN Can not find table primary key in Class: "User".
      * {@code type = IdType.ASSIGN_UUID} 这个属性是用于当userId为空时，使用MyBatis-plus的自动生成主键策略。
      */
-    @Schema(name = "用户ID", type = "string", example = "user_id")
+    @Schema(description = "用户ID", type = "string", example = "user_id")
     @TableId(type = IdType.ASSIGN_UUID)
     private String userId;
 
@@ -44,44 +44,44 @@ public class User implements Serializable {
      * 使用 {@link TableField @TableField} 注解指定Java代码中属性名对应的数据库表中的列名
      */
     @TableField("name")
-    @Schema(name = "用户昵称")
+    @Schema(description = "用户昵称")
     private String name;
 
     /**
      * 用户账号(email)，系统中唯一
      */
-    @Schema(name = "用户邮箱，作为登陆账号")
+    @Schema(description = "用户邮箱，作为登陆账号")
     private String email;
 
     /**
      * 密码，默认初始化SQL写死为123456
      */
-    @Schema(name = "用户账号密码", type = "string", example = "123456", minLength = 6, maxLength = 30)
+    @Schema(description = "用户账号密码", type = "string", example = "123456", minLength = 6, maxLength = 30)
     private String password;
 
     /**
      * 用户状态，默认0
      */
-    @Schema(name = "用户状态")
+    @Schema(description = "用户状态")
     private String status;
 
     /**
      * 用户手机号
      */
-    @Schema(name = "用户手机号")
+    @Schema(description = "用户手机号")
     private String mobile;
 
 
     /**
      * 创建用户的时间,单位:11位时间戳。例如:<pre>System.currentTimeMillis()</pre>
      */
-    @Schema(name = "用户创建时间")
+    @Schema(description = "用户创建时间")
     private Long createTime;
 
     /**
      * 更新用户信息的时间,单位:11位时间戳。例如:<blockquote><pre>System.currentTimeMillis()</pre></blockquote>
      */
-    @Schema(name = "用户更新时间")
+    @Schema(description = "用户更新时间")
     private Long updateTime;
 
     /**
@@ -90,7 +90,7 @@ public class User implements Serializable {
      * 注解 {@link TableField @TableField(exist = false)}注解 来表明这个字段不需要映射到数据库。
      */
     @TableField(exist = false)
-    @Schema(name = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
 }

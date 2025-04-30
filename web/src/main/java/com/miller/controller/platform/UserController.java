@@ -1,12 +1,17 @@
 package com.miller.controller.platform;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.common.constants.PermissionConstants;
 import com.miller.entity.platform.User;
+import com.miller.entity.platform.UserBindRole;
+import com.miller.entity.platform.resp.UserInfoRespDTO;
 import com.miller.entity.util.ResponseEnum;
 import com.miller.exception.AutomationException;
 import com.miller.security.JWTToken;
 import com.miller.security.JWTUtils;
+import com.miller.service.platform.UserBindRoleService;
 import com.miller.service.platform.UserService;
+import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -15,6 +20,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -26,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 用户管理接口
@@ -42,6 +49,9 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserBindRoleService userBindRoleService;
 
     /**
      * 登录接口
@@ -155,5 +165,29 @@ public class UserController {
         } else {
             return list;
         }
+    }
+
+    @Operation(summary = ("获取用户信息"))
+    @GetMapping("/info")
+    public UserInfoRespDTO info(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        // 解析token 返回user_id
+//        String userId = userService.getUserIdByToken(authorization);
+        // 解析方法未完善 先写死admin
+        String userId = "admin";
+        User user = userService.getUserById(userId);
+
+        List<UserBindRole> userBindRoleList = userBindRoleService.list(new QueryWrapper<UserBindRole>().eq("user_id", userId));
+        List<String> userRole = userBindRoleList.stream()
+                .map(UserBindRole::getRoleId)
+                .toList();
+
+        UserInfoRespDTO userInfoRespDTO = new UserInfoRespDTO();
+        userInfoRespDTO.setUserId(userId);
+        userInfoRespDTO.setName(user.getName());
+        userInfoRespDTO.setMobile(user.getMobile());
+        userInfoRespDTO.setEmail(user.getEmail());
+        userInfoRespDTO.setRoles(userRole);
+        return userInfoRespDTO;
     }
 }
