@@ -55,6 +55,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return user;
     }
 
+    @Override
+    public User getUserById(String id) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("user_id", id);
+        User user = userMapper.selectOne(queryWrapper);
+        return user;
+    }
+
     /**
      * 根据用户名获取用户拥有的权限菜单列表
      */
@@ -86,5 +94,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.eq("status", 0);
         List<User> list = userMapper.selectList(queryWrapper);
         return list;
+    }
+
+    /**
+     * todo
+     * 根据token解析返回userId
+     * @param token
+     * @return
+     */
+    @Override
+    public String getUserIdByToken(String token) {
+        return "";
     }
 }

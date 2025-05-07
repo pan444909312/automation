@@ -19,9 +19,13 @@ public interface UserService extends IService<User> {
 
     User getUserByName(String name);
 
+    User getUserById(String id);
+
     List<Map<String, Object>> getMenuList(String username);
 
     List<String> getProjectListByUserIdOrEmail(String userId);
 
     List<User> getUserList();
+
+    String getUserIdByToken(String token);
 }

@@ -47,7 +47,86 @@
             <version>3.5.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.pandafresh.server</groupId>
+            <artifactId>pandafresh-api</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
+                </exclusion>
+                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>rest-assured</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-data-redis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                </exclusion>
+                <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
 
+            </exclusions>
+        </dependency>
         <!-- PF 端工程依赖开发相关的库 -->
         <!-- hp-market-server
         PF 生鲜超市项目

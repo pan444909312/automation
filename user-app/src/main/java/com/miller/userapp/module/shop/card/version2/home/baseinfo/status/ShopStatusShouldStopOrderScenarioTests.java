@@ -14,7 +14,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.home.baseinfo.ShopShouldHasLabelScenarioTests;
+import com.miller.userapp.module.shop.card.version2.home.baseinfo.shopLabel.ShopShouldHasLabelScenarioTests;
 import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
 import com.miller.userapp.util.DBUtils;
