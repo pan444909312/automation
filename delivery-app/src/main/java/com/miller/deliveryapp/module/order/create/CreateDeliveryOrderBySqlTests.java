@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @DisplayName("通过sql插入创建订单")
 public class CreateDeliveryOrderBySqlTests {
 
-    private static final String mySqlUrl = "jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com/panda_test";
+    private static final String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com/panda_test";
     private static final String userName = "panda_test";
     private static final String passWord = "Pan$te19*";
     private static DBUtils dbUtils;

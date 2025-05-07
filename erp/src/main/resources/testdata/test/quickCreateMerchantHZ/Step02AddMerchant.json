@@ -8,7 +8,7 @@
         "sortList": [
           {
             "operationName": "NAME",
-            "value": "自动化测试_东东萧山剧院"
+            "value": "自动化创建店铺_李菁菁"
           }
         ]
       },
@@ -41,6 +41,6 @@
     ],
     "managerId": 439,
     "extraManagerId": 0,
-    "merchantNotes": "东东熟悉业务商家\n经度：120.2637799186\n维度：30.1861190888"
+    "merchantNotes": "自动化创建的店铺。\n经度：120.2637799186\n维度：30.1861190888"
   }
 }

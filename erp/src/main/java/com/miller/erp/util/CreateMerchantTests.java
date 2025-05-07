@@ -113,7 +113,7 @@ public class CreateMerchantTests {
     /**
      * 测试用例数据文件路径
      */
-    private static final String filePath = "quickCreateMerchant/";
+    private static final String filePath = "quickCreateMerchantHZ/";
     /**
      * 新增商家返回的数据
      */

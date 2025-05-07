@@ -13,7 +13,7 @@ public class CodeGenerator {
     @Test
     public void run() {
         String projectPath = System.getProperty("user.dir");
-        FastAutoGenerator.create("jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com:3306/automation_test", "automation", "20AR@UJsobwLBdih")
+        FastAutoGenerator.create("jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/automation_test", "automation", "20AR@UJsobwLBdih")
                 .globalConfig(builder -> {
                     builder.author("panjuxiang")// 设置作者
                             .outputDir(projectPath + "/src/main/java") // 输出目录

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 @Disabled
 public class MyBatisPlusConfigTest {
     private static CalculatorMapper calculatorMapper;
-    private static String mySqlUrl = "jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com:3306/automation_test";
+    private static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/automation_test";
     private static String userName = "automation";
     private static String passWord = "20AR@UJsobwLBdih";
 
