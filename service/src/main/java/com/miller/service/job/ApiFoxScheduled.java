@@ -17,7 +17,7 @@ import java.util.Date;
  */
 @Component
 public class ApiFoxScheduled {
-    private static final String runApiFoxCommand = "apifox run https://apifox.hungrypanda.it/api/v1/projects/345145/api-test/ci-config/345113/detail?token=x6O0_WS0DlzSRJNhr5Lh63 -r html,cli --database-connection ./database-connections.json  --upload-report";
+    private static final String runApiFoxCommand = "apifox run https://apifox.hungrypanda.it/api/v1/projects/345145/api-test/ci-config/345113/detail?token=x6O0_WS0DlzSRJNhr5Lh63 -r html,cli --database-connection ./database-connections.json --global-var auto_execution_record=1 --upload-report";
 
     // "0 15 10 * * ?" 每天上午10:15触发
     @Scheduled(cron = "0 10 1 * * ?")
