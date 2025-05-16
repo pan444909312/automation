@@ -15,23 +15,27 @@ import com.miller.userapp.module.data.activity.UserCdkeyDeleteSql;
 import com.miller.userapp.module.data.activity.UserCdkeyInfoSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRH9HJCMCQQ8RNXB6F9", scenarioName = "智能营销链路-天降弹窗-（基础金额开关开+手动领取成功+3张神券）-领取成功"
+@Scenario(scenarioID = "01JV6RCKS63YM5GE0Y9WC3CFP5", scenarioName = "普通天降链路-天降弹窗-智能营销对照组-手动领取-普通活动-手动领取"
         ,author = "yancancan@hungrypandagroup.com", developmentTime = 120, maintenanceTime = 0, manualTestTime = 15)
-public class CollectBatchScenarioTests {
+public class NormalCollectBatchScenarioTests {
+    //    普通活动红包配置
+    private static final List<NormalCollectBatchScenarioTests.RedPacketConfig> RED_PACKET_CONFIGS = Arrays.asList(
+            new NormalCollectBatchScenarioTests.RedPacketConfig(888895242L, 600, 1000)
+    );
     @BeforeAll
     public static void beforeAll(){
         //        登陆指定测试账号
@@ -49,52 +53,53 @@ public class CollectBatchScenarioTests {
         user.setType(Integer.valueOf(loginType));
         user.setDistinctId(distinctId);
         UserLoginFlow.loginAndPutToken(user);
-//        删除用户领取记录以及账户里对应的神券
-        Long redPacketId_1=888893280L;
-        Long redPacketId_2=888893278L;
-        Long redPacketId_3=888893276L;
+        //        删除用户领取记录以及账户里对应的神券
         new UserActivityDeleteSql().deleteCollectRecords(userId);
-        new UserCdkeyDeleteSql().deleteUserCdkey(userId,redPacketId_1);
-        new UserCdkeyDeleteSql().deleteUserCdkey(userId,redPacketId_2);
-        new UserCdkeyDeleteSql().deleteUserCdkey(userId,redPacketId_3);
-
+        for (NormalCollectBatchScenarioTests.RedPacketConfig redPacketConfig : RED_PACKET_CONFIGS) {
+            new UserCdkeyDeleteSql().deleteUserCdkey(userId, redPacketConfig.getId());
+        }
     }
-    @DisplayName("智能营销链路-天降弹窗-（基础金额开关开+手动领取模式+3张神券）-领取成功")
+    @DisplayName("普通天降链路-天降弹窗-智能营销对照组-手动领取-普通活动-手动领取")
     @MethodSource("provideCollectData")
     @ParameterizedTest
     void shouldCollectPopupdata(CollectBatchRequestDTO collectBatchRequestDTO){
         PropertiesUtils propertiesUtils=new PropertiesUtils();
-        String userId = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.activity.user01.userId");
         CollectBatchResponseDTO collectBatchResponseDTO = CollectBatchFlow.collectBatchFlow(collectBatchRequestDTO);
-//        校验用户成功领取红包1,且red_packet_scopeType=1
-        UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
-        UserCdKeyEntity  UserCdKeyEntity= userCdkeyInfoSql.selectUserCdkeyInfo(userId,888893276L);
-        assertThat(UserCdKeyEntity.getRedPacketScopeType()).isEqualTo(1);
+//          // 验证用户领取状态
+        verifyUserReceiveStatus();
     }
+    private void verifyUserReceiveStatus() {
+        PropertiesUtils propertiesUtils=new PropertiesUtils();
+        String userId = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.activity.user01.userId");
+        UserCdkeyInfoSql cdkeyInfoSql = new UserCdkeyInfoSql();
+        for (NormalCollectBatchScenarioTests.RedPacketConfig config : RED_PACKET_CONFIGS) {
+            UserCdKeyEntity cdKey = cdkeyInfoSql.selectUserCdkeyInfo(userId, config.getId());
+            Assertions.assertThat(cdKey.getRedPacketScopeType())
+                    .as("红包%d领取状态校验", config.getId())
+                    .isEqualTo(0);
+        }
+    }
+
     static Stream<Arguments> provideCollectData(){
         CollectBatchRequestDTO collectBatchRequest = new CollectBatchRequestDTO();
         collectBatchRequest.setCity("九江市");
         RedPacketGroupCollectBatchAllReq.CollectDetail collectDetail_1 = new RedPacketGroupCollectBatchAllReq.CollectDetail();
-        collectDetail_1.setRedPacketGroupId(0L);
+        collectDetail_1.setRedPacketGroupId(2177L);
         collectDetail_1.setRedPacketActivityType(1);
         collectDetail_1.setRedPacketPlatform("HP");
-        collectDetail_1.setRedPacketId(888893280L);
-        RedPacketGroupCollectBatchAllReq.CollectDetail collectDetail_2=new RedPacketGroupCollectBatchAllReq.CollectDetail();
-        collectDetail_2.setRedPacketGroupId(0L);
-        collectDetail_2.setRedPacketActivityType(1);
-        collectDetail_2.setRedPacketPlatform("HP");
-        collectDetail_2.setRedPacketId(888893278L);
-        RedPacketGroupCollectBatchAllReq.CollectDetail collectDetail_3=new RedPacketGroupCollectBatchAllReq.CollectDetail();
-        collectDetail_3.setRedPacketGroupId(0L);
-        collectDetail_3.setRedPacketActivityType(1);
-        collectDetail_3.setRedPacketPlatform("HP");
-        collectDetail_3.setRedPacketId(888893276L);
+        collectDetail_1.setRedPacketId(RED_PACKET_CONFIGS.get(0).getId());
         List<RedPacketGroupCollectBatchAllReq.CollectDetail> list =new ArrayList<RedPacketGroupCollectBatchAllReq.CollectDetail>();
         list.add(collectDetail_1);
-        list.add(collectDetail_2);
-        list.add(collectDetail_3);
         collectBatchRequest.setCollects(list);
         return Stream.of(Arguments.of(collectBatchRequest));
-    }}
+    }
+    @lombok.Value
+    static class RedPacketConfig {
+        Long id;
+        int baseAmount;
+        int thresholdAmount;
+    }
+}
+
 
 
