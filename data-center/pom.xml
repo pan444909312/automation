@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.hungrypanda</groupId>
             <artifactId>app-server-api</artifactId>
-<!--            <version>0.0.1-SNAPSHOT</version>-->
+            <!--            <version>0.0.1-SNAPSHOT</version>-->
             <version>1.10.15-RELEASE</version>
             <exclusions>
                 <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
@@ -56,52 +56,109 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
-                </exclusion>
-                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-aop</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
                     <artifactId>mybatis-plus-extension</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.rest-assured</groupId>
-                    <artifactId>rest-assured</artifactId>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid</artifactId>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
                     <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+
             </exclusions>
+
         </dependency>
         <dependency>
             <groupId>com.hungrypanda</groupId>
@@ -135,52 +192,109 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
-                </exclusion>
-                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-aop</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
                     <artifactId>mybatis-plus-extension</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.rest-assured</groupId>
-                    <artifactId>rest-assured</artifactId>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid</artifactId>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
                     <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+
             </exclusions>
+
         </dependency>
         <dependency>
             <groupId>com.hungrypanda</groupId>
@@ -213,7 +327,110 @@
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+
             </exclusions>
+
         </dependency>
         <dependency>
             <groupId>com.panda.promotion.server</groupId>
@@ -246,7 +463,110 @@
                     <groupId>io.github.openfeign</groupId>
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+
             </exclusions>
+
         </dependency>
 
         <!-- B 端工程依赖开发相关的库 -->
@@ -286,57 +606,109 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
-                </exclusion>
-                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-aop</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
                     <artifactId>mybatis-plus-extension</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.rest-assured</groupId>
-                    <artifactId>rest-assured</artifactId>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid</artifactId>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
                     <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>mybatis-plus-annotation</artifactId>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
                     <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
 
             </exclusions>
+
         </dependency>
         <!-- hp-pos-server -->
         <dependency>
@@ -371,53 +743,109 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
-                </exclusion>
-                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-aop</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
                     <artifactId>mybatis-plus-extension</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.rest-assured</groupId>
-                    <artifactId>rest-assured</artifactId>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid</artifactId>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
                     <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
 
             </exclusions>
+
         </dependency>
 
 
@@ -457,10 +885,109 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+
             </exclusions>
+
         </dependency>
         <!-- 骑手端验签需要依赖公共服务，加密、解密等需要用到 -->
         <dependency>
@@ -495,10 +1022,109 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+
             </exclusions>
+
         </dependency>
         <!-- 公共参数，比如一些枚举值 -->
         <dependency>
@@ -533,10 +1159,109 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+
             </exclusions>
+
         </dependency>
 
         <!-- 多端公共依赖。比如：B、C都需要用到 ERP 后台 -->
@@ -577,53 +1302,109 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
-                </exclusion>
-                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-aop</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
                     <artifactId>mybatis-plus-extension</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.rest-assured</groupId>
-                    <artifactId>rest-assured</artifactId>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid</artifactId>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
                     <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
 
             </exclusions>
+
         </dependency>
         <dependency>
             <groupId>com.panda.erp.server</groupId>
@@ -657,53 +1438,104 @@
                     <artifactId>feign-jackson</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.panda</groupId>
-                    <artifactId>risk-control-client</artifactId>
-                </exclusion>
-                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-aop</artifactId>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                    <artifactId>mybatis-plus-annotation</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
                     <artifactId>mybatis-plus-extension</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.rest-assured</groupId>
-                    <artifactId>rest-assured</artifactId>
+                    <artifactId>spring-cloud-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
+                    <artifactId>spring-cloud-context</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid</artifactId>
+                    <artifactId>spring-cloud-starter</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <exclusion>
+                    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-mail</artifactId>
                     <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
+                    <artifactId>spring-boot-starter-amqp</artifactId>
+                    <groupId>org.springframework.boot</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
+                    <artifactId>spring-boot-starter-validation</artifactId>
+                    <groupId>org.springframework.boot</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>mybatis-plus-annotation</artifactId>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-boot-starter</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>redisson-spring-data-23</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opencc4j</artifactId>
+                    <groupId>com.github.houbb</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-xxl-conf-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
                     <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-springboot3-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hp-dynamic-datasource-starter</artifactId>
+                    <groupId>com.hungrypanda.starter</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-commons</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xgboost4j_2.12</artifactId>
+                    <groupId>ml.dmlc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
                 </exclusion>
                 <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
             </exclusions>
