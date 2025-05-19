@@ -1,6 +1,6 @@
 package com.miller.userapp.module.pay.checkout.flow;
 
-import com.hungrypanda.app.server.common.enums.payment.PaymentEnum;
+import com.hungrypanda.payserver.biz.enums.PaymentEnum;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.pay.checkout.request.PaymentPatternCheckOutRequestDTO;

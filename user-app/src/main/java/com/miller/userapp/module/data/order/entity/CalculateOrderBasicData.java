@@ -4,11 +4,15 @@ package com.miller.userapp.module.data.order.entity;
 import com.hungrypanda.app.server.dto.order.OrderVirtual;
 import com.hungrypanda.app.server.dto.redpacket.CdKeyModel;
 import com.miller.userapp.module.data.order.tax.config.RuleNewTaxConfigEntity;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 public class CalculateOrderBasicData extends OrderVirtual {
     /**
      * 商品售价汇总(包含加料费用)
@@ -51,9 +55,4 @@ public class CalculateOrderBasicData extends OrderVirtual {
      * 购物车商品信息
      */
 //    private List<ProductCart> productCartList;
-    /**
-     * 打包费 便士
-     */
-    private int platformPackaging;
-
 }

@@ -1,6 +1,6 @@
 package com.miller.userapp.module.pay.balance;
 
-import com.hungrypanda.app.server.common.enums.payment.PaymentEnum;
+import com.hungrypanda.payserver.biz.enums.PaymentEnum;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;

@@ -1,7 +1,7 @@
 package com.miller.userapp.module.pay.balance;
 
-import com.hungrypanda.app.server.common.enums.payment.PaymentEnum;
 import com.hungrypanda.app.server.vo.order.OrderListVO;
+import com.hungrypanda.payserver.biz.enums.PaymentEnum;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.erp.moudle.manage.merchant.order.list.flow.OrderDetailOfVoucherFlow;
