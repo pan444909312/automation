@@ -23,12 +23,17 @@ public class AutomationCoverageApiEntity {
     private String country;
     
     private Integer isAutomation;
-    
-    private String lastExecuteLog;
-    
+
     private Integer lastExecuteTime;
     
     private String executor;
     
     private Integer isDelete;
-} 
+
+    private String testCasePath;
+
+    private String testCaseRequestLast;
+
+    private String testCaseResponseLast;
+
+}
