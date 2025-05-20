@@ -36,6 +36,8 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
      */
     @Override
     public Map<String, Object> sendGetRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Map<String, Object> cookies) {
+        return sendRequest(uri, params, headers, null, cookies, "GET");
+    /*
         log.info("========================= 开始记录HTTP 日志 ========================");
         if (null == uri || uri.length() < 1) {
             log.error("uri cannot be null");
@@ -77,6 +79,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         Map<String, Object> stringObjectMap = processResponseResult(response, request);
         log.info("========================= 结束记录HTTP 日志 =========================");
         return stringObjectMap;
+     */
     }
 
     /**
@@ -125,6 +128,23 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         return sendRequest(uri, params, headers, body, cookies, method);
     }
 
+    /**
+     * 发送HTTP请求的通用方法
+     *
+     * @param uri     请求的URL地址
+     * @param params  请求的查询参数，使用LinkedHashMap保证参数顺序
+     * @param headers 请求头参数
+     * @param body    请求体，支持application/json和application/x-www-form-urlencoded格式
+     * @param cookies Cookie参数
+     * @param method  HTTP请求方法（GET、POST、PUT、DELETE等）
+     * @return Map<String, Object> 包含请求和响应信息的Map，key包括：
+     *         - request: 请求信息
+     *         - headers: 响应头
+     *         - cookies: Cookie信息
+     *         - status: 响应状态
+     *         - body: 响应体
+     *         - otherObject: 其他信息
+     */
     private Map<String, Object> sendRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, String method) {
         log.info("========================= 开始记录HTTP 日志 =========================");
         if (null == uri || uri.length() < 1) {
@@ -200,7 +220,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             request.cookies(cookies);
         }
         //
-        else if (contentType.toLowerCase(Locale.ROOT).contains("multipart/form-data")){
+        else if (contentType.toLowerCase(Locale.ROOT).contains("multipart/form-data")) {
             log.info("处理Content-Type为:{} 的请求body.", contentType);
             // 参数包含中文需要添加 charset=UTF-8 ，不在框架层处理这个逻辑了，在业务层处理
             if (!contentType.toLowerCase(Locale.ROOT).contains("charset=UTF-8")) {
@@ -210,19 +230,19 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
                 request.queryParams(params);
                 if (body instanceof Map) {
                     try {
-                        Map<String,Object> mutilPartMap = (Map<String,Object>) body;
-                        for(Map.Entry<String,Object> part : mutilPartMap.entrySet()){
+                        Map<String, Object> mutilPartMap = (Map<String, Object>) body;
+                        for (Map.Entry<String, Object> part : mutilPartMap.entrySet()) {
                             String multiValue = String.valueOf(part.getValue());
-                            if (StringUtils.isEmpty(multiValue) )continue;
-                            if(part.getValue() instanceof File){
+                            if (StringUtils.isEmpty(multiValue)) continue;
+                            if (part.getValue() instanceof File) {
                                 MultiPartSpecification multiPartSpecification = new MultiPartSpecBuilder(part.getValue())
                                         .fileName(multiValue)
                                         .controlName(part.getKey())
                                         .mimeType("application/octet-stream")
                                         .build();
                                 request.multiPart(multiPartSpecification);
-                            }else
-                                request.multiPart(part.getKey(),multiValue);
+                            } else
+                                request.multiPart(part.getKey(), multiValue);
                         }
 
                     } catch (IllegalArgumentException illegalArgumentException) {
@@ -266,8 +286,12 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             }
         }
         Response response = null;
-        // System.out.println(Method.POST.name());
-        if (method.equalsIgnoreCase("POST")) {
+
+        if (method.equalsIgnoreCase("GET")) {
+            log.info("========================= 开始发送请求 GET =========================");
+            response = request.when().request(Method.GET, uri).then().extract().response();
+        } else if (method.equalsIgnoreCase("POST")) {
+            // System.out.println(Method.POST.name());
             log.info("========================= 开始发送请求 POST =========================");
             response = request.when().request(Method.POST, uri).then().extract().response();
             log.info("========================= 结束发送请求 POST =========================");
