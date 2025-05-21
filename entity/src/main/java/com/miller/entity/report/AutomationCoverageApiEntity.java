@@ -20,31 +20,6 @@ public class AutomationCoverageApiEntity {
     private Long id;
 
     /**
-     * 域名，例如：api.example.com
-     */
-    private String host;
-
-    /**
-     * HTTP 请求方法，如：GET、POST、PUT、DELETE等
-     */
-    private String method;
-
-    /**
-     * 请求路径，例如：/api/v1/users
-     */
-    private String path;
-
-    /**
-     * 线上环境实际请求次数，用于统计接口使用频率
-     */
-    private Long requestsTimesProduction;
-
-    /**
-     * 国家/地区标识，用于区分不同地区的API调用
-     */
-    private String country;
-
-    /**
      * 是否已经实现自动化测试,0:未实现、1:已实现
      */
     private Integer isAutomation;
