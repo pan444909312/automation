@@ -32,6 +32,7 @@ public interface AutomationCoverageApiMapper extends BaseMapper<AutomationCovera
             "is_automation = #{entity.isAutomation}, " +
             "last_execute_time = #{entity.lastExecuteTime}, " +
             "executor = #{entity.executor}, " +
+            "test_case_response_status_code = #{entity.testCaseResponseStatusCode}, " +
             "test_case_response_body = #{entity.testCaseResponseBody}, " +
             "test_case_request_path = #{entity.testCaseRequestPath}, " +
             "test_case_request_method = #{entity.testCaseRequestMethod}, " +

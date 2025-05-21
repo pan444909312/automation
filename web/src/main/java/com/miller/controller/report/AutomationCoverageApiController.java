@@ -43,7 +43,7 @@ public class AutomationCoverageApiController {
                                                   @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         Page<AutomationCoverageApiEntity> page = new Page<>(pageNum, pageSize);
         LambdaQueryWrapper<AutomationCoverageApiEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(AutomationCoverageApiEntity::getIsDelete, 0);
+        queryWrapper.eq(AutomationCoverageApiEntity::getApiStatus, 0);
         return automationCoverageApiService.page(page, queryWrapper);
     }
 
