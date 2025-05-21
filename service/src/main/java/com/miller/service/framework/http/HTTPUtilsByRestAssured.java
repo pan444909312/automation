@@ -5,6 +5,7 @@ import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.http.Method;
+import io.restassured.internal.RequestSpecificationImpl;
 import io.restassured.response.Response;
 import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
@@ -321,7 +322,15 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         assert response != null;
         response.then().log().all();
         log.info("========================= 结束记录HTTP 日志 =========================");
-        return processResponseResult(response, request);
+        Map<String, Object> stringObjectMap = processResponseResult(response, request);
+        // 将 HTTP 协议数据存储到数据库中 todo
+        updateAutomationCoverageResult(request, stringObjectMap);
+
+        return stringObjectMap;
+    }
+
+    private void updateAutomationCoverageResult(RequestSpecification request, Map<String, Object> stringObjectMap) {
+
     }
 
     /**
@@ -333,7 +342,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     private Map<String, Object> processResponseResult(Response response, RequestSpecification request) {
         HashMap<String, Object> result = new HashMap<>();
         // 请求数据
-        HashMap<String, Object> requestLogMap = new HashMap<>();
+        HashMap<String, Object> requestMap = new HashMap<>();
         // 响应 Header
         HashMap<String, Object> responseHeaderMap = new HashMap<>();
         // 响应 Cookie
@@ -345,15 +354,19 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         // 响应中其他对象，主要包括原始响应对象，方便调用方调用原始对象的行为
         HashMap<String, Object> otherObjectMap = new HashMap<>();
 
-        // 获取请求 日志
-        // requestLogMap.put("params", request.log().params().toString());
-        // requestLogMap.put("body", request.log().body().toString());
-        // requestLogMap.put("headers", request.log().headers());
-        // requestLogMap.put("cookies", request.log().cookies().toString());
-        // requestLogMap.put("method", request.log().method().toString());
-        // requestLogMap.put("uri", request.log().uri().toString());
-        // 请求日志 所有
-        // requestLogMap.put("all", request.log().all().toString());
+        // 获取请求 request 对象
+//        requestMap.put("params", request.log().params().toString());
+//        requestMap.put("body", request.log().body().toString());
+//        requestMap.put("headers", request.log().headers());
+//        requestMap.put("cookies", request.log().cookies().toString());
+//        requestMap.put("method", request.log().method().toString());
+//        requestMap.put("uri", request.log().uri().toString());
+//        requestMap.put("all", request.log().all().toString()); // 请求日志
+        requestMap.put("requestMethod", ((RequestSpecificationImpl) request).getMethod());
+        requestMap.put("requestURI", ((RequestSpecificationImpl) request).getURI());
+        requestMap.put("headers", ((RequestSpecificationImpl) request).getHeaders().toString());
+        requestMap.put("body", ((RequestSpecificationImpl) request).getBody());
+        requestMap.put("path", ((RequestSpecificationImpl) request).getUserDefinedPath());
 
         // 获取响应 headers
         Headers allHeaders = response.getHeaders();
@@ -369,8 +382,8 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         responseStatusMap.put("statusCode", response.statusCode());
         responseStatusMap.put("statusLine", response.statusLine());
 
-        // 获取响 body
-        // Bug:请勿修改响应体的内容，否则可能出现字符串反序列化错误，有些字符串中间的空格benign去掉
+        // 获取响应 body
+        // Bug:请勿修改响应体的内容，否则可能出现字符串反序列化错误，有些字符串中间的空格不能去掉
         // responseBodyMap.put("body", (response.getBody().asString()).replaceAll(" ", ""));
         responseBodyMap.put("body", response.getBody().asString());
         String body = response.getBody().asString();
@@ -380,7 +393,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         otherObjectMap.put("response", response);
 
         // 聚合在一起最后全部返回
-        result.put("request", requestLogMap);
+        result.put("request", requestMap);
         result.put("headers", responseHeaderMap);
         result.put("cookies", responseCookieMap);
         result.put("status", responseStatusMap);
