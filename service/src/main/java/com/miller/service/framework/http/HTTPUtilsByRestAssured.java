@@ -1,5 +1,9 @@
 package com.miller.service.framework.http;
 
+import com.miller.entity.report.AutomationCoverageApiEntity;
+import com.miller.service.framework.report.AutoDBUtils;
+import com.miller.service.framework.report.mapper.AutomationCoverageApiMapper;
+import com.miller.service.framework.util.TestCaseUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.http.Header;
@@ -11,6 +15,7 @@ import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
 
 import java.io.File;
 import java.util.*;
@@ -26,6 +31,11 @@ import static io.restassured.config.EncoderConfig.encoderConfig;
  */
 @Slf4j
 public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
+    /**
+     * 是否启自动容积 自动化测试覆盖率
+     */
+    private static final Boolean isOpenCoverage = true;
+
     /**
      * 发送 GET 请求
      *
@@ -323,14 +333,11 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         response.then().log().all();
         log.info("========================= 结束记录HTTP 日志 =========================");
         Map<String, Object> stringObjectMap = processResponseResult(response, request);
-        // 将 HTTP 协议数据存储到数据库中 todo
-        updateAutomationCoverageResult(request, stringObjectMap);
+        // 将 HTTP 协议数据存储到数据库中
+        if (true)
+            updateAutomationCoverageResult(stringObjectMap);
 
         return stringObjectMap;
-    }
-
-    private void updateAutomationCoverageResult(RequestSpecification request, Map<String, Object> stringObjectMap) {
-
     }
 
     /**
@@ -364,9 +371,9 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
 //        requestMap.put("all", request.log().all().toString()); // 请求日志
         requestMap.put("requestMethod", ((RequestSpecificationImpl) request).getMethod());
         requestMap.put("requestURI", ((RequestSpecificationImpl) request).getURI());
-        requestMap.put("headers", ((RequestSpecificationImpl) request).getHeaders().toString());
-        requestMap.put("body", ((RequestSpecificationImpl) request).getBody());
-        requestMap.put("path", ((RequestSpecificationImpl) request).getUserDefinedPath());
+        requestMap.put("requestHeaders", ((RequestSpecificationImpl) request).getHeaders().toString());
+        requestMap.put("requestBody", ((RequestSpecificationImpl) request).getBody());
+        requestMap.put("requestPath", ((RequestSpecificationImpl) request).getUserDefinedPath());
 
         // 获取响应 headers
         Headers allHeaders = response.getHeaders();
@@ -393,14 +400,48 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         otherObjectMap.put("response", response);
 
         // 聚合在一起最后全部返回
-        result.put("request", requestMap);
+        result.put("requestMap", requestMap);
         result.put("headers", responseHeaderMap);
         result.put("cookies", responseCookieMap);
         result.put("status", responseStatusMap);
         result.put("body", responseBodyMap);
-        // result.put("body", body);
         result.put("otherObject", otherObjectMap);
         // System.out.println("响应聚集结果" + result);
         return result;
+    }
+
+
+    /**
+     * 将 HTTP 协议数据存储到数据库中,用于自动统计接口覆盖率
+     * @param stringObjectMap {@link #processResponseResult(Response, RequestSpecification)}
+     */
+    private void updateAutomationCoverageResult(Map<String, Object> stringObjectMap) {
+        String requestMethod = ((HashMap) stringObjectMap.get("requestMap")).get("requestMethod").toString();
+        String requestURI = ((HashMap) stringObjectMap.get("requestMap")).get("requestURI").toString();
+        String requestHeaders = ((HashMap) stringObjectMap.get("requestMap")).get("requestHeaders").toString();
+        String requestBody = ((HashMap) stringObjectMap.get("requestMap")).get("requestBody").toString();
+        String requestPath = ((HashMap) stringObjectMap.get("requestMap")).get("requestPath").toString();
+        String responseBody = ((HashMap) stringObjectMap.get("body")).get("body").toString();
+        String responseStatusCode = ((HashMap) stringObjectMap.get("status")).get("statusCode").toString();
+        String responseStatusLine = ((HashMap) stringObjectMap.get("status")).get("statusLine").toString();
+        String responseHeaders = ((HashMap) stringObjectMap.get("headers")).toString();
+        String responseCookies = ((HashMap) stringObjectMap.get("cookies")).toString();
+
+        SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
+        AutomationCoverageApiMapper mapper = automationSession.getMapper(AutomationCoverageApiMapper.class);
+        AutomationCoverageApiEntity automationCoverageApiEntity = new AutomationCoverageApiEntity();
+        automationCoverageApiEntity.setIsAutomation(1);
+        automationCoverageApiEntity.setLastExecuteTime(System.currentTimeMillis());
+        automationCoverageApiEntity.setExecutor(TestCaseUtils.getExecutor());
+        automationCoverageApiEntity.setTestCaseRequestPath(requestPath);
+        automationCoverageApiEntity.setTestCaseRequestMethod(requestMethod);
+        automationCoverageApiEntity.setTestCaseRequestBody(requestBody);
+        automationCoverageApiEntity.setTestCaseRequestUri(requestURI);
+        automationCoverageApiEntity.setTestCaseRequestHeaders(requestHeaders);
+        automationCoverageApiEntity.setTestCaseResponseBody(responseBody);
+        automationCoverageApiEntity.setTestCaseResponseStatusCode(responseStatusCode);
+
+        int update = mapper.updateByPath(requestPath, automationCoverageApiEntity);
+        System.out.println("更新结果" + update);
     }
 }
