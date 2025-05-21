@@ -3,7 +3,7 @@ package com.miller.service.report.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.entity.AutoCaseRoiLog;
 import com.miller.entity.report.AutoCaseRoiEntity;
-import com.miller.mapper.AutoCaseRoiLogMapper;
+import com.miller.mapper.report.AutoCaseRoiLogMapper;
 import com.miller.service.report.AutoCaseRoiLogService;
 import org.springframework.stereotype.Service;
 
