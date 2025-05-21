@@ -22,22 +22,22 @@ public class AutomationCoverageApiEntity {
     /**
      * 域名，例如：api.example.com
      */
-//    private String host;
+    private String host;
     
     /**
      * HTTP 请求方法，如：GET、POST、PUT、DELETE等
      */
-//    private String method;
+    private String method;
     
     /**
      * 请求路径，例如：/api/v1/users
      */
-//    private String path;
+    private String path;
     
     /**
      * 线上环境实际请求次数，用于统计接口使用频率
      */
-//    private Long requestsTimesProduction;
+    private Long requestsTimesProduction;
     
     /**
      * 国家/地区标识，用于区分不同地区的API调用
@@ -65,18 +65,33 @@ public class AutomationCoverageApiEntity {
     private Integer isDelete;
 
     /**
-     * 测试用例的存储路径或URL参数
+     * 测试用例的url参数
      */
-    private String testCasePath;
+    private String testCaseRequestPath;
 
     /**
-     * 最后一次测试用例的请求数据，存储JSON格式的请求体
+     * 测试用例请求Method
      */
-    private String testCaseRequestLast;
+    private String testCaseRequestMethod;
 
     /**
-     * 最后一次测试用例的响应结果，存储JSON格式的响应体
+     * 测试用例请求uri
      */
-    private String testCaseResponseLast;
+    private String testCaseRequestUri;
+
+    /**
+     * 测试用例请求头
+     */
+    private String testCaseRequestHeaders;
+
+    /**
+     * 测试用例请求体
+     */
+    private String testCaseRequestBody;
+
+    /**
+     * 最后一次测试用例的响应结果
+     */
+    private String testCaseResponseBody;
 
 }

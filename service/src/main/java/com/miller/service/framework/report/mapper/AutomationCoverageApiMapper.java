@@ -15,16 +15,16 @@ public interface AutomationCoverageApiMapper extends BaseMapper<AutomationCovera
     /**
      * 根据API路径查询自动化覆盖数据
      *
-     * @param testCasePath 根据测试用例的 Path 路径在库里查找对应的线上 Path, 如果匹配才做更新
+     * @param testCaseRequestPath 根据测试用例的 Path 路径在库里查找对应的线上 Path, 如果匹配才做更新
      * @return 自动化覆盖数据列表
      */
-    @Select("SELECT * FROM automation_coverage_api WHERE path = #{testCasePath}")
-    List<AutomationCoverageApiEntity> selectByPath(@Param("testCasePath") String testCasePath);
+    @Select("SELECT * FROM automation_coverage_api WHERE path = #{testCaseRequestPath}")
+    List<AutomationCoverageApiEntity> selectByPath(@Param("testCaseRequestPath") String testCaseRequestPath);
 
     /**
      * 根据API路径更新自动化覆盖数据
      *
-     * @param testCasePath 根据测试用例的 Path 路径在库里查找对应的线上 Path, 如果匹配才做更新
+     * @param testCaseRequestPath 根据测试用例的 Path 路径在库里查找对应的线上 Path, 如果匹配才做更新
      * @param entity 要更新的实体对象
      * @return 更新的记录数
      */
@@ -32,10 +32,13 @@ public interface AutomationCoverageApiMapper extends BaseMapper<AutomationCovera
             "is_automation = #{entity.isAutomation}, " +
             "last_execute_time = #{entity.lastExecuteTime}, " +
             "executor = #{entity.executor}, " +
-            "test_case_path = #{entity.testCasePath}, " +
-            "test_case_request_last = #{entity.testCaseRequestLast}, " +
-            "test_case_response_last = #{entity.testCaseResponseLast} " +
-            "WHERE path = #{testCasePath}")
-    int updateByPath(@Param("testCasePath") String testCasePath, @Param("entity") AutomationCoverageApiEntity entity);
+            "test_case_response_body = #{entity.testCaseResponseBody}, " +
+            "test_case_request_path = #{entity.testCaseRequestPath}, " +
+            "test_case_request_method = #{entity.testCaseRequestMethod}, " +
+            "test_case_request_uri = #{entity.testCaseRequestUri}, " +
+            "test_case_request_headers = #{entity.testCaseRequestHeaders}, " +
+            "test_case_request_body = #{entity.testCaseRequestBody} " +
+            "WHERE path = #{testCaseRequestPath}")
+    int updateByPath(@Param("testCaseRequestPath") String testCaseRequestPath, @Param("entity") AutomationCoverageApiEntity entity);
 
 }
