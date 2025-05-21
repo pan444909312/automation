@@ -1,19 +1,20 @@
-package com.miller.userapp.module.shop.card.version2.home.feature.evaluation;
+package com.miller.userapp.module.shop.card.version2.home.feature.lastOrderNum;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
+import com.hungrypanda.app.server.common.consants.IndexListConstants;
+import com.hungrypanda.app.server.common.enums.index.shopFeature.ShopFeatureEnum;
+import com.hungrypanda.app.server.entity.data.KanbanPreviewDaysEntity;
 import com.hungrypanda.app.server.vo.index.ShopFeatureVO;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.userapp.constants.ShopFeatureTypeConstant;
-import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
-import com.miller.userapp.mapper.shop.ShopMapper;
+import com.miller.userapp.mapper.shop.KanbanPreviewDaysMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
+import com.miller.userapp.util.RedisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -25,48 +26,42 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * @author panjuxiang
- * @since 2024/8/24 16:34
- */
-@Scenario(scenarioID = "01J61TZX3QYPJKE76RVDW8AKS7",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签3_营销文案_首页-商卡二期：营销文案",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
+@Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DC6",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_下单人数标签_不满足下单人数，不返回下单人数标签",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasEvaluationFeature {
+public class ShopShouldHasNoLastOrderNumFeature {
 
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.04.shopId"));
-    private ShopSearchMiddleMapper shopSearchMiddleMapper;
-    private ShopMapper shopMapper;
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.blank.compare.shopId"));
+
+    private KanbanPreviewDaysMapper kanbanPreviewDaysMapper;
 
 
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
-        shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
-        shopMapper = sqlSession.getMapper(ShopMapper.class);
+        kanbanPreviewDaysMapper = sqlSession.getMapper(KanbanPreviewDaysMapper.class);
     }
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_营销标_标签3_营销文案_首页-商卡二期：营销文案")
+    @DisplayName("普通店铺配送商卡_营销标_人下单人数标签_不满足下单人数，不返回下单人数标签")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
         ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
-                filter(item -> item.getType().equals(ShopFeatureTypeConstant.EVALUATION)).findFirst().get();
+                filter(item -> item.getType().equals(ShopFeatureEnum.LAST_DAY_ORDER.getType())).findFirst().orElse(null);
 
-        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
-        String evaluation = shopMapper.selectById(shopId).getEvaluation();
+        KanbanPreviewDaysEntity kanbanPreviewDaysEntity = kanbanPreviewDaysMapper.selectOne(new QueryWrapper<KanbanPreviewDaysEntity>().eq("shop_id", shopId));
+        Long shopOrderNum = (long) (kanbanPreviewDaysEntity == null ? 0 : kanbanPreviewDaysEntity.getOrderNum() * Double.valueOf(RedisUtils.getRedisInstance().get("USA:SHOP_LAST_DAY_ORDER_NUM").toString()));
 
-        assertThat(shopIndexVO.getEvaluation()).isEqualTo(evaluation);
-        assertThat(shopSearchMiddleEntity.getEvaluation()).isEqualTo(evaluation);
-        assertThat(shopFeatureVO.getShowContent()).isEqualTo(evaluation);
+        assertThat(shopOrderNum > 50).isFalse();
+        assertThat(shopFeatureVO).isNull();
     }
 
 
@@ -80,4 +75,5 @@ public class ShopShouldHasEvaluationFeature {
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
+
 }

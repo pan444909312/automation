@@ -1,5 +1,7 @@
 package com.miller.userapp.module.shop.card.version2.home.feature.firstOrderDelivery;
 
+import com.hungrypanda.app.server.common.enums.index.shopFeature.ShopFeatureEnum;
+import com.hungrypanda.app.server.vo.index.ShopFeatureVO;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
@@ -20,6 +22,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -28,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J6CDZ1N0GMN5RGTDRYNKE8SW",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_首单优先送_首页-商卡二期：首单优先送",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFirstOrderDeliveryFeature {
@@ -56,12 +59,15 @@ public class ShopShouldHasFirstOrderDeliveryFeature {
     @DisplayName("普通店铺配送商卡_营销标_首单优先送_首页-商卡二期：首单优先送")
     void shouldExistFirstOrderDeliveryFeature(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
+        ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().filter(item -> item.getType().equals(ShopFeatureEnum.FIRST_ORDER_DELIVERY.getType())).findFirst().orElse(null);
+
 
         assertThat(shopIndexVO.getFirstOrderDelivery()).isEqualTo(1);
+        assertThat(shopFeatureVO.getShowContent()).isEqualTo(ShopFeatureEnum.FIRST_ORDER_DELIVERY.getName());
     }
 
 
