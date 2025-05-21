@@ -7,7 +7,7 @@ create table if not exists automation_coverage_api
     requests_times_production bigint       default 0  not null comment '线上请求次数',
     country                   varchar(64)  default '' not null comment '国家',
     is_automation             tinyint      default 0  not null comment '是否已经实现自动化,0:否、1:是',
-    last_execute_time         int(16)      default 0  not null comment '最后一次执行时间',
+    last_execute_time         bigint       default 0  not null comment '最后一次执行时间',
     executor                  varchar(64)  default '' not null comment '执行人员',
     is_delete                 tinyint      default 0  not null comment '是否删除',
     test_case_path            varchar(255) default '' not null comment '测试用例的url参数',
