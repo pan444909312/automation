@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.feature.monthlySales;
+package com.miller.userapp.module.shop.card.version2.home.baseinfo.monthlySales;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.address.CityFunctionConfigEntity;
