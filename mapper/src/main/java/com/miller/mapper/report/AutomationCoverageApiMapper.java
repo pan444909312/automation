@@ -1,4 +1,4 @@
-package com.miller.mapper;
+package com.miller.mapper.report;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.miller.entity.report.AutomationCoverageApiEntity;

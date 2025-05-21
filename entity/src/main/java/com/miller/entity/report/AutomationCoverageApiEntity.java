@@ -5,35 +5,78 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+/**
+ * 自动化测试接口覆盖率实体类
+ * 用于记录和追踪API接口的自动化测试覆盖情况
+ */
 @Data
 @TableName("automation_coverage_api")
 public class AutomationCoverageApiEntity {
     
+    /**
+     * 主键id
+     */
     @TableId(type = IdType.AUTO)
     private Long id;
     
-    private String host;
+    /**
+     * 域名，例如：api.example.com
+     */
+//    private String host;
     
-    private String method;
+    /**
+     * HTTP 请求方法，如：GET、POST、PUT、DELETE等
+     */
+//    private String method;
     
-    private String path;
+    /**
+     * 请求路径，例如：/api/v1/users
+     */
+//    private String path;
     
-    private Long requestsTimesProduction;
+    /**
+     * 线上环境实际请求次数，用于统计接口使用频率
+     */
+//    private Long requestsTimesProduction;
     
+    /**
+     * 国家/地区标识，用于区分不同地区的API调用
+     */
     private String country;
     
+    /**
+     * 是否已经实现自动化测试,0:未实现、1:已实现
+     */
     private Integer isAutomation;
 
-    private Integer lastExecuteTime;
+    /**
+     * 最后一次执行自动化测试的时间戳
+     */
+    private Long lastExecuteTime;
     
+    /**
+     * 执行自动化测试的人员姓名
+     */
     private String executor;
     
+    /**
+     * 软删除标记,0:未删除、1:已删除
+     */
     private Integer isDelete;
 
+    /**
+     * 测试用例的存储路径或URL参数
+     */
     private String testCasePath;
 
+    /**
+     * 最后一次测试用例的请求数据，存储JSON格式的请求体
+     */
     private String testCaseRequestLast;
 
+    /**
+     * 最后一次测试用例的响应结果，存储JSON格式的响应体
+     */
     private String testCaseResponseLast;
 
 }

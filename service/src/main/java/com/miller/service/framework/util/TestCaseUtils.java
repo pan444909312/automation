@@ -37,4 +37,8 @@ public class TestCaseUtils {
         }
         return executor;
     }
+
+    public static String getExecutor() {
+        return getExecutor(TestCaseUtils.class);
+    }
 }
