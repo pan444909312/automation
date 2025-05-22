@@ -74,4 +74,13 @@ public class AutomationCoverageApiEntity {
      */
     private String testCaseResponseStatusCode;
 
+    /**
+     * 用例负责人。邮箱字段，用于关联用户表
+     */
+    private String author;
+    /**
+     * 项目ID，冗余字段，暂时提供给外部系统使用
+     */
+    private String projectId;
+
 }
