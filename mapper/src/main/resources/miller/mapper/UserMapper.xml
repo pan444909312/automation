@@ -15,4 +15,8 @@
         select * from user where name = #{name}   limit 1
     </select>
 
+    <select id="selectByEmail" resultType="com.miller.entity.platform.User">
+        select * from user where email = #{email}   limit 1
+    </select>
+
 </mapper>

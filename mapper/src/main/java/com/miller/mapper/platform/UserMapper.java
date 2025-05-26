@@ -19,8 +19,8 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 根据用户ID或邮箱查询用户绑定的项目下的所有缺陷
      *
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 项目列表
      */
     List<String> getProjectListByUserIdOrEmail(String userId);
 
@@ -28,5 +28,10 @@ public interface UserMapper extends BaseMapper<User> {
      * 根据用户名称查询
      */
     User selectByName(String name);
+
+    /**
+     * 根据用户邮箱查询
+     */
+    User selectByEmail(String email);
 
 }
