@@ -1,20 +1,26 @@
 package com.miller.service.framework.listenner;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.miller.common.util.DateUtils;
 import com.miller.entity.constant.ExecutionStatusEnum;
+import com.miller.entity.platform.User;
+import com.miller.entity.report.AutomationCoverageApiEntity;
+import com.miller.mapper.platform.UserMapper;
 import com.miller.service.framework.annotation.ApiDoc;
 import com.miller.service.framework.annotation.ApiDocs;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.apidoc.YApiUtils;
 import com.miller.service.framework.depend.DependsOnClass;
 import com.miller.service.framework.depend.DependsOnMethod;
+import com.miller.service.framework.http.HTTPUtilsByRestAssured;
 import com.miller.service.framework.lifecycle.LifecycleCallback;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
-import com.miller.service.framework.util.JGitUtils;
-import com.miller.service.framework.util.OSUtils;
+import com.miller.service.framework.report.mapper.AutomationCoverageApiMapper;
 import com.miller.service.framework.report.AutoDBUtils;
 import com.miller.service.framework.util.TestCaseUtils;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
@@ -33,7 +39,7 @@ import java.util.*;
  * 监听{@link Test @Test}, {@link TestTemplate @TestTemplate}方法，
  * 比如{@link RepeatedTest @RepeatedTest},
  * {@link ParameterizedTest @ParameterizedTest},
- * 监听结果结果包括{@link Disabled}, Successful, Aborted, Failed
+ * 监听结果结果包括{@link Disabled}, SUCCESSFUL,FAILED,DISABLED,ABORTED
  * </p>
  *
  * @author Miller Shan
@@ -44,6 +50,11 @@ import java.util.*;
  * @since 2023/10/16 21:22:41
  */
 public class TestResultWatcher implements TestWatcher, ExecutionCondition {
+    private static final String SUCCESSFUL = "Successful";
+    private static final String FAILED = "Failed";
+    private static final String DISABLED = "Disabled";
+    private static final String ABORTED = "Aborted";
+
     /**
      * 自动化测试执行通知消息开关
      */
@@ -61,7 +72,17 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      * 存储场景执行结果
      */
     private static Map<String, ExecutionStatusEnum> scenarioResultMap = new HashMap<>();
+
+    /**
+     * 操作数据库
+     */
     private SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
+
+    /**
+     * 是否启自动化测试覆盖率统计
+     */
+    private static final Boolean isOpenCoverage = true;
+
 
     // 是否同步结果到 YAPI 平台的开关
     @Deprecated /* 已废弃，关闭开关 */ private static final Boolean yApiEnabled = false;
@@ -94,8 +115,10 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                 YApiUtils.updateYApiData(element);
             }
         }
-        if (isSendNotification) sendExecuteNotification(context, "Successful");
-        updateAutoExecutionRecordTestResult(context, "Successful");
+        if (isSendNotification) sendExecuteNotification(context, SUCCESSFUL);
+        updateAutoExecutionRecordTestResult(context, SUCCESSFUL);
+        // 将 HTTP 协议数据存储到数据库中
+        if (isOpenCoverage) updateAutomationCoverageResult(context, SUCCESSFUL, HTTPUtilsByRestAssured.httpInfoMap);
     }
 
     @Override
@@ -104,22 +127,29 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         // 如果类中的某一个方法失败了，那么认为这个类也执行失败了
         String failedClassName = context.getTestClass().orElse(null).getName();
         failedTestClasses.add(failedClassName);
-        if (isSendNotification) sendExecuteNotification(context, "Failed");
-        updateAutoExecutionRecordTestResult(context, "Failed");
+        if (isSendNotification) sendExecuteNotification(context, FAILED);
+        updateAutoExecutionRecordTestResult(context, FAILED);
+        // 将 HTTP 协议数据存储到数据库中
+        if (isOpenCoverage) updateAutomationCoverageResult(context, FAILED, HTTPUtilsByRestAssured.httpInfoMap);
+
     }
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
         System.out.println(this.getClass().getName() + " testDisabled method invoked...");
-        if (isSendNotification) sendExecuteNotification(context, "Disabled");
-        updateAutoExecutionRecordTestResult(context, "Disabled");
+        if (isSendNotification) sendExecuteNotification(context, DISABLED);
+        updateAutoExecutionRecordTestResult(context, DISABLED);
+        // 将 HTTP 协议数据存储到数据库中
+        if (isOpenCoverage) updateAutomationCoverageResult(context, DISABLED, HTTPUtilsByRestAssured.httpInfoMap);
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
         System.out.println(this.getClass().getName() + " testAborted method invoked...");
-        if (isSendNotification) sendExecuteNotification(context, "Aborted");
-        updateAutoExecutionRecordTestResult(context, "Aborted");
+        if (isSendNotification) sendExecuteNotification(context, ABORTED);
+        updateAutoExecutionRecordTestResult(context, ABORTED);
+        // 将 HTTP 协议数据存储到数据库中
+        if (isOpenCoverage) updateAutomationCoverageResult(context, ABORTED, HTTPUtilsByRestAssured.httpInfoMap);
     }
 
     /**
@@ -229,11 +259,11 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
         // 测试用例执行结果
         // String testResult = TestResultWatcher.testcaseExecuteResult.get(context.getTestClass().orElseThrow().toGenericString());
-        if (testResult.trim().contains("Successful")) {
+        if (testResult.trim().contains(SUCCESSFUL)) {
             // ** 符号之前需要添加一个空格
             testResult = "✅" + " **<font color=blue>" + testResult + "</font>**";
         }
-        if (testResult.trim().contains("Failed")) {
+        if (testResult.trim().contains(FAILED)) {
             testResult = "❌" + " **<font color=red>" + testResult + "</font>**";
         }
 
@@ -292,22 +322,22 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         String scenarioId = scenario.scenarioID();
         ExecutionStatusEnum value = scenarioResultMap.get(scenarioId);
         switch (result) {
-            case "Successful":
+            case SUCCESSFUL:
                 if (ExecutionStatusEnum.FAIL.equals(value)) {
                     return;
                 }
                 value = ExecutionStatusEnum.SUCCESS;
                 break;
-            case "Failed":
+            case FAILED:
                 value = ExecutionStatusEnum.FAIL;
                 break;
-            case "Disabled":
+            case DISABLED:
                 if (ExecutionStatusEnum.FAIL.equals(value) || ExecutionStatusEnum.SUCCESS.equals(value)) {
                     return;
                 }
                 value = ExecutionStatusEnum.DISABLE;
                 break;
-            case "Aborted":
+            case ABORTED:
                 if (Objects.nonNull(value)) {
                     return;
                 }
@@ -316,5 +346,58 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         }
         if (Objects.nonNull(value)) scenarioResultMap.put(scenarioId, value);
         System.out.println(JSON.toJSON(scenarioResultMap));
+    }
+
+    /**
+     * 将 HTTP 协议数据存储到数据库中,用于自动统计接口覆盖率
+     * @param stringObjectMap {@link HTTPUtilsByRestAssured#processResponseResult(Response, RequestSpecification)}
+     *
+     */
+    private void updateAutomationCoverageResult(ExtensionContext context, String executeResult, Map<String, Object> stringObjectMap) {
+        String requestMethod = ((HashMap) stringObjectMap.get("requestMap")).get("requestMethod").toString();
+        String requestURI = ((HashMap) stringObjectMap.get("requestMap")).get("requestURI").toString();
+        String requestHeaders = ((HashMap) stringObjectMap.get("requestMap")).get("requestHeaders").toString();
+        String requestBody = ((HashMap) stringObjectMap.get("requestMap")).get("requestBody").toString();
+        String requestPath = ((HashMap) stringObjectMap.get("requestMap")).get("requestPath").toString();
+        String responseBody = ((HashMap) stringObjectMap.get("body")).get("body").toString();
+        String responseStatusCode = ((HashMap) stringObjectMap.get("status")).get("statusCode").toString();
+        String responseStatusLine = ((HashMap) stringObjectMap.get("status")).get("statusLine").toString();
+        String responseHeaders = ((HashMap) stringObjectMap.get("headers")).toString();
+        String responseCookies = ((HashMap) stringObjectMap.get("cookies")).toString();
+
+//        SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
+        AutomationCoverageApiMapper automationCoverageApiMapper = automationSession.getMapper(AutomationCoverageApiMapper.class);
+        AutomationCoverageApiEntity automationCoverageApiEntity = new AutomationCoverageApiEntity();
+        automationCoverageApiEntity.setIsAutomation(1);
+        automationCoverageApiEntity.setLastExecuteTime(System.currentTimeMillis());
+        automationCoverageApiEntity.setLastExecuteResult(executeResult);
+        automationCoverageApiEntity.setLastExecutor(TestCaseUtils.getExecutor());
+        automationCoverageApiEntity.setTestCaseRequestPath(requestPath);
+        automationCoverageApiEntity.setTestCaseRequestMethod(requestMethod);
+        automationCoverageApiEntity.setTestCaseRequestBody(requestBody);
+        automationCoverageApiEntity.setTestCaseRequestUri(requestURI);
+        automationCoverageApiEntity.setTestCaseRequestHeaders(requestHeaders);
+        automationCoverageApiEntity.setTestCaseResponseBody(responseBody);
+        automationCoverageApiEntity.setTestCaseResponseStatusCode(responseStatusCode);
+
+        // 查询数据库中的接口测试负责人是否为空，如果为空则更新。不为空则应该是手工或已有负责人,不要更新数据库字段值
+        boolean anyMatchApiTestAuthorIsBlack = automationCoverageApiMapper.selectByPath(requestPath).stream().anyMatch(item -> item.getApiTestAuthor().isBlank());
+        if (anyMatchApiTestAuthorIsBlack) {
+            // 获取测试用例的负责人字段用于查询对应接口的测试负责人
+            Optional<Scenario> scenarioAnnotation = Optional.ofNullable(context.getRequiredTestClass().getAnnotation(Scenario.class));
+            if (scenarioAnnotation.isPresent()) {
+                String authorEmail = scenarioAnnotation.get().author();
+                UserMapper userMapper = automationSession.getMapper(UserMapper.class);
+                User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getEmail, authorEmail));
+                if (Objects.nonNull(user)) {
+                    automationCoverageApiEntity.setApiTestAuthor(user.getName());
+                }
+            }
+        }
+
+        // 测试用例执行结果
+        automationCoverageApiEntity.setLastExecuteResult(executeResult);
+        // 更新表记录
+        automationCoverageApiMapper.updateByPath(requestPath, automationCoverageApiEntity);
     }
 }
