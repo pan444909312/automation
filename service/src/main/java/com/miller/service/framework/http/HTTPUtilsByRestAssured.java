@@ -1,9 +1,5 @@
 package com.miller.service.framework.http;
 
-import com.miller.entity.report.AutomationCoverageApiEntity;
-import com.miller.service.framework.report.AutoDBUtils;
-import com.miller.service.framework.report.mapper.AutomationCoverageApiMapper;
-import com.miller.service.framework.util.TestCaseUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.http.Header;
@@ -15,7 +11,6 @@ import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSession;
 
 import java.io.File;
 import java.util.*;
@@ -32,9 +27,9 @@ import static io.restassured.config.EncoderConfig.encoderConfig;
 @Slf4j
 public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     /**
-     * 是否启自动容积 自动化测试覆盖率
+     * HTTP 请求信息存储
      */
-    private static final Boolean isOpenCoverage = true;
+    public static Map<String, Object> httpInfoMap;
 
     /**
      * 发送 GET 请求
@@ -332,12 +327,11 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         assert response != null;
         response.then().log().all();
         log.info("========================= 结束记录HTTP 日志 =========================");
-        Map<String, Object> stringObjectMap = processResponseResult(response, request);
-        // 将 HTTP 协议数据存储到数据库中
-        if (true)
-            updateAutomationCoverageResult(stringObjectMap);
 
-        return stringObjectMap;
+        // 存储 HTTP 协议信息
+        httpInfoMap = processResponseResult(response, request);
+
+        return httpInfoMap;
     }
 
     /**
@@ -410,38 +404,4 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         return result;
     }
 
-
-    /**
-     * 将 HTTP 协议数据存储到数据库中,用于自动统计接口覆盖率
-     * @param stringObjectMap {@link #processResponseResult(Response, RequestSpecification)}
-     */
-    private void updateAutomationCoverageResult(Map<String, Object> stringObjectMap) {
-        String requestMethod = ((HashMap) stringObjectMap.get("requestMap")).get("requestMethod").toString();
-        String requestURI = ((HashMap) stringObjectMap.get("requestMap")).get("requestURI").toString();
-        String requestHeaders = ((HashMap) stringObjectMap.get("requestMap")).get("requestHeaders").toString();
-        String requestBody = ((HashMap) stringObjectMap.get("requestMap")).get("requestBody").toString();
-        String requestPath = ((HashMap) stringObjectMap.get("requestMap")).get("requestPath").toString();
-        String responseBody = ((HashMap) stringObjectMap.get("body")).get("body").toString();
-        String responseStatusCode = ((HashMap) stringObjectMap.get("status")).get("statusCode").toString();
-        String responseStatusLine = ((HashMap) stringObjectMap.get("status")).get("statusLine").toString();
-        String responseHeaders = ((HashMap) stringObjectMap.get("headers")).toString();
-        String responseCookies = ((HashMap) stringObjectMap.get("cookies")).toString();
-
-        SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
-        AutomationCoverageApiMapper mapper = automationSession.getMapper(AutomationCoverageApiMapper.class);
-        AutomationCoverageApiEntity automationCoverageApiEntity = new AutomationCoverageApiEntity();
-        automationCoverageApiEntity.setIsAutomation(1);
-        automationCoverageApiEntity.setLastExecuteTime(System.currentTimeMillis());
-        automationCoverageApiEntity.setExecutor(TestCaseUtils.getExecutor());
-        automationCoverageApiEntity.setTestCaseRequestPath(requestPath);
-        automationCoverageApiEntity.setTestCaseRequestMethod(requestMethod);
-        automationCoverageApiEntity.setTestCaseRequestBody(requestBody);
-        automationCoverageApiEntity.setTestCaseRequestUri(requestURI);
-        automationCoverageApiEntity.setTestCaseRequestHeaders(requestHeaders);
-        automationCoverageApiEntity.setTestCaseResponseBody(responseBody);
-        automationCoverageApiEntity.setTestCaseResponseStatusCode(responseStatusCode);
-
-        int update = mapper.updateByPath(requestPath, automationCoverageApiEntity);
-        System.out.println("更新结果" + update);
-    }
 }
