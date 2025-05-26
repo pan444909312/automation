@@ -25,14 +25,22 @@ public class AutomationCoverageApiEntity {
     private Integer isAutomation;
 
     /**
+     * 此接口接口测试对应的负责人
+     */
+    private String apiTestAuthor;
+
+    /**
      * 最后一次执行自动化测试的时间戳
      */
     private Long lastExecuteTime;
-
     /**
-     * 执行自动化测试的人员姓名
+     * 测试用例执行结果: Successful, Failed, Disabled, Aborted.
      */
-    private String executor;
+    private String lastExecuteResult;
+    /**
+     * 最后一次执行自动化测试的人员
+     */
+    private String lastExecutor;
 
     /**
      * 接口状态:0:正常、-1:已废弃
@@ -40,7 +48,7 @@ public class AutomationCoverageApiEntity {
     private Integer apiStatus;
 
     /**
-     * 测试用例的url参数
+     * 测试用例的url的请求参数
      */
     private String testCaseRequestPath;
 
@@ -74,10 +82,6 @@ public class AutomationCoverageApiEntity {
      */
     private String testCaseResponseStatusCode;
 
-    /**
-     * 用例负责人。邮箱字段，用于关联用户表
-     */
-    private String author;
     /**
      * 项目ID，冗余字段，暂时提供给外部系统使用
      */

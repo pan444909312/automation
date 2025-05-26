@@ -28,18 +28,24 @@ public interface AutomationCoverageApiMapper extends BaseMapper<AutomationCovera
      * @param entity 要更新的实体对象
      * @return 更新的记录数
      */
-    @Update("UPDATE automation_coverage_api SET " +
+    @Update("<script>" +
+            "UPDATE automation_coverage_api SET " +
             "is_automation = #{entity.isAutomation}, " +
             "last_execute_time = #{entity.lastExecuteTime}, " +
-            "executor = #{entity.executor}, " +
+            "last_execute_result = #{entity.lastExecuteResult}, " +
+            "last_executor = #{entity.lastExecutor}, " +
             "test_case_response_status_code = #{entity.testCaseResponseStatusCode}, " +
             "test_case_response_body = #{entity.testCaseResponseBody}, " +
             "test_case_request_path = #{entity.testCaseRequestPath}, " +
             "test_case_request_method = #{entity.testCaseRequestMethod}, " +
             "test_case_request_uri = #{entity.testCaseRequestUri}, " +
             "test_case_request_headers = #{entity.testCaseRequestHeaders}, " +
-            "test_case_request_body = #{entity.testCaseRequestBody} " +
-            "WHERE path = #{testCaseRequestPath}")
+            "test_case_request_body = #{entity.testCaseRequestBody}" +
+            "<if test='entity.apiTestAuthor != null and entity.apiTestAuthor != \"\"'>" +
+            ", api_test_author = #{entity.apiTestAuthor}" +
+            "</if>" +
+            " WHERE path = #{testCaseRequestPath}" +
+            "</script>")
     int updateByPath(@Param("testCaseRequestPath") String testCaseRequestPath, @Param("entity") AutomationCoverageApiEntity entity);
 
 }

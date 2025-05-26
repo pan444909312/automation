@@ -29,7 +29,7 @@ class AutomationCoverageApiMapperTest {
         AutomationCoverageApiEntity automationCoverageApiEntity = new AutomationCoverageApiEntity();
         automationCoverageApiEntity.setIsAutomation(1);
         automationCoverageApiEntity.setLastExecuteTime(System.currentTimeMillis());
-        automationCoverageApiEntity.setExecutor(TestCaseUtils.getExecutor());
+        automationCoverageApiEntity.setLastExecutor(TestCaseUtils.getExecutor());
         automationCoverageApiEntity.setTestCaseRequestPath(testCaseRequestPath);
         automationCoverageApiEntity.setTestCaseRequestMethod("POST");
         automationCoverageApiEntity.setTestCaseRequestBody("{\"username\":\"admin\",\"password\":\"123456\"}");
