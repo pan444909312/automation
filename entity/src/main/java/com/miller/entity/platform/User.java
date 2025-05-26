@@ -44,7 +44,7 @@ public class User implements Serializable {
      * 使用 {@link TableField @TableField} 注解指定Java代码中属性名对应的数据库表中的列名
      */
     @TableField("name")
-    @Schema(description = "用户昵称")
+    @Schema(description = "姓名")
     private String name;
 
     /**
