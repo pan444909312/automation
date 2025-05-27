@@ -153,4 +153,29 @@ class JSONAssertUtilsTest {
                         new RegularExpressionValueMatcher<Object>("\\d"))));
 
     }
+
+    @Test
+    @DisplayName("Testing for Nested object")
+    void testNestedObject2() throws JSONException {
+        var actual = "{id:1,name:\"Miller\", address:{city:\"Hollywood\", state:\"LA\", zip:91601}}";
+        var expected = "{id:1,name:\"Miller\", address:{city:\"Hollywood\", state:\"LA\", zip:91601}}";
+        JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
+
+        // 去掉 id
+        expected = "{name:\"Miller\", address:{city:\"Hollywood\", state:\"LA\", zip:91601}}";
+        JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
+
+        // 去掉 id + state
+        expected = "{name:\"Miller\", address:{city:\"Hollywood\", zip:91601}}";
+        JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
+
+        // 去掉 id + state + city
+        expected = "{name:\"Miller\", address:{zip:91601}}";
+        JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
+
+        // 去掉 id + state + city + 外层的结构 address 测试会失败，结构不能改变，否则 json schema 校验会失败
+        expected = "{name:\"Miller\", zip:91601}";
+        JSONAssert.assertNotEquals(expected, actual, JSONCompareMode.LENIENT);
+
+    }
 }

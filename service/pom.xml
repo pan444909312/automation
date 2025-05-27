@@ -89,26 +89,16 @@
             <classifier>jakarta</classifier>
             <version>2.0.1</version>
         </dependency>
-<!--        &lt;!&ndash; 面向切面编程的AOP依赖 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-aop</artifactId>-->
-<!--        </dependency>-->
         <!-- json 处理 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        <!-- 统一管理 JsonAssert 版本-->
-        <dependency>
-            <groupId>org.skyscreamer</groupId>
-            <artifactId>jsonassert</artifactId>
-        </dependency>
         <!-- jackson 处理 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-databind</artifactId>-->
+<!--        </dependency>-->
         <!-- 配置项目使用 JUnit5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -157,16 +147,6 @@
             <artifactId>mockito-inline</artifactId>
         </dependency>
 
-        <!-- 使用 hamcrest 替代 JUnit5 的部分断言 -->
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-        </dependency>
-        <!-- 引入流式断言工具 assertj -->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-        </dependency>
         <!-- 使用 rest-assured 做接口测试 -->
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -176,6 +156,18 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>xml-path</artifactId>
         </dependency>
+
+        <!-- 使用 JsonUnit 断言工具，可以方便的进行 JSON 字符串的各种断言。里面已经包含了 assertJ core -->
+        <dependency>
+            <groupId>net.javacrumbs.json-unit</groupId>
+            <artifactId>json-unit-assertj</artifactId>
+        </dependency>
+        <!-- 统一管理 JsonAssert 版本-->
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+        </dependency>
+
         <!--Spring Data Redis 客户端，配合 pool2 连接池一起用-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

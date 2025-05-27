@@ -140,31 +140,19 @@
                 <artifactId>fastjson</artifactId>
                 <version>1.2.83</version>
             </dependency>
-            <!-- 统一管理 JsonAssert 版本-->
-            <dependency>
-                <groupId>org.skyscreamer</groupId>
-                <artifactId>jsonassert</artifactId>
-                <version>1.5.1</version>
-            </dependency>
+
             <!-- 统一管理 jackson 版本. 保持与当前 SpringBoot 引用的 Jackson 版本相同 -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.13.4.2</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--                <artifactId>jackson-databind</artifactId>-->
+<!--                <version>2.13.4.2</version>-->
+<!--            </dependency>-->
             <!-- 统一管理 commons-lang3 版本 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.12.0</version>
             </dependency>
-            <!--            -->
-            <!--            &lt;!&ndash; 统一管理 aop 版本 &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-starter-aop</artifactId>-->
-            <!--                <version>2.5.5</version>-->
-            <!--            </dependency>-->
             <!-- 测试平台 Spring Boot3 使用 MyBatisPlus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -217,7 +205,6 @@
                 <artifactId>junit-platform-reporting</artifactId>
                 <version>${junit.platform.version}</version>
             </dependency>
-
             <!-- JUnit5 整合 Mockito, mockito-junit-jupiter 已经包含了Mockito的core所以不需要单独引入了 -->
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -229,24 +216,6 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-inline</artifactId>
                 <version>4.4.0</version>
-            </dependency>
-            <!-- JUnit5 整合 Selenium -->
-            <!--            <dependency>-->
-            <!--                <groupId>io.github.bonigarcia</groupId>-->
-            <!--                <artifactId>selenium-jupiter</artifactId>-->
-            <!--                <version>3.4.0</version>-->
-            <!--            </dependency>-->
-            <!-- 引入断言工具 hamcrest -->
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-core</artifactId>
-                <version>2.2</version>
-            </dependency>
-            <!-- 引入流式断言工具 assertj -->
-            <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>3.24.2</version>
             </dependency>
             <!-- 使用 rest-assured 做接口测试。 5.X 版本需要 Spring Boot 比较高的版本，比如 2.7.X 否则还是会加载低版本的依赖 -->
             <dependency>
@@ -267,6 +236,21 @@
                 <artifactId>xml-path</artifactId>
                 <version>5.3.0</version>
             </dependency>
+
+            <!-- 统一管理JsonUnit 版本
+            使用 JsonUnit 断言工具，可以方便的进行 JSON 字符串的各种断言。里面已经包含了 assertJ core -->
+            <dependency>
+                <groupId>net.javacrumbs.json-unit</groupId>
+                <artifactId>json-unit-assertj</artifactId>
+                <version>4.1.1</version>
+            </dependency>
+            <!-- 统一管理 JsonAssert 版本，使用 JsonAssert 可以方便进行全字段匹配-->
+            <dependency>
+                <groupId>org.skyscreamer</groupId>
+                <artifactId>jsonassert</artifactId>
+                <version>1.5.1</version>
+            </dependency>
+
             <!-- ULID 生成器 -->
             <dependency>
                 <groupId>com.github.f4b6a3</groupId>

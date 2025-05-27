@@ -1,11 +1,11 @@
 package com.miller.service.framework.util;
 
 /**
- * JSONAssert 断言工具
+ * JsonUnit Utils
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2024/6/7 18:31:21
+ * @since 2025/5/27 17:19:26
  */
-public class JSONAssertUtils {
+public class JsonUnitUtils {
 }
