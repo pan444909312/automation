@@ -24,7 +24,7 @@ import java.util.stream.Stream;
         author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("PF_客户端搜索")
-public class MarketSearchWithoutLoginTests {
+public class MarketSearchWithoutLoginScenarioTests {
     @MethodSource("staticSearchKeyWordProvider")
     @ParameterizedTest
     @DisplayName("PF_正常流程-搜索商品")
