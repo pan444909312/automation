@@ -156,6 +156,27 @@
             </exclusions>
         </dependency>
 
+        <!-- 扫描测试用例 -->
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>testcase-user-app</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>testcase-merchant</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>testcase-delivery</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miller</groupId>
+            <artifactId>testcase-pandafresh</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>

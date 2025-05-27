@@ -43,6 +43,10 @@
         <module>market</module>
         <module>bdm</module>
         <module>pos</module>
+        <module>testcase-user-app</module>
+        <module>testcase-merchant</module>
+        <module>testcase-delivery</module>
+        <module>testcase-pandafresh</module>
     </modules>
 
     <dependencyManagement>
@@ -107,6 +111,11 @@
                 <artifactId>pos</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>testcase-user-app</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
 
             <!--springdoc-->
             <dependency>
@@ -149,13 +158,13 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>3.12.0</version>
             </dependency>
-<!--            -->
-<!--            &lt;!&ndash; 统一管理 aop 版本 &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-starter-aop</artifactId>-->
-<!--                <version>2.5.5</version>-->
-<!--            </dependency>-->
+            <!--            -->
+            <!--            &lt;!&ndash; 统一管理 aop 版本 &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-starter-aop</artifactId>-->
+            <!--                <version>2.5.5</version>-->
+            <!--            </dependency>-->
             <!-- 测试平台 Spring Boot3 使用 MyBatisPlus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
