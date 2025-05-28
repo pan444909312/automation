@@ -22,25 +22,24 @@ import java.util.HashMap;
  * @since 2025/5/27 14:56:18
  */
 public class JSONUtils {
-
     /**
-     * 读取文件内容并转换为Map对象
+     * 读取 Json 文件内容并转换为 Map 对象
      *
-     * @param filePath 文件路径
+     * @param jsonFilePath Json 文件路径
      * @return Map对象，如果发生异常则返回空Map
      */
-    static Map<String, Object> readJsonFileToMap(String filePath) {
+    static Map<String, Object> readJsonFileToMap(String jsonFilePath) {
         try {
-            String fileContent = getFileContent(filePath);
+            String fileContent = getFileContent(jsonFilePath);
 
             // 校验JSON格式
             if (!isValidJson(fileContent)) {
-                throw new IllegalArgumentException("Invalid JSON format in file: " + filePath);
+                throw new IllegalArgumentException("Invalid JSON format in file: " + jsonFilePath);
             }
             // 转换为Map对象
             return JSON.parseObject(fileContent, Map.class);
         } catch (JSONException e) {
-            System.err.println("Error parsing JSON from file: " + filePath + ", error: " + e.getMessage());
+            System.err.println("Error parsing JSON from file: " + jsonFilePath + ", error: " + e.getMessage());
             return new HashMap<>();
         }
     }
