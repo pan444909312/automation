@@ -1,5 +1,7 @@
 package com.miller.testcaseuserapp.utils;
 
+import com.jayway.jsonpath.Predicate;
+import com.miller.service.framework.util.JsonUnitUtils;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.jetbrains.annotations.NotNull;
@@ -87,7 +89,19 @@ public class TestCaseHelpful {
      * @return JsonAssert.ConfigurableJsonAssert
      */
     public static JsonAssert.ConfigurableJsonAssert assertThatJson(@NotNull Object actual, JsonAssertions.JsonAssertionCallback... callbacks) {
-        return JsonAssertions.assertThatJson(actual, callbacks);
+        return JsonUnitUtils.assertThatJson(actual, callbacks);
+    }
+
+    /**
+     * 获取 JSON 文件内容
+     * @param json      JSON 文件内容
+     * @param jsonPath  JsonPath 路径
+     * @param filters   过滤器,可选
+     * @param <T>       泛型
+     * @return jsonPath 提取的值
+     */
+    public static <T> T extractValue(String json, String jsonPath, Predicate... filters) {
+        return JsonUnitUtils.extractValue(json, jsonPath, filters);
     }
 
     /**
