@@ -52,8 +52,5 @@ public class UserLoginTests {
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.userId").isEqualTo(1398708422); // 使用 JsonPath 方式
         TestCaseHelpful.assertThatJson(responseBody).node("result.userId").isEqualTo(1398708422); // 使用 node 方式
         TestCaseHelpful.assertThatJson(responseBody).node("result.userId").isNumber();
-
-
-
     }
 }
