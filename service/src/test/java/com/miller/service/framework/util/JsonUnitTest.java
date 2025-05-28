@@ -51,21 +51,20 @@ class JsonUnitTest {
 
     @Test
     protected void demo() {
-        // Both actual value (in the left) and expected value (in the right) are parsed as JSON
+        // 实际值（左侧）和期望值（右侧）都会被解析为 JSON
         assertThatJson("{\"root\":{\"a\":1}}").node("root").isEqualTo("{a:1}");
 
-        // Works with arrays too
+        // 数组同样适用
         assertThatJson("{\"root\":[{\"a\":1}]}").node("root").isEqualTo("[{a:1}]");
 
-        // Strings passed to AssertJ methods like containsExactly are parsed as JSON too
+        // 传递给 AssertJ 方法的字符串（如 containsExactly）也会被解析为 JSON
         assertThatJson("{\"root\":[{\"a\":1}]}").node("root").isArray().containsExactly("{a:1}");
 
-        // Primitive boolean? No problem
+        // 原始布尔值？没问题
         assertThatJson("{\"root\":[true]}").node("root").isArray().containsExactly(true);
 
-        // Boolean in string? Tricky, "true" is valid JSON so it gets parsed to primitive `true`
-        // Have to wrap it to JsonAssertions.value() in order to make sure it's not parsed
-        assertThatJson("{\"root\":[\"true\"]}").node("root").isArray().containsExactly(value("true"));
+        // 字符串中的布尔值？比较复杂，"true" 是有效的 JSON，所以它会被解析为原始类型 `true`
+        // 必须使用 JsonAssertions.value() 包装以确保其不会被解析        assertThatJson("{\"root\":[\"true\"]}").node("root").isArray().containsExactly(value("true"));
     }
 
     @Test
