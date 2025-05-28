@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J5WMVHCECNCSWBP13V103YFZ",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签3_榜单_首页-商卡二期：榜单 - 无榜单数据",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoShopRankFeature {
@@ -38,7 +38,7 @@ public class ShopShouldHasNoShopRankFeature {
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
 
     @BeforeAll
-    void beforeAll(){
+    void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
@@ -49,15 +49,15 @@ public class ShopShouldHasNoShopRankFeature {
     @DisplayName("普通店铺配送商卡_营销标_标签3_榜单_首页-商卡二期：榜单 - 无榜单数据")
     void shouldNotExistShopRankFeature(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 
         boolean flag = shopIndexVO.getShopFeatureList().stream().noneMatch(item -> item.getType().equals(ShopFeatureTypeConstant.SHOP_RANK));
 
         assertThat(flag).isTrue();
-        assertThat(shopIndexVO.getShopRank()).isEqualTo("");
+        assertThat(shopIndexVO.getShopRank()).isNull();
         assertThat(shopSearchMiddleEntity.getShopRank()).isEqualTo("");
 
     }

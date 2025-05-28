@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J61TZX3QYPJKE76RVDW8AKS5",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签4_堂食同价_首页-商卡二期：堂食同价",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasDineInSameFeature {
@@ -52,7 +52,7 @@ public class ShopShouldHasDineInSameFeature {
     @DisplayName("普通店铺配送商卡_营销标_标签4_堂食同价_首页-商卡二期：堂食同价")
     void shouldExistDineInSameFeature(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
