@@ -51,9 +51,9 @@ public class ShopShouldHasMealsOnTimeFeature {
     @DisplayName("普通店铺配送商卡_营销标_标签7_出餐准时_首页-商卡二期：出餐准时")
     void shouldExistMealsOnTimeFeature(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
 
 
         ShopFeatureVO shopFeatureVO = null;
