@@ -1,0 +1,29 @@
+
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "accessToken": "${json-unit.any-string}",
+    "expiresIn": 15811200,
+    "refresh_token": "${json-unit.ignore}",
+    "userPushToken": "${json-unit.ignore}",
+    "marketToken": "",
+    "shopId": null,
+    "userId": 1398708422,
+    "userName": "18711110002",
+    "userPhone": "18711110002",
+    "aliPaymentUserId": null,
+    "isGive": null,
+    "isRegister": 0,
+    "bioAuthToken": "${json-unit.ignore}",
+    "isOldUser": 0,
+    "isMember": 0,
+    "tokenSrc": "${json-unit.ignore}",
+    "thirdRefreshToken": null
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}
