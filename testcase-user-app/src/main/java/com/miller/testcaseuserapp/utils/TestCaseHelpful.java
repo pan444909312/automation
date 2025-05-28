@@ -7,14 +7,16 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 /**
- * 测试用例资源文件工具类
+ * 测试用例助手, 简化和提高用例开发效率，作用如下：
+ * 1. 获取 JSON 文件内容作为请求头;
+ * 2. 获取 JSON 文件内容作为请求体;
+ * 3. 获取 JSON 文件内容作为断言（通常是复制响应结果直接作为断言;
  *
  * @author Miller Shan
  * @version 1.0
  * @since 2025/5/27 14:47:39
  */
-public class TestCaseUtils {
-
+public class TestCaseHelpful {
     /**
      * 获取测试用例资源文件内容作为请求头
      * @param filePath 文件路径
