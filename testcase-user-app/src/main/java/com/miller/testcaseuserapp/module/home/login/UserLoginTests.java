@@ -34,17 +34,17 @@ public class UserLoginTests {
         var headers = TestCaseHelpful.getHeaders("module/headers.json");
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
-        var requestBody = TestCaseHelpful.getJsonRequestBody("module/home/login/request/login_success_request_body.json");
+        var requestBody = TestCaseHelpful.getJsonRequestBody("module/home/login/request/success.json");
 
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = HttpUtils.sendPostRequestReturnBody(uri, null, headers, requestBody, null);
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
-        var expectedStr = TestCaseHelpful.getFileContent("module/home/login/response/login_success_assert.json");
+        var expectedStr = TestCaseHelpful.getFileContent("module/home/login/response/assert_some_fields.json");
         // 方式一：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         // 方式二： 全匹配， 排除部分字段动态字段匹配。固定写法，不需要修改
-        expectedStr = TestCaseHelpful.getFileContent("module/home/login/response/login_success_assert_exclude_field.json");
+        expectedStr = TestCaseHelpful.getFileContent("module/home/login/response/assert_full_field.json");
         TestCaseHelpful.assertThatJson(responseBody).isEqualTo(expectedStr);
         // 方式三：精确断言.比如只想校验某一个字段
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo(1000); // 使用 JsonPath 方式
