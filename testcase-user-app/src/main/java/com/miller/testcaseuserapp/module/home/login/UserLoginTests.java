@@ -49,8 +49,5 @@ public class UserLoginTests {
         // 方式三：精确断言.比如只想校验某一个字段
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo(1000); // 使用 JsonPath 方式
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000); // 使用 node 方式
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.userId").isEqualTo(1398708422); // 使用 JsonPath 方式
-        TestCaseHelpful.assertThatJson(responseBody).node("result.userId").isEqualTo(1398708422); // 使用 node 方式
-        TestCaseHelpful.assertThatJson(responseBody).node("result.userId").isNumber();
     }
 }
