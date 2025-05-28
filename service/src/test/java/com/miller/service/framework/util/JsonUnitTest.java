@@ -60,11 +60,12 @@ class JsonUnitTest {
         // 传递给 AssertJ 方法的字符串（如 containsExactly）也会被解析为 JSON
         assertThatJson("{\"root\":[{\"a\":1}]}").node("root").isArray().containsExactly("{a:1}");
 
-        // 原始布尔值？没问题
+        // 原始布尔值也没问题
         assertThatJson("{\"root\":[true]}").node("root").isArray().containsExactly(true);
 
         // 字符串中的布尔值？比较复杂，"true" 是有效的 JSON，所以它会被解析为原始类型 `true`
-        // 必须使用 JsonAssertions.value() 包装以确保其不会被解析        assertThatJson("{\"root\":[\"true\"]}").node("root").isArray().containsExactly(value("true"));
+        // 必须使用 JsonAssertions.value() 包装以确保其不会被解析
+        assertThatJson("{\"root\":[\"true\"]}").node("root").isArray().containsExactly(value("true"));
     }
 
     @Test
