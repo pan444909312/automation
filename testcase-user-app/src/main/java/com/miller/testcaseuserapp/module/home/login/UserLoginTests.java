@@ -4,10 +4,9 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.testcaseuserapp.config.TestcaseConfig;
 import com.miller.testcaseuserapp.utils.TestCaseHelpful;
+import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static net.javacrumbs.jsonunit.core.Option.IGNORING_EXTRA_FIELDS;
 
 /**
  * 登录
@@ -20,7 +19,7 @@ import static net.javacrumbs.jsonunit.core.Option.IGNORING_EXTRA_FIELDS;
         scenarioID = "01JW68KNTBJSEZ0GPXQ9AF6XFN",
         scenarioName = "用户-登录",
         author = "shandongdong@hungrypandagroup.com",
-        developmentTime = 20, maintenanceTime = 10, manualTestTime = 1)
+        developmentTime = 20, maintenanceTime = 5, manualTestTime = 1)
 @DisplayName("用户-登录")
 public class UserLoginTests {
     /**
@@ -43,7 +42,7 @@ public class UserLoginTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent("module/home/login/response/login_success_assert.json");
         // 方式一：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        TestCaseHelpful.assertThatJson(responseBody).when(IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         // 方式二： 全匹配， 排除部分字段动态字段匹配。固定写法，不需要修改
         expectedStr = TestCaseHelpful.getFileContent("module/home/login/response/login_success_assert_exclude_field.json");
         TestCaseHelpful.assertThatJson(responseBody).isEqualTo(expectedStr);
