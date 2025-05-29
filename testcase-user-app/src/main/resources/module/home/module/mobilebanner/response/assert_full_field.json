@@ -1,0 +1,13 @@
+{
+  "resultCode": 1000,
+  "error": "Success",
+  "reason": "Success",
+  "result": {
+    "appDownload": "https://static.hungrypanda.co/panda/173925817508048941aa39d2a4e06832f9e144fe7f5f0.jpg",
+    "topBanner": "https://static.hungrypanda.co/panda/1739255551994bbdd5e6601b64a37b991eb7414f0ecc8.jpg"
+  },
+  "currency": "$",
+  "success": true,
+  "nowTime": 1748510886499,
+  "queryList": {}
+}

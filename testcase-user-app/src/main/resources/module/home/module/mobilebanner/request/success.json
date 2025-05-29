@@ -1,0 +1,20 @@
+{
+  "pm": "POST",
+  "ph": {
+    "platform": "M_WEB_USER",
+    "brand": "",
+    "longitude": "120.21687231392231",
+    "latitude": "30.203699290115882",
+    "version": "8.8.0",
+    "apptypeid": "1",
+    "countryCode": "US",
+    "language": "en",
+    "authorization": "",
+    "uniqueToken": "a08a85da-7187-47b8-baa7-f037fc22c724"
+  },
+  "pd": {},
+  "nv": "2",
+  "nt": "1748513384674",
+  "nn": "42rzou5q5PUL1r0an1wvkHB8F",
+  "nd": "cec1ec989a9be95"
+}
