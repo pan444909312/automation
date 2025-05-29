@@ -1,6 +1,7 @@
 package com.miller.testcasedelivery.工具;
 
 import com.jayway.jsonpath.Predicate;
+import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
@@ -35,6 +36,7 @@ public class 测试用例助手 {
      * @return 请求体
      */
     public static String 获取请求体(String filePath) {
+        if (null == filePath || filePath.isBlank()) return null;
         String testCaseResource = JSON工具.getFileContent(filePath);
         /*
         对请求参数的二次处理，为后续验签准备
@@ -74,9 +76,38 @@ public class 测试用例助手 {
      * @return 请求体
      */
     private static Map<String, Object> getFormDataRequestBody(String filePath) {
+        if (null == filePath || filePath.isBlank()) return null;
         Map<String, Object> params = JSON工具.readJsonFileToMap(filePath);
         // 对请求参数的二次处理，为后续验签准备
         return params;
+    }
+
+
+    /**
+     * 发送 HTTP 请求
+     *
+     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
+     * @param uri     请求地址, 支持 http、https
+     * @param params  请求参数
+     * @param headers 请求头
+     * @param body    请求体
+     * @return 响应体字符串
+     */
+    public static String 发送HTTP请求(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
+                                      Object body) {
+        var responseBody = "";
+        if ("POST".equals(method)) {
+            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
+        } else if ("GET".equals(method)) {
+            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
+        } else if ("PUT".equals(method)) {
+            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
+        } else if ("DELETE".equals(method)) {
+            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
+        } else {
+            new IllegalArgumentException("不支持的请求方法" + method);
+            return "";
+        }
     }
 
     /**
