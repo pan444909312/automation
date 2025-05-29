@@ -82,6 +82,7 @@ public class TestCaseHelpful {
      * @return 请求体
      */
     private static Map<String, Object> getFormDataRequestBody(String filePath) {
+        if (null == filePath || filePath.isBlank()) return null;
         Map<String, Object> params = JSONUtils.readJsonFileToMap(filePath);
         // 对请求参数的二次处理，为后续验签准备
         return params;
