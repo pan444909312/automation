@@ -1,5 +1,7 @@
-package com.miller.testcaseuserapp.utils;
+package com.miller.testcasedelivery.工具;
 
+import com.jayway.jsonpath.Predicate;
+import com.miller.service.framework.util.JsonUnitUtils;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.jetbrains.annotations.NotNull;
@@ -7,21 +9,20 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 /**
- * 测试用例资源文件工具类
+ *
  *
  * @author Miller Shan
  * @version 1.0
- * @since 2025/5/27 14:47:39
+ * @since 2025/5/28 22:50:27
  */
-public class TestCaseUtils {
-
+public class 测试用例助手 {
     /**
      * 获取测试用例资源文件内容作为请求头
      * @param filePath 文件路径
      * @return 请求头
      */
-    public static Map<String, Object> getHeaders(String filePath) {
-        Map<String, Object> headers = JSONUtils.readJsonFileToMap(filePath);
+    public static Map<String, Object> 获取请求头(String filePath) {
+        Map<String, Object> headers = JSON工具.readJsonFileToMap(filePath);
         if (!headers.containsKey("Content-Type")) {
             throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
         }
@@ -33,8 +34,8 @@ public class TestCaseUtils {
      * @param filePath 文件路径
      * @return 请求体
      */
-    public static String getJsonRequestBody(String filePath) {
-        String testCaseResource = JSONUtils.getFileContent(filePath);
+    public static String 获取请求体(String filePath) {
+        String testCaseResource = JSON工具.getFileContent(filePath);
         /*
         对请求参数的二次处理，为后续验签准备
         // 对请求参数的额外操作。以下代码是为代码因为现在还没有用到对请求体加密。
@@ -73,7 +74,7 @@ public class TestCaseUtils {
      * @return 请求体
      */
     private static Map<String, Object> getFormDataRequestBody(String filePath) {
-        Map<String, Object> params = JSONUtils.readJsonFileToMap(filePath);
+        Map<String, Object> params = JSON工具.readJsonFileToMap(filePath);
         // 对请求参数的二次处理，为后续验签准备
         return params;
     }
@@ -84,8 +85,20 @@ public class TestCaseUtils {
      * @param callbacks 回调，可选
      * @return JsonAssert.ConfigurableJsonAssert
      */
-    public static JsonAssert.ConfigurableJsonAssert assertThatJson(@NotNull Object actual, JsonAssertions.JsonAssertionCallback... callbacks) {
-        return JsonAssertions.assertThatJson(actual, callbacks);
+    public static JsonAssert.ConfigurableJsonAssert 断言Json内容(@NotNull Object actual, JsonAssertions.JsonAssertionCallback... callbacks) {
+        return JsonUnitUtils.assertThatJson(actual, callbacks);
+    }
+
+    /**
+     * 获取 JSON 文件内容
+     * @param json      JSON 文件内容
+     * @param jsonPath  JsonPath 路径
+     * @param filters   过滤器,可选
+     * @param <T>       泛型
+     * @return jsonPath 提取的值
+     */
+    public static <T> T 通过JsonPath提取Json内容(String json, String jsonPath, Predicate... filters) {
+        return JsonUnitUtils.extractValue(json, jsonPath, filters);
     }
 
     /**
@@ -93,8 +106,8 @@ public class TestCaseUtils {
      * @param filePath 文件路径
      * @return 文件内容
      */
-    public static String getFileContent(String filePath) {
-        return JSONUtils.getFileContent(filePath);
+    public static String 获取文件内容(String filePath) {
+        return JSON工具.getFileContent(filePath);
     }
 
 }
