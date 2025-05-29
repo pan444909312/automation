@@ -13,12 +13,5 @@ public class TestcaseConfig {
      * 接口请求的域名
      */
     public static final String HOST = "https://app-test.hungrypanda.cn";
-
-    /**
-     * 接口请求的端口
-     */
-    public static final int PORT = 80;
-
-
-
+    
 }
