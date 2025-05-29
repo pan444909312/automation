@@ -1,15 +1,22 @@
 package com.miller.config;
 
+import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * springDoc 配置
  * 后台访问地址：http://127.0.0.1:9080/api/swagger-ui/index.html
+ *
  * @author panjuxiang
  * @since 2024/10/10 21:39
  */
@@ -19,6 +26,20 @@ public class SpringDocConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
+                .components(new Components()
+                        .addParameters("Authorization", new Parameter()
+                                .in("header")
+                                .name("Authorization")
+                                .description("Bearer Token")
+                                .required(true)
+                        )                      // 可选：配置 Security Scheme（如 JWT）
+                        .addSecuritySchemes("authorization", new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                .bearerFormat("JWT")
+                        ))
+                // 可选：全局 Security 要求
+                .addSecurityItem(new SecurityRequirement().addList("authorization"))
                 // 配置接口文档基本信息
                 .info(this.getApiInfo());
     }
@@ -37,5 +58,6 @@ public class SpringDocConfig {
                 // 配置版本号
                 .version("2.0");
     }
+
 
 }

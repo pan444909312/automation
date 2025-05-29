@@ -63,6 +63,21 @@ public class JWTUtils {
     }
 
     /**
+     * 根据token获取用户的登录名
+     * @param token
+     * @return
+     */
+    public static String getUsernameByToken(String token) {
+        JWTToken jwtToken = new JWTToken(token);
+        // 解析token获取用户名和密码
+        String jwt = String.valueOf(jwtToken.getPrincipal());
+        Claims claims = JWTUtils.parseJWT(jwt);
+        // 从token中获取到用户名
+        String username = claims.getId();
+        return username;
+    }
+
+    /**
      * 验证token是否过期
      *
      * @param expiration Date
