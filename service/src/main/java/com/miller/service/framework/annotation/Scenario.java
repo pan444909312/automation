@@ -1,5 +1,7 @@
 package com.miller.service.framework.annotation;
 
+import com.miller.common.util.ULIDUtils;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,7 +20,7 @@ import java.lang.annotation.Target;
 public @interface Scenario {
     /**
      * 场景ID，使用 {@link com.miller.common.util.ULIDUtils}
-     * 工具生成唯一ID,参考{@code ULIDUtilsTests.java}
+     * 工具生成唯一ID,参考{@link ULIDUtils#generateULID()}
      * 或者通过平台生成， 请访问地址
      * <a href="https://automation.hungrypanda.it:2096/testManagement/caseManagement/automationCase">测试平台</a>
      *
