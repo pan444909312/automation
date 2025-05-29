@@ -3,8 +3,16 @@ package com.miller.service.framework.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * JSON 工具类
@@ -131,4 +139,28 @@ public class JSONUtils {
             throw new UnsupportedOperationException("Object to JSON String failure.", e);
         }
     }
+
+    /**
+     * 更新 JSON 字符串中指定 key 的值
+     *
+     * @param jsonStr 原始 JSON 字符串
+     * @param key 需要更新的键
+     * @param newValue 新的值
+     * @return 更新后的 JSON 字符串
+     * @throws JSONException 当输入的字符串不是有效的 JSON 格式时抛出
+     */
+    public static String updateJsonValue(String jsonStr, String key, Object newValue) {
+        if (!isJSONFormat(jsonStr)) {
+            throw new JSONException("Invalid JSON format");
+        }
+        
+        JSON json = JSON.parseObject(jsonStr);
+        if (json instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) json;
+            jsonObject.put(key, newValue);
+            return jsonObject.toJSONString();
+        }
+        throw new JSONException("Input JSON is not an object");
+    }
+    
 }

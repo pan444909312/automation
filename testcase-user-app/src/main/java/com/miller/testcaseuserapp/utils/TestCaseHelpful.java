@@ -1,8 +1,11 @@
 package com.miller.testcaseuserapp.utils;
 
 import com.jayway.jsonpath.Predicate;
+import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
+import com.miller.testcaseuserapp.config.TestcaseConfig;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +30,7 @@ public class TestCaseHelpful {
      * @return 请求头
      */
     public static Map<String, Object> getHeaders(String filePath) {
-        Map<String, Object> headers = JSONUtils.readJsonFileToMap(filePath);
+        Map<String, Object> headers = JsonUtils.readJsonFileToMap(filePath);
         if (!headers.containsKey("Content-Type")) {
             throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
         }
@@ -42,7 +45,7 @@ public class TestCaseHelpful {
      */
     public static String getJsonRequestBody(String filePath) {
         if (null == filePath || filePath.isBlank()) return null;
-        String testCaseResource = JSONUtils.getFileContent(filePath);
+        String testCaseResource = JsonUtils.getFileContent(filePath);
         /*
          * 对请求参数的二次处理，为后续验签准备
          * // 对请求参数的额外操作。以下代码是为代码因为现在还没有用到对请求体加密。
@@ -83,7 +86,7 @@ public class TestCaseHelpful {
      */
     private static Map<String, Object> getFormDataRequestBody(String filePath) {
         if (null == filePath || filePath.isBlank()) return null;
-        Map<String, Object> params = JSONUtils.readJsonFileToMap(filePath);
+        Map<String, Object> params = JsonUtils.readJsonFileToMap(filePath);
         // 对请求参数的二次处理，为后续验签准备
         return params;
     }
@@ -147,7 +150,42 @@ public class TestCaseHelpful {
      * @return 文件内容
      */
     public static String getFileContent(String filePath) {
-        return JSONUtils.getFileContent(filePath);
+        return JsonUtils.getFileContent(filePath);
+    }
+
+    /**
+     * 登录并返回token
+     * @param mobilePhone 手机号 areaCode 默认 86
+     * @param password  登录密码
+     * @return token
+     */
+    public static String login(String mobilePhone, String password) {
+        password = MD5Util.string2MD5(password);
+
+        // 接口请求的 path
+        String uri = TestcaseConfig.HOST + "/api/user/combine/login";
+        // 请求方式
+        String method = "POST";
+        // 请求头
+        String headers = "module/headers.json";
+        // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
+        String body = "module/home/login/request/should_success.json";
+
+        // 步骤1: 设置请求头。基本固定写法，不需要修改
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+
+        // 步骤2: 设置请求体。基本固定写法，不需要修改
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        // 修改手机号和密码为动态传递过来的值
+        var updateAccountValue = JSONUtils.updateJsonValue(requestBody, "account", mobilePhone);
+        requestBody = JSONUtils.updateJsonValue(updateAccountValue, "password", password);
+
+        // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
+
+        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
+        TestCaseHelpful.assertThatJson(responseBody).node("result.accessToken").isNotNull();
+        return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
     }
 
 }

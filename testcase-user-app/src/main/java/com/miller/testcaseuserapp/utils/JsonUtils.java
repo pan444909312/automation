@@ -3,16 +3,11 @@ package com.miller.testcaseuserapp.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.IllegalFormatConversionException;
 import java.util.Map;
 import java.util.HashMap;
+import java.io.IOException;
 
 /**
  * JSON工具类，提供JSON相关的操作方法
@@ -21,7 +16,7 @@ import java.util.HashMap;
  * @version 1.0
  * @since 2025/5/27 14:56:18
  */
-public class JSONUtils {
+public class JsonUtils {
     /**
      * 读取 Json 文件内容并转换为 Map 对象
      *
@@ -67,7 +62,7 @@ public class JSONUtils {
      */
     static String getFileContent(String filePath) {
         try {
-            ClassLoader classLoader = JSONUtils.class.getClassLoader();
+            ClassLoader classLoader = JsonUtils.class.getClassLoader();
             InputStream inputStream = classLoader.getResourceAsStream(filePath);
             if (inputStream == null) {
                 throw new IllegalArgumentException("找不到文件: " + filePath);
