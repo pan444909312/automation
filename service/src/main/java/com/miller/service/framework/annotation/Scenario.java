@@ -17,7 +17,11 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface Scenario {
     /**
-     * 场景ID，使用 {@link com.miller.common.util.ULIDUtils} 工具生成唯一ID,参考{@code ULIDUtilsTests.java}
+     * 场景ID，使用 {@link com.miller.common.util.ULIDUtils}
+     * 工具生成唯一ID,参考{@code ULIDUtilsTests.java}
+     * 或者通过平台生成， 请访问地址
+     * <a href="https://automation.hungrypanda.it:2096/testManagement/caseManagement/automationCase">测试平台</a>
+     *
      */
     String scenarioID();
 
@@ -28,26 +32,28 @@ public @interface Scenario {
 
     /**
      * 自动化开发成本: 单位分钟
-     * <ul>最终的值单位是分钟，写法可<b>参考</b>如下格式：
-     *     <li>10 分钟: developmentTime = 10</li>
-     *     <li>1小时: developmentTime = 60</li>
-     *     <li>2小时: developmentTime = 2 * 60</li>
-     *     <li>2小时: developmentTime = 120</li>
-     *     <li>8小时: developmentTime = 8 * 60</li>
-     *     <li>8小时: developmentTime = 480</li>
+     * <ul>
+     * 最终的值单位是分钟，写法可<b>参考</b>如下格式：
+     * <li>10 分钟: developmentTime = 10</li>
+     * <li>1小时: developmentTime = 60</li>
+     * <li>2小时: developmentTime = 2 * 60</li>
+     * <li>2小时: developmentTime = 120</li>
+     * <li>8小时: developmentTime = 8 * 60</li>
+     * <li>8小时: developmentTime = 480</li>
      * </ul>
      */
     int developmentTime();
 
     /**
      * 自动化维护成本: 单位分钟
-     * <ul>最终的值单位是分钟，写法可<b>参考</b>如下格式：
-     *     <li>10 分钟: maintenanceTime = 10</li>
-     *     <li>1小时: maintenanceTime = 60</li>
-     *     <li>2小时: maintenanceTime = 2 * 60</li>
-     *     <li>2小时: maintenanceTime = 120</li>
-     *     <li>8小时: maintenanceTime = 8 * 60</li>
-     *     <li>8小时: maintenanceTime = 480</li>
+     * <ul>
+     * 最终的值单位是分钟，写法可<b>参考</b>如下格式：
+     * <li>10 分钟: maintenanceTime = 10</li>
+     * <li>1小时: maintenanceTime = 60</li>
+     * <li>2小时: maintenanceTime = 2 * 60</li>
+     * <li>2小时: maintenanceTime = 120</li>
+     * <li>8小时: maintenanceTime = 8 * 60</li>
+     * <li>8小时: maintenanceTime = 480</li>
      *
      * </ul>
      */
@@ -55,13 +61,14 @@ public @interface Scenario {
 
     /**
      * 手工测试成本: 单位分钟
-     * <ul>最终的值单位是分钟，写法可<b>参考</b>如下格式：
-     *     <li>10 分钟: manualTestTime = 10</li>
-     *     <li>1小时: manualTestTime = 60</li>
-     *     <li>2小时: manualTestTime = 2 * 60</li>
-     *     <li>2小时: manualTestTime = 120</li>
-     *     <li>8小时: manualTestTime = 8 * 60</li>
-     *     <li>8小时: maintenanceTime = 480</li>
+     * <ul>
+     * 最终的值单位是分钟，写法可<b>参考</b>如下格式：
+     * <li>10 分钟: manualTestTime = 10</li>
+     * <li>1小时: manualTestTime = 60</li>
+     * <li>2小时: manualTestTime = 2 * 60</li>
+     * <li>2小时: manualTestTime = 120</li>
+     * <li>8小时: manualTestTime = 8 * 60</li>
+     * <li>8小时: maintenanceTime = 480</li>
      * </ul>
      */
     int manualTestTime();
@@ -73,12 +80,14 @@ public @interface Scenario {
 
     /**
      * 预期执行次数，默认为1次
+     *
      * @return int
      */
     int expectTimes() default 1;
 
     /**
      * 用例备注信息
+     *
      * @return 备注信息
      */
     String remark() default "";
