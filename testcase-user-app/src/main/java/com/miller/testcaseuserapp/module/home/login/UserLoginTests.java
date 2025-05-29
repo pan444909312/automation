@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JW68KNTBJSEZ0GPXQ9AF6XFN",
-        scenarioName = "用户-登录",
+        scenarioName = "用户_登录",
         author = "shandongdong@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 5, manualTestTime = 2)
-@DisplayName("用户-登录")
+@DisplayName("用户_登录")
 public class UserLoginTests {
     // 接口请求的 path
     String uri = TestcaseConfig.HOST + "/api/user/combine/login";
@@ -31,7 +31,7 @@ public class UserLoginTests {
     // 断言
     String assert1 = "module/home/login/response/assert_full_field.json";
 
-    @DisplayName("正常流程_登录")
+    @DisplayName("正向流程")
     @Test
     public void shouldLoginSuccessfully() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
