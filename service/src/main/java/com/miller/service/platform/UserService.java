@@ -26,6 +26,4 @@ public interface UserService extends IService<User> {
     List<String> getProjectListByUserIdOrEmail(String userId);
 
     List<User> getUserList();
-
-    String getUserIdByToken(String token);
 }
