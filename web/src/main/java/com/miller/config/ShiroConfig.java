@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
+import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,39 @@ public class ShiroConfig {
     @Autowired
     private MyCredentialsMatcher myCredentialsMatcher;
 
+    @Bean
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+        factoryBean.setSecurityManager(securityManager);
+
+        // 确保 CORS 过滤器在 Shiro 过滤器之前执行
+        Map<String, Filter> filters = new HashMap<>();
+        // 可以添加自定义过滤器
+
+        factoryBean.setFilters(filters);
+
+        // 定义过滤器链
+        Map<String, String> filterMap = new HashMap<>();
+
+        // 放行 OPTIONS 请求（预检请求）
+        filterMap.put("/**/options/**", "anon"); // 放行所有 OPTIONS 请求
+
+        // 放行跨域接口（根据实际需求调整）
+        filterMap.put("/api/**", "anon"); // 示例：放行 /api 开头的接口
+
+        // 其他路径需要认证（目前全部放行）
+//        filterMap.put("/**", "authc");
+
+        factoryBean.setFilterChainDefinitionMap(filterMap);
+        return factoryBean;
+    }
+
+    @Bean
+    public ShiroFilterChainDefinition shiroFilterChainDefinition() {
+        DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+        // 也可以在这里定义过滤器链
+        return chainDefinition;
+    }
     /**
      * 添加对注解的支持，使用默认的自动代理
      *
