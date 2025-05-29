@@ -3,6 +3,7 @@ package com.miller.testcaseuserapp.module.account.address;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcaseuserapp.config.TestcaseConfig;
 import com.miller.testcaseuserapp.utils.TestCaseHelpful;
+import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,9 +29,10 @@ public class CreateAddressTests {
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/account/address/request/add_address.json";
+    String body = "module/account/address/request/should_success.json";
     // 断言
-    String assert1 = "module/account/address/response/add_address_assert.json";
+    String assert1 = "module/account/address/response/assert_full_field.json";
+    String assert2 = "module/account/address/response/assert_some_field.json";
 
     // 存储 token
     String token = null;
@@ -57,5 +59,14 @@ public class CreateAddressTests {
         // 方式一： 全匹配， 排除部分字段动态字段匹配。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
         TestCaseHelpful.assertThatJson(responseBody).isEqualTo(expectedStr);
+
+        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
+        expectedStr = TestCaseHelpful.getFileContent(assert2);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+
+        // 方式三：精确断言.比如只想校验某一个字段
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo(1000); // 写法一: 使用 JsonPath 方式
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000); // 写法二: 使用 node 方式
+
     }
 }
