@@ -96,14 +96,4 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return list;
     }
 
-    /**
-     * todo
-     * 根据token解析返回userId
-     * @param token
-     * @return
-     */
-    @Override
-    public String getUserIdByToken(String token) {
-        return "";
-    }
 }

@@ -46,6 +46,7 @@ import java.util.stream.Collectors;
 @Tag(name = "用户", description = "User Controller")
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;
@@ -171,11 +172,19 @@ public class UserController {
     @GetMapping("/info")
     public UserInfoRespDTO info(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
-        // 解析token 返回user_id
-//        String userId = userService.getUserIdByToken(authorization);
-        // 解析方法未完善 先写死admin
-        String userId = "admin";
-        User user = userService.getUserById(userId);
+        if (authorization == null) {
+            // todo 为什么没走到全局异常处理？
+            throw new AutomationException(ResponseEnum.Authorization_EXPIRE);
+        }
+        //swagger用
+        String token = authorization.replace("Bearer ", "");
+
+        String username = JWTUtils.getUsernameByToken(token);
+        // 根据用户名查询出用户的密码交给shiro的身份认证进行处理
+        User user = userService.getUserByEmail(username);
+
+        String userId = user.getUserId();
+
 
         List<UserBindRole> userBindRoleList = userBindRoleService.list(new QueryWrapper<UserBindRole>().eq("user_id", userId));
         List<String> userRole = userBindRoleList.stream()
