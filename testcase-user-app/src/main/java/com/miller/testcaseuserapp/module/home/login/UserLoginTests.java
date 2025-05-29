@@ -1,7 +1,6 @@
 package com.miller.testcaseuserapp.module.home.login;
 
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.http.HttpUtils;
 import com.miller.testcaseuserapp.config.TestcaseConfig;
 import com.miller.testcaseuserapp.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
@@ -22,18 +21,17 @@ import org.junit.jupiter.api.Test;
         developmentTime = 20, maintenanceTime = 5, manualTestTime = 1)
 @DisplayName("用户-登录")
 public class UserLoginTests {
-
     // 接口请求的 path
-    private String uri = TestcaseConfig.HOST + "/api/user/combine/login";
+    String uri = TestcaseConfig.HOST + "/api/user/combine/login";
     // 请求方式
-    private String method = "POST";
+    String method = "POST";
     // 请求头
-    private String headers = "module/headers.json";
+    String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    private String body = "module/home/login/request/success.json";
+    String body = "module/home/login/request/success.json";
     // 断言
-    private String assert1 = "module/home/login/response/assert_full_field.json";
-    private String assert2 = "module/home/login/response/assert_some_fields.json";
+    String assert1 = "module/home/login/response/assert_full_field.json";
+    String assert2 = "module/home/login/response/assert_some_fields.json";
 
     @DisplayName("正常流程_登录")
     @Test
