@@ -1,0 +1,21 @@
+{
+  "latitude": 30.203552,
+  "channel": "huawei",
+  "language": "CN",
+  "cityid": 755,
+  "_sign": "1dfaa15596007abbd093e7de8ba79a05",
+  "version": "4.24.0",
+  "devicenumber": "8d221af5-d4d9-4837-9d5b-53271542a59e",
+  "platform": "H5",
+  "system": "PandaFresh",
+  "regionid": 3,
+  "abtestgroups": "102,103,101,104,105,106",
+  "portalid": 3,
+  "longitude": 120.217018,
+  "_ts": 1748593513372,
+  "Content-Type": "application/json;charset=UTF-8",
+  "content_length": 18,
+  "accept_encoding": "gzip",
+  "user_agent": "okhttp/4.9.2",
+  "authorization": ""
+}
