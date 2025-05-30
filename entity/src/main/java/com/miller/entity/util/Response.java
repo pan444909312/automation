@@ -29,7 +29,7 @@ public class Response<T> implements Serializable {
 
     // 通用的成功响应构造方法
     public static <T> Response<T> success(T data) {
-        return new Response<T>(ResponseEnum.SUCCESS_200.getCode(), ResponseEnum.SUCCESS_200.getMessage(), data);
+        return new Response<T>(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getMessage(), data);
     }
 
     // 通用的错误响应构造方法
