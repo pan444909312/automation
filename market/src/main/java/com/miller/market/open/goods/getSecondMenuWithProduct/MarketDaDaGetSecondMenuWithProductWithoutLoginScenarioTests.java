@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 /**
  * 达达二级菜单及商品
  */
-@Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KQ",
+@Scenario(scenarioID = "01JWGCPAR12F0S8MTMXPESDG5W",
         scenarioName = "正常流程_未登录_获取达达二级菜单及商品-不过滤烟-过滤烟",
         author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test

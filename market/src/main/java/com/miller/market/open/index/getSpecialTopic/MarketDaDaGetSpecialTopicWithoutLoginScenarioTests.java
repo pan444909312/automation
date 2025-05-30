@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 /**
  * 达达首页专题推荐
  */
-@Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KN",
+@Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2K3",
         scenarioName = "正常流程_未登录_获取达达首页专题推荐-不过滤烟-过滤烟",
         author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
