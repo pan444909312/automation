@@ -66,9 +66,9 @@ public class MarketLoginTests {
         token = marketLoginResponseDTO.getData().getToken();
         BusinessConstant.userId = marketLoginResponseDTO.getData().getUser().getUserId();
         QueryWrapper<User> userLambdaQueryWrapper = new QueryWrapper<>();
-        userLambdaQueryWrapper.eq("user_name", "18968046019");
-        User user1 = userMapper.selectOne(userLambdaQueryWrapper);
-        System.out.println("-------------hhhhhhh-----------"+user1.getUserName());
+//        userLambdaQueryWrapper.eq("user_name", "18968046019");
+//        User user1 = userMapper.selectOne(userLambdaQueryWrapper);
+//        System.out.println("-------------hhhhhhh-----------"+user1.getUserName());
     }
 
     /**
