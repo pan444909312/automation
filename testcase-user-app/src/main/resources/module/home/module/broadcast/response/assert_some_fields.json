@@ -1,0 +1,101 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "type": 1,
+    "types": [
+      1
+    ],
+    "indexTaskVO": {
+      "completeTask": null,
+      "waitTask": {
+        "title": "今天下3单，即可获得{0}",
+        "remainingDaysStr": null,
+        "orderNum": 3,
+        "completeOrders": null,
+        "status": 1,
+        "taskSn": "611QZQFOM8",
+        "taskId": 2011,
+        "taskCenterUrl": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmYyZS1wa2ctbGVhZmxldC10ZXN0Lmh1bmdyeXBhbmRhLmNuJTJGdGFza0NlbnRlciUzRmltbWVyc2UlM0QxJTI2c291cmNlJTNEOCUyNnBhZ2VUeXBlJTNEMSJ9&callback=CALLBACK_NAME&code=8a496ad2a8250d3",
+        "amountStr": "¥8",
+        "taskType": 1,
+        "isUsed": null,
+        "dayNum": 1,
+        "redPacketPrice": 800,
+        "endTimeLong": null,
+        "endTime": "截止5月30日23:59",
+        "thresholdPrice": 0,
+        "discountRate": null,
+        "redPacketTypeId": 1,
+        "award": "¥8红包",
+        "orderMinPrice": 1,
+        "orderType": "[0,1,2]",
+        "taskRule": "每单实付满¥0.01",
+        "taskTips": null,
+        "redPacketId": null,
+        "param": {
+          "{0}": "¥8红包"
+        },
+        "myRedPacketUrl": null,
+        "userTaskType": 1,
+        "taskTimeCountdown": 32970686,
+        "taskName": "",
+        "backgroundImg": "",
+        "taskAward": {
+          "subTaskId": 0,
+          "taskId": 2011,
+          "benefitType": null,
+          "awardType": 2,
+          "awardText": "无门槛立减",
+          "redPacketTypeId": null,
+          "discountAward": null,
+          "award": 800,
+          "awardStatus": 0,
+          "memberCardType": null,
+          "memberCard": null,
+          "taskRedPacketList": [
+            {
+              "isUsed": null,
+              "redPacketId": 888890144,
+              "shopId": 0,
+              "redPacketPrice": 800,
+              "thresholdPrice": 0,
+              "discountRate": 0.0,
+              "maxDiscountPrice": 800,
+              "myRedPacketUrl": null,
+              "myRedPacketPic": null,
+              "redPacketNum": 1,
+              "redPacketName": "自动化测试cc勿动券01",
+              "redPacketRuleList": [
+                "与店铺独享优惠不可同享",
+                "全国通用"
+              ],
+              "benefitType": null,
+              "redPacketStatus": 1,
+              "startTime": 1748587829312,
+              "endTime": 2327241599999,
+              "redPacketEffectDate": "2043/09/30",
+              "redPacketTypeId": 1,
+              "waitHourDesc": null
+            }
+          ],
+          "totalRedPacketNum": 1
+        },
+        "awardType": 2,
+        "taskRedPacketNum": 1,
+        "specialSubTaskList": null,
+        "taskRedPacketGroup": 1,
+        "userTaskSn": null
+      },
+      "processingTask": null,
+      "specialTaskUITest": false
+    },
+    "inviteUserRecordVO": null,
+    "spellGroupBroadcastVO": null,
+    "newUserBroadcastVO": null,
+    "activityCardVO": null
+  },
+  "currency": "¥",
+  "success": true
+}
