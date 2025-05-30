@@ -2,11 +2,15 @@ package com.miller.testcaseuserapp.module.account.address;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcaseuserapp.config.TestcaseConfig;
+import com.miller.testcaseuserapp.utils.PandaTestDBHelpful;
 import com.miller.testcaseuserapp.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 /**
  * 登录
@@ -34,20 +38,13 @@ public class CreateAddressTests {
     String assert1 = "module/account/address/response/assert_full_field.json";
     String assert2 = "module/account/address/response/assert_some_field.json";
 
-    // 存储 token
-    String token = null;
-
-    @BeforeAll
-    void beforeAll() {
-        token = TestCaseHelpful.login("15606690056", "12345678");
-    }
-
     @DisplayName("正向流程")
     @Test
     void shouldLoginSuccessfully() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("Authorization", token);
+        // 给请求头添加数据，例如这里添加token
+        requestHeaders.put("Authorization", TestCaseHelpful.login("15606690056", "12345678"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
