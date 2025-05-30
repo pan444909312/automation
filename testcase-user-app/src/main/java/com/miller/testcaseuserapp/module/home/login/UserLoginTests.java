@@ -33,7 +33,7 @@ public class UserLoginTests {
 
     @DisplayName("正向流程")
     @Test
-    public void shouldLoginSuccessfully() {
+    void shouldLoginSuccessfully() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
 
