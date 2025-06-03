@@ -43,6 +43,7 @@ class CurlParserTest {
         System.out.println(request.getBody());
         System.out.println(request.getHeaders());
         System.out.println(request.getUri());
+        System.out.println(request.getPath());
     }
 
     @Test
@@ -67,6 +68,14 @@ class CurlParserTest {
 
         // GET请求没有body
         assertNull(request.getBody());
+        assertTrue(request.getParams().isEmpty());
+
+        System.out.println(request.getMethod());
+        System.out.println(request.getParams());
+        System.out.println(request.getBody());
+        System.out.println(request.getHeaders());
+        System.out.println(request.getUri());
+        System.out.println(request.getPath());
     }
 
     @Test

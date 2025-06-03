@@ -25,6 +25,7 @@ public class CurlParser {
     public static class ParsedRequest {
         private String method;
         private String uri;
+        private String path;
         private Map<String, String> headers = new LinkedHashMap<>();
         private Map<String, String> params = new LinkedHashMap<>();
         private String body;
@@ -61,6 +62,14 @@ public class CurlParser {
         public void setBody(String body) {
             this.body = body;
         }
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
     }
 
     public ParsedRequest parse(String curlCommand) throws URISyntaxException {
@@ -78,6 +87,14 @@ public class CurlParser {
         // 解析URL
         String url = extractUrl(curlCommand);
         result.setUri(url);
+
+        // 从uri中提取path
+        try {
+            URI uriObj = new URI(url);
+            result.setPath(uriObj.getPath());
+        } catch (URISyntaxException e) {
+            result.setPath(null);
+        }
 
         // 解析查询参数
         parseQueryParams(result, url);
