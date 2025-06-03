@@ -15,9 +15,8 @@ class CurlParserTest {
             curl -H "Host: app-test.hungrypanda.cn" -H "_pendingsign: _ts1748937506658authorization0bb0d075d767fa89b03da500f770433a" -H "userid: 1398664550" -H "language: CN" -H "_sign: 5248a6cd0776ac9f664a3de9719f44c5" -H "user-agent: PandaH/8.61.0 (iPhone; iOS 16.7.11; Scale/3.00) OKPOS" -H "_ts: 1748937506658" -H "pageno: 1" -H "portalid: 3" -H "latitude: 30.20118" -H "countrycode: CN" -H "version: 8.61.0" -H "platform: IOS_USER" -H "uniquetoken: 0721CD44-5090-42F5-A0B1-8D2F29B85BF5" -H "longitude: 120.22142" -H "authorization: 0bb0d075d767fa89b03da500f770433a" -H "accept-language: zh-Hans-CN;q=1" -H "regionid: 3" -H "reallongitude: 120.22141" -H "timezoneoffset: -480" -H "reallatitude: 30.20117" -H "apptypeid: 1" -H "testgroup: I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP,17,S_H_R_L_TEST_GROUP_7,22,23,29,31,32,NUMBER_MASKING_00,33,34,36,35,40,39,45,49,52,53,55,56,HPF,FASTD01,YSDCS02,IST01,HYBQ01,SKEQ01,XRJ01,TJBQ01,HYXBQ01,TJTCX01,YBXS02,CCPRO01,SKXRB01,ABT02,QYTCD01,SMSS02,XMLM01,RRREC02,ZFBMM01,SSJLY01,SPSS01,MRBX01,PLCC01,SXAU01,PAYTO01,LXTZ01,JQSJ01,SYGB01,JSYXR01,GDJ02,ZTKP01,ZKTS02,RTR01,SYUI01,SWS01,DWC01,HHAB01,YHTX01,TCZT01,XTZA01,QDJS01,XGBSS01,SYSKA02,WLTC01,SPM01,XGBFU01,SDDAB01,TCSHW01,JSYHA01,DPCDA01,DPHD01,YRSZT01,TSRW02,LLQX01,XDRS01,RDMU01,YHMGD01,NTCZT01,DPCDB01,CZHG01,WLTCN01,ESFI02,ABCS01,DPYGB01,HBCY01,GWCYC01,HYUI01,SKBD02,SKYS01,GGCLA01,MGDD01,YFYHA01,SKYH01,XRSY01,HDMR01,SYMK01,CMRT01,CPYHA01,SKYX01,VOOPT01,YHLL01,YJSDA01,LXCYH01,TCZKB01,JLYHR01,HANLP01" -H "accept: */*" -H "_sig: 64309145b578db2d70e007872b2ff65dbd585a03" -H "hpfcityname: %E6%9D%AD%E5%B7%9E%E5%B8%82" --compressed "https://app-test.hungrypanda.cn/api/user/delivery/address"
             """;
     @Test
-    void testPostRequestParsing() throws URISyntaxException {
-        CurlParser parser = new CurlParser();
-        CurlParser.ParsedRequest request = parser.parse(POST_CURL);
+    void testPostRequestParsing() throws Exception {
+        CurlParser.ParsedRequest request = CurlParser.parse(POST_CURL);
 
         // 验证方法
         assertEquals("POST", request.getMethod());
@@ -47,9 +46,8 @@ class CurlParserTest {
     }
 
     @Test
-    void testGetRequestParsing() throws URISyntaxException {
-        CurlParser parser = new CurlParser();
-        CurlParser.ParsedRequest request = parser.parse(GET_CURL);
+    void testGetRequestParsing() throws Exception {
+        CurlParser.ParsedRequest request = CurlParser.parse(GET_CURL);
 
         // 验证方法
         assertEquals("GET", request.getMethod());
@@ -79,11 +77,9 @@ class CurlParserTest {
     }
 
     @Test
-    void testQueryParamsParsing() throws URISyntaxException {
+    void testQueryParamsParsing() throws Exception {
         String queryCurl = "curl 'http://example.com/search?q=java&page=2'";
-
-        CurlParser parser = new CurlParser();
-        CurlParser.ParsedRequest request = parser.parse(queryCurl);
+        CurlParser.ParsedRequest request = CurlParser.parse(queryCurl);
 
         Map<String, String> params = request.getParams();
         assertEquals(2, params.size());
@@ -92,30 +88,27 @@ class CurlParserTest {
     }
 
     @Test
-    void testMethodDetection() throws URISyntaxException {
+    void testMethodDetection() throws Exception {
         // 显式指定方法
         String putCurl = "curl -X PUT 'http://example.com'";
-        CurlParser parser = new CurlParser();
-        CurlParser.ParsedRequest request = parser.parse(putCurl);
+        CurlParser.ParsedRequest request = CurlParser.parse(putCurl);
         assertEquals("PUT", request.getMethod());
 
         // 有body时默认为POST
         String postCurl = "curl -d 'data' 'http://example.com'";
-        request = parser.parse(postCurl);
+        request = CurlParser.parse(postCurl);
         assertEquals("POST", request.getMethod());
 
         // 无body时默认为GET
         String getCurl = "curl 'http://example.com'";
-        request = parser.parse(getCurl);
+        request = CurlParser.parse(getCurl);
         assertEquals("GET", request.getMethod());
     }
 
     @Test
-    void testHeaderParsing() throws URISyntaxException {
+    void testHeaderParsing() throws Exception {
         String headerCurl = "curl -H 'Content-Type: application/json' -H 'Authorization: Bearer token' 'http://example.com'";
-
-        CurlParser parser = new CurlParser();
-        CurlParser.ParsedRequest request = parser.parse(headerCurl);
+        CurlParser.ParsedRequest request = CurlParser.parse(headerCurl);
 
         Map<String, String> headers = request.getHeaders();
         assertEquals(2, headers.size());
@@ -124,14 +117,12 @@ class CurlParserTest {
     }
 
     @Test
-    void testFormDataParsing() throws URISyntaxException {
+    void testFormDataParsing() throws Exception {
         String formDataCurl = "curl -X POST 'http://example.com/form' " +
                 "-H 'Content-Type: multipart/form-data' " +
                 "-F 'username=testuser' " +
                 "-F 'file=@test.txt'";
-
-        CurlParser parser = new CurlParser();
-        CurlParser.ParsedRequest request = parser.parse(formDataCurl);
+        CurlParser.ParsedRequest request = CurlParser.parse(formDataCurl);
 
         assertEquals("POST", request.getMethod());
         assertEquals("multipart/form-data", request.getHeaders().get("Content-Type"));

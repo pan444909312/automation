@@ -72,43 +72,50 @@ public class CurlParser {
         }
     }
 
-    public ParsedRequest parse(String curlCommand) throws URISyntaxException {
+    /**
+     * 解析cURL命令为结构化请求对象
+     * @param curlCommand cURL命令
+     * @return 结构化请求对象
+     */
+    public static ParsedRequest parse(String curlCommand) {
         ParsedRequest result = new ParsedRequest();
-
-        // 标准化输入：移除换行符和多余空格
-        curlCommand = curlCommand.replaceAll("\\s+", " ").trim();
-
-        // 解析方法（默认GET）
-        result.setMethod("GET");
-        if (curlCommand.contains("-X ")) {
-            result.setMethod(extractValue(curlCommand, "-X").toUpperCase());
-        }
-
-        // 解析URL
-        String url = extractUrl(curlCommand);
-        result.setUri(url);
-
-        // 从uri中提取path
         try {
-            URI uriObj = new URI(url);
-            result.setPath(uriObj.getPath());
-        } catch (URISyntaxException e) {
-            result.setPath(null);
+            // 标准化输入：移除换行符和多余空格
+            curlCommand = curlCommand.replaceAll("\\s+", " ").trim();
+
+            // 解析方法（默认GET）
+            result.setMethod("GET");
+            if (curlCommand.contains("-X ")) {
+                result.setMethod(extractValue(curlCommand, "-X").toUpperCase());
+            }
+
+            // 解析URL
+            String url = extractUrl(curlCommand);
+            result.setUri(url);
+
+            // 从uri中提取path
+            try {
+                URI uriObj = new URI(url);
+                result.setPath(uriObj.getPath());
+            } catch (URISyntaxException e) {
+                result.setPath(null);
+            }
+
+            // 解析查询参数
+            parseQueryParams(result, url);
+
+            // 解析headers
+            parseHeaders(curlCommand, result);
+
+            // 解析请求体
+            parseBody(curlCommand, result);
+        } catch (Exception e) {
+            throw new RuntimeException("cURL解析失败: " + e.getMessage(), e);
         }
-
-        // 解析查询参数
-        parseQueryParams(result, url);
-
-        // 解析headers
-        parseHeaders(curlCommand, result);
-
-        // 解析请求体
-        parseBody(curlCommand, result);
-
         return result;
     }
 
-    private String extractUrl(String curlCommand) {
+    private static String extractUrl(String curlCommand) {
         // 查找URL位置（最后一个非选项参数）
         String[] parts = curlCommand.split(" ");
         for (int i = parts.length - 1; i >= 0; i--) {
@@ -120,7 +127,7 @@ public class CurlParser {
         throw new IllegalArgumentException("URL not found in cURL command");
     }
 
-    private void parseQueryParams(ParsedRequest request, String url) throws URISyntaxException {
+    private static void parseQueryParams(ParsedRequest request, String url) throws URISyntaxException {
         URI uri = new URI(url);
         String query = uri.getQuery();
         if (query != null) {
@@ -134,7 +141,7 @@ public class CurlParser {
         }
     }
 
-    private void parseHeaders(String curlCommand, ParsedRequest request) {
+    private static void parseHeaders(String curlCommand, ParsedRequest request) {
         int index = curlCommand.indexOf("-H");
         while (index != -1) {
             // 找到下一个header位置
@@ -157,7 +164,7 @@ public class CurlParser {
         }
     }
 
-    private void parseBody(String curlCommand, ParsedRequest request) {
+    private static void parseBody(String curlCommand, ParsedRequest request) {
         String[] bodyMarkers = {"--data-binary", "-d", "--data"};
         for (String marker : bodyMarkers) {
             if (curlCommand.contains(marker)) {
@@ -176,7 +183,7 @@ public class CurlParser {
         }
     }
 
-    private String extractValue(String curlCommand, String option) {
+    private static String extractValue(String curlCommand, String option) {
         int index = curlCommand.indexOf(option);
         if (index == -1) return "";
 
