@@ -144,6 +144,25 @@ public class TestCaseHelpful {
     }
 
     /**
+     * 将一个值放入到缓存中，默认8小时有效期
+     * @param key 唯一值，建议使用测试用例 ID 值（scenarioID），默认会拼上前缀 Automation_，如果直连 Redis 查询，请自行拼接。
+     * @param value  值
+     */
+    public static void set(String key, Object value) {
+        RedisUtils.getRedisInstance().set("Automation_" + key, value, 60 * 60 * 8L);
+    }
+
+    /**
+     *  获取缓存中的值
+     * @param key  唯一值，建议使用测试用例 ID 值（scenarioID）
+     * @return 缓存中的值
+     */
+    public static Object get(String key) {
+        return RedisUtils.getRedisInstance().get("Automation_" + key);
+    }
+
+
+    /**
      * 获取 resources 目录下指定文件内容
      *
      * @param filePath 文件路径
