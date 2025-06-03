@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
  * 商品推荐
  */
 @Scenario(
-        scenarioID = "01JWG74KCTFV96ZPCSGK9GYHRT",
+        scenarioID = "01JWG74KCTFV96ZPCSGK9GYHR1",
         scenarioName = "商品推荐(加购A推荐B)",
         author = "zhangpei@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 2)

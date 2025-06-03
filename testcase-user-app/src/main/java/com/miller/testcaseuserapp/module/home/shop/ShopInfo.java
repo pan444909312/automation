@@ -7,22 +7,22 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Scenario(
-        scenarioID = "01JWFGF02KTPH285XB7FEWPMXC",
-        scenarioName = "店铺_菜单",
+        scenarioID = "01JWG8TJANDRCAGQS0NVB0PYKY",
+        scenarioName = "进入店铺获取店铺信息",
         author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 15, maintenanceTime = 5, manualTestTime = 2)
-@DisplayName("店铺_菜单")
-public class MenuListTests {
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 10)
+@DisplayName("进入店铺获取店铺信息")
+public class ShopInfo {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/app/user/v1/shop/menuList";
+    String uri = TestcaseConfig.HOST + "/api/app/user/shop/base/info";
     // 请求方式
     String method = "POST";
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/home/shop/request/should_success.json";
+    String body = "module/home/shop/request/get_shopinfo.json";
     // 断言
-    String assert2 = "module/home/shop/response/assert_some_field.json";
+    String assert2 = "module/home/shop/response/assert_shopinfo.json";
 
     @DisplayName("正向流程")
     @Test
@@ -39,6 +39,6 @@ public class MenuListTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert2);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
     }
 }
