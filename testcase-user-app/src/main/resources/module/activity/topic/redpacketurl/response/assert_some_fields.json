@@ -1,0 +1,11 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "imgUrl": "https://static.hungrypanda.co/panda/17489457772475bea50b1a81044d3b7592c063119db84.png",
+    "status": 1
+  },
+  "currency": "",
+  "success": true
+}

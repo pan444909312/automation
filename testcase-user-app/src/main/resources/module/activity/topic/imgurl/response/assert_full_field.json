@@ -1,0 +1,16 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "imgUrl": "https://static.hungrypanda.co/panda/1748921217457af6d54bcc3be4a428f227b19008e7985.jpg",
+    "type": 0,
+    "url": "hptakeout://module=webview&action=openPage&params=eyJ1cmwiOiIifQ**&callback=CALLBACK_NAME&code=f95a296058acf09"
+  },
+  "currency": "",
+  "success": true,
+  "nowTime": 1748944172824,
+  "queryList": {
+    "1": "hp_master: select id, module_activity_id, module_activity_base_id, image_url, create_time, last_update_time, sts,type,shop_id,activity_url,url,activity_link_id from module_activity_link_image where module_activity_base_id = 2412 and sts = 1"
+  }
+}

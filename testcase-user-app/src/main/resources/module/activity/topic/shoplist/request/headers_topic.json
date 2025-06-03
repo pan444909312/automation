@@ -1,0 +1,9 @@
+{
+  "Host": "api-cn-f2e-test.hungrypanda.cn",
+  "Content-Type": "application/json;charset=utf-8",
+  "Origin": "https://edition-test.hungrypanda.cn",
+  "Accept": "application/json, text/plain, */*",
+  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "Referer": "https://edition-test.hungrypanda.cn/",
+  "Accept-Language": "zh-CN,zh-Hans;q=0.9"
+}
