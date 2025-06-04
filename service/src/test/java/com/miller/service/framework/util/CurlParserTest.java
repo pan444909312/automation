@@ -1,7 +1,11 @@
 package com.miller.service.framework.util;
 
 import org.junit.jupiter.api.Test;
+
+import static com.miller.service.framework.util.JsonUnitUtils.assertThatJson;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.net.URISyntaxException;
 import java.util.Map;
 
@@ -14,6 +18,11 @@ class CurlParserTest {
     private static final String GET_CURL = """
             curl -H "Host: app-test.hungrypanda.cn" -H "_pendingsign: _ts1748937506658authorization0bb0d075d767fa89b03da500f770433a" -H "userid: 1398664550" -H "language: CN" -H "_sign: 5248a6cd0776ac9f664a3de9719f44c5" -H "user-agent: PandaH/8.61.0 (iPhone; iOS 16.7.11; Scale/3.00) OKPOS" -H "_ts: 1748937506658" -H "pageno: 1" -H "portalid: 3" -H "latitude: 30.20118" -H "countrycode: CN" -H "version: 8.61.0" -H "platform: IOS_USER" -H "uniquetoken: 0721CD44-5090-42F5-A0B1-8D2F29B85BF5" -H "longitude: 120.22142" -H "authorization: 0bb0d075d767fa89b03da500f770433a" -H "accept-language: zh-Hans-CN;q=1" -H "regionid: 3" -H "reallongitude: 120.22141" -H "timezoneoffset: -480" -H "reallatitude: 30.20117" -H "apptypeid: 1" -H "testgroup: I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP,17,S_H_R_L_TEST_GROUP_7,22,23,29,31,32,NUMBER_MASKING_00,33,34,36,35,40,39,45,49,52,53,55,56,HPF,FASTD01,YSDCS02,IST01,HYBQ01,SKEQ01,XRJ01,TJBQ01,HYXBQ01,TJTCX01,YBXS02,CCPRO01,SKXRB01,ABT02,QYTCD01,SMSS02,XMLM01,RRREC02,ZFBMM01,SSJLY01,SPSS01,MRBX01,PLCC01,SXAU01,PAYTO01,LXTZ01,JQSJ01,SYGB01,JSYXR01,GDJ02,ZTKP01,ZKTS02,RTR01,SYUI01,SWS01,DWC01,HHAB01,YHTX01,TCZT01,XTZA01,QDJS01,XGBSS01,SYSKA02,WLTC01,SPM01,XGBFU01,SDDAB01,TCSHW01,JSYHA01,DPCDA01,DPHD01,YRSZT01,TSRW02,LLQX01,XDRS01,RDMU01,YHMGD01,NTCZT01,DPCDB01,CZHG01,WLTCN01,ESFI02,ABCS01,DPYGB01,HBCY01,GWCYC01,HYUI01,SKBD02,SKYS01,GGCLA01,MGDD01,YFYHA01,SKYH01,XRSY01,HDMR01,SYMK01,CMRT01,CPYHA01,SKYX01,VOOPT01,YHLL01,YJSDA01,LXCYH01,TCZKB01,JLYHR01,HANLP01" -H "accept: */*" -H "_sig: 64309145b578db2d70e007872b2ff65dbd585a03" -H "hpfcityname: %E6%9D%AD%E5%B7%9E%E5%B8%82" --compressed "https://app-test.hungrypanda.cn/api/user/delivery/address"
             """;
+
+    private static final String POST_CURL_WITH_PARAM = """
+            curl -H "Host: api-cn-f2e-test.hungrypanda.cn" -H "accept: application/json, text/plain, */*" -H "content-type: application/json;charset=utf-8" -H "origin: https://edition-test.hungrypanda.cn" -H "accept-language: zh-CN,zh-Hans;q=0.9" -H "user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148" -H "referer: https://edition-test.hungrypanda.cn/" --data-binary "{\\"pm\\":\\"GET\\",\\"ph\\":{\\"testGroup\\":\\"I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP,S_H_R_L_TEST_GROUP_2,22,23,29,30,31,32,NUMBER_MASKING_00,33,34,36,35,40,39,45,49,52,53,55,56,HPF,SKEQ02,PLCC02,SKXRB02,ABCS01,SKYS02,MGDD02,SKYH02,XDRS02,XGBFU02,FASTD01,YSDCS02,IST01,HYBQ01,XRJ01,TJBQ01,HYXBQ01,TJTCX01,YBXS02,CCPRO01,ZDFQ01,ABT02,QYTCD01,SMSS01,XMLM01,RRREC01,ZFBMM01,SSJLY01,SPSS01,MRBX01,SXAU01,PAYTO02,LXTZ01,JQSJ01,SYGB01,JSYXR01,GDJ02,ZTKP01,ZKTS02,RTR01,SYUI01,SWS01,DWC01,HHAB01,YHTX01,TCZT01,XTZA01,QDJS01,XGBSS02,SYSKA01,WLTC01,SPM02,SDDAB01,TCSHW02,ZNYX01,JSYHA01,DPCDA01,DPHD01,YRSZT01,TSRW02,LLQX01,RDMU01,YHMGD01,NTCZT01,DPCDB01,HHSQ03,CZHG01,WLTCN01,ESFI02,DPYGB01,HBCY01,GWCYC01,HYUI01,SKBD02,GGCLA01,YFYHA01,XRSY01,HDMR01,SYMK01,CMRT01,CPYHA01,SKYX01,VOOPT01,YHLL01,YJSDA01,XGSPA01,LXCYH01,TCZKB01,JLYHR02,HANLP01\\",\\"version\\":\\"8.61.0\\",\\"appTypeId\\":\\"1\\",\\"uniqueToken\\":\\"2365086D-71E6-4761-9C6B-75234AEEB0BF\\",\\"authorization\\":\\"196500fd5d1912f2cdba3cbaa3a0cdf9\\",\\"platform\\":\\"WEB_IOS\\",\\"marketChannel\\":\\"\\",\\"language\\":\\"CN\\"},\\"pd\\":{},\\"nv\\":\\"2\\",\\"nt\\":\\"1749015909038\\",\\"nn\\":\\"Ut4tXne1nXg6T9TpxTrCrAr3G\\",\\"nd\\":\\"26db2a3adc70b7a\\"}" --compressed "https://api-cn-f2e-test.hungrypanda.cn/api/user/activity/getActivityInfoWithConfigById?activityId=1517"
+            """;
+
     @Test
     void testPostRequestParsing() throws Exception {
         CurlParser.ParsedRequest request = CurlParser.parse(POST_CURL);
@@ -77,6 +86,38 @@ class CurlParserTest {
     }
 
     @Test
+    void testPostRequestParsingWithParam() throws Exception {
+        CurlParser.ParsedRequest request = CurlParser.parse(POST_CURL_WITH_PARAM);
+
+        assertThat(request.getMethod()).isEqualTo("POST");
+
+        // 验证URI
+        assertThat(request.getPath()).isEqualTo("/api/user/activity/getActivityInfoWithConfigById");
+
+        // 验证headers
+        Map<String, String> headers = request.getHeaders();
+        assertThat(headers.get("Host")).isEqualTo("api-cn-f2e-test.hungrypanda.cn");
+        assertThat(headers.get("content-type")).isEqualTo("application/json;charset=utf-8");
+
+
+        // 验证body
+        assertThat(request.getBody()).isNotNull();
+        assertThat(request.getBody().contains("\"pm\":\"GET\"")).isTrue();
+
+
+        // 验证params (POST请求通常没有query参数)
+        assertTrue(request.getParams().containsKey("activityId"));
+
+        System.out.println(request.getMethod());
+        System.out.println(request.getParams());
+        System.out.println(request.getBody());
+        System.out.println(request.getHeaders());
+        System.out.println(request.getUri());
+        System.out.println(request.getPath());
+    }
+
+
+    @Test
     void testQueryParamsParsing() throws Exception {
         String queryCurl = "curl 'http://example.com/search?q=java&page=2'";
         CurlParser.ParsedRequest request = CurlParser.parse(queryCurl);
@@ -118,10 +159,7 @@ class CurlParserTest {
 
     @Test
     void testFormDataParsing() throws Exception {
-        String formDataCurl = "curl -X POST 'http://example.com/form' " +
-                "-H 'Content-Type: multipart/form-data' " +
-                "-F 'username=testuser' " +
-                "-F 'file=@test.txt'";
+        String formDataCurl = "curl -X POST 'http://example.com/form' " + "-H 'Content-Type: multipart/form-data' " + "-F 'username=testuser' " + "-F 'file=@test.txt'";
         CurlParser.ParsedRequest request = CurlParser.parse(formDataCurl);
 
         assertEquals("POST", request.getMethod());

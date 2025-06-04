@@ -52,6 +52,7 @@ public class TestCaseGenerator {
      * %s - 请求路径
      * %s - 请求方法
      * %s - 请求头文件路径
+     * %s - 请求参数文件路径（如果没有参数则为 "null"）
      * %s - 请求体文件路径
      * %s - 断言文件路径
      */
@@ -84,6 +85,8 @@ public class TestCaseGenerator {
                 String method = "%s";
                 // 请求头。默认从 resources 目录下读取文件。
                 String headers = "%s";
+                // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
+                String params = %s;
                 // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
                 String body = "%s";
                 // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
@@ -97,9 +100,11 @@ public class TestCaseGenerator {
 
                     // 步骤2: 设置请求体。基本固定写法，不需要修改
                     var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+                    // 如果请求有参数，则设置参数。基本固定写法，不需要修改
+                    var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
                     // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
-                    var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
+                    var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
 
                     // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
                     // 方式一： 全匹配， 忽略部分动态字段值。固定写法，不需要修改
@@ -228,6 +233,7 @@ public class TestCaseGenerator {
 
         // 生成文件路径
         String headersPath = "module/" + packageName + "/request/headers.json";
+        String paramsPath = !parser.getParams().isEmpty() ? "module/" + packageName + "/request/params.json" : "null";
         String bodyPath = "module/" + packageName + "/request/should_success.json";
         String assertPath = "module/" + packageName + "/response/assert_full_field.json";
 
@@ -263,8 +269,9 @@ public class TestCaseGenerator {
     /**
      * 生成JSON文件
      * 1. 生成请求头文件
-     * 2. 生成请求体文件
-     * 3. 生成响应体文件
+     * 2. 生成请求参数文件（如果有参数）
+     * 3. 生成请求体文件
+     * 4. 生成响应体文件
      *
      * @param packageName 包名
      * @param className 类名
@@ -286,6 +293,25 @@ public class TestCaseGenerator {
                 headersJson.put(entry.getKey(), entry.getValue());
             }
             writer.write(JSON.toJSONString(headersJson, true));
+        }
+
+        // 生成请求参数文件（如果有参数）
+        String paramsPath = null;
+        if (!parser.getParams().isEmpty()) {
+            paramsPath = RESOURCES_BASE_PATH + "/" + packageName + "/request/params.json";
+            File paramsFile = new File(paramsPath);
+            File paramsParent = paramsFile.getParentFile();
+            if (paramsParent != null && !paramsParent.exists()) {
+                paramsParent.mkdirs();
+            }
+            try (FileWriter writer = new FileWriter(paramsFile)) {
+                JSONObject paramsJson = new JSONObject();
+                // 将解析出的params转换为JSON对象
+                for (Map.Entry<String, String> entry : parser.getParams().entrySet()) {
+                    paramsJson.put(entry.getKey(), entry.getValue());
+                }
+                writer.write(JSON.toJSONString(paramsJson, true));
+            }
         }
 
         // 生成请求体文件
