@@ -25,7 +25,7 @@ public class UserLoginTests {
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。下面的代码表示从 resource 的 module/headers.json 读取该文件内容作为接口请求头
-    String headers = "module/headers.json";
+    String headers = "module/home/login/request/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
     String body = "module/home/login/request/should_success.json";
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/module/home/login/response/assert_full_field.json 读取文件内容作为断言

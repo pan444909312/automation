@@ -31,7 +31,7 @@ public class CreateAddressTests {
     // 请求方式
     String method = "POST";
     // 请求头
-    String headers = "module/headers.json";
+    String headers = "module/account/address/request/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
     String body = "module/account/address/request/should_success.json";
     // 断言
