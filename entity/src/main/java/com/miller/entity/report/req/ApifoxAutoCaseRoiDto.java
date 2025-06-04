@@ -49,6 +49,8 @@ public class ApifoxAutoCaseRoiDto {
     @NotBlank(message = "归属小组不能为空，枚举值有：B-商家组、P-平台组、C-导购组、D-配送组")
     private String dept;
 
+    private String  projectId;
+
     @Schema(description = "邮箱")
     private String email;
 

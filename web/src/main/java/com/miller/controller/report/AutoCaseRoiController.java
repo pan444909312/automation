@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.common.util.DateUtils;
 import com.miller.entity.platform.Project;
 import com.miller.entity.platform.User;
+import com.miller.entity.platform.UserBindProject;
 import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
 import com.miller.entity.util.Response;
 import com.miller.common.util.ULIDUtils;
@@ -157,24 +158,16 @@ public class AutoCaseRoiController {
     @Transactional
     public Response<Boolean> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
 
-        /**
-         //  校验小组归属小组是否存在
-         Dept dept;
-         if (!ObjectUtils.isEmpty(dto.getDept())) {
-         dept = deptMapper.selectByName(dto.getDept());
-         }else {
-         dept = deptMapper.selectByName("B-商家组");
-         }
-         ***/
 
-        Project project = null;
-        if (!ObjectUtils.isEmpty(dto.getDept())) {
-            project = projectService.findByName(dto.getDept());
-        }
-        if (ObjectUtils.isEmpty(project)){
-            log.error("查不到项目：{}，默认使用 B-商家组 查询",dto.getDept());
-            project = projectService.findByName("B端-商家组");
-        }
+        // 去除默认归属项目配置
+//        Project project = null;
+//        if (!ObjectUtils.isEmpty(dto.getDept())) {
+//            project = projectService.findByName(dto.getDept());
+//        }
+//        if (ObjectUtils.isEmpty(project)){
+//            log.error("查不到项目：{}，默认使用 B-商家组 查询",dto.getDept());
+//            project = projectService.findByName("B端-商家组");
+//        }
 
 
 
@@ -189,6 +182,15 @@ public class AutoCaseRoiController {
         }
         dto.setEmail(user.getEmail());
 
+
+        // 查询成员归属的项目ID
+        UserBindProject userBindProject = userBindProjectService.selectByUserId(user.getUserId());
+        if (ObjectUtils.isEmpty(userBindProject)) {
+            return Response.fail("该用户没有归属项目:" + dto.getAuthor() + ",请联系开发添加");
+        }
+        dto.setProjectId(userBindProject.getProjectId());
+
+
         // 场景 ID 为空
         if (com.miller.common.util.StringUtils.isBlank(dto.getScenarioId())) {
             return Response.fail("scenarioId 不能为空");
@@ -196,8 +198,7 @@ public class AutoCaseRoiController {
 
         boolean res = apifoxAutoCaseRoiService.apifoxSaveOrUpdate(dto);
 
-        // 校验 user 和 dept 是否有映射关系，没有则创建一个
-        userBindProjectService.saveOrUpdate(project.getProjectId(), user.getUserId());
+
 
         return Response.success(res);
     }
