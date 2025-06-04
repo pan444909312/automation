@@ -1,0 +1,93 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "list": [
+      {
+        "moduleId": 2412,
+        "moduleType": 1,
+        "moduleName": "图片",
+        "moduleEthnicity": 1,
+        "sort": 3,
+        "background": "#F7F8FB",
+        "loadType": 1,
+        "activityTitle": "九江自动化",
+        "filterShowType": 0,
+        "shopShowType": 0,
+        "singleLoadRowSize": 0,
+        "firstLoadRowSize": 0,
+        "languageCode": "CN",
+        "priceThresholdMin": null,
+        "priceThresholdMax": null,
+        "currency": null,
+        "sortTypeList": [
+          "COMPOSITE",
+          "PRICE",
+          "DISCOUNTS",
+          "DISTANCE"
+        ]
+      },
+      {
+        "moduleId": 2411,
+        "moduleType": 2,
+        "moduleName": "菜品列表",
+        "moduleEthnicity": 3,
+        "sort": 2,
+        "background": "#F7F8FB",
+        "loadType": 1,
+        "activityTitle": "九江自动化",
+        "filterShowType": 0,
+        "shopShowType": 0,
+        "singleLoadRowSize": 0,
+        "firstLoadRowSize": 0,
+        "languageCode": "CN",
+        "priceThresholdMin": null,
+        "priceThresholdMax": null,
+        "currency": null,
+        "sortTypeList": [
+          "COMPOSITE",
+          "PRICE",
+          "DISCOUNTS",
+          "DISTANCE"
+        ]
+      },
+      {
+        "moduleId": 2410,
+        "moduleType": 1,
+        "moduleName": "店铺列表",
+        "moduleEthnicity": 3,
+        "sort": 1,
+        "background": "#F7F8FB",
+        "loadType": 1,
+        "activityTitle": "九江自动化",
+        "filterShowType": 0,
+        "shopShowType": 0,
+        "singleLoadRowSize": 5,
+        "firstLoadRowSize": 5,
+        "languageCode": "CN",
+        "priceThresholdMin": null,
+        "priceThresholdMax": null,
+        "currency": null,
+        "sortTypeList": [
+          "COMPOSITE",
+          "PRICE",
+          "DISCOUNTS",
+          "DISTANCE"
+        ]
+      }
+    ],
+    "config": {
+      "background": "#F7F8FB",
+      "activityTitle": "九江自动化",
+      "activityName": "九江自动化测试不要动谢谢"
+    }
+  },
+  "currency": "",
+  "success": true,
+  "nowTime": 1748921429770,
+  "queryList": {
+    "1": "hp_master: select id, module_activity_id, module_name, module_type, module_ethnicity, `status`, sort, sts, create_time, last_update_time, load_type, background, image_url_before_get, image_url_after_get, image_url_end, sort_rule, is_for_new_user, shop_link_type, shop_category_ids, shop_relation_type, filter_show_type, shop_show_type, market_tag_show_type, single_load_row_size, first_load_row_size, language_code,product_link_type,product_tag_ids,show_price_filter,price_threshold_min,price_threshold_max from module_activity_base where module_activity_id = 1517 and sts = 1 and STATUS = 1 order by sort asc",
+    "2": "hp_master: select id, activity_title, activity_name, create_user_id, create_user_name, remark, create_time, last_update_time, sts, city_name,background from module_activity where id = 1517 and sts=1"
+  }
+}
