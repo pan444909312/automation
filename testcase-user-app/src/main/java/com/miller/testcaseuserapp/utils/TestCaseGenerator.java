@@ -6,6 +6,7 @@ import com.miller.common.util.ULIDUtils;
 import com.miller.service.framework.util.CurlParser;
 import com.miller.service.framework.util.JGitUtils;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,11 +30,11 @@ import java.util.Scanner;
  */
 public class TestCaseGenerator {
     /** Java源代码根目录 */
-    private static final String MODULE_BASE_PATH = "src/main/java/com/miller/testcaseuserapp/module";
+    private static final String PROJECT_ROOT = System.getProperty("user.dir");
+    private static final String MODULE_NAME = "testcase-user-app";
+    private static final String MODULE_BASE_PATH = PROJECT_ROOT + "/" + MODULE_NAME + "/src/main/java/com/miller/testcaseuserapp/module";
     /** 资源文件根目录 */
-    private static final String RESOURCES_BASE_PATH = "src/main/resources/module";
-    /** 邮箱后缀 */
-    private static final String EMAIL_SUFFIX = "@hungrypandagroup.com";
+    private static final String RESOURCES_BASE_PATH = PROJECT_ROOT + "/" + MODULE_NAME + "/src/main/resources/module";
 
     /**
      * 测试类模板
@@ -54,8 +55,8 @@ public class TestCaseGenerator {
      * %s - 断言文件路径
      * %s - 测试用例名称（用于方法DisplayName）
      * %s - 方法名
-     * %s - 作者邮箱（使用Git用户名 + @hungrypandagroup.com）
-     * %s - 作者名（使用Git用户名）
+     * %s - 作者邮箱,取 Git 配置的邮箱。可以通过命令配置`git config --global user.email "shandongdong@hungrypandagroup.com"`
+     * %s - 作者名（取 Git 用户名）
      */
     private static final String TEST_CLASS_TEMPLATE = """
             package com.miller.testcaseuserapp.module.%s;
@@ -245,7 +246,7 @@ public class TestCaseGenerator {
      * @throws IOException 如果文件写入失败
      */
     private static void generateTestClassFile(String packageName, String className, String testCaseName,
-                                            String methodName, String curlCommand, CurlParser.ParsedRequest parser) throws IOException {
+                                              String methodName, String curlCommand, CurlParser.ParsedRequest parser) throws IOException {
         String filePath = MODULE_BASE_PATH + "/" + packageName + "/" + className + ".java";
 
         // 生成文件路径
@@ -257,7 +258,7 @@ public class TestCaseGenerator {
 
         // 获取Git用户名并生成邮箱
         String gitName = JGitUtils.getGitName();
-        String authorEmail = gitName + EMAIL_SUFFIX;
+        String authorEmail = JGitUtils.getGitEmail();
 
         String content = String.format(TEST_CLASS_TEMPLATE,
                 packageName.replace("/", "."),
@@ -296,16 +297,26 @@ public class TestCaseGenerator {
         // 生成请求体文件
         if (parser.getBody() != null) {
             String requestPath = RESOURCES_BASE_PATH + "/" + packageName + "/request/should_success.json";
-            try (FileWriter writer = new FileWriter(requestPath)) {
+            File file = new File(requestPath);
+            File parent = file.getParentFile();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
+            try (FileWriter writer = new FileWriter(file)) {
                 writer.write(parser.getBody());
             }
         }
 
         // 生成响应体文件
         String responsePath = RESOURCES_BASE_PATH + "/" + packageName + "/response/assert_full_field.json";
+        File responseFile = new File(responsePath);
+        File responseParent = responseFile.getParentFile();
+        if (responseParent != null && !responseParent.exists()) {
+            responseParent.mkdirs();
+        }
         JSONObject responseJson = new JSONObject();
         responseJson.put("resultCode", 1000);
-        try (FileWriter writer = new FileWriter(responsePath)) {
+        try (FileWriter writer = new FileWriter(responseFile)) {
             writer.write(JSON.toJSONString(responseJson, true));
         }
     }
