@@ -1,0 +1,32 @@
+package com.miller.testcase.module.home.common;
+
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.TestCaseHelpful;
+import net.javacrumbs.jsonunit.core.Option;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+
+@Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DCW",
+        scenarioName = "同步客户端埋点属性值成功",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+@DisplayName("/api/user/sensors/sync/properties")
+public class UserSensorsSyncPropertiesSuccess {
+    private static final String uri = TestcaseConfig.HOST + "/api/user/sensors/sync/properties";
+
+    @DisplayName("同步客户端埋点属性值成功")
+    @Test
+    void testCase() {
+        Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
+        // 给请求头添加数据，例如这里添加token
+        headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
+        String requestBody = TestCaseHelpful.getJsonRequestBody("module/home/common/request/UserSensorsSyncPropertiesReq.json");
+        String responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
+        String expectedStr = TestCaseHelpful.getFileContent("module/home/common/response/UserSensorsSyncPropertiesResp.json");
+
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+    }
+}
