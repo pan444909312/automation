@@ -28,6 +28,8 @@ public class UserLoginTests {
     String headers = "module/home/login/request/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。
     String body = "module/home/login/request/should_success.json";
+    // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 paras 参数
+    String params = null;
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/module/home/login/response/assert_full_field.json 读取文件内容作为断言
     String assert1 = "module/home/login/response/assert_full_field.json";
 
@@ -39,6 +41,8 @@ public class UserLoginTests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        // 如果请求有参数，则设置参数。基本固定写法，不需要修改
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);

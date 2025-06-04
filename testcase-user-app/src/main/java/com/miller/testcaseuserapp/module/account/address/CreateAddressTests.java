@@ -34,6 +34,8 @@ public class CreateAddressTests {
     String headers = "module/account/address/request/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
     String body = "module/account/address/request/should_success.json";
+    // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 paras 参数
+    String params = null;
     // 断言
     String assert1 = "module/account/address/response/assert_full_field.json";
     String assert2 = "module/account/address/response/assert_some_field.json";
@@ -48,9 +50,11 @@ public class CreateAddressTests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        // 如果请求有参数，则设置参数。基本固定写法，不需要修改
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式一： 全匹配， 排除部分字段动态字段匹配。固定写法，不需要修改
