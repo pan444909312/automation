@@ -1,4 +1,4 @@
-package com.miller.testcasepandafresh.utils;
+package com.miller.testcase.utils;
 
 import com.miller.service.framework.db.DBUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 操作 fresh_test 库
+ * 操作 panda_test 库
  *
  * @author Miller Shan
  * @version 1.0.0
  * @since 2025/05/27 23:03:44
  */
 @Slf4j
-public class FreshTestDBHelpful {
+public class PandaTestDBHelpful {
     /**
      * 数据库配置
      */
-    protected static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/fresh_test";
+    protected static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
     protected static String userName = "panda_test";
     protected static String passWord = "Pan$te19*";
     protected static DBUtils dbUtils;

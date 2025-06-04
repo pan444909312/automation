@@ -1,4 +1,4 @@
-package com.miller.testcasepandafresh.config;
+package com.miller.testcase.config;
 
 /**
  * 配置相关

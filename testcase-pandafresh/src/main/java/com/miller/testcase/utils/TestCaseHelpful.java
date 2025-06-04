@@ -1,11 +1,11 @@
-package com.miller.testcasepandafresh.utils;
+package com.miller.testcase.utils;
 
 import com.jayway.jsonpath.Predicate;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
-import com.miller.testcasepandafresh.config.TestcaseConfig;
+import com.miller.testcase.config.TestcaseConfig;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.jetbrains.annotations.NotNull;

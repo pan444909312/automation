@@ -1,4 +1,4 @@
-package com.miller.testcasepandafresh.utils;
+package com.miller.testcase.utils;
 
 import org.junit.jupiter.api.Test;
 
