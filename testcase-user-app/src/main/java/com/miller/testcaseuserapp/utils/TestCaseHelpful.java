@@ -31,7 +31,9 @@ public class TestCaseHelpful {
      */
     public static Map<String, Object> getHeaders(String filePath) {
         Map<String, Object> headers = JsonUtils.readJsonFileToMap(filePath);
-        if (!headers.containsKey("Content-Type")) {
+        boolean hasContentType = headers.keySet().stream()
+                .anyMatch(key -> key.equalsIgnoreCase("Content-Type"));
+        if (!hasContentType) {
             throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
         }
         return headers;

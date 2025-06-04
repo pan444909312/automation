@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -40,23 +41,19 @@ public class TestCaseGenerator {
      * 测试类模板
      * 使用Java文本块（Text Block）定义模板，包含以下占位符：
      * %s - 包名
-     * %s - 测试用例名称
+     * %s - 测试用例名称（用于类注释）
+     * %s - 作者名（取 Git 用户名）
      * %s - 创建时间
      * %s - 场景ID（使用ULIDUtils.generateULID()生成，格式如：01JW68KNTBJSEZ0GPXQ9AF6XFN）
-     * %s - 测试用例名称
-     * %s - 测试用例名称（用于DisplayName）
+     * %s - 测试用例名称（用于场景名称）
+     * %s - 作者邮箱（取 Git 配置的邮箱）
+     * %s - 测试用例名称（用于类DisplayName）
      * %s - 类名
-     * %s - 测试用例名称（用于方法DisplayName）
-     * %s - 方法名
      * %s - 请求路径
      * %s - 请求方法
      * %s - 请求头文件路径
      * %s - 请求体文件路径
      * %s - 断言文件路径
-     * %s - 测试用例名称（用于方法DisplayName）
-     * %s - 方法名
-     * %s - 作者邮箱,取 Git 配置的邮箱。可以通过命令配置`git config --global user.email "shandongdong@hungrypandagroup.com"`
-     * %s - 作者名（取 Git 用户名）
      */
     private static final String TEST_CLASS_TEMPLATE = """
             package com.miller.testcaseuserapp.module.%s;
@@ -85,16 +82,16 @@ public class TestCaseGenerator {
                 String uri = TestcaseConfig.HOST + "%s";
                 // 接口请求方式。如： GET、POST、PUT、DELETE
                 String method = "%s";
-                // 请求头。默认从 resources 目录下读取文件。下面的代码表示从 resource 的 module/headers.json 读取该文件内容作为接口请求头
-                String headers = "module/headers.json";
+                // 请求头。默认从 resources 目录下读取文件。
+                String headers = "%s";
                 // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
                 String body = "%s";
                 // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
                 String assert1 = "%s";
 
-                @DisplayName("%s")
+                @DisplayName("正向流程")
                 @Test
-                void should%s() {
+                void shouldSuccess() {
                     // 步骤1: 设置请求头。基本固定写法，不需要修改
                     var requestHeaders = TestCaseHelpful.getHeaders(headers);
 
@@ -152,13 +149,12 @@ public class TestCaseGenerator {
         // 生成包名和类名
         String packageName = generatePackageName(testCaseName);
         String className = generateClassName(testCaseName);
-        String methodName = generateMethodName(testCaseName);
 
         // 创建包目录
         createPackageDirectory(packageName);
 
         // 生成测试类文件
-        generateTestClassFile(packageName, className, testCaseName, methodName, curlCommand, parser);
+        generateTestClassFile(packageName, className, testCaseName, curlCommand, parser);
 
         // 生成请求体和响应体文件
         generateJsonFiles(packageName, className, parser);
@@ -197,24 +193,6 @@ public class TestCaseGenerator {
     }
 
     /**
-     * 生成方法名
-     * 将测试用例名称转换为方法名格式，例如：
-     * "用户_创建地址" -> "CreateAddress"
-     *
-     * @param testCaseName 测试用例名称
-     * @return 方法名
-     */
-    private static String generateMethodName(String testCaseName) {
-        String[] words = testCaseName.split("_");
-        StringBuilder methodName = new StringBuilder();
-        for (String word : words) {
-            methodName.append(word.substring(0, 1).toUpperCase())
-                    .append(word.substring(1).toLowerCase());
-        }
-        return methodName.toString();
-    }
-
-    /**
      * 创建包目录结构
      * 1. 创建Java源代码目录
      * 2. 创建资源文件目录
@@ -240,16 +218,16 @@ public class TestCaseGenerator {
      * @param packageName 包名
      * @param className 类名
      * @param testCaseName 测试用例名称
-     * @param methodName 方法名
      * @param curlCommand cURL命令
      * @param parser cURL解析器
      * @throws IOException 如果文件写入失败
      */
     private static void generateTestClassFile(String packageName, String className, String testCaseName,
-                                              String methodName, String curlCommand, CurlParser.ParsedRequest parser) throws IOException {
+                                              String curlCommand, CurlParser.ParsedRequest parser) throws IOException {
         String filePath = MODULE_BASE_PATH + "/" + packageName + "/" + className + ".java";
 
         // 生成文件路径
+        String headersPath = "module/" + packageName + "/request/headers.json";
         String bodyPath = "module/" + packageName + "/request/should_success.json";
         String assertPath = "module/" + packageName + "/response/assert_full_field.json";
 
@@ -270,12 +248,11 @@ public class TestCaseGenerator {
                 authorEmail,
                 testCaseName,
                 className,
-                parser.getUri(),
+                parser.getPath(),
                 parser.getMethod(),
+                headersPath,
                 bodyPath,
-                assertPath,
-                testCaseName,
-                methodName
+                assertPath
         );
 
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -285,8 +262,9 @@ public class TestCaseGenerator {
 
     /**
      * 生成JSON文件
-     * 1. 生成请求体JSON文件（如果有请求体）
-     * 2. 生成响应体JSON文件
+     * 1. 生成请求头文件
+     * 2. 生成请求体文件
+     * 3. 生成响应体文件
      *
      * @param packageName 包名
      * @param className 类名
@@ -294,6 +272,22 @@ public class TestCaseGenerator {
      * @throws IOException 如果文件写入失败
      */
     private static void generateJsonFiles(String packageName, String className, CurlParser.ParsedRequest parser) throws IOException {
+        // 生成请求头文件
+        String headersPath = RESOURCES_BASE_PATH + "/" + packageName + "/request/headers.json";
+        File headersFile = new File(headersPath);
+        File headersParent = headersFile.getParentFile();
+        if (headersParent != null && !headersParent.exists()) {
+            headersParent.mkdirs();
+        }
+        try (FileWriter writer = new FileWriter(headersFile)) {
+            JSONObject headersJson = new JSONObject();
+            // 将解析出的headers转换为JSON对象
+            for (Map.Entry<String, String> entry : parser.getHeaders().entrySet()) {
+                headersJson.put(entry.getKey(), entry.getValue());
+            }
+            writer.write(JSON.toJSONString(headersJson, true));
+        }
+
         // 生成请求体文件
         if (parser.getBody() != null) {
             String requestPath = RESOURCES_BASE_PATH + "/" + packageName + "/request/should_success.json";
@@ -303,7 +297,9 @@ public class TestCaseGenerator {
                 parent.mkdirs();
             }
             try (FileWriter writer = new FileWriter(file)) {
-                writer.write(parser.getBody());
+                // 将请求体字符串解析为JSONObject，然后使用格式化输出
+                JSONObject bodyJson = JSON.parseObject(parser.getBody());
+                writer.write(JSON.toJSONString(bodyJson, true));
             }
         }
 
