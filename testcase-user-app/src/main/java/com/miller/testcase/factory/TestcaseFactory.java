@@ -13,14 +13,21 @@ import java.util.Scanner;
  * @since 2025/5/30 11:46:53
  */
 public class TestcaseFactory {
-    // 可配置项
+    /**
+     * 可配置项。不同项目模块名称不同时，可修改。例如：
+     * C + P 端："testcase-user-app"
+     * B端：testcase-merchant
+     * D端：testcase-delivery
+     * PF：testcase-pandafresh
+     *
+     */
     public static final String MODULE_NAME = "testcase-user-app";
     // 用户可自定义的子目录（如 "account/address"），默认为空字符串
     public static String CUSTOM_SUB_PATH = "";
     // 测试用例模版文件
     public static final String TEMPLATE_FILE = "TestClassTemplate.txt";
 
-    // java源文件路径，请自行修改为需要的路径
+    // 默认测试用例生成路径，不建议修改
     public static final String JAVA_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/java/com/miller/testcase/module";
     public static final String RESOURCES_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/resources/module";
 

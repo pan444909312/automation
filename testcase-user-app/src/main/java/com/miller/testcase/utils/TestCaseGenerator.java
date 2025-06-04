@@ -134,6 +134,7 @@ public class TestCaseGenerator {
         String filePath = javaBasePath + "/" + packageName + "/" + className + ".java";
         String headersPath = "module/" + packageName + "/request/headers.json";
         String paramsPath = !parser.getParams().isEmpty() ? "module/" + packageName + "/request/params.json" : "null";
+        String paramsValue = paramsPath.equals("null") ? "null" : "\"" + paramsPath + "\"";
         String bodyPath = "module/" + packageName + "/request/should_success.json";
         String assertPath = "module/" + packageName + "/response/assert_full_field.json";
         String scenarioId = ULIDUtils.generateULID();
@@ -153,7 +154,7 @@ public class TestCaseGenerator {
                 parser.getPath(),
                 parser.getMethod(),
                 headersPath,
-                paramsPath,
+                paramsValue,
                 bodyPath,
                 assertPath
         );
