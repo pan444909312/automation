@@ -21,6 +21,7 @@ import com.miller.service.framework.report.AutoDBUtils;
 import com.miller.service.framework.util.TestCaseUtils;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
@@ -49,6 +50,7 @@ import java.util.*;
  * @see DependsOnClass
  * @since 2023/10/16 21:22:41
  */
+@Slf4j
 public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     private static final String SUCCESSFUL = "Successful";
     private static final String FAILED = "Failed";
@@ -393,6 +395,8 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                     automationCoverageApiEntity.setApiTestAuthor(user.getName());
                 }
             }
+        } else {
+            log.warn("接口测试负责人不为空，不更新数据库字段值,可能的原因为使用了 @TestFramework 但是缺少 @Scenario 注解，所以导致测试框架执行了用例，但是无法获取负责人");
         }
 
         // 测试用例执行结果

@@ -11,21 +11,21 @@ import java.util.HashMap;
 
 @Scenario(
         scenarioID = "01JWSS1KB2H2X5WV4YW6GE43G6",
-        scenarioName = "获取活动专题信息",
+        scenarioName = "获取活动专题信息-一排三店铺列表",
         author = "yancancan@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("获取活动专题信息")
-public class ActivityInfoTests {
+@DisplayName("获取活动专题信息-一排三店铺列表")
+public class ActivitySimpleShopListTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HostMobile + "/api/user/activity/getActivityInfoWithConfigById";
+    String uri = TestcaseConfig.HostMobile + "/api/user/activity/getSimpleShopListByModuleId";
     // 请求方式
     String method = "POST";
     // 请求头
-    String headers = "module/activity/topic/activityinfo/request/headers_topic.json";
+    String headers = "module/activity/topic/simplelist/request/headers_topic.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/activity/topic/activityinfo/request/success.json";
+    String body = "module/activity/topic/simplelist/request/success.json";
     // 断言
-    String assert2 = "module/activity/topic/activityinfo/response/assert_some_fields.json";
+    String assert2 = "module/activity/topic/simplelist/response/assert_some_fields.json";
     // params
     @DisplayName("获取活动专题信息")
     @Test
