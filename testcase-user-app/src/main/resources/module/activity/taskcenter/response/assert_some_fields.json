@@ -1,0 +1,85 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "url": "",
+    "activityId": "LAW6220240717104118",
+    "taskItemVOList": [
+      {
+        "taskSn": "611QZQFOM8",
+        "taskStatus": 3,
+        "orderMinPrice": 1,
+        "orderType": "[0,1,2]",
+        "redPacketPrice": 800,
+        "thresholdPrice": 0,
+        "discountRate": 0.0,
+        "redPacketTypeId": 1,
+        "title": "今天下3单",
+        "awardType": 2,
+        "outId": 888890144,
+        "completeOrders": null,
+        "remainTime": null,
+        "startTime": null,
+        "endTime": "截止6月05日23:59",
+        "tip": null,
+        "userGroupName": "全部用户不准动！！！",
+        "taskType": 1,
+        "sortNum": 3,
+        "dayNum": 1,
+        "orderNum": 3,
+        "endTimeLong": 1749139199999,
+        "award": null,
+        "taskRule": "每单实付满¥0.01",
+        "userTaskType": 1,
+        "taskName": "",
+        "backgroundImg": "",
+        "taskAward": {
+          "subTaskId": 0,
+          "taskId": 2011,
+          "benefitType": null,
+          "awardType": 2,
+          "awardText": "无门槛立减",
+          "redPacketTypeId": null,
+          "discountAward": null,
+          "award": 800,
+          "awardStatus": 0,
+          "memberCardType": null,
+          "memberCard": null,
+          "taskRedPacketList": [
+            {
+              "isUsed": null,
+              "redPacketId": 888890144,
+              "shopId": 0,
+              "redPacketPrice": 800,
+              "thresholdPrice": 0,
+              "discountRate": 0.0,
+              "maxDiscountPrice": 800,
+              "myRedPacketUrl": null,
+              "myRedPacketPic": null,
+              "redPacketNum": 1,
+              "redPacketName": "自动化测试cc勿动券01",
+              "redPacketRuleList": [
+                "与店铺独享优惠不可同享",
+                "全国通用"
+              ],
+              "benefitType": null,
+              "redPacketStatus": 1,
+              "redPacketEffectDate": "2043/09/30",
+              "redPacketTypeId": 1,
+              "waitHourDesc": null
+            }
+          ],
+          "totalRedPacketNum": 1
+        },
+        "taskRedPacketNum": 1,
+        "specialSubTaskList": null,
+        "receivedUserTaskId": null,
+        "taskRedPacketGroup": 1
+      }
+    ],
+    "currency": "¥"
+  },
+  "currency": "¥",
+  "success": true
+}

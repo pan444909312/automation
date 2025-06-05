@@ -32,7 +32,6 @@
       "showShopEvaluation": 0,
       "newShopLabelStr": "新店尝鲜",
       "minNewUserSkuPrice": -1,
-      "predicts": "{\"version\":1,\"predictHandler\":\"xgb\",\"time\":1749116069602,\"score\":0.05157347465257333,\"bid\":null,\"pctr\":null,\"pacing\":null,\"finalScore\":null}",
       "shopPromoteList": [{
         "showContent": "可自取",
         "subsidyContent": null,
@@ -73,7 +72,6 @@
       "showShopEvaluation": 0,
       "newShopLabelStr": "新店尝鲜",
       "minNewUserSkuPrice": -1,
-      "predicts": "{\"version\":1,\"predictHandler\":\"xgb\",\"time\":1749116069602,\"score\":0.05157347465257333,\"bid\":null,\"pctr\":null,\"pacing\":null,\"finalScore\":null}",
       "shopPromoteList": [{
         "showContent": "可自取",
         "subsidyContent": null,
@@ -114,7 +112,6 @@
       "showShopEvaluation": 0,
       "newShopLabelStr": "新店尝鲜",
       "minNewUserSkuPrice": -1,
-      "predicts": "{\"version\":1,\"predictHandler\":\"xgb\",\"time\":1749116069602,\"score\":0.05157347465257333,\"bid\":null,\"pctr\":null,\"pacing\":null,\"finalScore\":null}",
       "shopPromoteList": [{
         "showContent": "可自取",
         "subsidyContent": null,
@@ -132,4 +129,5 @@
     }
   },
   "currency": "",
-  "success": true}
+  "success": true
+}
