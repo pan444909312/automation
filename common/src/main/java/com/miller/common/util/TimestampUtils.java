@@ -35,6 +35,28 @@ public class TimestampUtils {
         return localDateTime.format(formatter);
     }
 
+
+    /**
+     * 获取给定时间戳当天的00:00时间戳
+     * @param timestamp 输入时间戳（毫秒）
+     * @return 当天00:00的时间戳（毫秒）
+     */
+    public static long getMidnightTimestamp(long timestamp) {
+        // 转换为LocalDateTime（使用系统默认时区）
+        LocalDateTime dateTime = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(timestamp),
+                ZoneId.systemDefault()
+        );
+
+        // 获取当天的00:00
+        LocalDateTime midnight = dateTime.toLocalDate().atStartOfDay();
+
+        // 转换回时间戳
+        return midnight.atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+    }
+
     /**
      * 根据传入的时间戳，获取该时间戳昨天的0:00的时间戳
      *
