@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DD8",
         scenarioName = "验证码登录成功",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 15)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 10, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("/api/user/combine/login")
 @Slf4j
@@ -52,19 +52,11 @@ public class VerifyCodeLoginSuccess {
 
     private SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
 
-    private DeviceLoginInfoMapper deviceLoginInfoMapper = sqlSession.getMapper(DeviceLoginInfoMapper.class);
-
-    private UserAccountMapper userAccountMapper = sqlSession.getMapper(UserAccountMapper.class);
 
     private UserLogMapper userLogMapper = sqlSession.getMapper(UserLogMapper.class);
 
-    private UserRegInfoMapper userRegInfoMapper = sqlSession.getMapper(UserRegInfoMapper.class);
-
     private String deviceId = new PropertiesUtils().getProperty(UserLoginTests.class, "user.app.login.device.id");
     private String tel = "13999900001";
-
-    private Long userId = 0L;
-
 
     private static Integer checkCode = 15;
 
@@ -85,24 +77,6 @@ public class VerifyCodeLoginSuccess {
 
     }
 
-    @AfterAll
-    void afterAll() {
-        //删除注册数据
-        if (userId > 0L) {
-
-            userLogMapper.delete(new QueryWrapper<UserLogEntity>().eq("user_id", userId));
-
-            userRegInfoMapper.delete(new QueryWrapper<UserRegInfoEntity>().eq("user_id", userId));
-
-            userAccountMapper.delete(new QueryWrapper<UserAccountEntity>().eq("user_id", userId));
-
-            deviceLoginInfoMapper.delete(new QueryWrapper<DeviceLoginInfoEntity>().eq("user_id", userId));
-
-
-
-        }
-
-    }
 
 
     @MethodSource("staticDataProvider")
@@ -110,14 +84,13 @@ public class VerifyCodeLoginSuccess {
     @DisplayName("验证码登录成功")
     void testCase(UserLoginReq userLoginReq) {
 
+        // 获取验证码
         SendVerificationCodeSuccess sendVerificationCodeSuccess = new SendVerificationCodeSuccess();
         sendVerificationCodeSuccess.testCase(sendVerificationCodeSuccess.getSmsSendVerificationCodeReq(tel));
 
-
-        String telMask = EncodeUtils.encodePhone(tel);
-
+        // 构造查询条件
         QueryWrapper<UserLogEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("telephone", telMask);
+        queryWrapper.eq("telephone", EncodeUtils.encodePhone(tel));
         queryWrapper.orderByDesc("create_time");
         queryWrapper.last("limit 1");
 
@@ -130,14 +103,13 @@ public class VerifyCodeLoginSuccess {
                 userLoginReq, null,
                 Result.class);
 
-
         UserTokenSimpleVO userTokenSimpleVO = JSON.parseObject(result.getResult().toString(), UserTokenSimpleVO.class);
-
-        userId = userTokenSimpleVO.getUserId();
-
 
         assertThat(result.getResultCode()).isEqualTo(1000);
         assertThat(userTokenSimpleVO.getIsRegister()).isEqualTo(0);
+        assertThat(userTokenSimpleVO.getAccessToken()).isNotNull();
+        assertThat(userTokenSimpleVO.getRefresh_token()).isNotNull();
+        assertThat(userTokenSimpleVO.getUserName()).isEqualTo(tel);
 
     }
 
