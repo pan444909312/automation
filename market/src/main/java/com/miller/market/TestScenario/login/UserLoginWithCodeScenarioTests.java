@@ -13,15 +13,11 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         MarketSendShortMessageWithoutLoginTests.class,
         // 用户登录
         MarketLoginWithCodeTests.class,
-
-
-
 })
-
 @Suite
 @SuiteDisplayName("【主干场景】发送验证码 - 登录")
 @Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KM",
         scenarioName = "【主干场景】发送验证码 - 登录",
-        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 5)
 public class UserLoginWithCodeScenarioTests {
 }

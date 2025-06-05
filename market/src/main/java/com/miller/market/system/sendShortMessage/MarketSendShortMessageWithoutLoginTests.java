@@ -7,6 +7,7 @@ import com.miller.market.system.sendShortMessage.request.MarketSendShortMessageR
 import com.miller.market.system.sendShortMessage.response.MarketSendShortMessageResponseDTO;
 import com.miller.market.util.RedisUtils;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.panda.market.common.constants.Constants;
 import org.assertj.core.api.Assertions;
@@ -21,11 +22,11 @@ import java.util.stream.Stream;
 /**
  * 发送短信
  */
-@EnvTag.Test
-@TestFramework
+@Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KN",
+        scenarioName = "【主干场景】发送验证码 - 登录",
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("PF_发信短信验证码")
 public class MarketSendShortMessageWithoutLoginTests {
-
 
     @MethodSource("staticPhoneProvider")
     @ParameterizedTest
