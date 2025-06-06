@@ -2,26 +2,27 @@ package com.miller.testcase.module.home.shop;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
+import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Scenario(
-        scenarioID = "01JWG9BRVV09NEMNEG59XVXX11",
-        scenarioName = "进入商品详情页获取商品详情",
+        scenarioID = "01JX23ZY11STYYMZ7VWTV0B1V2",
+        scenarioName = "选择有规格商品添加小料",
         author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 15, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("进入商品详情页获取商品详情")
-public class GetProductDetail {
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+@DisplayName("选择有规格商品添加小料")
+public class ProductSkuPrice {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/v1/product/detail?productId=82457767&deliveryType=1";
+    String uri = TestcaseConfig.HOST + "/api/app/user/shop/productSku/price";
     // 请求方式
-    String method = "GET";
+    String method = "POST";
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = null;
+    String body = "module/home/shop/request/ProductSkuPriceReq.json";
     // 断言
-    String assert1 = "module/home/shop/response/ProductDetailResp.json";
+    String assert2 = "module/home/shop/response/ProductSkuPriceResp.json";
 
     @DisplayName("正向流程")
     @Test
@@ -36,8 +37,8 @@ public class GetProductDetail {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
-        // 方式一： 全匹配， 忽略部分动态字段值。固定写法，不需要修改
-        var expectedStr = TestCaseHelpful.getFileContent(assert1);
-        TestCaseHelpful.assertThatJson(responseBody).isEqualTo(expectedStr);
+       // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
+        var expectedStr = TestCaseHelpful.getFileContent(assert2);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
     }
 }

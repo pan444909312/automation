@@ -20,9 +20,9 @@ public class MenuListDeliveryTab {
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/home/shop/request/get_delivrymenulist.json";
+    String body = "module/home/shop/request/DelivryMenulistReq.json";
     // 断言
-    String assert2 = "module/home/shop/response/assert_menuinfo.json";
+    String assert2 = "module/home/shop/response/MenuInfoResp.json";
 
     @DisplayName("正向流程")
     @Test

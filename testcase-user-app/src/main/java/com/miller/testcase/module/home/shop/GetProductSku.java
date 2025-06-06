@@ -21,7 +21,7 @@ public class GetProductSku {
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
     String body = null;
     // 断言
-    String assert1 = "module/home/shop/response/assert_productsku.json";
+    String assert1 = "module/home/shop/response/ProductskuResp.json";
 
     @DisplayName("正向流程")
     @Test
