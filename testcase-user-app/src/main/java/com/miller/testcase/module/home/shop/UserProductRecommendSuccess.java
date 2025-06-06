@@ -23,9 +23,9 @@ public class UserProductRecommendSuccess {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
         // 给请求头添加数据，例如这里添加token
 //        headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
-        String requestBody = TestCaseHelpful.getJsonRequestBody("module/home/shop/request/UserInteractRecommendReq.json");
+        String requestBody = TestCaseHelpful.getJsonRequestBody("module/home/shop/request/UserProductRecommendReq.json");
         String responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
-        String expectedStr = TestCaseHelpful.getFileContent("module/home/shop/response/UserInteractRecommendResp.json");
+        String expectedStr = TestCaseHelpful.getFileContent("module/home/shop/response/UserProductRecommendResp.json");
 
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
