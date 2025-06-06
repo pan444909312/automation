@@ -12,14 +12,14 @@ import java.util.Map;
 
 @Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DCW",
         scenarioName = "同步客户端埋点属性值成功",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/sensors/sync/properties")
 public class UserSensorsSyncPropertiesSuccess {
     private static final String uri = TestcaseConfig.HOST + "/api/user/sensors/sync/properties";
 
     @DisplayName("同步客户端埋点属性值成功")
     @Test
-    void testCase() {
+    void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
         // 给请求头添加数据，例如这里添加token
         headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));

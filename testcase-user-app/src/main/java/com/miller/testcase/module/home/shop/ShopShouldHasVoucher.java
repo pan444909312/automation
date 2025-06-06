@@ -19,11 +19,11 @@ public class ShopShouldHasVoucher {
 
     @DisplayName("店铺有代金券")
     @Test
-    void testCase() {
+    void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
         // 给请求头添加数据，例如这里添加token
         headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
-        headers.put("version","8.61.0");
+        headers.put("version", "8.61.0");
         String requestBody = TestCaseHelpful.getJsonRequestBody("module/home/shop/request/voucherReq.json");
         String responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         String expectedStr = TestCaseHelpful.getFileContent("module/home/shop/response/voucherResp.json");
