@@ -1,0 +1,16 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "userPackConfig": false,
+    "orderVirtualConfig": true,
+    "shopTakeSelfTabConfig": true,
+    "startSendMoneyBaseOnOrg": false,
+    "pfSuperMarketDeepLink": null
+  },
+  "currency": "${json-unit.ignore}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.any-number}"
+}

@@ -1,0 +1,17 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "searchCategoryGroups": [
+      {
+        "groupName": "热门分类",
+        "searchCategories": []
+      }
+    ]
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.any-number}"
+}
