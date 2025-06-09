@@ -6,7 +6,6 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThatJson;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.net.URISyntaxException;
 import java.util.Map;
 
 class CurlParserTest {
