@@ -37,7 +37,7 @@ public class TestcaseFactory {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("请输入测试用例名称（例如：用户_创建地址）：");
+        System.out.println("请输入测试用例名称，支持空格或-分割名称（例如：用户-创建地址 或 user create address):");
         String testCaseName = scanner.nextLine();
         System.out.println("请粘贴从 Charles 拷贝过来的 cURL 命令：");
         String curlCommand = scanner.nextLine();

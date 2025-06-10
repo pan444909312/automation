@@ -72,35 +72,92 @@ public class TestCaseGenerator {
     }
 
     /**
+     * 规范化测试用例名称，使其符合Java命名规范
+     * 1. 将特殊字符（如-、空格等）转换为下划线
+     * 2. 移除其他非法字符
+     * 3. 确保首字符是字母或下划线
+     *
+     * @param testCaseName 原始测试用例名称
+     * @return 规范化后的名称
+     */
+    private static String normalizeTestCaseName(String testCaseName) {
+        if (testCaseName == null || testCaseName.isEmpty()) {
+            return "unnamed";
+        }
+
+        // 1. 将特殊字符转换为下划线
+        String normalized = testCaseName
+                .replaceAll("[-\\s\\.,;:!?@#$%^&*()+=<>\\[\\]{}|\\\\/]", "_") // 将特殊字符转换为下划线
+                .replaceAll("_+", "_") // 将多个连续的下划线替换为单个下划线
+                .replaceAll("^_+|_+$", ""); // 移除首尾的下划线
+
+        // 2. 如果首字符不是字母或下划线，添加前缀
+        if (!normalized.isEmpty() && !Character.isJavaIdentifierStart(normalized.charAt(0))) {
+            normalized = "test_" + normalized;
+        }
+
+        // 3. 确保名称不为空
+        if (normalized.isEmpty()) {
+            normalized = "unnamed";
+        }
+
+        return normalized;
+    }
+
+    /**
      * 生成包名
-     * 将测试用例名称转换为包名格式，例如：
-     * "用户_创建地址" -> "用户/创建地址"
+     * 将测试用例名称转换为合法的Java包名
      *
      * @param testCaseName 测试用例名称
      * @return 包名
      */
     private static String generatePackageName(String testCaseName) {
-        return testCaseName.toLowerCase()
-                .replace("_", "/")
-                .replace(" ", "");
+        String normalized = normalizeTestCaseName(testCaseName);
+        // 包名全部小写
+        return normalized.toLowerCase();
     }
 
     /**
      * 生成类名
-     * 将测试用例名称转换为类名格式，例如：
-     * "用户_创建地址" -> "CreateAddressTests"
+     * 如果是英文，将每个单词首字母转换为大写；如果是中文，保持原样
      *
      * @param testCaseName 测试用例名称
      * @return 类名
      */
     private static String generateClassName(String testCaseName) {
-        String[] words = testCaseName.split("_");
-        StringBuilder className = new StringBuilder();
-        for (String word : words) {
-            className.append(word.substring(0, 1).toUpperCase())
-                    .append(word.substring(1).toLowerCase());
+        String normalized = normalizeTestCaseName(testCaseName);
+        
+        // 判断是否包含中文字符
+        boolean containsChinese = normalized.matches(".*[\\u4e00-\\u9fa5].*");
+        
+        if (containsChinese) {
+            // 如果包含中文，直接添加Tests后缀
+            return normalized + "Tests";
+        } else {
+            // 如果是英文，将每个单词首字母转换为大写
+            if (normalized.isEmpty()) {
+                return "Tests";
+            }
+            
+            // 使用下划线分割单词
+            String[] words = normalized.split("_");
+            StringBuilder result = new StringBuilder();
+            
+            // 将每个单词首字母转换为大写
+            for (int i = 0; i < words.length; i++) {
+                String word = words[i];
+                if (!word.isEmpty()) {
+                    result.append(word.substring(0, 1).toUpperCase())
+                          .append(word.substring(1).toLowerCase());
+                }
+                // 如果不是最后一个单词，添加下划线
+                if (i < words.length - 1) {
+                    result.append("_");
+                }
+            }
+            
+            return result.toString() + "Tests";
         }
-        return className + "Tests";
     }
 
     /**
