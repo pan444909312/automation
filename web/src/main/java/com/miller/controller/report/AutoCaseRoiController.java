@@ -156,7 +156,7 @@ public class AutoCaseRoiController {
 
     @PostMapping("/apifox/save")
     @Transactional
-    public Response<Boolean> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
+    public Response<String> apifoxSaveAutoCaseRoi(@RequestBody ApifoxAutoCaseRoiDto dto) {
 
 
         // 去除默认归属项目配置
@@ -198,9 +198,7 @@ public class AutoCaseRoiController {
 
         boolean res = apifoxAutoCaseRoiService.apifoxSaveOrUpdate(dto);
 
-
-
-        return Response.success(res);
+        return Response.success("收到请求");
     }
 
 
