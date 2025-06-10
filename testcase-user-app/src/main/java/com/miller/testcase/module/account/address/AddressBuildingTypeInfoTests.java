@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test;
 
 
 @Scenario(
-        scenarioID = "01JXCG5RDZG3ZAXK5F47NHVHBA",
-        scenarioName = "获取收货地址列表",
+        scenarioID = "01JXCK07X2J6H6J914KSQWD5VW",
+        scenarioName = "地址_获取建筑类型信息",
         author = "huyang@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("获取收货地址列表")
-public class DeliveryAddressTests {
+@DisplayName("地址_获取建筑类型信息")
+public class AddressBuildingTypeInfoTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/delivery/address";
+    String uri = TestcaseConfig.HOST + "/api/user/address/buildingTypeInfo";
     // 请求方式
     String method = "GET";
     // 请求头
@@ -26,7 +26,7 @@ public class DeliveryAddressTests {
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 paras 参数
     String params = null;
     // 断言
-    String assert1 = "module/account/address/response/DeliveryAddressResp.json";
+    String assert1 = "module/account/address/response/AddressBuildingTypeInfoResp.json";
 
     @DisplayName("正向流程")
     @Test
