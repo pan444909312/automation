@@ -15,9 +15,9 @@ import org.junit.jupiter.api.Test;
  * @since %s
  */
 @Scenario(
-        scenarioID = "%s", // 使用ULIDUtils.generateULID()生成的唯一ID
+        scenarioID = "%s", // 自动生成，不要修改
         scenarioName = "%s",
-        author = "%s",
+        author = "%s", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("%s")
 public class %s {
