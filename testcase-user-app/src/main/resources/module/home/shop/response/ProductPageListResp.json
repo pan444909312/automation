@@ -1,0 +1,28 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "pageNum": 1,
+    "pageSize":  "${json-unit.any-number}",
+    "totalPage": "${json-unit.any-number}",
+    "total":  "${json-unit.any-number}",
+    "list": [{
+      "productId":  "${json-unit.any-number}",
+      "productName": "${json-unit.any-string}",
+      "productPrice":  "${json-unit.any-number}",
+      "orgProductPrice":  "${json-unit.any-number}",
+      "productImg":"${json-unit.any-string}",
+      "menuId":  "${json-unit.any-number}",
+
+      "sort":  "${json-unit.any-number}"
+
+
+        }
+    ]
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}
