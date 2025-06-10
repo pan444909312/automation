@@ -59,12 +59,13 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * 设置为 false 时会自动保存把执行记录保存到数据库中。
      * 设置为 true 则不会保存执行记录到数据库中。
      */
-    private boolean isDebugTestCase = Optional.ofNullable(
-                    new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.debug.testcase"))
-            .map(String::trim)
-            .filter(s -> !s.isEmpty())
-            .map(Boolean::parseBoolean)
-            .orElse(false);
+//    private boolean isDebugTestCase = Optional.ofNullable(
+//                    new PropertiesUtils().getApplicationPropertiesFileValue("framework.is.debug.testcase"))
+//            .map(String::trim)
+//            .filter(s -> !s.isEmpty())
+//            .map(Boolean::parseBoolean)
+//            .orElse(false);
+    private boolean isDebugTestCase =false; // 修改开关为false，保存执行记录到数据库中
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
