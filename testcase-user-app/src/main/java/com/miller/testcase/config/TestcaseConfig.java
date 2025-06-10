@@ -20,6 +20,11 @@ public class TestcaseConfig {
     public static final String HostMobile = "https://api-cn-f2e-test.hungrypanda.cn";
 
     /**
+     * 接口请求的域名
+     */
+    public static final String HostWeb = "https://f2e-web-test.hungrypanda.cn";
+
+    /**
      * Redis 配置
      */
     public static String redisHost = "r-3nscqny4art27v9hrzpd.redis.rds.aliyuncs.com";
