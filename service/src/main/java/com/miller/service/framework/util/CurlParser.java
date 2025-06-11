@@ -11,8 +11,11 @@ import java.util.regex.Pattern;
 
 /**
  * 解析 curl 命令，注意：这里并不是完整的cURL 解析器，仅用于解析cURL命令，不一定能完全解析所有cURL命令。
- * 特别注意：保持参数的原始顺序对于接口调用非常重要，因此使用 LinkedHashMap 来存储参数。
- * 同时，JSON 字符串中的字段顺序也会被保持。
+ * 特别注意：
+ * 1. 保持参数的原始顺序对于接口调用非常重要，因此使用 LinkedHashMap 来存储参数
+ * 2. JSON 字符串中的字段顺序会被保持
+ * 3. 请求头（Headers）的顺序会被保持
+ * 4. URL 查询参数（Query Parameters）的顺序会被保持
  *
  * @author Miller Shan
  * @version 1.0
@@ -28,10 +31,10 @@ public class CurlParser {
         private String method;
         private String uri;
         private String path;
-        // 使用 LinkedHashMap 保持 headers 的插入顺序
-        private final Map<String, String> headers = new LinkedHashMap<>();
-        // 使用 LinkedHashMap 保持 params 的插入顺序
-        private final Map<String, String> params = new LinkedHashMap<>();
+        // 使用 LinkedHashMap 保持 headers 的插入顺序，确保请求头的顺序与原始 cURL 命令一致
+        private final LinkedHashMap<String, String> headers = new LinkedHashMap<>();
+        // 使用 LinkedHashMap 保持 params 的插入顺序，确保查询参数的顺序与原始 URL 一致
+        private final LinkedHashMap<String, String> params = new LinkedHashMap<>();
         private String body;
 
         // Getters and setters
@@ -51,10 +54,18 @@ public class CurlParser {
             this.uri = uri;
         }
 
+        /**
+         * 获取请求头，返回不可修改的 Map 以保持顺序
+         * @return 保持顺序的请求头 Map
+         */
         public Map<String, String> getHeaders() {
             return Collections.unmodifiableMap(headers);
         }
 
+        /**
+         * 获取查询参数，返回不可修改的 Map 以保持顺序
+         * @return 保持顺序的查询参数 Map
+         */
         public Map<String, String> getParams() {
             return Collections.unmodifiableMap(params);
         }
@@ -88,14 +99,49 @@ public class CurlParser {
             this.path = path;
         }
 
-        // 添加 header，保持顺序
+        /**
+         * 添加请求头，保持顺序
+         * @param key 请求头名称
+         * @param value 请求头值
+         */
         public void addHeader(String key, String value) {
             headers.put(key, value);
         }
 
-        // 添加 param，保持顺序
+        /**
+         * 添加查询参数，保持顺序
+         * @param key 参数名
+         * @param value 参数值
+         */
         public void addParam(String key, String value) {
             params.put(key, value);
+        }
+
+        /**
+         * 获取所有请求头的字符串表示，保持顺序
+         * @return 格式化的请求头字符串
+         */
+        public String getHeadersString() {
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            }
+            return sb.toString();
+        }
+
+        /**
+         * 获取所有查询参数的字符串表示，保持顺序
+         * @return 格式化的查询参数字符串
+         */
+        public String getParamsString() {
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                if (sb.length() > 0) {
+                    sb.append("&");
+                }
+                sb.append(entry.getKey()).append("=").append(entry.getValue());
+            }
+            return sb.toString();
         }
     }
 
@@ -140,25 +186,13 @@ public class CurlParser {
 
     private static void parseHeadersAndBody(String curlCommand, ParsedRequest request) {
         // 使用更可靠的方式解析headers
-        int index = curlCommand.indexOf("-H");
-        while (index != -1) {
-            // 找到下一个header位置
-            int endIndex = curlCommand.indexOf("-H", index + 2);
-            String headerBlock = curlCommand.substring(index + 2, endIndex != -1 ? endIndex : curlCommand.length()).trim();
-
-            // 提取header值（可能带引号）
-            Matcher matcher = Pattern.compile("[\"'](.*?)[\"']").matcher(headerBlock);
-            if (matcher.find()) {
-                String header = matcher.group(1);
-                int colonIndex = header.indexOf(':');
-                if (colonIndex != -1) {
-                    String key = header.substring(0, colonIndex).trim();
-                    String value = header.substring(colonIndex + 1).trim();
-                    request.addHeader(key, value);
-                }
-            }
-
-            index = endIndex;
+        Pattern headerPattern = Pattern.compile("-H\\s+[\"']([^:]+):\\s*([^\"']+)[\"']");
+        Matcher matcher = headerPattern.matcher(curlCommand);
+        
+        while (matcher.find()) {
+            String key = matcher.group(1).trim();
+            String value = matcher.group(2).trim();
+            request.addHeader(key, value);
         }
 
         // 解析body
