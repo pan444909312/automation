@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.miller.common.util.ULIDUtils;
 import com.miller.service.framework.util.CurlParser;
 import com.miller.service.framework.util.JGitUtils;
+import com.miller.testcase.factory.TestcaseFactory;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -189,17 +190,28 @@ public class TestCaseGenerator {
                                               String curlCommand, CurlParser.ParsedRequest parser,
                                               String javaBasePath, String resourcesBasePath, String templateFile) throws IOException {
         String filePath = javaBasePath + "/" + packageName + "/" + className + ".java";
-        String headersPath = "module/" + packageName + "/request/headers.json";
-        String paramsPath = !parser.getParams().isEmpty() ? "module/" + packageName + "/request/params.json" : "null";
+        
+        // 构建完整的包名，包含子目录
+        String fullPackageName = packageName;
+        if (!TestcaseFactory.CUSTOM_SUB_PATH.isEmpty()) {
+            String customPackage = TestcaseFactory.CUSTOM_SUB_PATH.replace("/", ".");
+            fullPackageName = customPackage + "." + packageName;
+        }
+        
+        // 构建资源文件路径，确保包含子目录
+        String modulePrefix = "module/" + (TestcaseFactory.CUSTOM_SUB_PATH.isEmpty() ? "" : TestcaseFactory.CUSTOM_SUB_PATH + "/");
+        String headersPath = modulePrefix + packageName + "/request/headers.json";
+        String paramsPath = !parser.getParams().isEmpty() ? modulePrefix + packageName + "/request/params.json" : "null";
         String paramsValue = paramsPath.equals("null") ? "null" : "\"" + paramsPath + "\"";
-        String bodyPath = "module/" + packageName + "/request/should_success.json";
-        String assertPath = "module/" + packageName + "/response/assert_full_field.json";
+        String bodyPath = modulePrefix + packageName + "/request/should_success.json";
+        String assertPath = modulePrefix + packageName + "/response/assert_full_field.json";
+        
         String scenarioId = ULIDUtils.generateULID();
         String gitName = JGitUtils.getGitName();
         String authorEmail = JGitUtils.getGitEmail();
         String template = loadTemplate(templateFile);
         String content = String.format(template,
-                packageName.replace("/", "."),
+                fullPackageName,  // 使用完整的包名
                 testCaseName,
                 gitName,
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")),
@@ -234,8 +246,11 @@ public class TestCaseGenerator {
      * @throws IOException 如果文件写入失败
      */
     private static void generateJsonFiles(String packageName, String className, CurlParser.ParsedRequest parser, String resourcesBasePath) throws IOException {
+        // 构建资源文件基础路径
+        String baseResourcePath = resourcesBasePath + "/" + packageName;
+
         // 生成请求头文件
-        String headersPath = resourcesBasePath + "/" + packageName + "/request/headers.json";
+        String headersPath = baseResourcePath + "/request/headers.json";
         File headersFile = new File(headersPath);
         File headersParent = headersFile.getParentFile();
         if (headersParent != null && !headersParent.exists()) {
@@ -243,7 +258,6 @@ public class TestCaseGenerator {
         }
         try (FileWriter writer = new FileWriter(headersFile)) {
             JSONObject headersJson = new JSONObject();
-            // 将解析出的headers转换为JSON对象
             for (Map.Entry<String, String> entry : parser.getHeaders().entrySet()) {
                 headersJson.put(entry.getKey(), entry.getValue());
             }
@@ -251,9 +265,8 @@ public class TestCaseGenerator {
         }
 
         // 生成请求参数文件（如果有参数）
-        String paramsPath = null;
         if (!parser.getParams().isEmpty()) {
-            paramsPath = resourcesBasePath + "/" + packageName + "/request/params.json";
+            String paramsPath = baseResourcePath + "/request/params.json";
             File paramsFile = new File(paramsPath);
             File paramsParent = paramsFile.getParentFile();
             if (paramsParent != null && !paramsParent.exists()) {
@@ -261,7 +274,6 @@ public class TestCaseGenerator {
             }
             try (FileWriter writer = new FileWriter(paramsFile)) {
                 JSONObject paramsJson = new JSONObject();
-                // 将解析出的params转换为JSON对象
                 for (Map.Entry<String, String> entry : parser.getParams().entrySet()) {
                     paramsJson.put(entry.getKey(), entry.getValue());
                 }
@@ -271,21 +283,20 @@ public class TestCaseGenerator {
 
         // 生成请求体文件
         if (parser.getBody() != null) {
-            String requestPath = resourcesBasePath + "/" + packageName + "/request/should_success.json";
+            String requestPath = baseResourcePath + "/request/should_success.json";
             File file = new File(requestPath);
             File parent = file.getParentFile();
             if (parent != null && !parent.exists()) {
                 parent.mkdirs();
             }
             try (FileWriter writer = new FileWriter(file)) {
-                // 将请求体字符串解析为JSONObject，然后使用格式化输出
                 JSONObject bodyJson = JSON.parseObject(parser.getBody());
                 writer.write(JSON.toJSONString(bodyJson, true));
             }
         }
 
         // 生成响应体文件
-        String responsePath = resourcesBasePath + "/" + packageName + "/response/assert_full_field.json";
+        String responsePath = baseResourcePath + "/response/assert_full_field.json";
         File responseFile = new File(responsePath);
         File responseParent = responseFile.getParentFile();
         if (responseParent != null && !responseParent.exists()) {
