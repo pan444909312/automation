@@ -27,8 +27,8 @@ public class TestcaseFactory {
      */
     public static final String MODULE_NAME = "testcase-user-app";
     // 默认测试用例生成路径，不建议修改
-    public static final String JAVA_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/java/com/miller/testcase/module";
-    public static final String RESOURCES_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/resources/module";
+    public static final String JAVA_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/java/com/miller/testcase/module/home/shop";
+    public static final String RESOURCES_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/resources/module/home/shop";
 
 
     /**
