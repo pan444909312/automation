@@ -64,6 +64,16 @@ public class DBUtils {
     }
 
     /**
+     * 执行批量插入、更新、删除
+     * @param sql sql语句
+     * @return 影响的记录行
+     */
+    public int[] executeInsertOrUpdateOrDeleteByBatch(final String... sql) {
+        int[] ints = jdbcTemplate.batchUpdate(sql);
+        return ints;
+    }
+
+    /**
      * 查询一条记录，返回一个Java Bean对象
      *
      * @param sql        待执行的sql语句
