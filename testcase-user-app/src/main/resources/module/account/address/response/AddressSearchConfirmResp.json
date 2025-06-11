@@ -1,0 +1,14 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "lat": "29.6605799",
+    "lng": "115.9541",
+    "country": "中国"
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.any-number}"
+}

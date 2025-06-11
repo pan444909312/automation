@@ -1,0 +1,37 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "evaluate": {
+      "evaluationId": "${json-unit.any-number}",
+      "shopId": 930937488
+    },
+    "evaDetailList": [{
+      "evaluationId": "${json-unit.any-number}",
+      "shopId": 930937488,
+      "userPic":  "${json-unit.any-string}",
+      "createTimeStr":  "${json-unit.any-string}",
+      "anonymous": 1
+    }],
+    "evaluateCount": "${json-unit.any-number}",
+    "showShopEvaluationNum": "${json-unit.any-number}",
+    "evaluateFilterList": [{
+      "evaluateFilterName": "全部",
+      "evaluateFilterType": 1,
+      "evaluateCount": "${json-unit.any-number}"
+    }, {
+      "evaluateFilterName": "最新",
+      "evaluateFilterType": 2,
+      "evaluateCount": "${json-unit.any-number}"
+    }, {
+      "evaluateFilterName": "好评",
+      "evaluateFilterType": 4,
+      "evaluateCount": "${json-unit.any-number}"
+    }]
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}

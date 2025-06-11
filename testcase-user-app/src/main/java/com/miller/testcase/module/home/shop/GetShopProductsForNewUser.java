@@ -7,22 +7,22 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Scenario(
-        scenarioID = "01JX23ZY11STYYMZ7VWTV0B1V2",
-        scenarioName = "选择有规格商品添加小料",
+        scenarioID = "01JXCHW54W6GDVS2DKZBDP81E1",
+        scenarioName = "进入店铺获取门店新客商品列表",
         author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("选择有规格商品添加小料")
-public class ProductSkuPrice {
+        developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
+@DisplayName("进入店铺获取门店新客商品列表")
+public class GetShopProductsForNewUser {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/app/user/shop/productSku/price";
+    String uri = TestcaseConfig.HOST + "/api/user/v1/getShopProductsForNewUser";
     // 请求方式
     String method = "POST";
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/home/shop/request/ProductSkuPriceReq.json";
+    String body = "module/home/shop/request/getShopProductsForNewUserReq.json";
     // 断言
-    String assert2 = "module/home/shop/response/ProductSkuPriceResp.json";
+    String assert2 = "module/home/shop/response/getShopProductsForNewUserResp.json";
 
     @DisplayName("正向流程")
     @Test

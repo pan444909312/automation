@@ -7,22 +7,22 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Scenario(
-        scenarioID = "01JX23ZY11STYYMZ7VWTV0B1V2",
-        scenarioName = "选择有规格商品添加小料",
+        scenarioID = "01JX25ZZMKM109YW0645SWS2M6",
+        scenarioName = "获取店铺评价信息",
         author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("选择有规格商品添加小料")
-public class ProductSkuPrice {
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 10)
+@DisplayName("获取店铺评价信息")
+public class GetShopEvaluation {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/app/user/shop/productSku/price";
+    String uri = TestcaseConfig.HOST + "/api/user/shopEvaluation?pageSize=10&shopId=930937488&pageNo=1&evaluateFilterType=1";
     // 请求方式
-    String method = "POST";
+    String method = "GET";
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/home/shop/request/ProductSkuPriceReq.json";
+    String body = null;
     // 断言
-    String assert2 = "module/home/shop/response/ProductSkuPriceResp.json";
+    String assert2 = "module/home/shop/response/ShopEvaluationResp.json";
 
     @DisplayName("正向流程")
     @Test
@@ -37,7 +37,7 @@ public class ProductSkuPrice {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
-       // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
+        // 方式一： 全匹配， 忽略部分动态字段值。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert2);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
     }
