@@ -1,0 +1,53 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"dataList": [{
+			"shopId": "${json-unit.any-number}",
+
+			"shopImg": "${json-unit.any-string}",
+			"shopName": "${json-unit.any-string}",
+			"score": "${json-unit.any-number}",
+
+			"distanceD": "${json-unit.any-number}",
+			"distanceStr": "${json-unit.any-string}",
+			"lotName": "${json-unit.any-string}",
+			"businessStatusStr": "${json-unit.any-string}",
+
+			"shopCategory": "${json-unit.any-string}",
+
+			"voucherList": [{
+				"voucherSn": "${json-unit.any-string}",
+				"voucherImg": "${json-unit.any-string}",
+				"salePrice": "${json-unit.any-number}",
+				"productType": "${json-unit.any-number}",
+				"discountDesc": "${json-unit.any-string}",
+				"originalPrice": "${json-unit.any-number}",
+				"voucherName": "${json-unit.any-string}",
+				"discountRateStr": "${json-unit.any-string}",
+				"discountSavedStr": "${json-unit.any-string}"
+			}]
+		}],
+		"totalCount": 1,
+		"channelFeedList": [{
+			"feedName": "${json-unit.any-string}",
+			"channelFeedSn": "${json-unit.any-string}",
+			"dataSort": "${json-unit.any-number}",
+			"feedType": "${json-unit.any-number}",
+			"channelType": "${json-unit.any-number}"
+		}, {
+			"feedName": "${json-unit.any-string}",
+			"channelFeedSn": "${json-unit.any-string}",
+			"dataSort": "${json-unit.any-number}",
+			"feedType": "${json-unit.any-number}",
+			"channelType": null
+		}],
+		"voucherCity": "九江市",
+		"currency": "¥"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}
