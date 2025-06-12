@@ -184,7 +184,7 @@ public class TestCaseHelpful {
         password = MD5Util.string2MD5(password);
 
         // 接口请求的 path
-        String uri = TestcaseConfig.HOST + "/api/user/combine/login";
+        String uri = TestcaseConfig.HOST_APP + "/api/user/combine/login";
         // 请求方式
         String method = "POST";
         // 请求头

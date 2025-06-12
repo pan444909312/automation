@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/whitelist")
 public class UserWhiteListSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/whitelist";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/whitelist";
 
     @DisplayName("白名单校验成功")
     @Test

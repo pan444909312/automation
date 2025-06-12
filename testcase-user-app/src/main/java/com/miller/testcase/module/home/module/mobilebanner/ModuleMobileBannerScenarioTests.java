@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWCZVXDASV9FCE7F774FJR2Z", scenarioName = "m站-广告banner展示"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class ModuleMobileBannerScenarioTests {
-    private static final String uri = TestcaseConfig.HostMobile + "/api/app/user/web/banner/image";
+    private static final String uri = TestcaseConfig.Host_Mobile + "/api/app/user/web/banner/image";
 
     @DisplayName("m站-广告banner展示")
     @Test

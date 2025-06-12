@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/product/recommend")
 public class UserProductRecommendSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/product/recommend";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/product/recommend";
 
     @DisplayName("获取推荐菜品成功")
     @Test

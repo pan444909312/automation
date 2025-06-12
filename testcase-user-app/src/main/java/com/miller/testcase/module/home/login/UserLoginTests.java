@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("用户_登录")
 public class UserLoginTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HOST + "/api/user/combine/login";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/combine/login";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从resources目录下读取文件。下面的代码表示从resource的module/home/login/request/headers.json读取文件内容作为接口请求头

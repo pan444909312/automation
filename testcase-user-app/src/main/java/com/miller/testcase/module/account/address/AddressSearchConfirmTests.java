@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("确认地址")
 public class AddressSearchConfirmTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/address/search/confirm";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/address/search/confirm";
     // 请求方式
     String method = "GET";
     // 请求头

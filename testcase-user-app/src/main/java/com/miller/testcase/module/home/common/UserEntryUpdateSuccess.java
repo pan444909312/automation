@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/entry/update")
 public class UserEntryUpdateSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/entry/update";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/entry/update";
 
     @DisplayName("App词条更新接口成功")
     @Test

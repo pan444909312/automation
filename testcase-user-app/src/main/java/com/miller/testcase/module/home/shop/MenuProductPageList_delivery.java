@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("进入店铺获取配送菜单的商品分页列表")
 public class MenuProductPageList_delivery {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/app/user/v1/shop/menu/productPageList";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/shop/menu/productPageList";
     // 请求方式
     String method = "POST";
     // 请求头

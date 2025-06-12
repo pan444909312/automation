@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWFWNA250A4C3ZW7PFCPM5CC", scenarioName = "已登陆用户-获取天降补发规则"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 public class ReissueListRuleScenarioTests {
-    private static final String uri = TestcaseConfig.HOST+"/api/app/user/reissue/list/all/rule";
+    private static final String uri = TestcaseConfig.HOST_APP +"/api/app/user/reissue/list/all/rule";
     @DisplayName("已登陆用户-获取天降补发规则")
     @Test
     void shouldReturnRuleSuccessfully(){

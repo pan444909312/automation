@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("/api/user/voucher/shop/index/voucher")
 public class ShopShouldHasVoucher {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/voucher/shop/index/voucher";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/voucher/shop/index/voucher";
 
     @DisplayName("店铺有代金券")
     @Test

@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/v2/search")
 public class SearchV2Success {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/v2/search";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/v2/search";
 
     @DisplayName("搜索接口v2搜索成功")
     @Test

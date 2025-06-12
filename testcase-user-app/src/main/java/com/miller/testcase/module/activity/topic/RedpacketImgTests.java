@@ -17,7 +17,7 @@ import java.util.HashMap;
 @DisplayName("获取活动专题信息-红包楼层")
 public class RedpacketImgTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HostMobile + "/api/user/activity/getRedPacketImageByModuleId";
+    String uri = TestcaseConfig.Host_Mobile + "/api/user/activity/getRedPacketImageByModuleId";
     // 请求方式
     String method = "POST";
     // 请求头

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("外卖页搜索预言命中团购店铺和商品")
 public class VouchersearchprophecyTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HOST + "/api/app/user/voucher/search/prophecy";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/voucher/search/prophecy";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。

@@ -1,12 +1,9 @@
 package com.miller.testcase.module.home.user;
 
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.depend.DependsOnMethod;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/questionnaire/info")
 public class UserQuestionnaireInfoSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/questionnaire/info";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/questionnaire/info";
 
 
     @DisplayName("获取问卷信息成功")

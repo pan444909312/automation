@@ -16,7 +16,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/shop/spellList")
 public class UserShopSpellListSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/shop/spellList";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/shop/spellList";
 
     @DisplayName("获取第二单减免的关联店铺信息")
     @Test

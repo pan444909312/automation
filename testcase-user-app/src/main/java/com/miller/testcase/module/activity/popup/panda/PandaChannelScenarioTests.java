@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWFWNA250A4C3ZW7PFCPM5CG", scenarioName = "已登陆用户-联盟频道红包楼层"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 public class PandaChannelScenarioTests {
-    private static final String uri = TestcaseConfig.HOST+"/api/app/user/panda/league/channel/module";
+    private static final String uri = TestcaseConfig.HOST_APP +"/api/app/user/panda/league/channel/module";
     @DisplayName("已登陆用户-联盟频道红包楼层")
     @Test
     void shouldReturnRuleSuccessfully(){

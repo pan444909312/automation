@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("任务中心主页面H5")
 public class TaskCenterTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HostMobile + "/api/app/user/task/center";
+    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/task/center";
     // 请求方式
     String method = "POST";
     // 请求头

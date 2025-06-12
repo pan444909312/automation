@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWFWNA250A4C3ZW7PFCPM5CD", scenarioName = "查询是否接受推广信息"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 public class PromoteQueryScenarioTests {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/promote/query";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/promote/query";
 
     @DisplayName("查询是否接受推广信息")
     @Test

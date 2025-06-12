@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("用户_创建地址")
 public class CreateAddressTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/app/user/v1/address/edit";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/address/edit";
     // 请求方式
     String method = "POST";
     // 请求头

@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/bought/simple/shopList")
 public class UserBoughtSimpleShopListSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/bought/simple/shopList";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/bought/simple/shopList";
 
     @DisplayName("订单列表获取买过店铺")
     @Test

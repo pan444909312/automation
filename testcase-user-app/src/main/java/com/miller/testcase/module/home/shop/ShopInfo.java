@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("进入店铺获取店铺信息")
 public class ShopInfo {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/app/user/shop/base/info";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/shop/base/info";
     // 请求方式
     String method = "POST";
     // 请求头

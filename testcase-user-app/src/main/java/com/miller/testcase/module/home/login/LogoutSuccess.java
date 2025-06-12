@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/oauth2/logout")
 public class LogoutSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/oauth2/logout";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/oauth2/logout";
 
     @DisplayName("退出登录成功")
     @Test

@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/sensors/sync/properties")
 public class UserSensorsSyncPropertiesSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/sensors/sync/properties";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/sensors/sync/properties";
 
     @DisplayName("同步客户端埋点属性值成功")
     @Test

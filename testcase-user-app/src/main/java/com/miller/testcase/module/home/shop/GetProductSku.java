@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("点击商品规格获取商品sku")
 public class GetProductSku {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/shop/productSku?productId=82459159&deliveryType=1";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/shop/productSku?productId=82459159&deliveryType=1";
     // 请求方式
     String method = "GET";
     // 请求头
