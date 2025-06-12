@@ -42,6 +42,17 @@ class CurlParserTest {
                  "https://api-test.hungrypanda.cn/api/test?param1=value1&param2=value2&param3=value3"
             """;
 
+    private static final String CHROME_CURL = """
+            curl 'https://api-cn-f2e-test.hungrypanda.cn/api/user/delivery/address?pageSize=50' \\
+              -H 'accept: application/json, text/plain, */*' \\
+              -H 'accept-language: zh-CN,zh;q=0.9,en;q=0.8,ko;q=0.7,zh-TW;q=0.6' \\
+              -H 'content-type: application/json' \\
+              -H 'origin: https://f2e-web-test.hungrypanda.cn' \\
+              -H 'referer: https://f2e-web-test.hungrypanda.cn/' \\
+              -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36' \\
+              --data-raw '{"pm":"GET","ph":{"platform":"PC_WEB_USER","brand":"hungrypanda","version":"8.8.0"}}'
+            """;
+
     @DisplayName("POST请求解析测试")
     @Test
     void testPostRequestParsing() throws Exception {
@@ -436,5 +447,107 @@ class CurlParserTest {
         assertTrue(body.contains("\"segmentIndex\":null"), "pd.segmentIndex 的 null 值未被保留");
         assertTrue(body.contains("\"priceThresholdMin\":null"), "pd.priceThresholdMin 的 null 值未被保留");
         assertTrue(body.contains("\"priceThresholdMax\":null"), "pd.priceThresholdMax 的 null 值未被保留");
+    }
+
+    @DisplayName("测试Chrome格式的cURL命令解析")
+    @Test
+    void testChromeCurlParsing() {
+        CurlParser.ParsedRequest request = CurlParser.parse(CHROME_CURL);
+        
+        // 验证基本信息
+        assertEquals("https://api-cn-f2e-test.hungrypanda.cn/api/user/delivery/address?pageSize=50", request.getUri());
+        assertEquals("/api/user/delivery/address", request.getPath());
+        assertEquals("POST", request.getMethod());
+        
+        // 验证查询参数
+        Map<String, String> params = request.getParams();
+        assertEquals(1, params.size());
+        assertEquals("50", params.get("pageSize"));
+        
+        // 验证请求头
+        Map<String, String> headers = request.getHeaders();
+        assertTrue(headers.containsKey("accept"));
+        assertTrue(headers.containsKey("content-type"));
+        assertTrue(headers.containsKey("origin"));
+        assertTrue(headers.containsKey("referer"));
+        assertTrue(headers.containsKey("user-agent"));
+        
+        // 验证请求体
+        assertNotNull(request.getBody());
+        assertTrue(request.getBody().contains("\"platform\":\"PC_WEB_USER\""));
+        assertTrue(request.getBody().contains("\"brand\":\"hungrypanda\""));
+        assertTrue(request.getBody().contains("\"version\":\"8.8.0\""));
+    }
+
+    @DisplayName("测试Chrome格式的cURL命令来源检测")
+    @Test
+    void testChromeCurlSourceDetection() {
+        // 测试 Chrome 格式
+        CurlParser.ParsedRequest chromeRequest = CurlParser.parse(CHROME_CURL);
+        assertNotNull(chromeRequest);
+        
+        // 测试 Charles 格式
+        CurlParser.ParsedRequest charlesRequest = CurlParser.parse(POST_CURL);
+        assertNotNull(charlesRequest);
+        
+        // 验证两种格式的解析结果格式一致
+        assertNotNull(chromeRequest.getHeaders());
+        assertNotNull(chromeRequest.getParams());
+        assertNotNull(chromeRequest.getBody());
+        assertNotNull(chromeRequest.getUri());
+        assertNotNull(chromeRequest.getPath());
+        assertNotNull(chromeRequest.getMethod());
+    }
+
+    @DisplayName("测试Chrome格式的cURL命令参数顺序保持")
+    @Test
+    void testChromeCurlParamsOrderPreservation() {
+        String chromeCurlWithParams = """
+            curl 'https://api-cn-f2e-test.hungrypanda.cn/api/test?param1=value1&param2=value2&param3=value3' \\
+              -H 'accept: application/json' \\
+              --data-raw '{"key1":"value1","key2":"value2","key3":"value3"}'
+            """;
+            
+        CurlParser.ParsedRequest request = CurlParser.parse(chromeCurlWithParams);
+        
+        // 验证查询参数顺序
+        Map<String, String> params = request.getParams();
+        assertEquals(3, params.size());
+        
+        // 将参数转换为列表以验证顺序
+        List<String> paramKeys = new ArrayList<>(params.keySet());
+        assertEquals("param1", paramKeys.get(0));
+        assertEquals("param2", paramKeys.get(1));
+        assertEquals("param3", paramKeys.get(2));
+        
+        // 验证请求体字段顺序
+        String body = request.getBody();
+        assertTrue(body.indexOf("\"key1\"") < body.indexOf("\"key2\""));
+        assertTrue(body.indexOf("\"key2\"") < body.indexOf("\"key3\""));
+    }
+
+    @DisplayName("测试Chrome格式的cURL命令请求头顺序保持")
+    @Test
+    void testChromeCurlHeadersOrderPreservation() {
+        String chromeCurlWithHeaders = """
+            curl 'https://api-cn-f2e-test.hungrypanda.cn/api/test' \\
+              -H 'header1: value1' \\
+              -H 'header2: value2' \\
+              -H 'header3: value3' \\
+              -H 'header4: value4'
+            """;
+            
+        CurlParser.ParsedRequest request = CurlParser.parse(chromeCurlWithHeaders);
+        
+        // 验证请求头顺序
+        Map<String, String> headers = request.getHeaders();
+        assertEquals(4, headers.size());
+        
+        // 将请求头转换为列表以验证顺序
+        List<String> headerKeys = new ArrayList<>(headers.keySet());
+        assertEquals("header1", headerKeys.get(0));
+        assertEquals("header2", headerKeys.get(1));
+        assertEquals("header3", headerKeys.get(2));
+        assertEquals("header4", headerKeys.get(3));
     }
 }
