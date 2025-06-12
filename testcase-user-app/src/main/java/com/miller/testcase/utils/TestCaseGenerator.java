@@ -133,11 +133,11 @@ public class TestCaseGenerator {
         
         if (containsChinese) {
             // 如果包含中文，直接添加Tests后缀
-            return normalized + "Tests";
+            return normalized + "_Tests";
         } else {
             // 如果是英文，将每个单词首字母转换为大写
             if (normalized.isEmpty()) {
-                return "Tests";
+                return "_Tests";
             }
             
             // 使用下划线分割单词
@@ -157,7 +157,7 @@ public class TestCaseGenerator {
                 }
             }
             
-            return result.toString() + "Tests";
+            return result.toString() + "_Tests";
         }
     }
 
