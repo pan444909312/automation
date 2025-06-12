@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
         author = "shandongdong@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 5, manualTestTime = 2)
 @DisplayName("用户_登录")
-public class UserLoginTests {
+public class AppLoginTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/user/combine/login";
     // 接口请求方式。如： GET、POST、PUT、DELETE
