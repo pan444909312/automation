@@ -154,12 +154,34 @@ public class SignUtils {
         return result;
     }
 
- 
+    /**
+     * 处理原始请求体并生成签名后的请求体
+     * @param url 请求URL
+     * @param method 请求方法
+     * @param headers 请求头
+     * @param body 原始请求体
+     * @return 签名后的请求体
+     */
+    public static Map<String, Object> signRequestBody(String url, String method, Map<String, Object> headers, Map<String, Object> body) {
+        // 构建options对象
+        Map<String, Object> options = new HashMap<>();
+        options.put("url", url);
+        options.put("method", method);
+        options.put("headers", headers);
+        options.put("data", body);
+
+        // 使用nse方法生成签名后的请求
+        Map<String, Object> signedRequest = nse(options);
+        
+        // 返回签名后的请求体
+        return (Map<String, Object>) signedRequest.get("data");
+    }
+
     /**
      * 测试方法
      */
     public static void main(String[] args) {
-        // 构建测试请求参数
+        // 构建请求头
         Map<String, Object> headers = new HashMap<>();
         headers.put("apptypeid", "1");
         headers.put("authorization", "7fde54323c03abd43836e70824f95e18");
@@ -169,46 +191,45 @@ public class SignUtils {
         headers.put("latitude", "30.203788170291023");
         headers.put("longitude", "120.2169341262152");
         headers.put("platform", "PC_WEB_USER");
-        headers.put("uniqueToken", "2b91f546-f9fe-4eca-b674-7d2e5e8cfa50" );
+        headers.put("uniqueToken", "2b91f546-f9fe-4eca-b674-7d2e5e8cfa50");
         headers.put("version", "8.8.0");
 
-        Map<String, Object> options = new HashMap<>();
-        options.put("url", "https://api-cn-f2e-test.hungrypanda.cn/api/app/user/v1/address/edit");
-        options.put("method", "POST");
-        options.put("headers", headers);
-        Map<String, Object> data = new HashMap<>();
-        data.put("addressId", 1398680200);
-        data.put("address", "China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心");
-        data.put("addressRemark", "备注了啥");
-        data.put("gender", 0);
-        data.put("longitude", "120.162482");
-        data.put("latitude", "30.20074");
-        data.put("addTag", 1);
-        data.put("countryCode", "86");
-        data.put("telephone", "15606690056");
-        data.put("contacts", "东东6");
-        data.put("houseNum", "101");
-        data.put("postcode", "330292");
-        data.put("buildingName", "星耀中心");
-        data.put("verify", 1);
-        data.put("shopId", 0);
-        data.put("type", 2);
-        data.put("isDefault", 0);
-        options.put("data", data);
+        // 构建请求体
+        Map<String, Object> body = new HashMap<>();
+        body.put("addressId", 1398680200);
+        body.put("address", "China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心");
+        body.put("addressRemark", "备注了啥啊");
+        body.put("gender", 0);
+        body.put("longitude", "120.162482");
+        body.put("latitude", "30.20074");
+        body.put("addTag", 1);
+        body.put("countryCode", "86");
+        body.put("telephone", "15606690056");
+        body.put("contacts", "东东6");
+        body.put("houseNum", "101");
+        body.put("postcode", "330292");
+        body.put("buildingName", "星耀中心");
+        body.put("verify", 1);
+        body.put("shopId", 0);
+        body.put("type", 2);
+        body.put("isDefault", 0);
 
-        // 生成签名
-        Map<String, Object> signedRequest = nse(options);
+        String url = "https://api-cn-f2e-test.hungrypanda.cn/api/app/user/v1/address/edit";
+        String method = "POST";
 
+        // 生成签名后的请求体
+        Map<String, Object> signedBody = signRequestBody(url, method, headers, body);
+        System.out.println("Signed request body: " + JSON.toJSONString(signedBody, true));
 
-        Map<String, Object> requestHeaders = new HashMap<>();;
+        // 发送请求
+        Map<String, Object> requestHeaders = new HashMap<>();
         requestHeaders.put("Content-Type", "application/json");
-        // 使用HttpUtils发送请求
         try {
             String response = HttpUtils.sendPostRequestReturnBody(
-                "https://api-cn-f2e-test.hungrypanda.cn/api/app/user/v1/address/edit",
+                url,
                 null,
                 requestHeaders,
-                   signedRequest.get("data"),
+                signedBody,
                 null
             );
             System.out.println("Response: " + response);
