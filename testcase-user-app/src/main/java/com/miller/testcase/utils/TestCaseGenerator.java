@@ -290,8 +290,9 @@ public class TestCaseGenerator {
                 parent.mkdirs();
             }
             try (FileWriter writer = new FileWriter(file)) {
-                JSONObject bodyJson = JSON.parseObject(parser.getBody());
-                writer.write(JSON.toJSONString(bodyJson, true));
+                Object obj = JSON.parse(parser.getBody());
+                // 这样能保留所有 null 字段
+                writer.write(JSON.toJSONString(obj, com.alibaba.fastjson.serializer.SerializerFeature.WriteMapNullValue, com.alibaba.fastjson.serializer.SerializerFeature.PrettyFormat));
             }
         }
 
