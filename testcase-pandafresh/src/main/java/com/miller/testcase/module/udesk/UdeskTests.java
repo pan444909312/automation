@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 2)
 @DisplayName("udesk客服信息")
 public class UdeskTests {
-    String uri = TestcaseConfig.HpHost + "/udesk/getConfigUrl";
+    String uri = TestcaseConfig.HpfHost + "/udesk/getConfigUrl";
     String method = "POST";
     String headers = "module/headersHP.json";
     String body = "module/udesk/request/udesk.json";

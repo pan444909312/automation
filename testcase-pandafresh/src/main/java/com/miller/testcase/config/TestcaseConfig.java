@@ -11,11 +11,20 @@ public class TestcaseConfig {
      */
     public static final String HOST = "https://test.pandafreshmart.com";
 
+    public static final String HpHOST = "https://app-test.hungrypanda.cn";
+
     /**
      * 接口请求的端口
      */
     public static final int PORT = 80;
-    public static final String HpHost = "https://fresh-api-test.hungrypanda.cn";
+    public static final String HpfHost = "https://fresh-api-test.hungrypanda.cn";
+
+    /**
+     * Redis 配置
+     */
+    public static String redisHost = "r-3nscqny4art27v9hrzpd.redis.rds.aliyuncs.com";
+    public static Integer redisPort = 6379;
+    public static String redisPassword = "YNKAthEbNF3XoK8E";
 
 
 
