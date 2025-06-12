@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWCZVXDASV9FCE7F774FJR30", scenarioName = "未登录用户-首页天天特价楼层"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class ThemeProductScenarioTests {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/theme/product/index";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/theme/product/index";
 
     @DisplayName("未登录用户-首页天天特价楼层")
     @Test

@@ -175,7 +175,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
 
         RestAssured.config = RestAssured.config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
         // 关闭urlEncoding，但是可能会导致url上存在中文不支持
-        request.urlEncodingEnabled(false);
+//        request.urlEncodingEnabled(false);
         // params = Maps.newLinkedHashMap(params);
         log.info("========================= 输出请求日志 ==============================");
         // 打印请求日志

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("用户_登陆后获取用户信息")
 public class UserInfoTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/userInfo";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/userInfo";
     // 请求方式
     String method = "GET";
     // 请求头

@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/search/history/hot")
 public class SearchHistoryHotSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/search/history/hot";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/search/history/hot";
 
     @DisplayName("热门搜索词获取成功")
     @Test

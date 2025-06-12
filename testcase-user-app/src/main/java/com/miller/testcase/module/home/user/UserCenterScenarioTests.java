@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWFWNA250A4C3ZW7PFCPM5CE", scenarioName = "用户个人中心接口"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 public class UserCenterScenarioTests {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/center";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/center";
 
     @DisplayName("用户个人中心接口")
     @Test

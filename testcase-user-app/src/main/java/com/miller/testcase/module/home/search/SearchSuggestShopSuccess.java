@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/search/suggest/shop")
 public class SearchSuggestShopSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/search/suggest/shop";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/search/suggest/shop";
 
     @DisplayName("搜索关联店铺成功")
     @Test

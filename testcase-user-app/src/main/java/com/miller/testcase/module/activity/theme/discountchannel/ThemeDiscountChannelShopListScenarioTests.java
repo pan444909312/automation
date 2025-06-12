@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWCZVXDASV9FCE7F774FJR2X", scenarioName = "未登录用户-首页大额满减楼层"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class ThemeDiscountChannelShopListScenarioTests {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/theme/redPacket/shop/list";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/theme/redPacket/shop/list";
 
     @DisplayName("未登录用户-首页大额满减楼层")
     @Test

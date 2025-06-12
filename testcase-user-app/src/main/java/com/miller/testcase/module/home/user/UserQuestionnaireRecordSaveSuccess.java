@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/questionnaire/record/save")
 public class UserQuestionnaireRecordSaveSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/questionnaire/record/save";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/questionnaire/record/save";
 
     @DisplayName("问卷记录保存成功")
     @Test

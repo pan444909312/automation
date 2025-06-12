@@ -13,7 +13,7 @@ import java.util.Map;
 @Scenario(scenarioID = "01JWFWNA250A4C3ZW7PFCPM5CI", scenarioName = "已登陆用户-获取首页资源位"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 public class OperateModuleListScenarioTests {
-    private static final String uri = TestcaseConfig.HOST+"/api/user/index/operateModuleList";
+    private static final String uri = TestcaseConfig.HOST_APP +"/api/user/index/operateModuleList";
     @DisplayName("已登陆用户-获取首页资源位")
     @Test
     void shouldReturnTaskSuccessfully(){

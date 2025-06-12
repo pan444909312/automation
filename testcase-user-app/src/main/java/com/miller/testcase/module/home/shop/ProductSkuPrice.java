@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("选择有规格商品添加小料")
 public class ProductSkuPrice {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/app/user/shop/productSku/price";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/shop/productSku/price";
     // 请求方式
     String method = "POST";
     // 请求头

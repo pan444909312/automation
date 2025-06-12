@@ -17,7 +17,7 @@ import java.util.HashMap;
 @DisplayName("获取活动专题信息-商品楼层")
 public class ProductlListTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HostMobile + "/api/user/activity/getProductListByModuleId";
+    String uri = TestcaseConfig.Host_Mobile + "/api/user/activity/getProductListByModuleId";
     // 请求方式
     String method = "POST";
     // 请求头

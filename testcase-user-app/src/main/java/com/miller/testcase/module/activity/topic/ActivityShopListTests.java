@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("获取活动专题信息-店铺楼层")
 public class ActivityShopListTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HostMobile + "/api/user/activity/getShopListByModuleId";
+    String uri = TestcaseConfig.Host_Mobile + "/api/user/activity/getShopListByModuleId";
     // 请求方式
     String method = "POST";
     // 请求头

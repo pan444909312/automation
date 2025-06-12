@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("获取店铺评价信息")
 public class GetShopEvaluation {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/shopEvaluation?pageSize=10&shopId=930937488&pageNo=1&evaluateFilterType=1";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/shopEvaluation?pageSize=10&shopId=930937488&pageNo=1&evaluateFilterType=1";
     // 请求方式
     String method = "GET";
     // 请求头

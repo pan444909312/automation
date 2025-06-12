@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/experimentalGroup/config")
 public class UserExperimentalGroupConfigSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/experimentalGroup/config";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/experimentalGroup/config";
 
     @DisplayName("实验分组信息返回成功")
     @Test

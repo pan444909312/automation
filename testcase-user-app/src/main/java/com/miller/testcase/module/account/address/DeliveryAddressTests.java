@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("获取收货地址列表")
 public class DeliveryAddressTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/delivery/address";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/delivery/address";
     // 请求方式
     String method = "GET";
     // 请求头

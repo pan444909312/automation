@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/location")
 public class UserLocationSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/location";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/location";
 
     @DisplayName("定位地址获取成功")
     @Test

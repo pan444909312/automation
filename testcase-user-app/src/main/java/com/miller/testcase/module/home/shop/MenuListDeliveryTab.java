@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("进入店铺获取配送菜单")
 public class MenuListDeliveryTab {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/app/user/v1/shop/menuList";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/shop/menuList";
     // 请求方式
     String method = "POST";
     // 请求头

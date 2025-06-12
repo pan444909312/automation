@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("地址搜索")
 public class AddressSearchTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/address/search";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/address/search";
     // 请求方式
     String method = "GET";
     // 请求头

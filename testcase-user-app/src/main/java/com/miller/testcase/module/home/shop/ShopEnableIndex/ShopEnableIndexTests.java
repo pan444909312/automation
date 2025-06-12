@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("进入生鲜超市店铺明确跳转页面")
 public class ShopEnableIndexTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HOST + "/api/app/user/shop/enableIndex";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/shop/enableIndex";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。

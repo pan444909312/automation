@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/interact/recommend")
 public class UserInteractRecommendSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/interact/recommend";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/interact/recommend";
 
     @DisplayName("交互式推荐(店内)成功")
     @Test

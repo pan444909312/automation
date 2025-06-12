@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWFWNA250A4C3ZW7PFCPM5CF", scenarioName = "已登陆用户-获取待领取任务"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 public class BroadCastScenarioTests {
-    private static final String uri = TestcaseConfig.HOST+"/api/app/user/index/broadcast";
+    private static final String uri = TestcaseConfig.HOST_APP +"/api/app/user/index/broadcast";
     @DisplayName("已登陆用户-获取待领取任务")
     @Test
     void shouldReturnTaskSuccessfully(){

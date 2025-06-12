@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("进入店铺获取门店新客商品列表")
 public class GetShopProductsForNewUser {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/v1/getShopProductsForNewUser";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/v1/getShopProductsForNewUser";
     // 请求方式
     String method = "POST";
     // 请求头

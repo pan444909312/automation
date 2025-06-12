@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("获取团购地段列表")
 public class GetvoucherlocationlistTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HostMobile + "/api/app/user/voucher/location/list";
+    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/voucher/location/list";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。

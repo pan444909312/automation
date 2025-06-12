@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("获取英文版店铺信息")
 public class GetShopInfo_EN {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/v1/shop/info?shopId=930937488";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/v1/shop/info?shopId=930937488";
     // 请求方式
     String method = "GET";
     // 请求头

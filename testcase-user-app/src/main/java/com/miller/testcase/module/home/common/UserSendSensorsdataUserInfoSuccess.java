@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/sendSensorsdataUserInfo")
 public class UserSendSensorsdataUserInfoSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/sendSensorsdataUserInfo";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/sendSensorsdataUserInfo";
 
     @DisplayName("设置神策埋点用户属性成功")
     @Test

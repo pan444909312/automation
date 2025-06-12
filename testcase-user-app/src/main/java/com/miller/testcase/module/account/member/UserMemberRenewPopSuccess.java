@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/member/renew/pop")
 public class UserMemberRenewPopSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/member/renew/pop";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/member/renew/pop";
 
     @DisplayName("会员价格变动用户弹框-非会员")
     @Test

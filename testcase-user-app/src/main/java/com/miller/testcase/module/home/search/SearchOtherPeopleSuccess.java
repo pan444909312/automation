@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/search/other/people")
 public class SearchOtherPeopleSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/search/other/people";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/search/other/people";
 
     @DisplayName("其他人在搜获取成功")
     @Test

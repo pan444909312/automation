@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/page/update/forceUpdate")
 public class ForceUpdateSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/page/update/forceUpdate";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/page/update/forceUpdate";
 
     @DisplayName("强制更新接口调用成功")
     @Test

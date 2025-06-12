@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/search/categories")
 public class SearchCategoriesSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/search/categories";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/search/categories";
 
     @DisplayName("搜索分类获取成功")
     @Test

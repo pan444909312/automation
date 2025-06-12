@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(scenarioID = "01JWFWNA250A4C3ZW7PFCPM5CK", scenarioName = "查询我的收藏店铺列表"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 public class UserCollectListScenarioTests {
-    private static final String uri = TestcaseConfig.HOST + "/api/user/collect";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/user/collect";
 
     @DisplayName("查询我的收藏店铺列表")
     @Test

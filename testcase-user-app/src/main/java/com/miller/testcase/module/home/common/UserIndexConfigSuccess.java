@@ -15,7 +15,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/index/config")
 public class UserIndexConfigSuccess {
-    private static final String uri = TestcaseConfig.HOST + "/api/app/user/index/config";
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/index/config";
 
     @DisplayName("首页配置获取成功")
     @Test

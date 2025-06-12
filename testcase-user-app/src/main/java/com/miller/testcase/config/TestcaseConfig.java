@@ -12,17 +12,17 @@ public class TestcaseConfig {
     /**
      * 接口请求的域名
      */
-    public static final String HOST = "https://app-test.hungrypanda.cn";
+    public static final String HOST_APP = "https://app-test.hungrypanda.cn";
 
     /**
      * 接口请求的域名
      */
-    public static final String HostMobile = "https://api-cn-f2e-test.hungrypanda.cn";
+    public static final String Host_Mobile = "https://api-cn-f2e-test.hungrypanda.cn";
 
     /**
      * 接口请求的域名
      */
-    public static final String HostWeb = "https://f2e-web-test.hungrypanda.cn";
+    public static final String Host_Web = "https://f2e-web-test.hungrypanda.cn";
 
     /**
      * Redis 配置

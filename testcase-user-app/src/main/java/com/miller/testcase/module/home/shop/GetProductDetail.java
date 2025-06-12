@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("进入商品详情页获取商品详情")
 public class GetProductDetail {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/v1/product/detail?productId=82457767&deliveryType=1";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/v1/product/detail?productId=82457767&deliveryType=1";
     // 请求方式
     String method = "GET";
     // 请求头

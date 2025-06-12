@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("地址_获取建筑类型信息")
 public class AddressBuildingTypeInfoTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST + "/api/user/address/buildingTypeInfo";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/address/buildingTypeInfo";
     // 请求方式
     String method = "GET";
     // 请求头
