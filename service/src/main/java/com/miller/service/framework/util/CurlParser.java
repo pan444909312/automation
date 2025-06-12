@@ -80,8 +80,11 @@ public class CurlParser {
                 try {
                     // 使用 OrderedField 特性解析 JSON
                     Object jsonObj = JSON.parse(body, Feature.OrderedField);
-                    // 重新格式化 JSON 字符串，保持字段顺序
-                    this.body = JSON.toJSONString(jsonObj, true);
+                    // 重新格式化 JSON 字符串，保持字段顺序并保留 null 字段
+                    this.body = JSON.toJSONString(jsonObj,
+                        com.alibaba.fastjson.serializer.SerializerFeature.WriteMapNullValue,
+                        com.alibaba.fastjson.serializer.SerializerFeature.PrettyFormat
+                    );
                 } catch (Exception e) {
                     // 如果解析失败，保持原始字符串
                     this.body = body;
@@ -265,7 +268,7 @@ public class CurlParser {
         // 从引号后开始读取
         for (int i = start + 1; i < curlCommand.length(); i++) {
             char c = curlCommand.charAt(i);
-            
+
             if (escaped) {
                 body.append(c);
                 escaped = false;
@@ -290,18 +293,8 @@ public class CurlParser {
         }
 
         String result = body.toString();
-        // 如果是 JSON 字符串，使用 LinkedHashMap 重新格式化以保持顺序
-        if (result.trim().startsWith("{") || result.trim().startsWith("[")) {
-            try {
-                // 使用 OrderedField 特性解析 JSON
-                Object jsonObj = JSON.parse(result, Feature.OrderedField);
-                // 重新格式化 JSON 字符串，保持字段顺序
-                return JSON.toJSONString(jsonObj, true);
-            } catch (Exception e) {
-                // 如果解析失败，返回原始字符串
-                return result;
-            }
-        }
+        // 只做 unescape，不做 fastjson 解析
+        result = result.replace("\\\"", "\"").replace("\\\\", "\\");
         return result;
     }
 

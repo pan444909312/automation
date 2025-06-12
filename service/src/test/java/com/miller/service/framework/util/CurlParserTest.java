@@ -419,4 +419,22 @@ class CurlParserTest {
         String paramsString = request.getParamsString();
         assertEquals("name=测试&city=杭州&address=西湖区&type=中文", paramsString);
     }
+    @DisplayName("测试提供的cURL命令中null字段保留")
+    @Test
+    void testUserProvidedCurlNullFieldPreserved() throws Exception {
+        String userProvidedCurl = """
+                curl -H "Host: api-cn-f2e-test.hungrypanda.cn" -H "Accept: application/json, text/plain, */*" -H "User-Agent: Mozilla/5.0 (Linux; Android 14; SM-S9080 Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/117.0.0.0 Mobile Safari/537.36" -H "Content-Type: application/json" -H "Origin: https://f2e-pkg-leaflet-test.hungrypanda.cn" -H "X-Requested-With: com.hungrypanda.waimai" -H "Sec-Fetch-Site: same-site" -H "Sec-Fetch-Mode: cors" -H "Sec-Fetch-Dest: empty" -H "Referer: https://f2e-pkg-leaflet-test.hungrypanda.cn/" -H "Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7" --data-binary "{\\"pm\\":\\"POST\\",\\"ph\\":{\\"appTypeId\\":\\"1\\",\\"language\\":\\"CN\\",\\"version\\":\\"8.62.5\\",\\"countrycode\\":\\"CN\\",\\"testGroup\\":\\"I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP,S_H_R_L_TEST_GROUP_6,22,23,28,29,30,31,32,NUMBER_MASKING_00,33,34,36,35,40,39,45,49,52,53,55,56,HPF,FASTD01,YSDCS02,IST02,HYBQ01,SKEQ01,XRJ01,TJBQ01,HYXBQ01,TJTCX01,YBXS02,CCPRO01,ZDFQ01,SKXRB01,ABT02,QYTCD01,SMSS01,XMLM01,RRREC02,ZFBMM01,SPSS01,MRBX01,PLCC01,SXAU01,PAYTO01,LXTZ01,JQSJ01,SYGB01,JSYXR01,GDJ02,ZTKP01,ZKTS02,RTR01,SYUI01,SWS01,DWC01,HHAB01,YHTX01,TCZT01,XTZA01,QDJS01,XGBSS02,SYSKA01,WLTC01,SPM01,XGBFU01,SDDAB01,TCSHW01,ZNYX01,JSYHA01,DPCDA01,DPHD01,YRSZT01,TSRW02,LLQX01,XDRS01,RDMU01,YHMGD01,NTCZT01,DPCDB01,CZHG01,WLTCN01,ESFI02,ABCS02,DPYGB01,HBCY01,GWCYC01,HYUI01,SKBD02,SKYS01,GGCLA01,MGDD01,YFYHA01,SKYH01,XRSY01,HDMR01,SYMK01,CMRT01,CPYHA01,SKYX01,VOOPT01,YHLL01,YJSDA01,XGSPA01,LXCYH01,TCZKB01,HANLP01,JLYZR01,CDQC01\\",\\"latitude\\":\\"29.6605799\\",\\"longitude\\":\\"115.9541\\",\\"deviceVersion\\":\\"14\\",\\"platform\\":\\"WEB_ANDROID\\",\\"device\\":\\"2\\",\\"countryCode\\":\\"CN\\",\\"appVersion\\":\\"8.62.5\\",\\"locale\\":\\"CN\\",\\"deviceId\\":\\"eb3db5772e24b4ba\\",\\"uniqueToken\\":\\"eb3db5772e24b4ba\\"},\\"pd\\":{\\"venueId\\":\\"379\\",\\"floorId\\":3382,\\"segment\\":null,\\"segmentIndex\\":null,\\"pageSize\\":10,\\"cityName\\":\\"九江市\\",\\"sortType\\":\\"COMPOSITE\\",\\"priceThresholdMin\\":null,\\"priceThresholdMax\\":null,\\"displayFormat\\":0},\\"nv\\":\\"2\\",\\"nt\\":\\"1749714728642\\",\\"nn\\":\\"gqhmaf5b1YNrmlo3N4yMwhNub\\",\\"nd\\":\\"5ac15c0e6572384\\"}" --compressed "https://api-cn-f2e-test.hungrypanda.cn/api/app/user/venue/getProductListByFloorId"
+                """;
+        CurlParser.ParsedRequest request = CurlParser.parse(userProvidedCurl);
+        String body = request.getBody();
+        assertNotNull(body, "body 不应为 null");
+        // 打印 body 内容，以便反推问题
+        System.out.println("Parsed body (from CurlParser):");
+        System.out.println(body);
+        // 校验 pd 中 segment、segmentIndex、priceThresholdMin、priceThresholdMax 字段的 null 值均被保留
+        assertTrue(body.contains("\"segment\":null"), "pd.segment 的 null 值未被保留");
+        assertTrue(body.contains("\"segmentIndex\":null"), "pd.segmentIndex 的 null 值未被保留");
+        assertTrue(body.contains("\"priceThresholdMin\":null"), "pd.priceThresholdMin 的 null 值未被保留");
+        assertTrue(body.contains("\"priceThresholdMax\":null"), "pd.priceThresholdMax 的 null 值未被保留");
+    }
 }

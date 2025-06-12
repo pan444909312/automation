@@ -133,11 +133,11 @@ public class TestCaseGenerator {
         
         if (containsChinese) {
             // 如果包含中文，直接添加Tests后缀
-            return normalized + "Tests";
+            return normalized + "_Tests";
         } else {
             // 如果是英文，将每个单词首字母转换为大写
             if (normalized.isEmpty()) {
-                return "Tests";
+                return "_Tests";
             }
             
             // 使用下划线分割单词
@@ -157,7 +157,7 @@ public class TestCaseGenerator {
                 }
             }
             
-            return result.toString() + "Tests";
+            return result.toString() + "_Tests";
         }
     }
 
@@ -290,8 +290,9 @@ public class TestCaseGenerator {
                 parent.mkdirs();
             }
             try (FileWriter writer = new FileWriter(file)) {
-                JSONObject bodyJson = JSON.parseObject(parser.getBody());
-                writer.write(JSON.toJSONString(bodyJson, true));
+                Object obj = JSON.parse(parser.getBody());
+                // 这样能保留所有 null 字段
+                writer.write(JSON.toJSONString(obj, com.alibaba.fastjson.serializer.SerializerFeature.WriteMapNullValue, com.alibaba.fastjson.serializer.SerializerFeature.PrettyFormat));
             }
         }
 
