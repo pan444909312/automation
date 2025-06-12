@@ -1,0 +1,38 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"shopStory": {
+			"slogan": "${json-unit.any-string}",
+			"introduction": "${json-unit.any-string}",
+			"bgImage": "${json-unit.any-string}",
+			"longImage": "${json-unit.any-string}",
+			"storyType": "${json-unit.any-number}",
+			"shopStoryExtendList": "${json-unit.ignore-element}"
+		},
+		"shopAddress": {
+			"address": "${json-unit.any-string}",
+			"longitude":"${json-unit.any-string}",
+			"latitude": "${json-unit.any-string}",
+			"addressId": "${json-unit.any-number}",
+			"distanceStr": "${json-unit.any-string}"
+		},
+		"servicePhone": "${json-unit.any-string}",
+		"operateTimeList": "${json-unit.ignore-element}",
+		"weekOperateTimeList": "${json-unit.ignore-element}",
+		"deliveryTimeAvg": "${json-unit.any-number}",
+		"specialOperateTimeList": "${json-unit.ignore-element}",
+		"shopName": "${json-unit.any-string}",
+		"isOnlinePay": "${json-unit.any-number}",
+		"deliveryType": "${json-unit.any-number}",
+		"isUserPack": "${json-unit.any-number}",
+		"shopNotice":"${json-unit.any-string}",
+		"shopStatus": "${json-unit.any-number}",
+		"alcoholLicenseNo": "${json-unit.any-string}"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}
