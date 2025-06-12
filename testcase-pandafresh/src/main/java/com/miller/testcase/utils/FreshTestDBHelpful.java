@@ -4,6 +4,7 @@ import com.miller.service.framework.db.DBUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,17 +31,58 @@ public class FreshTestDBHelpful {
     }
 
     /**
-     * 执行 sql 语句，返回影响的记录行数
-     *
-     * @param sql  sql语句
-     * @param args sql语句中使用占位符?替代的参数
-     * @return 返回影响的记录行
+     * 执行 sql 语句，返回影响的记录行数。支持 单条sql、多条sql语句，多条sql语句时注意每条sql语句后的分号“；”不能少。
+     * @param sql sql语句数组，每个元素可以包含多条用分号分隔的SQL语句
+     * @return 影响的记录行
      */
-    public static Integer executeSqlInsertOrUpdateOrDelete(String sql, Object... args) {
-        Integer result = dbUtils.executeInsertOrUpdateOrDelete(sql, args);
-        return result;
+    public static int[] executeInsertOrUpdateOrDelete(String... sql) {
+        if (sql == null || sql.length == 0) {
+            return new int[0];
+        }
+
+        List<String> processedSqlList = new ArrayList<>();
+        for (String sqlStr : sql) {
+            if (sqlStr != null && !sqlStr.trim().isEmpty()) {
+                processedSqlList.addAll(splitSqlStatements(sqlStr));
+            }
+        }
+
+        // 将处理后的SQL语句列表转换为数组
+        String[] processedSqlArray = processedSqlList.toArray(new String[0]);
+        return dbUtils.executeInsertOrUpdateOrDeleteByBatch(processedSqlArray);
     }
 
+    /**
+     * 将包含多条SQL语句的字符串按分号分割成单独的SQL语句列表
+     * @param sqlStr 可能包含多条SQL语句的字符串
+     * @return 分割后的SQL语句列表
+     */
+    private static List<String> splitSqlStatements(String sqlStr) {
+        List<String> sqlList = new ArrayList<>();
+        if (sqlStr == null || sqlStr.trim().isEmpty()) {
+            return sqlList;
+        }
+
+        // 移除字符串前后的空白字符
+        sqlStr = sqlStr.trim();
+
+        // 如果字符串中不包含分号，直接添加
+        if (!sqlStr.contains(";")) {
+            sqlList.add(sqlStr);
+            return sqlList;
+        }
+
+        // 按分号分割，并处理每个SQL语句
+        String[] statements = sqlStr.split(";");
+        for (String statement : statements) {
+            statement = statement.trim();
+            if (!statement.isEmpty()) {
+                sqlList.add(statement);
+            }
+        }
+
+        return sqlList;
+    }
 
     /**
      * 查询一行记录，返回一个Map, 可通过 Map.get(column_name) 获取列名对应的列值

@@ -1,4 +1,4 @@
-package com.miller.testcase.module.unbind;
+package com.miller.testcase.module.home.unbind;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("push设备解绑")
 public class UnBindTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HpHOST + "/api/app/user/push/info/unbind";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/push/info/unbind";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
