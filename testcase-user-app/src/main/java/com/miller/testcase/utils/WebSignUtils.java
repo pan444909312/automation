@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
  * 签名工具类
  * 实现与前端sign.js相同的验签功能
  */
-public class SignUtils {
+public class WebSignUtils {
     private static final String CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final Random random = new Random();
     private static final Pattern API_URL_PATTERN = Pattern.compile(":\\/\\/(api|app)(-|\\.).+\\.hungrypanda\\.");
@@ -198,7 +198,7 @@ public class SignUtils {
         Map<String, Object> body = new HashMap<>();
         body.put("addressId", 1398680200);
         body.put("address", "China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心");
-        body.put("addressRemark", "备注了啥啊");
+        body.put("addressRemark", "备注了啥啊123");
         body.put("gender", 0);
         body.put("longitude", "120.162482");
         body.put("latitude", "30.20074");
