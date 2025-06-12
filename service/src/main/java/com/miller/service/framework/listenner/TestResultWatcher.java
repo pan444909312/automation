@@ -396,7 +396,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                 }
             }
         } else {
-            log.warn("接口测试负责人不为空，不更新数据库字段值,可能的原因为使用了 @TestFramework 但是缺少 @Scenario 注解，所以导致测试框架执行了用例，但是无法获取负责人");
+            log.warn("数据库中接口测试负责人不为空，无需更新数据库字段值。也有可能的原因为使用了 @TestFramework 注解但是缺少 @Scenario 注解，所以导致测试框架执行了用例，但是无法获取负责人");
         }
 
         // 测试用例执行结果
