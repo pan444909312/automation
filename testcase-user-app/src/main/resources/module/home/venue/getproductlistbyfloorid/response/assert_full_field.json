@@ -1,0 +1,37 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"hasNext": "${json-unit.any-boolean}",
+		"nextSegment": "${json-unit.any-number}",
+		"nextSegmentIndex": "${json-unit.any-number}",
+		"productList": [{
+			"shopId": "${json-unit.any-number}",
+			"shopName": "${json-unit.any-string}",
+			"orgProductPrice": "${json-unit.any-number}",
+			"promotePrice": "${json-unit.any-number}",
+			"isSupermarket": "${json-unit.any-number}",
+
+			"deliveryTime": "${json-unit.any-number}",
+
+
+			"rebate": "${json-unit.any-number}",
+			"productPrice": "${json-unit.any-number}",
+
+			"productId": "${json-unit.any-number}",
+			"productName": "${json-unit.any-string}",
+
+			"productImg": "${json-unit.any-string}",
+			"shopLogo": "${json-unit.any-string}",
+
+			"isExclusive": "${json-unit.any-boolean}"
+
+		}],
+		"hpfSwitch": "${json-unit.any-boolean}"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

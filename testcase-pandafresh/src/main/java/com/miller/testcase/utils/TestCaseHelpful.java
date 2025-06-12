@@ -163,13 +163,13 @@ public class TestCaseHelpful {
         password = MD5Util.string2MD5(password);
 
         // 接口请求的 path
-        String uri = TestcaseConfig.HOST + "/api/user/combine/login";
+        String uri = TestcaseConfig.HpHOST + "/api/user/combine/login";
         // 请求方式
         String method = "POST";
         // 请求头
-        String headers = "module/headersPF.json";
+        String headers = "module/headersHP.json";
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-        String body = "module/goods/request/relateStill.json";
+        String body = "module/login/request/should_success.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);

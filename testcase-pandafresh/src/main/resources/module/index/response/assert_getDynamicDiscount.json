@@ -1,0 +1,16 @@
+
+{
+  "code": 1000,
+  "resultCode": 1000,
+  "currency": "£",
+  "paymentCurrency": "GBP",
+  "error": "请求成功(1)",
+  "result": {
+    "type": "${json-unit.any-number}",
+    "buyAgainAmount": "${json-unit.any-number}",
+    "nextReduceAmount": "${json-unit.any-number}",
+    "freeShipping": "${json-unit.ignore}",
+    "thresholdPrice": "${json-unit.ignore}",
+    "deliveryFee": "${json-unit.ignore}"
+  }
+}
