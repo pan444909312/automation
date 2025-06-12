@@ -38,6 +38,21 @@ public class TestCaseHelpful {
     }
 
     /**
+     *
+     * 获取测试用例资源文件内容作为请求Params参数，一般是 GET 请求，参数在url上，以 ?key=value&key2=value2的形式
+     *
+     * @param filePath 文件路径,文件内容为 json
+     *
+     * @return 请求的 Params 参数，也叫 QueryParams
+     */
+    public static Map<String, Object> getJsonRequestParams(String filePath) {
+        if (null == filePath || filePath.isBlank()) return null;
+        Map<String, Object> params = JsonUtils.readJsonFileToMap(filePath);
+        // 对请求参数的二次处理，为后续验签准备
+        return params;
+    }
+
+    /**
      * 获取测试用例资源文件内容作为请求体，请求提为 application/json 格式
      *
      * @param filePath 文件路径
