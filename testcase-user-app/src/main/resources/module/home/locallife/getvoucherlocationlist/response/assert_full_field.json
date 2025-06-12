@@ -1,3 +1,23 @@
 {
-	"resultCode":1000
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"parentList": [{
+			"locationId": "${json-unit.any-number}",
+			"locationName": "${json-unit.any-string}",
+			"shopNum": "${json-unit.ignore-element}",
+			"parentId": "${json-unit.any-number}"
+		}],
+		"childList": [{
+			"locationId": "${json-unit.any-number}",
+			"locationName": "${json-unit.any-string}",
+			"shopNum": "${json-unit.ignore-element}",
+			"parentId":"${json-unit.any-number}"
+		}]
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
 }
