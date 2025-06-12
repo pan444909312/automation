@@ -1,0 +1,44 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"hasNext": "${json-unit.any-boolean}",
+		"nextSegment": "${json-unit.any-number}",
+		"nextSegmentIndex":"${json-unit.any-number}",
+		"shopList": [
+			{
+				"shopId":"${json-unit.any-number}",
+
+				"shopName": "${json-unit.any-string}",
+
+				"shopLabelUrl": "${json-unit.any-string}",
+				"newShopLabelUrl": "${json-unit.any-string}",
+
+				"shopLogo": "${json-unit.any-string}",
+
+
+				"marketingProductIdList": [
+					"${json-unit.any-number}"
+				],
+				"city": "九江市",
+				"productVOList": [
+					{
+						"productId": "${json-unit.any-number}",
+						"productName": "${json-unit.any-string}",
+						"productPrice": "${json-unit.any-number}",
+						"packingCharges": "${json-unit.any-number}",
+						"shopId": "${json-unit.any-number}",
+
+						"productImg": "${json-unit.any-string}",
+						"pcProductImg": "${json-unit.any-string}"
+					}
+				]
+			}
+		]
+	},
+"currency": "¥",
+"success": true,
+"nowTime": "${json-unit.any-number}",
+"queryList": "${json-unit.ignore-element}"
+}

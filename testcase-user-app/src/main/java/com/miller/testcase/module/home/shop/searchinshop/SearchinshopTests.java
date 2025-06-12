@@ -1,4 +1,4 @@
-package com.miller.testcase.module.home.shop.shopstory;
+package com.miller.testcase.module.home.shop.searchinshop;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -8,31 +8,31 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * ShopStory
+ * SearchInShop
  *
  * @author yaoqianhu
  * @version 2.0
- * @since 2025/06/12 10:54:33
+ * @since 2025/06/12 13:57:28
  */
 @Scenario(
-        scenarioID = "01JXH0Z0BJSN41X9VP0JT7VEPV", // 自动生成，不要修改
-        scenarioName = "进入店铺-商家tab获取商家故事",
+        scenarioID = "01JXHBDXQEEXK5AZFBS747BZG0", // 自动生成，不要修改
+        scenarioName = "进店搜索商品",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("进入店铺-商家tab获取商家故事")
-public class ShopstoryTests {
+        developmentTime = 25, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("进店搜索商品")
+public class SearchinshopTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HOST_APP + "/api/user/v1/shop/story";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/search/shop";
     // 接口请求方式。如： GET、POST、PUT、DELETE
-    String method = "GET";
+    String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
-    String headers = "module/home/shop/shopstory/request/headers.json";
+    String headers = "module/home/shop/searchinshop/request/headers.json";
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
-    String params = "module/home/shop/shopstory/request/params.json";
+    String params = "module/home/shop/searchinshop/request/params.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
     String body = null;
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assert1 = "module/home/shop/shopstory/response/assert_full_field.json";
+    String assert1 = "module/home/shop/searchinshop/response/assert_full_field.json";
 
     @DisplayName("正向流程")
     @Test
@@ -51,7 +51,7 @@ public class ShopstoryTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
 
     }
 } 
