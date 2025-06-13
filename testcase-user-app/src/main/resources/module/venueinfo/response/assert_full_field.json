@@ -1,0 +1,92 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"name": "${json-unit.any-string}",
+
+		"title":"${json-unit.any-string}",
+		"topImg":"${json-unit.any-string}",
+		"backgroundColor":"${json-unit.any-string}",
+		"venueName":"${json-unit.any-string}",
+		"floorList": [{
+			"id": "${json-unit.any-number}",
+			"name":"${json-unit.any-string}",
+			"type": "${json-unit.any-number}",
+			"quickFilter": "${json-unit.any-number}",
+			"quickFilterWords": "${json-unit.ignore-element}",
+			"backgroundImg": "${json-unit.any-string}",
+			"venueFloorState": "${json-unit.any-number}",
+			"floorSort": "${json-unit.any-number}",
+			"limitTime": "${json-unit.any-number}",
+			"shopStrategy": "${json-unit.ignore-element}",
+			"productStrategy": "${json-unit.ignore-element}",
+			"redPacketExtend": "${json-unit.ignore-element}",
+			"redPacketStrategy": "${json-unit.ignore-element}",
+			"redPacketStrategies": "${json-unit.ignore-element}",
+			"illustrationStrategy": {
+				"jumpType": "${json-unit.any-number}",
+				"activityLink": "${json-unit.ignore-element}",
+				"activityId": "${json-unit.ignore-element}"
+			},
+			"checkInRedPacketExtend": "${json-unit.ignore-element}",
+			"checkInRedPacketStrategyList": "${json-unit.ignore-element}"
+		}, {
+			"id": "${json-unit.any-number}",
+			"name":"${json-unit.any-string}",
+			"type": "${json-unit.any-number}",
+			"quickFilter": "${json-unit.any-number}",
+			"quickFilterWords": "${json-unit.ignore-element}",
+			"backgroundImg":"${json-unit.ignore-element}",
+			"venueFloorState": "${json-unit.any-number}",
+			"floorSort": "${json-unit.any-number}",
+			"limitTime": "${json-unit.any-number}",
+			"shopStrategy": {
+				"focusLabel": "${json-unit.any-number}",
+				"cardStyle": "${json-unit.any-number}",
+				"loadType": "${json-unit.any-number}",
+				"loadLines": "${json-unit.any-number}"
+			},
+			"productStrategy": "${json-unit.ignore-element}",
+			"redPacketExtend": "${json-unit.ignore-element}",
+			"redPacketStrategy": "${json-unit.ignore-element}",
+			"redPacketStrategies": "${json-unit.ignore-element}",
+			"illustrationStrategy": "${json-unit.ignore-element}",
+			"checkInRedPacketExtend": "${json-unit.ignore-element}",
+			"checkInRedPacketStrategyList": "${json-unit.ignore-element}"
+		}, {
+			"id": "${json-unit.any-number}",
+			"name": "${json-unit.any-string}",
+			"type": "${json-unit.any-number}",
+			"quickFilter": "${json-unit.any-number}",
+			"quickFilterWords": "${json-unit.ignore-element}",
+			"backgroundImg":"${json-unit.ignore-element}",
+			"venueFloorState": "${json-unit.any-number}",
+			"floorSort": "${json-unit.any-number}",
+			"limitTime": "${json-unit.any-number}",
+			"shopStrategy": "${json-unit.ignore-element}",
+			"productStrategy": {
+				"displayFormat": "${json-unit.any-number}",
+				"priceFilter": "${json-unit.any-number}",
+				"priceThresholdMin": "${json-unit.any-number}",
+				"priceThresholdMax": "${json-unit.any-number}",
+				"loadProductNum": "${json-unit.any-number}",
+				"timePeriodList": "${json-unit.ignore-element}"
+			},
+			"redPacketExtend": "${json-unit.ignore-element}",
+			"redPacketStrategy": "${json-unit.ignore-element}",
+			"redPacketStrategies": "${json-unit.ignore-element}",
+			"illustrationStrategy": "${json-unit.ignore-element}",
+			"checkInRedPacketExtend": "${json-unit.ignore-element}",
+			"checkInRedPacketStrategyList": "${json-unit.ignore-element}"
+		}],
+		"customShare": "${json-unit.any-number}",
+		"shareTitle": "${json-unit.ignore-element}",
+		"shareDescribe": "${json-unit.ignore-element}",
+		"shareImg": "${json-unit.ignore-element}"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}
