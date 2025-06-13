@@ -1,0 +1,22 @@
+{
+	"pm":"POST",
+	"ph":{
+		"platform":"PC_WEB_USER",
+		"brand":"",
+		"longitude":"120.21691669470067",
+		"latitude":"30.203682006155866",
+		"version":"8.8.0",
+		"apptypeid":"1",
+		"countryCode":"US",
+		"language":"en",
+		"authorization":"",
+		"uniqueToken":"a9f082d7-6053-46d9-b926-698df76ccce9"
+	},
+	"pd":{
+		"shopId":930937488
+	},
+	"nv":"2",
+	"nt":"1749801286404",
+	"nn":"m2XBMQKUF15wL4EaMIsochkKn",
+	"nd":"24ac294d155ca90"
+}
