@@ -184,6 +184,17 @@ public class TestCaseHelpful {
     }
 
     /**
+     * 更新 JSON 内容
+     * @param jsonStr JSON 字符串
+     * @param key 修改的 key
+     * @param newValue 修改的 value
+     * @return 修改后的 JSON 字符串
+     */
+    public static String updateJsonValue(String jsonStr, String key, Object newValue) {
+        return JSONUtils.updateJsonValue(jsonStr, key, newValue);
+    }
+
+    /**
      * 登录并返回token
      * @param mobilePhone 手机号 areaCode 默认 86
      * @param password  登录密码
