@@ -183,6 +183,14 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
 
         // 根据请求头的Content-type来区分不同body
         String contentType = String.valueOf(headers.get("Content-Type"));
+
+        // 删除headers中的content-length键（不区分大小写）
+        if (headers.keySet().stream().anyMatch(key -> key.equalsIgnoreCase("content-length"))) {
+            log.warn("Headers中包含content-length字段，建议移除该字段，因为RestAssured会自动计算并设置content-length");
+             // 删除headers中的content-length键（不区分大小写）
+            // headers.entrySet().removeIf(entry -> entry.getKey().equalsIgnoreCase("content-length"));
+        }
+
         // 处理 application/json 格式直接将body中的内容当做字符串形式发送即可
         if (contentType.toLowerCase(Locale.ROOT).contains("application/json")) {
             log.info("处理Content-Type为:{} 的请求body.", contentType);
