@@ -205,4 +205,33 @@ public class TestCaseHelpful {
         return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
     }
 
+
+    /**PF登录获取token**/
+    public static String loginPF(String mobilePhone, String code) {
+
+        // 接口请求的 path
+        String uri = TestcaseConfig.HOST + "/user/login";
+        // 请求方式
+        String method = "POST";
+        // 请求头
+        String headers = "module/headersPF.json";
+        // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
+        String body = "module/loginPF/request/should_success.json";
+
+        // 步骤1: 设置请求头。基本固定写法，不需要修改
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+
+        // 步骤2: 设置请求体。基本固定写法，不需要修改
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        // 修改手机号和密码为动态传递过来的值
+        var updateAccountValue = JSONUtils.updateJsonValue(requestBody, "phone", mobilePhone);
+        requestBody = JSONUtils.updateJsonValue(updateAccountValue, "code", code);
+
+        // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
+
+        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
+        TestCaseHelpful.assertThatJson(responseBody).node("data.token").isNotNull();
+        return TestCaseHelpful.extractValue(responseBody, "$.data.token").toString();
+    }
 }
