@@ -1,0 +1,20 @@
+{
+	"latitude":"30.20074",
+	"channel":"huawei",
+	"Host":"test.pandafreshmart.com",
+	"language":"CN",
+	"cityid":"755",
+	"_sign":"520fb5b3cb700f771b75a43a37578e5f",
+	"version":"4.24.0",
+	"platform":"H5",
+	"authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxODk2ODA0NjAxOTg4ODg4OCIsImlhdCI6MTc0OTc5Nzk4OCwiZXhwIjoyNjIwNzA5OTg4fQ.cHqeBiARDuJbhnuz2wJicQbsP3s-okReU8ZeN77YtZUAOTiGW7smUae5lb6m65K7BcXEhRCLvmiLPu40_T_7HA",
+	"devicenumber":"8d221af5-d4d9-4837-9d5b-53271542a59e",
+	"system":"PandaFresh",
+	"regionid":"3",
+	"portalid":"3",
+	"content-type":"application/json;charset=UTF-8",
+	"abtestgroups":"102,103,104,105,106",
+	"longitude":"120.22185",
+	"_ts":"1749797996750",
+	"user-agent":"okhttp/4.9.2"
+}

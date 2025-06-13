@@ -27,6 +27,10 @@ import static io.restassured.config.EncoderConfig.encoderConfig;
 @Slf4j
 public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     /**
+     * 统一请求头的 Content-Type 判断，都使用小写
+     */
+    private static final String CONTENT_TYPE = "content-type";
+    /**
      * HTTP 请求信息存储
      */
     public static Map<String, Object> httpInfoMap;
@@ -181,8 +185,21 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         // 打印请求日志
         request.log().all();
 
-        // 根据请求头的Content-type来区分不同body
-        String contentType = String.valueOf(headers.get("Content-Type"));
+        // 判断headers中是否存在Content-Type（不区分大小写），如果存在则统一转换为小写content-type
+        String foundContentTypeKey = null;
+        for (String key : headers.keySet()) {
+            if ("content-type".equalsIgnoreCase(key)) {
+                foundContentTypeKey = key;
+                break;
+            }
+        }
+        if (foundContentTypeKey != null && !"content-type".equals(foundContentTypeKey)) {
+            Object value = headers.get(foundContentTypeKey);
+            headers.remove(foundContentTypeKey);
+            headers.put("content-type", value);
+        }
+        // 根据请求头的 Content-type 来区分不同body
+        String contentType = String.valueOf(headers.get(CONTENT_TYPE));
 
         // 删除headers中的content-length键（不区分大小写）
         if (headers.keySet().stream().anyMatch(key -> key.equalsIgnoreCase("content-length"))) {
@@ -273,7 +290,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             if (body instanceof Map) {
                 log.warn("系统预测请求体可能为 application/x-www-form-urlencoded 尝试处理");
                 // body中的数据为键值对
-                headers.put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+                headers.put(CONTENT_TYPE, "application/x-www-form-urlencoded;charset=UTF-8");
                 request.headers(headers);
                 request.queryParams(params);
                 try {
@@ -286,8 +303,8 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             }
             // 兜底的处理逻辑
             else {
-                log.warn("可能不支持的请求体, 因为Content-Type= {}", headers.get("Content-Type"));
-                // headers.put("Content-Type", "application/json");
+                log.warn("可能不支持的请求体, 因为Content-Type= {}", headers.get(CONTENT_TYPE));
+                // headers.put("CONTENT_TYPE", "application/json");
                 request.headers(headers);
                 request.queryParams(params);
                 // 自动识别请求体类型，丢给 REST-Assured 框架自身去处理

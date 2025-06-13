@@ -107,6 +107,12 @@ public class TestCaseHelpful {
      */
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
+        // 处理 Web 站 请求验签
+        if (uri.contains(TestcaseConfig.Host_Mobile)) {
+            Map pd = JSONUtils.parseObject(body.toString()).getJSONObject("pd").toJavaObject(Map.class);
+            body = WebSignUtils.signRequestBody(uri, method, headers, pd);
+        }
+
         var responseBody = "";
         method = method.toUpperCase();
         if ("POST".equals(method)) {
@@ -175,6 +181,17 @@ public class TestCaseHelpful {
      */
     public static String getFileContent(String filePath) {
         return JsonUtils.getFileContent(filePath);
+    }
+
+    /**
+     * 更新 JSON 内容
+     * @param jsonStr JSON 字符串
+     * @param key 修改的 key
+     * @param newValue 修改的 value
+     * @return 修改后的 JSON 字符串
+     */
+    public static String updateJsonValue(String jsonStr, String key, Object newValue) {
+        return JSONUtils.updateJsonValue(jsonStr, key, newValue);
     }
 
     /**

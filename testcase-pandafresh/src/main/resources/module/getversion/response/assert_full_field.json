@@ -1,0 +1,13 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"isNeedUpdate": "${json-unit.any-number}",
+		"type": "${json-unit.any-number}",
+		"description": "${json-unit.ignore}"
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP",
+
+}
