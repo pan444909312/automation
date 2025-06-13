@@ -6,6 +6,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.testcase.config.TestcaseConfig;
+import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2025/5/27 14:47:39
  */
+@Slf4j
 public class TestCaseHelpful {
     /**
      * 获取测试用例资源文件内容作为请求头
@@ -106,6 +108,7 @@ public class TestCaseHelpful {
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
         var responseBody = "";
+        method = method.toUpperCase();
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
         } else if ("GET".equals(method)) {
@@ -115,8 +118,8 @@ public class TestCaseHelpful {
         } else if ("DELETE".equals(method)) {
             return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
         } else {
-            new IllegalArgumentException("不支持的请求方法" + method);
-            return "";
+            log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
+            throw new RuntimeException("不支持的请求方法" + method);
         }
     }
 

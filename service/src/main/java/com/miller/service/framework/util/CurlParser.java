@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 解析 curl 命令，注意：这里并不是完整的cURL 解析器，仅用于解析cURL命令，不一定能完全解析所有cURL命令。
+ * 解析 curl 命令，支持多种来源的 cURL 命令解析
  * 特别注意：
  * 1. 保持参数的原始顺序对于接口调用非常重要，因此使用 LinkedHashMap 来存储参数
  * 2. JSON 字符串中的字段顺序会被保持
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * 4. URL 查询参数（Query Parameters）的顺序会被保持
  *
  * @author Miller Shan
- * @version 1.0
+ * @version 1.1
  * @since 2025/6/03 21:54:43
  */
 public class CurlParser {
@@ -154,6 +154,48 @@ public class CurlParser {
      * @return 结构化请求对象
      */
     public static ParsedRequest parse(String curlCommand) {
+        // 检测 cURL 命令来源
+        CurlSource source = detectCurlSource(curlCommand);
+        
+        // 根据来源选择不同的解析方法
+        switch (source) {
+            case CHARLES:
+                return parseCharlesCurl(curlCommand);
+            case CHROME:
+                // TODO: 待完成
+                return parseChromeCurl(curlCommand);
+            default:
+                // 默认使用 Charles 解析方式
+                return parseCharlesCurl(curlCommand);
+        }
+    }
+
+    /**
+     * 检测 cURL 命令的来源类型
+     * @param curlCommand cURL命令
+     * @return cURL命令来源类型
+     */
+    private static CurlSource detectCurlSource(String curlCommand) {
+        // 标准化输入：移除换行符和多余空格
+        String normalized = curlCommand.replaceAll("\\s+", " ").trim();
+        
+        // Chrome 特征：包含换行符和单引号包裹的 URL
+        if (curlCommand.contains("'") && curlCommand.contains("\n")) {
+            return CurlSource.CHROME;
+        }
+        
+        // Charles 特征：使用双引号包裹参数，且通常不包含换行符
+        if (normalized.contains("\"") && !curlCommand.contains("\n")) {
+            return CurlSource.CHARLES;
+        }
+        
+        return CurlSource.UNKNOWN;
+    }
+
+    /**
+     * 解析 Charles 格式的 cURL 命令
+     */
+    private static ParsedRequest parseCharlesCurl(String curlCommand) {
         ParsedRequest result = new ParsedRequest();
         try {
             // 标准化输入：移除换行符和多余空格，但保留必要的空格
@@ -182,9 +224,97 @@ public class CurlParser {
             // 解析headers和body
             parseHeadersAndBody(curlCommand, result);
         } catch (Exception e) {
-            throw new RuntimeException("cURL解析失败: " + e.getMessage(), e);
+            throw new RuntimeException("Charles cURL解析失败: " + e.getMessage(), e);
         }
         return result;
+    }
+
+    /**
+     * 解析 Chrome 格式的 cURL 命令
+     */
+    private static ParsedRequest parseChromeCurl(String curlCommand) {
+        ParsedRequest result = new ParsedRequest();
+        try {
+            // 标准化输入：处理换行符
+            String normalized = curlCommand.replaceAll("\\\\\n", " ").trim();
+            
+            // 解析URL（Chrome格式的URL通常用单引号包裹）
+            String url = extractChromeUrl(normalized);
+            result.setUri(url);
+
+            // 从uri中提取path
+            try {
+                URI uriObj = new URI(url);
+                result.setPath(uriObj.getPath());
+                // 解析查询参数
+                parseQueryParams(result, uriObj);
+            } catch (URISyntaxException e) {
+                result.setPath(null);
+            }
+
+            // 解析方法（默认GET）
+            result.setMethod("GET");
+            if (normalized.contains("-X ")) {
+                result.setMethod(extractValue(normalized, "-X").toUpperCase());
+            }
+
+            // 解析headers和body
+            parseChromeHeadersAndBody(normalized, result);
+        } catch (Exception e) {
+            throw new RuntimeException("Chrome cURL解析失败: " + e.getMessage(), e);
+        }
+        return result;
+    }
+
+    /**
+     * 提取 Chrome 格式的 URL
+     */
+    private static String extractChromeUrl(String curlCommand) {
+        Pattern urlPattern = Pattern.compile("curl\\s+'([^']+)'");
+        Matcher matcher = urlPattern.matcher(curlCommand);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        throw new IllegalArgumentException("URL not found in Chrome cURL command");
+    }
+
+    /**
+     * 解析 Chrome 格式的 headers 和 body
+     */
+    private static void parseChromeHeadersAndBody(String curlCommand, ParsedRequest request) {
+        // 解析 headers
+        Pattern headerPattern = Pattern.compile("-H\\s+'([^:]+):\\s*([^']+)'");
+        Matcher matcher = headerPattern.matcher(curlCommand);
+        
+        while (matcher.find()) {
+            String key = matcher.group(1).trim();
+            String value = matcher.group(2).trim();
+            request.addHeader(key, value);
+        }
+
+        // 解析 body
+        if (curlCommand.contains("--data-raw")) {
+            String bodyValue = extractChromeBodyValue(curlCommand, "--data-raw");
+            if (!bodyValue.isEmpty()) {
+                request.setBody(bodyValue);
+                // 如果方法未指定且有body，默认为POST
+                if ("GET".equals(request.getMethod())) {
+                    request.setMethod("POST");
+                }
+            }
+        }
+    }
+
+    /**
+     * 提取 Chrome 格式的 body 值
+     */
+    private static String extractChromeBodyValue(String curlCommand, String marker) {
+        Pattern bodyPattern = Pattern.compile(marker + "\\s+'([^']+)'");
+        Matcher matcher = bodyPattern.matcher(curlCommand);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return "";
     }
 
     private static void parseHeadersAndBody(String curlCommand, ParsedRequest request) {

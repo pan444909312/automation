@@ -7,7 +7,9 @@ import com.hungrypanda.app.server.vo.user.UserTokenSimpleVO;
 import com.hungrypanda.common.deeplink.utils.MD5Utils;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
+import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.util.RequestUtils;
 import com.miller.userapp.util.SignGenerateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +42,7 @@ public class BioLoginSuccess {
 
 //    private UserLogMapper userLogMapper = sqlSession.getMapper(UserLogMapper.class);
 
-    private String deviceId = "auto-test-device-id";
+    private String deviceId = new PropertiesUtils().getProperty(UserLoginTests.class, "user.app.login.device.id");
     private String tel = "13999900005";
     private String userId = "1398717264";
 

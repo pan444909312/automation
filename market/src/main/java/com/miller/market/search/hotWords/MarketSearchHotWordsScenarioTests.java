@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(scenarioID = "01JVY46FBMHR77KCE4N1FBGG91",
         scenarioName = "正常流程_未登录_热搜词",
-        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @EnvTag.Test
 @DisplayName("PF_客户端搜索")
 public class MarketSearchHotWordsScenarioTests {

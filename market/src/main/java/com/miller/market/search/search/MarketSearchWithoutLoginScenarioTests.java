@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  */
 @Scenario(scenarioID = "01JA4ZPKGMEJSHP04GZWZZPQE1",
         scenarioName = "正常流程_未登录_搜索商品",
-        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @EnvTag.Test
 @DisplayName("PF_客户端搜索")
 public class MarketSearchWithoutLoginScenarioTests {

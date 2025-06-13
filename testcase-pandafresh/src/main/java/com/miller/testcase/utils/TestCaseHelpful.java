@@ -31,10 +31,27 @@ public class TestCaseHelpful {
      */
     public static Map<String, Object> getHeaders(String filePath) {
         Map<String, Object> headers = JsonUtils.readJsonFileToMap(filePath);
-        if (!headers.containsKey("Content-Type")) {
+        boolean hasContentType = headers.keySet().stream()
+                .anyMatch(key -> key.equalsIgnoreCase("Content-Type"));
+        if (!hasContentType) {
             throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
         }
         return headers;
+    }
+
+    /**
+     *
+     * 获取测试用例资源文件内容作为请求Params参数，一般是 GET 请求，参数在url上，以 ?key=value&key2=value2的形式
+     *
+     * @param filePath 文件路径,文件内容为 json
+     *
+     * @return 请求的 Params 参数，也叫 QueryParams
+     */
+    public static Map<String, Object> getJsonRequestParams(String filePath) {
+        if (null == filePath || filePath.isBlank()) return null;
+        Map<String, Object> params = JsonUtils.readJsonFileToMap(filePath);
+        // 对请求参数的二次处理，为后续验签准备
+        return params;
     }
 
     /**
@@ -163,13 +180,13 @@ public class TestCaseHelpful {
         password = MD5Util.string2MD5(password);
 
         // 接口请求的 path
-        String uri = TestcaseConfig.HOST + "/api/user/combine/login";
+        String uri = TestcaseConfig.HpHOST + "/api/user/combine/login";
         // 请求方式
         String method = "POST";
         // 请求头
-        String headers = "module/headersPF.json";
+        String headers = "module/headersHP.json";
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-        String body = "module/goods/request/relateStill.json";
+        String body = "module/login/request/should_success.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);

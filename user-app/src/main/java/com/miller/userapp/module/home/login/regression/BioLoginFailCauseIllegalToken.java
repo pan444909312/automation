@@ -1,16 +1,15 @@
 package com.miller.userapp.module.home.login.regression;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.common.result.Result;
 import com.hungrypanda.app.server.entity.user.UserLogEntity;
-import com.hungrypanda.app.server.vo.user.UserTokenSimpleVO;
-import com.hungrypanda.common.deeplink.utils.MD5Utils;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.mapper.user.UserLogMapper;
+import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.util.RequestUtils;
 import com.miller.userapp.util.SignGenerateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +43,7 @@ public class BioLoginFailCauseIllegalToken {
 
     private UserLogMapper userLogMapper = sqlSession.getMapper(UserLogMapper.class);
 
-    private String deviceId = "auto-test-device-id";
+    private String deviceId = new PropertiesUtils().getProperty(UserLoginTests.class, "user.app.login.device.id");
     private String tel = "13999900005";
     private String userId = "1398717264";
 

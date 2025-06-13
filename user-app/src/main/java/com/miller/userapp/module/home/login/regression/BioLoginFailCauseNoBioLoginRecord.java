@@ -5,11 +5,12 @@ import com.hungrypanda.app.server.common.result.Result;
 import com.hungrypanda.common.deeplink.utils.MD5Utils;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
+import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.util.RequestUtils;
 import com.miller.userapp.util.SignGenerateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,7 +34,7 @@ public class BioLoginFailCauseNoBioLoginRecord {
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/app/user/bio/login";
 
-    private String deviceId = "auto-test-device-id";
+    private String deviceId = new PropertiesUtils().getProperty(UserLoginTests.class, "user.app.login.device.id");
     private String tel = "13999900005";
     private String userId = "1398717264";
 
