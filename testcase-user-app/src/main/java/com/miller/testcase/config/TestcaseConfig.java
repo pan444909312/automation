@@ -15,14 +15,9 @@ public class TestcaseConfig {
     public static final String HOST_APP = "https://app-test.hungrypanda.cn";
 
     /**
-     * 接口请求的域名
+     * 接口请求的域名。注意：f2e-web-test.hungrypanda.cn调用的接口也是 api-cn-f2e-test.hungrypanda.cn
      */
     public static final String Host_Mobile = "https://api-cn-f2e-test.hungrypanda.cn";
-
-    /**
-     * 接口请求的域名
-     */
-    public static final String Host_Web = "https://f2e-web-test.hungrypanda.cn";
 
     /**
      * Redis 配置

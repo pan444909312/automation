@@ -22,9 +22,9 @@ import org.junit.jupiter.api.Test;
 @DisplayName("web edit address")
 public class Web_Edit_Address_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.Host_Web + "/api/app/user/v1/address/edit";
+    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/v1/address/edit";
     // 接口请求方式。如： GET、POST、PUT、DELETE
-    String method = "POSt";
+    String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
     String headers = "module/web_edit_address/request/headers.json";
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数

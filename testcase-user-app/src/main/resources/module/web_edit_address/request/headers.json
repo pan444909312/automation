@@ -2,7 +2,6 @@
   "accept": "application/json, text/plain, */*",
   "accept-encoding": "gzip, deflate, br, zstd",
   "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,ko;q=0.7,zh-TW;q=0.6",
-  "content-length": "798",
   "content-type": "application/json",
   "origin": "https://f2e-web-test.hungrypanda.cn",
   "priority": "u=1, i",
