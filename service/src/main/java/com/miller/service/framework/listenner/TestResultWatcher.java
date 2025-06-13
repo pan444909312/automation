@@ -356,6 +356,10 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      *
      */
     private void updateAutomationCoverageResult(ExtensionContext context, String executeResult, Map<String, Object> stringObjectMap) {
+        // 如果请求都没有发出去，则不处理
+        if (Objects.isNull(stringObjectMap)) {
+            return;
+        }
         String requestMethod = ((HashMap) stringObjectMap.get("requestMap")).get("requestMethod").toString();
         String requestURI = ((HashMap) stringObjectMap.get("requestMap")).get("requestURI").toString();
         String requestHeaders = ((HashMap) stringObjectMap.get("requestMap")).get("requestHeaders").toString();
