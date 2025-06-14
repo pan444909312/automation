@@ -1,0 +1,19 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"brandIntro": "${json-unit.any-string}",
+		"shopName": "${json-unit.any-string}",
+		"shopFeatures": "${json-unit.ignore-element}",
+		"externalLinkAddress": {
+			"moduleName": "${json-unit.any-string}",
+			"desc": "${json-unit.any-string}",
+			"linkAddress": "${json-unit.any-string}"
+		}
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

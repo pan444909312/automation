@@ -1,0 +1,25 @@
+{
+	"pm":"POST",
+	"ph":{
+		"appTypeId":"1",
+		"language":"CN",
+		"version":"8.62.5",
+		"countrycode":"CN",
+		"latitude":"29.6605799",
+		"longitude":"115.9541",
+		"deviceVersion":"14",
+		"platform":"WEB_ANDROID",
+		"device":"2",
+		"countryCode":"CN",
+		"appVersion":"8.62.5",
+		"locale":"CN",
+		"uniqueToken":"eb3db5772e24b4ba"
+	},
+	"pd":{
+		"shopId":"195420037"
+	},
+	"nv":"2",
+	"nt":"1749888771312",
+	"nn":"odEtVKLitPX7rvyMMeF4FSIJo",
+	"nd":"49ca45f4d82608b"
+}
