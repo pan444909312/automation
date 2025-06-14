@@ -2,8 +2,11 @@ package com.miller.service.framework.util;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -115,6 +118,7 @@ public class JSONUtils {
             throw new UnsupportedOperationException("String to Java Object failure, because " + json + " not to transform " + valueType + ". Error Message:", jsonProcessingException);
         }
     }
+
     /**
      * 对象转 JSON 字符串，使用 Fastjson
      *
@@ -124,6 +128,7 @@ public class JSONUtils {
     public static String toJSONString(Object value) {
         return JSON.toJSONString(value);
     }
+
     /**
      * 对象转 JSON 字符串，使用 Jackson
      *
@@ -141,6 +146,36 @@ public class JSONUtils {
     }
 
     /**
+     * 字符串转为 JSONObject，使用 Fastjson
+     * @param text 文本
+     * @param features 配置，可选
+     * @return JSONObject
+     */
+    public static JSONObject parseObject(String text, Feature... features) {
+        return JSON.parseObject(text, features);
+    }
+
+    /**
+     *  json字符串转jsonArray
+     * @param text json字符串
+     * @return JSONArray
+     */
+    public static JSONArray parseArray(String text) {
+        return parseArray(text, ParserConfig.global);
+    }
+
+    /**
+     * json字符串转jsonArray
+     * @param text json字符串
+     * @param parserConfig 配置
+     * @return JSONArray
+     */
+    public static JSONArray parseArray(String text, ParserConfig parserConfig) {
+        return JSON.parseArray(text, parserConfig);
+    }
+
+
+    /**
      * 更新 JSON 字符串中指定 key 的值
      *
      * @param jsonStr 原始 JSON 字符串
@@ -153,7 +188,7 @@ public class JSONUtils {
         if (!isJSONFormat(jsonStr)) {
             throw new JSONException("Invalid JSON format");
         }
-        
+
         JSON json = JSON.parseObject(jsonStr);
         if (json instanceof JSONObject) {
             JSONObject jsonObject = (JSONObject) json;
@@ -162,5 +197,5 @@ public class JSONUtils {
         }
         throw new JSONException("Input JSON is not an object");
     }
-    
+
 }
