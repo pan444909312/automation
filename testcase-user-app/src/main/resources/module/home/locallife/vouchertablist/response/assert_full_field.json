@@ -1,0 +1,16 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"list": [{
+			"voucherSn":"${json-unit.any-string}",
+			"tabName": "${json-unit.any-string}",
+			"voucherNameSub": "${json-unit.ignore-element}"
+		}]
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

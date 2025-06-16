@@ -1,0 +1,114 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"shopId": 195420037,
+		"wechatId": "${json-unit.any-string}",
+		"shopImgs": ["${json-unit.any-string}"],
+		"shopName": "${json-unit.any-string}",
+		"shopLogo": "${json-unit.any-string}",
+		"score": "${json-unit.any-number}",
+		"perCapitaConsumption": "${json-unit.any-number}",
+		"distanceStr": "${json-unit.any-string}",
+		"address": "${json-unit.any-string}",
+		"businessStatusStr": "${json-unit.any-string}",
+		"longitude": "${json-unit.any-string}",
+		"latitude": "${json-unit.any-string}",
+		"servicePhone": "${json-unit.any-string}",
+		"category":"${json-unit.any-string}",
+		"categoryList": [{
+			"categoryId": "${json-unit.any-number}",
+			"categoryName":"${json-unit.any-string}",
+			"sublist": [{
+				"categoryId": "${json-unit.any-number}",
+				"categoryName": "${json-unit.any-string}",
+				"sublist": "${json-unit.ignore-element}"
+			}]
+		}],
+		"voucherModelName":"${json-unit.any-string}",
+		"voucherList": [{
+			"voucherType": "${json-unit.any-number}",
+			"discountRate": "${json-unit.any-number}",
+			"detailList": [{
+				"voucherType": "${json-unit.any-number}",
+				"voucherSn": "${json-unit.any-string}",
+				"voucherImg": "${json-unit.ignore-element}",
+				"salePrice":"${json-unit.any-number}",
+				"discountRate": "${json-unit.any-number}",
+				"originalPrice": "${json-unit.any-number}",
+				"voucherName": "${json-unit.any-string}",
+				"recentSales": "${json-unit.ignore-element}",
+				"accumulatedSales": "${json-unit.ignore-element}",
+				"isStockOut": "${json-unit.any-number}",
+				"ruleDesc": "${json-unit.any-string}"
+			}],
+			"moduleName": "${json-unit.any-string}",
+			"tabList": [{
+				"tabId": "${json-unit.ignore-element}",
+				"tabName": "${json-unit.any-string}",
+				"detailList": [{
+					"voucherType": "${json-unit.any-number}",
+					"voucherSn": "${json-unit.any-string}",
+					"voucherImg": "${json-unit.ignore-element}",
+					"salePrice": "${json-unit.any-number}",
+					"discountRate": "${json-unit.any-number}",
+					"originalPrice": "${json-unit.any-number}",
+					"voucherName":"${json-unit.any-string}",
+					"recentSales": "${json-unit.ignore-element}",
+					"accumulatedSales": "${json-unit.ignore-element}",
+					"isStockOut": "${json-unit.any-number}",
+					"ruleDesc": "${json-unit.any-string}"
+				}]
+			}]
+		}],
+		"brandIntro": "${json-unit.any-string}",
+		"marketingSwitch": "${json-unit.any-number}",
+		"marketingName": "${json-unit.any-string}",
+		"shopMarketingList": "${json-unit.ignore-element}",
+		"secondShopType": "${json-unit.any-number}",
+		"shopFeatures": "${json-unit.ignore-element}",
+		"externalLinkAddress": "${json-unit.ignore-element}",
+		"serviceItemVO": "${json-unit.ignore-element}",
+		"staffModuleVO": "${json-unit.ignore-element}",
+		"photoAlbumModuleVO": "${json-unit.ignore-element}",
+		"workModuleVO": "${json-unit.ignore-element}",
+		"recommendModuleVO": "${json-unit.ignore-element}",
+		"bookingType": "${json-unit.ignore-element}",
+		"bookingMsg": "${json-unit.ignore-element}",
+		"bookingTips": "${json-unit.ignore-element}",
+		"bookingDeepLinkUrl": "${json-unit.ignore-element}",
+		"brandDeepLinkUrl": "${json-unit.ignore-element}",
+		"weekTimeDeepLinkUrl": "${json-unit.any-string}",
+		"shopDeepLinkUrl": "${json-unit.any-string}",
+		"favorite": "${json-unit.any-number}",
+		"relationShop": {
+			"relationShopId": 930937488,
+			"deepLinkUrl": "${json-unit.any-string}",
+			"deliveryTime": "${json-unit.any-number}"
+		},
+		"bookingModuleVO": "${json-unit.ignore-element}",
+		"bookingRecordVO": "${json-unit.ignore-element}",
+		"recommendedProductModuleDTO": "${json-unit.ignore-element}",
+		"voucherShopNoteRes": "${json-unit.ignore-element}",
+		"evaluateRes": {
+			"evaluateList": "${json-unit.ignore-element}",
+			"hasNext": "${json-unit.any-boolean}",
+			"totalScore": "${json-unit.any-number}",
+			"detailItemDTOS": "${json-unit.ignore-element}",
+			"addEvaluatePageUrl": "${json-unit.any-string}",
+			"total": "${json-unit.any-number}",
+			"moduleTitle": "${json-unit.any-string}"
+		},
+		"redNoteEvaluate": "${json-unit.ignore-element}",
+		"tagList": "${json-unit.ignore-element}",
+		"navigationBarList": [{
+			"type": "${json-unit.any-number}",
+			"name": "${json-unit.any-string}"
+		}]
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}
