@@ -1,10 +1,16 @@
 package com.miller.controller.tools.apifox;
 
+import com.miller.entity.report.AutomationCoverageApiEntity;
 import com.miller.pos.date.flow.WorkingTimeFlow;
 import com.miller.service.apifox.ApifoxToolsService;
+import com.miller.service.platform.AutomationCoverageApiService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -14,6 +20,8 @@ public class ApifoxToolsController {
     @Autowired
     private ApifoxToolsService apifoxToolsService;
 
+    @Autowired
+    private AutomationCoverageApiService automationCoverageApiService;
 
     @GetMapping("/getWorkingCount")
     public int getWorkingCount(@RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime) {
@@ -30,4 +38,19 @@ public class ApifoxToolsController {
     }
 
 
+    @ApiOperation("Apifox 接口覆盖率接口")
+    @PostMapping("/updateCoverage")
+    public Boolean updateCoverage(@RequestBody AutomationCoverageApiEntity automationCoverageApiEntity) {
+        return automationCoverageApiService.updateCoverageApi(automationCoverageApiEntity);
+    }
+
+    /**
+     * 因为apifox 是局域网内应用，所以外部服务器无法调用，所以只能本地使用
+     * @return
+     */
+    @ApiOperation("初始化： Apifox 接口覆盖率接口")
+    @GetMapping("/initCoverage")
+    public Set<String> initCoverage() throws Exception {
+        return automationCoverageApiService.initApifoxCoverageApi();
+    }
 }

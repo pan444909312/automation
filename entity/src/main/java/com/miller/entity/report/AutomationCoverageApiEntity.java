@@ -1,9 +1,11 @@
 package com.miller.entity.report;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 自动化测试接口覆盖率实体类
@@ -11,80 +13,69 @@ import lombok.Data;
  */
 @Data
 @TableName("automation_coverage_api")
+@Accessors(chain = true)
 public class AutomationCoverageApiEntity {
 
-    /**
-     * 主键id
-     */
-    @TableId(type = IdType.AUTO)
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    /**
-     * 是否已经实现自动化测试,0:未实现、1:已实现
-     */
+    @TableField("host")
+    private String host;
+
+    @TableField("method")
+    private String method;
+
+    @TableField("path")
+    private String path;
+
+    @TableField("requests_times_production")
+    private Long requestsTimesProduction;
+
+    @TableField("country")
+    private String country;
+
+    @TableField("is_automation")
     private Integer isAutomation;
 
-    /**
-     * 此接口接口测试对应的负责人
-     */
+    @TableField("api_test_author")
     private String apiTestAuthor;
 
-    /**
-     * 最后一次执行自动化测试的时间戳
-     */
-    private Long lastExecuteTime;
-    /**
-     * 测试用例执行结果: Successful, Failed, Disabled, Aborted.
-     */
+    @TableField("last_execute_result")
     private String lastExecuteResult;
-    /**
-     * 最后一次执行自动化测试的人员
-     */
+
+    @TableField("last_execute_time")
+    private Long lastExecuteTime;
+
+    @TableField("last_executor")
     private String lastExecutor;
 
-    /**
-     * 接口状态:0:正常、-1:已废弃
-     */
+    @TableField("api_status")
     private Integer apiStatus;
 
-    /**
-     * 测试用例的url的请求参数
-     */
-    private String testCaseRequestPath;
-
-    /**
-     * 测试用例请求Method
-     */
-    private String testCaseRequestMethod;
-
-    /**
-     * 测试用例请求uri
-     */
-    private String testCaseRequestUri;
-
-    /**
-     * 测试用例请求头
-     */
-    private String testCaseRequestHeaders;
-
-    /**
-     * 测试用例请求体
-     */
-    private String testCaseRequestBody;
-
-    /**
-     * 最后一次测试用例的响应结果
-     */
-    private String testCaseResponseBody;
-
-    /**
-     * 最后一次测试用例的响应状态码,通常 200 代表成功
-     */
+    @TableField("test_case_response_status_code")
     private String testCaseResponseStatusCode;
 
-    /**
-     * 项目ID，冗余字段，暂时提供给外部系统使用
-     */
+    @TableField("test_case_response_body")
+    private String testCaseResponseBody;
+
+    @TableField("test_case_request_path")
+    private String testCaseRequestPath;
+
+    @TableField("test_case_request_method")
+    private String testCaseRequestMethod;
+
+    @TableField("test_case_request_uri")
+    private String testCaseRequestUri;
+
+    @TableField("test_case_request_headers")
+    private String testCaseRequestHeaders;
+
+    @TableField("test_case_request_body")
+    private String testCaseRequestBody;
+
+    @TableField("project_id")
     private String projectId;
 
 }
