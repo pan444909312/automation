@@ -108,10 +108,10 @@ public class TestCaseHelpful {
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
         // 处理 Web 站 请求验签
-        if (uri.contains(TestcaseConfig.Host_Mobile)) {
-            Map pd = JSONUtils.parseObject(body.toString()).getJSONObject("pd").toJavaObject(Map.class);
-            body = WebSignUtils.signRequestBody(uri, method, headers, pd);
-        }
+//        if (uri.contains(TestcaseConfig.Host_Mobile)) {
+//            Map pd = JSONUtils.parseObject(body.toString()).getJSONObject("pd").toJavaObject(Map.class);
+//            body = WebSignUtils.signRequestBody(uri, method, headers, pd);
+//        }
 
         var responseBody = "";
         method = method.toUpperCase();
