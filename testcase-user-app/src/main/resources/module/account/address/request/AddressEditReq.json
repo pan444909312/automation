@@ -1,0 +1,38 @@
+{
+  "pm": "POST",
+  "ph": {
+    "platform": "PC_WEB_USER",
+    "brand": "",
+    "longitude": "120.21690841117872",
+    "latitude": "30.20359560739576",
+    "version": "8.8.0",
+    "apptypeid": "1",
+    "countryCode": "US",
+    "language": "en",
+    "authorization": "8b1f003fda1258203fc7e60437464d2f",
+    "uniqueToken": "18cb7fc4-853c-4391-ac3a-67dbfd94ca82"
+  },
+  "pd": {
+    "addressId": 1398680302,
+    "address": "China, Jiangxi, 九江",
+    "addressRemark": "编辑地址1",
+    "gender": 1,
+    "longitude": "115.9541",
+    "latitude": "29.6605799",
+    "addTag": 3,
+    "countryCode": "86",
+    "telephone": "19157824000",
+    "contacts": "胡胡胡",
+    "houseNum": "测试编辑m站已编辑",
+    "postcode": "310001",
+    "buildingName": "九江",
+    "verify": 1,
+    "shopId": 0,
+    "type": 2,
+    "isDefault": 0
+  },
+  "nv": "2",
+  "nt": "1750069128881",
+  "nn": "OM3iGK3yC1ICC8gyvbmVrfilK",
+  "nd": "a9bde0098380fc0"
+}
