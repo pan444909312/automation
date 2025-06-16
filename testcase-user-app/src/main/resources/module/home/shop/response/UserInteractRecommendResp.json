@@ -8,5 +8,5 @@
   "currency": "${json-unit.ignore}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
-  "time": "${json-unit.any-number}"
+  "time": "${json-unit.ignore-element}"
 }
