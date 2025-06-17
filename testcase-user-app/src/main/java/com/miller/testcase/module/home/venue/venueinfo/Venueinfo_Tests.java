@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("获取会场信息")
 public class Venueinfo_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/venue/info";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/venue/info";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
