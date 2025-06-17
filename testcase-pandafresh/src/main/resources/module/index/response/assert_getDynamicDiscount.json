@@ -1,4 +1,3 @@
-
 {
   "code": 1000,
   "resultCode": 1000,
@@ -7,10 +6,10 @@
   "error": "请求成功(1)",
   "result": {
     "type": "${json-unit.any-number}",
-    "buyAgainAmount": "${json-unit.any-number}",
-    "nextReduceAmount": "${json-unit.any-number}",
-    "freeShipping": "${json-unit.ignore}",
-    "thresholdPrice": "${json-unit.ignore}",
-    "deliveryFee": "${json-unit.ignore}"
+    "buyAgainAmount": "${json-unit.any-string}",
+    "nextReduceAmount": "${json-unit.ignore}",
+    "freeShipping": "${json-unit.any-boolean}",
+    "thresholdPrice": "${json-unit.any-string}",
+    "deliveryFee": "${json-unit.any-string}"
   }
 }
