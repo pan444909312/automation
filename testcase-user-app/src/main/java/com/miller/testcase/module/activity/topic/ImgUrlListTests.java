@@ -17,7 +17,7 @@ import java.util.HashMap;
 @DisplayName("获取活动专题信息-图片楼层")
 public class ImgUrlListTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.Host_Mobile + "/api/user/activity/getImgUrlListByModuleId";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/activity/getImgUrlListByModuleId";
     // 请求方式
     String method = "POST";
     // 请求头
