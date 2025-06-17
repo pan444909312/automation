@@ -1,0 +1,16 @@
+{
+	"sec-fetch-mode":"cors",
+	"referer":"https://mobile-test.pandasupply.co/",
+	"sec-fetch-site":"cross-site",
+	"accept-language":"zh-CN,zh-TW;q=0.9,zh-MO;q=0.8,zh-HK;q=0.7,zh;q=0.6,en-GB;q=0.5,en;q=0.4",
+	"origin":"https://mobile-test.pandasupply.co",
+	"Host":"api-cn-f2e-test.hungrypanda.cn",
+	"priority":"u=2, i",
+	"accept":"application/json, text/plain, */*",
+	"sec-ch-ua":"",
+	"sec-ch-ua-mobile":"?1",
+	"sec-ch-ua-platform":"",
+	"content-type":"application/json;charset=UTF-8",
+	"user-agent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/28.0 Chrome/130.0.0.0 Mobile Safari/537.36",
+	"sec-fetch-dest":"empty"
+}
