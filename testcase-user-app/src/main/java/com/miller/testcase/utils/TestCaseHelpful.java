@@ -1,5 +1,6 @@
 package com.miller.testcase.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jayway.jsonpath.Predicate;
 import com.miller.common.util.MD5Util;
@@ -8,12 +9,14 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.module.erp_login.ErpLoginTests;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 测试用例助手, 简化和提高用例开发效率，作用如下：
@@ -143,6 +146,7 @@ public class TestCaseHelpful {
             }
         }
 
+        var responseBody = "";
         method = method.toUpperCase();
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
@@ -272,8 +276,17 @@ public class TestCaseHelpful {
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/account/getVerificationCode/request/should_success.json");
         requestBody= TestCaseHelpful.updateJsonValue(requestBody, "captchaToken", "28d33b2425c344c581a4520f3c8c98f9");
         requestBody= TestCaseHelpful.updateJsonValue(requestBody, "phoneNumber", tel);
-//        todo：修改多层级目录下的checkCode
-        requestBody= TestCaseHelpful.updateJsonValue(requestBody, "checkCode", redisService.get("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9"));
+//        todo：updateJsonValue暂时不支持多层级修改；这里json对象转字符串，再修改
+// 解析为 JSONObject
+        JSONObject jsonObject = JSON.parseObject(requestBody);
+// 获取 captchaCheckInfo
+        JSONObject captchaCheckInfo = jsonObject.getJSONObject("captchaCheckInfo");
+// 获取 imageCheckInfo
+        JSONObject imageCheckInfo = captchaCheckInfo.getJSONObject("imageCheckInfo");
+// 修改 checkCode
+        imageCheckInfo.put("checkCode", "32");
+// 转回字符串
+        requestBody= jsonObject.toJSONString();
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         //需要在redis存值，不然图形校验不通过
 //        获取验证码,需要查询加密后的手机号
@@ -289,6 +302,8 @@ public class TestCaseHelpful {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/encryption/crypto";
         var headers = TestCaseHelpful.getHeaders("module/erp_login/request/headers_crypto.json");
         String body = "{\"sceneType\":1,\"text\":\"" + str + "\",\"cryptoType\":1}";
+        new ErpLoginTests().shouldSuccess();
+        headers.put("token", TestCaseHelpful.get("token")) ;
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         return TestCaseHelpful.extractValue(responseBody, "data.content");
     }
