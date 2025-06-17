@@ -131,6 +131,11 @@ public class TestCaseHelpful {
                     webBodyHeaders.remove("authorization");
                     webBodyHeaders.putAll(headers);
                     headers.putAll(webBodyHeaders);
+                    String host = TestcaseConfig.HOST_APP;
+                    if (host.startsWith("https://")) {
+                        host = host.substring(8);
+                    }
+                    headers.put("Host", host);
                     body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
                 }
             } catch (Exception e) {
