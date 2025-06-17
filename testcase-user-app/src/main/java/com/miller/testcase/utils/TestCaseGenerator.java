@@ -30,6 +30,13 @@ import java.util.Map;
  * @since 2025/5/29
  */
 public class TestCaseGenerator {
+    
+    // 文件路径相关常量
+    private static final String HEADERS_JSON = "/request/headers.json";
+    private static final String PARAMS_JSON = "/request/params.json";
+    private static final String REQUEST_BODY_JSON = "/request/body.json";
+    private static final String ASSERT_FULL_FIELD_JSON = "/response/assert_full_field.json";
+    
     /**
      * 生成测试用例的主方法
      * 1. 解析cURL命令
@@ -200,11 +207,11 @@ public class TestCaseGenerator {
         
         // 构建资源文件路径，确保包含子目录
         String modulePrefix = "module/" + (TestcaseFactory.CUSTOM_SUB_PATH.isEmpty() ? "" : TestcaseFactory.CUSTOM_SUB_PATH + "/");
-        String headersPath = modulePrefix + packageName + "/request/headers.json";
-        String paramsPath = !parser.getParams().isEmpty() ? modulePrefix + packageName + "/request/params.json" : "null";
+        String headersPath = modulePrefix + packageName + HEADERS_JSON;
+        String paramsPath = !parser.getParams().isEmpty() ? modulePrefix + packageName + PARAMS_JSON : "null";
         String paramsValue = paramsPath.equals("null") ? "null" : "\"" + paramsPath + "\"";
-        String bodyPath = modulePrefix + packageName + "/request/should_success.json";
-        String assertPath = modulePrefix + packageName + "/response/assert_full_field.json";
+        String bodyPath = modulePrefix + packageName + REQUEST_BODY_JSON;
+        String assertPath = modulePrefix + packageName + ASSERT_FULL_FIELD_JSON;
         
         String scenarioId = ULIDUtils.generateULID();
         String gitName = JGitUtils.getGitName();
@@ -250,7 +257,7 @@ public class TestCaseGenerator {
         String baseResourcePath = resourcesBasePath + "/" + packageName;
 
         // 生成请求头文件
-        String headersPath = baseResourcePath + "/request/headers.json";
+        String headersPath = baseResourcePath + HEADERS_JSON;
         File headersFile = new File(headersPath);
         File headersParent = headersFile.getParentFile();
         if (headersParent != null && !headersParent.exists()) {
@@ -266,7 +273,7 @@ public class TestCaseGenerator {
 
         // 生成请求参数文件（如果有参数）
         if (!parser.getParams().isEmpty()) {
-            String paramsPath = baseResourcePath + "/request/params.json";
+            String paramsPath = baseResourcePath + PARAMS_JSON;
             File paramsFile = new File(paramsPath);
             File paramsParent = paramsFile.getParentFile();
             if (paramsParent != null && !paramsParent.exists()) {
@@ -283,7 +290,7 @@ public class TestCaseGenerator {
 
         // 生成请求体文件
         if (parser.getBody() != null) {
-            String requestPath = baseResourcePath + "/request/should_success.json";
+            String requestPath = baseResourcePath + REQUEST_BODY_JSON;
             File file = new File(requestPath);
             File parent = file.getParentFile();
             if (parent != null && !parent.exists()) {
@@ -297,7 +304,7 @@ public class TestCaseGenerator {
         }
 
         // 生成响应体文件
-        String responsePath = baseResourcePath + "/response/assert_full_field.json";
+        String responsePath = baseResourcePath + ASSERT_FULL_FIELD_JSON;
         File responseFile = new File(responsePath);
         File responseParent = responseFile.getParentFile();
         if (responseParent != null && !responseParent.exists()) {
