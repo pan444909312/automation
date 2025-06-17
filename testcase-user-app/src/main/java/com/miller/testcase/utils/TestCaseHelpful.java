@@ -221,6 +221,7 @@ public class TestCaseHelpful {
     public static String getFileContent(String filePath) {
         return JsonUtils.getFileContent(filePath);
     }
+
     /**
      * 使用 JSONPath 更新 JSON 字符串中指定 key 的值为新的值
      *
@@ -235,12 +236,12 @@ public class TestCaseHelpful {
         return JSONUtils.updateJsonValueByPath(jsonStr, jsonPath, newValue);
     }
 
-        /**
-         * 登录并返回token
-         * @param mobilePhone 手机号 areaCode 默认 86
-         * @param password  登录密码
-         * @return token
-         */
+    /**
+     * 登录并返回token
+     * @param mobilePhone 手机号 areaCode 默认 86
+     * @param password  登录密码
+     * @return token
+     */
     public static String login(String mobilePhone, String password) {
         password = MD5Util.string2MD5(password);
 
@@ -274,39 +275,38 @@ public class TestCaseHelpful {
      * @param tel 输入手机号
      * @return 手机号验证码
      */
-    public static Integer getVerificationCode(String tel){
+    public static Integer getVerificationCode(String tel) {
         RedisService redisService;
         redisService = RedisService.getRedisServiceInstance();
         redisService.connectionSlave("r-3nscqny4art27v9hrzpd.redis.rds.aliyuncs.com", 6379, "YNKAthEbNF3XoK8E");
-        redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9",32,60L);
+        redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9", 32, 60L);
         String uri = TestcaseConfig.HOST_APP + "/api/app/user/sendVerificationCode";
         var headers = TestCaseHelpful.getHeaders("module/account/getVerificationCode/request/headers.json");
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/account/getVerificationCode/request/should_success.json");
-        requestBody= TestCaseHelpful.updateJsonValue(requestBody, "captchaToken", "28d33b2425c344c581a4520f3c8c98f9");
-        requestBody= TestCaseHelpful.updateJsonValue(requestBody, "phoneNumber", tel);
-        requestBody= TestCaseHelpful.updateJsonValue(requestBody, "$.captchaCheckInfo.imageCheckInfo.checkCode", "32");
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "captchaToken", "28d33b2425c344c581a4520f3c8c98f9");
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "phoneNumber", tel);
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.captchaCheckInfo.imageCheckInfo.checkCode", "32");
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         //需要在redis存值，不然图形校验不通过
 //        获取验证码,需要查询加密后的手机号
-        String telephone =encodePhone(tel);
-        return (Integer) PandaTestDBHelpful.executeSelectOneSql("select * from user_log where telephone = ? order by create_time desc limit 1",telephone).get("verifycode");
+        String telephone = getPhoneNumber(tel);
+        return (Integer) PandaTestDBHelpful.executeSelectOneSql("select * from user_log where telephone = ? order by create_time desc limit 1", telephone).get("verifycode");
     }
 
     /**
-     * @param str 需要加密的手机号
+     * 获取加密后的明文手机号
+     * @param encodePhone 需要加密的手机号
      * @return 加密后的手机号
      */
-    public static String encodePhone(String str) {
+    public static String getPhoneNumber(String encodePhone) {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/encryption/crypto";
         var headers = TestCaseHelpful.getHeaders("module/erp_login/request/headers_crypto.json");
-        String body = "{\"sceneType\":1,\"text\":\"" + str + "\",\"cryptoType\":1}";
+        String body = "{\"sceneType\":1,\"text\":\"" + encodePhone + "\",\"cryptoType\":1}";
         new ErpLoginTests().shouldSuccess();
-        headers.put("token", TestCaseHelpful.get("token")) ;
+        headers.put("token", TestCaseHelpful.get("token"));
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         return TestCaseHelpful.extractValue(responseBody, "data.content");
     }
-
-
 
 
 }
