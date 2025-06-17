@@ -14,7 +14,6 @@ import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * 测试用例助手, 简化和提高用例开发效率，作用如下：
