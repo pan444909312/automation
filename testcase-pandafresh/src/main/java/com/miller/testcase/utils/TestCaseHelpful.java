@@ -1,13 +1,16 @@
 package com.miller.testcase.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.jayway.jsonpath.PathNotFoundException;
 import com.jayway.jsonpath.Predicate;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.testcase.config.TestcaseConfig;
+import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -26,6 +29,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2025/5/27 14:47:39
  */
+@Slf4j
 public class TestCaseHelpful {
     /**
      * 获取测试用例资源文件内容作为请求头
@@ -44,21 +48,6 @@ public class TestCaseHelpful {
     }
 
     /**
-     *
-     * 获取测试用例资源文件内容作为请求Params参数，一般是 GET 请求，参数在url上，以 ?key=value&key2=value2的形式
-     *
-     * @param filePath 文件路径,文件内容为 json
-     *
-     * @return 请求的 Params 参数，也叫 QueryParams
-     */
-    public static Map<String, Object> getJsonRequestParams(String filePath) {
-        if (null == filePath || filePath.isBlank()) return null;
-        Map<String, Object> params = JsonUtils.readJsonFileToMap(filePath);
-        // 对请求参数的二次处理，为后续验签准备
-        return params;
-    }
-
-    /**
      * 获取测试用例资源文件内容作为请求体，请求提为 application/json 格式
      *
      * @param filePath 文件路径
@@ -72,67 +61,17 @@ public class TestCaseHelpful {
 
     /**
      *
-     * 获取测试用例资源文件内容作为请求体，请求提为 application/x-www-form-urlencoded 格式
+     * 获取测试用例资源文件内容作为请求Params参数，一般是 GET 请求，参数在url上，以 ?key=value&key2=value2的形式
      *
-     * @param filePath 文件路径
+     * @param filePath 文件路径,文件内容为 json
      *
-     * @return 请求体
+     * @return 请求的 Params 参数，也叫 QueryParams
      */
-    private static Map<String, Object> getFormDataRequestBody(String filePath) {
+    public static Map<String, Object> getJsonRequestParams(String filePath) {
         if (null == filePath || filePath.isBlank()) return null;
         Map<String, Object> params = JsonUtils.readJsonFileToMap(filePath);
         // 对请求参数的二次处理，为后续验签准备
         return params;
-    }
-
-    /**
-     * 发送 HTTP 请求
-     *
-     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
-     * @param uri     请求地址, 支持 http、https
-     * @param params  请求参数
-     * @param headers 请求头
-     * @param body    请求体
-     * @return 响应体字符串
-     */
-    public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
-                                     Object body) {
-        JSONObject requestJsonObject = JSON.parseObject(body.toString());
-
-        // 将true和false转换成0和1
-        for (String key : requestJsonObject.keySet()) {
-            String value = requestJsonObject.getString(key);
-            if (Objects.equals(value, Boolean.TRUE.toString())) {
-                requestJsonObject.put(key, NumberUtils.BYTE_ONE);
-                continue;
-            }
-            if (Objects.equals(value, Boolean.FALSE.toString())) {
-                requestJsonObject.put(key, NumberUtils.BYTE_ZERO);
-            }
-        }
-        requestJsonObject.put("authorization", headers.get("authorization"));
-        requestJsonObject.put("_ts", System.currentTimeMillis());
-
-
-        String signReal = SignGenerate.getSignOfHPF(requestJsonObject, "hP*L8pp65_#1flvjk342589fdgjl34m");
-
-        headers.put("_sign", signReal);
-        headers.put("_ts", System.currentTimeMillis() + "");
-        headers.put("authorization", headers.get("authorization"));
-
-
-        if ("POST".equals(method)) {
-            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
-        } else if ("GET".equals(method)) {
-            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
-        } else if ("PUT".equals(method)) {
-            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
-        } else if ("DELETE".equals(method)) {
-            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
-        } else {
-            new IllegalArgumentException("不支持的请求方法" + method);
-            return "";
-        }
     }
 
     /**
@@ -162,6 +101,25 @@ public class TestCaseHelpful {
     }
 
     /**
+     * 将一个值放入到缓存中，默认8小时有效期
+     * @param key 唯一值，建议使用测试用例 ID 值（scenarioID），默认会拼上前缀 Automation_，如果直连 Redis 查询，请自行拼接。
+     * @param value  值
+     */
+    public static void set(String key, Object value) {
+        RedisUtils.getRedisInstance().set("Automation_" + key, value, 60 * 60 * 8L);
+    }
+
+    /**
+     *  获取缓存中的值
+     * @param key  唯一值，建议使用测试用例 ID 值（scenarioID）
+     * @return 缓存中的值
+     */
+    public static Object get(String key) {
+        return RedisUtils.getRedisInstance().get("Automation_" + key);
+    }
+
+
+    /**
      * 获取 resources 目录下指定文件内容
      *
      * @param filePath 文件路径
@@ -171,6 +129,68 @@ public class TestCaseHelpful {
         return JsonUtils.getFileContent(filePath);
     }
 
+    /**
+     * 使用 JSONPath 更新 JSON 字符串中指定 key 的值为新的值
+     *
+     * @param jsonStr 原始JSON字符串
+     * @param jsonPath JSONPath表达式，例如 "$.store.book[0].title"
+     * @param newValue 需要更新的新的值
+     * @return 更新后的JSON字符串
+     * @throws JSONException 当输入的字符串不是有效的JSON格式时抛出
+     * @throws PathNotFoundException 当指定的JSONPath不存在时抛出
+     */
+    public static String updateJsonValue(String jsonStr, String jsonPath, Object newValue) {
+        return JSONUtils.updateJsonValueByPath(jsonStr, jsonPath, newValue);
+    }
+
+    // --------------  以下为非通用方法，各业务特有 --------------
+
+    /**
+     * 发送 HTTP 请求
+     *
+     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
+     * @param uri     请求地址, 支持 http、https
+     * @param params  请求参数
+     * @param headers 请求头
+     * @param body    请求体
+     * @return 响应体字符串
+     */
+    public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
+                                     Object body) {
+        // 处理 https://fresh-api-test.hungrypanda.cn  签名
+        JSONObject requestJsonObject = JSON.parseObject(body.toString());
+        // 将true和false转换成0和1
+        for (String key : requestJsonObject.keySet()) {
+            String value = requestJsonObject.getString(key);
+            if (Objects.equals(value, Boolean.TRUE.toString())) {
+                requestJsonObject.put(key, NumberUtils.BYTE_ONE);
+                continue;
+            }
+            if (Objects.equals(value, Boolean.FALSE.toString())) {
+                requestJsonObject.put(key, NumberUtils.BYTE_ZERO);
+            }
+        }
+        requestJsonObject.put("authorization", headers.get("authorization"));
+        requestJsonObject.put("_ts", System.currentTimeMillis());
+
+        String signReal = SignGenerate.getSignOfHPF(requestJsonObject, "hP*L8pp65_#1flvjk342589fdgjl34m");
+        headers.put("_sign", signReal);
+        headers.put("_ts", System.currentTimeMillis() + "");
+        headers.put("authorization", headers.get("authorization"));
+
+        if ("POST".equals(method)) {
+            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
+        } else if ("GET".equals(method)) {
+            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
+        } else if ("PUT".equals(method)) {
+            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
+        } else if ("DELETE".equals(method)) {
+            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
+        } else {
+            log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
+            throw new RuntimeException("不支持的请求方法" + method);
+        }
+    }
     /**
      * 登录并返回token
      * @param mobilePhone 手机号 areaCode 默认 86

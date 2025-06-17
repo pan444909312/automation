@@ -101,74 +101,6 @@ public class TestCaseHelpful {
     }
 
     /**
-     * 发送 HTTP 请求
-     *
-     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
-     * @param uri     请求地址, 支持 http、https
-     * @param params  请求参数
-     * @param headers 请求头
-     * @param body    请求体
-     * @return 响应体字符串
-     */
-    public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
-                                     Object body) {
-        // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
-        if (body instanceof String) {
-            try {
-                JSONObject jsonBody = JSONUtils.parseObject(body.toString());
-                // 判断是否是 Web 站请求体，如果是，则转为 app 请求体
-                if (jsonBody.containsKey("pm") &&
-                        jsonBody.containsKey("ph") &&
-                        jsonBody.containsKey("pd") &&
-                        jsonBody.containsKey("nv") &&
-                        jsonBody.containsKey("nt") &&
-                        jsonBody.containsKey("nn") &&
-                        jsonBody.containsKey("nd")) {
-                    // 转为 app 请求体
-                    String[] uriParts = uri.split("/api/");
-                    String path = "/api/" + uriParts[1];
-                    uri = TestcaseConfig.HOST_APP + path;
-                    method = JSONUtils.parseObject(body.toString()).getString("pm");
-                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
-                    // 避免 Authorization 被 Web 请求体的 ph 覆盖
-                    webBodyHeaders.remove("authorization");
-                    webBodyHeaders.putAll(headers);
-                    headers.putAll(webBodyHeaders);
-                    String host = TestcaseConfig.HOST_APP;
-                    if (host.startsWith("https://")) {
-                        host = host.substring(8);
-                    }
-                    headers.put("Host", host);
-                    body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
-                    // 方案二：后续处理
-                    WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
-                            JSONUtils.parseObject(body.toString()).getString("nu"),
-                            JSONUtils.parseObject(body.toString()).getString("nm"),
-                            JSONUtils.parseObject(body.toString()).getString("nh"),
-                            JSONUtils.parseObject(body.toString()).getString("nb"));
-                }
-            } catch (Exception e) {
-                // 解析失败说明不是JSON格式,忽略异常
-            }
-        }
-
-        var responseBody = "";
-        method = method.toUpperCase();
-        if ("POST".equals(method)) {
-            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
-        } else if ("GET".equals(method)) {
-            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
-        } else if ("PUT".equals(method)) {
-            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
-        } else if ("DELETE".equals(method)) {
-            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
-        } else {
-            log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
-            throw new RuntimeException("不支持的请求方法" + method);
-        }
-    }
-
-    /**
      * JSON 断言
      *
      * @param actual    实际值
@@ -234,6 +166,76 @@ public class TestCaseHelpful {
      */
     public static String updateJsonValue(String jsonStr, String jsonPath, Object newValue) {
         return JSONUtils.updateJsonValueByPath(jsonStr, jsonPath, newValue);
+    }
+
+    // --------------  以下为非通用方法，各业务特有 --------------
+
+    /**
+     * 发送 HTTP 请求
+     *
+     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
+     * @param uri     请求地址, 支持 http、https
+     * @param params  请求参数
+     * @param headers 请求头
+     * @param body    请求体
+     * @return 响应体字符串
+     */
+    public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
+                                     Object body) {
+        // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
+        if (body instanceof String) {
+            try {
+                JSONObject jsonBody = JSONUtils.parseObject(body.toString());
+                // 判断是否是 Web 站请求体，如果是，则转为 app 请求体
+                if (jsonBody.containsKey("pm") &&
+                        jsonBody.containsKey("ph") &&
+                        jsonBody.containsKey("pd") &&
+                        jsonBody.containsKey("nv") &&
+                        jsonBody.containsKey("nt") &&
+                        jsonBody.containsKey("nn") &&
+                        jsonBody.containsKey("nd")) {
+                    // 转为 app 请求体
+                    String[] uriParts = uri.split("/api/");
+                    String path = "/api/" + uriParts[1];
+                    uri = TestcaseConfig.HOST_APP + path;
+                    method = JSONUtils.parseObject(body.toString()).getString("pm");
+                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
+                    // 避免 Authorization 被 Web 请求体的 ph 覆盖
+                    webBodyHeaders.remove("authorization");
+                    webBodyHeaders.putAll(headers);
+                    headers.putAll(webBodyHeaders);
+                    String host = TestcaseConfig.HOST_APP;
+                    if (host.startsWith("https://")) {
+                        host = host.substring(8);
+                    }
+                    headers.put("Host", host);
+                    body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    // 方案二：后续处理
+                    WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
+                            JSONUtils.parseObject(body.toString()).getString("nu"),
+                            JSONUtils.parseObject(body.toString()).getString("nm"),
+                            JSONUtils.parseObject(body.toString()).getString("nh"),
+                            JSONUtils.parseObject(body.toString()).getString("nb"));
+                }
+            } catch (Exception e) {
+                // 解析失败说明不是JSON格式,忽略异常
+            }
+        }
+
+        var responseBody = "";
+        method = method.toUpperCase();
+        if ("POST".equals(method)) {
+            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
+        } else if ("GET".equals(method)) {
+            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
+        } else if ("PUT".equals(method)) {
+            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
+        } else if ("DELETE".equals(method)) {
+            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
+        } else {
+            log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
+            throw new RuntimeException("不支持的请求方法" + method);
+        }
     }
 
     /**
