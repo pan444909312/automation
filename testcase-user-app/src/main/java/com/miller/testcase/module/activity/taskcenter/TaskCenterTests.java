@@ -2,8 +2,10 @@ package com.miller.testcase.module.activity.taskcenter;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +27,11 @@ public class TaskCenterTests {
     String body = "module/activity/taskcenter/request/success.json";
     // 断言
     String assert2 = "module/activity/taskcenter/response/assert_some_fields.json";
+    @BeforeAll()
+    public static void beforeAll() {
+        //清除用户任务数据
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_user where user_id=\"1398717289\"order by create_time desc\n");
+    }
     @DisplayName("任务中心主页面H5")
     @Test
     void shouldReturnSuccessfully() {
