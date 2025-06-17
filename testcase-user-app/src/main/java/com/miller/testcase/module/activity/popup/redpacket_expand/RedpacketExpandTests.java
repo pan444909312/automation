@@ -1,40 +1,49 @@
-package com.miller.testcase.module.activity.popup.redpacket_group_view;
+package com.miller.testcase.module.activity.popup.redpacket_expand;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * redpacket group view
+ * redpacket expand
  *
  * @author yancancan
  * @version 2.0
- * @since 2025/06/17 16:44:03
+ * @since 2025/06/17 16:55:33
  */
 @Scenario(
-        scenarioID = "01JXYGYHF5TSF5XV22RENFKA7M", // 自动生成，不要修改
-        scenarioName = "redpacket group view",
+        scenarioID = "01JXYHKK873DF6XH77PAQTHFMM", // 自动生成，不要修改
+        scenarioName = "redpacket expand",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("redpacket group view:英文版天降弹窗点击红包")
-public class RedpacketGroupViewTests {
+@DisplayName("redpacket expand：神券膨胀")
+public class RedpacketExpandTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HOST_APP + "/api/user/redPacket/group/view";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/redPacket/expand";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
-    String headers = "module/activity/popup/redpacket_group_view/request/headers.json";
+    String headers = "module/activity/special_task_close/redpacket_expand/request/headers.json";
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
     String params = null;
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-    String body = "module/activity/popup/redpacket_group_view/request/should_success.json";
+    String body = "module/activity/special_task_close/redpacket_expand/request/should_success.json";
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assert1 = "module/activity/popup/redpacket_group_view/response/assert_full_field.json";
+    String assert1 = "module/activity/special_task_close/redpacket_expand/response/assert_full_field.json";
 
-    @DisplayName("正向流程")
+    @BeforeAll()
+    public static void beforeAll() {
+        // 确保表名和字段名正确，可能需要根据实际数据库结构调整
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("UPDATE user_cdkey\n" +
+                "SET red_packet_price = 400, red_packet_scope_type = 1\n" +
+                "WHERE user_cdkey_id = 1727087086233;");
+    }
+    @DisplayName("正向流程:神券膨胀")
     @Test
     void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
