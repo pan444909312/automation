@@ -26,10 +26,11 @@ public class GetDynamicDiscountTests {
     @Test
     void shouldSuccessfully() {
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("authorization",TestCaseHelpful.login("17700004444","123456"));
-        requestHeaders.put("_ts", System.currentTimeMillis());
+        requestHeaders.put("authorization", TestCaseHelpful.login("17700004444", "123456"));
+        // 步骤2: 设置请求体。基本固定写法，不需要修改
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
 
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, null);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
 //        TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);// 使用 JsonPath 方式
 //        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result").isNotNull();
 
