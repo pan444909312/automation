@@ -1,6 +1,5 @@
 package com.miller.testcase.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.jayway.jsonpath.PathNotFoundException;
@@ -285,17 +284,7 @@ public class TestCaseHelpful {
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/account/getVerificationCode/request/should_success.json");
         requestBody= TestCaseHelpful.updateJsonValue(requestBody, "captchaToken", "28d33b2425c344c581a4520f3c8c98f9");
         requestBody= TestCaseHelpful.updateJsonValue(requestBody, "phoneNumber", tel);
-//        todo：updateJsonValue 暂时不支持多层级修改；这里json对象转字符串，再修改
-// 解析为 JSONObject
-        JSONObject jsonObject = JSON.parseObject(requestBody);
-// 获取 captchaCheckInfo
-        JSONObject captchaCheckInfo = jsonObject.getJSONObject("captchaCheckInfo");
-// 获取 imageCheckInfo
-        JSONObject imageCheckInfo = captchaCheckInfo.getJSONObject("imageCheckInfo");
-// 修改 checkCode
-        imageCheckInfo.put("checkCode", "32");
-// 转回字符串
-        requestBody= jsonObject.toJSONString();
+        requestBody= TestCaseHelpful.updateJsonValue(requestBody, "$.captchaCheckInfo.imageCheckInfo.checkCode", "32");
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         //需要在redis存值，不然图形校验不通过
 //        获取验证码,需要查询加密后的手机号
