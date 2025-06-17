@@ -1,0 +1,46 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "id": 55,
+    "title": "奶茶甜品",
+    "channelAdList": [
+      {
+        "title": "图片广告",
+        "content": null,
+        "type": null,
+        "imgUrl": "https://static.hungrypanda.co/crm/17491897464174a8e5ff9ffcf4a1ea57a0b15396c1809.jpg",
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly9zaG9wRGV0YWlsP3Nob3BJZD02Njk3NzA3MzcifQ**&callback=CALLBACK_NAME&code=72508db616757cd",
+        "bubbleContent": null,
+        "adType": null,
+        "adId": "39",
+        "indexModuleDetailId": null,
+        "drainageScene": null,
+        "openType": null,
+        "androidUrl": null,
+        "iosUrl": null,
+        "imgUrlNew": null,
+        "iconColor": null,
+        "activityType": null,
+        "activityId": null,
+        "position": null,
+        "smallImgUrl": null
+      }
+    ],
+    "channelGroupList": [
+      {
+        "id": 0,
+        "title": "推荐",
+        "img": "https://static.hungrypanda.co/panda/16868182722979b43287679a243ed8a2a86211ae16b35.png"
+      },
+      {
+        "id": 99,
+        "title": "奶茶",
+        "img": ""
+      }
+    ]
+  },
+  "currency": "¥",
+  "success": true
+}

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("学生认证页面H5")
 public class EduInfoTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/edu/info";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/edu/info";
     // 请求方式
     String method = "POST";
     // 请求头
@@ -24,13 +24,14 @@ public class EduInfoTests {
     String body = "module/activity/edu/request/success.json";
     // 断言
     String assert2 = "module/activity/edu/response/assert_some_fields.json";
-    @DisplayName("任务中心主页面H5")
+    @DisplayName("学生认证H5")
     @Test
     void shouldReturnSuccessfully() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        requestHeaders.put("Authorization",TestCaseHelpful.login("17700000066","123456"));
 //        HashMap<String,Object> params = new HashMap<>();
 //        params.put("moduleId",2411);
 //        params.put("pageNo",1);

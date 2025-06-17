@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("任务中心主页面H5")
 public class TaskCenterTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/task/center";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/task/center";
     // 请求方式
     String method = "POST";
     // 请求头
@@ -30,6 +30,7 @@ public class TaskCenterTests {
     void shouldReturnSuccessfully() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("Authorization",TestCaseHelpful.login("17700000066","123456"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
 //        HashMap<String,Object> params = new HashMap<>();

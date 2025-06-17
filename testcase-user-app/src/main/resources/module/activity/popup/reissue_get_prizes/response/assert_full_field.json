@@ -1,0 +1,32 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"redPacketVO": {
+			"redPacketId": 888895244,
+			"redPacketType": 1,
+			"redPacketName": "自动化-九江市-普通券-勿动02",
+			"redPacketPrice": 500,
+			"discountRate": "0",
+			"thresholdPrice": 1000,
+			"maxRedPacketPrice": null,
+			"minDiscountRate": null,
+			"minThresholdPrice": null,
+			"validDays": 0,
+			"countDown": -1,
+			"redPacketDesc": "1994天内可用",
+			"showLabel": null,
+			"jumpUrl": "",
+			"popupType": 0,
+			"redPacketLabel": null,
+			"redPacketRange": null,
+			"redPacketScopeType": 0,
+			"reissueId": 189
+		},
+		"memberVO": null,
+		"prizesType": 2
+	},
+	"currency": "¥",
+	"success": true
+}
