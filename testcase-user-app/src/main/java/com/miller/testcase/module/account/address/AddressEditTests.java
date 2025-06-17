@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("编辑地址_Web站")
 public class AddressEditTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/v1/address/edit";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/address/edit";
     // 请求方式
     String method = "POST";
     // 请求头

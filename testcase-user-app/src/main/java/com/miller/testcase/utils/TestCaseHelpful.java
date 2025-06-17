@@ -112,7 +112,7 @@ public class TestCaseHelpful {
      */
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
-        // 处理 Web 站 请求验签
+        // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
         if (body instanceof String) {
             try {
                 JSONObject jsonBody = JSONUtils.parseObject(body.toString());
@@ -140,6 +140,12 @@ public class TestCaseHelpful {
                     }
                     headers.put("Host", host);
                     body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    // 方案二：后续处理
+                    WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
+                            JSONUtils.parseObject(body.toString()).getString("nu"),
+                            JSONUtils.parseObject(body.toString()).getString("nm"),
+                            JSONUtils.parseObject(body.toString()).getString("nh"),
+                            JSONUtils.parseObject(body.toString()).getString("nb"));
                 }
             } catch (Exception e) {
                 // 解析失败说明不是JSON格式,忽略异常

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("web-m站-新用户弹窗")
 public class UserPopupTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/new/user/popup";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/new/user/popup";
     // 请求方式
     String method = "POST";
     // 请求头

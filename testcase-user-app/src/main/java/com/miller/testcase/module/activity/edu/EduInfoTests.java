@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("学生认证页面H5")
 public class EduInfoTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/edu/info";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/edu/info";
     // 请求方式
     String method = "POST";
     // 请求头

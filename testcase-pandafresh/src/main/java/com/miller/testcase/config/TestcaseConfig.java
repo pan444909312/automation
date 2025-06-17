@@ -11,6 +11,11 @@ public class TestcaseConfig {
      */
     public static final String HOST = "https://test.pandafreshmart.com";
 
+    /**
+     * H5接口请求的域名
+     */
+    public static final String H5HOST = "https://api-cn-f2e-test.hungrypanda.cn";
+
     public static final String HpHOST = "https://app-test.hungrypanda.cn";
 
     /**

@@ -17,7 +17,7 @@ import java.util.HashMap;
 @DisplayName("获取活动专题信息-一排三店铺列表")
 public class ActivitySimpleShopListTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.Host_Mobile + "/api/user/activity/getSimpleShopListByModuleId";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/activity/getSimpleShopListByModuleId";
     // 请求方式
     String method = "POST";
     // 请求头

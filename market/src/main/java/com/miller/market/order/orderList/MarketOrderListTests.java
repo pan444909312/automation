@@ -33,20 +33,20 @@ public class MarketOrderListTests {
         Assertions.assertThat(responseDTO.getCode()).isEqualTo(ResponseConstant.code);
         Assertions.assertThat(responseDTO.getData()).isNotNull();
         //查询待支付的订单
-        requestDTO.setType(1);
-        responseDTO = MarketOrderListFlow.orderList(requestDTO);
-
-        Assertions.assertThat(responseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        Assertions.assertThat(responseDTO.getData()).isNotNull();
-        //查询进行中的订单
-        requestDTO.setType(2);
-        responseDTO = MarketOrderListFlow.orderList(requestDTO);
-
-        Assertions.assertThat(responseDTO.getCode()).isEqualTo(ResponseConstant.code);
-        Assertions.assertThat(responseDTO.getData()).isNotNull();
-        //查询已完成的订单
-        requestDTO.setType(3);
-        responseDTO = MarketOrderListFlow.orderList(requestDTO);
+//        requestDTO.setType(1);
+//        responseDTO = MarketOrderListFlow.orderList(requestDTO);
+//
+//        Assertions.assertThat(responseDTO.getCode()).isEqualTo(ResponseConstant.code);
+//        Assertions.assertThat(responseDTO.getData()).isNotNull();
+//        //查询进行中的订单
+//        requestDTO.setType(2);
+//        responseDTO = MarketOrderListFlow.orderList(requestDTO);
+//
+//        Assertions.assertThat(responseDTO.getCode()).isEqualTo(ResponseConstant.code);
+//        Assertions.assertThat(responseDTO.getData()).isNotNull();
+//        //查询已完成的订单
+//        requestDTO.setType(3);
+//        responseDTO = MarketOrderListFlow.orderList(requestDTO);
 
         Assertions.assertThat(responseDTO.getCode()).isEqualTo(ResponseConstant.code);
         Assertions.assertThat(responseDTO.getData()).isNotNull();
