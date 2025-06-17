@@ -109,7 +109,7 @@ public class TestCaseHelpful {
      */
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
-        // 处理 Web 站 请求验签
+        // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
         if (body instanceof String) {
             try {
                 JSONObject jsonBody = JSONUtils.parseObject(body.toString());
