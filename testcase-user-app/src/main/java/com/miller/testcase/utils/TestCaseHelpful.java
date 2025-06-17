@@ -1,7 +1,9 @@
 package com.miller.testcase.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.jayway.jsonpath.PathNotFoundException;
 import com.jayway.jsonpath.Predicate;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.cache.remote.redis.RedisService;
@@ -16,7 +18,6 @@ import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * 测试用例助手, 简化和提高用例开发效率，作用如下：
@@ -221,24 +222,26 @@ public class TestCaseHelpful {
     public static String getFileContent(String filePath) {
         return JsonUtils.getFileContent(filePath);
     }
-
     /**
-     * 更新 JSON 内容
-     * @param jsonStr JSON 字符串
-     * @param key 修改的 key
-     * @param newValue 修改的 value
-     * @return 修改后的 JSON 字符串
+     * 使用 JSONPath 更新 JSON 字符串中指定 key 的值为新的值
+     *
+     * @param jsonStr 原始JSON字符串
+     * @param jsonPath JSONPath表达式，例如 "$.store.book[0].title"
+     * @param newValue 需要更新的新的值
+     * @return 更新后的JSON字符串
+     * @throws JSONException 当输入的字符串不是有效的JSON格式时抛出
+     * @throws PathNotFoundException 当指定的JSONPath不存在时抛出
      */
-    public static String updateJsonValue(String jsonStr, String key, Object newValue) {
-        return JSONUtils.updateJsonValue(jsonStr, key, newValue);
+    public static String updateJsonValue(String jsonStr, String jsonPath, Object newValue) {
+        return JSONUtils.updateJsonValueByPath(jsonStr, jsonPath, newValue);
     }
 
-    /**
-     * 登录并返回token
-     * @param mobilePhone 手机号 areaCode 默认 86
-     * @param password  登录密码
-     * @return token
-     */
+        /**
+         * 登录并返回token
+         * @param mobilePhone 手机号 areaCode 默认 86
+         * @param password  登录密码
+         * @return token
+         */
     public static String login(String mobilePhone, String password) {
         password = MD5Util.string2MD5(password);
 
@@ -282,7 +285,7 @@ public class TestCaseHelpful {
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/account/getVerificationCode/request/should_success.json");
         requestBody= TestCaseHelpful.updateJsonValue(requestBody, "captchaToken", "28d33b2425c344c581a4520f3c8c98f9");
         requestBody= TestCaseHelpful.updateJsonValue(requestBody, "phoneNumber", tel);
-//        todo：updateJsonValue暂时不支持多层级修改；这里json对象转字符串，再修改
+//        todo：updateJsonValue 暂时不支持多层级修改；这里json对象转字符串，再修改
 // 解析为 JSONObject
         JSONObject jsonObject = JSON.parseObject(requestBody);
 // 获取 captchaCheckInfo
