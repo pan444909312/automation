@@ -1,0 +1,198 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"taskItemVOList": [
+			{
+				"taskSn": "1451VXACSG",
+				"taskStatus": 4,
+				"orderMinPrice": 1,
+				"orderType": "[0,1,2]",
+				"redPacketPrice": null,
+				"thresholdPrice": null,
+				"discountRate": null,
+				"redPacketTypeId": null,
+				"title": null,
+				"awardType": 0,
+				"outId": null,
+				"completeOrders": 0,
+				"remainTime": null,
+				"startTime": "2025年06月11日",
+				"endTime": "2025年06月13日",
+				"tip": null,
+				"userGroupName": null,
+				"taskType": 1,
+				"sortNum": null,
+				"dayNum": 3,
+				"orderNum": 0,
+				"award": null,
+				"taskRule": "每单实付满¥0.01",
+				"userTaskType": 2,
+				"taskTimeCountdown": null,
+				"taskName": "特殊任务2",
+				"backgroundImg": "https://static.hungrypanda.co/crm/1749455308481987138f3f0fd43c8992ab87d118fa926.png",
+				"taskAward": null,
+				"taskRedPacketNum": null,
+				"specialSubTaskList": [
+					{
+						"taskId": 2031,
+						"dayNum": 3,
+						"subTaskId": 12606,
+						"subTaskStatus": 3,
+						"sort": 0,
+						"type": 1,
+						"orderNum": 1,
+						"taskCenterUrl": null,
+						"taskAward": {
+							"subTaskId": 12606,
+							"taskId": null,
+							"benefitType": null,
+							"awardType": 2,
+							"awardText": "无门槛立减",
+							"redPacketTypeId": null,
+							"discountAward": null,
+							"award": 2200,
+							"awardStatus": 1,
+							"memberCardType": null,
+							"memberCard": null,
+							"taskRedPacketList": [
+								{
+									"isUsed": null,
+									"redPacketId": 888895040,
+									"shopId": 0,
+									"redPacketPrice": 2200,
+									"thresholdPrice": 0,
+									"discountRate": 0.0,
+									"maxDiscountPrice": 2200,
+									"myRedPacketUrl": null,
+									"myRedPacketPic": null,
+									"redPacketNum": 1,
+									"redPacketName": "cc测试平台-运费",
+									"redPacketRuleList": [
+										"仅限Panda配送可用",
+										"仅限外卖使用",
+										"与店铺独享优惠不可同享",
+										"全国通用"
+									],
+									"benefitType": null,
+									"redPacketStatus": 1,
+									"redPacketEffectDate": "2025/06/19",
+									"redPacketTypeId": 11,
+									"waitHourDesc": null
+								}
+							],
+							"totalRedPacketNum": 1
+						}
+					},
+					{
+						"taskId": 2031,
+						"dayNum": 3,
+						"subTaskId": 12607,
+						"subTaskStatus": 3,
+						"sort": 1,
+						"type": 1,
+						"orderNum": 2,
+						"taskCenterUrl": null,
+						"taskAward": {
+							"subTaskId": 12607,
+							"taskId": null,
+							"benefitType": null,
+							"awardType": 2,
+							"awardText": "无门槛立减",
+							"redPacketTypeId": null,
+							"discountAward": null,
+							"award": 2200,
+							"awardStatus": 1,
+							"memberCardType": null,
+							"memberCard": null,
+							"taskRedPacketList": [
+								{
+									"isUsed": null,
+									"redPacketId": 888895040,
+									"shopId": 0,
+									"redPacketPrice": 2200,
+									"thresholdPrice": 0,
+									"discountRate": 0.0,
+									"maxDiscountPrice": 2200,
+									"myRedPacketUrl": null,
+									"myRedPacketPic": null,
+									"redPacketNum": 1,
+									"redPacketName": "cc测试平台-运费",
+									"redPacketRuleList": [
+										"仅限Panda配送可用",
+										"仅限外卖使用",
+										"与店铺独享优惠不可同享",
+										"全国通用"
+									],
+									"benefitType": null,
+									"redPacketStatus": 1,
+									"redPacketEffectDate": "2025/06/19",
+									"redPacketTypeId": 11,
+									"waitHourDesc": null
+								}
+							],
+							"totalRedPacketNum": 1
+						}
+					},
+					{
+						"taskId": 2031,
+						"dayNum": 3,
+						"subTaskId": 12608,
+						"subTaskStatus": 3,
+						"sort": 2,
+						"type": 1,
+						"orderNum": 3,
+						"taskCenterUrl": null,
+						"taskAward": {
+							"subTaskId": 12608,
+							"taskId": null,
+							"benefitType": null,
+							"awardType": 2,
+							"awardText": "无门槛立减",
+							"redPacketTypeId": null,
+							"discountAward": null,
+							"award": 2200,
+							"awardStatus": 1,
+							"memberCardType": null,
+							"memberCard": null,
+							"taskRedPacketList": [
+								{
+									"isUsed": null,
+									"redPacketId": 888895040,
+									"shopId": 0,
+									"redPacketPrice": 2200,
+									"thresholdPrice": 0,
+									"discountRate": 0.0,
+									"maxDiscountPrice": 2200,
+									"myRedPacketUrl": null,
+									"myRedPacketPic": null,
+									"redPacketNum": 1,
+									"redPacketName": "cc测试平台-运费",
+									"redPacketRuleList": [
+										"仅限Panda配送可用",
+										"仅限外卖使用",
+										"与店铺独享优惠不可同享",
+										"全国通用"
+									],
+									"benefitType": null,
+									"redPacketStatus": 1,
+									"redPacketEffectDate": "2025/06/19",
+									"redPacketTypeId": 11,
+									"waitHourDesc": null
+								}
+							],
+							"totalRedPacketNum": 1
+						}
+					}
+				],
+				"receivedUserTaskId": 23338,
+				"taskRedPacketGroup": null
+			}
+		],
+		"currency": "¥",
+		"nextPage": false
+	},
+	"currency": "¥",
+	"success": true
+}

@@ -1,0 +1,19 @@
+{
+	"code": 1,
+	"message": "成功",
+	"data": {
+		"manager": {
+			"userId": 1748,
+			"userName": "dongdong_test",
+			"userNick": "单东东",
+			"userPic": "",
+			"userTelphone": "15606690056",
+			"passwordUpdateTime": 1695004756275,
+			"cities": null,
+			"roleNames": null
+		}
+	},
+	"currencySymbol": null,
+	"sql": null,
+	"queryList": null
+}

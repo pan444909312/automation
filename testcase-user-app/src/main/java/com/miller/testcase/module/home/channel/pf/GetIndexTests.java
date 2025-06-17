@@ -1,4 +1,4 @@
-package com.miller.testcase.module.activity.taskcenter;
+package com.miller.testcase.module.home.channel.pf;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -7,30 +7,29 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
 @Scenario(
-        scenarioID = "01JWSS1KB2H2X5WV4YW6GE43GA",
-        scenarioName = "任务中心主页面H5",
+        scenarioID = "01JWSS1KB2H2X5WV4YW6GE43GD",
+        scenarioName = "PF品类频道-获取页面信息",
         author = "yancancan@hungrypandagroup.com",
-        developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("任务中心主页面H5")
-public class TaskCenterTests {
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+@DisplayName("PF品类频道-获取页面信息")
+public class GetIndexTests {
     // 接口请求的 path
-    String uri = TestcaseConfig.Host_Mobile + "/api/app/user/task/center";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/channel/getIndex";
     // 请求方式
     String method = "POST";
     // 请求头
-    String headers = "module/activity/taskcenter/request/headers_topic.json";
+    String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/activity/taskcenter/request/success.json";
+    String body = "module/home/module/channel/pf/request/success.json";
     // 断言
-    String assert2 = "module/activity/taskcenter/response/assert_some_fields.json";
-    @DisplayName("任务中心主页面H5")
+    String assert2 = "module/home/module/channel/pf/response/assert_some_fields.json";
+    @DisplayName("PF品类频道-获取页面信息")
     @Test
     void shouldReturnSuccessfully() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("Authorization",TestCaseHelpful.login("17700000066","123456"));
+        requestHeaders.put("authorization",TestCaseHelpful.login("17700000077","123456"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
 //        HashMap<String,Object> params = new HashMap<>();
