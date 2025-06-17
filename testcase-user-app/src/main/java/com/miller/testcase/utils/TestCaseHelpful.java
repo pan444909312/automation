@@ -1,5 +1,6 @@
 package com.miller.testcase.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jayway.jsonpath.Predicate;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
@@ -108,12 +109,34 @@ public class TestCaseHelpful {
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
         // 处理 Web 站 请求验签
-        if (uri.contains(TestcaseConfig.Host_Mobile)) {
-            Map pd = JSONUtils.parseObject(body.toString()).getJSONObject("pd").toJavaObject(Map.class);
-            body = WebSignUtils.signRequestBody(uri, method, headers, pd);
+        if (body instanceof String) {
+            try {
+                JSONObject jsonBody = JSONUtils.parseObject(body.toString());
+                // 判断是否是 Web 站请求体，如果是，则转为 app 请求体
+                if (jsonBody.containsKey("pm") &&
+                        jsonBody.containsKey("ph") &&
+                        jsonBody.containsKey("pd") &&
+                        jsonBody.containsKey("nv") &&
+                        jsonBody.containsKey("nt") &&
+                        jsonBody.containsKey("nn") &&
+                        jsonBody.containsKey("nd")) {
+                    // 转为 app 请求体
+                    String[] uriParts = uri.split("/api/");
+                    String path = "/api/" + uriParts[1];
+                    uri = TestcaseConfig.HOST_APP + path;
+                    method = JSONUtils.parseObject(body.toString()).getString("pm");
+                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
+                    // 避免 Authorization 被 Web 请求体的 ph 覆盖
+                    webBodyHeaders.remove("authorization");
+                    webBodyHeaders.putAll(headers);
+                    headers.putAll(webBodyHeaders);
+                    body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                }
+            } catch (Exception e) {
+                // 解析失败说明不是JSON格式,忽略异常
+            }
         }
 
-        var responseBody = "";
         method = method.toUpperCase();
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
