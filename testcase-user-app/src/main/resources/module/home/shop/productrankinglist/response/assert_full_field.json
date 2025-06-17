@@ -1,0 +1,26 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"list": [{
+			"promoteSn": "${json-unit.any-string}",
+			"productId": "${json-unit.any-number}",
+			"productName": "${json-unit.any-string}",
+			"productPrice":  "${json-unit.any-number}",
+			"orgProductPrice":  "${json-unit.any-number}",
+			"comboDiscountContext":"${json-unit.ignore-element}",
+			"promoteRate":  "${json-unit.any-number}",
+			"promoteStockNum":  "${json-unit.any-number}",
+			"productImg": "${json-unit.any-string}",
+			"menuId":  "${json-unit.any-number}",
+			"isSpecial":  "${json-unit.any-number}"
+
+		}],
+		"rankingContent": "${json-unit.any-string}"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

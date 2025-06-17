@@ -1,0 +1,13 @@
+{
+  "areaCode": "86",
+  "captchaToken": "dc735a48062944bf81c00bacee5d0e19",
+  "scene": 103,
+  "captchaCheckInfo": {
+    "captchaType": 2,
+    "imageCheckInfo": {
+      "checkCode": "24"
+    }
+  },
+  "sendType": 0,
+  "phoneNumber": "17700000066"
+}

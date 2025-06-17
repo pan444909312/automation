@@ -1,0 +1,65 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"evaluate": {
+			"evaluationId": "${json-unit.any-number}",
+			"shopId": 930937488,
+			"manner": "${json-unit.any-number}",
+			"taste": "${json-unit.any-number}",
+			"composite": "${json-unit.any-number}",
+			"praiseAverage": "100",
+			"createTime": "${json-unit.any-number}",
+			"mannerToFiveStr": "${json-unit.any-string}",
+			"tasteToFiveStr": "${json-unit.any-string}",
+			"compositeToFiveStr": "${json-unit.any-string}",
+			"praiseAverageToFiveStr": "${json-unit.any-string}"
+		},
+		"evaDetailList": [{
+			"evaluationDetailId": "${json-unit.any-number}",
+			"evaluationId": "${json-unit.any-number}",
+			"orderId": "${json-unit.any-number}",
+			"userId": "${json-unit.any-number}",
+			"shopId": 930937488,
+			"manner": "${json-unit.any-number}",
+			"taste": "${json-unit.any-number}",
+			"composite": "${json-unit.any-number}",
+
+
+			"remark": "${json-unit.any-string}",
+			"evaluationImg": "${json-unit.any-string}",
+			"integral": "${json-unit.any-number}",
+			"shopRemark": "${json-unit.ignore-element}",
+			"shopRemarkTime": "${json-unit.ignore-element}",
+			"userName": "${json-unit.any-string}",
+			"userPic": "https://static.hungrypanda.co/panda/1739413890711c9437a28295a4a05b1def94af269cecd.png",
+			"userNick": "${json-unit.ignore-element}",
+			"createTime": "${json-unit.any-number}",
+			"updateTime": "${json-unit.any-number}",
+
+
+			"createTimeStr": "${json-unit.any-string}",
+			"anonymous": "${json-unit.any-number}"
+		}],
+		"evaluateCount": "${json-unit.any-number}",
+		"showShopEvaluationNum": "${json-unit.any-number}",
+		"evaluateFilterList": [{
+			"evaluateFilterName": "${json-unit.any-string}",
+			"evaluateFilterType": "${json-unit.any-number}",
+			"evaluateCount": "${json-unit.any-number}"
+		}, {
+			"evaluateFilterName": "${json-unit.any-string}",
+			"evaluateFilterType": "${json-unit.any-number}",
+			"evaluateCount": "${json-unit.any-number}"
+		}, {
+			"evaluateFilterName": "${json-unit.any-string}",
+			"evaluateFilterType": "${json-unit.any-number}",
+			"evaluateCount": "${json-unit.any-number}"
+		}]
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

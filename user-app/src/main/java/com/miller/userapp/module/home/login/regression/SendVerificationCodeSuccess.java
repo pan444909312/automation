@@ -77,6 +77,10 @@ public class SendVerificationCodeSuccess {
     }
 
     public SmsSendVerificationCodeReq getSmsSendVerificationCodeReq(String phone) {
+        return getSmsSendVerificationCodeReq(phone,102);
+    }
+
+    public SmsSendVerificationCodeReq getSmsSendVerificationCodeReq(String phone,Integer scene) {
         CaptchaCheckDTO captchaCheckInfo = new CaptchaCheckDTO();
         ImageCaptchaCheckDTO imageCheckInfo = new ImageCaptchaCheckDTO();
         imageCheckInfo.setCheckCode(checkCode.toString());
@@ -88,7 +92,7 @@ public class SendVerificationCodeSuccess {
         smsSendVerificationCodeReq.setAreaCode("86");
         smsSendVerificationCodeReq.setPhoneNumber(phone);
         smsSendVerificationCodeReq.setSendType(0);
-        smsSendVerificationCodeReq.setScene(102);
+        smsSendVerificationCodeReq.setScene(scene);
         smsSendVerificationCodeReq.setCaptchaCheckInfo(captchaCheckInfo);
         smsSendVerificationCodeReq.setCaptchaToken(captchaToken);
         return smsSendVerificationCodeReq;

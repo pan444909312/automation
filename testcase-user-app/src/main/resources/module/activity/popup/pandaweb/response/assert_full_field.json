@@ -1,0 +1,73 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "id": null,
+    "topicId": 0,
+    "bgImg": null,
+    "url": null,
+    "type": 4,
+    "destination": null,
+    "shopId": 0,
+    "redEnvelopes": null,
+    "memberPopup": null,
+    "newUserRedPacketPopup": {
+      "benefitNo": "UB1304091674678394880",
+      "amount": 2400,
+      "collectAmount": null,
+      "collectStatus": 0,
+      "num": null,
+      "currency": "€",
+      "outUrl": null,
+      "hold": 0,
+      "redPackets": [
+        {
+          "redPacketId": 888890144,
+          "redPacketName": "自动化测试cc勿动券01",
+          "redPacketPricePenny": 800,
+          "sortNum": 0,
+          "unitSendNum": 3,
+          "collectNum": null,
+          "thresholdPrice": 0,
+          "status": null,
+          "endTime": 2327241599999,
+          "redPacketDesc": "无门槛",
+          "platformSortNum": 1,
+          "thresholdSortNum": 1,
+          "redPacketTypeId": 1,
+          "discountRate": 0.0,
+          "redPacketNameEn": "自动化测试cc勿动券01",
+          "city": "",
+          "validDays": 0
+        }
+      ],
+      "isCollectInterface": null
+    },
+    "redPacketGroupPopupInfo": null,
+    "saveMoneyInfo": null,
+    "moduleAdvertisementPopupVO": null,
+    "adType": null,
+    "adId": null,
+    "taskPopupVO": null,
+    "secondRedpacketVO": null,
+    "inviteCommonEntranceVO": null,
+    "payGroupPopupVO": null,
+    "memberCenterDetailVO": null,
+    "drainageScene": null,
+    "openType": null,
+    "androidUrl": null,
+    "iosUrl": null,
+    "cardType": null,
+    "cardId": null
+  },
+  "currency": "$",
+  "success": true,
+  "nowTime": 1749127470472,
+  "queryList": {
+    "1": "hp_master: select city_id, city, time_zone, is_fix_point, sort_distance_wight, city_name_en, is_open_faraway, activity_status, inlet_tips, share_picture, travel_mode,is_use_index_module,age_limit,city_shop_sort,city_shop_evaluation_config,is_use_index_module_en, take_meal_after_out,driver_operation_distance_limit_type,open_languge_page,map_resource, polling_on_off,excise_calculate_type,is_del,city_code,delivery_map_resource,order_tax_type, tab_voucher,deliverable_action from city_config where city = '九江市' and is_del = 0 limit 1",
+    "2": "hp_master: SELECT ubc.*,ubrc.city_name from hp_user_benefit_config ubc left join hp_user_benefit_red_packet_city ubrc on ubc.benefit_no=ubrc.benefit_no where ubrc.city_id=508 and ubc.start_time <= 1749127470441 and ubc.end_time >=1749127470441 and ubc.benefit_type=1 and ubrc.del=0 and ubc.del=0 and ubc.config_status=0",
+    "3": "hp_master: select id, user_id, collect_source, red_packet_id, create_time, update_time, device_id, batch_no from hp_user_new_red_packet_record where device_id = '7c5e3964-6ffc-440b-8166-c625281afd7a' and type = 1 group by batch_no",
+    "4": "hp_master: select count(*) from user_log ul,`user` u where ul.user_id = u.user_id and u.new_user_status = 1 and `device_id` = '7c5e3964-6ffc-440b-8166-c625281afd7a' and `user_type` in (0, 1)"
+  }
+}

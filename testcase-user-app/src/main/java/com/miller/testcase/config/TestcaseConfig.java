@@ -18,6 +18,11 @@ public class TestcaseConfig {
      * 前端安全代理服务器。注意：前端实际请求是先发送到代理服务器 api-cn-f2e-test.hungrypanda.cn。例如： f2e-web-test.hungrypanda.cn
      */
     public static final String Host_Mobile = "https://api-cn-f2e-test.hungrypanda.cn";
+    /**
+     * 测试环境ERP接口请求的域名
+     */
+    public static final String HOST_ERP = "https://test-gateway.hungrypanda.cn";
+
 
     /**
      * Redis 配置

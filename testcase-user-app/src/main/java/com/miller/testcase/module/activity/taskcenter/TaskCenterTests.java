@@ -30,6 +30,7 @@ public class TaskCenterTests {
     void shouldReturnSuccessfully() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("Authorization",TestCaseHelpful.login("17700000066","123456"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
 //        HashMap<String,Object> params = new HashMap<>();

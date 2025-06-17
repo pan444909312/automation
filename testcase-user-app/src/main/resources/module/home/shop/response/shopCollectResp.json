@@ -1,0 +1,17 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "collectId": "${json-unit.any-number}",
+    "shopId": 930937488,
+    "userId": "${json-unit.any-number}",
+    "isDel": "${json-unit.ignore-element}",
+    "collectStatus":"${json-unit.any-number}",
+    "addSource": "${json-unit.ignore-element}"
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}
