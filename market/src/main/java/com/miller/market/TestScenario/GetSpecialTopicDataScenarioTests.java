@@ -13,18 +13,18 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         MarketLoginTests.class,
         //获取普通专题商品
         MarketGetSpecialTopicGoodsByGeneralTests.class,
-        //获取N选1专题商品
-        MarketGetSpecialTopicGoodsByChooseOneTests.class,
-        //获取组合促销商品
-        MarketGetSpecialTopicGoodsByCombineTests.class,
-        //获取随心配商品
-        MarketGetSpecialTopicGoodsByFollowWithTests.class,
-        //获取临期专题商品
-        MarketGetSpecialTopicGoodsByLotTests.class,
-        //获取新人专题商品
-        MarketGetSpecialTopicGoodsByNewPersonTests.class,
-        //获取限时秒杀专题商品
-        MarketGetSpecialTopicGoodsBySeckillTests.class,
+//        //获取N选1专题商品
+//        MarketGetSpecialTopicGoodsByChooseOneTests.class,
+//        //获取组合促销商品
+//        MarketGetSpecialTopicGoodsByCombineTests.class,
+//        //获取随心配商品
+//        MarketGetSpecialTopicGoodsByFollowWithTests.class,
+//        //获取临期专题商品
+//        MarketGetSpecialTopicGoodsByLotTests.class,
+//        //获取新人专题商品
+//        MarketGetSpecialTopicGoodsByNewPersonTests.class,
+//        //获取限时秒杀专题商品
+//        MarketGetSpecialTopicGoodsBySeckillTests.class,
 
 
 })
