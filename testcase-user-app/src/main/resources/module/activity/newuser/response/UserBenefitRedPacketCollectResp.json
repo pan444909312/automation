@@ -1,0 +1,10 @@
+{
+  "resultCode": 160034,
+  "error": "哎呀，来晚啦，红包已被抢空",
+  "reason": "哎呀，来晚啦，红包已被抢空",
+  "result": null,
+  "currency": "${json-unit.any-string}",
+  "success": false,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

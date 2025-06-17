@@ -1,0 +1,20 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "filterGroup": null,
+    "shopList": "${json-unit.ignore}",
+    "totalShopNum": 17,
+    "marketCategories": null,
+    "mapRadius": null,
+    "showShopNum": null,
+    "shopCardType": null,
+    "shopCardVersion": null,
+    "searchCardVersion": "2.0"
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}
