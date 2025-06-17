@@ -4,7 +4,6 @@
   "reason": "成功",
   "result": {
     "url": "",
-    "activityId": "LAW6220240717104118",
     "taskItemVOList": [
       {
         "taskSn": "611QZQFOM8",
@@ -21,14 +20,12 @@
         "completeOrders": null,
         "remainTime": null,
         "startTime": null,
-        "endTime": "截止6月05日23:59",
         "tip": null,
         "userGroupName": "全部用户不准动！！！",
         "taskType": 1,
         "sortNum": 3,
         "dayNum": 1,
         "orderNum": 3,
-        "endTimeLong": 1749139199999,
         "award": null,
         "taskRule": "每单实付满¥0.01",
         "userTaskType": 1,
