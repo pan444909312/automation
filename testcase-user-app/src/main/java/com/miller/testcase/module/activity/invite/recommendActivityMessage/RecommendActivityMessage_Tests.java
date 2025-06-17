@@ -1,4 +1,4 @@
-package com.miller.testcase.module.activity.invite.recommendActivityInfo;
+package com.miller.testcase.module.activity.invite.recommendActivityMessage;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -8,31 +8,31 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * RecommendActivityInfo
+ * recommendactivitymessage
  *
  * @author HuYang
  * @version 2.0
- * @since 2025/06/17 15:26:19
+ * @since 2025/06/17 15:42:56
  */
 @Scenario(
-        scenarioID = "01JXYCG4K0XJCDX228630S3PW5", // 自动生成，不要修改
-        scenarioName = "推荐有奖活动信息",
+        scenarioID = "01JXYDEJBQK1J7WJDTRNGM4YJ8", // 自动生成，不要修改
+        scenarioName = "老邀新-邀请短信",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("推荐有奖活动信息")
-public class RecommendActivityInfo_Tests {
+@DisplayName("老邀新-邀请短信")
+public class RecommendActivityMessage_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HOST_APP + "/api/app/user/recommend/activity/info";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/recommend/activity/message";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
-    String headers = "module/activity/invite/recommendActivityInfo/request/headers.json";
+    String headers = "module/activity/invite/recommendActivityMessage/request/headers.json";
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
     String params = null;
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-    String body = "module/activity/invite/recommendActivityInfo/request/should_success.json";
+    String body = "module/activity/invite/recommendActivityMessage/request/should_success.json";
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assert1 = "module/activity/invite/recommendActivityInfo/response/assert_full_field.json";
+    String assert1 = "module/activity/invite/recommendActivityMessage/response/assert_full_field.json";
 
     @DisplayName("正向流程")
     @Test
