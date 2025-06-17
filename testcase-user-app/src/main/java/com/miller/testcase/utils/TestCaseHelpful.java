@@ -137,6 +137,12 @@ public class TestCaseHelpful {
                     }
                     headers.put("Host", host);
                     body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    // 方案二：后续处理
+                    WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
+                            JSONUtils.parseObject(body.toString()).getString("nu"),
+                            JSONUtils.parseObject(body.toString()).getString("nm"),
+                            JSONUtils.parseObject(body.toString()).getString("nh"),
+                            JSONUtils.parseObject(body.toString()).getString("nb"));
                 }
             } catch (Exception e) {
                 // 解析失败说明不是JSON格式,忽略异常
