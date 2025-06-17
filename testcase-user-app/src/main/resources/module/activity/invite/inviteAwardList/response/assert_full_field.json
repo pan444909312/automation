@@ -1,0 +1,19 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"inviteAwardVOS": [{
+			"type": 1
+		}, {
+			"type": 2
+		}, {
+			"type": 3
+		}],
+		"awardType": 2
+	},
+	"currency": "${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"time": "${json-unit.any-number}"
+}
