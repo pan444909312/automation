@@ -1,0 +1,35 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"sharePacket": {
+			"inviteUrl": "https://share.hungrypanda.vip/u5v",
+			"inviteTitle": "第3个领取的人红包最大哦！",
+			"inviteContent": "",
+			"shareIconImgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/f83664e6300f04a7d3f364e4f5c46b85.jpg?Expires=2063082200&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=LAIjJBlu8lq%2Bekc0M9lMi6d0Clg%3D",
+			"bigSort": null,
+			"isOpen": null
+		},
+		"isOpenInvite": 1,
+		"inviteRedPacketImgUrl": "https://static.hungrypanda.co/crm/17187074520221718707452022e8e513b5a977434489303d0546470e94.gif",
+		"shareRedPacketImgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/4d0b7b2aaad15d654ed4abb86f2e2ff3.jpg?Expires=2063082191&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=jz5Yee%2FVFTCvc8LlS0cWhpLU%2BNI%3D",
+		"resourceType": 1,
+		"newInvite": null,
+		"communityEntranceImgUrl": null,
+		"communityEntranceLink": null,
+		"adSense": 1,
+		"adUnitId": "ca-app-pub-5066204861113818/9241558018",
+		"inventoryType": {
+			"adPic": null,
+			"adLinkUrl": null,
+			"type": null,
+			"adId": null,
+			"adType": null,
+			"adSense": 2,
+			"googleAdUnitId": "ca-app-pub-5066204861113818/9241558018"
+		}
+	},
+	"currency": "¥",
+	"success": true
+}
