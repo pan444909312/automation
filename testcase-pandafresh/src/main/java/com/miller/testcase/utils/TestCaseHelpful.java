@@ -1,5 +1,7 @@
 package com.miller.testcase.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.jayway.jsonpath.Predicate;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
@@ -8,9 +10,11 @@ import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 测试用例助手, 简化和提高用例开发效率，作用如下：
@@ -63,33 +67,6 @@ public class TestCaseHelpful {
     public static String getJsonRequestBody(String filePath) {
         if (null == filePath || filePath.isBlank()) return null;
         String testCaseResource = JsonUtils.getFileContent(filePath);
-        /*
-         * 对请求参数的二次处理，为后续验签准备
-         * // 对请求参数的额外操作。以下代码是为代码因为现在还没有用到对请求体加密。
-         *
-         * // 验签规则：
-         * // 1. 获取所有请求体内容，放入到 JSONObject 对象中。
-         * // 2. 将 ：authorization， _ts 添加到 JSONObject。
-         * // 3. 调用 SignGenerateUtil.getSign（）方法获取 _sign。
-         * // 4. 将 _sign和_ts放到请求头发送给服务端。
-         * String body = "{\"isOnline\":1}";
-         * JSONObject jsonObjectBody = new JSONObject();
-         * // 使用 fastjson 工具类，因为其他工具可能会出现转换之后类型变了的问题。比如：1 变成 1.0
-         *
-         * Map requestBody = JSON.parseObject(body, Map.class);
-         * jsonObjectBody.putAll(requestBody);
-         * var time = System.currentTimeMillis();
-         * jsonObjectBody.put("_ts", time);
-         * String token = RequestUtils.getHeaders().get("authorization").toString();
-         * jsonObjectBody.put("authorization", token);
-         * var requestSignatureKey = "ldkai_1ldal#nvhsl*afl3g2akgbvsa";
-         * var signReal = SignGenerateUtil.getSign(jsonObjectBody, requestSignatureKey);
-         * // 给请求头添加验签参数
-         * RequestUtils.getHeaders().put("_sign", signReal);
-         * RequestUtils.getHeaders().put("_ts", time);
-         * return body;
-         */
-
         return testCaseResource;
     }
 
@@ -120,7 +97,30 @@ public class TestCaseHelpful {
      */
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
-        var responseBody = "";
+        JSONObject requestJsonObject = JSON.parseObject(body.toString());
+
+        // 将true和false转换成0和1
+        for (String key : requestJsonObject.keySet()) {
+            String value = requestJsonObject.getString(key);
+            if (Objects.equals(value, Boolean.TRUE.toString())) {
+                requestJsonObject.put(key, NumberUtils.BYTE_ONE);
+                continue;
+            }
+            if (Objects.equals(value, Boolean.FALSE.toString())) {
+                requestJsonObject.put(key, NumberUtils.BYTE_ZERO);
+            }
+        }
+        requestJsonObject.put("authorization", headers.get("authorization"));
+        requestJsonObject.put("_ts", System.currentTimeMillis());
+
+
+        String signReal = SignGenerate.getSignOfHPF(requestJsonObject, "hP*L8pp65_#1flvjk342589fdgjl34m");
+
+        headers.put("_sign", signReal);
+        headers.put("_ts", System.currentTimeMillis() + "");
+        headers.put("authorization", headers.get("authorization"));
+
+
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
         } else if ("GET".equals(method)) {
@@ -146,7 +146,6 @@ public class TestCaseHelpful {
                                                                    JsonAssertions.JsonAssertionCallback... callbacks) {
         return JsonUnitUtils.assertThatJson(actual, callbacks);
     }
-
 
 
     /**
