@@ -60,7 +60,7 @@ public class JsonUtils {
      * @param filePath 文件路径
      * @return 文件内容
      */
-    static String getFileContent(String filePath) {
+    public static String getFileContent(String filePath) {
         try {
             ClassLoader classLoader = JsonUtils.class.getClassLoader();
             InputStream inputStream = classLoader.getResourceAsStream(filePath);

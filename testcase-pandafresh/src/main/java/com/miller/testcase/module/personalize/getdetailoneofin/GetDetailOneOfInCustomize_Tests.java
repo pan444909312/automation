@@ -1,4 +1,4 @@
-package com.miller.testcase.module.b2b.b2bcategoryproduct;
+package com.miller.testcase.module.personalize.getdetailoneofin;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -7,31 +7,31 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * b2bCategoryProductAll
+ * getDetailOneOfInCustomize
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/06/17 14:15:52
+ * @since 2025/06/17 15:36:16
  */
 @Scenario(
-        scenarioID = "01JXY8F75KPQXJNX4YM16G9VH4", // 自动生成，不要修改
-        scenarioName = "b2b全部分类下的商品",
+        scenarioID = "01JXYD2E92Z0PD8XTF867S9R5N", // 自动生成，不要修改
+        scenarioName = "个性化-自定义页面",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("b2b全部分类下的商品")
-public class B2bCategoryProductAll_Tests {
+@DisplayName("个性化-自定义页面")
+public class GetDetailOneOfInCustomize_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.H5HOST + "/api/b2b/category/product";
+    String uri = TestcaseConfig.H5HOST + "/personalize/getDetailOneOfIn";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
-    String headers = "module/b2b/b2bcategoryproductall/request/headers.json";
+    String headers = "module/getdetailoneofincustomize/request/headers.json";
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
     String params = null;
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-    String body = "module/b2b/b2bcategoryproductall/request/should_success.json";
+    String body = "module/getdetailoneofincustomize/request/should_success.json";
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assert1 = "module/b2b/b2bcategoryproductall/response/assert_full_field.json";
+    String assert1 = "module/getdetailoneofincustomize/response/assert_full_field.json";
 
     @DisplayName("正向流程")
     @Test
@@ -48,7 +48,7 @@ public class B2bCategoryProductAll_Tests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.customizePage").isNotNull();
 
     }
 } 

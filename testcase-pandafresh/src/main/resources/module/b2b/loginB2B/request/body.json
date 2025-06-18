@@ -1,0 +1,26 @@
+{
+	"pm":"POST",
+	"ph":{
+		"content-type":"application/json",
+		"authorization":"",
+		"latitude":"",
+		"longitude":"",
+		"version":"4.24.0",
+		"platform":"H5",
+		"system":"none",
+		"language":"CN",
+		"regionId":3,
+		"appTypeId":21,
+		"marketChannel":"",
+		"service-route":"pandafresh"
+	},
+	"pd":{
+		"areaCode":"86",
+		"phone":"18968046019",
+		"code":"888888"
+	},
+	"nv":"2",
+	"nt":"1750218745929",
+	"nn":"DV3kNzGbTY3e3iBvrsHv0bTTv",
+	"nd":"3477eec83e9a3f5"
+}
