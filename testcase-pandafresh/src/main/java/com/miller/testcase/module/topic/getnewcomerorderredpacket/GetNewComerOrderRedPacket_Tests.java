@@ -39,6 +39,8 @@ public class GetNewComerOrderRedPacket_Tests {
     void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        //登录新人用户
+        requestHeaders.put("authorization",TestCaseHelpful.loginPF("17799887766","888888"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
