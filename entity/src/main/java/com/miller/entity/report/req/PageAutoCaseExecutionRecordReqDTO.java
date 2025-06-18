@@ -40,7 +40,7 @@ public class PageAutoCaseExecutionRecordReqDTO {
     private Integer sort = 1;
 
     @Schema(description = "排序规则，0：正序 ，1：逆序")
-    private Integer orderBy = 0;
+    private Integer orderBy = 1;
 
     @Schema(description = "开发成本")
     private Integer developmentTime;
