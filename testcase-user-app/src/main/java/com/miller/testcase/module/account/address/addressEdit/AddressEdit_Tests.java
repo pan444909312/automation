@@ -1,4 +1,4 @@
-package com.miller.testcase.module.account.address;
+package com.miller.testcase.module.account.address.addressEdit;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -7,30 +7,36 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * addressedit
+ *
+ * @author HuYang
+ * @version 2.0
+ * @since 2025/06/18 10:38:26
+ */
 @Scenario(
-        scenarioID = "01JXW3WEZPX6EFMNC45JHER3RS",
-        scenarioName = "编辑地址_Web站",
-        author = "huyang@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("编辑地址_Web站")
-public class AddressEditTests {
-    // 接口请求的 path
-    String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/address/edit";
-    // 请求方式
+        scenarioID = "01JY0EDRJ26MTA4FE0EPRQV331", // 自动生成，不要修改
+        scenarioName = "编辑地址_小程序",
+        author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("编辑地址_小程序")
+public class AddressEdit_Tests {
+    // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
+    String uri = TestcaseConfig.HOST_APP + "/api/user/address/edit";
+    // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
-    // 请求头
-    String headers = "module/headers_mobile.json";
-    // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/account/address/request/AddressEditReq.json";
-    // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 paras 参数
+    // 请求头。默认从 resources 目录下读取文件。
+    String headers = "module/account/address/addressEdit/request/headers.json";
+    // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
     String params = null;
-    // 断言
-    String assert1 = "module/account/address/response/AddressEditResp.json";
+    // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
+    String body = "module/account/address/addressEdit/request/should_success.json";
+    // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
+    String assert1 = "module/account/address/addressEdit/response/assert_full_field.json";
 
     @DisplayName("正向流程")
     @Test
-    void shouldLoginSuccessfully() {
+    void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         // 给请求头添加数据，例如这里添加token
@@ -48,5 +54,6 @@ public class AddressEditTests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
+
     }
-}
+} 
