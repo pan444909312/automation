@@ -40,7 +40,7 @@ public class TaskReceiveTests {
         //清除用户任务领取记录
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from panda_test.hp_task_center_user where user_id=\"1398717289\" and task_id=\"2011\" order by create_time desc\n");
     }
-    @DisplayName("正向流程")
+    @DisplayName("正向流程:领取任务")
     @Test
     void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改

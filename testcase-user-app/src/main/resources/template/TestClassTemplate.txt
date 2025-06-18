@@ -32,7 +32,7 @@ public class %s {
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
     String body = "%s";
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assert1 = "%s";
+    String assertFullField = "%s";
 
     @DisplayName("正向流程")
     @Test
@@ -50,7 +50,7 @@ public class %s {
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        var expectedStr = TestCaseHelpful.getFileContent(assert1);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
     }

@@ -37,7 +37,7 @@ public class ErpLoginTests {
 
     @DisplayName("正向流程")
     @Test
-    void shouldSuccess() {
+    public void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         // 步骤2: 设置请求体。基本固定写法，不需要修改

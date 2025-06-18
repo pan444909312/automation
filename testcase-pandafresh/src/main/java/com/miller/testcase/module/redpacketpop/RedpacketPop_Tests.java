@@ -40,6 +40,9 @@ public class RedpacketPop_Tests {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
 
+        //登录用户
+        requestHeaders.put("authorization",TestCaseHelpful.loginPF("18968046019","888888"));
+
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改

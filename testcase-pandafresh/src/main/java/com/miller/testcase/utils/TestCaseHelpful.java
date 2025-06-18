@@ -1,16 +1,23 @@
 package com.miller.testcase.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
+import com.jayway.jsonpath.PathNotFoundException;
 import com.jayway.jsonpath.Predicate;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.testcase.config.TestcaseConfig;
+import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 测试用例助手, 简化和提高用例开发效率，作用如下：
@@ -22,6 +29,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2025/5/27 14:47:39
  */
+@Slf4j
 public class TestCaseHelpful {
     /**
      * 获取测试用例资源文件内容作为请求头
@@ -40,6 +48,18 @@ public class TestCaseHelpful {
     }
 
     /**
+     * 获取测试用例资源文件内容作为请求体，请求提为 application/json 格式
+     *
+     * @param filePath 文件路径
+     * @return 请求体
+     */
+    public static String getJsonRequestBody(String filePath) {
+        if (null == filePath || filePath.isBlank()) return null;
+        String testCaseResource = JsonUtils.getFileContent(filePath);
+        return testCaseResource;
+    }
+
+    /**
      *
      * 获取测试用例资源文件内容作为请求Params参数，一般是 GET 请求，参数在url上，以 ?key=value&key2=value2的形式
      *
@@ -55,87 +75,6 @@ public class TestCaseHelpful {
     }
 
     /**
-     * 获取测试用例资源文件内容作为请求体，请求提为 application/json 格式
-     *
-     * @param filePath 文件路径
-     * @return 请求体
-     */
-    public static String getJsonRequestBody(String filePath) {
-        if (null == filePath || filePath.isBlank()) return null;
-        String testCaseResource = JsonUtils.getFileContent(filePath);
-        /*
-         * 对请求参数的二次处理，为后续验签准备
-         * // 对请求参数的额外操作。以下代码是为代码因为现在还没有用到对请求体加密。
-         *
-         * // 验签规则：
-         * // 1. 获取所有请求体内容，放入到 JSONObject 对象中。
-         * // 2. 将 ：authorization， _ts 添加到 JSONObject。
-         * // 3. 调用 SignGenerateUtil.getSign（）方法获取 _sign。
-         * // 4. 将 _sign和_ts放到请求头发送给服务端。
-         * String body = "{\"isOnline\":1}";
-         * JSONObject jsonObjectBody = new JSONObject();
-         * // 使用 fastjson 工具类，因为其他工具可能会出现转换之后类型变了的问题。比如：1 变成 1.0
-         *
-         * Map requestBody = JSON.parseObject(body, Map.class);
-         * jsonObjectBody.putAll(requestBody);
-         * var time = System.currentTimeMillis();
-         * jsonObjectBody.put("_ts", time);
-         * String token = RequestUtils.getHeaders().get("authorization").toString();
-         * jsonObjectBody.put("authorization", token);
-         * var requestSignatureKey = "ldkai_1ldal#nvhsl*afl3g2akgbvsa";
-         * var signReal = SignGenerateUtil.getSign(jsonObjectBody, requestSignatureKey);
-         * // 给请求头添加验签参数
-         * RequestUtils.getHeaders().put("_sign", signReal);
-         * RequestUtils.getHeaders().put("_ts", time);
-         * return body;
-         */
-
-        return testCaseResource;
-    }
-
-    /**
-     *
-     * 获取测试用例资源文件内容作为请求体，请求提为 application/x-www-form-urlencoded 格式
-     *
-     * @param filePath 文件路径
-     *
-     * @return 请求体
-     */
-    private static Map<String, Object> getFormDataRequestBody(String filePath) {
-        if (null == filePath || filePath.isBlank()) return null;
-        Map<String, Object> params = JsonUtils.readJsonFileToMap(filePath);
-        // 对请求参数的二次处理，为后续验签准备
-        return params;
-    }
-
-    /**
-     * 发送 HTTP 请求
-     *
-     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
-     * @param uri     请求地址, 支持 http、https
-     * @param params  请求参数
-     * @param headers 请求头
-     * @param body    请求体
-     * @return 响应体字符串
-     */
-    public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
-                                     Object body) {
-        var responseBody = "";
-        if ("POST".equals(method)) {
-            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
-        } else if ("GET".equals(method)) {
-            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
-        } else if ("PUT".equals(method)) {
-            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
-        } else if ("DELETE".equals(method)) {
-            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
-        } else {
-            new IllegalArgumentException("不支持的请求方法" + method);
-            return "";
-        }
-    }
-
-    /**
      * JSON 断言
      *
      * @param actual    实际值
@@ -146,7 +85,6 @@ public class TestCaseHelpful {
                                                                    JsonAssertions.JsonAssertionCallback... callbacks) {
         return JsonUnitUtils.assertThatJson(actual, callbacks);
     }
-
 
 
     /**
@@ -163,6 +101,25 @@ public class TestCaseHelpful {
     }
 
     /**
+     * 将一个值放入到缓存中，默认8小时有效期
+     * @param key 唯一值，建议使用测试用例 ID 值（scenarioID），默认会拼上前缀 Automation_，如果直连 Redis 查询，请自行拼接。
+     * @param value  值
+     */
+    public static void set(String key, Object value) {
+        RedisUtils.getRedisInstance().set("Automation_" + key, value, 60 * 60 * 8L);
+    }
+
+    /**
+     *  获取缓存中的值
+     * @param key  唯一值，建议使用测试用例 ID 值（scenarioID）
+     * @return 缓存中的值
+     */
+    public static Object get(String key) {
+        return RedisUtils.getRedisInstance().get("Automation_" + key);
+    }
+
+
+    /**
      * 获取 resources 目录下指定文件内容
      *
      * @param filePath 文件路径
@@ -172,6 +129,68 @@ public class TestCaseHelpful {
         return JsonUtils.getFileContent(filePath);
     }
 
+    /**
+     * 使用 JSONPath 更新 JSON 字符串中指定 key 的值为新的值
+     *
+     * @param jsonStr 原始JSON字符串
+     * @param jsonPath JSONPath表达式，例如 "$.store.book[0].title"
+     * @param newValue 需要更新的新的值
+     * @return 更新后的JSON字符串
+     * @throws JSONException 当输入的字符串不是有效的JSON格式时抛出
+     * @throws PathNotFoundException 当指定的JSONPath不存在时抛出
+     */
+    public static String updateJsonValue(String jsonStr, String jsonPath, Object newValue) {
+        return JSONUtils.updateJsonValueByPath(jsonStr, jsonPath, newValue);
+    }
+
+    // --------------  以下为非通用方法，各业务特有 --------------
+
+    /**
+     * 发送 HTTP 请求
+     *
+     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
+     * @param uri     请求地址, 支持 http、https
+     * @param params  请求参数
+     * @param headers 请求头
+     * @param body    请求体
+     * @return 响应体字符串
+     */
+    public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
+                                     Object body) {
+        // 处理 https://fresh-api-test.hungrypanda.cn  签名
+        JSONObject requestJsonObject = JSON.parseObject(body.toString());
+        // 将true和false转换成0和1
+        for (String key : requestJsonObject.keySet()) {
+            String value = requestJsonObject.getString(key);
+            if (Objects.equals(value, Boolean.TRUE.toString())) {
+                requestJsonObject.put(key, NumberUtils.BYTE_ONE);
+                continue;
+            }
+            if (Objects.equals(value, Boolean.FALSE.toString())) {
+                requestJsonObject.put(key, NumberUtils.BYTE_ZERO);
+            }
+        }
+        requestJsonObject.put("authorization", headers.get("authorization"));
+        requestJsonObject.put("_ts", System.currentTimeMillis());
+
+        String signReal = SignGenerate.getSignOfHPF(requestJsonObject, "hP*L8pp65_#1flvjk342589fdgjl34m");
+        headers.put("_sign", signReal);
+        headers.put("_ts", System.currentTimeMillis() + "");
+        headers.put("authorization", headers.get("authorization"));
+
+        if ("POST".equals(method)) {
+            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
+        } else if ("GET".equals(method)) {
+            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
+        } else if ("PUT".equals(method)) {
+            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
+        } else if ("DELETE".equals(method)) {
+            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
+        } else {
+            log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
+            throw new RuntimeException("不支持的请求方法" + method);
+        }
+    }
     /**
      * 登录并返回token
      * @param mobilePhone 手机号 areaCode 默认 86

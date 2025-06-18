@@ -1,6 +1,8 @@
 package com.miller.testcase.utils;
 
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.jayway.jsonpath.PathNotFoundException;
 import com.jayway.jsonpath.Predicate;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.cache.remote.redis.RedisService;
@@ -8,6 +10,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.module.erp_login.ErpLoginTests;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
@@ -98,67 +101,6 @@ public class TestCaseHelpful {
     }
 
     /**
-     * 发送 HTTP 请求
-     *
-     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
-     * @param uri     请求地址, 支持 http、https
-     * @param params  请求参数
-     * @param headers 请求头
-     * @param body    请求体
-     * @return 响应体字符串
-     */
-    public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
-                                     Object body) {
-        // 处理 Web 站 请求验签
-        if (body instanceof String) {
-            try {
-                JSONObject jsonBody = JSONUtils.parseObject(body.toString());
-                // 判断是否是 Web 站请求体，如果是，则转为 app 请求体
-                if (jsonBody.containsKey("pm") &&
-                        jsonBody.containsKey("ph") &&
-                        jsonBody.containsKey("pd") &&
-                        jsonBody.containsKey("nv") &&
-                        jsonBody.containsKey("nt") &&
-                        jsonBody.containsKey("nn") &&
-                        jsonBody.containsKey("nd")) {
-                    // 转为 app 请求体
-                    String[] uriParts = uri.split("/api/");
-                    String path = "/api/" + uriParts[1];
-                    uri = TestcaseConfig.HOST_APP + path;
-                    method = JSONUtils.parseObject(body.toString()).getString("pm");
-                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
-                    // 避免 Authorization 被 Web 请求体的 ph 覆盖
-                    webBodyHeaders.remove("authorization");
-                    webBodyHeaders.putAll(headers);
-                    headers.putAll(webBodyHeaders);
-                    String host = TestcaseConfig.HOST_APP;
-                    if (host.startsWith("https://")) {
-                        host = host.substring(8);
-                    }
-                    headers.put("Host", host);
-                    body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
-                }
-            } catch (Exception e) {
-                // 解析失败说明不是JSON格式,忽略异常
-            }
-        }
-
-        method = method.toUpperCase();
-        if ("POST".equals(method)) {
-            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
-        } else if ("GET".equals(method)) {
-            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
-        } else if ("PUT".equals(method)) {
-            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
-        } else if ("DELETE".equals(method)) {
-            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
-        } else {
-            log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
-            throw new RuntimeException("不支持的请求方法" + method);
-        }
-    }
-
-    /**
      * JSON 断言
      *
      * @param actual    实际值
@@ -213,14 +155,87 @@ public class TestCaseHelpful {
     }
 
     /**
-     * 更新 JSON 内容
-     * @param jsonStr JSON 字符串
-     * @param key 修改的 key
-     * @param newValue 修改的 value
-     * @return 修改后的 JSON 字符串
+     * 使用 JSONPath 更新 JSON 字符串中指定 key 的值为新的值
+     *
+     * @param jsonStr 原始JSON字符串
+     * @param jsonPath JSONPath表达式，例如 "$.store.book[0].title"
+     * @param newValue 需要更新的新的值
+     * @return 更新后的JSON字符串
+     * @throws JSONException 当输入的字符串不是有效的JSON格式时抛出
+     * @throws PathNotFoundException 当指定的JSONPath不存在时抛出
      */
-    public static String updateJsonValue(String jsonStr, String key, Object newValue) {
-        return JSONUtils.updateJsonValue(jsonStr, key, newValue);
+    public static String updateJsonValue(String jsonStr, String jsonPath, Object newValue) {
+        return JSONUtils.updateJsonValueByPath(jsonStr, jsonPath, newValue);
+    }
+
+    // --------------  以下为非通用方法，各业务特有 --------------
+
+    /**
+     * 发送 HTTP 请求
+     *
+     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
+     * @param uri     请求地址, 支持 http、https
+     * @param params  请求参数
+     * @param headers 请求头
+     * @param body    请求体
+     * @return 响应体字符串
+     */
+    public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
+                                     Object body) {
+        // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
+        if (body instanceof String) {
+            try {
+                JSONObject jsonBody = JSONUtils.parseObject(body.toString());
+                // 判断是否是 Web 站请求体，如果是，则转为 app 请求体
+                if (jsonBody.containsKey("pm") &&
+                        jsonBody.containsKey("ph") &&
+                        jsonBody.containsKey("pd") &&
+                        jsonBody.containsKey("nv") &&
+                        jsonBody.containsKey("nt") &&
+                        jsonBody.containsKey("nn") &&
+                        jsonBody.containsKey("nd")) {
+                    // 转为 app 请求体
+                    String[] uriParts = uri.split("/api/");
+                    String path = "/api/" + uriParts[1];
+                    uri = TestcaseConfig.HOST_APP + path;
+                    method = JSONUtils.parseObject(body.toString()).getString("pm");
+                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
+                    // 避免 Authorization 被 Web 请求体的 ph 覆盖
+                    webBodyHeaders.remove("authorization");
+                    webBodyHeaders.putAll(headers);
+                    headers.putAll(webBodyHeaders);
+                    String host = TestcaseConfig.HOST_APP;
+                    if (host.startsWith("https://")) {
+                        host = host.substring(8);
+                    }
+                    headers.put("Host", host);
+                    body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    // 方案二：后续处理
+                    WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
+                            JSONUtils.parseObject(body.toString()).getString("nu"),
+                            JSONUtils.parseObject(body.toString()).getString("nm"),
+                            JSONUtils.parseObject(body.toString()).getString("nh"),
+                            JSONUtils.parseObject(body.toString()).getString("nb"));
+                }
+            } catch (Exception e) {
+                // 解析失败说明不是JSON格式,忽略异常
+            }
+        }
+
+        var responseBody = "";
+        method = method.toUpperCase();
+        if ("POST".equals(method)) {
+            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
+        } else if ("GET".equals(method)) {
+            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
+        } else if ("PUT".equals(method)) {
+            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
+        } else if ("DELETE".equals(method)) {
+            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
+        } else {
+            log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
+            throw new RuntimeException("不支持的请求方法" + method);
+        }
     }
 
     /**
@@ -262,38 +277,38 @@ public class TestCaseHelpful {
      * @param tel 输入手机号
      * @return 手机号验证码
      */
-    public static Integer getVerificationCode(String tel){
+    public static Integer getVerificationCode(String tel) {
         RedisService redisService;
         redisService = RedisService.getRedisServiceInstance();
         redisService.connectionSlave("r-3nscqny4art27v9hrzpd.redis.rds.aliyuncs.com", 6379, "YNKAthEbNF3XoK8E");
-        redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9",32,60L);
+        redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9", 32, 60L);
         String uri = TestcaseConfig.HOST_APP + "/api/app/user/sendVerificationCode";
         var headers = TestCaseHelpful.getHeaders("module/account/getVerificationCode/request/headers.json");
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/account/getVerificationCode/request/should_success.json");
-        requestBody= TestCaseHelpful.updateJsonValue(requestBody, "captchaToken", "28d33b2425c344c581a4520f3c8c98f9");
-        requestBody= TestCaseHelpful.updateJsonValue(requestBody, "phoneNumber", tel);
-//        todo：修改多层级目录下的checkCode
-        requestBody= TestCaseHelpful.updateJsonValue(requestBody, "checkCode", redisService.get("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9"));
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "captchaToken", "28d33b2425c344c581a4520f3c8c98f9");
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "phoneNumber", tel);
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.captchaCheckInfo.imageCheckInfo.checkCode", "32");
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         //需要在redis存值，不然图形校验不通过
 //        获取验证码,需要查询加密后的手机号
-        String telephone =encodePhone(tel);
-        return (Integer) PandaTestDBHelpful.executeSelectOneSql("select * from user_log where telephone = ? order by create_time desc limit 1",telephone).get("verifycode");
+        String telephone = getPhoneNumber(tel);
+        return (Integer) PandaTestDBHelpful.executeSelectOneSql("select * from user_log where telephone = ? order by create_time desc limit 1", telephone).get("verifycode");
     }
 
     /**
-     * @param str 需要加密的手机号
+     * 获取加密后的明文手机号
+     * @param encodePhone 需要加密的手机号
      * @return 加密后的手机号
      */
-    public static String encodePhone(String str) {
+    public static String getPhoneNumber(String encodePhone) {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/encryption/crypto";
         var headers = TestCaseHelpful.getHeaders("module/erp_login/request/headers_crypto.json");
-        String body = "{\"sceneType\":1,\"text\":\"" + str + "\",\"cryptoType\":1}";
+        String body = "{\"sceneType\":1,\"text\":\"" + encodePhone + "\",\"cryptoType\":1}";
+        new ErpLoginTests().shouldSuccess();
+        headers.put("token", TestCaseHelpful.get("token"));
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         return TestCaseHelpful.extractValue(responseBody, "data.content");
     }
-
-
 
 
 }

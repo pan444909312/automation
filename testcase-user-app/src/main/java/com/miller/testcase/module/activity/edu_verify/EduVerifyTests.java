@@ -43,6 +43,7 @@ public class EduVerifyTests {
     public static void beforeAll() {
         // 获取验证码
         new EduGetCaptchaTests().shouldSuccess();
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_edu_info where edu_email =\"1538680572@qq.com\"");
 
     }
     @DisplayName("正向流程")
@@ -55,7 +56,7 @@ public class EduVerifyTests {
         Object verfiyCode=selectedRow.get("verifycode");
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        requestBody=TestCaseHelpful.updateJsonValue(requestBody,"captcha",verfiyCode);
+        requestBody=TestCaseHelpful.updateJsonValue(requestBody,"pd.captcha",verfiyCode);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
