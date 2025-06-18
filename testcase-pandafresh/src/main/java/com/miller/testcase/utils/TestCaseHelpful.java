@@ -170,16 +170,34 @@ public class TestCaseHelpful {
                         jsonBody.containsKey("nn") &&
                         jsonBody.containsKey("nd")) {
                     // 转为 app 请求体
-                    String[] uriParts = uri.split("/api/");
-                    String path = "/api/" + uriParts[1];
-                    uri = TestcaseConfig.HpfHost + path;
+                    // 通过域名判断，获取域名和路径
+                    String domain = "";
+                    String path = "";
+                    
+                    if (uri.contains("://")) {
+                        // 包含协议的情况
+                        int protocolEnd = uri.indexOf("://") + 3;
+                        int domainEnd = uri.indexOf("/", protocolEnd);
+                        if (domainEnd != -1) {
+                            domain = uri.substring(0, domainEnd);
+                            path = uri.substring(domainEnd);
+                        } else {
+                            domain = uri;
+                            path = "/";
+                        }
+                    } else {
+                        // 不包含协议的情况，假设是相对路径
+                        path = uri;
+                    }
+                    
+                    uri = TestcaseConfig.HOST + path;
                     method = JSONUtils.parseObject(body.toString()).getString("pm");
                     Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
                     // 避免 Authorization 被 Web 请求体的 ph 覆盖
                     webBodyHeaders.remove("authorization");
                     webBodyHeaders.putAll(headers);
                     headers.putAll(webBodyHeaders);
-                    String host = TestcaseConfig.HpfHost;
+                    String host = TestcaseConfig.HOST;
                     if (host.startsWith("https://")) {
                         host = host.substring(8);
                     }
