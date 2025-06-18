@@ -360,16 +360,16 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         if (Objects.isNull(stringObjectMap)) {
             return;
         }
-        String requestMethod = ((HashMap) stringObjectMap.get("requestMap")).get("requestMethod").toString();
-        String requestURI = ((HashMap) stringObjectMap.get("requestMap")).get("requestURI").toString();
-        String requestHeaders = ((HashMap) stringObjectMap.get("requestMap")).get("requestHeaders").toString();
-        String requestBody = ((HashMap) stringObjectMap.get("requestMap")).get("requestBody").toString();
-        String requestPath = ((HashMap) stringObjectMap.get("requestMap")).get("requestPath").toString();
-        String responseBody = ((HashMap) stringObjectMap.get("body")).get("body").toString();
-        String responseStatusCode = ((HashMap) stringObjectMap.get("status")).get("statusCode").toString();
-        String responseStatusLine = ((HashMap) stringObjectMap.get("status")).get("statusLine").toString();
-        String responseHeaders = ((HashMap) stringObjectMap.get("headers")).toString();
-        String responseCookies = ((HashMap) stringObjectMap.get("cookies")).toString();
+        String requestMethod = Optional.ofNullable(((HashMap) stringObjectMap.get("requestMap")).get("requestMethod")).map(Object::toString).orElse("");
+        String requestURI = Optional.ofNullable(((HashMap) stringObjectMap.get("requestMap")).get("requestURI")).map(Object::toString).orElse("");
+        String requestHeaders = Optional.ofNullable(((HashMap) stringObjectMap.get("requestMap")).get("requestHeaders")).map(Object::toString).orElse("");
+        String requestBody = Optional.ofNullable(((HashMap) stringObjectMap.get("requestMap")).get("requestBody")).map(Object::toString).orElse("");
+        String requestPath = Optional.ofNullable(((HashMap) stringObjectMap.get("requestMap")).get("requestPath")).map(Object::toString).orElse("");
+        String responseBody = Optional.ofNullable(((HashMap) stringObjectMap.get("body")).get("body")).map(Object::toString).orElse("");
+        String responseStatusCode = Optional.ofNullable(((HashMap) stringObjectMap.get("status")).get("statusCode")).map(Object::toString).orElse("");
+        String responseStatusLine = Optional.ofNullable(((HashMap) stringObjectMap.get("status")).get("statusLine")).map(Object::toString).orElse("");
+        String responseHeaders = Optional.ofNullable(((HashMap) stringObjectMap.get("headers"))).map(Object::toString).orElse("");
+        String responseCookies = Optional.ofNullable(((HashMap) stringObjectMap.get("cookies"))).map(Object::toString).orElse("");
 
 //        SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
         AutomationCoverageApiMapper automationCoverageApiMapper = automationSession.getMapper(AutomationCoverageApiMapper.class);
