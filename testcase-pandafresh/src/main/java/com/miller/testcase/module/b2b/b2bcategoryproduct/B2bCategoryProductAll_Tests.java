@@ -25,13 +25,13 @@ public class B2bCategoryProductAll_Tests {
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
-    String headers = "module/b2bcategoryproductall/request/headers.json";
+    String headers = "module/b2b/b2bcategoryproductall/request/headers.json";
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
     String params = null;
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-    String body = "module/b2bcategoryproductall/request/should_success.json";
+    String body = "module/b2b/b2bcategoryproductall/request/should_success.json";
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assert1 = "module/b2bcategoryproductall/response/assert_full_field.json";
+    String assert1 = "module/b2b/b2bcategoryproductall/response/assert_full_field.json";
 
     @DisplayName("正向流程")
     @Test

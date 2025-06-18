@@ -447,4 +447,26 @@ public class CreateMerchantTests {
         // Then
         assertThat(responseBody).isNotEmpty();  // 返回的是html页面。。。
     }
+
+    public long createMerchantAndSetInfo() throws UnsupportedEncodingException {
+        beforeAll();
+        step02CreateMerchant();
+        step03EditMerchantInfoOfBusiness();
+        step04EditMerchantInfoOfCost();
+        step05EditMerchantInfoOfAdditional();
+        step06EditMerchantInfoOfAddKP();
+        step07CopyOtherShopGoods();
+        step08AddShopBusinessTime();
+        step09AddFence();
+        step10SaveBillInfo();
+        step11SaveCommission();
+        step12MerchantAuth();
+        step13RecommendMerchant();
+        step14MerchantAuth();
+        if (addMerchantResponseDTO == null) {
+            return 0L;
+        }
+        return addMerchantResponseDTO.getData().getShopId();
+
+    }
 }
