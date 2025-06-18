@@ -108,7 +108,7 @@ public class GlobalException {
      * 使用@ResponseStatus来指定客户端收到的http状态码，如果不指定，则默认返回200
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
+//    @ExceptionHandler(Exception.class)
     public Response<Object> exception(Exception exception) {
         log.error("未知异常: {}", exception.getMessage(), exception);
         return new Response<>(ResponseEnum.FAILURE_SERVICE_ERROR.getCode(), ResponseEnum.FAILURE_SERVICE_ERROR.getMessage(), exception);
