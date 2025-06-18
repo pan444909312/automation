@@ -157,26 +157,68 @@ public class TestCaseHelpful {
      */
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
-        // 处理 https://fresh-api-test.hungrypanda.cn  签名
-        JSONObject requestJsonObject = JSON.parseObject(body.toString());
-        // 将true和false转换成0和1
-        for (String key : requestJsonObject.keySet()) {
-            String value = requestJsonObject.getString(key);
-            if (Objects.equals(value, Boolean.TRUE.toString())) {
-                requestJsonObject.put(key, NumberUtils.BYTE_ONE);
-                continue;
-            }
-            if (Objects.equals(value, Boolean.FALSE.toString())) {
-                requestJsonObject.put(key, NumberUtils.BYTE_ZERO);
+        // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
+        if (body instanceof String) {
+            try {
+                JSONObject jsonBody = JSONUtils.parseObject(body.toString());
+                // 判断是否是 Web 站请求体，如果是，则转为 app 请求体
+                if (jsonBody.containsKey("pm") &&
+                        jsonBody.containsKey("ph") &&
+                        jsonBody.containsKey("pd") &&
+                        jsonBody.containsKey("nv") &&
+                        jsonBody.containsKey("nt") &&
+                        jsonBody.containsKey("nn") &&
+                        jsonBody.containsKey("nd")) {
+                    // 转为 app 请求体
+                    String[] uriParts = uri.split("/api/");
+                    String path = "/api/" + uriParts[1];
+                    uri = TestcaseConfig.HpfHost + path;
+                    method = JSONUtils.parseObject(body.toString()).getString("pm");
+                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
+                    // 避免 Authorization 被 Web 请求体的 ph 覆盖
+                    webBodyHeaders.remove("authorization");
+                    webBodyHeaders.putAll(headers);
+                    headers.putAll(webBodyHeaders);
+                    String host = TestcaseConfig.HpfHost;
+                    if (host.startsWith("https://")) {
+                        host = host.substring(8);
+                    }
+                    headers.put("Host", host);
+                    body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    // 方案二：后续处理
+                    WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
+                            JSONUtils.parseObject(body.toString()).getString("nu"),
+                            JSONUtils.parseObject(body.toString()).getString("nm"),
+                            JSONUtils.parseObject(body.toString()).getString("nh"),
+                            JSONUtils.parseObject(body.toString()).getString("nb"));
+                }
+            } catch (Exception e) {
+                // 解析失败说明不是JSON格式,忽略异常
             }
         }
-        requestJsonObject.put("authorization", headers.get("authorization"));
-        requestJsonObject.put("_ts", System.currentTimeMillis());
+        // 处理 https://fresh-api-test.hungrypanda.cn  签名
+        if (uri.contains("fresh-api-test.hungrypanda.cn")) {
+            log.info("检测到 fresh-api-test.hungrypanda.cn 域名，开始处理签名逻辑");
+            JSONObject requestJsonObject = JSON.parseObject(body.toString());
+            // 将true和false转换成0和1
+            for (String key : requestJsonObject.keySet()) {
+                String value = requestJsonObject.getString(key);
+                if (Objects.equals(value, Boolean.TRUE.toString())) {
+                    requestJsonObject.put(key, NumberUtils.BYTE_ONE);
+                    continue;
+                }
+                if (Objects.equals(value, Boolean.FALSE.toString())) {
+                    requestJsonObject.put(key, NumberUtils.BYTE_ZERO);
+                }
+            }
+            requestJsonObject.put("authorization", headers.get("authorization"));
+            requestJsonObject.put("_ts", System.currentTimeMillis());
 
-        String signReal = SignGenerate.getSignOfHPF(requestJsonObject, "hP*L8pp65_#1flvjk342589fdgjl34m");
-        headers.put("_sign", signReal);
-        headers.put("_ts", System.currentTimeMillis() + "");
-        headers.put("authorization", headers.get("authorization"));
+            String signReal = SignGenerate.getSignOfHPF(requestJsonObject, "hP*L8pp65_#1flvjk342589fdgjl34m");
+            headers.put("_sign", signReal);
+            headers.put("_ts", System.currentTimeMillis() + "");
+            headers.put("authorization", headers.get("authorization"));
+        }
 
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
@@ -191,6 +233,7 @@ public class TestCaseHelpful {
             throw new RuntimeException("不支持的请求方法" + method);
         }
     }
+
     /**
      * 登录并返回token
      * @param mobilePhone 手机号 areaCode 默认 86

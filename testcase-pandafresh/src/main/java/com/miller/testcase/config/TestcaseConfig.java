@@ -30,7 +30,4 @@ public class TestcaseConfig {
     public static String redisHost = "r-3nscqny4art27v9hrzpd.redis.rds.aliyuncs.com";
     public static Integer redisPort = 6379;
     public static String redisPassword = "YNKAthEbNF3XoK8E";
-
-
-
 }
