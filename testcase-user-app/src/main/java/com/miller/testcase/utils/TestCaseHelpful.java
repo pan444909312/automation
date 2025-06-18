@@ -172,9 +172,6 @@ public class TestCaseHelpful {
                         jsonBody.containsKey("nn") &&
                         jsonBody.containsKey("nd")) {
                     // 转为 app 请求体
-                    // String[] uriParts = uri.split("/api/");
-                    // String path = "/api/" + uriParts[1];
-                    // 通过域名判断，获取域名和路径
                     String domain = "";
                     String path = "";
 
@@ -200,14 +197,29 @@ public class TestCaseHelpful {
                             .toJavaObject(Map.class);
                     // 避免 Authorization 被 Web 请求体的 ph 覆盖
                     webBodyHeaders.remove("authorization");
+                    // 如果H5里面携带了用H5的
+                    Object h5ContentType;
+                    if(webBodyHeaders.containsKey("content-type")){
+                        h5ContentType = webBodyHeaders.get("content-type");
+                    }
+                    else {
+                        h5ContentType = headers.get("content-type");
+                    }
                     webBodyHeaders.putAll(headers);
                     headers.putAll(webBodyHeaders);
+                    headers.put("content-type", h5ContentType);
                     String host = TestcaseConfig.HOST_APP;
                     if (host.startsWith("https://")) {
                         host = host.substring(8);
                     }
                     headers.put("Host", host);
-                    body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    headers.put("content-type", h5ContentType);
+                    if (h5ContentType.toString().contains("application/x-www-form-urlencoded")){
+                        body = JSONUtils.parseObject(body.toString()).getJSONObject("pd")
+                                .toJavaObject(Map.class);
+                    }else {
+                        body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    }
                     // 方案二：后续处理
                     WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
                             JSONUtils.parseObject(body.toString()).getString("nu"),
@@ -220,7 +232,6 @@ public class TestCaseHelpful {
             }
         }
 
-        var responseBody = "";
         method = method.toUpperCase();
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);

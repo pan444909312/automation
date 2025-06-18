@@ -195,14 +195,29 @@ public class TestCaseHelpful {
                     Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
                     // 避免 Authorization 被 Web 请求体的 ph 覆盖
                     webBodyHeaders.remove("authorization");
+                    // 如果H5里面携带了用H5的
+                    Object h5ContentType;
+                    if(webBodyHeaders.containsKey("content-type")){
+                        h5ContentType = webBodyHeaders.get("content-type");
+                    }
+                    else {
+                        h5ContentType = headers.get("content-type");
+                    }
                     webBodyHeaders.putAll(headers);
                     headers.putAll(webBodyHeaders);
+                    headers.put("content-type", h5ContentType);
                     String host = TestcaseConfig.HOST;
                     if (host.startsWith("https://")) {
                         host = host.substring(8);
                     }
                     headers.put("Host", host);
-                    body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    headers.put("content-type", h5ContentType);
+                    if (h5ContentType.toString().contains("application/x-www-form-urlencoded")){
+                        body = JSONUtils.parseObject(body.toString()).getJSONObject("pd")
+                                .toJavaObject(Map.class);
+                    }else {
+                        body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    }
                     // 方案二：后续处理
                     WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
                             JSONUtils.parseObject(body.toString()).getString("nu"),
