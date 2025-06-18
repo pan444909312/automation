@@ -53,7 +53,8 @@ public class TestCaseHelpful {
      * @return 请求体
      */
     public static String getJsonRequestBody(String filePath) {
-        if (null == filePath || filePath.isBlank()) return null;
+        if (null == filePath || filePath.isBlank())
+            return null;
         String testCaseResource = JsonUtils.getFileContent(filePath);
         return testCaseResource;
     }
@@ -67,7 +68,8 @@ public class TestCaseHelpful {
      * @return 请求的 Params 参数，也叫 QueryParams
      */
     public static Map<String, Object> getJsonRequestParams(String filePath) {
-        if (null == filePath || filePath.isBlank()) return null;
+        if (null == filePath || filePath.isBlank())
+            return null;
         Map<String, Object> params = JsonUtils.readJsonFileToMap(filePath);
         // 对请求参数的二次处理，为后续验签准备
         return params;
@@ -81,7 +83,7 @@ public class TestCaseHelpful {
      * @return JsonAssert.ConfigurableJsonAssert
      */
     public static JsonAssert.ConfigurableJsonAssert assertThatJson(@NotNull Object actual,
-                                                                   JsonAssertions.JsonAssertionCallback... callbacks) {
+            JsonAssertions.JsonAssertionCallback... callbacks) {
         return JsonUnitUtils.assertThatJson(actual, callbacks);
     }
 
@@ -100,22 +102,24 @@ public class TestCaseHelpful {
 
     /**
      * 将一个值放入到缓存中，默认8小时有效期
-     * @param key 唯一值，建议使用测试用例 ID 值（scenarioID），默认会拼上前缀 Automation_，如果直连 Redis 查询，请自行拼接。
-     * @param value  值
+     * 
+     * @param key   唯一值，建议使用测试用例 ID 值（scenarioID），默认会拼上前缀 Automation_，如果直连 Redis
+     *              查询，请自行拼接。
+     * @param value 值
      */
     public static void set(String key, Object value) {
         RedisUtils.getRedisInstance().set("Automation_" + key, value, 60 * 60 * 8L);
     }
 
     /**
-     *  获取缓存中的值
-     * @param key  唯一值，建议使用测试用例 ID 值（scenarioID）
+     * 获取缓存中的值
+     * 
+     * @param key 唯一值，建议使用测试用例 ID 值（scenarioID）
      * @return 缓存中的值
      */
     public static Object get(String key) {
         return RedisUtils.getRedisInstance().get("Automation_" + key);
     }
-
 
     /**
      * 获取 resources 目录下指定文件内容
@@ -130,18 +134,18 @@ public class TestCaseHelpful {
     /**
      * 使用 JSONPath 更新 JSON 字符串中指定 key 的值为新的值
      *
-     * @param jsonStr 原始JSON字符串
+     * @param jsonStr  原始JSON字符串
      * @param jsonPath JSONPath表达式，例如 "$.store.book[0].title"
      * @param newValue 需要更新的新的值
      * @return 更新后的JSON字符串
-     * @throws JSONException 当输入的字符串不是有效的JSON格式时抛出
+     * @throws JSONException         当输入的字符串不是有效的JSON格式时抛出
      * @throws PathNotFoundException 当指定的JSONPath不存在时抛出
      */
     public static String updateJsonValue(String jsonStr, String jsonPath, Object newValue) {
         return JSONUtils.updateJsonValueByPath(jsonStr, jsonPath, newValue);
     }
 
-    // --------------  以下为非通用方法，各业务特有 --------------
+    // -------------- 以下为非通用方法，各业务特有 --------------
 
     /**
      * 发送 HTTP 请求
@@ -154,7 +158,7 @@ public class TestCaseHelpful {
      * @return 响应体字符串
      */
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
-                                     Object body) {
+            Object body) {
         // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
         if (body instanceof String) {
             try {
@@ -168,11 +172,32 @@ public class TestCaseHelpful {
                         jsonBody.containsKey("nn") &&
                         jsonBody.containsKey("nd")) {
                     // 转为 app 请求体
-                    String[] uriParts = uri.split("/api/");
-                    String path = "/api/" + uriParts[1];
+                    // String[] uriParts = uri.split("/api/");
+                    // String path = "/api/" + uriParts[1];
+                    // 通过域名判断，获取域名和路径
+                    String domain = "";
+                    String path = "";
+
+                    if (uri.contains("://")) {
+                        // 包含协议的情况
+                        int protocolEnd = uri.indexOf("://") + 3;
+                        int domainEnd = uri.indexOf("/", protocolEnd);
+                        if (domainEnd != -1) {
+                            domain = uri.substring(0, domainEnd);
+                            path = uri.substring(domainEnd);
+                        } else {
+                            domain = uri;
+                            path = "/";
+                        }
+                    } else {
+                        // 不包含协议的情况，假设是相对路径
+                        path = uri;
+                    }
+
                     uri = TestcaseConfig.HOST_APP + path;
                     method = JSONUtils.parseObject(body.toString()).getString("pm");
-                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
+                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph")
+                            .toJavaObject(Map.class);
                     // 避免 Authorization 被 Web 请求体的 ph 覆盖
                     webBodyHeaders.remove("authorization");
                     webBodyHeaders.putAll(headers);
@@ -213,8 +238,9 @@ public class TestCaseHelpful {
 
     /**
      * 登录并返回token
+     * 
      * @param mobilePhone 手机号 areaCode 默认 86
-     * @param password  登录密码
+     * @param password    登录密码
      * @return token
      */
     public static String login(String mobilePhone, String password) {
@@ -257,19 +283,24 @@ public class TestCaseHelpful {
         redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9", 32, 60L);
         String uri = TestcaseConfig.HOST_APP + "/api/app/user/sendVerificationCode";
         var headers = TestCaseHelpful.getHeaders("module/account/getVerificationCode/request/headers.json");
-        var requestBody = TestCaseHelpful.getJsonRequestBody("module/account/getVerificationCode/request/should_success.json");
+        var requestBody = TestCaseHelpful
+                .getJsonRequestBody("module/account/getVerificationCode/request/should_success.json");
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "captchaToken", "28d33b2425c344c581a4520f3c8c98f9");
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "phoneNumber", tel);
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.captchaCheckInfo.imageCheckInfo.checkCode", "32");
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
-        //需要在redis存值，不然图形校验不通过
-//        获取验证码,需要查询加密后的手机号
+        // 需要在redis存值，不然图形校验不通过
+        // 获取验证码,需要查询加密后的手机号
         String telephone = getPhoneNumber(tel);
-        return (Integer) PandaTestDBHelpful.executeSelectOneSql("select * from user_log where telephone = ? order by create_time desc limit 1", telephone).get("verifycode");
+        return (Integer) PandaTestDBHelpful
+                .executeSelectOneSql("select * from user_log where telephone = ? order by create_time desc limit 1",
+                        telephone)
+                .get("verifycode");
     }
 
     /**
      * 获取加密后的明文手机号
+     * 
      * @param encodePhone 需要加密的手机号
      * @return 加密后的手机号
      */
@@ -282,6 +313,5 @@ public class TestCaseHelpful {
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         return TestCaseHelpful.extractValue(responseBody, "data.content");
     }
-
 
 }
