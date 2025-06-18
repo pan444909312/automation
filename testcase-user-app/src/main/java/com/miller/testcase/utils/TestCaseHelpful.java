@@ -55,33 +55,6 @@ public class TestCaseHelpful {
     public static String getJsonRequestBody(String filePath) {
         if (null == filePath || filePath.isBlank()) return null;
         String testCaseResource = JsonUtils.getFileContent(filePath);
-        /*
-         * 对请求参数的二次处理，为后续验签准备
-         * // 对请求参数的额外操作。以下代码是为代码因为现在还没有用到对请求体加密。
-         *
-         * // 验签规则：
-         * // 1. 获取所有请求体内容，放入到 JSONObject 对象中。
-         * // 2. 将 ：authorization， _ts 添加到 JSONObject。
-         * // 3. 调用 SignGenerateUtil.getSign（）方法获取 _sign。
-         * // 4. 将 _sign和_ts放到请求头发送给服务端。
-         * String body = "{\"isOnline\":1}";
-         * JSONObject jsonObjectBody = new JSONObject();
-         * // 使用 fastjson 工具类，因为其他工具可能会出现转换之后类型变了的问题。比如：1 变成 1.0
-         *
-         * Map requestBody = JSON.parseObject(body, Map.class);
-         * jsonObjectBody.putAll(requestBody);
-         * var time = System.currentTimeMillis();
-         * jsonObjectBody.put("_ts", time);
-         * String token = RequestUtils.getHeaders().get("authorization").toString();
-         * jsonObjectBody.put("authorization", token);
-         * var requestSignatureKey = "ldkai_1ldal#nvhsl*afl3g2akgbvsa";
-         * var signReal = SignGenerateUtil.getSign(jsonObjectBody, requestSignatureKey);
-         * // 给请求头添加验签参数
-         * RequestUtils.getHeaders().put("_sign", signReal);
-         * RequestUtils.getHeaders().put("_ts", time);
-         * return body;
-         */
-
         return testCaseResource;
     }
 
