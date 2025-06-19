@@ -1,15 +1,14 @@
 package com.miller.userapp.module.activity.newuserpopup.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 新人权益弹窗接口请求参数
  */
-@Getter
-@Setter
+@Data
 public class NewUserPopupRequestDTO {
     private  int showEntry;
     private  int showModuleAd;
+    private  int type;
 
 }
