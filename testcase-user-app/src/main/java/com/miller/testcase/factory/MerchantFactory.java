@@ -5,6 +5,9 @@ import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * 创建商家的数据工厂类
  *
@@ -26,10 +29,14 @@ public class MerchantFactory {
         if (!isEditMerchant) {
             merchantFactory.step02CreateMerchant();
         }
+        // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏
         merchantFactory.step03EditMerchantInfoOfBusiness();
         merchantFactory.step04EditMerchantInfoOfCost();
         merchantFactory.step05EditMerchantInfoOfAdditional();
         merchantFactory.step06EditMerchantInfoOfAddKP();
+        merchantFactory.step07CopyOtherShopGoods();
+        merchantFactory.step08AddShopBusinessTime();
+        merchantFactory.step09AddFence();
 
     }
 
@@ -156,6 +163,34 @@ public class MerchantFactory {
         if (isEditMerchant) {
             // 修改 ShopId 为指定的 ShopId
             requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+            // kp 不需要通过自动化编辑
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+            var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+            var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+            var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+            TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        }
+    }
+
+    /**
+     * ERP-编辑商家-复制其他店铺商品
+     */
+    public void step07CopyOtherShopGoods() {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/product/copyOtherShopProduct";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_copy_goods/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_copy_goods/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_copy_goods/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
         } else {
             // 修改 ShopId 为创建商家的 ShopId
             requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
@@ -164,28 +199,72 @@ public class MerchantFactory {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-
     }
 
-    /**
-     * ERP-编辑商家-复制其他店铺商品
-     */
-
-    public void step07CopyOtherShopGoods() {
-    }
     /**
      * ERP-编辑商家-修改店铺营业时间
      */
-
     public void step08AddShopBusinessTime() {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/save/shop/business-time";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_business_time/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_business_time/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_business_time/response/assert_full_field.json";
 
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+        }
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
+
     /**
      * ERP-编辑商家-配送围栏
      */
+    public void step09AddFence() {
+        // 注意：erp 老项目特殊处理，需要添加 cookie
+        String uri = "https://platform-test-backup.hungrypanda.cn/admin/merchant/fence/save/fenceLatlngChain.htm";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_add_fence/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_add_fence/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_add_fence/response/assert_full_field.json";
 
-    public void step09AddFence(){
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        requestHeaders.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.areaFenceData[0].pid", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.areaFenceData[0].pid", TestCaseHelpful.get("shopId"));
+        }
+        String cookie = "CN_isNewFramework=1;CN_token=" + requestHeaders.get("token");
+        requestHeaders.put("Cookie", cookie);
 
+        try {
+            String encode = URLEncoder.encode(TestCaseHelpful.extractValue(requestBody, "$.areaFenceData[0]").toString(), "UTF-8");
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.areaFenceData[0]", encode);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
 
     /**

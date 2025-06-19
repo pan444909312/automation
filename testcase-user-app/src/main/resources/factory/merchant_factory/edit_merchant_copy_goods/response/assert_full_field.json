@@ -1,0 +1,5 @@
+{
+	"code": 1,
+	"data": "${json-unit.ignore}",
+	"queryList": "${json-unit.ignore-element}"
+}
