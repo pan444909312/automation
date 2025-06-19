@@ -48,8 +48,12 @@ public class UpdateIsCheck_Tests {
         // 查询多条记录
         List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
         // 获取查询结果的第1行数据中的数据库列明为“add_id”的值
-        String shopCartId = selectListSql.get(0).get("shop_cart_id").toString();
-        shopCartIds.add(shopCartId);
+        try {
+            String shopCartId = selectListSql.get(0).get("shop_cart_id").toString();
+            shopCartIds.add(shopCartId);
+        }catch (Exception e){
+            System.out.println("购物车无商品！！");
+        }
     }
 
     @DisplayName("正向流程")
