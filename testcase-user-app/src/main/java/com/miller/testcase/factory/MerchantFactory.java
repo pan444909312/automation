@@ -27,6 +27,9 @@ public class MerchantFactory {
             merchantFactory.step02CreateMerchant();
         }
         merchantFactory.step03EditMerchantInfoOfBusiness();
+        merchantFactory.step04EditMerchantInfoOfCost();
+        merchantFactory.step05EditMerchantInfoOfAdditional();
+        merchantFactory.step06EditMerchantInfoOfAddKP();
 
     }
 
@@ -54,8 +57,7 @@ public class MerchantFactory {
         requestHeaders.put("token", TestCaseHelpful.erpLogin());
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         // 商家名称
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody,
-                "$.baseInfo.operationNameList[?(@.lang=='CN')].sortList[?(@.operationName=='NAME')].value", merchantName);
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.baseInfo.operationNameList[?(@.lang=='CN')].sortList[?(@.operationName=='NAME')].value", merchantName);
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
         // 创建商家失败
@@ -86,7 +88,7 @@ public class MerchantFactory {
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         if (isEditMerchant) {
             // 修改 ShopId 为指定的 ShopId
-            TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
         } else {
             // 修改 ShopId 为创建商家的 ShopId
             requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
@@ -96,4 +98,115 @@ public class MerchantFactory {
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
+
+    /**
+     * ERP-编辑商家-费用配置
+     *
+     */
+    public void step04EditMerchantInfoOfCost() {
+        // 使用默认值，暂不需要编辑费用配置
+        // 配送平台服务费
+        // 自取平台服务费
+        // 塑料袋打包费
+        // 配送小额订单费
+        // 自取小额订单费
+    }
+
+    /**
+     * ERP-编辑商家-补充信息
+     */
+    public void step05EditMerchantInfoOfAdditional() {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/module/additional/edit";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_additional/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_additional/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_additional/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+        }
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+    }
+
+    /**
+     * ERP-编辑商家-KP信息
+     */
+    public void step06EditMerchantInfoOfAddKP() {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/module/kp/save";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_add_kp/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_add_kp/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_add_kp/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+        }
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+
+    }
+
+    /**
+     * ERP-编辑商家-复制其他店铺商品
+     */
+
+    public void step07CopyOtherShopGoods() {
+    }
+    /**
+     * ERP-编辑商家-修改店铺营业时间
+     */
+
+    public void step08AddShopBusinessTime() {
+
+    }
+    /**
+     * ERP-编辑商家-配送围栏
+     */
+
+    public void step09AddFence(){
+
+    }
+
+    /**
+     * ERP-编辑商家-结算信息
+     * ERP-编辑商家-结算信息-佣金
+     */
+
+//    public void step10SaveBillInfo() {
+//        // ERP-编辑商家-结算信息
+//        saveBillInfo("Step10SaveBillInfoOfPanda.json");
+//        saveBillInfo("Step10SaveBillInfoOfPandaWeb.json");
+//        saveBillInfo("Step10SaveBillInfoOfPandaGFO.json");
+//        //  ERP-编辑商家-结算信息-佣金,依赖 ERP-编辑商家-结算信息 先执行
+//        saveCommission("Step11SaveCommissionOfPanda-1.json");
+//        saveCommission("Step11SaveCommissionOfPanda-2.json");
+//        saveCommission("Step11SaveCommissionOfPanda-3.json");
+//        saveCommission("Step11SaveCommissionOfPanda-4.json");
+//        saveCommission("Step11SaveCommissionOfPanda-5.json");
+//        saveCommission("Step11SaveCommissionOfPanda-6.json");
+//        saveCommission("Step11SaveCommissionOfPandaWeb-1.json");
+//        saveCommission("Step11SaveCommissionOfGFO-1.json");
+//    }
+//
 }
