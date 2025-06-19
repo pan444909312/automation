@@ -93,6 +93,24 @@
       "priceThresholdMax": null,
       "currency": null,
       "sortTypeList": ["COMPOSITE", "PRICE", "DISCOUNTS", "DISTANCE"]
+    }, {
+      "moduleId": 2416,
+      "moduleType": 1,
+      "moduleName": "店铺列表含菜品",
+      "moduleEthnicity": 3,
+      "sort": 0,
+      "background": "#F7F8FB",
+      "loadType": 1,
+      "activityTitle": "九江自动化",
+      "filterShowType": 0,
+      "shopShowType": 1,
+      "singleLoadRowSize": 5,
+      "firstLoadRowSize": 5,
+      "languageCode": "CN",
+      "priceThresholdMin": null,
+      "priceThresholdMax": null,
+      "currency": null,
+      "sortTypeList": ["COMPOSITE", "PRICE", "DISCOUNTS", "DISTANCE"]
     }],
     "config": {
       "background": "#F7F8FB",
