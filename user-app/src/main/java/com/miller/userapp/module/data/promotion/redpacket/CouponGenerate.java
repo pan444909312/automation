@@ -1,5 +1,6 @@
 package com.miller.userapp.module.data.promotion.redpacket;
 
+import com.miller.entity.constant.CouponTypeEnum;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.service.framework.util.ResourceUtils;
 import com.miller.userapp.module.data.promotion.redpacket.flow.CouponTemplateFlow;
@@ -36,6 +37,7 @@ public class CouponGenerate {
     /**
      * 根据传入的优惠券入参文件 url，添加优惠券
      * 优惠券有效期默认为今天到后30天
+     *
      * @param couponDataResource 优惠券入参文件 url
      * @return 添加结果，成功则返回优惠券template_sn
      */
@@ -45,7 +47,7 @@ public class CouponGenerate {
         couponTemplateFlow = new CouponTemplateFlow();
         // 处理优惠券有效期，默认设置开始时间就今天，结束时间往后推30天
         String couponData = new ResourceUtils().readTestCaseDataFromResourcesPath(
-                CouponTemplateAddRequestDTO.class, fileURL + couponDataResource).
+                        CouponTemplateAddRequestDTO.class, fileURL + couponDataResource).
                 replace("$startTime$", new DateTime(new Date()).toString("yyyy-MM-dd")).
                 replace("$endTime$", new DateTime(new Date()).plusDays(30).toString("yyyy-MM-dd"));
 
@@ -65,15 +67,15 @@ public class CouponGenerate {
      */
     public String addPlatformCouponTemplate(Integer couponType) {
         // 满减券
-        if (couponType == 1) {
+        if (couponType == CouponTypeEnum.FULL_SUB.getCode()) {
             return addCoupon("CouponPlatformFullSub.json");
         }
         // 折扣券
-        if (couponType == 2) {
+        if (couponType == CouponTypeEnum.DISCOUNT.getCode()) {
             return addCoupon("CouponPlatformDiscount.json");
         }
         // 减运费券
-        if (couponType == 3) {
+        if (couponType == CouponTypeEnum.DELIVERY_FEE.getCode()) {
             return addCoupon("CouponPlatformShippingSub.json");
         }
         return "券类型不存在";
@@ -98,37 +100,38 @@ public class CouponGenerate {
     public String addShopCouponTemplate(Integer couponType, List<Long> shopList) {
         CouponTemplateAddShopRequestDTO requestDTO = new CouponTemplateAddShopRequestDTO();
         String templateSn = "";
+        Integer errorNum = 0;
         // 满减券
-        if (couponType == 1) {
+        if (couponType == CouponTypeEnum.FULL_SUB.getCode()) {
             templateSn = addCoupon("CouponShopFullSub.json");
             requestDTO.setTemplateSn(templateSn);
             requestDTO.setShopIds(shopList);
-            couponTemplateFlow.addCouponShop(requestDTO);
+            errorNum = couponTemplateFlow.addCouponShop(requestDTO).getData().getErrorShopNum();
         }
         // 折扣券
-        else if (couponType == 2) {
+        else if (couponType == CouponTypeEnum.DISCOUNT.getCode()) {
             templateSn = addCoupon("CouponShopDiscount.json");
             requestDTO.setTemplateSn(templateSn);
             requestDTO.setShopIds(shopList);
-            couponTemplateFlow.addCouponShop(requestDTO);
+            errorNum = couponTemplateFlow.addCouponShop(requestDTO).getData().getErrorShopNum();
         }
         // 减运费券
-        else if (couponType == 3) {
+        else if (couponType == CouponTypeEnum.DELIVERY_FEE.getCode()) {
             templateSn = addCoupon("CouponShopShippingSub.json");
             requestDTO.setTemplateSn(templateSn);
             requestDTO.setShopIds(shopList);
-            couponTemplateFlow.addCouponShop(requestDTO);
+            errorNum = couponTemplateFlow.addCouponShop(requestDTO).getData().getErrorShopNum();
         } else return "券类型不存在";
 
-        return templateSn;
+        return errorNum <= 0 ? templateSn : templateSn + "，导入商家，失败商家数：" + errorNum;
 
     }
 
     /**
      * 根据券类型和商家列表，创建商家券并指定可用商家，多个商家用","分隔
      *
-     * @param couponType 券类型，1：满减；2：折扣；3：减运费
-     * @param shopListStr   指定的商家列表
+     * @param couponType  券类型，1：满减；2：折扣；3：减运费
+     * @param shopListStr 指定的商家列表
      * @return 添加结果，成功则返回优惠券template_sn
      */
     public String addShopCouponTemplate(Integer couponType, String shopListStr) {
@@ -169,33 +172,38 @@ public class CouponGenerate {
 
     /**
      * 创建商品券，并按传入的商品id导入商品
+     *
      * @param productList 商品id列表
      * @return 添加结果，成功则返回优惠券template_sn
      */
-    public String addProductCouponTemplate(List<Long> productList){
+    public String addProductCouponTemplate(List<Long> productList) {
+        Integer errorNum = 0;
         CouponTemplateAddProductRequestDTO requestDTO = new CouponTemplateAddProductRequestDTO();
         String templateSn = addCoupon("CouponProduct.json");
         requestDTO.setTemplateSn(templateSn);
         requestDTO.setProductIds(productList);
-        couponTemplateFlow.addCouponProduct(requestDTO);
-        return templateSn;
+        errorNum = couponTemplateFlow.addCouponProduct(requestDTO).getData().getErrorShopNum();
+        return errorNum <= 0 ? templateSn : templateSn + "，导入商品失败，商品不存在或被删除，失败数：" + errorNum;
+
     }
 
     /**
      * 创建商品券，并按传入的商品id导入商品，多个商品用","分隔
+     *
      * @param productListStr 商品id列表
      * @return 添加结果，成功则返回优惠券template_sn
      */
-    public String addProductCouponTemplate(String productListStr){
+    public String addProductCouponTemplate(String productListStr) {
         List<Long> productList = Arrays.stream(productListStr.split(",")).map(Long::valueOf).toList();
         return addProductCouponTemplate(productList);
     }
 
     /**
      * 创建商品券，不传指定商品则传入写死的默认测试商品id
+     *
      * @return 添加结果，成功则返回优惠券template_sn
      */
-    public String addProductCouponTemplate(){
+    public String addProductCouponTemplate() {
         return addProductCouponTemplate(defaultProductIds);
     }
 
@@ -239,9 +247,9 @@ public class CouponGenerate {
         addPlatformCouponTemplate(2);
         addPlatformCouponTemplate(3);
         // shopList传商家id，多个商家用","分隔
-        addShopCouponTemplate(1,"536235947");
-        addShopCouponTemplate(2,"536235947");
-        addShopCouponTemplate(3,"536235947");
+        addShopCouponTemplate(1, "536235947");
+        addShopCouponTemplate(2, "536235947");
+        addShopCouponTemplate(3, "536235947");
         // productList传商品id，多个商品用","分隔
         addProductCouponTemplate("82083860");
     }

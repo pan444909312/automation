@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DCB",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_买过的店_店铺星级不符合买过的店标签时，不返回标签",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoBoughtRecentlyFeatureCauseStarLevel {
@@ -64,7 +64,7 @@ public class ShopShouldHasNoBoughtRecentlyFeatureCauseStarLevel {
     @AfterAll
     void AfterAll() {
         // 恢复数据
-        dataShopUserOrderEntity.setOrderCnt60d(19L);
+        dataShopUserOrderEntity.setShopStarLevel(5.0d);
         dataShopUserOrderMapper.updateById(dataShopUserOrderEntity);
     }
 
