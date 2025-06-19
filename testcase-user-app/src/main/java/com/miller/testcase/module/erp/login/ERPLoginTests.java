@@ -52,7 +52,7 @@ public class ERPLoginTests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-        String token = TestCaseHelpful.extractValue(responseBody, "data.token");
-        TestCaseHelpful.set("token", token);
+//        String token = TestCaseHelpful.extractValue(responseBody, "data.token");
+//        TestCaseHelpful.set("token", token);
     }
 } 

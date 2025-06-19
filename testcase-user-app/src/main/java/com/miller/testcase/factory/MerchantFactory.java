@@ -1,5 +1,7 @@
 package com.miller.testcase.factory;
 
+import com.miller.testcase.utils.TestCaseHelpful;
+
 /**
  * 创建商家的数据工厂类
  *
@@ -14,4 +16,9 @@ public class MerchantFactory {
     private static final boolean isEditMerchant = false;
     private final long shopIdForDebug = 970301088;
 
+    public static void main(String[] args) {
+        String erpToken = TestCaseHelpful.erpLogin();
+        System.out.println(erpToken);
+
+    }
 }

@@ -14,6 +14,7 @@ import com.miller.testcase.module.erp.login.ERPLoginTests;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
+import net.javacrumbs.jsonunit.core.Option;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -83,7 +84,7 @@ public class TestCaseHelpful {
      * @return JsonAssert.ConfigurableJsonAssert
      */
     public static JsonAssert.ConfigurableJsonAssert assertThatJson(@NotNull Object actual,
-            JsonAssertions.JsonAssertionCallback... callbacks) {
+                                                                   JsonAssertions.JsonAssertionCallback... callbacks) {
         return JsonUnitUtils.assertThatJson(actual, callbacks);
     }
 
@@ -102,7 +103,7 @@ public class TestCaseHelpful {
 
     /**
      * 将一个值放入到缓存中，默认8小时有效期
-     * 
+     *
      * @param key   唯一值，建议使用测试用例 ID 值（scenarioID），默认会拼上前缀 Automation_，如果直连 Redis
      *              查询，请自行拼接。
      * @param value 值
@@ -113,7 +114,7 @@ public class TestCaseHelpful {
 
     /**
      * 获取缓存中的值
-     * 
+     *
      * @param key 唯一值，建议使用测试用例 ID 值（scenarioID）
      * @return 缓存中的值
      */
@@ -158,7 +159,7 @@ public class TestCaseHelpful {
      * @return 响应体字符串
      */
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
-            Object body) {
+                                     Object body) {
         // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
         if (body instanceof String) {
             try {
@@ -199,10 +200,9 @@ public class TestCaseHelpful {
                     webBodyHeaders.remove("authorization");
                     // 如果H5里面携带了用H5的
                     Object h5ContentType;
-                    if(webBodyHeaders.containsKey("content-type")){
+                    if (webBodyHeaders.containsKey("content-type")) {
                         h5ContentType = webBodyHeaders.get("content-type");
-                    }
-                    else {
+                    } else {
                         h5ContentType = headers.get("content-type");
                     }
                     webBodyHeaders.putAll(headers);
@@ -214,10 +214,10 @@ public class TestCaseHelpful {
                     }
                     headers.put("Host", host);
                     headers.put("content-type", h5ContentType);
-                    if (h5ContentType.toString().contains("application/x-www-form-urlencoded")){
+                    if (h5ContentType.toString().contains("application/x-www-form-urlencoded")) {
                         body = JSONUtils.parseObject(body.toString()).getJSONObject("pd")
                                 .toJavaObject(Map.class);
-                    }else {
+                    } else {
                         body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
                     }
                     // 方案二：后续处理
@@ -249,7 +249,7 @@ public class TestCaseHelpful {
 
     /**
      * 登录并返回token
-     * 
+     *
      * @param mobilePhone 手机号 areaCode 默认 86
      * @param password    登录密码
      * @return token
@@ -311,7 +311,7 @@ public class TestCaseHelpful {
 
     /**
      * 获取加密后的明文手机号
-     * 
+     *
      * @param encodePhone 需要加密的手机号
      * @return 加密后的手机号
      */
@@ -319,10 +319,33 @@ public class TestCaseHelpful {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/encryption/crypto";
         var headers = TestCaseHelpful.getHeaders("module/erp/login/request/headers_crypto.json");
         String body = "{\"sceneType\":1,\"text\":\"" + encodePhone + "\",\"cryptoType\":1}";
-        new ERPLoginTests().shouldSuccess();
-        headers.put("token", TestCaseHelpful.get("token"));
+        headers.put("token", TestCaseHelpful.erpLogin());
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         return TestCaseHelpful.extractValue(responseBody, "data.content");
+    }
+
+
+    /**
+     * ERP 后台登录，返回token。 不支持账号密码登录，只能使用默认账号。
+     *
+     * @return token
+     */
+    public static String erpLogin() {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
+        String method = "POST";
+        String headers = "module/erp/login/request/headers.json";
+        String params = null;
+        String body = "module/erp/login/request/should_success.json";
+        String assertFullField = "module/erp/login/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);;
+        return TestCaseHelpful.extractValue(responseBody, "$.data.token");
     }
 
 }
