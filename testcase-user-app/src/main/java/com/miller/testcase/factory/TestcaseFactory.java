@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class TestcaseFactory {
     // 用户可自定义的子目录（如 "account/address"），默认为空字符串，则默认在 module 目录下
-    public static String CUSTOM_SUB_PATH = "";
+    public static String CUSTOM_SUB_PATH = "erp/merchant";
 
     // 自动创建测试用例入口
     public static void main(String[] args) {

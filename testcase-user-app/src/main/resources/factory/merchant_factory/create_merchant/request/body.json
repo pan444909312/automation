@@ -1,0 +1,33 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国江西省九江市濂溪区332000",
+      "city": "九江市",
+      "longitude": "115.9435517553",
+      "latitude": "29.6705572389",
+      "postCode": "332000"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 1389,
+        "type": 0
+      }
+    ],
+    "managerId": 1748,
+    "extraManagerId": null,
+    "merchantNotes": "自动化创建的商家"
+  }
+}
