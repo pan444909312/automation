@@ -36,6 +36,7 @@ public class MerchantFactory {
         merchantFactory.step08AddShopBusinessTime();
         merchantFactory.step09AddFence();
         merchantFactory.step10SaveBillInfo();
+        merchantFactory.step11MerchantAuth();
 
     }
 
@@ -368,11 +369,34 @@ public class MerchantFactory {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-
-
     }
 
+    /**
+     * ERP-商家管理-商家认证-审核
+     */
+    public void step11MerchantAuth() {
+        String uri = TestcaseConfig.HOST_ERP +"/api/bdm/merchant/auth";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_auth/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_auth/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_auth/response/assert_full_field.json";
 
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+        }
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+    }
 
 
 }
