@@ -6,10 +6,6 @@ import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-
 /**
  * 创建商家的数据工厂类
  *
@@ -39,6 +35,7 @@ public class MerchantFactory {
         merchantFactory.step07CopyOtherShopGoods();
         merchantFactory.step08AddShopBusinessTime();
         merchantFactory.step09AddFence();
+        merchantFactory.step10SaveBillInfo();
 
     }
 
@@ -299,21 +296,83 @@ public class MerchantFactory {
      * ERP-编辑商家-结算信息
      * ERP-编辑商家-结算信息-佣金
      */
+    public void step10SaveBillInfo() {
+        // ERP-编辑商家-结算信息
+        saveBillInfo("factory/merchant_factory/edit_merchant_save_commission/request/Step10SaveBillInfoOfPanda.json");
+        saveBillInfo("factory/merchant_factory/edit_merchant_save_commission/request/Step10SaveBillInfoOfPandaWeb.json");
+        saveBillInfo("factory/merchant_factory/edit_merchant_save_commission/request/Step10SaveBillInfoOfPandaGFO.json");
 
-//    public void step10SaveBillInfo() {
-//        // ERP-编辑商家-结算信息
-//        saveBillInfo("Step10SaveBillInfoOfPanda.json");
-//        saveBillInfo("Step10SaveBillInfoOfPandaWeb.json");
-//        saveBillInfo("Step10SaveBillInfoOfPandaGFO.json");
-//        //  ERP-编辑商家-结算信息-佣金,依赖 ERP-编辑商家-结算信息 先执行
-//        saveCommission("Step11SaveCommissionOfPanda-1.json");
-//        saveCommission("Step11SaveCommissionOfPanda-2.json");
-//        saveCommission("Step11SaveCommissionOfPanda-3.json");
-//        saveCommission("Step11SaveCommissionOfPanda-4.json");
-//        saveCommission("Step11SaveCommissionOfPanda-5.json");
-//        saveCommission("Step11SaveCommissionOfPanda-6.json");
-//        saveCommission("Step11SaveCommissionOfPandaWeb-1.json");
-//        saveCommission("Step11SaveCommissionOfGFO-1.json");
-//    }
-//
+        //  ERP-编辑商家-结算信息-佣金,依赖 ERP-编辑商家-结算信息 先执行
+        saveCommission("factory/merchant_factory/edit_merchant_save_commission/request/Step11SaveCommissionOfPanda-1.json");
+        saveCommission("factory/merchant_factory/edit_merchant_save_commission/request/Step11SaveCommissionOfPanda-2.json");
+        saveCommission("factory/merchant_factory/edit_merchant_save_commission/request/Step11SaveCommissionOfPanda-3.json");
+        saveCommission("factory/merchant_factory/edit_merchant_save_commission/request/Step11SaveCommissionOfPanda-4.json");
+        saveCommission("factory/merchant_factory/edit_merchant_save_commission/request/Step11SaveCommissionOfPanda-5.json");
+        saveCommission("factory/merchant_factory/edit_merchant_save_commission/request/Step11SaveCommissionOfPanda-6.json");
+        saveCommission("factory/merchant_factory/edit_merchant_save_commission/request/Step11SaveCommissionOfPandaWeb-1.json");
+        saveCommission("factory/merchant_factory/edit_merchant_save_commission/request/Step11SaveCommissionOfGFO-1.json");
+    }
+
+    /**
+     * 保存结算信息
+     *
+     * @param fileName 文件名
+     */
+    private void saveBillInfo(String fileName) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/merchant/finance/config/saveBillInfo";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_save_commission/request/headers.json";
+        String params = null;
+        // String body = "factory/merchant_factory/edit_merchant_save_commission/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_save_commission/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(fileName);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+        }
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+    }
+
+    /**
+     * 结算信息子项-佣金
+     *
+     */
+    private void saveCommission(String fileName) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/merchant/finance/config/saveCommission";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_save_commission/request/headers.json";
+        String params = null;
+        // String body = "factory/merchant_factory/edit_merchant_save_commission/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_save_commission/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(fileName);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+        }
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+
+
+    }
+
+
+
+
 }

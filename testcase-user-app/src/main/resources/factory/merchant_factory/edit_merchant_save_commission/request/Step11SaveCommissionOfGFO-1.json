@@ -1,0 +1,14 @@
+{
+  "commissionRateBefore": "50.00",
+  "extraCommissionRateBefore": "0.00",
+  "contractCommissionRate": 50,
+  "commissionRateDuring": 50,
+  "extraCommissionRateDuring": 0,
+  "commissionRateAfter": 0,
+  "extraCommissionRateAfter": 0,
+  "formulaId": 1,
+  "settleSource": 5,
+  "effectStartTimeStr": "2024-08-12 18:23:15",
+  "shopId": null,
+  "commissionType": 1
+}
