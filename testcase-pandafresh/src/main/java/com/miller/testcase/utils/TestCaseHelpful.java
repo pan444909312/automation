@@ -253,6 +253,18 @@ public class TestCaseHelpful {
             headers.put("authorization", headers.get("authorization"));
         }
 
+        // 统一处理请求头中的content-type为小写
+        if (headers.containsKey("Content-Type")) {
+            Object contentTypeValue = headers.get("Content-Type");
+            headers.remove("Content-Type");
+            headers.put("content-type", contentTypeValue);
+        }
+        if (headers.get("content-type").toString().contains("application/x-www-form-urlencoded")) {
+            body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+        } else {
+            body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
+        }
+
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
         } else if ("GET".equals(method)) {

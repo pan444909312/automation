@@ -231,6 +231,17 @@ public class TestCaseHelpful {
                 // 解析失败说明不是JSON格式,忽略异常
             }
         }
+        // 统一处理请求头中的content-type为小写
+        if (headers.containsKey("Content-Type")) {
+            Object contentTypeValue = headers.get("Content-Type");
+            headers.remove("Content-Type");
+            headers.put("content-type", contentTypeValue);
+        }
+        if (headers.get("content-type").toString().contains("application/x-www-form-urlencoded")) {
+            body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+        } else {
+            body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
+        }
 
         method = method.toUpperCase();
         if ("POST".equals(method)) {
@@ -344,7 +355,7 @@ public class TestCaseHelpful {
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);;
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         return TestCaseHelpful.extractValue(responseBody, "$.data.token");
     }
 
