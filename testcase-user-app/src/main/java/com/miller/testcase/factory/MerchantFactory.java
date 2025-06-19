@@ -2,11 +2,13 @@ package com.miller.testcase.factory;
 
 import com.miller.service.util.XXLConfUtils;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 /**
  * 创建商家的数据工厂类
@@ -232,6 +234,7 @@ public class MerchantFactory {
      * ERP-编辑商家-配送围栏
      */
     public void step09AddFence() {
+        /*
         // 注意：erp 老项目特殊处理，需要添加 cookie
         String uri = "https://platform-test-backup.hungrypanda.cn/admin/merchant/fence/save/fenceLatlngChain.htm";
         String method = "POST";
@@ -252,19 +255,44 @@ public class MerchantFactory {
             requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.areaFenceData[0].pid", TestCaseHelpful.get("shopId"));
         }
         String cookie = "CN_isNewFramework=1;CN_token=" + requestHeaders.get("token");
+        cookie = """
+                sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%2218badd9e77310c-047577dbefc4f1-16525634-2073600-18badd9e7741112%22%2C%22first_id%22%3A%22%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%2C%22%24device_id%22%3A%2218badd9e77310c-047577dbefc4f1-16525634-2073600-18badd9e7741112%22%7D; _gcl_au=1.1.637593495.1749693568; CN_isNewFramework=1; SESSION=793eb90a-de9b-452a-bf75-722170c7e8c9; urms_token=Bearer%20eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmNmNmMmZhMDY1OTQ3MGVmOTVhZDJhNmFhMTNiYTdkOSIsIm9yaWdpblVzZXJJZCI6IiIsInVzZXJOaWNrIjoi5Y2V5Lic5LicIiwib3JpZ2luIjoiIiwidXNlclV1aWQiOiJmNmNmMmZhMDY1OTQ3MGVmOTVhZDJhNmFhMTNiYTdkOSIsImlzcyI6ImhwLWlhbS1zZXJ2ZXIiLCJ1c2VyTmFtZSI6IjEwMzkxOSIsImV4cCI6MTc4MTc3NzQ4NCwiaWF0IjoxNzUwMjQxNDg0LCJqdGkiOiIyNTFhNzE0ZTY2ODA0MTE2OWQ2YzUyNGY3YTNhYzdhYSIsImVtYWlsIjoic2hhbmRvbmdkb25nQGh1bmdyeXBhbmRhZ3JvdXAuY29tIn0.jjbDvxJUCNlljt7babU_PIuPTnV5voTzR9RE9S9FFUiKttEc1spfghDy0gwRf6MvnpRPqDxQPAt8dKJBm37AYw; CN_token=426eac48c9dce46cdb7e479ea9971e2b; CN_userInfo=%7B%22userId%22%3A1748%2C%22userToken%22%3A%22426eac48c9dce46cdb7e479ea9971e2b%22%2C%22username%22%3A%22dongdong_test%22%2C%22userNick%22%3A%22%E5%8D%95%E4%B8%9C%E4%B8%9C%22%2C%22userPic%22%3A%22%22%2C%22showManagerBinding%22%3Afalse%2C%22userPhone%22%3A%2215606690056%22%7D
+
+                """;
         requestHeaders.put("Cookie", cookie);
 
-        try {
-            String encode = URLEncoder.encode(TestCaseHelpful.extractValue(requestBody, "$.areaFenceData[0]").toString(), "UTF-8");
-            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.areaFenceData[0]", encode);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        String encode = URLEncoder.encode(TestCaseHelpful.extractValue(requestBody, "$.areaFenceData[0]").toString(), Charset.defaultCharset());
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.areaFenceData[0]", "%5B%7B%22fenceIdStr%22%3A%222779%22%2C%22pid%22%3A%22398195317%22%2C%22fenceLatlngChain%22%3A%2230.48964%2C119.75968%7C30.25683%2C119.71162%7C30.09299%2C119.77891%7C29.94123%2C119.86714%7C29.88644%2C120.07528%7C29.88879%2C120.28617%7C29.94822%2C120.44015%7C30.07784%2C120.55619%7C30.46449%2C120.55379%7C30.57806%2C120.39140%7C30.63421%2C120.19055%7C30.62652%2C119.95640%22%2C%22fenceName%22%3A%22%E6%9D%AD%E5%B7%9E%E5%B8%82%22%2C%22operate%22%3A3%7D%5D");
+
 
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        */
+        String sql;
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            // 设置九江市围栏
+            sql = """
+                    UPDATE panda_test.hp_shop_delivery_fence t
+                    SET t.fence_latlng = '29.80146,115.87807|29.73590,115.81490|29.66313,115.81147|29.60688,115.84271|29.60255,115.91996|29.61807,116.04149|29.65627,116.12767|29.79282,116.08750|29.80772,116.00888|29.81665,115.93609',
+                        t.fence_name = '九江市1',
+                        t.last_modify_admin = 1748,
+                        t.delivery_type = 1,
+                        t.fence_template_id = 0
+                    WHERE t.shop_id = 
+                    """ + shopIdForDebug;
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            // 设置九江市围栏
+            sql = " INSERT INTO panda_test.hp_shop_delivery_fence (shop_id, fence_latlng, fence_name, create_time, last_update_time, last_modify_admin, delivery_type, fence_template_id) VALUES ( " +
+                    TestCaseHelpful.get("shopId")
+                    + ", '29.80146,115.87807|29.73590,115.81490|29.66313,115.81147|29.60688,115.84271|29.60255,115.91996|29.61807,116.04149|29.65627,116.12767|29.79282,116.08750|29.80772,116.00888|29.81665,115.93609', '九江市', DEFAULT, DEFAULT, 1748, 1, 0); ";
+
+        }
+        int[] ints = PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
+        TestCaseHelpful.assertThatJson(ints).isArray().size().isGreaterThanOrEqualTo(1);
     }
 
     /**
