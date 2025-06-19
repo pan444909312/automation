@@ -26,23 +26,23 @@ public class MerchantFactory {
         if (!isEditMerchant) {
             merchantFactory.step02CreateMerchant();
         }
+        merchantFactory.step03EditMerchantInfoOfBusiness();
 
     }
 
-    private void step01ERPLogin() {
+    private void step01Init() {
         // 关闭首页店铺流缓存
         XXLConfUtils.updateConfig("test", "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
 
     }
 
     /**
-     * 创建商家
+     * ERP-商家列表-创建商家
      */
     private String step02CreateMerchant() {
         if (merchantName.isBlank()) {
             throw new RuntimeException("请指定商家名称");
         }
-        /* 名称添加时间戳的后6位，避免重复 */
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/module/save";
         String method = "POST";
         String headers = "factory/merchant_factory/create_merchant/request/headers.json";
@@ -65,6 +65,35 @@ public class MerchantFactory {
         }
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.set("shopId", TestCaseHelpful.extractValue(responseBody, "data.shopId"));
         return responseBody;
+    }
+
+
+    /**
+     * ERP-编辑商家-经营信息
+     */
+    public void step03EditMerchantInfoOfBusiness() {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/module/business/info/edit";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_business/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_business/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_business/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+        }
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
 }
