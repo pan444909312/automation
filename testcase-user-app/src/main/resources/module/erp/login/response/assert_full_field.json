@@ -3,12 +3,12 @@
 	"message": "成功",
 	"data": {
 		"manager": {
-			"userId": 1748,
+			"userId": "${json-unit.any-number}",
 			"userName": "dongdong_test",
 			"userNick": "单东东",
 			"userPic": "",
 			"userTelphone": "15606690056",
-			"passwordUpdateTime": 1695004756275,
+			"passwordUpdateTime": "${json-unit.any-number}",
 			"cities": null,
 			"roleNames": null
 		}

@@ -10,7 +10,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.module.erp_login.ErpLoginTests;
+import com.miller.testcase.module.erp.login.ERPLoginTests;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
@@ -317,9 +317,9 @@ public class TestCaseHelpful {
      */
     public static String getPhoneNumber(String encodePhone) {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/encryption/crypto";
-        var headers = TestCaseHelpful.getHeaders("module/erp_login/request/headers_crypto.json");
+        var headers = TestCaseHelpful.getHeaders("module/erp/login/request/headers_crypto.json");
         String body = "{\"sceneType\":1,\"text\":\"" + encodePhone + "\",\"cryptoType\":1}";
-        new ErpLoginTests().shouldSuccess();
+        new ERPLoginTests().shouldSuccess();
         headers.put("token", TestCaseHelpful.get("token"));
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         return TestCaseHelpful.extractValue(responseBody, "data.content");
