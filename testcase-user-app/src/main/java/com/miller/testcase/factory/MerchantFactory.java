@@ -5,6 +5,7 @@ import com.miller.service.util.XXLJobUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
+import lombok.Setter;
 import net.javacrumbs.jsonunit.core.Option;
 
 /**
@@ -14,21 +15,23 @@ import net.javacrumbs.jsonunit.core.Option;
  * @version 1.0
  * @since 2025/5/27 23:04:49
  */
+@Setter
 public class MerchantFactory {
     /**
      * true: 编辑商家；false:创建商家。如果为false则使用指定的 ShopId 对商家进行编辑操作。
      */
-    private static boolean isEditMerchant = true;
-    private static long shopIdForDebug = 250721460;
+    private boolean isEditMerchant = false;
+    private long shopIdForDebug = 250721460;
     // 商家名称
-    private static String merchantName = "自动化测试商家";
+    private String merchantName = "自动化测试商家";
+
 
     public static void main(String[] args) {
         MerchantFactory merchantFactory = new MerchantFactory();
 
         merchantFactory.setUP();
 
-        if (!isEditMerchant) {
+        if (!merchantFactory.isEditMerchant) {
             merchantFactory.step02CreateMerchant();
         }
         // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏
