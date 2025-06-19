@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DCV",
         scenarioName = "店铺有代金券",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
 @DisplayName("/api/user/voucher/shop/index/voucher")
 public class ShopShouldHasVoucher {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/voucher/shop/index/voucher";
