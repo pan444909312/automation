@@ -173,7 +173,7 @@ public class TestCaseHelpful {
                     // 通过域名判断，获取域名和路径
                     String domain = "";
                     String path = "";
-                    
+
                     if (uri.contains("://")) {
                         // 包含协议的情况
                         int protocolEnd = uri.indexOf("://") + 3;
@@ -189,7 +189,7 @@ public class TestCaseHelpful {
                         // 不包含协议的情况，假设是相对路径
                         path = uri;
                     }
-                    
+
                     uri = TestcaseConfig.HOST + path;
                     method = JSONUtils.parseObject(body.toString()).getString("pm");
                     Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph").toJavaObject(Map.class);
@@ -197,10 +197,9 @@ public class TestCaseHelpful {
                     webBodyHeaders.remove("authorization");
                     // 如果H5里面携带了用H5的
                     Object h5ContentType;
-                    if(webBodyHeaders.containsKey("content-type")){
+                    if (webBodyHeaders.containsKey("content-type")) {
                         h5ContentType = webBodyHeaders.get("content-type");
-                    }
-                    else {
+                    } else {
                         h5ContentType = headers.get("content-type");
                     }
                     webBodyHeaders.putAll(headers);
@@ -212,10 +211,10 @@ public class TestCaseHelpful {
                     }
                     headers.put("Host", host);
                     headers.put("content-type", h5ContentType);
-                    if (h5ContentType.toString().contains("application/x-www-form-urlencoded")){
+                    if (h5ContentType.toString().contains("application/x-www-form-urlencoded")) {
                         body = JSONUtils.parseObject(body.toString()).getJSONObject("pd")
                                 .toJavaObject(Map.class);
-                    }else {
+                    } else {
                         body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
                     }
                     // 方案二：后续处理
@@ -251,6 +250,19 @@ public class TestCaseHelpful {
             headers.put("_sign", signReal);
             headers.put("_ts", System.currentTimeMillis() + "");
             headers.put("authorization", headers.get("authorization"));
+        }
+        if (!Objects.isNull(body)) {
+            // 统一处理请求头中的content-type为小写
+            if (headers.containsKey("Content-Type")) {
+                Object contentTypeValue = headers.get("Content-Type");
+                headers.remove("Content-Type");
+                headers.put("content-type", contentTypeValue);
+            }
+            if (headers.get("content-type").toString().contains("application/x-www-form-urlencoded")) {
+                body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+            } else {
+                body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
+            }
         }
 
         if ("POST".equals(method)) {

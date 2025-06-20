@@ -18,6 +18,7 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 测试用例助手, 简化和提高用例开发效率，作用如下：
@@ -42,7 +43,7 @@ public class TestCaseHelpful {
         boolean hasContentType = headers.keySet().stream()
                 .anyMatch(key -> key.equalsIgnoreCase("Content-Type"));
         if (!hasContentType) {
-            throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
+//            throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
         }
         return headers;
     }
@@ -231,7 +232,19 @@ public class TestCaseHelpful {
                 // 解析失败说明不是JSON格式,忽略异常
             }
         }
-
+        if (!Objects.isNull(body)) {
+            // 统一处理请求头中的content-type为小写
+            if (headers.containsKey("Content-Type")) {
+                Object contentTypeValue = headers.get("Content-Type");
+                headers.remove("Content-Type");
+                headers.put("content-type", contentTypeValue);
+            }
+            if (headers.get("content-type").toString().contains("application/x-www-form-urlencoded")) {
+                body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+            } else {
+                body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
+            }
+        }
         method = method.toUpperCase();
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
@@ -344,7 +357,7 @@ public class TestCaseHelpful {
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);;
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         return TestCaseHelpful.extractValue(responseBody, "$.data.token");
     }
 

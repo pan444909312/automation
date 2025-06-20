@@ -1,0 +1,59 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "otherInfo": {
+    "operationSwitch": [
+      {
+        "operationSwitch": "ALCOHOL",
+        "switchValue": 1
+      },
+      {
+        "operationSwitch": "TOBACCO",
+        "switchValue": 1
+      },
+      {
+        "operationSwitch": "CANNABIS",
+        "switchValue": 1
+      }
+    ],
+    "shopLabelId": 0,
+    "shopActivityTagId": null,
+    "evaluation": null,
+    "indexListLabel": "",
+    "perCapitaConsume": 0,
+    "miniShareText": "",
+    "shopNotice": "",
+    "addressRemark": "",
+    "images": [
+      {
+        "fileSource": "SHOP_REAL_SHOOTING",
+        "sort": 0,
+        "url": "https://static.hungrypanda.co/crm/1700206610715f6c05be801154296a2834d84948c1455.jpeg"
+      },
+      {
+        "fileSource": "SHOP_REAL_SHOOTING",
+        "sort": 1,
+        "url": "https://static.hungrypanda.co/crm/170020658163060c25634037343e690ead538c75e086f.jpeg"
+      },
+      {
+        "fileSource": "SHOP_REAL_SHOOTING",
+        "sort": 2,
+        "url": "https://static.hungrypanda.co/crm/1700206592218669a493d676e4eeba5d2b8505cea7eff.jpeg"
+      },
+      {
+        "fileSource": "SHOP_REAL_SHOOTING",
+        "sort": 3,
+        "url": "https://static.hungrypanda.co/crm/1700206602597795a0d2af712427f814fdf844e6e7263.jpeg"
+      }
+    ],
+    "alcoholLicenseNo": "",
+    "alcoholLicenseEndTime": "",
+    "alcoholLicensePdfUrl": "",
+    "tobaccoLicenseNo": "",
+    "tobaccoLicenseEndTime": "",
+    "tobaccoLicensePdfUrl": "",
+    "cannabisLicenseNo": "",
+    "cannabisLicenseEndTime": "",
+    "cannabisLicensePdfUrl": ""
+  }
+}
