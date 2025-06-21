@@ -43,7 +43,7 @@ public class TestCaseHelpful {
         boolean hasContentType = headers.keySet().stream()
                 .anyMatch(key -> key.equalsIgnoreCase("Content-Type"));
         if (!hasContentType) {
-            throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
+//            throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
         }
         return headers;
     }

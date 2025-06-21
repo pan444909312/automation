@@ -1,9 +1,11 @@
 package com.miller.testcase.factory;
 
 import com.miller.service.util.XXLConfUtils;
+import com.miller.service.util.XXLJobUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
+import lombok.Setter;
 import net.javacrumbs.jsonunit.core.Option;
 
 /**
@@ -13,18 +15,23 @@ import net.javacrumbs.jsonunit.core.Option;
  * @version 1.0
  * @since 2025/5/27 23:04:49
  */
+@Setter
 public class MerchantFactory {
     /**
      * true: 编辑商家；false:创建商家。如果为false则使用指定的 ShopId 对商家进行编辑操作。
      */
-    private static boolean isEditMerchant = true;
-    private static long shopIdForDebug = 250721460;
+    private boolean isEditMerchant = false;
+    private long shopIdForDebug = 250721460;
     // 商家名称
-    private static String merchantName = "自动化测试商家";
+    private String merchantName = "自动化测试商家";
+
 
     public static void main(String[] args) {
         MerchantFactory merchantFactory = new MerchantFactory();
-        if (!isEditMerchant) {
+
+        merchantFactory.setUP();
+
+        if (!merchantFactory.isEditMerchant) {
             merchantFactory.step02CreateMerchant();
         }
         // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏
@@ -37,13 +44,15 @@ public class MerchantFactory {
         merchantFactory.step09AddFence();
         merchantFactory.step10SaveBillInfo();
         merchantFactory.step11MerchantAuth();
+        merchantFactory.step12RecommendMerchant();
+
+        merchantFactory.tearDown();
 
     }
 
-    private void step01Init() {
+    private void setUP() {
         // 关闭首页店铺流缓存
         XXLConfUtils.updateConfig("test", "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
-
     }
 
     /**
@@ -82,7 +91,7 @@ public class MerchantFactory {
     /**
      * ERP-编辑商家-经营信息
      */
-    public void step03EditMerchantInfoOfBusiness() {
+    private void step03EditMerchantInfoOfBusiness() {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/module/business/info/edit";
         String method = "POST";
         String headers = "factory/merchant_factory/edit_merchant_business/request/headers.json";
@@ -110,7 +119,7 @@ public class MerchantFactory {
      * ERP-编辑商家-费用配置
      *
      */
-    public void step04EditMerchantInfoOfCost() {
+    private void step04EditMerchantInfoOfCost() {
         // 使用默认值，暂不需要编辑费用配置
         // 配送平台服务费
         // 自取平台服务费
@@ -122,7 +131,7 @@ public class MerchantFactory {
     /**
      * ERP-编辑商家-补充信息
      */
-    public void step05EditMerchantInfoOfAdditional() {
+    private void step05EditMerchantInfoOfAdditional() {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/module/additional/edit";
         String method = "POST";
         String headers = "factory/merchant_factory/edit_merchant_additional/request/headers.json";
@@ -149,7 +158,7 @@ public class MerchantFactory {
     /**
      * ERP-编辑商家-KP信息
      */
-    public void step06EditMerchantInfoOfAddKP() {
+    private void step06EditMerchantInfoOfAddKP() {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/module/kp/save";
         String method = "POST";
         String headers = "factory/merchant_factory/edit_merchant_add_kp/request/headers.json";
@@ -177,7 +186,7 @@ public class MerchantFactory {
     /**
      * ERP-编辑商家-复制其他店铺商品
      */
-    public void step07CopyOtherShopGoods() {
+    private void step07CopyOtherShopGoods() {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/product/copyOtherShopProduct";
         String method = "POST";
         String headers = "factory/merchant_factory/edit_merchant_copy_goods/request/headers.json";
@@ -204,7 +213,7 @@ public class MerchantFactory {
     /**
      * ERP-编辑商家-修改店铺营业时间
      */
-    public void step08AddShopBusinessTime() {
+    private void step08AddShopBusinessTime() {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/save/shop/business-time";
         String method = "POST";
         String headers = "factory/merchant_factory/edit_merchant_business_time/request/headers.json";
@@ -231,7 +240,7 @@ public class MerchantFactory {
     /**
      * ERP-编辑商家-配送围栏
      */
-    public void step09AddFence() {
+    private void step09AddFence() {
         /*
         // 注意：erp 老项目特殊处理，需要添加 cookie
         String uri = "https://platform-test-backup.hungrypanda.cn/admin/merchant/fence/save/fenceLatlngChain.htm";
@@ -297,7 +306,7 @@ public class MerchantFactory {
      * ERP-编辑商家-结算信息
      * ERP-编辑商家-结算信息-佣金
      */
-    public void step10SaveBillInfo() {
+    private void step10SaveBillInfo() {
         // ERP-编辑商家-结算信息
         saveBillInfo("factory/merchant_factory/edit_merchant_save_commission/request/Step10SaveBillInfoOfPanda.json");
         saveBillInfo("factory/merchant_factory/edit_merchant_save_commission/request/Step10SaveBillInfoOfPandaWeb.json");
@@ -374,8 +383,8 @@ public class MerchantFactory {
     /**
      * ERP-商家管理-商家认证-审核
      */
-    public void step11MerchantAuth() {
-        String uri = TestcaseConfig.HOST_ERP +"/api/bdm/merchant/auth";
+    private void step11MerchantAuth() {
+        String uri = TestcaseConfig.HOST_ERP + "/api/bdm/merchant/auth";
         String method = "POST";
         String headers = "factory/merchant_factory/edit_merchant_auth/request/headers.json";
         String params = null;
@@ -396,6 +405,41 @@ public class MerchantFactory {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+    }
+
+    /**
+     * ERP-编辑商家-推荐商家
+     */
+
+    private void step12RecommendMerchant() {
+        String uri = "https://platform-test-backup.hungrypanda.cn/admin/merchant/recommend.htm";
+        String method = "GET";
+        String headers = "factory/merchant_factory/edit_merchant_recommend/request/headers.json";
+        String params = "factory/merchant_factory/edit_merchant_recommend/request/params.json";
+        String body = null;
+        String assertFullField = "factory/merchant_factory/edit_merchant_recommend/response/assert_full_field.json";
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestParams.put("shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestParams.put("shopId", TestCaseHelpful.get("shopId"));
+        }
+        // https://platform-test-backup.hungrypanda.cn/ 老接口需要用cookie
+        String cookie = "CN_isNewFramework=1;CN_token=" + requestHeaders.get("token");
+        requestHeaders.put("Cookie", cookie);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, body);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).isEqualTo(expectedStr);
+
+    }
+
+    private void tearDown() {
+        // 搜索索引更新
+        XXLJobUtils.triggerJob("11");
     }
 
 

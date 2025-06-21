@@ -65,7 +65,7 @@ public class XXLJobUtils {
      * @return true:完成; false: 超时
      */
     private static boolean taskStatus(String jobId) {
-        long timeout = 1000 * 60 * 3;  // 超时时间设置为5分钟
+        long timeout = 1000 * 60 * 2;  // 超时时间设置为5分钟
         while (true) {
             try {
                 Thread.sleep(1000 * 30);    // 休眠30秒
