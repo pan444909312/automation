@@ -21,30 +21,27 @@ import java.util.Objects;
 public class MerchantFactory {
 
     // 如果不为空则使用指定的 ShopId 进行编辑
-    private Long editMerchantByShopId = 250721460L;
+//    private Long editMerchantByShopId = 250721460L;
+    private Long editMerchantByShopId = null;
     // 商家名称
     private String merchantName = "自动化测试商家";
+    public static void quickCreateMerchant(String cityName, String merchantName) {
+        City city = City.fromCityName(cityName);
+        city.createMerchant(merchantName);
+    }
+
+    /**
+     * 使用枚举创建商家（内部调用方法）
+     * @param city 城市枚举
+     * @param merchantName 商家名称
+     */
+    public static void quickCreateMerchant(City city, String merchantName) {
+        city.createMerchant(merchantName);
+    }
 
     public static void main(String[] args) {
         // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏等，待完善
-
-        MerchantFactory merchantFactory = new MerchantFactory();
-
-        merchantFactory.setUP();
-
-        merchantFactory.step02CreateMerchant(merchantFactory.getMerchantName());
-        merchantFactory.step03EditMerchantInfoOfBusiness();
-        merchantFactory.step04EditMerchantInfoOfCost();
-        merchantFactory.step05EditMerchantInfoOfAdditional();
-        merchantFactory.step06EditMerchantInfoOfAddKP();
-        merchantFactory.step07CreateGoods();
-        merchantFactory.step08AddShopBusinessTime();
-        merchantFactory.step09AddFence();
-        merchantFactory.step10SaveBillInfo();
-        merchantFactory.step11MerchantAuth();
-        merchantFactory.step12RecommendMerchant();
-
-        merchantFactory.tearDown();
+        MerchantFactory.quickCreateMerchant(City.JIUJIANG, "自动化测试商家");
     }
 
     private void setUP() {
@@ -174,7 +171,7 @@ public class MerchantFactory {
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         // 如果不为空则认为是进行商家编辑
         if (Objects.nonNull(editMerchantByShopId)) {
-           // 暂不提供编辑能力
+            // 暂不提供编辑能力
         } else {
             // 修改 ShopId 为创建商家的 ShopId
             requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
@@ -483,13 +480,90 @@ public class MerchantFactory {
     private void tearDown() {
         new TestCaseRunnerLauncher().runTestMethod(MerchantFactory.class, "reportedData");
         // 搜索索引更新
-        XXLJobUtils.triggerJob("11");
+//        XXLJobUtils.triggerJob("11");
     }
 
     @Test
     @DisplayName("一键自动创建商家")
     void reportedData() {
         // 什么都不需要做，仅仅是作为数据上报，复用现在测试框架功能
+    }
+
+    /**
+     * 支持的城市枚举
+     */
+    public enum City {
+        JIUJIANG("九江市") {
+            @Override
+            public void createMerchant(String merchantName) {
+                MerchantFactory merchantFactory = new MerchantFactory();
+                merchantFactory.setUP();
+                merchantFactory.step02CreateMerchant(merchantName);
+                merchantFactory.step03EditMerchantInfoOfBusiness();
+                merchantFactory.step04EditMerchantInfoOfCost();
+                merchantFactory.step05EditMerchantInfoOfAdditional();
+                merchantFactory.step06EditMerchantInfoOfAddKP();
+                merchantFactory.step07CreateGoods();
+                merchantFactory.step08AddShopBusinessTime();
+                merchantFactory.step09AddFence();
+                merchantFactory.step10SaveBillInfo();
+                merchantFactory.step11MerchantAuth();
+                merchantFactory.step12RecommendMerchant();
+                merchantFactory.tearDown();
+            }
+        },
+        HANGZHOU("杭州市") {
+            @Override
+            public void createMerchant(String merchantName) {
+                // TODO: 创建杭州市商家，需要修改店铺位置、配送范围围栏等
+                throw new UnsupportedOperationException("杭州市商家创建功能尚未实现，待完善");
+            }
+        };
+
+        private final String cityName;
+
+        City(String cityName) {
+            this.cityName = cityName;
+        }
+
+        public String getCityName() {
+            return cityName;
+        }
+
+        /**
+         * 创建指定城市的商家
+         * @param merchantName 商家名称
+         */
+        public abstract void createMerchant(String merchantName);
+
+        /**
+         * 根据城市名称获取城市枚举
+         * @param cityName 城市名称
+         * @return 城市枚举
+         */
+        public static City fromCityName(String cityName) {
+            for (City city : values()) {
+                if (city.cityName.equals(cityName)) {
+                    return city;
+                }
+            }
+            throw new IllegalArgumentException("不支持的城市: " + cityName + "，目前仅支持：" + getSupportedCities());
+        }
+
+        /**
+         * 获取支持的城市列表
+         * @return 支持的城市名称列表
+         */
+        public static String getSupportedCities() {
+            StringBuilder sb = new StringBuilder();
+            for (City city : values()) {
+                if (sb.length() > 0) {
+                    sb.append("、");
+                }
+                sb.append(city.cityName);
+            }
+            return sb.toString();
+        }
     }
 
 }
