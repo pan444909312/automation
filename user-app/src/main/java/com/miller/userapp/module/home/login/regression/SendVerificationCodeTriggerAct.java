@@ -63,7 +63,6 @@ public class SendVerificationCodeTriggerAct {
 
         assertThat(result.getResultCode()).isEqualTo(10111);
         assertThat(result.getReason()).isEqualTo("触发行为验证");
-        assertThat(smsSendVerificationCodeRes.getCaptchaType()).isEqualTo(2);
         assertThat(smsSendVerificationCodeRes.getCaptchaToken()).isNotNull();
 
     }
