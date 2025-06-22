@@ -50,8 +50,15 @@ public class XXLJobUtils {
 
         XXLResponseDTO XXLResponseDTO = HttpUtils.sendPostRequestReturnJavaObject(XXL_JOB_ADMIN_URL + "/jobinfo/trigger", params, headers, null, responseCookies, XXLResponseDTO.class);
         if (XXLResponseDTO.getCode().equals(200)) {
-            // 查询定时任务执行结果
-            return taskStatus(jobId);
+            log.warn("定时任务执行成功, 请稍等一会自行查询是否执行完成, jobId={}", jobId);
+            try {
+                Thread.sleep(1000 * 20);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return true;
+            // 查询定时任务执行结果. 这里不查了
+//            return taskStatus(jobId);
         } else {
             // log.error("触发定时任务失败，Job ID is:{}", jobId);
             return false;
@@ -65,7 +72,7 @@ public class XXLJobUtils {
      * @return true:完成; false: 超时
      */
     private static boolean taskStatus(String jobId) {
-        long timeout = 1000 * 60 * 2;  // 超时时间设置为5分钟
+        long timeout = 1000 * 60 * 5;  // 超时时间设置为5分钟
         while (true) {
             try {
                 Thread.sleep(1000 * 30);    // 休眠30秒
