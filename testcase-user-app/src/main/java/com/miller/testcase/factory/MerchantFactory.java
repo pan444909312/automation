@@ -25,6 +25,7 @@ public class MerchantFactory {
     private Long editMerchantByShopId = null;
     // 商家名称
     private String merchantName = "自动化测试商家";
+
     public static void quickCreateMerchant(String cityName, String merchantName) {
         City city = City.fromCityName(cityName);
         city.createMerchant(merchantName);
@@ -480,7 +481,7 @@ public class MerchantFactory {
     private void tearDown() {
         new TestCaseRunnerLauncher().runTestMethod(MerchantFactory.class, "reportedData");
         // 搜索索引更新
-//        XXLJobUtils.triggerJob("11");
+        XXLJobUtils.triggerJob("11");
     }
 
     @Test
