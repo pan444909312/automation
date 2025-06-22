@@ -22,7 +22,7 @@ import java.util.Scanner;
 @DisplayName("测试用例工厂")
 public class TestcaseFactory {
     // 用户可自定义的子目录（如 "account/address"），默认为空字符串，则默认在 module 目录下
-    public static String CUSTOM_SUB_PATH = "erp/merchant";
+    public static String CUSTOM_SUB_PATH = "";
 
     // 自动创建测试用例入口
     public static void main(String[] args) {
