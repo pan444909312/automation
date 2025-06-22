@@ -2,6 +2,7 @@ package com.miller.service.framework.launcher;
 
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.listenner.TestExecuteListener;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.TestExecutionListener;
@@ -34,6 +35,7 @@ import static org.junit.platform.launcher.TagFilter.includeTags;
  * @see LauncherDiscoveryRequestBuilder
  * @since 2023/10/22 21:20:33
  */
+@Slf4j
 @Component
 @TestFramework
 public class TestCaseRunnerLauncher {
@@ -195,8 +197,8 @@ public class TestCaseRunnerLauncher {
         launcher.registerTestExecutionListeners(listener, summaryGeneratingListener);
         // 执行启动器
         launcher.execute(request);
-        // 获取执行结果
-        summaryGeneratingListener.getSummary().printTo(new PrintWriter(System.out));
+        // 获取执行结果打印到控制台
+        // summaryGeneratingListener.getSummary().printTo(new PrintWriter(System.out));
 
         return summaryGeneratingListener;
     }

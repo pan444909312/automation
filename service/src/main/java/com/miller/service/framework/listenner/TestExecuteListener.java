@@ -30,14 +30,14 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
-        System.out.println(this.getClass().getName() + " testPlanExecutionStarted() invoked!!!");
+       log.info(this.getClass().getName() + " testPlanExecutionStarted() invoked!!!");
         extentReports = new ExtentReports(ExtentReportsPath.REPORTS_LOCATION,true, NetworkMode.OFFLINE);
         extentReports.startReporter(ReporterType.DB,ExtentReportsPath.REPORTS_LOCATION);
     }
 
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
-        System.out.println(this.getClass().getName() + " executionStarted() invoked!!!");
+       log.info(this.getClass().getName() + " executionStarted() invoked!!!");
         // 判断TestIdentifier，测试标识符，是否是一个 Container。注意: Container 会存在多个，所以此方法会执行多次。
         if (testIdentifier.isContainer()) {/* do not nothing... */}
         // 判断 TestIdentifier 是否是一个测试方法(@Test)
@@ -47,10 +47,10 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
-        System.out.println(this.getClass().getName() + " executionFinished() invoked!!!");
+       log.info(this.getClass().getName() + " executionFinished() invoked!!!");
         ExtentTest test;
         if (testIdentifier.isTest()) {
-             System.out.println("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
+            log.info("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
             String result = testExecutionResult.getStatus().toString();
             // Tesults requires result to be one of: [pass, fail, unknown]
             if (result == "SUCCESSFUL") {
@@ -142,22 +142,22 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void dynamicTestRegistered(TestIdentifier testIdentifier) {
-        System.out.println(this.getClass().getName() + " dynamicTestRegistered() invoked!!!");
+       log.info(this.getClass().getName() + " dynamicTestRegistered() invoked!!!");
     }
 
     @Override
     public void executionSkipped(TestIdentifier testIdentifier, String reason) {
-        System.out.println(this.getClass().getName() + " executionSkipped() invoked!!!");
+       log.info(this.getClass().getName() + " executionSkipped() invoked!!!");
     }
 
     @Override
     public void reportingEntryPublished(TestIdentifier testIdentifier, ReportEntry entry) {
-        System.out.println(this.getClass().getName() + " reportingEntryPublished() invoked!!!");
+       log.info(this.getClass().getName() + " reportingEntryPublished() invoked!!!");
     }
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
-        System.out.println(this.getClass().getName() + " testPlanExecutionFinished() invoked!!!");
+       log.info(this.getClass().getName() + " testPlanExecutionFinished() invoked!!!");
         extentReports.close();
     }
     private void flushReports(ExtentReports extentReports,ExtentTest test){

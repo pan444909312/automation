@@ -347,7 +347,6 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                 break;
         }
         if (Objects.nonNull(value)) scenarioResultMap.put(scenarioId, value);
-        System.out.println(JSON.toJSON(scenarioResultMap));
     }
 
     /**

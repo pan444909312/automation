@@ -71,14 +71,14 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
-        System.out.println(this.getClass().getName() + " beforeAll() callback invoked.");
+        log.info(this.getClass().getName() + " beforeAll() callback invoked.");
         storeExecutableScenarioValues(extensionContext);
     }
 
 
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
-        System.out.println(this.getClass().getName() + " afterAll() callback invoked.");
+        log.info(this.getClass().getName() + " afterAll() callback invoked.");
         // 遍历所有测试类，更新测试类执行结果到数据库
         autoTestClasses.stream().forEach(cls -> {
             Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
@@ -103,12 +103,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
-        System.out.println(this.getClass().getName() + " beforeEach() callback invoked.");
+        log.info(this.getClass().getName() + " beforeEach() callback invoked.");
     }
 
     @Override
     public void afterEach(ExtensionContext extensionContext) throws Exception {
-        System.out.println(this.getClass().getName() + " afterEach() callback invoked.");
+        log.info(this.getClass().getName() + " afterEach() callback invoked.");
     }
 
     /**
@@ -117,7 +117,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
         // @Test方法执行之前调用
-        System.out.println(this.getClass().getName() + " beforeTestExecution() callback invoked.");
+        log.info(this.getClass().getName() + " beforeTestExecution() callback invoked.");
         MethodInvoked methodInvokedAnnotation = extensionContext.getTestMethod().get().getDeclaredAnnotation(MethodInvoked.class);
         if (Objects.nonNull(methodInvokedAnnotation)) {
             Class<?> clazz = methodInvokedAnnotation.clazz();
@@ -135,7 +135,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     @Override
     public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
         //@Test方法执行之后调用
-        System.out.println(this.getClass().getName() + " afterTestExecution() callback invoked.");
+        log.info(this.getClass().getName() + " afterTestExecution() callback invoked.");
     }
 
     /**
@@ -144,7 +144,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      */
     @Override
     public void handleTestExecutionException(ExtensionContext extensionContext, Throwable throwable) throws Throwable {
-        System.out.println(this.getClass().getName() + " handleTestExecutionException() callback invoked.");
+        log.info(this.getClass().getName() + " handleTestExecutionException() callback invoked.");
         // 执行发生异常时把异常抛出来
         throw throwable;
     }
@@ -160,10 +160,10 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         //如果是@Suite集合，则root里获取@Scenario注解,注意只获取一次，子执行类多次root只一次
         ExtensionContext rootContext = context.getRoot();
         String uniqueCls = rootContext.getUniqueId();
-        System.out.println("uniqueCls: " + uniqueCls);
+        log.info("uniqueCls: " + uniqueCls);
         if (!uniqueCls.contains("suite:")) return;
         String saveUniqueCls = rootContext.getStore(ExtensionContext.Namespace.create(LifecycleCallback.class)).get("uniqueCls", String.class);
-//        System.out.println("saveUniqueCls: " + saveUniqueCls);
+//        log.info("saveUniqueCls: " + saveUniqueCls);
         log.debug("saveUniqueCls: " + saveUniqueCls);
         if (!uniqueCls.equals(saveUniqueCls)) { //不相等表示首个子类进来，root统计一次
             rootContext.getStore(ExtensionContext.Namespace.create(LifecycleCallback.class)).put("uniqueCls", rootContext.getUniqueId());
@@ -212,7 +212,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setRoi(calculateRoi(autoCaseRoi));
             autoCaseRoi.setExecutionUser(executor);
             autoCaseRoiSql.updateAutoCaseRoi(autoCaseRoi);
-//            System.out.println("autoCaseRoi: "+ autoCaseRoi);
+//            log.info("autoCaseRoi: "+ autoCaseRoi);
         } else {
             // ID 为空表示第一次保存，则做插入
             autoCaseRoi = new AutoCaseRoiEntity();
@@ -229,7 +229,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setUpdateTime(System.currentTimeMillis());
             autoCaseRoi.setExecutionUser(executor);
             autoCaseRoiSql.saveAutoCaseRoi(autoCaseRoi);
-//            System.out.println("autoCaseRoi: "+ autoCaseRoi);
+//            log.info("autoCaseRoi: "+ autoCaseRoi);
         }
 
         // 保存执行记录到测试框架执行记录表，用于记录日志，包含调试和测试记录。
