@@ -6,16 +6,14 @@ import com.miller.service.util.XXLJobUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Data;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 
 
-@Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家",
-        author = "shandongdong@hungrypandagroup.com",
-        developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
+@Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家", author = "shandongdong@hungrypandagroup.com", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
 @DisplayName("商家工厂_一键自动创建商家")
+@Data
 public class MerchantFactory {
     /**
      * true: 编辑商家；false:创建商家。如果为false则使用指定的 ShopId 对商家进行编辑操作。
@@ -26,18 +24,13 @@ public class MerchantFactory {
     // 商家名称
     private String merchantName = "自动化测试商家";
 
-
     public static void main(String[] args) {
-
-    }
-
-    private void createMerchant() {
         MerchantFactory merchantFactory = new MerchantFactory();
 
         merchantFactory.setUP();
 
         if (!merchantFactory.isEditMerchant) {
-            merchantFactory.step02CreateMerchant(merchantName);
+            merchantFactory.step02CreateMerchant(merchantFactory.getMerchantName());
         }
         // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏
         merchantFactory.step03EditMerchantInfoOfBusiness();
@@ -189,8 +182,9 @@ public class MerchantFactory {
     }
 
     /**
-     * ERP-编辑商家-复制其他店铺商品
+     * ERP-编辑商家-复制其他店铺商品。不建议使用，避免数据太多
      */
+    @Deprecated(since = "2026-06-22")
     private void step07CopyOtherShopGoods() {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/product/copyOtherShopProduct";
         String method = "POST";
@@ -216,31 +210,62 @@ public class MerchantFactory {
     }
 
     /**
-     * TODO 创建默认菜单，并创建商品
+     * 创建默认菜单，并创建商品
      */
     private void step07CreateGoods() {
-        String uri = "https://platform-test-backup.hungrypanda.cn/admin/merchant/recommend.htm";
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/product/save";
         String method = "POST";
-        String headers = "factory/merchant_factory/edit_merchant_add_menu/request/headers.json";
-        String params = "factory/merchant_factory/edit_merchant_add_menu/request/params.json";
-        String body = null;
-        String assertFullField = "factory/merchant_factory/edit_merchant_add_menu/response/assert_full_field.json";
+        String headers = "factory/merchant_factory/edit_merchant_add_goods/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_add_goods/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_add_goods/response/assert_full_field.json";
+
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         requestHeaders.put("token", TestCaseHelpful.erpLogin());
-        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         if (isEditMerchant) {
-            // 修改 ShopId 为指定的 ShopId
-            requestParams.put("shopId", shopIdForDebug);
+            // 暂不实现编辑
+        } else {
+            String menuId = addMenuToShop();
+            // 修改 ShopId 为创建商家的 ShopId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", TestCaseHelpful.get("shopId"));
+            // 修改 MenuId 为创建菜单的 MenuId
+            requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.menuId", menuId);
+            var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+            var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+            var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+            TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        }
+    }
+
+    /**
+     * 添加菜单，使用SQL实现
+     * @return menuId
+     */
+    private String addMenuToShop() {
+        Object menuId = null;
+        if (isEditMerchant) {
+            // 暂不实现编辑
         } else {
             // 修改 ShopId 为创建商家的 ShopId
-            requestParams.put("shopId", TestCaseHelpful.get("shopId"));
+            String shopId = TestCaseHelpful.get("shopId").toString();
+
+            // 添加菜单，需要修改两张表 menu 、menu_lang_extra
+            String insertMenuSql = "INSERT INTO menu (menu_name, shop_id, create_time, update_time, sort, is_del, is_default, status, tax_rate, is_mandatory, menu_desc, is_crosswise_menu, pid, menu_level, top_id, image_url)" + " VALUES ('默认菜单', " + shopId + ", DEFAULT, DEFAULT, 1, 0, 0, 1, '', 0, '自动化测试创建的菜单', 0, 0, 1, DEFAULT, '')";
+            int[] ints = PandaTestDBHelpful.executeInsertOrUpdateOrDelete(insertMenuSql);
+            TestCaseHelpful.assertThatJson(ints).isArray().size().isGreaterThanOrEqualTo(1);
+            // 查询menu_id
+            String menuIdSql = "select menu_id from menu where shop_id = " + shopId + " order by menu_id desc limit 1;";
+            menuId = PandaTestDBHelpful.executeSelectOneSql(menuIdSql).get("menu_id");
+            String updateTopIdSql = "UPDATE menu t SET t.top_id = " + menuId + " WHERE t.menu_id = " + menuId + " ;";
+            PandaTestDBHelpful.executeInsertOrUpdateOrDelete(updateTopIdSql);
+
+            // 添加菜单语言
+            String insertMenuLanguageSqlForCN = "INSERT INTO menu_lang_extra (menu_id, lang, menu_name, menu_desc, create_time, update_time, is_del) VALUES (" + menuId + ", 'CN', '默认菜单', '自动化测试创建的菜单', DEFAULT, 0, 0);";
+            String insertMenuLanguageSqlForEN = "INSERT INTO panda_test.menu_lang_extra (menu_id, lang, menu_name, menu_desc, create_time, update_time, is_del) VALUES (" + menuId + ", 'EN', 'Default Menu', 'automation test for menu', DEFAULT, 0, 0);";
+            PandaTestDBHelpful.executeInsertOrUpdateOrDelete(insertMenuLanguageSqlForCN, insertMenuLanguageSqlForEN);
         }
-        // https://platform-test-backup.hungrypanda.cn/ 老接口需要用cookie
-        String cookie = "CN_isNewFramework=1;CN_token=" + requestHeaders.get("token");
-        requestHeaders.put("Cookie", cookie);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, body);
-        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).isEqualTo(expectedStr);
+        return menuId.toString();
     }
 
 

@@ -1,0 +1,15 @@
+{
+  "shopId": "250721460",
+  "showTaxRate": "0",
+  "pid": "0",
+  "isMandatory": "0",
+  "shopName": "自动化测试商家",
+  "title": "default_menu",
+  "titleEn": "default_menu",
+  "isCrosswiseMenu": "0",
+  "menuDesc": "autotest",
+  "menuDescEn": "",
+  "sort": "1",
+  "taxRate": ""
+}
+
