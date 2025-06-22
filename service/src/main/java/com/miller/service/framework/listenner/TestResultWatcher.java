@@ -102,7 +102,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     @Override
     public void testSuccessful(ExtensionContext context) {
-        System.out.println(this.getClass().getName() + " testSuccessful method invoked...");
+        log.info(this.getClass().getName() + " testSuccessful method invoked...");
         // 记录成功的方法
         context.getTestMethod().ifPresent(method -> successfulTestMethods.add(method.getName()));
 
@@ -125,7 +125,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        System.out.println(this.getClass().getName() + " testFailed method invoked...");
+        log.info(this.getClass().getName() + " testFailed method invoked...");
         // 如果类中的某一个方法失败了，那么认为这个类也执行失败了
         String failedClassName = context.getTestClass().orElse(null).getName();
         failedTestClasses.add(failedClassName);
@@ -138,7 +138,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
-        System.out.println(this.getClass().getName() + " testDisabled method invoked...");
+        log.info(this.getClass().getName() + " testDisabled method invoked...");
         if (isSendNotification) sendExecuteNotification(context, DISABLED);
         updateAutoExecutionRecordTestResult(context, DISABLED);
         // 将 HTTP 协议数据存储到数据库中
@@ -147,7 +147,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
-        System.out.println(this.getClass().getName() + " testAborted method invoked...");
+        log.info(this.getClass().getName() + " testAborted method invoked...");
         if (isSendNotification) sendExecuteNotification(context, ABORTED);
         updateAutoExecutionRecordTestResult(context, ABORTED);
         // 将 HTTP 协议数据存储到数据库中

@@ -8,7 +8,7 @@ import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplate
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddRequestDTO;
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddShopRequestDTO;
 import com.miller.userapp.module.data.promotion.redpacket.response.CouponTemplateAddResponseDTO;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @author panjuxiang
  * @since 2024/8/8 16:48
  */
-@Log4j2
+@Slf4j
 public class CouponGenerate {
 
     private CouponTemplateFlow couponTemplateFlow;

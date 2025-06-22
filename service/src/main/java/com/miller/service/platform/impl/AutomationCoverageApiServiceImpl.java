@@ -11,8 +11,7 @@ import com.miller.mapper.report.AutomationCoverageApiMapper;
 import com.miller.service.apifox.flow.ApifoxRequestFlow;
 import com.miller.service.platform.AutomationCoverageApiService;
 import com.miller.service.platform.UserBindProjectService;
-import groovy.util.logging.Slf4j;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@Log4j
+@Slf4j
 public class AutomationCoverageApiServiceImpl extends ServiceImpl<AutomationCoverageApiMapper, AutomationCoverageApiEntity> implements AutomationCoverageApiService {
 
     @Autowired

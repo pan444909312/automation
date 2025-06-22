@@ -7,7 +7,7 @@ import com.miller.pos.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/4/3 13:51:39
  */
 @EnvTag.Test
-@Log4j
+@Slf4j
 @TestFramework
 @DisplayName("pos-登录获取token")
 public class AccessTokenTests {
