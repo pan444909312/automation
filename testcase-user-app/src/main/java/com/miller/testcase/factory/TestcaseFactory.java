@@ -1,8 +1,10 @@
 package com.miller.testcase.factory;
 
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import com.miller.testcase.utils.TestCaseGenerator;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,10 +16,10 @@ import java.util.Scanner;
  * @version 1.0
  * @since 2025/5/30 11:46:53
  */
-@Scenario(scenarioID = "01JYARQ94GF7EZ2H12TQ839ZYR", scenarioName = "用例工厂_一键自动创建用例",
+@Scenario(scenarioID = "01JYARQ94GF7EZ2H12TQ839ZYR", scenarioName = "测试用例工厂_一键自动创建用例",
         author = "shandongdong@hungrypandagroup.com",
         developmentTime = 8 * 60, maintenanceTime = 2 * 60, manualTestTime = 10)
-@DisplayName("用例工厂_一键自动创建用例")
+@DisplayName("测试用例工厂")
 public class TestcaseFactory {
     // 用户可自定义的子目录（如 "account/address"），默认为空字符串，则默认在 module 目录下
     public static String CUSTOM_SUB_PATH = "erp/merchant";
@@ -32,6 +34,7 @@ public class TestcaseFactory {
         try {
             createTestCase(testCaseName, curlCommand);
             System.out.println("测试用例生成成功！");
+            new TestCaseRunnerLauncher().runTestMethod(TestcaseFactory.class, "reportedData");
         } catch (IOException e) {
             System.err.println("生成测试用例失败：" + e.getMessage());
         }
@@ -66,5 +69,11 @@ public class TestcaseFactory {
                 resourcesPath,
                 TEMPLATE_FILE
         );
+    }
+
+    @Test
+    @DisplayName("一键自动创建用例")
+    void reportedData() {
+        // 什么都不需要做，仅仅是作为数据上报，复用现在测试框架功能
     }
 }
