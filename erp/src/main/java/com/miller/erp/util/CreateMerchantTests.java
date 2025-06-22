@@ -61,6 +61,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * 已废弃，请使用 MerchantFactory
+ *
  * 一键自动创建商家。支持创建新商家 或 修改已存在的商家。当 {@code isEditMerchant = true} 则会根据 {@code shopIdForDebug} 的ID进行编辑商家操作。
  * <p>
  * 手工查看创建的商家路径：ERP-商家管理-商家列表-新增商家
@@ -99,6 +101,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/8/7 20:25:24
  */
+@Deprecated(since = "1.0", forRemoval = true)
 @Disabled
 @Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家", author = "shandongdong@hungrypandagroup.com", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
 @Slf4j

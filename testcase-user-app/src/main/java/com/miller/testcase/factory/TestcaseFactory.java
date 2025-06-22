@@ -1,6 +1,8 @@
 package com.miller.testcase.factory;
 
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.utils.TestCaseGenerator;
+import org.junit.jupiter.api.DisplayName;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -12,6 +14,10 @@ import java.util.Scanner;
  * @version 1.0
  * @since 2025/5/30 11:46:53
  */
+@Scenario(scenarioID = "01JYARQ94GF7EZ2H12TQ839ZYR", scenarioName = "用例工厂_一键自动创建用例",
+        author = "shandongdong@hungrypandagroup.com",
+        developmentTime = 8 * 60, maintenanceTime = 2 * 60, manualTestTime = 10)
+@DisplayName("用例工厂_一键自动创建用例")
 public class TestcaseFactory {
     // 用户可自定义的子目录（如 "account/address"），默认为空字符串，则默认在 module 目录下
     public static String CUSTOM_SUB_PATH = "erp/merchant";

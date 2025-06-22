@@ -1,45 +1,51 @@
 package com.miller.testcase.factory;
 
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.util.XXLConfUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.core.Option;
+import org.junit.jupiter.api.DisplayName;
 
-/**
- * 创建商家的数据工厂类
- *
- * @author Miller Shan
- * @version 1.0
- * @since 2025/5/27 23:04:49
- */
-@Setter
+
+@Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "一键自动创建模板商家",
+        author = "shandongdong@hungrypandagroup.com",
+        developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
+@DisplayName("商家工厂_一键自动创建商家")
 public class MerchantFactory {
     /**
      * true: 编辑商家；false:创建商家。如果为false则使用指定的 ShopId 对商家进行编辑操作。
      */
-    private boolean isEditMerchant = false;
+    private boolean isEditMerchant = true;
+    // 调试ID
     private long shopIdForDebug = 250721460;
     // 商家名称
     private String merchantName = "自动化测试商家";
 
 
     public static void main(String[] args) {
+
+    }
+
+    private void createMerchant() {
         MerchantFactory merchantFactory = new MerchantFactory();
 
         merchantFactory.setUP();
 
         if (!merchantFactory.isEditMerchant) {
-            merchantFactory.step02CreateMerchant();
+            merchantFactory.step02CreateMerchant(merchantName);
         }
         // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏
         merchantFactory.step03EditMerchantInfoOfBusiness();
         merchantFactory.step04EditMerchantInfoOfCost();
         merchantFactory.step05EditMerchantInfoOfAdditional();
         merchantFactory.step06EditMerchantInfoOfAddKP();
-        merchantFactory.step07CopyOtherShopGoods();
+//        merchantFactory.step07CopyOtherShopGoods();
+        merchantFactory.step07CreateGoods();
         merchantFactory.step08AddShopBusinessTime();
         merchantFactory.step09AddFence();
         merchantFactory.step10SaveBillInfo();
@@ -47,7 +53,6 @@ public class MerchantFactory {
         merchantFactory.step12RecommendMerchant();
 
         merchantFactory.tearDown();
-
     }
 
     private void setUP() {
@@ -58,7 +63,7 @@ public class MerchantFactory {
     /**
      * ERP-商家列表-创建商家
      */
-    private String step02CreateMerchant() {
+    private String step02CreateMerchant(String merchantName) {
         if (merchantName.isBlank()) {
             throw new RuntimeException("请指定商家名称");
         }
@@ -209,6 +214,35 @@ public class MerchantFactory {
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
+
+    /**
+     * TODO 创建默认菜单，并创建商品
+     */
+    private void step07CreateGoods() {
+        String uri = "https://platform-test-backup.hungrypanda.cn/admin/merchant/recommend.htm";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_add_menu/request/headers.json";
+        String params = "factory/merchant_factory/edit_merchant_add_menu/request/params.json";
+        String body = null;
+        String assertFullField = "factory/merchant_factory/edit_merchant_add_menu/response/assert_full_field.json";
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        if (isEditMerchant) {
+            // 修改 ShopId 为指定的 ShopId
+            requestParams.put("shopId", shopIdForDebug);
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            requestParams.put("shopId", TestCaseHelpful.get("shopId"));
+        }
+        // https://platform-test-backup.hungrypanda.cn/ 老接口需要用cookie
+        String cookie = "CN_isNewFramework=1;CN_token=" + requestHeaders.get("token");
+        requestHeaders.put("Cookie", cookie);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, body);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).isEqualTo(expectedStr);
+    }
+
 
     /**
      * ERP-编辑商家-修改店铺营业时间
