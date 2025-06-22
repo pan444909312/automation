@@ -187,7 +187,7 @@
         ，标识这个appender将会添加到这个logger。
     -->
 
-    <root level="WARN">
+    <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <!--    <appender-ref ref="DEBUG_FILE" />-->
         <!--    <appender-ref ref="INFO_FILE" />-->
