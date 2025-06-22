@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 import static org.junit.platform.launcher.TagFilter.excludeTags;
 import static org.junit.platform.launcher.TagFilter.includeTags;
 
@@ -122,6 +124,62 @@ public class TestCaseRunnerLauncher {
                         // includeEngines("junit-jupiter", "spek"),
                         // excludeEngines("junit-vintage")
                 ).configurationParameters(configurationParameters).build();
+        executeRequest(request);
+    }
+
+    /**
+     * 运行指定类的特定测试方法
+     *
+     * @param testClass 测试类
+     * @param testMethodName 测试方法名
+     */
+    public void runTestMethod(Class<?> testClass, String testMethodName) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectMethod(testClass, testMethodName))
+                .build();
+        executeRequest(request);
+    }
+
+    /**
+     * 运行指定类的特定测试方法（通过类名和方法名字符串）
+     *
+     * @param className 测试类的全限定名，例如: com.miller.test.UserTest
+     * @param testMethodName 测试方法名
+     */
+    public void runTestMethod(String className, String testMethodName) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectMethod(className + "#" + testMethodName))
+                .build();
+        executeRequest(request);
+    }
+
+    /**
+     * 运行指定类的特定测试方法（通过类名和方法名字符串），并支持配置参数
+     *
+     * @param className 测试类的全限定名，例如: com.miller.test.UserTest
+     * @param testMethodName 测试方法名
+     * @param configurationParameters 配置参数
+     */
+    public void runTestMethod(String className, String testMethodName, Map<String, String> configurationParameters) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectMethod(className + "#" + testMethodName))
+                .configurationParameters(configurationParameters)
+                .build();
+        executeRequest(request);
+    }
+
+    /**
+     * 运行指定类的特定测试方法（通过Class对象和方法名），并支持配置参数
+     *
+     * @param testClass 测试类
+     * @param testMethodName 测试方法名
+     * @param configurationParameters 配置参数
+     */
+    public void runTestMethod(Class<?> testClass, String testMethodName, Map<String, String> configurationParameters) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectMethod(testClass, testMethodName))
+                .configurationParameters(configurationParameters)
+                .build();
         executeRequest(request);
     }
 

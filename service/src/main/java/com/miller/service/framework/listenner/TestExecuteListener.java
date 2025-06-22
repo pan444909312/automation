@@ -3,6 +3,7 @@ package com.miller.service.framework.listenner;
 import com.alibaba.fastjson.JSON;
 import com.miller.service.framework.constants.ExtentReportsPath;
 import com.relevantcodes.extentreports.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.reporting.ReportEntry;
@@ -21,6 +22,7 @@ import java.util.*;
  * @see com.miller.service.framework.launcher.TestCaseRunnerLauncher
  * @since 2023/10/16 20:56:49
  */
+@Slf4j
 public class TestExecuteListener implements TestExecutionListener {
     // 测试结果收集
     private List<Map<String, Object>> testCases = new ArrayList();

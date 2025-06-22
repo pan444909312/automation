@@ -14,6 +14,7 @@ import com.miller.service.framework.exception.TestFrameworkException;
 import com.miller.service.framework.listenner.TestResultWatcher;
 import com.miller.service.framework.util.*;
 import com.miller.service.framework.report.AutoDBUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.extension.*;
 
@@ -46,6 +47,7 @@ import java.util.*;
  * @version 1.0
  * @since 2023/10/18 11:03:13
  */
+@Slf4j
 public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
     private SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
     private AutoCaseRoiSql autoCaseRoiSql = new AutoCaseRoiSql(automationSession);
@@ -65,7 +67,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 //            .filter(s -> !s.isEmpty())
 //            .map(Boolean::parseBoolean)
 //            .orElse(false);
-    private boolean isDebugTestCase =false; // 修改开关为false，保存执行记录到数据库中
+    private boolean isDebugTestCase = false; // 修改开关为false，保存执行记录到数据库中
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
@@ -161,7 +163,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         System.out.println("uniqueCls: " + uniqueCls);
         if (!uniqueCls.contains("suite:")) return;
         String saveUniqueCls = rootContext.getStore(ExtensionContext.Namespace.create(LifecycleCallback.class)).get("uniqueCls", String.class);
-        System.out.println("saveUniqueCls: " + saveUniqueCls);
+//        System.out.println("saveUniqueCls: " + saveUniqueCls);
+        log.debug("saveUniqueCls: " + saveUniqueCls);
         if (!uniqueCls.equals(saveUniqueCls)) { //不相等表示首个子类进来，root统计一次
             rootContext.getStore(ExtensionContext.Namespace.create(LifecycleCallback.class)).put("uniqueCls", rootContext.getUniqueId());
             String begin = uniqueCls.substring(uniqueCls.indexOf("suite:") + "suite:".length());
