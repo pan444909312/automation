@@ -28,11 +28,11 @@ public class MerchantFactory {
 
     public static void main(String[] args) {
         // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏等，待完善
-        MerchantFactory.quickCreateMerchant(City.JIUJIANG, "测试创建商家");
+        MerchantFactory.quickCreateMerchant(City.JIUJIANG, "自动化测试商家");
         // 打烊商家
-        MerchantFactory.closedMerchant("测试创建商家");
+        MerchantFactory.closedMerchant("自动化测试商家");
         // 删除商家，删除之前需要先打烊
-        MerchantFactory.deleteMerchant("测试创建商家");
+        MerchantFactory.deleteMerchant("自动化测试商家");
     }
 
     public static void quickCreateMerchant(String cityName, String merchantName) {
