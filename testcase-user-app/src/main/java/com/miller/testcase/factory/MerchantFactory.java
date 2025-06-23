@@ -28,11 +28,11 @@ public class MerchantFactory {
 
     public static void main(String[] args) {
         // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏等，待完善
-        MerchantFactory.quickCreateMerchant(City.JIUJIANG, "自动化测试商家");
+        MerchantFactory.quickCreateMerchant(City.JIUJIANG, "测试创建商家");
         // 打烊商家
-        MerchantFactory.closedMerchant("201778478");
+        MerchantFactory.closedMerchant("测试创建商家");
         // 删除商家，删除之前需要先打烊
-        MerchantFactory.deleteMerchant("201778478");
+        MerchantFactory.deleteMerchant("测试创建商家");
     }
 
     public static void quickCreateMerchant(String cityName, String merchantName) {
@@ -51,9 +51,14 @@ public class MerchantFactory {
 
     /**
      * 打烊
-     * @param shopId 商家ID
+     * @param merchantName 商家名称
      */
-    public static void closedMerchant(String shopId) {
+    public static void closedMerchant(String merchantName) {
+        // 通过商家名称查询商家 ID
+        String merchantNameQuerySql = "SELECT t.shop_id FROM panda_test.shop t WHERE shop_name = '"
+                + merchantName + "' and is_del = 0 ORDER BY shop_type DESC limit 1;";
+        String shopId = PandaTestDBHelpful.executeSelectOneSql(merchantNameQuerySql).get("shop_id").toString();
+
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/business/updateStatus";
         String method = "POST";
         String headers = "factory/merchant_factory/edit_merchant_closed/request/headers.json";
@@ -76,9 +81,14 @@ public class MerchantFactory {
 
     /**
      * 删除商家, 删除之前需要先打烊
-     * @param shopId 商家ID
+     * @param merchantName 商家名称
      */
-    public static void deleteMerchant(String shopId) {
+    public static void deleteMerchant(String merchantName) {
+        // 通过商家名称查询商家 ID
+        String merchantNameQuerySql = "SELECT t.shop_id FROM panda_test.shop t WHERE shop_name = '"
+                + merchantName + "' and is_del = 0 ORDER BY shop_type DESC limit 1;";
+        String shopId = PandaTestDBHelpful.executeSelectOneSql(merchantNameQuerySql).get("shop_id").toString();
+
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/shop/del";
         String method = "POST";
         String headers = "factory/merchant_factory/delete_merchant/request/headers.json";
