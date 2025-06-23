@@ -21,10 +21,19 @@ import java.util.Objects;
 public class MerchantFactory {
 
     // 如果不为空则使用指定的 ShopId 进行编辑
-//    private Long editMerchantByShopId = 250721460L;
-    private Long editMerchantByShopId = null;
+//    private String editMerchantByShopId = 250721460;
+    private String editMerchantByShopId = null;
     // 商家名称
-    private String merchantName = "自动化测试商家";
+//    private String merchantName = "自动化测试商家";
+
+    public static void main(String[] args) {
+        // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏等，待完善
+        MerchantFactory.quickCreateMerchant(City.JIUJIANG, "自动化测试商家");
+        // 打烊商家
+        MerchantFactory.closedMerchant("201778478");
+        // 删除商家
+        MerchantFactory.deleteMerchant("201778478");
+    }
 
     public static void quickCreateMerchant(String cityName, String merchantName) {
         City city = City.fromCityName(cityName);
@@ -40,9 +49,53 @@ public class MerchantFactory {
         city.createMerchant(merchantName);
     }
 
-    public static void main(String[] args) {
-        // 创建九江市。 其他城市需要修改店铺位置、配送范围围栏等，待完善
-        MerchantFactory.quickCreateMerchant(City.JIUJIANG, "自动化测试商家");
+    /**
+     * 打烊
+     * @param shopId 商家ID
+     */
+    public static void closedMerchant(String shopId) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/business/updateStatus";
+        String method = "POST";
+        String headers = "factory/merchant_factory/edit_merchant_closed/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/edit_merchant_closed/request/body.json";
+        String assertFullField = "factory/merchant_factory/edit_merchant_closed/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+
+        // 修改 ShopId 为创建商家的 ShopId
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopId);
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+    }
+
+
+    /**
+     * 删除商家, 删除之前需要先打烊
+     * @param shopId 商家ID
+     */
+    public static void deleteMerchant(String shopId) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/erp/shop/del";
+        String method = "POST";
+        String headers = "factory/merchant_factory/delete_merchant/request/headers.json";
+        String params = null;
+        String body = "factory/merchant_factory/delete_merchant/request/body.json";
+        String assertFullField = "factory/merchant_factory/delete_merchant/response/assert_full_field.json";
+
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("token", TestCaseHelpful.erpLogin());
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+
+        // 修改 ShopId 为创建商家的 ShopId
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.shopId", shopId);
+        var requestParams = TestCaseHelpful.getJsonRequestParams(params);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
 
     private void setUP() {
@@ -483,6 +536,7 @@ public class MerchantFactory {
         // 搜索索引更新
         XXLJobUtils.triggerJob("11");
     }
+
 
     @Test
     @DisplayName("一键自动创建商家")
