@@ -31,7 +31,7 @@ public class MerchantFactory {
         MerchantFactory.quickCreateMerchant(City.JIUJIANG, "自动化测试商家");
         // 打烊商家
         MerchantFactory.closedMerchant("201778478");
-        // 删除商家
+        // 删除商家，删除之前需要先打烊
         MerchantFactory.deleteMerchant("201778478");
     }
 
