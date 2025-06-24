@@ -35,9 +35,9 @@ public class MerchantFactory {
         MerchantFactory.deleteMerchant("自动化测试商家");
     }
 
-    public static void quickCreateMerchant(String cityName, String merchantName) {
+    public static String quickCreateMerchant(String cityName, String merchantName) {
         City city = City.fromCityName(cityName);
-        city.createMerchant(merchantName);
+        return city.createMerchant(merchantName);
     }
 
     /**
@@ -560,10 +560,10 @@ public class MerchantFactory {
     public enum City {
         JIUJIANG("九江市") {
             @Override
-            public void createMerchant(String merchantName) {
+            public String createMerchant(String merchantName) {
                 MerchantFactory merchantFactory = new MerchantFactory();
                 merchantFactory.setUP();
-                merchantFactory.step02CreateMerchant(merchantName);
+                String result = merchantFactory.step02CreateMerchant(merchantName);
                 merchantFactory.step03EditMerchantInfoOfBusiness();
                 merchantFactory.step04EditMerchantInfoOfCost();
                 merchantFactory.step05EditMerchantInfoOfAdditional();
@@ -575,11 +575,12 @@ public class MerchantFactory {
                 merchantFactory.step11MerchantAuth();
                 merchantFactory.step12RecommendMerchant();
                 merchantFactory.tearDown();
+                return result;
             }
         },
         HANGZHOU("杭州市") {
             @Override
-            public void createMerchant(String merchantName) {
+            public String createMerchant(String merchantName) {
                 // TODO: 创建杭州市商家，需要修改店铺位置、配送范围围栏等
                 throw new UnsupportedOperationException("杭州市商家创建功能尚未实现，待完善");
             }
@@ -599,7 +600,7 @@ public class MerchantFactory {
          * 创建指定城市的商家
          * @param merchantName 商家名称
          */
-        public abstract void createMerchant(String merchantName);
+        public abstract String createMerchant(String merchantName);
 
         /**
          * 根据城市名称获取城市枚举
