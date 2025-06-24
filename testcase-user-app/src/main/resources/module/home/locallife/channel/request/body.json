@@ -1,0 +1,28 @@
+{
+	"pm":"POST",
+	"ph":{
+		"language":"CN",
+		"latitude":"29.6605799",
+		"longitude":"115.9541",
+		"countryCode":"CN",
+		"appVersion":"8.63.5"
+	},
+	"pd":{
+		"categoryIds":[],
+		"locationIds":[],
+		"filter":{
+			"sales":{
+				"min":0
+			},
+			"serviceType":0
+		},
+		"city":"九江市",
+		"sortType":-1,
+		"pageNum":1,
+		"pageSize":20
+	},
+	"nv":"2",
+	"nt":"1750744760044",
+	"nn":"NPcRKar0LxerCa9QClO7KBSIX",
+	"nd":"51ed23df4b5c93d"
+}
