@@ -5,8 +5,10 @@ import com.miller.controller.tools.conversion.StringConversionDto;
 import com.miller.controller.tools.product.service.StringConversionService;
 import com.miller.entity.constant.CouponScopeEnum;
 import com.miller.entity.tools.req.AutoCreateCouponReqDTO;
+import com.miller.entity.tools.req.AutoCreateMerchantReqDTO;
 import com.miller.entity.tools.req.SendRedPacketReqDTO;
 import com.miller.entity.util.Response;
+import com.miller.testcase.factory.MerchantFactory;
 import com.miller.userapp.module.data.promotion.redpacket.CouponGenerate;
 import com.miller.userapp.module.data.promotion.redpacket.SendRedPacket;
 import com.miller.userapp.module.data.user.CreateUserEntity;
@@ -18,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author: panjuxiang
@@ -61,21 +65,27 @@ public class ToolsController {
 
     @Operation(description = "一键创建商家")
     @PostMapping("/autoCreateMerchant")
-    public Response<String> autoCreateUser() {
-//
-//        CreateMerchantTests createMerchantTests = new CreateMerchantTests();
-//
-//        try {
-//            long merchantAndSetInfo = createMerchantTests.createMerchantAndSetInfo();
-//            return Response.success("shopId:" + merchantAndSetInfo);
-//        } catch (UnsupportedEncodingException e) {
-//            throw new RuntimeException(e);
-//        }
+    public Response<String> autoCreateMerchant(@RequestBody AutoCreateMerchantReqDTO autoCreateMerchantReqDTO) {
+        String result;
+        try {
+            result = MerchantFactory.quickCreateMerchant(autoCreateMerchantReqDTO.getCityName(), autoCreateMerchantReqDTO.getShopName());
+        }catch (Exception e){
+            return Response.fail(e.getMessage());
+        }
 
-        return Response.success("业务更新，工具待维护");
+        return Response.success(result);
     }
 
-    @Operation(description = "验证码查询工具")
+    @Operation(description = "获取一键创建商家支持的城市列表")
+    @GetMapping("/getSupportCityList")
+    public Response<List<String>> getSupportCityList() {
+
+        String supportedCities = MerchantFactory.City.getSupportedCities();
+        List<String> list = Arrays.asList(supportedCities.split("、"));
+        return Response.success(list);
+    }
+
+        @Operation(description = "验证码查询工具")
     @PostMapping("/codeQuery")
     public Response<String> codeQuery() {
 

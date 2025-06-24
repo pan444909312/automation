@@ -1,0 +1,26 @@
+{
+	"pm": "POST",
+	"ph": {
+		"locale": "CN",
+		"brand": "",
+		"model": "",
+		"version": "8.10.1",
+		"appVersion": "8.63.5",
+		"longitude": "120.22133",
+		"latitude": "30.20131",
+		"platform": "WEB_IOS",
+		"appTypeId": "1",
+		"uniquetoken": "5cff0f52b1ad4cd499763bc84fd4c2a3",
+		"unionId": "",
+		"authorization": null,
+		"language": "CN"
+	},
+	"pd": {
+		"gameSn": "8ktbsPnLiFge",
+		"url": "https://leaflet-f2e-test.hungrypanda.cn/lottery?appTypeId=1&authorization=&deviceVersion=17.6.1&timestamp=1750674887&immerse=1&longitude=120.22133&countryCode=GB&latitude=30.20131&version=8.63.5&uniqueToken=E0AE4028-2071-414B-BA39-FD8B27D98C47&gameSn=8ktbsPnLiFge&platform=IOS_USER&gameType=3&saDistinctId=E0AE4028-2071-414B-BA39-FD8B27D98C47&language=CN&appVersion=8.63.5&device=1"
+	},
+	"nv": "2",
+	"nt": "1750674934252",
+	"nn": "c5MFNBfKfbUAPN5pmltOluU1e",
+	"nd": "1ad5843555ae3f3"
+}
