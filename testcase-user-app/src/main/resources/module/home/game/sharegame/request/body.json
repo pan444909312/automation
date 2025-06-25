@@ -1,0 +1,25 @@
+{
+	"pm":"POST",
+	"ph":{
+		"locale":"CN",
+		"brand":"",
+		"model":"",
+		"version":"8.10.1",
+		"appVersion":"8.63.5",
+		"longitude":"115.9541",
+		"latitude":"29.6605799",
+		"platform":"WEB_ANDROID",
+		"appTypeId":"1",
+		"uniquetoken":"5006666cb33940309c0aa3d535204e00",
+		"unionId":"",
+		"language":"CN"
+	},
+	"pd":{
+		"gameSn":"8ktbsPnLiFge",
+		"url":"https://leaflet-f2e-test.hungrypanda.cn/lottery?gameSn=8ktbsPnLiFge&gameType=3&appVersion=8.63.5&latitude=29.6605799&marketChannel=googlePlay&saDistinctId=1398716670&language=CN&deviceVersion=14&pandaAppId=com.hungrypanda.waimai&pkgChannel=1&countryCode=CN&immerse=1&appTypeId=1&uniqueToken=eb3db5772e24b4ba&device=2&longitude=115.9541&timestamp=1750748786102"
+	},
+	"nv":"2",
+	"nt":"1750748810724",
+	"nn":"Y3FfiDCgTuRaqyMWfjrHK7ioW",
+	"nd":"9969d4cd3d9862f"
+}

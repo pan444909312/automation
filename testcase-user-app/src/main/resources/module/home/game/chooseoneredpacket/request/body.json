@@ -1,0 +1,27 @@
+{
+	"pm":"POST",
+	"ph":{
+		"locale":"CN",
+		"brand":"",
+		"model":"",
+		"version":"8.10.1",
+		"appVersion":"8.63.5",
+		"longitude":"115.95410",
+		"latitude":"29.66058",
+		"platform":"WEB_ANDROID",
+		"appTypeId":"1",
+		"uniquetoken":"3edaaa182e634879b340a22fea4c6109",
+		"unionId":"",
+		"authorization":"1141d0c4dde2608da26b52ac98b72186",
+		"language":"CN"
+	},
+	"pd":{
+		"activityGamePrizesDetailId":33007,
+		"gameUserPlayId":9235,
+		"prizeBelong":1
+	},
+	"nv":"2",
+	"nt":"1750846185061",
+	"nn":"hFQJ1zF7ghXHKoF2a1GWATz7n",
+	"nd":"38fe2e01df5bb19"
+}

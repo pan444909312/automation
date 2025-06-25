@@ -1,0 +1,20 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"shareTitle": "${json-unit.any-string}",
+		"shareContent": "${json-unit.any-string}",
+		"shareImg": "${json-unit.any-string}",
+		"sharePoster": "${json-unit.any-string}",
+		"timestamp": "${json-unit.any-number}",
+		"appId": "${json-unit.any-string}",
+		"nonceStr": "${json-unit.any-string}",
+		"signature": "${json-unit.any-string}",
+		"ticket": "${json-unit.any-string}"
+	},
+	"currency": "${json-unit.ignore-element}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

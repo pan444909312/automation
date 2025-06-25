@@ -6,20 +6,20 @@
 		"model": "",
 		"version": "8.10.1",
 		"appVersion": "8.63.5",
-		"longitude": "120.22133",
-		"latitude": "30.20131",
-		"platform": "WEB_IOS",
+		"longitude": "120.80906",
+		"latitude": "27.90999",
+		"platform": "WEB_ANDROID",
 		"appTypeId": "1",
-		"uniquetoken": "5cff0f52b1ad4cd499763bc84fd4c2a3",
+		"uniquetoken": "5006666cb33940309c0aa3d535204e00",
 		"unionId": "",
-		"authorization": "ad56d25477c30df906faad248d716537",
+		"authorization": "950b994c389f3fd2f6d3d1e05f5abdd8",
 		"language": "CN"
 	},
 	"pd": {
-		"gameSn": "8ktbsPnLiFge"
+		"gameSn": "IWhet9p0csQF"
 	},
 	"nv": "2",
-	"nt": "1750677350185",
-	"nn": "FDYWlHtxQXhGh23Jhiev7Pe3P",
-	"nd": "cd5d7ba40cb1c1c"
+	"nt": "1750750947758",
+	"nn": "fbc2ChaGaAe6snmV9D59czYj8",
+	"nd": "532c461d539d3f7"
 }
