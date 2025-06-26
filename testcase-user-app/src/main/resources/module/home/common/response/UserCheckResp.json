@@ -1,0 +1,10 @@
+{
+  "resultCode": 20002,
+  "error": "该账号已存在",
+  "reason": "该账号已存在",
+  "result": null,
+  "currency": "${json-unit.any-string}",
+  "success": false,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

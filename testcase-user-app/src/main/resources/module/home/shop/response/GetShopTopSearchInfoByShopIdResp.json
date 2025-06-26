@@ -1,0 +1,13 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "shopId": 160288176,
+    "shopTopSearchList": null
+  },
+  "currency": "${json-unit.ignore}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}
