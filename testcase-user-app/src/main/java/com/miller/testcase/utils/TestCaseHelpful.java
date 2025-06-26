@@ -17,6 +17,7 @@ import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import net.javacrumbs.jsonunit.core.Option;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -161,6 +162,14 @@ public class TestCaseHelpful {
      */
     public static String sendRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
                                      Object body) {
+        // 将headers中的key全部转成小写
+        Map<String, Object> lowerCaseHeaders = new HashMap<>();
+        if (headers != null) {
+            for (Map.Entry<String, Object> entry : headers.entrySet()) {
+                lowerCaseHeaders.put(entry.getKey().toLowerCase(), entry.getValue());
+            }
+        }
+        headers = lowerCaseHeaders;
         // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
         if (body instanceof String) {
             try {
@@ -213,7 +222,7 @@ public class TestCaseHelpful {
                     if (host.startsWith("https://")) {
                         host = host.substring(8);
                     }
-                    headers.put("Host", host);
+                    headers.put("host", host);
                     headers.put("content-type", h5ContentType);
                     if (h5ContentType.toString().contains("application/x-www-form-urlencoded")) {
                         body = JSONUtils.parseObject(body.toString()).getJSONObject("pd")

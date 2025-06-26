@@ -1,0 +1,25 @@
+{
+	"pm":"POST",
+	"ph":{
+		"locale":"CN",
+		"brand":"",
+		"model":"",
+		"version":"8.10.1",
+		"appVersion":"8.63.5",
+		"longitude":"115.9541",
+		"latitude":"29.6605799",
+		"platform":"WEB_ANDROID",
+		"appTypeId":"1",
+		"uniquetoken":"5006666cb33940309c0aa3d535204e00",
+		"unionId":"",
+		"authorization":"950b994c389f3fd2f6d3d1e05f5abdd8",
+		"language":"CN"
+	},
+	"pd":{
+		"gameSn":"8ktbsPnLiFge"
+	},
+	"nv":"2",
+	"nt":"1750757826232",
+	"nn":"FYmt4l1lxSgiGpOpylt5FCauM",
+	"nd":"44798145bae2477"
+}
