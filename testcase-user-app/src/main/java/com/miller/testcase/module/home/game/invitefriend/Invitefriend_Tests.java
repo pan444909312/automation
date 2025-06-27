@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JYGKXBS6A8W5A5TV44EMPMTB", // 自动生成，不要修改
-        scenarioName = "invitefriend",
+        scenarioName = "邀请好友助力",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("invitefriend")
+@DisplayName("邀请好友助力")
 public class Invitefriend_Tests {
 
     @BeforeAll

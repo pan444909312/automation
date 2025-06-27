@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JYGJX5X3G15RY14PPKR2162R", // 自动生成，不要修改
-        scenarioName = "sharegame",
+        scenarioName = "分享游戏页面",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 40, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("sharegame")
+@DisplayName("分享游戏页面")
 public class Sharegame_Tests {
 
     @BeforeAll
