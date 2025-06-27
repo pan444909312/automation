@@ -14,8 +14,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
 
+@DisplayName("CurlParser测试")
 class CurlParserTest {
-
     private static final String POST_CURL = """
             curl -H "Host: app-test.hungrypanda.cn" -H "_pendingsign: _ts1748938114115authorization0bb0d075d767fa89b03da500f770433a" -H "userid: 1398664550" -H "language: CN" -H "_sign: 6a951ab0d1d5403fc09d7ab6104ccee6" -H "user-agent: PandaH/8.61.0 (iPhone; iOS 16.7.11; Scale/3.00) OKPOS" -H "_ts: 1748938114115" -H "portalid: 3" -H "latitude: 30.20118" -H "countrycode: CN" -H "version: 8.61.0" -H "platform: IOS_USER" -H "uniquetoken: 0721CD44-5090-42F5-A0B1-8D2F29B85BF5" -H "longitude: 120.22142" -H "authorization: 0bb0d075d767fa89b03da500f770433a" -H "accept-language: zh-Hans-CN;q=1" -H "regionid: 3" -H "reallongitude: 120.22141" -H "timezoneoffset: -480" -H "reallatitude: 30.20117" -H "apptypeid: 1" -H "testgroup: I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP,17,S_H_R_L_TEST_GROUP_7,22,23,29,31,32,NUMBER_MASKING_00,33,34,36,35,40,39,45,49,52,53,55,56,HPF,FASTD01,YSDCS02,IST01,HYBQ01,SKEQ01,XRJ01,TJBQ01,HYXBQ01,TJTCX01,YBXS02,CCPRO01,SKXRB01,ABT02,QYTCD01,SMSS02,XMLM01,RRREC02,ZFBMM01,SSJLY01,SPSS01,MRBX01,PLCC01,SXAU01,PAYTO01,LXTZ01,JQSJ01,SYGB01,JSYXR01,GDJ02,ZTKP01,ZKTS02,RTR01,SYUI01,SWS01,DWC01,HHAB01,YHTX01,TCZT01,XTZA01,QDJS01,XGBSS01,SYSKA02,WLTC01,SPM01,XGBFU01,SDDAB01,TCSHW01,JSYHA01,DPCDA01,DPHD01,YRSZT01,TSRW02,LLQX01,XDRS01,RDMU01,YHMGD01,NTCZT01,DPCDB01,CZHG01,WLTCN01,ESFI02,ABCS01,DPYGB01,HBCY01,GWCYC01,HYUI01,SKBD02,SKYS01,GGCLA01,MGDD01,YFYHA01,SKYH01,XRSY01,HDMR01,SYMK01,CMRT01,CPYHA01,SKYX01,VOOPT01,YHLL01,YJSDA01,LXCYH01,TCZKB01,JLYHR01,HANLP01" -H "content-type: application/json" -H "accept: */*" -H "_sig: dd6c1833b7eee4e4be164fecc1e50bd727d9957e" -H "hpfcityname: %E6%9D%AD%E5%B7%9E%E5%B8%82" --data-binary "{\\"buildingType\\":\\"1\\",\\"accessCode\\":\\"10010\\",\\"addressRemark\\":\\"备注了啥\\",\\"postcode\\":\\"330292\\",\\"longitude\\":\\"120.22185\\",\\"buildingName\\":\\"星耀中心\\",\\"houseNum\\":\\"101\\",\\"isDefault\\":\\"0\\",\\"addTag\\":1,\\"addressId\\":1398680202,\\"address\\":\\"China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心\\",\\"countryCode\\":\\"86\\",\\"latitude\\":\\"30.20074\\",\\"contacts\\":\\"东东\\",\\"type\\":2,\\"buildingNameExt\\":\\"自动化测试\\",\\"telephone\\":\\"15606690056\\",\\"gender\\":1}" --compressed "https://app-test.hungrypanda.cn/api/app/user/v1/address/edit"
             """;
@@ -52,6 +52,8 @@ class CurlParserTest {
               -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36' \\
               --data-raw '{"pm":"GET","ph":{"platform":"PC_WEB_USER","brand":"hungrypanda","version":"8.8.0"}}'
             """;
+
+    private static final String FORM_DATA_CURL = "curl -H 'Host: app-test.hungrypanda.cn' -H 'longitude: 120.22185' -H 'latitude: 30.20074' -H 'version: 8.62.5' -H 'platform: ANDROID_USER' -H 'type: 1' -H 'apptypeid: 1' -H 'user-agent: 8.62.5' -H 'language: CN' -H 'countrycode: CN' -H 'uniquetoken: 2cef7250d16d36b3' -H 'testgroup: I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP,17,S_H_R_L_TEST_GROUP_1,23,29,31,32,NUMBER_MASKING_00,33,34,36,35,40,39,45,49,52,53,55,56,HPF,SKYX01,HANLP02,FASTD01,YSDCS02,IST01,HYBQ01,SKEQ01,XRJ01,TJBQ01,HYXBQ01,TJTCX01,YBXS02,CCPRO01,ZDFQ01,SKXRB01,ABT02,QYTCD01,SMSS02,XMLM01,RRREC01,ZFBMM01,SPSS01,MRBX01,PLCC01,SXAU01,PAYTO01,LXTZ01,JQSJ01,SYGB01,JSYXR01,GDJ02,ZTKP01,ZKTS02,RTR01,SYUI01,SWS01,DWC01,HHAB01,YHTX01,TCZT01,XTZA01,QDJS01,XGBSS02,SYSKA02,WLTC01,SPM01,XGBFU01,SDDAB01,TCSHW01,ZNYX01,JSYHA01,DPCDA01,DPHD01,YRSZT01,TSRW02,LLQX01,XDRS01,RDMU01,YHMGD01,NTCZT01,DPCDB01,CZHG01,WLTCN01,ESFI02,ABCS01,DPYGB01,HBCY01,GWCYC01,HYUI01,SKBD02,SKYS01,GGCLA01,MGDD01,YFYHA01,SKYH01,XRSY01,HDMR01,SYMK01,CMRT01,CPYHA01,VOOPT01,YHLL01,YJSDA01,XGSPA01,LXCYH01,TCZKB01,XRQSD01,JLYZR01,CDQC01,ZRXS01' -H 'device_safe_token: a0_b1_c1_h0_i0_j0_m0_n0_p0_s0' -H 'marketchannel: googlePlay' -H 'pandaappid: com.hungrypanda.waimai' -H 'zipcode: yyuu' -H 'timezoneoffset: -480' -H 'portalid: 3' -H 'regionid: 3' -H 'hpfcityname: %E6%9D%AD%E5%B7%9E%E5%B8%82' -H 'hpfcityid: 755' -H 'userid: 249222' -H '_sign: 54f9a7209254e652901821fe91b6e7c7' -H 'authorization: dc6ffc478316394bd69b0c64bf9368a0' -H '_sig: 0c87d335e68cd3fde717d2dcc6ba0d4d8805ec13' -H '_ts: 1750314971530' -H 'content-type: application/x-www-form-urlencoded' --data-binary \"areaCode=86&account=18968046019\" --compressed 'https://app-test.hungrypanda.cn/api/oauth2/userTokenSync'";
 
     @DisplayName("POST请求解析测试")
     @Test
@@ -230,44 +232,44 @@ class CurlParserTest {
 
         // 解析body为JSONObject
         JSONObject jsonBody = JSON.parseObject(body, Feature.OrderedField);
-        
+
         // 验证顶层字段顺序
         List<String> topLevelFields = new ArrayList<>(jsonBody.keySet());
         assertArrayEquals(
-            new String[]{"pm", "ph", "pd", "nv", "nt", "nn", "nd"},
-            topLevelFields.toArray(new String[0])
+                new String[]{"pm", "ph", "pd", "nv", "nt", "nn", "nd"},
+                topLevelFields.toArray(new String[0])
         );
 
         // 验证ph对象中的字段顺序
         JSONObject ph = jsonBody.getJSONObject("ph");
         List<String> phFields = new ArrayList<>(ph.keySet());
         assertArrayEquals(
-            new String[]{"language", "latitude", "longitude", "countryCode", "appVersion", "authorization"},
-            phFields.toArray(new String[0])
+                new String[]{"language", "latitude", "longitude", "countryCode", "appVersion", "authorization"},
+                phFields.toArray(new String[0])
         );
 
         // 验证pd对象中的字段顺序
         JSONObject pd = jsonBody.getJSONObject("pd");
         List<String> pdFields = new ArrayList<>(pd.keySet());
         assertArrayEquals(
-            new String[]{"categoryIds", "locationIds", "filter", "city", "sortType", "pageNum", "pageSize"},
-            pdFields.toArray(new String[0])
+                new String[]{"categoryIds", "locationIds", "filter", "city", "sortType", "pageNum", "pageSize"},
+                pdFields.toArray(new String[0])
         );
 
         // 验证filter对象中的字段顺序
         JSONObject filter = pd.getJSONObject("filter");
         List<String> filterFields = new ArrayList<>(filter.keySet());
         assertArrayEquals(
-            new String[]{"sales", "serviceType"},
-            filterFields.toArray(new String[0])
+                new String[]{"sales", "serviceType"},
+                filterFields.toArray(new String[0])
         );
 
         // 验证sales对象中的字段顺序
         JSONObject sales = filter.getJSONObject("sales");
         List<String> salesFields = new ArrayList<>(sales.keySet());
         assertArrayEquals(
-            new String[]{"min"},
-            salesFields.toArray(new String[0])
+                new String[]{"min"},
+                salesFields.toArray(new String[0])
         );
 
         // 验证具体字段值
@@ -278,17 +280,17 @@ class CurlParserTest {
         assertEquals("CN", ph.getString("countryCode"));
         assertEquals("8.61.0", ph.getString("appVersion"));
         assertEquals("0bb0d075d767fa89b03da500f770433a", ph.getString("authorization"));
-        
+
         assertTrue(pd.getJSONArray("categoryIds").isEmpty());
         assertTrue(pd.getJSONArray("locationIds").isEmpty());
         assertEquals("杭州市", pd.getString("city"));
         assertEquals(-1, pd.getInteger("sortType"));
         assertEquals(1, pd.getInteger("pageNum"));
         assertEquals(20, pd.getInteger("pageSize"));
-        
+
         assertEquals(0, sales.getInteger("min"));
         assertEquals(0, filter.getInteger("serviceType"));
-        
+
         assertEquals("2", jsonBody.getString("nv"));
         assertEquals("1749625557109", jsonBody.getString("nt"));
         assertEquals("kFzsVsf4zE3GMlZrmHUAWKicr", jsonBody.getString("nn"));
@@ -307,7 +309,7 @@ class CurlParserTest {
 
         // 获取headers的key列表，验证顺序
         List<String> headerKeys = new ArrayList<>(request.getHeaders().keySet());
-        
+
         // 打印实际解析出的所有请求头
         System.out.println("\nParsed headers:");
         System.out.println("Total headers found: " + headerKeys.size());
@@ -336,7 +338,7 @@ class CurlParserTest {
         String headersString = request.getHeadersString();
         System.out.println("\nHeaders string output:");
         System.out.println(headersString);
-        
+
         // 验证所有必需的headers都存在
         assertTrue(headers.containsKey("Host"), "Host header is missing");
         assertTrue(headers.containsKey("Content-Type"), "Content-Type header is missing");
@@ -344,7 +346,7 @@ class CurlParserTest {
         assertTrue(headers.containsKey("X-Custom-Header"), "X-Custom-Header is missing");
         assertTrue(headers.containsKey("X-Request-ID"), "X-Request-ID header is missing");
         assertTrue(headers.containsKey("Accept"), "Accept header is missing");
-        
+
         // 验证headers的总数
         assertEquals(6, headers.size(), "Expected 6 headers but found " + headers.size());
     }
@@ -357,8 +359,8 @@ class CurlParserTest {
         // 获取params的key列表，验证顺序
         List<String> paramKeys = new ArrayList<>(request.getParams().keySet());
         assertArrayEquals(
-            new String[]{"param1", "param2", "param3"},
-            paramKeys.toArray(new String[0])
+                new String[]{"param1", "param2", "param3"},
+                paramKeys.toArray(new String[0])
         );
 
         // 验证params的值
@@ -376,16 +378,16 @@ class CurlParserTest {
     @Test
     void testComplexQueryParamsOrderPreservation() throws Exception {
         String complexUrlCurl = """
-            curl "https://api-test.hungrypanda.cn/api/test?sort=desc&filter=active&page=1&size=20&type=user&status=new&category=test"
-            """;
-        
+                curl "https://api-test.hungrypanda.cn/api/test?sort=desc&filter=active&page=1&size=20&type=user&status=new&category=test"
+                """;
+
         CurlParser.ParsedRequest request = CurlParser.parse(complexUrlCurl);
 
         // 获取params的key列表，验证顺序
         List<String> paramKeys = new ArrayList<>(request.getParams().keySet());
         assertArrayEquals(
-            new String[]{"sort", "filter", "page", "size", "type", "status", "category"},
-            paramKeys.toArray(new String[0])
+                new String[]{"sort", "filter", "page", "size", "type", "status", "category"},
+                paramKeys.toArray(new String[0])
         );
 
         // 验证params的值
@@ -407,16 +409,16 @@ class CurlParserTest {
     @Test
     void testUrlEncodedParamsOrderPreservation() throws Exception {
         String encodedUrlCurl = """
-            curl "https://api-test.hungrypanda.cn/api/test?name=测试&city=杭州&address=西湖区&type=中文"
-            """;
-        
+                curl "https://api-test.hungrypanda.cn/api/test?name=测试&city=杭州&address=西湖区&type=中文"
+                """;
+
         CurlParser.ParsedRequest request = CurlParser.parse(encodedUrlCurl);
 
         // 获取params的key列表，验证顺序
         List<String> paramKeys = new ArrayList<>(request.getParams().keySet());
         assertArrayEquals(
-            new String[]{"name", "city", "address", "type"},
-            paramKeys.toArray(new String[0])
+                new String[]{"name", "city", "address", "type"},
+                paramKeys.toArray(new String[0])
         );
 
         // 验证params的值
@@ -430,6 +432,7 @@ class CurlParserTest {
         String paramsString = request.getParamsString();
         assertEquals("name=测试&city=杭州&address=西湖区&type=中文", paramsString);
     }
+
     @DisplayName("测试提供的cURL命令中null字段保留")
     @Test
     void testUserProvidedCurlNullFieldPreserved() throws Exception {
@@ -453,17 +456,17 @@ class CurlParserTest {
     @Test
     void testChromeCurlParsing() {
         CurlParser.ParsedRequest request = CurlParser.parse(CHROME_CURL);
-        
+
         // 验证基本信息
         assertEquals("https://api-cn-f2e-test.hungrypanda.cn/api/user/delivery/address?pageSize=50", request.getUri());
         assertEquals("/api/user/delivery/address", request.getPath());
         assertEquals("POST", request.getMethod());
-        
+
         // 验证查询参数
         Map<String, String> params = request.getParams();
         assertEquals(1, params.size());
         assertEquals("50", params.get("pageSize"));
-        
+
         // 验证请求头
         Map<String, String> headers = request.getHeaders();
         assertTrue(headers.containsKey("accept"));
@@ -471,7 +474,7 @@ class CurlParserTest {
         assertTrue(headers.containsKey("origin"));
         assertTrue(headers.containsKey("referer"));
         assertTrue(headers.containsKey("user-agent"));
-        
+
         // 验证请求体
         assertNotNull(request.getBody());
         assertTrue(request.getBody().contains("\"platform\":\"PC_WEB_USER\""));
@@ -485,11 +488,11 @@ class CurlParserTest {
         // 测试 Chrome 格式
         CurlParser.ParsedRequest chromeRequest = CurlParser.parse(CHROME_CURL);
         assertNotNull(chromeRequest);
-        
+
         // 测试 Charles 格式
         CurlParser.ParsedRequest charlesRequest = CurlParser.parse(POST_CURL);
         assertNotNull(charlesRequest);
-        
+
         // 验证两种格式的解析结果格式一致
         assertNotNull(chromeRequest.getHeaders());
         assertNotNull(chromeRequest.getParams());
@@ -503,13 +506,13 @@ class CurlParserTest {
     @Test
     void testChromeCurlParamsOrderPreservation() {
         String chromeCurlWithParams = """
-            curl 'https://api-cn-f2e-test.hungrypanda.cn/api/test?param1=value1&param2=value2&param3=value3' \\
-              -H 'accept: application/json' \\
-              --data-raw '{"key1":"value1","key2":"value2","key3":"value3"}'
-            """;
-            
+                curl 'https://api-cn-f2e-test.hungrypanda.cn/api/test?param1=value1&param2=value2&param3=value3' \\
+                  -H 'accept: application/json' \\
+                  --data-raw '{"key1":"value1","key2":"value2","key3":"value3"}'
+                """;
+
         CurlParser.ParsedRequest request = CurlParser.parse(chromeCurlWithParams);
-        
+
         // 验证查询参数顺序
         Map<String, String> params = request.getParams();
         assertEquals(3, params.size());
@@ -519,7 +522,7 @@ class CurlParserTest {
         assertEquals("param1", paramKeys.get(0));
         assertEquals("param2", paramKeys.get(1));
         assertEquals("param3", paramKeys.get(2));
-        
+
         // 验证请求体字段顺序
         String body = request.getBody();
         assertTrue(body.indexOf("\"key1\"") < body.indexOf("\"key2\""));
@@ -530,19 +533,19 @@ class CurlParserTest {
     @Test
     void testChromeCurlHeadersOrderPreservation() {
         String chromeCurlWithHeaders = """
-            curl 'https://api-cn-f2e-test.hungrypanda.cn/api/test' \\
-              -H 'header1: value1' \\
-              -H 'header2: value2' \\
-              -H 'header3: value3' \\
-              -H 'header4: value4'
-            """;
-            
+                curl 'https://api-cn-f2e-test.hungrypanda.cn/api/test' \\
+                  -H 'header1: value1' \\
+                  -H 'header2: value2' \\
+                  -H 'header3: value3' \\
+                  -H 'header4: value4'
+                """;
+
         CurlParser.ParsedRequest request = CurlParser.parse(chromeCurlWithHeaders);
-        
+
         // 验证请求头顺序
         Map<String, String> headers = request.getHeaders();
         assertEquals(4, headers.size());
-        
+
         // 将请求头转换为列表以验证顺序
         List<String> headerKeys = new ArrayList<>(headers.keySet());
         assertEquals("header1", headerKeys.get(0));
@@ -550,4 +553,46 @@ class CurlParserTest {
         assertEquals("header3", headerKeys.get(2));
         assertEquals("header4", headerKeys.get(3));
     }
+
+    @DisplayName("测试application/x-www-form-urlencoded格式的请求体解析")
+    @Test
+    void testApplicationXWwwFormUrlencodedParsing() {
+        CurlParser.ParsedRequest request = CurlParser.parse(FORM_DATA_CURL);
+
+        // 验证基本信息
+        assertEquals("POST", request.getMethod());
+        assertEquals("https://app-test.hungrypanda.cn/api/oauth2/userTokenSync", request.getUri());
+        assertEquals("/api/oauth2/userTokenSync", request.getPath());
+
+        // 验证content-type header
+        Map<String, String> headers = request.getHeaders();
+        assertEquals("application/x-www-form-urlencoded", headers.get("content-type"));
+        assertEquals("app-test.hungrypanda.cn", headers.get("Host"));
+        assertEquals("120.22185", headers.get("longitude"));
+        assertEquals("30.20074", headers.get("latitude"));
+
+        // 验证请求体被正确转换为JSON格式
+        String body = request.getBody();
+        assertNotNull(body, "请求体不应为null");
+
+        // 验证JSON格式正确
+        assertTrue(body.startsWith("{"), "请求体应该是JSON格式");
+        assertTrue(body.endsWith("}"), "请求体应该是JSON格式");
+
+        // 验证字段顺序和内容
+        assertTrue(body.contains("\"areaCode\":\"86\""), "应包含areaCode字段");
+        assertTrue(body.contains("\"account\":\"18968046019\""), "应包含account字段");
+
+        // 验证字段顺序（areaCode应该在account之前）
+        int areaCodeIndex = body.indexOf("\"areaCode\"");
+        int accountIndex = body.indexOf("\"account\"");
+        assertTrue(areaCodeIndex < accountIndex, "areaCode应该在account之前");
+
+        // 验证没有其他参数
+        assertFalse(body.contains("&"), "JSON中不应包含&符号");
+
+        System.out.println("解析后的JSON格式请求体:");
+        System.out.println(body);
+    }
+
 }
