@@ -35,7 +35,7 @@ import java.util.Objects;
  */
 @Scenario(
         scenarioID = "01JYBC3SBQQDZC46QFGXAD4NRE", // 自动生成，不要修改
-        scenarioName = "搜索-精准搜索&全部打烊&无广告",
+        scenarioName = "搜索-精准搜索&全部打烊&无广告_搜索coco-检查搜索结果包含【CoCo、中间包含coCo】",
         author = "shandongdong@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("搜索-精准搜索&全部打烊&无广告")
@@ -83,7 +83,7 @@ public class 搜索_精准搜索_全部打烊_无广告_Tests {
         // MerchantFactory.deleteMerchant("中间包含coCo");
     }
 
-    @DisplayName("搜索coco-检查搜索结果")
+    @DisplayName("搜索coco-检查搜索结果包含【CoCo、中间包含coCo】")
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
@@ -125,7 +125,7 @@ public class 搜索_精准搜索_全部打烊_无广告_Tests {
             shopNames.add(shopName);
         }
 
-        // 断言数组中包含指定的三个店铺名称
+        // 断言数组中包含指定的店铺名称
         boolean containsExpectedShop1 = shopNames.stream().anyMatch(name -> name.contains("CoCo"));
         boolean containsExpectedShop2 = shopNames.stream().anyMatch(name -> name.contains("中间包含coCo"));
 
