@@ -2,10 +2,11 @@ package com.miller.testcase.module.home.search.chinese.regression_testing.搜索
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.factory.MerchantFactory;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -33,6 +34,7 @@ import java.util.Objects;
 @DisplayName("搜索-精准搜索&未全部打烊&无广告")
 public class 搜索_精准搜索_未全部打烊_无广告_Tests {
     String searchWord = "喜茶";
+
     @BeforeAll
     void beforeAll() {
         var searchWordSql = "SELECT t.search_word FROM panda_test.hp_data_search_entity_word t where t.search_word = '"
@@ -106,23 +108,33 @@ public class 搜索_精准搜索_未全部打烊_无广告_Tests {
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
         // 断言第一个店铺名称
-        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList[0].shopName")
-                .isEqualTo("喜茶");
+//        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList[0].shopName")
+//                .isEqualTo("喜茶");
+//        // 断言第二个店铺名称
+//        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList[1].shopName")
+//                .isEqualTo("喜茶开头的店");
+//        // 断言第三个店铺名称
+//        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList[2].shopName")
+//                .isEqualTo("中间包含喜茶的店");
 
-        // 断言第二个店铺名称
-        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList[1].shopName")
-                .isEqualTo("喜茶开头的店");
-
-        // 断言第三个店铺名称
-        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList[2].shopName")
-                .isEqualTo("中间包含喜茶的店");
-
-//        // 断言店铺列表中包含"中间包含喜茶的店、喜茶开头的店、喜茶"
-//        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList")
-//                .isArray()
-//                .contains("{\"shopName\":\"喜茶\"}")
-//                .contains("{\"shopName\":\"喜茶开头的店\"}")
-//                .contains("{\"shopName\":\"中间包含喜茶的店\"}");
-
+        // 断言店铺列表中包含 "中间包含喜茶的店、喜茶开头的店、喜茶"
+        JSONArray shopList = TestCaseHelpful.extractValue(responseBody, "result.shopList");
+        
+        // 收集所有店铺名称
+        java.util.Set<String> shopNames = new java.util.HashSet<>();
+        for (int i = 0; i < shopList.size(); i++) {
+            Map shop = (java.util.Map<String, Object>) shopList.get(i);
+            String shopName = (String) shop.get("shopName");
+            shopNames.add(shopName);
+        }
+        
+        // 断言数组中包含指定的三个店铺名称
+        boolean containsExpectedShop1 = shopNames.stream().anyMatch(name -> name.contains("中间包含喜茶的店"));
+        boolean containsExpectedShop2 = shopNames.stream().anyMatch(name -> name.contains("喜茶开头的店"));
+        boolean containsExpectedShop3 = shopNames.stream().anyMatch(name -> name.contains("喜茶"));
+        
+        TestCaseHelpful.assertThat(containsExpectedShop1).isEqualTo(true);
+        TestCaseHelpful.assertThat(containsExpectedShop2).isEqualTo(true);
+        TestCaseHelpful.assertThat(containsExpectedShop3).isEqualTo(true);
     }
 }

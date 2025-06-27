@@ -4,6 +4,8 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Predicate;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ObjectAssert;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -39,5 +41,15 @@ public class JsonUnitUtils {
      */
     public static <T> T extractValue(String json, String jsonPath, Predicate... filters) {
         return JsonPath.read(json, jsonPath, filters);
+    }
+
+    /**
+     * 添加 AssertJ 断言
+     * @param actual 实际值
+     * @return ObjectAssert
+     * @param <T> 泛型
+     */
+    public static <T> ObjectAssert<T> assertThat(T actual) {
+        return Assertions.assertThat(actual);
     }
 }

@@ -10,16 +10,18 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.module.erp.login.ERPLoginTests;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import net.javacrumbs.jsonunit.core.Option;
+import org.assertj.core.api.ObjectAssert;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 测试用例助手, 简化和提高用例开发效率，作用如下：
@@ -89,6 +91,17 @@ public class TestCaseHelpful {
                                                                    JsonAssertions.JsonAssertionCallback... callbacks) {
         return JsonUnitUtils.assertThatJson(actual, callbacks);
     }
+
+    /**
+     * 添加 AssertJ 断言
+     * @param actual 实际值
+     * @return ObjectAssert
+     * @param <T> 泛型
+     */
+    public static <T> ObjectAssert<T> assertThat(T actual) {
+        return JsonUnitUtils.assertThat(actual);
+    }
+
 
     /**
      * 获取 JSON 文件内容
