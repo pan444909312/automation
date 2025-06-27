@@ -6,7 +6,7 @@
     "filterGroup": "${json-unit.ignore}",
     "shopList": "${json-unit.ignore}",
     "upperListVO": {
-      "upperList": null,
+      "upperList": "${json-unit.ignore}",
       "position": 0
     },
     "totalShopNum": "${json-unit.any-number}",

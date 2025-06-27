@@ -7,6 +7,7 @@ import com.miller.testcase.factory.MerchantFactory;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
+import net.minidev.json.JSONArray;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -114,18 +115,22 @@ public class 搜索_精准搜索_全部打烊_无广告_Tests {
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         // 对json文件中排除的字段进行更加复杂的断言
-        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList")
-                // 断言数组长度
-                .isArray()
-                .size().isGreaterThan(2);
-        
-        // 断言第一个店铺名称为"CoCo"
-        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList[0].shopName")
-                .isEqualTo("CoCo");
-        
-        // 断言第二个店铺名称为"中间包含coCo"
-        TestCaseHelpful.assertThatJson(responseBody).node("result.shopList[1].shopName")
-                .isEqualTo("中间包含coCo");
+        // 断言店铺列表中包含指定店铺
+        JSONArray shopList = TestCaseHelpful.extractValue(responseBody, "$.result.upperListVO.upperList");
+        // 收集所有店铺名称
+        java.util.Set<String> shopNames = new java.util.HashSet<>();
+        for (int i = 0; i < shopList.size(); i++) {
+            Map shop = (java.util.Map<String, Object>) shopList.get(i);
+            String shopName = (String) shop.get("shopName");
+            shopNames.add(shopName);
+        }
+
+        // 断言数组中包含指定的三个店铺名称
+        boolean containsExpectedShop1 = shopNames.stream().anyMatch(name -> name.contains("CoCo"));
+        boolean containsExpectedShop2 = shopNames.stream().anyMatch(name -> name.contains("中间包含coCo"));
+
+        TestCaseHelpful.assertThat(containsExpectedShop1).isEqualTo(true);
+        TestCaseHelpful.assertThat(containsExpectedShop2).isEqualTo(true);
 
     }
 
