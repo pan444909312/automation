@@ -1,0 +1,44 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"id": "${json-unit.ignore-element}",
+		"pageName": "${json-unit.any-string}",
+		"backgroundImage": "${json-unit.any-string}",
+		"qrCodeBackgroundImage":"${json-unit.any-string}",
+		"shareStr":"${json-unit.any-string}",
+		"wecomUserId":"${json-unit.any-string}",
+		"shareImage": "${json-unit.any-string}",
+		"cityName": "${json-unit.any-string}",
+		"areaName": "${json-unit.any-string}",
+		"qrCodeUrl": "${json-unit.any-string}",
+		"isUserValid": "${json-unit.any-boolean}",
+		"status": "${json-unit.any-number}",
+		"showMsg": "${json-unit.ignore-element}",
+		"cityOperateAreaList": [
+			{
+				"cityName": "${json-unit.any-string}",
+				"areaList": [
+					{
+						"areaId": "${json-unit.any-number}",
+						"areaName": "${json-unit.any-string}",
+						"cityName": "${json-unit.any-string}"
+					}
+				]
+			}
+		],
+		"userId": "${json-unit.ignore-element}",
+		"isLocationMatch": "${json-unit.any-boolean}",
+		"timestamp": "${json-unit.any-number}",
+		"appId": "${json-unit.any-string}",
+		"nonceStr": "${json-unit.any-string}",
+		"signature": "${json-unit.any-string}",
+		"ticket": "${json-unit.any-string}"
+	},
+	"currency": "${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"time": "${json-unit.ignore-element}"
+
+}

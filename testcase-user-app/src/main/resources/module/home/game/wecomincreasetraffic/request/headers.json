@@ -1,0 +1,8 @@
+{
+	"Connection":"keep-alive",
+	"User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 15_0_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.49(0x18003137) NetType/WIFI Language/zh_CN",
+	"Referer":"https://servicewechat.com/wx15cc8182d5b217a0/0/page-frame.html",
+	"Host":"api-cn-f2e-test.hungrypanda.cn",
+	"content-type":"application/json",
+	"Accept-Encoding":"gzip,compress,br,deflate"
+}

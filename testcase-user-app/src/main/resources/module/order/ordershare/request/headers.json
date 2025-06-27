@@ -22,6 +22,6 @@
 	"device_safe_token":"a0_b1_c1_h0_i0_j0_m0_n0_p0_s0",
 	"_sig":"9ceb532e17d6454f7e649ac9284b6f9a089aeb9f",
 	"longitude":"115.9541",
-	"Content-Type": "application/json",
+	"Content-Type": "application/x-www-form-urlencoded",
 	"_ts":"1750337419048"
 }
