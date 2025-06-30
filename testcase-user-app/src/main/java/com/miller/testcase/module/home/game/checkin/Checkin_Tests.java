@@ -21,10 +21,10 @@ import java.sql.DriverManager;
  */
 @Scenario(
         scenarioID = "01JYGN59W9VNZ4X8B29Q5MXP7K", // 自动生成，不要修改
-        scenarioName = "checkin",
+        scenarioName = "游戏页面签到",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 40, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("checkin")
+@DisplayName("游戏页面签到")
 public class Checkin_Tests {
 
     @BeforeAll

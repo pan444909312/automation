@@ -1,0 +1,33 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"evaluationDetailId": null,
+		"evaluationId": null,
+		"orderId": null,
+		"userId": null,
+		"shopId": null,
+		"manner": null,
+		"taste": null,
+		"composite": null,
+		"deliveryTime": null,
+		"remark": null,
+		"evaluationImg": null,
+		"integral": null,
+		"shopRemark": null,
+		"shopRemarkTime": null,
+		"createTime": null,
+		"updateTime": null,
+		"isDel": null,
+		"deliveryRemark": null,
+		"deliveryComposite": null,
+		"deliveryUserId": null,
+		"evaluationType": null,
+		"anonymous": null
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

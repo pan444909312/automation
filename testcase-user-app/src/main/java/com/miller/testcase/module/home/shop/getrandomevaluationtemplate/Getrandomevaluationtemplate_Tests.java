@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("随机获取评价模板信息")
 public class Getrandomevaluationtemplate_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-    String uri = TestcaseConfig.HOST_APP + "/api/user/shopEvaluation";
+    String uri = TestcaseConfig.HOST_APP + "/api/user/shop/getRandomEvaluationTemplate";
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "GET";
     // 请求头。默认从 resources 目录下读取文件。

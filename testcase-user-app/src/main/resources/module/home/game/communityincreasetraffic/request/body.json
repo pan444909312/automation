@@ -1,0 +1,25 @@
+{
+	"pm":"POST",
+	"ph":{
+		"locale":"CN",
+		"brand":"",
+		"model":"",
+		"version":"8.10.1",
+		"appVersion":"",
+		"longitude":"151.2331770679",
+		"latitude":"-33.8401649783",
+		"platform":"WEB_MOBILE",
+		"appTypeId":1,
+		"uniquetoken":"e8405090d6e346dcbfa78643115acfc5",
+		"authorization":null,
+		"language":"CN"
+	},
+	"pd":{
+		"id":918,
+		"url":"https://leaflet-f2e-test.hungrypanda.cn/communityQrCode?configId=918&countryCode=AU"
+	},
+	"nv":"2",
+	"nt":"1750921123474",
+	"nn":"3Hk2U8ejNVKqXRUFjbEQqaivU",
+	"nd":"3d0a5e627a7515b"
+}

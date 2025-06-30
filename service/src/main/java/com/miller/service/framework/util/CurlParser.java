@@ -75,6 +75,15 @@ public class CurlParser {
         }
 
         public void setBody(String body) {
+            // 检查 content-type 是否为 application/x-www-form-urlencoded
+            String contentType = headers.get("content-type");
+            if (body != null && contentType != null && 
+                contentType.toLowerCase().contains("application/x-www-form-urlencoded")) {
+                // 将 form-data 转换为 JSON 格式
+                this.body = convertFormDataToJson(body);
+                return;
+            }
+            
             // 如果是 JSON 字符串，使用 LinkedHashMap 重新格式化以保持顺序
             if (body != null && (body.trim().startsWith("{") || body.trim().startsWith("["))) {
                 try {
@@ -146,6 +155,51 @@ public class CurlParser {
             }
             return sb.toString();
         }
+
+        /**
+         * 将 form-data 格式的字符串转换为 JSON 格式
+         * 例如：areaCode=86&account=18968046019 转换为 {"areaCode":"86","account":"18968046019"}
+         * 
+         * @param formData form-data 格式的字符串
+         * @return JSON 格式的字符串
+         */
+        private String convertFormDataToJson(String formData) {
+            if (formData == null || formData.trim().isEmpty()) {
+                return "{}";
+            }
+            
+            try {
+                // 使用 LinkedHashMap 保持参数顺序
+                LinkedHashMap<String, String> formParams = new LinkedHashMap<>();
+                
+                // 按 & 分割参数
+                String[] pairs = formData.split("&");
+                for (String pair : pairs) {
+                    int idx = pair.indexOf("=");
+                    if (idx > 0) {
+                        String key = pair.substring(0, idx);
+                        String value = pair.substring(idx + 1);
+                        // URL 解码
+                        try {
+                            key = java.net.URLDecoder.decode(key, "UTF-8");
+                            value = java.net.URLDecoder.decode(value, "UTF-8");
+                        } catch (Exception e) {
+                            // 如果解码失败，保持原始值
+                        }
+                        formParams.put(key, value);
+                    }
+                }
+                
+                // 转换为 JSON 格式，保持顺序
+                return JSON.toJSONString(formParams,
+                    com.alibaba.fastjson.serializer.SerializerFeature.WriteMapNullValue,
+                    com.alibaba.fastjson.serializer.SerializerFeature.PrettyFormat
+                );
+            } catch (Exception e) {
+                // 如果转换失败，返回原始字符串
+                return formData;
+            }
+        }
     }
 
     /**
@@ -179,17 +233,33 @@ public class CurlParser {
         // 标准化输入：移除换行符和多余空格
         String normalized = curlCommand.replaceAll("\\s+", " ").trim();
         
-        // Chrome 特征：包含换行符和单引号包裹的 URL
-        if (curlCommand.contains("'") && curlCommand.contains("\n")) {
+        // Chrome 特征：
+        // 1. URL 用单引号包裹
+        // 2. 请求头用单引号包裹
+        // 3. 整个命令中单引号使用更频繁，且不包含双引号
+        if (curlCommand.contains("'") && 
+            (curlCommand.contains("curl '") || curlCommand.contains(" -H '")) &&
+            !curlCommand.contains("\"")) {
             return CurlSource.CHROME;
         }
         
-        // Charles 特征：使用双引号包裹参数，且通常不包含换行符
-        if (normalized.contains("\"") && !curlCommand.contains("\n")) {
+        // Charles 特征：
+        // 1. 使用双引号包裹参数
+        // 2. 或者虽然包含单引号，但主要是双引号格式
+        if (normalized.contains("\"")) {
             return CurlSource.CHARLES;
         }
         
-        return CurlSource.UNKNOWN;
+        // 如果只包含单引号，检查是否是 Chrome 格式
+        if (normalized.contains("'")) {
+            // 检查是否包含典型的 Chrome 格式特征
+            if (normalized.contains("curl '") || normalized.contains(" -H '")) {
+                return CurlSource.CHROME;
+            }
+        }
+        
+        // 默认使用 Charles 格式
+        return CurlSource.CHARLES;
     }
 
     /**
@@ -270,36 +340,72 @@ public class CurlParser {
      * 提取 Chrome 格式的 URL
      */
     private static String extractChromeUrl(String curlCommand) {
-        Pattern urlPattern = Pattern.compile("curl\\s+'([^']+)'");
-        Matcher matcher = urlPattern.matcher(curlCommand);
-        if (matcher.find()) {
-            return matcher.group(1);
+        // 尝试多种 URL 模式
+        Pattern[] urlPatterns = {
+            // 模式1: curl 'URL'
+            Pattern.compile("curl\\s+'([^']+)'"),
+            // 模式2: curl -H ... 'URL' (URL 在最后)
+            Pattern.compile("'([^']+)'\\s*$"),
+            // 模式3: curl -H ... -H ... 'URL'
+            Pattern.compile("'([^']+)'\\s*(?:-H|--data|--compressed|$)"),
+            // 模式4: 查找最后一个单引号包围的 URL
+            Pattern.compile("'([^']*https?://[^']*)'")
+        };
+        
+        for (Pattern pattern : urlPatterns) {
+            Matcher matcher = pattern.matcher(curlCommand);
+            if (matcher.find()) {
+                String url = matcher.group(1);
+                // 验证是否是有效的 URL
+                if (url.startsWith("http://") || url.startsWith("https://")) {
+                    return url;
+                }
+            }
         }
-        throw new IllegalArgumentException("URL not found in Chrome cURL command");
+        
+        // 如果上述模式都失败，尝试从 Charles 格式的 extractUrl 方法
+        try {
+            return extractUrl(curlCommand);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("URL not found in Chrome cURL command");
+        }
     }
 
     /**
      * 解析 Chrome 格式的 headers 和 body
      */
     private static void parseChromeHeadersAndBody(String curlCommand, ParsedRequest request) {
-        // 解析 headers
-        Pattern headerPattern = Pattern.compile("-H\\s+'([^:]+):\\s*([^']+)'");
-        Matcher matcher = headerPattern.matcher(curlCommand);
+        // 解析 headers - 支持多种格式
+        Pattern[] headerPatterns = {
+            // 模式1: -H 'key: value'
+            Pattern.compile("-H\\s+'([^:]+):\\s*([^']+)'"),
+            // 模式2: -H "key: value" (Chrome 有时也会用双引号)
+            Pattern.compile("-H\\s+\"([^:]+):\\s*([^\"]+)\""),
+            // 模式3: -H 'key:value' (没有空格)
+            Pattern.compile("-H\\s+'([^:]+):([^']+)'")
+        };
         
-        while (matcher.find()) {
-            String key = matcher.group(1).trim();
-            String value = matcher.group(2).trim();
-            request.addHeader(key, value);
+        for (Pattern pattern : headerPatterns) {
+            Matcher matcher = pattern.matcher(curlCommand);
+            while (matcher.find()) {
+                String key = matcher.group(1).trim();
+                String value = matcher.group(2).trim();
+                request.addHeader(key, value);
+            }
         }
 
-        // 解析 body
-        if (curlCommand.contains("--data-raw")) {
-            String bodyValue = extractChromeBodyValue(curlCommand, "--data-raw");
-            if (!bodyValue.isEmpty()) {
-                request.setBody(bodyValue);
-                // 如果方法未指定且有body，默认为POST
-                if ("GET".equals(request.getMethod())) {
-                    request.setMethod("POST");
+        // 解析 body - 支持多种 body 标记
+        String[] bodyMarkers = {"--data-raw", "--data-binary", "-d", "--data"};
+        for (String marker : bodyMarkers) {
+            if (curlCommand.contains(marker)) {
+                String bodyValue = extractChromeBodyValue(curlCommand, marker);
+                if (!bodyValue.isEmpty()) {
+                    request.setBody(bodyValue);
+                    // 如果方法未指定且有body，默认为POST
+                    if ("GET".equals(request.getMethod())) {
+                        request.setMethod("POST");
+                    }
+                    break;
                 }
             }
         }
@@ -309,11 +415,23 @@ public class CurlParser {
      * 提取 Chrome 格式的 body 值
      */
     private static String extractChromeBodyValue(String curlCommand, String marker) {
-        Pattern bodyPattern = Pattern.compile(marker + "\\s+'([^']+)'");
-        Matcher matcher = bodyPattern.matcher(curlCommand);
-        if (matcher.find()) {
-            return matcher.group(1);
+        // 尝试多种 body 模式
+        Pattern[] bodyPatterns = {
+            // 模式1: --data-raw 'value'
+            Pattern.compile(marker + "\\s+'([^']+)'"),
+            // 模式2: --data-raw "value" (Chrome 有时也会用双引号)
+            Pattern.compile(marker + "\\s+\"([^\"]+)\""),
+            // 模式3: --data-raw 'value' 后面还有其他参数
+            Pattern.compile(marker + "\\s+'([^']+)'\\s*(?:-H|--compressed|$)")
+        };
+        
+        for (Pattern pattern : bodyPatterns) {
+            Matcher matcher = pattern.matcher(curlCommand);
+            if (matcher.find()) {
+                return matcher.group(1);
+            }
         }
+        
         return "";
     }
 
