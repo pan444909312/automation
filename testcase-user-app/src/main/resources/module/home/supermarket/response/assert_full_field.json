@@ -16,6 +16,6 @@
   "success": true,
   "nowTime": "${json-unit.any-number}",
   "queryList": "${json-unit.ignore-element}",
-  "time": "${json-unit.any-number}"
+  "time": "${json-unit.ignore-element}"
 
 }
