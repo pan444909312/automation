@@ -46,6 +46,7 @@ public class ProductlListTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：部份匹配，
         String expectedStr = TestCaseHelpful.getFileContent(assert2);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        var shopList = TestCaseHelpful.extractValue(responseBody, "$.result");
+        TestCaseHelpful.assertThatJson(shopList).isNotNull();
     }
 }

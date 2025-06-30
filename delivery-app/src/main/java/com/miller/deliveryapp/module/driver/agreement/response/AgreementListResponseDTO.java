@@ -1,7 +1,5 @@
 package com.miller.deliveryapp.module.driver.agreement.response;
 
-import com.miller.deliveryapp.dto.BasicResponseDTO;
-import com.panda.delivery.app.server.domain.dto.agreement.DeliveryAgreementListVO;
 
 
 /**
@@ -15,5 +13,5 @@ import com.panda.delivery.app.server.domain.dto.agreement.DeliveryAgreementListV
  * @version 1.0
  * @since 2024/04/25 14:59:46
  */
-public class AgreementListResponseDTO extends BasicResponseDTO<DeliveryAgreementListVO> {
+public class AgreementListResponseDTO  {
 }
