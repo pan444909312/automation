@@ -34,7 +34,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @Scenario(scenarioID = "01JYJWRY2YSPDAQ90V0NJPGDJE",
         scenarioName = "用户-登录失败-密码不正确",
-        author = "yancancang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 10, manualTestTime = 1)
+        author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 10, manualTestTime = 1)
 @DisplayName("用户-登录失败-密码不正确")
 public class PasswordLoginFail {
     private static String token;
