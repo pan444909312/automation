@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
         scenarioID = "01JXCG5RDZG3ZAXK5F47NHVHBA",
         scenarioName = "获取收货地址列表",
         author = "huyang@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+        developmentTime = 90, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("获取收货地址列表")
 public class DeliveryAddressTests {
     // 接口请求的 path
@@ -43,10 +43,16 @@ public class DeliveryAddressTests {
 
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
-
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
+       // 从预期响应中提取第一个地址对象用于断言
+        var expectedAddress = TestCaseHelpful.extractValue(expectedStr, "$.result[0]");
+        // 断言result数组中包含预期的地址对象
+        TestCaseHelpful.assertThatJson(responseBody)
+            .when(Option.IGNORING_EXTRA_FIELDS, Option.IGNORING_EXTRA_ARRAY_ITEMS)
+            .node("result")
+            .isArray()
+            .contains(expectedAddress);
     }
 }

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
         scenarioID = "01JY0EDRJ26MTA4FE0EPRQV331", // 自动生成，不要修改
         scenarioName = "编辑地址_小程序",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
+        developmentTime = 60, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("编辑地址_小程序")
 public class AddressEdit_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
