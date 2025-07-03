@@ -5,7 +5,7 @@
     <select id="findByTestCaseRequestPath" resultType="com.miller.entity.report.AutomationCoverageApiEntity">
         SELECT *
         FROM automation_coverage_api
-        WHERE path = #{path} and api_status=0 and is_automation=0
+        WHERE path regexp #{path} and api_status=0 and is_automation=0
     </select>
 
 

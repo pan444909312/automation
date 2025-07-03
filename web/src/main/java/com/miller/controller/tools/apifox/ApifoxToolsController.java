@@ -38,6 +38,11 @@ public class ApifoxToolsController {
     }
 
 
+    /**
+     * 弃用：目前是手动执行全量覆盖，因为apifox后置无法获取到创建人信息，所以没法做归属
+     * @param automationCoverageApiEntity
+     * @return
+     */
     @ApiOperation("Apifox 接口覆盖率接口")
     @PostMapping("/updateCoverage")
     public Boolean updateCoverage(@RequestBody AutomationCoverageApiEntity automationCoverageApiEntity) {
