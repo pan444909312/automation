@@ -195,10 +195,9 @@ public class AutoCaseRoiController {
         if (com.miller.common.util.StringUtils.isBlank(dto.getScenarioId())) {
             return Response.fail("scenarioId 不能为空");
         }
+        apifoxAutoCaseRoiService.apifoxSaveOrUpdate(dto);
 
-        boolean res = apifoxAutoCaseRoiService.apifoxSaveOrUpdate(dto);
-
-        return Response.success("收到请求");
+        return Response.success("收到请求",null);
     }
 
 

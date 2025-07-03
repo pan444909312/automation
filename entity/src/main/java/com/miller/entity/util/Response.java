@@ -32,8 +32,8 @@ public class Response<T> implements Serializable {
         return new Response<T>(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getMessage(), data);
     }
 
-    public static <T> Response<T> success(String message) {
-        return new Response<T>(ResponseEnum.SUCCESS.getCode(),message, null);
+    public static <T> Response<T> success(String message, T data) {
+        return new Response<T>(ResponseEnum.SUCCESS.getCode(),message, data);
     }
 
     // 通用的错误响应构造方法
