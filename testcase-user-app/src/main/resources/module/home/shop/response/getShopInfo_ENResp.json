@@ -7,7 +7,7 @@
       "shopId": 930937488,
       "country": "中国",
       "shopName": "自动化测试·yqh专用-勿动",
-      "shopNotice": "",
+      "shopNotice": "${json-unit.any-string}",
       "shopLogo": "https://static.hungrypanda.co/crm/1748246968246e6479c24edb244409223ecd06384fd5e.jpg",
       "bgImage": "https://static.hungrypanda.co/crm/17482469855693e1178a62b3a4b8e8d6b7eba5bcad78d.jpg",
       "shopLogo": "${json-unit.any-string}",

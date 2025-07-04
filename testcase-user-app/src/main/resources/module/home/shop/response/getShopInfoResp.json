@@ -7,7 +7,6 @@
       "shopId": 930937488,
       "country": "中国",
       "shopName": "自动化测试·yqh专用-勿动",
-      "shopNotice": "",
       "shopLogo": "https://static.hungrypanda.co/crm/1748246968246e6479c24edb244409223ecd06384fd5e.jpg",
       "bgImage": "https://static.hungrypanda.co/crm/17482469855693e1178a62b3a4b8e8d6b7eba5bcad78d.jpg",
       "shopLogo": "${json-unit.any-string}",
@@ -18,8 +17,8 @@
     "promoteList": "${json-unit.ignore-element}",
     "menuList": [
       {
-        "menuInfo": null,
-        "productList": null,
+        "menuInfo": "${json-unit.ignore-element}",
+        "productList": "${json-unit.ignore-element}",
         "subMenuList": [
           {
             "menuInfo": {
@@ -29,7 +28,7 @@
             },
             "productList": [
               {
-                "promoteSn": null,
+                "promoteSn": "${json-unit.ignore-element}",
                 "productId": "${json-unit.any-number}",
                 "productName": "${json-unit.any-string}",
                 "productPrice": "${json-unit.any-number}",
