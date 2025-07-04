@@ -1,0 +1,28 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "state": 1,
+    "drawInfo": "",
+    "gameTimes": "${json-unit.any-number}",
+    "sort": 0,
+    "sn": "7",
+    "prizesSn": "",
+    "prizesValue": null,
+    "prizesId": "${json-unit.any-number}",
+    "name": "自动化实物奖品",
+    "subName": "",
+    "type": 5,
+    "image": "https://static.hungrypanda.co/crm/17362171203821efba473afe942389564b90d60d57d1f.jpeg",
+    "desc": "",
+    "activityGameLuckPrizeVO": null,
+    "prizeBelong": 1,
+    "gameUserPlayId": "${json-unit.any-number}",
+    "redPacketList": null
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

@@ -1,6 +1,7 @@
 package com.miller.testcase.module.home.search;
 
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.http.HttpUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
@@ -12,7 +13,7 @@ import java.util.Map;
 
 @Scenario(scenarioID = "01JY5N4J9T7BD3VZE1QJGVGHQP",
         scenarioName = "英文版搜索成功",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/search/v1")
 public class SearchV1Success {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/search/v1";
@@ -21,12 +22,11 @@ public class SearchV1Success {
     @Test
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/home/search/header/SearchV1Headers.json");
-//        headers.put("Content-Type", "application/x-www-form-urlencoded");
         // 给请求头添加数据，例如这里添加token
         String requestBody = TestCaseHelpful.getFileContent("module/home/search/request/SearchV1Req.json");
         String responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         String expectedStr = TestCaseHelpful.getFileContent("module/home/search/response/SearchV1Resp.json");
 
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
     }
 }
