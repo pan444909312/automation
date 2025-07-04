@@ -428,7 +428,7 @@
         <dependency>
             <groupId>com.panda.delivery.app.server</groupId>
             <artifactId>delivery-app-domain</artifactId>
-            <version>0.0.1-20231222.073857-3</version>
+            <version>0.0.1-SNAPSHOT</version>
             <exclusions>
                 <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
                  自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
@@ -466,7 +466,7 @@
         <dependency>
             <groupId>com.panda.delivery.app.server</groupId>
             <artifactId>delivery-app-common</artifactId>
-            <version>0.0.1-20230522.094518-2</version>
+            <version>0.0.1-SNAPSHOT</version>
             <exclusions>
                 <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
                  自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
