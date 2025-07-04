@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DCX",
         scenarioName = "设置神策埋点用户属性成功",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 5)
 @DisplayName("/api/user/sendSensorsdataUserInfo")
 public class UserSendSensorsdataUserInfoSuccess {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/sendSensorsdataUserInfo";

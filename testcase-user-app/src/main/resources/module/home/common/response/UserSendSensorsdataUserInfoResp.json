@@ -3,8 +3,8 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "balance": 9981337,
-    "redPacketCount": 9,
+    "balance": "${json-unit.any-number}",
+    "redPacketCount": "${json-unit.any-number}",
     "vipFlag": false,
     "credit": 0,
     "userId": 1398712910,
