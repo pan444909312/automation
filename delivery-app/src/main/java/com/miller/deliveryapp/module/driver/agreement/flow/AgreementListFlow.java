@@ -5,6 +5,7 @@ import com.miller.deliveryapp.module.driver.agreement.request.AgreementListReque
 import com.miller.deliveryapp.module.driver.agreement.response.AgreementListResponseDTO;
 import com.miller.deliveryapp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
+import com.panda.delivery.app.server.domain.dto.agreement.AgreementListReq;
 
 /**
  * 骑手同意的协议列表获取
@@ -18,11 +19,11 @@ public class AgreementListFlow {
      *骑手同意的协议列表获取
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/delivery/app/agreement/list";
-    public static AgreementListResponseDTO agreementList(AgreementListRequestDTO agreementListRequestDTO) {
+    public static AgreementListResponseDTO agreementList(AgreementListReq agreementListReq) {
 
         RequestUtils.getHeaders().put("Content-Type", "application/json");
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null,
-                RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(agreementListRequestDTO),
+                RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(agreementListReq),
                 null, AgreementListResponseDTO.class);
     }
 

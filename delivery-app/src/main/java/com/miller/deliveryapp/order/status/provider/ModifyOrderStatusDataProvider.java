@@ -5,7 +5,7 @@ import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.deliveryapp.order.status.request.ModifyOrderStatusRequestDTO;
 import com.miller.service.framework.cache.CacheUtils;
 import com.panda.common.enums.delivery.DriverArriveTypeEnum;
-import com.panda.delivery.app.server.common.enums.OrderDeliveryOperationTypeEnum;
+import com.panda.delivery.app.server.common.enums.OrderDeliveryOptTypeEnum;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class ModifyOrderStatusDataProvider {
      */
     static Stream<Arguments> modifyOrderStatusToDriverArrivedTheRestaurant() {
         return Stream.of(
-                arguments(modifyDeliveryStatus(OrderDeliveryOperationTypeEnum.ON_SHOP.getValue()))
+                arguments(modifyDeliveryStatus(OrderDeliveryOptTypeEnum.ON_SHOP.getValue()))
         );
     }
 
@@ -37,7 +37,7 @@ public class ModifyOrderStatusDataProvider {
      */
     static Stream<Arguments> modifyOrderStatusToDriverArrivedTheRestaurantButWaitingOrder() {
         return Stream.of(
-                arguments(modifyDeliveryStatus(OrderDeliveryOperationTypeEnum.NON_OUT_MEAL.getValue()))
+                arguments(modifyDeliveryStatus(OrderDeliveryOptTypeEnum.NON_OUT_MEAL.getValue()))
         );
     }
 
@@ -46,7 +46,7 @@ public class ModifyOrderStatusDataProvider {
      */
     static Stream<Arguments> modifyOrderStatusToDriverArrivedTheRestaurantAndTakingOrder() {
         return Stream.of(
-                arguments(modifyDeliveryStatus(OrderDeliveryOperationTypeEnum.TAKE_MEAL.getValue()))
+                arguments(modifyDeliveryStatus(OrderDeliveryOptTypeEnum.TAKE_MEAL.getValue()))
         );
     }
 
@@ -54,7 +54,7 @@ public class ModifyOrderStatusDataProvider {
      * 修改订单状态为：骑手已送达，并完成拍照
      */
     static Stream<Arguments> modifyOrderStatusToDriverFinishedOrder() {
-        ModifyOrderStatusRequestDTO modifyOrderStatusRequestDTO = modifyDeliveryStatus(OrderDeliveryOperationTypeEnum.DELIVERY_CONSUMER.getValue());
+        ModifyOrderStatusRequestDTO modifyOrderStatusRequestDTO = modifyDeliveryStatus(OrderDeliveryOptTypeEnum.DELIVERY_CONSUMER.getValue());
         // 自动化测试使用固定图片，免去上图图片网络操作
         modifyOrderStatusRequestDTO.setOrderCompleteImageUrlList(List.of("http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/170174606688616113ac9a0a74ab29cdadf98ad4cf090.jpg"));
         modifyOrderStatusRequestDTO.setArriveRemark("留言备注内容-自动化测试创建，图片默认写死资源地址，免去每次上传图片到oss");

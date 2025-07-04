@@ -6,6 +6,7 @@ import com.miller.deliveryapp.module.driver.agreement.request.AgreementListReque
 import com.miller.deliveryapp.module.driver.agreement.response.AgreementListResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
+import com.panda.delivery.app.server.domain.dto.agreement.AgreementListReq;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -33,8 +34,8 @@ public class AgreementListTests {
     @MethodSource("agreementListDataProvider")
     @ParameterizedTest
     @DisplayName("骑手协议列表信息获取")
-    void shouldGetHistoryOrderDetailSuccessfully(AgreementListRequestDTO agreementListRequestDTO) {
-        AgreementListResponseDTO agreementListResponseDTO = AgreementListFlow.agreementList(agreementListRequestDTO);
+    void shouldGetHistoryOrderDetailSuccessfully(AgreementListReq agreementListReq) {
+        AgreementListResponseDTO agreementListResponseDTO = AgreementListFlow.agreementList(agreementListReq);
 
         assertThat(agreementListResponseDTO.getResultCode()).isEqualTo(ResponseConstant.resultCode);
     }
