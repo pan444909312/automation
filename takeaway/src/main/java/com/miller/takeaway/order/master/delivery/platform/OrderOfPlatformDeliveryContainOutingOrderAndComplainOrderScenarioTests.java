@@ -72,6 +72,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("【主干场景】【平台配送】用户选择配送方式为配送，商家出餐、崔骑手，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束")
 @Scenario(scenarioID = "01HJQJ9NGWC8JX43MXQ43053MD",
         scenarioName = "【主干场景】【平台配送】用户选择配送方式为配送，商家出餐、崔骑手，平台骑手接单后取餐完成送达，用户确认送达，订单主流程结束",
-        developmentTime = 16 * 60, maintenanceTime = 2 * 60, manualTestTime = 2 * 60)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 16 * 60, maintenanceTime = 2 * 60, manualTestTime = 2 * 60)
 public class OrderOfPlatformDeliveryContainOutingOrderAndComplainOrderScenarioTests {
 }

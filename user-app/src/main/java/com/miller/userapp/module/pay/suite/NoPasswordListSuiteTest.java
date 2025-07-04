@@ -11,7 +11,7 @@ import org.junit.platform.suite.api.Suite;
 
 @Scenario(scenarioID = "01J6S155HWR3NKK66VBFZ1K4N3",
         scenarioName = "支付_免密支付_免密支付设置_免密支付列表",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+        author = "luwei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("免密支付列表")
 @SelectClasses({

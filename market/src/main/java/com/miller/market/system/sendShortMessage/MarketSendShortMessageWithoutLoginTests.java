@@ -22,15 +22,15 @@ import java.util.stream.Stream;
 /**
  * 发送短信
  */
-@EnvTag.Test
-@TestFramework
-@DisplayName("发信短信验证码")
+@Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KN",
+        scenarioName = "【主干场景】发送验证码 - 登录",
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
+@DisplayName("PF_发信短信验证码")
 public class MarketSendShortMessageWithoutLoginTests {
-
 
     @MethodSource("staticPhoneProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_发送验证码成功")
+    @DisplayName("PF_正常流程_发送验证码成功")
     void sendShortMessageSuccessfully(MarketSendShortMessageRequestDTO marketSendShortMessageRequestDTO) {
         MarketSendShortMessageResponseDTO marketSendShortMessageResponseDTO = MarketSendShortMessageFlow.sendShortMessage(marketSendShortMessageRequestDTO);
 

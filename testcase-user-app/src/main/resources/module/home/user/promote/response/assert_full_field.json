@@ -1,0 +1,14 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "needConfirm": 0
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": 1748585214003,
+  "queryList": {
+    "1": "hp_master: /*FORCE_MASTER*/ select user_id,user_name,user_password,user_pic,user_telphone,user_wx_openid,user_Invitation_code,user_code,user_ali_open_id, create_time,update_time,is_del,reg_ip,user_nick,role_id,user_status,user_salt,user_push_token,bs,real_name,user_email, receiving_max,country,is_add_insure,is_add_zego,is_tip_show,country,run_type,is_can_take_order,is_auto_receive_order,is_special_driver,calling_code, salary_rule_type,contract_status,star,new_user_status,delivery_new_user_status,register_source,allow_promote,user_name_mask,user_telphone_mask, user_email_mask from `user` where user_id = 1398716816 and role_id = 0 and is_del = 0"
+  }
+}

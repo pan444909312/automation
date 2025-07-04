@@ -12,27 +12,35 @@ import org.apache.ibatis.session.SqlSession;
 
 public class UserAccountSql {
     private SqlSession sqlSession;
-    public  UserAccountSql(SqlSession sqlSession){
+
+    public UserAccountSql(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
-//    public  UserAccountSql(){
+
+    //    public  UserAccountSql(){
 //        this.sqlSession = PandaDB.getSqlSession(this.getClass());
 //    }
-    public UserAccountMapper getUserAccountMapper(){
+    public UserAccountMapper getUserAccountMapper() {
         return sqlSession.getMapper(UserAccountMapper.class);
     }
-    public UserAccountEntity getUserAccountEntity(Long userId){
+
+    public UserAccountEntity getUserAccountEntity(Long userId) {
         QueryWrapper<UserAccountEntity> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<UserAccountEntity> lambda = queryWrapper.lambda();
-        lambda.eq(UserAccountEntity::getUserId,userId);
-        return  getUserAccountMapper().selectOne(queryWrapper);
+        lambda.eq(UserAccountEntity::getUserId, userId);
+        return getUserAccountMapper().selectOne(queryWrapper);
     }
-    public int update(Long userId, Integer balance, String pwd){
+
+    public int update(Long userId, Integer balance, String pwd) {
+        UserAccountEntity userAccountEntity = new UserAccountEntity();
+        userAccountEntity.setUserId(userId);
+        userAccountEntity.setBalance(balance);
+        userAccountEntity.setPassword(pwd);
         UpdateWrapper<UserAccountEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<UserAccountEntity> lambda = updateWrapper.lambda();
-        lambda.eq(UserAccountEntity::getUserId,userId);
-        lambda.set(UserAccountEntity::getBalance,balance);
-        lambda.set(UserAccountEntity::getPassword,pwd);
-        return getUserAccountMapper().update(updateWrapper);
+        lambda.eq(UserAccountEntity::getUserId, userId);
+        lambda.set(UserAccountEntity::getBalance, balance);
+        lambda.set(UserAccountEntity::getPassword, pwd);
+        return getUserAccountMapper().update(userAccountEntity, updateWrapper);
     }
 }

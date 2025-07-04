@@ -64,6 +64,16 @@ public class DBUtils {
     }
 
     /**
+     * 执行批量插入、更新、删除
+     * @param sql sql语句
+     * @return 影响的记录行
+     */
+    public int[] executeInsertOrUpdateOrDeleteByBatch(final String... sql) {
+        int[] ints = jdbcTemplate.batchUpdate(sql);
+        return ints;
+    }
+
+    /**
      * 查询一条记录，返回一个Java Bean对象
      *
      * @param sql        待执行的sql语句
@@ -116,6 +126,22 @@ public class DBUtils {
         }
         return columnAndValueMap;
     }
+    /**
+     * 执行 SELECT 查询语句，返回多条记录，每条记录用 Map 表示（列名 -> 列值）
+     *
+     * @param sql  要执行的 SQL 查询语句
+     * @param args SQL 中的参数，可选
+     * @return 查询结果的 List<Map<String, Object>>，每条记录对应一个 Map
+     */
+    public List<Map<String, Object>> queryForListOfMaps(String sql, @Nullable Object... args) {
+        try {
+            return jdbcTemplate.queryForList(sql, args);
+        } catch (DataAccessException e) {
+            log.error("数据库查询失败: {}", e.getMessage());
+            throw e;
+        }
+    }
+
 
     /**
      * 转换 List 为 String，用于SQL语句中包含多个参数。不保证SQL注入问题。

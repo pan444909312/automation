@@ -1,0 +1,17 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"list": "${json-unit.ignore-element}",
+		"voucherListInfo": "${json-unit.ignore-element}",
+		"totalGoodsPrice":"${json-unit.ignore-element}",
+		"totalSalePrice": "${json-unit.ignore-element}",
+		"isBuyAll": "${json-unit.ignore-element}",
+		"totalSize": "${json-unit.ignore-element}"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

@@ -9,6 +9,7 @@ import com.miller.market.shopCart.addShopCart.MarketAddShopCartTests;
 import com.miller.market.shopCart.getShopCartList.MarketGetShopCartListTests;
 import com.miller.market.shopCart.settleShopCart.MarketSettleShopCartTests;
 import com.miller.market.takesTime.MarketTakesTimeTests;
+import com.miller.service.framework.annotation.Scenario;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
@@ -39,5 +40,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
 @SuiteDisplayName("【主干场景】登录-获取自取时间-加购-结算-预订单（自取-有时间）-下单 -查看订单详情 - 取消订单")
+@Scenario(scenarioID = "01JQT4QTZ1DQ0PG5RT4C98NFSR",
+        scenarioName = "【主干场景】登录-获取自取时间-加购-结算-预订单（自取-有时间）-下单 -查看订单详情 - 取消订单",
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 20)
 public class OrderOfTakeTimeScenarioTests {
 }

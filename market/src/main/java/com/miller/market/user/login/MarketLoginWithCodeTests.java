@@ -1,6 +1,5 @@
 package com.miller.market.user.login;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.market.constants.BusinessConstant;
 import com.miller.market.constants.ResponseConstant;
 import com.miller.market.mapper.user.UserMapper;
@@ -10,8 +9,8 @@ import com.miller.market.user.login.response.MarketLoginResponseDTO;
 import com.miller.market.util.DBUtils;
 import com.miller.market.util.RequestUtils;
 import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
-import com.panda.market.dal.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,9 +29,10 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 /**
  * 中超客户端_登录
  */
-@EnvTag.Test
-@TestFramework
-@DisplayName("用户-使用验证码登录")
+@Scenario(scenarioID = "01JA4ZPKGN7P6S2ZP8J8CTQ2KM",
+        scenarioName = "【主干场景】发送验证码 - 登录",
+        author = "zhangpei@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
+@DisplayName("PF_用户-使用验证码登录")
 public class MarketLoginWithCodeTests {
     private static String token;
     private static UserMapper userMapper;
@@ -56,7 +56,7 @@ public class MarketLoginWithCodeTests {
 
     @MethodSource("staticUserDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_用户验证码登录")
+    @DisplayName("PF_正常流程_用户验证码登录")
     void shouldLoginSuccessfully(MarketLoginRequestDTO marketLoginRequestDTO) {
         MarketLoginResponseDTO marketLoginResponseDTO = MarketLoginFlow.loginReturnBodyObject(marketLoginRequestDTO);
 

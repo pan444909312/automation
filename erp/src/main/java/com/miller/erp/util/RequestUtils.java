@@ -51,7 +51,7 @@ public class RequestUtils {
     }
 
     private static void checkHeaders(Map<String, Object> headers) {
-        if (Objects.isNull(headers.get("Content-Type"))) {
+        if (Objects.isNull(headers.get("Content-Type")) && Objects.isNull(headers.get("content-type"))) {
             throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
         }
     }

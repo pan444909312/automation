@@ -1,0 +1,16 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"isFetchSuccess": 1,
+		"isPopups": null,
+		"memberDiscountPrice": null,
+		"memberPrice": null,
+		"hasDiscount": null,
+		"memberDiscountTitle": null,
+		"benefitDesc": null
+	},
+	"currency": "¥",
+	"success": true
+}

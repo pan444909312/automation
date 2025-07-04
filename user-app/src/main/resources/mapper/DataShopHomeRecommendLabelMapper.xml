@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.userapp.mapper.shop.DataShopHomeRecommendLabelMapper">
+
+
+    <select id="getReturnedVis2ByShopId" resultType="int" >
+        SELECT returned_vis2 FROM hp_data_shop_home_recommend_label where shop_id = #{shopId}
+    </select>
+
+    <select id="getMonthlySalesByShopId" resultType="int" >
+        SELECT monthly_sales FROM hp_data_shop_home_recommend_label where shop_id = #{shopId}
+    </select>
+
+    <select id="getEvaluationOver4Usercnt180dByShopId" resultType="int" >
+        SELECT evaluation_over_4_usercnt_180d FROM hp_data_shop_home_recommend_label where shop_id = #{shopId}
+    </select>
+
+    <select id="getCollectShopUsercntByShopId" resultType="int" >
+        SELECT collect_shop_usercnt FROM hp_data_shop_home_recommend_label where shop_id = #{shopId}
+    </select>
+
+
+</mapper>

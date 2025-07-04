@@ -1,0 +1,13 @@
+{
+	"code": 1,
+	"message": "成功",
+	"data": {
+		"shopId": "${json-unit.any-number}",
+		"shopNameCN":"${json-unit.any-string}",
+		"shopNameEN": "${json-unit.any-string}",
+		"shopType": 0
+	},
+	"currencySymbol": null,
+	"sql": null,
+	"queryList": "${json-unit.ignore-element}"
+}

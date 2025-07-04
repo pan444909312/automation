@@ -34,3 +34,4 @@ build/
 /docs/.*.drawio.bkp
 /docs/.*.dtmp
 /logs/
+.DS_Store

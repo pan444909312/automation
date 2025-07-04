@@ -35,6 +35,7 @@ public class DataSourceConfig {
         config.setPassword(passWord);
         config.setIdleTimeout(60000);
         config.setMaxLifetime(60000 * 10);
+        config.setAllowPoolSuspension(true);
         config.setConnectionTestQuery("SELECT 1");
         // 其他配置...
         return new HikariDataSource(config);

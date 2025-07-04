@@ -1,0 +1,67 @@
+package com.miller.userapp.module.shop.card.version2.pandaLeague.promotion.godCoupon;
+
+import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
+import com.hungrypanda.app.server.vo.index.ShopIndexVO;
+import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
+import com.miller.common.util.MD5Util;
+import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
+import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
+@Scenario(scenarioID = "01JD75MYX4R52EPYM45TP0SXCA",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道_优惠标签_神券_首页-商卡二期：神券标签41-最高膨胀至X",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+@EnvTag.Test
+@DisplayName("商卡(中文)")
+public class PandaShouldHasGodCouponTests {
+     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+    UserLoginRequestDTO userLoginRequestDTO;
+
+     @BeforeAll
+    void beforeAll() {
+
+        //   用户登录 user:17048460002  非会员、非新人，可展示会员神券
+        userLoginRequestDTO = new UserLoginRequestDTO();
+        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.godCoupon.account"));
+        userLoginRequestDTO.setPassword(MD5Util.string2MD5(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.godCoupon.password")));
+        userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.godCoupon.distinctId"));
+        userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.public.login.type")));
+        userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.callingCode"));
+        UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
+     }
+     @MethodSource("staticDataProvider")
+    @ParameterizedTest
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_神券_首页-商卡二期：神券标签41-最高膨胀至X")
+     void pandaCouponGodDsicount(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
+        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
+        ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+
+      ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
+              filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst().get();
+                assert shopPromoteVO.getShowContent().equals("最高膨至¥10");
+
+     }
+
+/*
+          * 测试用例数据提供者
+     */
+    static Stream<Arguments> staticDataProvider() {
+         return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
+
+    }
+
+}

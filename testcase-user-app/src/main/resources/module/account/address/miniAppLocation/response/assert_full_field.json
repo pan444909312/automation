@@ -1,0 +1,19 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"currentPosition": "332000, Lianxi Qu, Jiujiang Shi, Jiangxi, China",
+		"currentPositionCity": "Jiujiang Shi",
+		"latitude": "29.6605799",
+		"longitude": "115.9541",
+		"country": "中国",
+		"postalCode": "332000",
+		"addressList": null,
+		"currentCity": "九江市"
+	},
+	"currency": "${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"time": "${json-unit.ignore-element}"
+}

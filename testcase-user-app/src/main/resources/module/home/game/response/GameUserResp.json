@@ -1,0 +1,58 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "userState": 0,
+    "drawInfo": "来晚了，活动已结束",
+    "userNick": "139****0002",
+    "userIdentity": "oldUser",
+    "gameTimes": 100,
+    "userTaskTimes": 0,
+    "playTimes": 0,
+    "startPlayTime": "",
+    "lastPlayTime": "",
+    "prizesList": null,
+    "activityGamePrizesVO": null,
+    "groupChatName": [],
+    "userTaskList": [
+      {
+        "type": 1,
+        "status": 0,
+        "taskCount": 1,
+        "finishCount": 0,
+        "awardScore": null,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "type": 2,
+        "status": 0,
+        "taskCount": 1,
+        "finishCount": 0,
+        "awardScore": null,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "type": 4,
+        "status": 0,
+        "taskCount": 1,
+        "finishCount": 0,
+        "awardScore": null,
+        "startTime": "01:00",
+        "endTime": "23:39"
+      }
+    ],
+    "upperLimitReached": false,
+    "inviteNew": 0,
+    "name": "pan回归勿动1",
+    "middleBackgroundImg": "",
+    "activityLuckVO": null,
+    "playDay": null
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

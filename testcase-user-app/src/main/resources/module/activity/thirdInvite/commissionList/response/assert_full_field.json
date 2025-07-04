@@ -1,0 +1,13 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"code": "CN1226428222",
+		"country": "中国"
+	},
+	"currency": "${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"time": "${json-unit.ignore-element}"
+}

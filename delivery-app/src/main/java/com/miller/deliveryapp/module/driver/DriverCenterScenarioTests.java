@@ -29,7 +29,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Scenario(scenarioID = "01JBBNREVZVZ6A4VAE51E6A5GC",
         scenarioName = "骑手登录app，获取骑手个人信息，银行卡列表信息，骑手同意的协议列表信息",
-        developmentTime = 8 * 60, maintenanceTime = 0, manualTestTime = 30)
+        author = "chenchunxia@hungrypandagroup.com", developmentTime = 8 * 60, maintenanceTime = 0, manualTestTime = 30)
 @Suite
 @SuiteDisplayName("骑手登录app，获取骑手个人信息，银行卡列表信息，骑手同意的协议列表信息")
 //@Scenario(scenarioID = "xxxxxxxxx", name = "骑手登录app，获取历史订单列表，并进入一个订单的详情页")

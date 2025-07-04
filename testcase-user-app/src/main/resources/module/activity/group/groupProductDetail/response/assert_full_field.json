@@ -1,0 +1,18 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"product": {
+			"productId": 81669214,
+			"productName": "飞机"
+		},
+		"activitySn": "tUyqEaDWmrL",
+		"shopId": 59750820
+		}
+	},
+	"currency": "${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"time": "${json-unit.ignore-element}"
+}

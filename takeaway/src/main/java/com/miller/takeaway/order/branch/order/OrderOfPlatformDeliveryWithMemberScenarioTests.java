@@ -60,6 +60,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @Suite
 @SuiteDisplayName("【分支场景】【平台配送】【会员合单】用户下单时开通会员")
 @Scenario(scenarioID = "01HK72EK7B4JB80PM2NEHY9J5Y", scenarioName = "【分支场景】【平台配送】【会员合单】用户下单时开通会员",
-        developmentTime = 8 * 60, maintenanceTime = 30, manualTestTime = 60)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 8 * 60, maintenanceTime = 30, manualTestTime = 60)
 public class OrderOfPlatformDeliveryWithMemberScenarioTests {
 }

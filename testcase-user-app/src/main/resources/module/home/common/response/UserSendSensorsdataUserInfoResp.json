@@ -1,0 +1,17 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "balance": 9981337,
+    "redPacketCount": 9,
+    "vipFlag": false,
+    "credit": 0,
+    "userId": 1398712910,
+    "cumulativePrepaid": null,
+    "cumulativeOrderAmt": null,
+    "cumulativeOrder": null,
+    "language": "CN"
+  },
+  "success": true
+}

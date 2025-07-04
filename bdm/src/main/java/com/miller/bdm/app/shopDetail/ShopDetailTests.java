@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@Scenario(
 //        scenarioID="01J5N1X0M0JW76719Wwooorx",
 //        scenarioName = "bdm-商家详情页基本信息页",
-//        developmentTime = 30,
+//        author = "lipan@hungrypandagroup.com", developmentTime = 30,
 //        maintenanceTime = 0 ,
 //        manualTestTime = 5
 //)

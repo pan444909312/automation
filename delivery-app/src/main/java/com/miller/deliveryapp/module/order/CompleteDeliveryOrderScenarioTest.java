@@ -31,7 +31,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Scenario(scenarioID = "01JBBNREVYZG830J5CZ2XZPZPS",
         scenarioName = "【主干场景】骑手完单流程：造D侧派送订单->骑手登录app->上线->抢单->到店->未出餐->取餐->送达",
-        developmentTime = 16 * 60, maintenanceTime = 0, manualTestTime = 60)
+        author = "chenchunxia@hungrypandagroup.com", developmentTime = 16 * 60, maintenanceTime = 0, manualTestTime = 60)
 @Suite
 @SuiteDisplayName("【主干场景】骑手完单流程：造D侧派送订单->骑手登录app->上线->抢单->到店->未出餐->取餐->送达")
 public class CompleteDeliveryOrderScenarioTest {

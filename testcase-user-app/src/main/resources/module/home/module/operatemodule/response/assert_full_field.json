@@ -1,0 +1,521 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "areaVOList": null,
+    "areaVOListNew": null,
+    "bannerList": null,
+    "activityShopModelVOList": null,
+    "address": {
+      "addressId": null,
+      "addPostCode": null,
+      "addCity": "九江市",
+      "addCountry": "中国",
+      "addArea": "九江市浔阳区",
+      "addDeliveryArea": "九江市区可接单",
+      "addLatitude": "29.66058",
+      "addLongitude": "115.95410",
+      "addLocation": null,
+      "addConnName": null,
+      "addConnSex": null,
+      "addConnTel": null,
+      "addProvince": null,
+      "addConnPic": null,
+      "addStreet": null,
+      "addHouseNum": null,
+      "isDefult": null,
+      "countryCode": null,
+      "userId": null,
+      "addressRemark": null,
+      "effectivePostalCode": null,
+      "createTime": null,
+      "updateTime": null,
+      "isDel": null,
+      "addTag": null,
+      "isRecommend": null,
+      "outOfFence": false,
+      "ignoreDistance": false
+    },
+    "recordInfo": "헝그리판다코리아주식회사(hungrypanda korea ltd) 사업자정보n주소: 서울시 중구 남대문로 9길 24, 1006호 ( 다동, 패스트파이브타워)n대표자: kelu liu | 사업자등록번호: 430-81-01965n통신판매업신고: 제2020-서울중구-2762호n개인정보담당자: yuwen taon이메일: support@hungrypanda.con고객만족센터: +82 70 7678 6899 （24시간, 연중무휴）",
+    "isCityOpen": null,
+    "cityFlag": true,
+    "hasFaraway": 0,
+    "farawayIndexBanner": null,
+    "farawayListBanner": null,
+    "farawayH5": null,
+    "hotSearch": [
+      {
+        "searchHotId": 274,
+        "keywords": "bocai",
+        "createTime": 0,
+        "sort": 1,
+        "searchTypeId": 1,
+        "city": null,
+        "cityList": [
+          ""
+        ],
+        "tagList": [
+          {
+            "tagId": 689,
+            "name": "必吃榜",
+            "type": 5
+          }
+        ],
+        "startTime": "0",
+        "endTime": "0"
+      },
+      {
+        "searchHotId": 312,
+        "keywords": "全国维度热搜词",
+        "createTime": 0,
+        "sort": 1,
+        "searchTypeId": 1,
+        "city": null,
+        "cityList": [
+          ""
+        ],
+        "tagList": [
+          {
+            "tagId": 644,
+            "name": "全国都是晴天",
+            "type": 5
+          }
+        ],
+        "startTime": "0",
+        "endTime": "0"
+      },
+      {
+        "searchHotId": 324,
+        "keywords": "jtest",
+        "createTime": 0,
+        "sort": 1,
+        "searchTypeId": 1,
+        "city": null,
+        "cityList": [
+          ""
+        ],
+        "tagList": [],
+        "startTime": "0",
+        "endTime": "0"
+      },
+      {
+        "searchHotId": 330,
+        "keywords": "全国维度",
+        "createTime": 0,
+        "sort": 1,
+        "searchTypeId": 1,
+        "city": null,
+        "cityList": [
+          ""
+        ],
+        "tagList": [
+          {
+            "tagId": 644,
+            "name": "全国都是晴天",
+            "type": 5
+          }
+        ],
+        "startTime": "0",
+        "endTime": "0"
+      },
+      {
+        "searchHotId": 272,
+        "keywords": "绍兴老数据",
+        "createTime": 0,
+        "sort": 2,
+        "searchTypeId": 1,
+        "city": null,
+        "cityList": [
+          ""
+        ],
+        "tagList": [],
+        "startTime": "0",
+        "endTime": "0"
+      },
+      {
+        "searchHotId": 277,
+        "keywords": "菠菜",
+        "createTime": 0,
+        "sort": 4,
+        "searchTypeId": 1,
+        "city": null,
+        "cityList": [
+          ""
+        ],
+        "tagList": [],
+        "startTime": "0",
+        "endTime": "0"
+      }
+    ],
+    "amountAboutToExpire": null,
+    "indexModuleVo": {
+      "background": null,
+      "topBannerList": [
+        {
+          "title": "",
+          "content": "",
+          "type": 3,
+          "imgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/e58baa8234529c9357ac3f47d3f99a07.jpg?Expires=2060736519&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=jMkcK%2BAAZ5ZoQVBLZiTpalQvuwU%3D",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNCUyNnRpdGxlJTNEJTI1RTclMjVCQSUyNUEyJTI1RTUlMjU4QyUyNTg1JTI1RTQlMjVCQyUyNTk4JTI1RTUlMjU4QyUyNTk2JTI1RTQlMjVCOCUyNTkzJTI1RTklMjVBMiUyNTk4JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=a50b664fa2eaa76",
+          "bubbleContent": "",
+          "adType": 2,
+          "adId": "ADI1745411063V6Q1P",
+          "indexModuleDetailId": 103509954,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/e58baa8234529c9357ac3f47d3f99a07.jpg?Expires=2060736519&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=jMkcK%2BAAZ5ZoQVBLZiTpalQvuwU%3D"
+        },
+        {
+          "title": "",
+          "content": "",
+          "type": 23,
+          "imgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/3d7c9d623373016147a6457936fac32c.jpg?Expires=2060736430&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=ulsFmEtSOOWNX09fO1cAmMOEHG0%3D",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly9wYW5kYVVuaW9uPyJ9&callback=CALLBACK_NAME&code=693e5cfc677575a",
+          "bubbleContent": "",
+          "adType": 1,
+          "adId": "ADI1745376474L123B",
+          "indexModuleDetailId": 103504614,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/3d7c9d623373016147a6457936fac32c.jpg?Expires=2060736430&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=ulsFmEtSOOWNX09fO1cAmMOEHG0%3D"
+        },
+        {
+          "title": "",
+          "content": "",
+          "type": 2,
+          "imgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/2b38b62551c03b4b7b5826eabc37f4f8.jpg?Expires=2061104648&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=ulJvRfhTS%2BrWrMyGNx0ie6EgazE%3D",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmFkcy5saW5nb2FjZS5jb20lMkZjb3JlLWg1JTJGZnJvbnRINSUyRiUzRndvcmtJZCUzRDgxMSUyNiUyNjIxJTNEJTI2c3ViamVjdF90eXBlJTNEMCUyNnN1YmplY3QlM0R6aCUyNlVUTVNvdXJjZSUzRGJkJTI2VVRNTmFtZSUzRG9mZmxpbmVsY2MxJTI2Y2hhbm5lbCUzRE1BLUJETE0tQkMtQVAtSFBBTkRBIn0*&callback=CALLBACK_NAME&code=e7cab881f9493ac",
+          "bubbleContent": "",
+          "adType": 2,
+          "adId": "ADI17457446733XNK8",
+          "indexModuleDetailId": 103511744,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/2b38b62551c03b4b7b5826eabc37f4f8.jpg?Expires=2061104648&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=ulJvRfhTS%2BrWrMyGNx0ie6EgazE%3D"
+        },
+        {
+          "title": "",
+          "content": "",
+          "type": 3,
+          "imgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/b9514f17d3be9dc851fb5216d42fd01f.jpg?Expires=2063954874&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=EKCVytI9FT3Jwk7fS7QRwweCm4k%3D",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTQ2MiUyNnRpdGxlJTNEJTI1RTclMjVCQiUyNTlGJTI1RTclMjVCQiUyNTlGJTI1RTQlMjVCQSUyNTk0JTI1RTYlMjU4QSUyNTk4JTI1RTglMjVCNSUyNUI3JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=0dba788ccab3988",
+          "bubbleContent": "",
+          "adType": 1,
+          "adId": "ADI17485948903PQJQ",
+          "indexModuleDetailId": 103512952,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://panda-static-img.oss-eu-central-1.aliyuncs.com/b9514f17d3be9dc851fb5216d42fd01f.jpg?Expires=2063954874&OSSAccessKeyId=LTAI5t8pE4PZiGq7vNkhSeqs&Signature=EKCVytI9FT3Jwk7fS7QRwweCm4k%3D"
+        }
+      ],
+      "topAd": null,
+      "viewAreaList1": null,
+      "viewAreaList2": null,
+      "viewAreaListNew": [
+        {
+          "title": "水果串串",
+          "content": "",
+          "type": 16,
+          "imgUrl": "https://static.hungrypanda.co/crm/17086698146358a4c7a90d87d4c6eb5feb8738244aca6.png",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly9jYXRlZ29yeUNoYW5uZWw/Y2F0ZWdvcnlJZD03MSJ9&callback=CALLBACK_NAME&code=ece0c835394382d",
+          "bubbleContent": null,
+          "adType": 1,
+          "adId": "",
+          "indexModuleDetailId": 103457998,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://static.hungrypanda.co/crm/17086698146358a4c7a90d87d4c6eb5feb8738244aca6.png"
+        },
+        {
+          "title": "杭帮徽菜",
+          "content": "",
+          "type": 16,
+          "imgUrl": "https://static.hungrypanda.co/crm/17086701146905a8548065008405b96586a3e8123b4f6.png",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly9jYXRlZ29yeUNoYW5uZWw/Y2F0ZWdvcnlJZD01MyJ9&callback=CALLBACK_NAME&code=b97acc3ba903798",
+          "bubbleContent": null,
+          "adType": 1,
+          "adId": "",
+          "indexModuleDetailId": 103457996,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://static.hungrypanda.co/crm/17086701146905a8548065008405b96586a3e8123b4f6.png"
+        },
+        {
+          "title": "拼好饭",
+          "content": "",
+          "type": 22,
+          "imgUrl": "https://static.hungrypanda.co/panda/170867662802600c7331ba79a44eb80d034fce4e6a853.png",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmYyZS1mYXN0LWxlYWZsZXQtdGVzdC5odW5ncnlwYW5kYS5jbiUyRnB1dFRvZ2V0aGVyQU1lYWwlMkZob21lJTNGbG9hZGluZyUzRDElMjZpbW1lcnNlJTNEMSJ9&callback=CALLBACK_NAME&code=331c49bd25f04bf",
+          "bubbleContent": null,
+          "adType": 1,
+          "adId": "",
+          "indexModuleDetailId": 103457994,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://static.hungrypanda.co/panda/170867662802600c7331ba79a44eb80d034fce4e6a853.png"
+        },
+        {
+          "title": "熊猫联盟",
+          "content": "",
+          "type": 23,
+          "imgUrl": "https://static.hungrypanda.co/panda/1704766582399d9325a93f0ef4533a6a41df48a93259c.png",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly9wYW5kYVVuaW9uIn0*&callback=CALLBACK_NAME&code=2429013f8252f79",
+          "bubbleContent": null,
+          "adType": 1,
+          "adId": "",
+          "indexModuleDetailId": 103457992,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://static.hungrypanda.co/panda/1704766582399d9325a93f0ef4533a6a41df48a93259c.png"
+        },
+        {
+          "title": "超市百货",
+          "content": "",
+          "type": 16,
+          "imgUrl": "https://panda-img.oss-eu-central-1.aliyuncs.com/crm/16593622334501659362233450912739d8324d4cfc9911aa1e7ab092e8.png",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly9jYXRlZ29yeUNoYW5uZWw/Y2F0ZWdvcnlJZD02NSJ9&callback=CALLBACK_NAME&code=88d6779fa8d2c70",
+          "bubbleContent": null,
+          "adType": 1,
+          "adId": "",
+          "indexModuleDetailId": 103457990,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": null,
+          "smallImgUrl": "https://panda-img.oss-eu-central-1.aliyuncs.com/crm/16593622334501659362233450912739d8324d4cfc9911aa1e7ab092e8.png"
+        }
+      ],
+      "midAd": null,
+      "bisectionList": null,
+      "bisectionCanEditList": null,
+      "trisectionList": null,
+      "quadrisectionList": null,
+      "bottomBannerList": null,
+      "newUserRedPacketVo": null
+    },
+    "location": null,
+    "adList": null,
+    "categorylist": null,
+    "specialList": null,
+    "shopIndexList": null,
+    "country": null,
+    "msgCount": null,
+    "topicList": null,
+    "hasFixPoint": null,
+    "cityname": null,
+    "zipCode": null,
+    "fixPointBanner": null,
+    "locationVOList": [
+      {
+        "location": 5
+      },
+      {
+        "location": 7
+      },
+      {
+        "location": 11
+      },
+      {
+        "location": 15
+      },
+      {
+        "location": 19
+      },
+      {
+        "location": 23
+      }
+    ],
+    "themeScoreList": [
+      {
+        "themeType": 0,
+        "weight": 0.0
+      },
+      {
+        "themeType": 1,
+        "weight": 0.0
+      },
+      {
+        "themeType": 2,
+        "weight": 0.0
+      },
+      {
+        "themeType": 3,
+        "weight": 0.0
+      },
+      {
+        "themeType": 4,
+        "weight": 0.0
+      }
+    ],
+    "type": null,
+    "indexTaskVO": null,
+    "inviteUserRecordVO": null,
+    "venueVO": null,
+    "inOperation": true,
+    "circleOut": 0,
+    "isNewHomeUI": 1,
+    "pandaLeagueHomeView": 1,
+    "pandaLeagueHomeViewTimes": 1,
+    "shopListBanners": [
+      {
+        "title": "jsytest",
+        "content": "网页",
+        "type": 2,
+        "imgUrl": "https://static.hungrypanda.co/crm/1746788379513e7910f6226de41ceb5b508dc5775d282.png",
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRnZvdWNoZXItZjJlLXRlc3QuaHVuZ3J5cGFuZGEuY24lMkZ2b3VjaGVyJTJGcGFuZGFHcm91cEhvbWUlM0ZhcHBWZXJzaW9uJTNEOC41MS4wJTI2bGF0aXR1ZGUlM0QzMC4yMDM1NCUyNm1hcmtldENoYW5uZWwlM0Rnb29nbGVQbGF5JTI2c2FEaXN0aW5jdElkJTNEMTM5ODcxMjE4MiUyNmxhbmd1YWdlJTNEQ04lMjZkZXZpY2VWZXJzaW9uJTNEMTIlMjZwYW5kYUFwcElkJTNEY29tLmh1bmdyeXBhbmRhLndhaW1haSUyNnBrZ0NoYW5uZWwlM0QxJTI2aW1tZXJzZSUzRDElMjZjb3VudHJ5Q29kZSUzRENOJTI2YXBwVHlwZUlkJTNEMSUyNnVuaXF1ZVRva2VuJTNEMzY5NDhiY2I1YjBhYTE3NyUyNmRldmljZSUzRDIlMjZpc0xvY2FsTGlmZSUzRDElMjZ0aW1lc3RhbXAlM0QxNzQxMDgxMDUwNTY3JTI2bG9uZ2l0dWRlJTNEMTIwLjIxNzA0JTI2ZGVidWclM0R0cnVlIn0*&callback=CALLBACK_NAME&code=4824a7691587f94",
+        "bubbleContent": "",
+        "adType": 1,
+        "adId": "",
+        "indexModuleDetailId": 103512390,
+        "drainageScene": null,
+        "openType": null,
+        "androidUrl": null,
+        "iosUrl": null,
+        "imgUrlNew": "",
+        "iconColor": "",
+        "activityType": null,
+        "activityId": null,
+        "position": 8,
+        "smallImgUrl": null
+      }
+    ],
+    "shopListBannerModules": [
+      {
+        "position": 8,
+        "shopListBanner": {
+          "title": "jsytest",
+          "content": "网页",
+          "type": 2,
+          "imgUrl": "https://static.hungrypanda.co/crm/1746788379513e7910f6226de41ceb5b508dc5775d282.png",
+          "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRnZvdWNoZXItZjJlLXRlc3QuaHVuZ3J5cGFuZGEuY24lMkZ2b3VjaGVyJTJGcGFuZGFHcm91cEhvbWUlM0ZhcHBWZXJzaW9uJTNEOC41MS4wJTI2bGF0aXR1ZGUlM0QzMC4yMDM1NCUyNm1hcmtldENoYW5uZWwlM0Rnb29nbGVQbGF5JTI2c2FEaXN0aW5jdElkJTNEMTM5ODcxMjE4MiUyNmxhbmd1YWdlJTNEQ04lMjZkZXZpY2VWZXJzaW9uJTNEMTIlMjZwYW5kYUFwcElkJTNEY29tLmh1bmdyeXBhbmRhLndhaW1haSUyNnBrZ0NoYW5uZWwlM0QxJTI2aW1tZXJzZSUzRDElMjZjb3VudHJ5Q29kZSUzRENOJTI2YXBwVHlwZUlkJTNEMSUyNnVuaXF1ZVRva2VuJTNEMzY5NDhiY2I1YjBhYTE3NyUyNmRldmljZSUzRDIlMjZpc0xvY2FsTGlmZSUzRDElMjZ0aW1lc3RhbXAlM0QxNzQxMDgxMDUwNTY3JTI2bG9uZ2l0dWRlJTNEMTIwLjIxNzA0JTI2ZGVidWclM0R0cnVlIn0*&callback=CALLBACK_NAME&code=4824a7691587f94",
+          "bubbleContent": "",
+          "adType": 1,
+          "adId": "",
+          "indexModuleDetailId": 103512390,
+          "drainageScene": null,
+          "openType": null,
+          "androidUrl": null,
+          "iosUrl": null,
+          "imgUrlNew": "",
+          "iconColor": "",
+          "activityType": null,
+          "activityId": null,
+          "position": 8,
+          "smallImgUrl": null
+        },
+        "bisectionList": null,
+        "trisectionList": null,
+        "count": 1
+      }
+    ],
+    "customerServiceNumber": "61280672605"
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": 1748595326079,
+  "queryList": {
+    "1": "hp_master: select ac.address_config_id as addressConfigId, ac.country_name as countryName, ac.province_name as provinceName, ac.city_name as cityName, ac.special_city_mark as specialCityMark, haf.fence_latlng as fenceLatLng, haf.fence_name as fenceName from address_config ac left join hp_area_fence haf on haf.city_id = ac.address_config_id where ac.is_del = 0 and (haf.id > 0 or ac.special_city_mark = 1)",
+    "2": "hp_master: SELECT ioa.area_name, fts.fence_latlng FROM index_module_operate_area ioa, hp_fence_template_sub fts WHERE ioa.is_del=0 and ioa.fence_template_id = fts.template_id and ioa.city_name='九江市'",
+    "3": "hp_master: SELECT sh.search_hot_id,sh.keywords,sh.create_time,sh.sort,sh.search_type_id,sh.city,t.tag_id,t.`name`,t.`type`,t.`is_enable`,tt.`status`,sh.start_time,sh.end_time,'' as cityName FROM search_hot sh LEFT JOIN tag_link tl ON tl.`search_hot_id`=sh.`search_hot_id` AND tl.`search_hot_id` > 0 LEFT JOIN tag t ON t.`tag_id`=tl.`tag_id` and t.`is_enable` =1 LEFT JOIN tag_top tt ON tt.`rec_id`=t.`parent_id` and tt.`status` =1 where 1=1 and sh.start_time = 0 and sh.`search_type_id`= 1 and sh.`city`= '九江市' order by sh.sort",
+    "4": "hp_master: SELECT sh.search_hot_id,sh.keywords,sh.create_time,sh.sort,sh.search_type_id,sh.city,t.tag_id,t.`name`,t.`type`,t.`is_enable`,tt.`status`,sh.start_time,sh.end_time,'' as cityName FROM search_hot sh LEFT JOIN tag_link tl ON tl.`search_hot_id`=sh.`search_hot_id` AND tl.`is_del`=0 LEFT JOIN tag t ON t.`tag_id`=tl.`tag_id` and t.`is_enable` =1 LEFT JOIN tag_top tt ON tt.`rec_id`=t.`parent_id` and tt.`status` =1 WHERE 1=1 and sh.start_time = 0 and sh.`search_type_id`= 1 AND sh.city IS NULL ORDER BY sh.sort",
+    "5": "hp_master: SELECT user_id,user_name,user_nick,user_password,user_pic,user_telphone,user_wx_openid,role_id,user_Invitation_code,create_time,update_time,is_del,reg_ip,user_status,user_salt,user_sex,audit_status,register_source,is_work,real_name,user_push_token,bs,tmp_uid,tmp_money,tmp_total_money,tmp_integral,tmp_order_counts,tmp_pmid,receiving_max,country,user_code,user_email,city_name,is_add_insure,country_code,is_add_zego,phone_number,run_type,base_salary,calling_code,is_tip_show,is_auto_receive_order,is_can_take_order,delivery_remark,qiyu_remark,is_special_driver,first_name,last_name,employee_type,hourly_salary,salary_rule_type,billing_cycle,send_count,shift_type,contract_status,id_photo_front,id_photo_back,star,driver_score,driver_score_frozen_expiry_date,reg_area_id,user_ali_open_id,user_wx_id,new_user_status,delivery_new_user_status,allow_promote,user_name_mask,user_telphone_mask,phone_number_mask,user_email_mask FROM user WHERE (user_id = 1398716814)",
+    "6": "hp_master: SELECT add_id,add_conn_sex,add_conn_name,add_conn_tel,add_province,add_city,add_street,add_location,add_country, add_house_num,add_postcode,add_longitude,add_latitude,create_time,update_time,is_del,is_defult,address_remark, effective_postal_code,country_code,add_tag,last_order_modify_time,building_name,deliverable_action,deliverable_remark, geo_longitude,geo_latitude,geo_location_type,add_conn_tel_mask, building_type, access_code, building_name_ext,guide_image FROM address WHERE user_id = 1398716814 and role_id = 0 AND is_del = 0 ORDER BY update_time DESC",
+    "7": "hp_master: select u.red_packet_code,u.red_packet_price,u.red_packet_name,u.end_time,u.start_time,u.valid_days,u.create_time, u.red_packet_type_id,u.lock_status,u.country,u.city,u.shop_id from user_cdKey u where u.user_id=1398716814 and u.is_used=0 and u.lock_status=0 and u.is_del=0 and u.status = 1 and u.language_code in ('ALL' , 'CN')",
+    "8": "hp_master: SELECT imoa.operate_area_id,imoa.city_name,imoa.area_name, s.fence_latlng FROM index_module_operate_area imoa LEFT JOIN hp_fence_template_sub s ON imoa.fence_template_id = s.template_id WHERE imoa.city_name = '九江市' and imoa.is_del = 0 AND imoa.is_use_index_module = 1",
+    "9": "hp_master: SELECT index_module_id,module_name,is_auto_associate_city FROM index_module WHERE operate_area_id = 116 and language_code = 'CN'",
+    "10": "hp_master: SELECT 1 FROM index_module im WHERE im.operate_area_id = 116 AND im.status = 1 AND im.module_type IN (2, 11) AND im.language_code = 'CN' LIMIT 1",
+    "11": "hp_master: SELECT t.* FROM (SELECT imd.index_module_detail_id, imd.module_activity_id, im.module_name, imd.content, imd.img_url, imd.sort, imd.title, imd.type, imd.url, imd.postcode, imd.create_time, imd.parent_title, imd.sub_title, imd.visible_type, im.is_auto_associate_city, imd.dimension, im.operate_area_id, imd.is_show_bubble, imd.bubble_content, imd.ad_type, imd.absolute_sort, imd.ad_id, imd.icon_color, imd.img_url_new, imd.jump_data, imd.small_img_url FROM index_module_detail imd LEFT JOIN index_module im ON im.index_module_id = imd.index_module_id WHERE im.operate_area_id = 116 AND im.STATUS = 1 AND im.visible_type in(0,2) AND imd.visible_type in(0,2) AND imd.sts = 1 AND imd.status=1 AND im.language_code = 'CN' UNION ALL SELECT imd.index_module_detail_id, imd.module_activity_id, im.module_name, imd.content, imd.img_url, imd.sort, imd.title, imd.type, imd.url, imd.postcode, imd.create_time, imd.parent_title, imd.sub_title, imd.visible_type, im.is_auto_associate_city, imd.dimension, im.operate_area_id, imd.is_show_bubble, imd.bubble_content, imd.ad_type, imd.absolute_sort, imd.ad_id, imd.icon_color, imd.img_url_new, imd.jump_data, imd.small_img_url FROM index_module_detail imd, index_module im, index_module_detail_area_relation r WHERE im.index_module_id = imd.index_module_id AND r.index_module_detail_id = imd.index_module_detail_id AND r.operate_area_id = 116 AND im.status = 1 AND imd.sts = 1 AND imd.status = 1 AND im.language_code = 'CN' AND im.visible_type in(0,2) AND imd.visible_type in(0,2) UNION ALL SELECT imd.index_module_detail_id, imd.module_activity_id, im.module_name, imd.content, imd.img_url, imd.sort, imd.title, imd.type, imd.url, imd.postcode, imd.create_time, imd.parent_title, imd.sub_title, imd.visible_type, im.is_auto_associate_city, imd.dimension, im.operate_area_id, imd.is_show_bubble, imd.bubble_content, imd.ad_type, imd.absolute_sort, imd.ad_id, imd.icon_color, imd.img_url_new, imd.jump_data, imd.small_img_url FROM index_module_detail imd , index_module im WHERE im.index_module_id = imd.index_module_id AND im.city_name = '九江市' AND im.STATUS = 1 AND im.visible_type in(0,2) AND imd.visible_type in(0,2) AND imd.sts = 1 AND imd.status=1 AND im.operate_area_id = 0 AND im.language_code = 'CN' AND im.module_type IN (2,11) AND imd.dimension = 1) t ORDER BY t.sort DESC,t.create_time DESC",
+    "12": "hp_master: select rec_id ,index_detail_id ,start_time ,end_time ,is_del from hp_index_module_detail_time where is_del = 0 and index_detail_id in ( 103509954 , 103504614 , 103457998 , 103457996 , 103457994 , 103457992 , 103512952 , 103457990 , 103511744 )",
+    "13": "hp_master: SELECT index_module_id,module_name,is_auto_associate_city FROM `index_module` im WHERE im.`operate_area_id` = 116 AND im.`status` = 1 AND im.module_type IN (2, 11) AND im.language_code = 'CN'",
+    "14": "hp_master: SELECT imd.`index_module_detail_id`, s.template_id, s.fence_name, s.fence_latlng FROM index_module_detail imd, hp_fence_template_sub s WHERE imd.`fence_template_id` = s.`template_id` AND imd.`sts` = 1 AND imd.fence_template_id > 0 AND imd.index_module_detail_id IN ( 103512952 )",
+    "15": "hp_master: SELECT imdcr.index_module_detail_id, imd.postcode FROM index_module_detail imd, index_module_detail_copy_relation imdcr WHERE imd.index_module_detail_id = imdcr.copy_index_module_detail_id and imdcr.index_module_detail_id IN ( 103512952 )",
+    "16": "hp_master: select id, activity_title from module_activity where id in ( 1462 , 1514 )",
+    "17": "hp_master: SELECT user_log_id,login_ip,user_id,user_type,telephone,macId,verifycode,over_time,user_name,accessToken,expiresIn,refresh_token,content,area_code,create_time,device_id,telephone_mask,user_name_mask,content_mask FROM user_log WHERE (device_id = '2365086D-71E6-4761-9C6B-75234AEEB0BF')",
+    "18": "hp_master: SELECT user_id,user_name,user_nick,user_password,user_pic,user_telphone,user_wx_openid,role_id,user_Invitation_code,create_time,update_time,is_del,reg_ip,user_status,user_salt,user_sex,audit_status,register_source,is_work,real_name,user_push_token,bs,tmp_uid,tmp_money,tmp_total_money,tmp_integral,tmp_order_counts,tmp_pmid,receiving_max,country,user_code,user_email,city_name,is_add_insure,country_code,is_add_zego,phone_number,run_type,base_salary,calling_code,is_tip_show,is_auto_receive_order,is_can_take_order,delivery_remark,qiyu_remark,is_special_driver,first_name,last_name,employee_type,hourly_salary,salary_rule_type,billing_cycle,send_count,shift_type,contract_status,id_photo_front,id_photo_back,star,driver_score,driver_score_frozen_expiry_date,reg_area_id,user_ali_open_id,user_wx_id,new_user_status,delivery_new_user_status,allow_promote,user_name_mask,user_telphone_mask,phone_number_mask,user_email_mask FROM user WHERE user_id IN ( 1398716814 , 1398716816 )",
+    "19": "hp_slave: select config_key, config_value from hp_sys_app_config where config_key = 'INDEX_THEME_LOCATION_KEY_九江市' limit 1",
+    "20": "hp_slave: select config_key, config_value from hp_sys_app_config where config_key = 'INDEX_THEME_LOCATION_KEY' limit 1",
+    "21": "hp_slave: select config_key, config_value from hp_sys_app_config where config_key in ( 'THEME_LARGE_ACTIVITY_SORT' , 'THEME_SHIPPING_ACTIVITY_SORT' , 'THEME_SPECIAL_ACTIVITY_SORT' , 'NEW_SHOP_ACTIVITY_SORT' , 'THEME_TIME_ACTIVITY_SORT' )",
+    "22": "hp_master: SELECT rec_id,city_name,user_id,theme_type,recently_30day_click_num,recently_30day_order_num,recently_30day_click_rpt,recently_30day_order_rpt,recently_30day_expotoclick_rpt,recently_30day_clicktopay_rpt,country FROM ads_hp_channel_user_feature_df WHERE (city_name = '九江市' AND user_id = 1398716814)",
+    "23": "hp_master: select rec_id ,activity_sn ,user_record_sn ,user_id ,union_id ,snapshot_id ,end_time ,record_state ,share_times ,invite_red_packet_count ,new_user_red_packet_count ,create_time ,update_time ,is_del, share_ip, city from hp_invite_common_user_record where is_del = 0 and user_id = 1398716814 and record_state in (1,2,3)",
+    "24": "hp_master: SELECT cfc.status from city_function_config cfc left join city_config cc on cc.city_id = cfc.city_id where cc.is_del = 0 and cfc.is_del = 0 AND cc.city = '九江市' AND cfc.lang = 'CN' AND cfc.`type` = 6 limit 1",
+    "25": "hp_master: select rec_id ,activity_sn ,city ,create_time ,update_time ,is_del from hp_invite_common_activity_city_relation where is_del = 0 and city='九江市' union all select rec_id ,activity_sn ,city ,create_time ,update_time ,is_del from hp_invite_common_activity_city_relation where is_del = 0 and city='全部城市'",
+    "26": "hp_master: select rec_id ,invite_sn ,page_type ,content_type ,content ,create_time ,update_time ,is_del, activity_type from hp_invite_activity_entrance where is_del = 0 and invite_sn in ( '40o44AB4rsJ' , 'ttHuvNH6AlVJhIb4vw' , '1' , '5cra1B6X52G' , 'Z4gkZ8WpI2e' , 'YcwOD8Eqz50' , 'TAPxHOxQSAp' , 'xcLNyLKa2pw' , 'vLNvoDfGuUx' , 'hGsCsgfa40h' , '5lHmrlqNjGr' , 'jVz3Jc3Rz0m' , '77L3EJRSDFD' , 'RXQWvEaC4b0' , 'p0P80Ixm5N8' , '97xVNcyWO2P' , 'lIY2ioqdHUk' , 'CHhqEAAQ7t0' , '0p6DLCA29eC' )",
+    "27": "hp_master: select rec_id ,activity_sn ,activity_name ,activity_type ,activity_user_type ,start_time ,end_time ,activity_state ,share_time ,share_rules ,create_time ,update_time ,is_del ,time_period_limit FROM hp_invite_common_activity ac WHERE is_del =0 and activity_type = 3 and activity_sn in ( '40o44AB4rsJ' , '5lHmrlqNjGr' , '77L3EJRSDFD' , 'CHhqEAAQ7t0' , 'jVz3Jc3Rz0m' ) and activity_state = 1",
+    "28": "hp_master: SELECT count(*) FROM `order` o WHERE o.`user_id` = 1398716814 AND o.order_status_new != 8 and create_time >=1748534400000",
+    "29": "hp_master: SELECT ssp.shop_id,ssp.city,ssp.id,ssp.product_id,ssp.product_sku_id,ssp.sku_name,ssp.merchant_settlement_price,ssp.individual_purchase_price, ssp.quantity_sold,ssp.stock,ssp.is_del,ssp.update_time,ssp.create_time FROM hp_spell_shop_product ssp , product p ,product_sku ps,product_sales_location psl WHERE ssp.product_id = p.product_id and ssp.product_sku_id = ps.product_sku_id and psl.product_id = ssp.product_id and ssp.is_del = 0 and ps.is_del = 0 and psl.is_del = 0 and psl.sales_location = 1 and psl.is_supported =1 and p.is_del = 0 and p.product_status = 0 and ps.`status`=1 and ssp.city = '九江市'",
+    "30": "hp_master: SELECT s.*, e.shop_evaluation_num, e.praise_average, a.add_city as city, a.add_longitude, a.add_latitude, t.discount_rate, t.discount_on, t.book_day, t.start_time, t.end_time, t.reserved_time_min, t.discount_limit, t.platform_bear_percent, t.shop_bear_percent, t.id AS shop_take_self_config_id, i.preorder_push_shop, i.use_plastic, plastic_amount, i.platform_fee_up_limit, i.platform_fee_low_limit, i.user_pack_platform_fee, i.user_pack_platform_fee_rate, i.user_pack_platform_fee_type, i.user_pack_platform_fee_up_limit, i.user_pack_platform_fee_low_limit, i.is_virtual_shop, i.real_shop_id, sle.is_supported, GROUP_CONCAT(mn.operation_value ORDER BY mn.sort SEPARATOR \"·\") shopFullName, ssm.preorder_closed_support, i.im_switch, i.im_shop_index_switch, i.im_order_not_received_switch, i.im_order_received_switch, i.im_order_not_delivered_switch, i.preorder_open_type, s.shop_order_stop_status, s.shop_order_stop_keep_time, s.shop_order_stop_start_time, s.new_order_prepare_extend_time, i.im_order_delivered_switch, s.delivery_type FROM shop s LEFT JOIN evaluation e ON s.shop_id = e.shop_id LEFT JOIN address a ON a.add_id = s.address_id LEFT JOIN hp_shop_take_self_config t ON s.shop_id = t.shop_id AND t.language_code = 'CN' LEFT JOIN hp_merchant_operation_name mn on s.shop_id = mn.shop_id and mn.is_del = 0 and mn.lang = 'CN' LEFT JOIN shop_extra_info i ON i.shop_id = s.shop_id LEFT JOIN shop_lang_extra sle ON sle.shop_id = s.shop_id LEFT JOIN hp_shop_search_middle ssm ON ssm.shop_id = s.shop_id AND sle.is_del = 0 AND sle.lang = 'CN' WHERE s.shop_id in ( 59750820 , 59750820 , 59750820 ) AND s.is_del = 0 AND s.audit_status = 1 AND e.is_del = 0 group by s.shop_id",
+    "31": "hp_master: select shop_id, fence_latlng from hp_shop_delivery_fence where shop_id in ( 59750820 ) and delivery_type = 1",
+    "32": "hp_master: select id ,shop_id ,city ,delivery_range ,business_type from `hp_spell_shop` where is_del = 0 and activity_type = 1 and shop_id in ( 59750820 )",
+    "33": "hp_master: SELECT rec_id,start_tudustr,target_tudustr,distance,update_time FROM ads_hp_search_distance_matrix WHERE (target_tudustr = '115.954,29.660' AND start_tudustr IN ('115.943,29.670'))",
+    "34": "hp_master: SELECT user_log_id,login_ip,user_id,user_type,telephone,macId,verifycode,over_time,user_name,accessToken,expiresIn,refresh_token,content,area_code,create_time,device_id,telephone_mask,user_name_mask,content_mask FROM user_log WHERE (device_id = '2365086D-71E6-4761-9C6B-75234AEEB0BF')",
+    "35": "hp_master: SELECT user_id,user_name,user_nick,user_password,user_pic,user_telphone,user_wx_openid,role_id,user_Invitation_code,create_time,update_time,is_del,reg_ip,user_status,user_salt,user_sex,audit_status,register_source,is_work,real_name,user_push_token,bs,tmp_uid,tmp_money,tmp_total_money,tmp_integral,tmp_order_counts,tmp_pmid,receiving_max,country,user_code,user_email,city_name,is_add_insure,country_code,is_add_zego,phone_number,run_type,base_salary,calling_code,is_tip_show,is_auto_receive_order,is_can_take_order,delivery_remark,qiyu_remark,is_special_driver,first_name,last_name,employee_type,hourly_salary,salary_rule_type,billing_cycle,send_count,shift_type,contract_status,id_photo_front,id_photo_back,star,driver_score,driver_score_frozen_expiry_date,reg_area_id,user_ali_open_id,user_wx_id,new_user_status,delivery_new_user_status,allow_promote,user_name_mask,user_telphone_mask,phone_number_mask,user_email_mask FROM user WHERE user_id IN ( 1398716814 , 1398716816 )",
+    "36": "hp_master: select hv.id venue_id, if(hvtp.time_type=0, '', hvtp.time_period) time_period, hvtpt.hot_type,hvtpt.background_img, hvtpt.foreground_img,hvtpt.hot_area_one_type,hvtpt.hot_area_one_url,hvtpt.hot_area_two_type, hvtpt.hot_area_two_url,hvtpt.hot_area_three_type,hvtpt.hot_area_three_url,hvtpt.background_color from hp_venue hv left join hp_venue_template hvt on hvt.id=hv.template_id left join hp_venue_template_place hvtp on hvt.id=hvtp.venue_template_id left join hp_venue_template_place_top hvtpt on hvtpt.venue_template_place_id=hvtp.id left join hp_city_link cl on cl.business_id = hv.id and cl.business_type = 2 where hv.is_del=0 and hvtpt.is_del=0 and hvtp.is_del=0 and hvt.is_del=0 and hvt.template_state=1 and hv.venue_status=2 and (cl.city = '全部城市' or cl.city='九江市') and hvtp.placement in (1,3) and '2025-05-30 16:55:26' >= str_to_date(hvtp.start_date, '%Y-%m-%d') and '2025-05-30 16:55:26' < date_add(str_to_date(hvtp.end_date, '%Y-%m-%d'), INTERVAL 1 DAY) and locate(weekday('2025-05-30 16:55:26') + 1, hvtp.week) > 0 order by hvtp.weight desc, if(cl.city = '全部城市', 1, 0), hvt.create_time desc;",
+    "37": "hp_master: SELECT id,city,show_module,show_filter,update_user_id,update_user_name,update_time,create_time,add_price_show_module,add_price_full_desc,add_price_discount_desc,red_packet_ids,home_view,home_view_times FROM activity_popup_red_packet_panda_league_config WHERE (city = '九江市') limit 1",
+    "38": "hp_master: select count(1) from member_entity where user_id = 1398716814 and is_del = 0 and status = 1 and member_start_time < 1748595326048 and member_end_time > 1748595326048",
+    "39": "hp_master: /*FORCE_MASTER*/ select user_id,user_name,user_password,user_pic,user_telphone,user_wx_openid,user_Invitation_code,user_code,user_ali_open_id, create_time,update_time,is_del,reg_ip,user_nick,role_id,user_status,user_salt,user_push_token,bs,audit_status,real_name, delivery_new_user_status,user_push_token,user_email,user_name_mask,user_telphone_mask,user_email_mask ,receiving_max,country,is_add_insure,is_add_zego,is_tip_show,country,run_type,is_can_take_order,is_auto_receive_order,is_special_driver,calling_code ,salary_rule_type,contract_status,star,user_wx_openid,user_ali_open_id,new_user_status,delivery_new_user_status,register_source,user_email from user where user_id=1398716814 and role_id=0 and is_del=0",
+    "40": "hp_master: SELECT imd.index_module_detail_id, imd.module_activity_id, im.module_type, im.module_name, imd.content, imd.img_url, imd.sort, imd.title, imd.type, imd.url, imd.postcode, imd.parent_title, imd.sub_title, imd.visible_type, im.is_auto_associate_city, imd.dimension, im.operate_area_id, imd.is_show_bubble, imd.bubble_content, imd.ad_type, imd.absolute_sort, imd.ad_id, imd.icon_color, imd.img_url_new, imd.jump_data, imd.position FROM index_module_detail imd LEFT JOIN index_module im ON im.index_module_id = imd.index_module_id LEFT JOIN hp_index_module_detail_time imdt on imdt.index_detail_id = imd.index_module_detail_id and imdt.is_del = 0 WHERE im.city_name = '九江市' AND imd.sts = 1 AND imd.`status` = 1 AND im.module_type in (26,27,28) AND imdt.start_time <= 1748595326065 AND imdt.end_time >= 1748595326065 order by imd.sort DESC,imd.index_module_detail_id DESC;",
+    "41": "hp_master: SELECT rec_id,index_module_detail_id,tag_id,tag_value,is_del,create_time,update_time FROM hp_index_module_detail_user_label WHERE (index_module_detail_id IN (103512390) AND is_del = 0)"
+  }
+}

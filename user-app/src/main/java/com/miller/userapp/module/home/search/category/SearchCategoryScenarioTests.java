@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01J821AKXRZ9E55WEVWG44TQJD", scenarioName = "用户-搜索-搜索中间页-品类返回接口"
-        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
+        , author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("搜索中间页-品类返回接口")
 public class SearchCategoryScenarioTests {
     @MethodSource("provideSearchCategoryData")

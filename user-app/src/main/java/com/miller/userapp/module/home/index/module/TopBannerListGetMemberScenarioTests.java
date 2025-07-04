@@ -8,7 +8,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.DeepLinkUrlConstant;
 import com.miller.userapp.module.home.index.module.flow.IndexOperateModuleListFlow;
 import com.miller.userapp.module.home.index.module.response.IndexOperateModuleListResponseDTO;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @DisplayName("用户-首页资源位-中文版-banner-跳转类型为会员-展示")
-@Log4j2
+@Slf4j
 public class TopBannerListGetMemberScenarioTests {
 
     @DisplayName("正常流程_获取跳转类型为会员的banner")

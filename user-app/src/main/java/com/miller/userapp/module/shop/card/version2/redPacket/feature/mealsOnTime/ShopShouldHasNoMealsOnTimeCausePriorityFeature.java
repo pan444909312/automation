@@ -1,0 +1,74 @@
+package com.miller.userapp.module.shop.card.version2.redPacket.feature.mealsOnTime;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
+import com.hungrypanda.app.server.vo.index.ShopIndexVO;
+import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.userapp.constants.ShopFeatureTypeConstant;
+import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
+import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.shop.card.version2.redPacket.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.redPacket.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.redPacket.response.ShopListResponseDTO;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * @author panjuxiang
+ * @since 2024/8/28 17:24
+ */
+@Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX70",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_营销标_标签7_出餐准时_首页-商卡二期：出餐准时 - 不展示 - 优先级",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@EnvTag.Test
+@DisplayName("商卡(中文)")
+public class ShopShouldHasNoMealsOnTimeCausePriorityFeature {
+
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+    private ShopSearchMiddleMapper shopSearchMiddleMapper;
+
+    @BeforeAll
+    void beforeAll(){
+        UserLoginFlow.loginByDefaultUser();
+        SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
+        shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
+    }
+
+    @MethodSource("staticDataProvider")
+    @ParameterizedTest
+    @DisplayName("普通店铺配送商卡-红包适用商家列表_营销标_标签7_出餐准时_首页-商卡二期：出餐准时 - 不展示 - 优先级")
+    void shouldNotExistMealsOnTimeCausePriority(ShopListRequestDTO shopListRequestDTO) {
+
+        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+
+        boolean flag = shopIndexVO.getShopFeatureList().stream().noneMatch(item -> item.getType().equals(ShopFeatureTypeConstant.MEALS_ONT_IME));
+
+        assertThat(flag).isTrue();
+        assertThat(shopIndexVO.getMealsOnTime()).isEqualTo(1);
+        assertThat(shopSearchMiddleEntity.getMealsOnTime().intValue()).isEqualTo(1);
+
+    }
+
+    /**
+     * 测试用例数据提供者
+     */
+    static Stream<Arguments> staticDataProvider() {
+        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+        // 可以不用传参数
+        
+        return Stream.of(Arguments.of(shopListRequestDTO));
+    }
+}

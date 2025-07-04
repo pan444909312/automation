@@ -1,0 +1,51 @@
+{
+  "baseInfo": {
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 1389,
+        "type": 0
+      },
+      {
+        "businessCategoryId": 1395,
+        "type": 1
+      }
+    ],
+    "extraManagerId": 0,
+    "location": {
+      "address": "中华人民共和国浙江省杭州市萧山区311200",
+      "city": "杭州市",
+      "latitude": "30.1861190888",
+      "longitude": "120.2637799186",
+      "postCode": "311200"
+    },
+    "mainName": "AT_969517",
+    "managerId": 439,
+    "merchantNotes": "自动化创建的店铺。\n经度：120.2637799186\n维度：30.1861190888",
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "mainName": "AT_969517",
+        "shopName": "AT_969517",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": "AT_969517"
+          }
+        ]
+      },
+      {
+        "lang": "EN",
+        "mainName": "AT_103919969517",
+        "shopName": "AT_103919969517",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": "AT_103919969517"
+          }
+        ]
+      }
+    ],
+    "shopName": "AT_969517"
+  },
+  "shopType": 0
+}

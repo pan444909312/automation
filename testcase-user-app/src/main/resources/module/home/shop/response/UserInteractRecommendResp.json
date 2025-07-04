@@ -1,0 +1,12 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "shopList": []
+  },
+  "currency": "${json-unit.ignore}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

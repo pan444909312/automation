@@ -1,0 +1,113 @@
+package com.miller.userapp.module.shop.card.version2.redPacket.feature.deliveryDistance;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hungrypanda.app.server.common.utils.NumberUtil;
+import com.hungrypanda.app.server.entity.config.SysAppConfigEntity;
+import com.hungrypanda.app.server.entity.shop.ShopEntity;
+import com.miller.common.util.MD5Util;
+import com.miller.service.framework.annotation.EnvTag;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.userapp.constants.BusinessConstant;
+import com.miller.userapp.mapper.shop.ShopMapper;
+import com.miller.userapp.mapper.shop.SysAppConfigMapper;
+import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.shop.card.version2.redPacket.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.redPacket.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.redPacket.response.ShopListResponseDTO;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * @author heyuan
+ * @version 1.0
+ * @since 2024/9/26 10:57
+ */
+@Scenario(scenarioID = "01JE88B2J6482ZXB6ZFYBXQX6M",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-红包适用商家列表_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@EnvTag.Test
+@DisplayName("商卡(中文)")
+public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
+
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
+    UserLoginRequestDTO userLoginRequestDTO;
+    private ShopMapper shopMapper;
+    private SysAppConfigMapper sysAppConfigMapper;
+    private final String configKey = "UAS:DISTANCE_CONFIG";
+    @BeforeAll
+    void beforeAll() {
+        userLoginRequestDTO = new UserLoginRequestDTO();
+        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.no.coupon.user.account"));
+        userLoginRequestDTO.setPassword(MD5Util.string2MD5(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.no.coupon.user.password")));
+        userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.distinctId"));
+        userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type")));
+        userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode"));
+
+        UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
+        SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
+        shopMapper = sqlSession.getMapper(ShopMapper.class);
+        sysAppConfigMapper = sqlSession.getMapper(SysAppConfigMapper.class);
+
+
+    }
+
+    @MethodSource("DataProvider")
+    @ParameterizedTest
+    @DisplayName("普通店铺配送商卡-红包适用商家列表_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重 ")
+    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
+        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        String distance= shopList.getResult().getShopList().stream()
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getDistance();
+        //根据店铺id，查询店铺经纬度
+        ShopEntity shopEntity = shopMapper.selectOne(new QueryWrapper<ShopEntity>().eq("shop_id", shopId));
+        double longt2 = Double.parseDouble(shopEntity.getLongitude());
+        double lat2 = Double.parseDouble(shopEntity.getLatitude());
+        double longt1 = Double.parseDouble(BusinessConstant.longitude);
+        double lat1 = Double.parseDouble(BusinessConstant.latitude);
+        double x = (longt2 - longt1) * 3.141592653589793D * 6371229.0D * Math.cos((lat1 + lat2) / 2.0D * 3.141592653589793D / 180.0D) / 180.0D;
+        double y = (lat2 - lat1) * 3.141592653589793D * 6371229.0D / 180.0D;
+        double distance1 = Math.hypot(x, y)*1.4;
+        //查询配置里，大于minMeter再加上addMeter,单位m
+        SysAppConfigEntity sysAppConfigEntity = sysAppConfigMapper.selectOne(new QueryWrapper<SysAppConfigEntity>().eq("config_key",configKey));
+        String configValue = sysAppConfigEntity.getConfigValue();
+        JSONObject jsonObject = JSONObject.parseObject(configValue);
+        Double minMeter = jsonObject.getDouble("minMeter");
+        Double addMeter = jsonObject.getDouble("addMeter");
+        //判断distance1是否大于minMeter，如果大于则加上addMeter；反之则不加
+        if(sysAppConfigEntity != null){
+            if (distance1 >= minMeter){
+                distance1 +=addMeter;
+            }
+        }
+        distance1 /= 1000.0D;
+
+        assertThat(distance).isEqualTo(NumberUtil.NumberFormat(distance1, "#0.00")+"km");
+
+
+
+    }
+
+    /**
+     * 测试用例数据提供者
+     */
+    static Stream<Arguments> DataProvider() {
+        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+        // 可以不用传参数
+         // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+
+        return Stream.of(Arguments.of(shopListRequestDTO));
+    }
+
+}
+  

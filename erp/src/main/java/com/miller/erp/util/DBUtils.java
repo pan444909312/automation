@@ -22,9 +22,9 @@ public class DBUtils {
      */
     public static synchronized SqlSession getDBOfPandaTest() {
         if (sqlSessionOfPandaTest != null) return sqlSessionOfPandaTest;
-        var mySqlUrl = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.url");
-        var userName = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.username");
-        var passWord = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.password");
+        var mySqlUrl = new PropertiesUtils().getProperty(DBUtils.class, "datasource.url.panda_test");
+        var userName = new PropertiesUtils().getProperty(DBUtils.class, "datasource.username.panda_test");
+        var passWord = new PropertiesUtils().getProperty(DBUtils.class, "datasource.password.panda_test");
         var myBatisPlusConfig = new MyBatisPlusConfig();
         sqlSessionOfPandaTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), DBUtils.class);
         return sqlSessionOfPandaTest;

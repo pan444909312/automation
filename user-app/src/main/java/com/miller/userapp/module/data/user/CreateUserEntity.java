@@ -8,6 +8,7 @@ public class CreateUserEntity {
     private String loginPassword;
     private String payPassword;
     private Integer balance;
+    private String phone;
     private AddressRequestDTO address;
 
 

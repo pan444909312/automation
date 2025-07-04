@@ -1,0 +1,165 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "id": 147,
+    "activityId": 1517,
+    "title": "自动化测试主标题",
+    "subtitle": "勿动副标题",
+    "recommendIndex": 6,
+    "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=ac0999f5bb47898",
+    "productList": [
+      {
+        "productId": 82098782,
+        "productName": "product001",
+        "productImg": "https://static-img.hungrypanda.co/product-img/172163188735858a4ab36dcc84f4b985eb265c6f630bf.png?x-oss-process=style/prod_detail_refer",
+        "orgProductPrice": 1000,
+        "productPrice": 1000,
+        "discountRate": 10.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyMDk4NzgyJTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=dee2171639ced85",
+        "marketingTag": "火爆热卖",
+        "productTags": [
+          "甜辣",
+          "50g",
+          "虾"
+        ],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82458992,
+        "productName": "奶茶2斤装",
+        "productImg": "https://static.hungrypanda.co/crm/1748489299415be778eb9ed564a20a5262dce73a3fdca.jpg?x-oss-process=style/prod_detail",
+        "orgProductPrice": 1100,
+        "productPrice": 770,
+        "discountRate": 7.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyNDU4OTkyJTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=2eea81366aae79b",
+        "marketingTag": null,
+        "productTags": [],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82098784,
+        "productName": "product002",
+        "productImg": "https://static-img.hungrypanda.co/product-img/1721631927808eb60c25b6c524ae1b6a92a972cb8d056.png?x-oss-process=style/prod_detail_refer",
+        "orgProductPrice": 1000,
+        "productPrice": 1000,
+        "discountRate": 10.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyMDk4Nzg0JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=9587f1a3cdbbf67",
+        "marketingTag": "火爆热卖",
+        "productTags": [
+          "甜辣",
+          "50g",
+          "虾"
+        ],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82458997,
+        "productName": "loop",
+        "productImg": "https://static.hungrypanda.co/crm/17484895777798a8e394061264bb48dbd0eb17fc65913.jpg?x-oss-process=style/prod_detail",
+        "orgProductPrice": 1100,
+        "productPrice": 770,
+        "discountRate": 7.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyNDU4OTk3JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=55f0a915c3887af",
+        "marketingTag": null,
+        "productTags": [],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82098786,
+        "productName": "product003",
+        "productImg": "https://static-img.hungrypanda.co/product-img/1721632032600fcb3178a322943808df1f790d639f480.png?x-oss-process=style/prod_detail_refer",
+        "orgProductPrice": 1000,
+        "productPrice": 1000,
+        "discountRate": 10.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyMDk4Nzg2JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=2f2115954214ede",
+        "marketingTag": "火爆热卖",
+        "productTags": [
+          "甜辣",
+          "50g",
+          "虾"
+        ],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82458993,
+        "productName": "炸",
+        "productImg": "https://static.hungrypanda.co/crm/17484893461830f549620b57342e59bed359ecf9d8a68.jpg?x-oss-process=style/prod_detail",
+        "orgProductPrice": 1200,
+        "productPrice": 840,
+        "discountRate": 7.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyNDU4OTkzJTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=ddce82a5f28d0b8",
+        "marketingTag": null,
+        "productTags": [],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82098788,
+        "productName": "product004",
+        "productImg": "https://static-img.hungrypanda.co/product-img/17216320393861f69802450e74d3cbd95455621ce16e5.png?x-oss-process=style/prod_detail_refer",
+        "orgProductPrice": 1000,
+        "productPrice": 1000,
+        "discountRate": 10.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyMDk4Nzg4JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=8b93f1282c998df",
+        "marketingTag": "火爆热卖",
+        "productTags": [
+          "甜辣",
+          "50g",
+          "虾"
+        ],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82458994,
+        "productName": "不再",
+        "productImg": "https://static.hungrypanda.co/crm/1748489368448c3dfb5dbddae4aebbb5415fbde1c8ade.jpg?x-oss-process=style/prod_detail",
+        "orgProductPrice": 1200,
+        "productPrice": 840,
+        "discountRate": 7.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyNDU4OTk0JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=c2350b2b416db77",
+        "marketingTag": null,
+        "productTags": [],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82098790,
+        "productName": "product005",
+        "productImg": "https://static-img.hungrypanda.co/product-img/17216320530672544d022086f4713ad43ce5d88a6497f.png?x-oss-process=style/prod_detail_refer",
+        "orgProductPrice": 1000,
+        "productPrice": 1000,
+        "discountRate": 10.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyMDk4NzkwJTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=b21d6ce0db855bc",
+        "marketingTag": "火爆热卖",
+        "productTags": [
+          "甜辣",
+          "50g",
+          "虾"
+        ],
+        "systemMarketingTag": null
+      },
+      {
+        "productId": 82458995,
+        "productName": "波霸",
+        "productImg": "https://static.hungrypanda.co/crm/174848939601353f9554923074be2b9a659dfe592f390.jpg?x-oss-process=style/prod_detail",
+        "orgProductPrice": 2200,
+        "productPrice": 1540,
+        "discountRate": 7.0,
+        "url": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmVkaXRpb24tdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2bG9hZGluZyUzRDElMjZhY3Rpdml0eUlkJTNEMTUxNyUyNnRpdGxlJTNEJTI1RTQlMjVCOSUyNTlEJTI1RTYlMjVCMSUyNTlGJTI1RTglMjU4NyUyNUFBJTI1RTUlMjU4QSUyNUE4JTI1RTUlMjU4QyUyNTk2JTI2dG9wUHJvZHVjdElkcyUzRDgyNDU4OTk1JTI2aW1tZXJzZSUzRDEifQ**&callback=CALLBACK_NAME&code=7279184f82a991e",
+        "marketingTag": null,
+        "productTags": [],
+        "systemMarketingTag": null
+      }
+    ],
+    "shopList": null,
+    "cardSlot": 0,
+    "phfRelation": 0,
+    "cardSkin": 0,
+    "cardType": null,
+    "cardTypeId": null
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

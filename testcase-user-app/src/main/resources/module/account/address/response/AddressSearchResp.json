@@ -1,0 +1,24 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "addressList": [
+      {
+        "addressName": "九江",
+        "buildingName": "九江",
+        "addressSpecific": "China, Jiangxi, 九江",
+        "lat": null,
+        "lng": null,
+        "country": null,
+        "postCode": null,
+        "distanceMeters": null,
+        "distance": null
+      }
+    ]
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

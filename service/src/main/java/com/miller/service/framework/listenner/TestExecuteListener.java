@@ -3,6 +3,7 @@ package com.miller.service.framework.listenner;
 import com.alibaba.fastjson.JSON;
 import com.miller.service.framework.constants.ExtentReportsPath;
 import com.relevantcodes.extentreports.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.reporting.ReportEntry;
@@ -21,6 +22,7 @@ import java.util.*;
  * @see com.miller.service.framework.launcher.TestCaseRunnerLauncher
  * @since 2023/10/16 20:56:49
  */
+@Slf4j
 public class TestExecuteListener implements TestExecutionListener {
     // 测试结果收集
     private List<Map<String, Object>> testCases = new ArrayList();
@@ -28,14 +30,14 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
-        System.out.println(this.getClass().getName() + " testPlanExecutionStarted() invoked!!!");
-        extentReports = new ExtentReports(ExtentReportsPath.REPORTS_LOCATION,true, NetworkMode.OFFLINE);
-        extentReports.startReporter(ReporterType.DB,ExtentReportsPath.REPORTS_LOCATION);
+        log.info(this.getClass().getName() + " testPlanExecutionStarted() invoked!!!");
+        extentReports = new ExtentReports(ExtentReportsPath.REPORTS_LOCATION, true, NetworkMode.OFFLINE);
+        extentReports.startReporter(ReporterType.DB, ExtentReportsPath.REPORTS_LOCATION);
     }
 
     @Override
     public void executionStarted(TestIdentifier testIdentifier) {
-        System.out.println(this.getClass().getName() + " executionStarted() invoked!!!");
+        log.info(this.getClass().getName() + " executionStarted() invoked!!!");
         // 判断TestIdentifier，测试标识符，是否是一个 Container。注意: Container 会存在多个，所以此方法会执行多次。
         if (testIdentifier.isContainer()) {/* do not nothing... */}
         // 判断 TestIdentifier 是否是一个测试方法(@Test)
@@ -45,10 +47,10 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
-        System.out.println(this.getClass().getName() + " executionFinished() invoked!!!");
+        log.info(this.getClass().getName() + " executionFinished() invoked!!!");
         ExtentTest test;
         if (testIdentifier.isTest()) {
-             System.out.println("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
+            log.info("Execution finished: " + testIdentifier.getDisplayName() + " " + testExecutionResult.toString());
             String result = testExecutionResult.getStatus().toString();
             // Tesults requires result to be one of: [pass, fail, unknown]
             if (result == "SUCCESSFUL") {
@@ -88,18 +90,18 @@ public class TestExecuteListener implements TestExecutionListener {
             ///接入extend-report/// ---displayName没有显示@Test上面的@displayName标签
             TestExecutionResult.Status status = testExecutionResult.getStatus();
             String templateSeparator = "test-template:";
-            String testClassName,suiteName,testClassMethodName ="";
+            String testClassName, suiteName, testClassMethodName = "";
 //            List<String> testMethodName = new ArrayList<>();
 //            int count = 0;
-            if(testIdentifier.getParentId().isPresent()){
+            if (testIdentifier.getParentId().isPresent()) {
                 suiteName = testIdentifier.getParentId().get();
                 String suiteNameSub = suiteName.substring(suiteName.indexOf(separator) + separator.length(), suiteName.lastIndexOf("]"));
-                testClassName =suiteNameSub.indexOf("]") >= 0 ? suiteNameSub.substring(0,suiteNameSub.indexOf("]")):suiteNameSub;
+                testClassName = suiteNameSub.indexOf("]") >= 0 ? suiteNameSub.substring(0, suiteNameSub.indexOf("]")) : suiteNameSub;
                 int index = suiteName.indexOf(templateSeparator);
-                if(index >= 0) {
+                if (index >= 0) {
                     String testMethodNameSub = suiteName.substring(index + templateSeparator.length(), suiteName.lastIndexOf("]"));
-                    testMethodNameSub = testMethodNameSub.indexOf("(") >= 0 ?testMethodNameSub.substring(0, testMethodNameSub.indexOf("("))
-                    :testMethodNameSub;
+                    testMethodNameSub = testMethodNameSub.indexOf("(") >= 0 ? testMethodNameSub.substring(0, testMethodNameSub.indexOf("("))
+                            : testMethodNameSub;
 //                testMethodName.add(testMethodNameSub.substring(0,testMethodNameSub.indexOf("(")));
 //                while(index >= 0){
 //                    count ++;
@@ -110,27 +112,27 @@ public class TestExecuteListener implements TestExecutionListener {
 //                    if(count > 100) break;
 //                }
                     testClassMethodName = testClassName + "#" + testMethodNameSub;
-                }else {
+                } else {
                     testClassMethodName = testClassName;
                 }
 
             }
-            switch (status){
-                case  SUCCESSFUL:
-                    test = extentReports.startTest(testClassMethodName,"Test Success");
-                    test.log(LogStatus.PASS,"success");
-                    flushReports(extentReports,test);
+            switch (status) {
+                case SUCCESSFUL:
+                    test = extentReports.startTest(testClassMethodName, "Test Success");
+                    test.log(LogStatus.PASS, "success");
+                    flushReports(extentReports, test);
                     break;
                 case FAILED:
-                    test = extentReports.startTest(testClassMethodName,"Test Failed");
-                    test.log(LogStatus.FAIL,testExecutionResult.getThrowable().orElseGet(()->new Throwable("no error message ")));
-                    test.addScreenCapture(ExtentReportsPath.REPORTS_LOCATION.replace(File.separator+"TestReport.html",""));
-                    flushReports(extentReports,test);
+                    test = extentReports.startTest(testClassMethodName, "Test Failed");
+                    test.log(LogStatus.FAIL, testExecutionResult.getThrowable().orElseGet(() -> new Throwable("no error message ")));
+                    test.addScreenCapture(ExtentReportsPath.REPORTS_LOCATION.replace(File.separator + "TestReport.html", ""));
+                    flushReports(extentReports, test);
                     break;
                 case ABORTED:
-                    test = extentReports.startTest(testClassMethodName,"Test disabled");
-                    test.log(LogStatus.SKIP,testExecutionResult.getThrowable().orElseGet(()->new Throwable("no error message ")));
-                    flushReports(extentReports,test);
+                    test = extentReports.startTest(testClassMethodName, "Test disabled");
+                    test.log(LogStatus.SKIP, testExecutionResult.getThrowable().orElseGet(() -> new Throwable("no error message ")));
+                    flushReports(extentReports, test);
                     break;
                 default:
                     break;
@@ -140,25 +142,26 @@ public class TestExecuteListener implements TestExecutionListener {
 
     @Override
     public void dynamicTestRegistered(TestIdentifier testIdentifier) {
-        System.out.println(this.getClass().getName() + " dynamicTestRegistered() invoked!!!");
+        log.info(this.getClass().getName() + " dynamicTestRegistered() invoked!!!");
     }
 
     @Override
     public void executionSkipped(TestIdentifier testIdentifier, String reason) {
-        System.out.println(this.getClass().getName() + " executionSkipped() invoked!!!");
+        log.info(this.getClass().getName() + " executionSkipped() invoked!!!");
     }
 
     @Override
     public void reportingEntryPublished(TestIdentifier testIdentifier, ReportEntry entry) {
-        System.out.println(this.getClass().getName() + " reportingEntryPublished() invoked!!!");
+        log.info(this.getClass().getName() + " reportingEntryPublished() invoked!!!");
     }
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
-        System.out.println(this.getClass().getName() + " testPlanExecutionFinished() invoked!!!");
+        log.info(this.getClass().getName() + " testPlanExecutionFinished() invoked!!!");
         extentReports.close();
     }
-    private void flushReports(ExtentReports extentReports,ExtentTest test){
+
+    private void flushReports(ExtentReports extentReports, ExtentTest test) {
         extentReports.endTest(test);
         extentReports.flush();
     }

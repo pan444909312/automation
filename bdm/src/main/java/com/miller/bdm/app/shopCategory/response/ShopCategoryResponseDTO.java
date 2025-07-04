@@ -1,7 +1,7 @@
 package com.miller.bdm.app.shopCategory.response;
 
 import com.panda.erp.server.api.vo.category.resp.NewCategoryListRespVO;
-import com.panda.market.common.base.Result;
+import com.panda.common.base.Result;
 
 import java.util.List;
 

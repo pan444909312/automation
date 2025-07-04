@@ -1,0 +1,18 @@
+{
+  "keywords": "autotest",
+  "sortType": 0,
+  "filterJson": {
+    "delivery": -1,
+    "forNewOrder": false,
+    "freeDelivery": false,
+    "freeDeliveryPrice": 0,
+    "fullSub": -1,
+    "isForNewOrder": 0,
+    "isMemberShop": 0,
+    "isNewStore": 0,
+    "isNewUser": 0,
+    "newStore": false,
+    "newUser": false,
+    "payment": -1
+  }
+}

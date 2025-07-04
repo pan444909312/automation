@@ -1,0 +1,28 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"shopId": 930937488,
+		"shopName": "${json-unit.any-string}",
+		"shopImg": "${json-unit.any-string}",
+		"collectStatus": "${json-unit.any-number}",
+		"deliveryTimeList": [
+			"10分钟",
+			"20分钟",
+			"30分钟",
+			"40分钟",
+			"50分钟"
+		],
+		"integral": "${json-unit.any-number}",
+		"shopLogo": "${json-unit.any-string}",
+		"deliveryName": "${json-unit.ignore-element}",
+		"deliveryCode": "${json-unit.ignore-element}",
+		"deliveryPic": "${json-unit.ignore-element}",
+		"deliveryType": "${json-unit.any-number}"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

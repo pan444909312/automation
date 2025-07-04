@@ -1,0 +1,19 @@
+{
+  "buildingType": "1",
+  "accessCode": "10010",
+  "addressRemark": "备注了啥",
+  "postcode": "330292",
+  "longitude": "120.22185",
+  "buildingName": "星耀中心",
+  "latitude": "30.20074",
+  "houseNum": "101",
+  "addTag": 1,
+  "isDefault": "0",
+  "address": "China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心",
+  "countryCode": "86",
+  "type": 1,
+  "contacts": "东东",
+  "buildingNameExt": "自动化测试",
+  "telephone": "15606690056",
+  "gender": 1
+}

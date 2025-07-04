@@ -21,7 +21,7 @@ public class MemberRenewUpdateData {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         MemberAutoRenewSql memberAutoRenewSql = new MemberAutoRenewSql(sqlSession);
         MemberEntitySql memberEntitySql = new MemberEntitySql(sqlSession);
-        Long userId = 249296l;
+        Long userId = 249296L;
         MemberAutoRenewEntity memberAutoRenewEntity = memberAutoRenewSql.getMemberAutoRenew(userId);
         if (Objects.isNull(memberAutoRenewEntity) || memberAutoRenewEntity.getAutoRenew() != 1){
             throw new RuntimeException("非自动续费用户");

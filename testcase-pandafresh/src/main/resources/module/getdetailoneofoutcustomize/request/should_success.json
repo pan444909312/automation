@@ -1,0 +1,29 @@
+{
+	"pm":"POST",
+	"ph":{
+		"content-type":"application/json",
+		"authorization":"",
+		"latitude":"",
+		"longitude":"",
+		"version":"4.24.0",
+		"platform":"WEB_ANDROID",
+		"system":"HungryPanda",
+		"portalId":"3",
+		"language":"CN",
+		"appTypeId":1,
+		"marketChannel":"",
+		"countryCode":"CN",
+		"service-route":"pandafresh"
+	},
+	"pd":{
+		"id":"274",
+		"page":{
+			"current":1,
+			"size":10
+		}
+	},
+	"nv":"2",
+	"nt":"1750146009570",
+	"nn":"89yGAkV938aD2sDa6yWSXzNwC",
+	"nd":"0e1e0a0fc0bb4db"
+}

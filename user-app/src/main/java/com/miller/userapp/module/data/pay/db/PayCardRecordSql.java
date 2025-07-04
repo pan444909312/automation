@@ -11,31 +11,35 @@ import org.apache.ibatis.session.SqlSession;
 
 public class PayCardRecordSql {
     private SqlSession sqlSession;
-    public PayCardRecordSql(SqlSession sqlSession){
+
+    public PayCardRecordSql(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
-    public PayCardRecordMapper getPayCardRecordMapper(){
+
+    public PayCardRecordMapper getPayCardRecordMapper() {
         return sqlSession.getMapper(PayCardRecordMapper.class);
     }
-    public PayCardRecord getPayCardRecord(String cardNoMd5,String userId,String countryCode){
+
+    public PayCardRecord getPayCardRecord(String cardNoMd5, String userId, String countryCode) {
         QueryWrapper<PayCardRecord> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<PayCardRecord> lambda = queryWrapper.lambda();
-        lambda.eq(PayCardRecord::getCardNoMd5,cardNoMd5);
-        lambda.eq(PayCardRecord::getCountryCode,countryCode);
-        lambda.eq(PayCardRecord::getUserId,userId);
-        lambda.eq(PayCardRecord::getSts,1);
+        lambda.eq(PayCardRecord::getCardNoMd5, cardNoMd5);
+        lambda.eq(PayCardRecord::getCountryCode, countryCode);
+        lambda.eq(PayCardRecord::getUserId, userId);
+        lambda.eq(PayCardRecord::getSts, 1);
         queryWrapper.last("limit 1");
         return getPayCardRecordMapper().selectOne(queryWrapper);
     }
-    public int updatePayCardRecord(PayCardRecord payCardRecord){
+
+    public int updatePayCardRecord(PayCardRecord payCardRecord) {
         UpdateWrapper<PayCardRecord> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<PayCardRecord> lambda = updateWrapper.lambda();
-        lambda.eq(PayCardRecord::getId,payCardRecord.getId());
-        lambda.eq(PayCardRecord::getCardNoMd5,payCardRecord.getCardNoMd5());
-        lambda.eq(PayCardRecord::getUserId,payCardRecord.getUserId());
-        lambda.eq(PayCardRecord::getCountryCode,payCardRecord.getCountryCode());
-        lambda.set(PayCardRecord::getSts,0);
-        return getPayCardRecordMapper().update(updateWrapper);
+        lambda.eq(PayCardRecord::getId, payCardRecord.getId());
+        lambda.eq(PayCardRecord::getCardNoMd5, payCardRecord.getCardNoMd5());
+        lambda.eq(PayCardRecord::getUserId, payCardRecord.getUserId());
+        lambda.eq(PayCardRecord::getCountryCode, payCardRecord.getCountryCode());
+        lambda.set(PayCardRecord::getSts, 0);
+        return getPayCardRecordMapper().update(payCardRecord, updateWrapper);
     }
 
 

@@ -22,11 +22,11 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("特殊单订单列表")
+@DisplayName("PF_特殊单订单列表")
 public class MarketSpecialOrderListlTests {
     @MethodSource("staticOrderDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取特殊单订单列表")
+    @DisplayName("PF_正常流程_已登录_获取特殊单订单列表")
     void getOrderDetailSuccessfully(MarketSpecialOrderListRequestDTO requestDTO) {
         MarketSpecialOrderListResponseDTO responseDTO = MarketSpecialOrderListFlow.specialOderList(requestDTO);
 

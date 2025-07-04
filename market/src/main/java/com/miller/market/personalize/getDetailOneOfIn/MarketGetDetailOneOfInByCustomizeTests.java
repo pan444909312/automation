@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("个性化详情接口")
+@DisplayName("PF_个性化详情接口")
 public class MarketGetDetailOneOfInByCustomizeTests {
     private static PersonalizeManageMapper personalizeManageMapper;
     @BeforeAll
@@ -39,7 +39,7 @@ public class MarketGetDetailOneOfInByCustomizeTests {
     }
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_获取个性化-自定义详情接口")
+    @DisplayName("PF_正常流程_获取个性化-自定义详情接口")
     void getDetailOneOfInByCustomizeSuccessfully(MarketGetDetailOneOfInRequestDTO requestDTO) {
         MarketGetDetailOneOfInResponseDTO responseDTO = MarketGetDetailOneOfInFlow.getDetailOneOfIn(requestDTO);
 

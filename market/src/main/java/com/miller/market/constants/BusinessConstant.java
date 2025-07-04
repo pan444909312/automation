@@ -1,7 +1,5 @@
 package com.miller.market.constants;
 
-import com.panda.common.enums.CountryEnum;
-import com.panda.common.enums.LanguageEnum;
 import com.panda.market.dal.pay.PayItemBean;
 
 /**
@@ -50,10 +48,12 @@ public class BusinessConstant {
 
     public static String userAgent = "PandaFresh/4.25.1 (iPhone; iOS 15.2; Scale/3.00)";
 
+    public static String hpUserAgent = "PandaH/8.47.0 (iPhone; iOS 15.2; Scale/3.00) OKPOS";
+
     /**
      * 版本号
      */
-    public static String version = "4.25.0";
+    public static String version = "8.47.0";
 
     public static String system = "PandaFresh";
     /**
@@ -64,10 +64,10 @@ public class BusinessConstant {
      * 每页数量
      */
     public static String pageSize;
-    public static String countryCode = CountryEnum.CHINA.getCode();
-    public static String language = LanguageEnum.CN.getKey();
+    public static String countryCode = "CN";
+    public static String language = "CN";
     public static String platform = "IOS";
-
+    public static String hpPlatform = "IOS_USER";
     public static String _sign = "3f6d878d3bf68ac4f0425449e6c96d07";
     public static String _ts = "1715219615843";
     public static String cityName;

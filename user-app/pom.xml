@@ -24,13 +24,6 @@
             <artifactId>erp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
-        <!-- 添加 mybatis-plus-extension 用于加载插件，否则会报找不到类的错误 -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-extension</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

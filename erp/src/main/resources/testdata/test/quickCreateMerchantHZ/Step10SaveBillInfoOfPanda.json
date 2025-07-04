@@ -1,0 +1,19 @@
+{
+  "shopName": null,
+  "shopForeignName": "单东东",
+  "cooperationStatus": 1,
+  "billAddress": "江西省九江市浔阳区",
+  "shopDutyParagraph": "单东东",
+  "postcode": "",
+  "email1": "shandongdong@hungrypandagroup.com",
+  "hasEntryFee": 0,
+  "gfoCommissionGroup": {
+    "delivery": {
+      "rate": null,
+      "extraRate": null,
+      "formulaId": null
+    }
+  },
+  "settleSource": 0,
+  "shopId": null
+}

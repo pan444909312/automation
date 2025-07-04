@@ -1,0 +1,19 @@
+{
+	"resultCode":1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"adTitle": "弹窗",
+		"showImg": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1704180534962/1704180534962a0de282f.jpg",
+		"sceneType": 3,
+		"newPersonPopApartDay": "1"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": 1749795405615,
+	"queryList": {
+		"1": "hp_slave: select config_key, config_value from hp_sys_app_config where config_key = 'SM_NEW_PERSON_POP_APART_DAY' limit 1",
+		"2": "hp_master: SELECT order_num FROM hp_user_shop_order_num WHERE user_id = 1398717076 AND shop_id = 1314 AND add_source in (0,1) AND is_del = 0 and order_num > 0 limit 1",
+		"3": "hp_master: select * from shop where shop_id = 1314"
+	}
+}

@@ -1,0 +1,22 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "activitySn": "EDU0001",
+    "activityName": "杭州学生邮箱活动HP",
+    "startTime": 1664094019000,
+    "endTime": 2010995001000,
+    "city": "全部城市",
+    "status": 1,
+    "rewardMember": 1,
+    "backImg": "https://static.hungrypanda.co/panda/1727233086425fce8a192f5ea4047aaa4af9401be4fde.jpg",
+    "guideImg": "",
+    "desc": "1. 同一个外卖账号只可验证一次并获取一次邮箱认证福利，同一手机号、设备、登陆账号等官方均视为同一外卖账号。<br>2. 同一个邮箱只支持验证一个外卖用户。<br>3. 邮箱认证福利有效期请以实际发放到账户中的福利有效期为准。<br>4、若你所在城市无会员，或您已是自动续费会员，学生福利将替换成与会员等价的红包。<br>5. 活动最终解释权归【熊猫外卖】所有，任何问题请联系熊猫外卖在线客服。",
+    "addSource": 0,
+    "cityName": "九江市",
+    "bgColor": "#fdaa1e"
+  },
+  "currency": "¥",
+  "success": true
+}

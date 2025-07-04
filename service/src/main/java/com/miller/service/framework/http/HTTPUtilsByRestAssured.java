@@ -1,13 +1,18 @@
 package com.miller.service.framework.http;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.http.Method;
+import io.restassured.internal.RequestSpecificationImpl;
 import io.restassured.response.Response;
+import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.util.*;
 
 import static io.restassured.config.EncoderConfig.encoderConfig;
@@ -22,6 +27,15 @@ import static io.restassured.config.EncoderConfig.encoderConfig;
 @Slf4j
 public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     /**
+     * 统一请求头的 Content-Type 判断，都使用小写
+     */
+    private static final String CONTENT_TYPE = "content-type";
+    /**
+     * HTTP 请求信息存储
+     */
+    public static Map<String, Object> httpInfoMap;
+
+    /**
      * 发送 GET 请求
      *
      * @param uri     请求的 url, 例如: <a href="http://localhost:1024">http://localhost:1024</a>
@@ -32,6 +46,8 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
      */
     @Override
     public Map<String, Object> sendGetRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Map<String, Object> cookies) {
+        return sendRequest(uri, params, headers, null, cookies, "GET");
+    /*
         log.info("========================= 开始记录HTTP 日志 ========================");
         if (null == uri || uri.length() < 1) {
             log.error("uri cannot be null");
@@ -73,6 +89,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         Map<String, Object> stringObjectMap = processResponseResult(response, request);
         log.info("========================= 结束记录HTTP 日志 =========================");
         return stringObjectMap;
+     */
     }
 
     /**
@@ -121,6 +138,23 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         return sendRequest(uri, params, headers, body, cookies, method);
     }
 
+    /**
+     * 发送HTTP请求的通用方法
+     *
+     * @param uri     请求的URL地址
+     * @param params  请求的查询参数，使用LinkedHashMap保证参数顺序
+     * @param headers 请求头参数
+     * @param body    请求体，支持application/json和application/x-www-form-urlencoded格式
+     * @param cookies Cookie参数
+     * @param method  HTTP请求方法（GET、POST、PUT、DELETE等）
+     * @return Map<String, Object> 包含请求和响应信息的Map，key包括：
+     *         - request: 请求信息
+     *         - headers: 响应头
+     *         - cookies: Cookie信息
+     *         - status: 响应状态
+     *         - body: 响应体
+     *         - otherObject: 其他信息
+     */
     private Map<String, Object> sendRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, String method) {
         log.info("========================= 开始记录HTTP 日志 =========================");
         if (null == uri || uri.length() < 1) {
@@ -145,14 +179,35 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
 
         RestAssured.config = RestAssured.config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
         // 关闭urlEncoding，但是可能会导致url上存在中文不支持
-        request.urlEncodingEnabled(false);
+//        request.urlEncodingEnabled(false);
         // params = Maps.newLinkedHashMap(params);
         log.info("========================= 输出请求日志 ==============================");
         // 打印请求日志
         request.log().all();
 
-        // 根据请求头的Content-type来区分不同body
-        String contentType = String.valueOf(headers.get("Content-Type"));
+        // 判断headers中是否存在Content-Type（不区分大小写），如果存在则统一转换为小写content-type
+        String foundContentTypeKey = null;
+        for (String key : headers.keySet()) {
+            if ("content-type".equalsIgnoreCase(key)) {
+                foundContentTypeKey = key;
+                break;
+            }
+        }
+        if (foundContentTypeKey != null && !"content-type".equals(foundContentTypeKey)) {
+            Object value = headers.get(foundContentTypeKey);
+            headers.remove(foundContentTypeKey);
+            headers.put("content-type", value);
+        }
+        // 根据请求头的 Content-type 来区分不同body
+        String contentType = String.valueOf(headers.get(CONTENT_TYPE));
+
+        // 删除headers中的content-length键（不区分大小写）
+        if (headers.keySet().stream().anyMatch(key -> key.equalsIgnoreCase("content-length"))) {
+            log.warn("Headers中包含content-length字段，建议移除该字段，因为RestAssured会自动计算并设置content-length");
+             // 删除headers中的content-length键（不区分大小写）
+            // headers.entrySet().removeIf(entry -> entry.getKey().equalsIgnoreCase("content-length"));
+        }
+
         // 处理 application/json 格式直接将body中的内容当做字符串形式发送即可
         if (contentType.toLowerCase(Locale.ROOT).contains("application/json")) {
             log.info("处理Content-Type为:{} 的请求body.", contentType);
@@ -195,13 +250,47 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             }
             request.cookies(cookies);
         }
+        //
+        else if (contentType.toLowerCase(Locale.ROOT).contains("multipart/form-data")) {
+            log.info("处理Content-Type为:{} 的请求body.", contentType);
+            // 参数包含中文需要添加 charset=UTF-8 ，不在框架层处理这个逻辑了，在业务层处理
+            if (!contentType.toLowerCase(Locale.ROOT).contains("charset=UTF-8")) {
+                // headers.put("ContentType", "application/x-www-form-urlencoded;charset=UTF-8");
+                log.warn("If not support Chinese words, suggest add charset. For example:{} ", "application/x-www-form-urlencoded;charset=UTF-8");
+                request.headers(headers);
+                request.queryParams(params);
+                if (body instanceof Map) {
+                    try {
+                        Map<String, Object> mutilPartMap = (Map<String, Object>) body;
+                        for (Map.Entry<String, Object> part : mutilPartMap.entrySet()) {
+                            String multiValue = String.valueOf(part.getValue());
+                            if (StringUtils.isEmpty(multiValue)) continue;
+                            if (part.getValue() instanceof File) {
+                                MultiPartSpecification multiPartSpecification = new MultiPartSpecBuilder(part.getValue())
+                                        .fileName(multiValue)
+                                        .controlName(part.getKey())
+                                        .mimeType("application/octet-stream")
+                                        .build();
+                                request.multiPart(multiPartSpecification);
+                            } else
+                                request.multiPart(part.getKey(), multiValue);
+                        }
+
+                    } catch (IllegalArgumentException illegalArgumentException) {
+                        log.error("Please serialize body {} to JSON then convert to Map", body);
+                        throw illegalArgumentException;
+                    }
+                }
+                request.cookies(cookies);
+            }
+        }
         // 请求头中没有写 Content-Type 则无法判断类型
         else {
             // 智能判断，如果请求体是 Map 则认为可能是 application/x-www-form-urlencoded
             if (body instanceof Map) {
                 log.warn("系统预测请求体可能为 application/x-www-form-urlencoded 尝试处理");
                 // body中的数据为键值对
-                headers.put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+                headers.put(CONTENT_TYPE, "application/x-www-form-urlencoded;charset=UTF-8");
                 request.headers(headers);
                 request.queryParams(params);
                 try {
@@ -214,8 +303,8 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             }
             // 兜底的处理逻辑
             else {
-                log.warn("可能不支持的请求体, 因为Content-Type= {}", headers.get("Content-Type"));
-                // headers.put("Content-Type", "application/json");
+                log.warn("可能不支持的请求体, 因为Content-Type= {}", headers.get(CONTENT_TYPE));
+                // headers.put("CONTENT_TYPE", "application/json");
                 request.headers(headers);
                 request.queryParams(params);
                 // 自动识别请求体类型，丢给 REST-Assured 框架自身去处理
@@ -228,8 +317,12 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
             }
         }
         Response response = null;
-        // System.out.println(Method.POST.name());
-        if (method.equalsIgnoreCase("POST")) {
+
+        if (method.equalsIgnoreCase("GET")) {
+            log.info("========================= 开始发送请求 GET =========================");
+            response = request.when().request(Method.GET, uri).then().extract().response();
+        } else if (method.equalsIgnoreCase("POST")) {
+            // System.out.println(Method.POST.name());
             log.info("========================= 开始发送请求 POST =========================");
             response = request.when().request(Method.POST, uri).then().extract().response();
             log.info("========================= 结束发送请求 POST =========================");
@@ -259,7 +352,11 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         assert response != null;
         response.then().log().all();
         log.info("========================= 结束记录HTTP 日志 =========================");
-        return processResponseResult(response, request);
+
+        // 存储 HTTP 协议信息
+        httpInfoMap = processResponseResult(response, request);
+
+        return httpInfoMap;
     }
 
     /**
@@ -271,7 +368,7 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
     private Map<String, Object> processResponseResult(Response response, RequestSpecification request) {
         HashMap<String, Object> result = new HashMap<>();
         // 请求数据
-        HashMap<String, Object> requestLogMap = new HashMap<>();
+        HashMap<String, Object> requestMap = new HashMap<>();
         // 响应 Header
         HashMap<String, Object> responseHeaderMap = new HashMap<>();
         // 响应 Cookie
@@ -283,15 +380,19 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         // 响应中其他对象，主要包括原始响应对象，方便调用方调用原始对象的行为
         HashMap<String, Object> otherObjectMap = new HashMap<>();
 
-        // 获取请求 日志
-        // requestLogMap.put("params", request.log().params().toString());
-        // requestLogMap.put("body", request.log().body().toString());
-        // requestLogMap.put("headers", request.log().headers());
-        // requestLogMap.put("cookies", request.log().cookies().toString());
-        // requestLogMap.put("method", request.log().method().toString());
-        // requestLogMap.put("uri", request.log().uri().toString());
-        // 请求日志 所有
-        // requestLogMap.put("all", request.log().all().toString());
+        // 获取请求 request 对象
+//        requestMap.put("params", request.log().params().toString());
+//        requestMap.put("body", request.log().body().toString());
+//        requestMap.put("headers", request.log().headers());
+//        requestMap.put("cookies", request.log().cookies().toString());
+//        requestMap.put("method", request.log().method().toString());
+//        requestMap.put("uri", request.log().uri().toString());
+//        requestMap.put("all", request.log().all().toString()); // 请求日志
+        requestMap.put("requestMethod", ((RequestSpecificationImpl) request).getMethod());
+        requestMap.put("requestURI", ((RequestSpecificationImpl) request).getURI());
+        requestMap.put("requestHeaders", ((RequestSpecificationImpl) request).getHeaders().toString());
+        requestMap.put("requestBody", ((RequestSpecificationImpl) request).getBody());
+        requestMap.put("requestPath", ((RequestSpecificationImpl) request).getUserDefinedPath());
 
         // 获取响应 headers
         Headers allHeaders = response.getHeaders();
@@ -307,8 +408,8 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         responseStatusMap.put("statusCode", response.statusCode());
         responseStatusMap.put("statusLine", response.statusLine());
 
-        // 获取响 body
-        // Bug:请勿修改响应体的内容，否则可能出现字符串反序列化错误，有些字符串中间的空格benign去掉
+        // 获取响应 body
+        // Bug:请勿修改响应体的内容，否则可能出现字符串反序列化错误，有些字符串中间的空格不能去掉
         // responseBodyMap.put("body", (response.getBody().asString()).replaceAll(" ", ""));
         responseBodyMap.put("body", response.getBody().asString());
         String body = response.getBody().asString();
@@ -318,14 +419,14 @@ public class HTTPUtilsByRestAssured extends AbstractHTTPUtils {
         otherObjectMap.put("response", response);
 
         // 聚合在一起最后全部返回
-        result.put("request", requestLogMap);
+        result.put("requestMap", requestMap);
         result.put("headers", responseHeaderMap);
         result.put("cookies", responseCookieMap);
         result.put("status", responseStatusMap);
         result.put("body", responseBodyMap);
-        // result.put("body", body);
         result.put("otherObject", otherObjectMap);
         // System.out.println("响应聚集结果" + result);
         return result;
     }
+
 }

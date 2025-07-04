@@ -62,7 +62,7 @@ public class DateUtils {
      * @param timeZone
      * @return
      */
-    public static Long getTimestamp(String dateStr, String timeZone){
+    public static Long getTimestamp(String dateStr, String timeZone) {
         if (StringUtils.isBlank(dateStr) || StringUtils.isBlank(timeZone)) {
             return 0L;
         }
@@ -72,12 +72,37 @@ public class DateUtils {
         try {
             parse = sdf.parse(dateStr);
         } catch (ParseException e) {
-            System.out.println("date parse exception:{}"+ e);
+            System.out.println("date parse exception:{}" + e);
         }
 
         if (parse == null) {
             return 0L;
         }
-        return  parse.getTime();
+        return parse.getTime();
+    }
+
+    /**
+     *
+     * 将字符串按格式转化为Date类型
+     * @param dateStr
+     * @param pattern
+     * @return
+     */
+    public static Date strToDate(String dateStr, String pattern) {
+        if (StringUtils.isBlank(dateStr)){
+            return null;
+        }
+        if (StringUtils.isBlank(pattern)){
+            pattern = "yyyy-MM-dd HH:mm:ss";
+        }
+        // 定义日期格式
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        try {
+            // 进行转换
+            return sdf.parse(dateStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -1,0 +1,16 @@
+{
+	"Origin":"https://f2e-web-test.hungrypanda.cn",
+	"Cookie":"sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22195cb5f0bdcab0-0b8451c05e64b7-1b525636-1296000-195cb5f0bddf72%22%2C%22first_id%22%3A%22%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%2C%22identities%22%3A%22eyIkaWRlbnRpdHlfY29va2llX2lkIjoiMTk1Y2I1ZjBiZGNhYjAtMGI4NDUxYzA1ZTY0YjctMWI1MjU2MzYtMTI5NjAwMC0xOTVjYjVmMGJkZGY3MiJ9%22%2C%22history_login_id%22%3A%7B%22name%22%3A%22%22%2C%22value%22%3A%22%22%7D%2C%22%24device_id%22%3A%22195cb69668521f-03768285a31e2d-1b525636-1296000-195cb696686d42%22%7D; urms_token=Bearer%20eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlZTYwZWM0M2Y5ODQxMzdkNmEzZDJiY2ZhMjY5ZGY3OSIsIm9yaWdpblVzZXJJZCI6IiIsInVzZXJOaWNrIjoi5aea5YCp55GaIiwib3JpZ2luIjoiIiwidXNlclV1aWQiOiJlZTYwZWM0M2Y5ODQxMzdkNmEzZDJiY2ZhMjY5ZGY3OSIsImlzcyI6ImhwLWlhbS1zZXJ2ZXIiLCJ1c2VyTmFtZSI6IjEwNDg1NSIsImV4cCI6MTc3OTE1ODgyOCwiaWF0IjoxNzQ3NjIyODI4LCJqdGkiOiI4YWYyMzVlOGVlZDA0MDc2ODI2ZjYyMTgxM2ZmMjAxMyIsImVtYWlsIjoieWFvcWlhbmh1QGh1bmdyeXBhbmRhZ3JvdXAuY29tIn0._94Y5Al4VvadvAZmut9x6K72ljd0QcC-jKbRlzE_dkgfdFjKsy5H_sc85U0MaDU-jvm68xOjbZeSlKwNkxB81A; _gcl_au=1.1.708765448.1749534835; CN_token=7e574b666bd89f1e9c7fe95e9fd0f45a; CN_isNewFramework=1; CN_userInfo=%7B%22userId%22%3A3670%2C%22userToken%22%3A%227e574b666bd89f1e9c7fe95e9fd0f45a%22%2C%22username%22%3A%22ding17415975112446843%22%2C%22userNick%22%3A%22%E5%A7%9A%E5%80%A9%E7%91%9A%22%2C%22userPic%22%3A%22https%3A%2F%2Fstatic-legacy.dingtalk.com%2Fmedia%2FlQDPD3PN-IPsGPPNBADNBACwS3AYreTpBNUHsbfIOahfAA_1024_1024.jpg%22%2C%22showManagerBinding%22%3Afalse%2C%22userPhone%22%3A%2215906474919%22%7D",
+	"Accept":"application/json, text/plain, */*",
+	"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+	"Referer":"https://f2e-web-test.hungrypanda.cn/",
+	"Sec-Fetch-Site":"same-site",
+	"Sec-Fetch-Dest":"empty",
+	"Host":"api-cn-f2e-test.hungrypanda.cn",
+	"Sec-Fetch-Mode":"cors",
+	"sec-ch-ua":"\\",
+	"sec-ch-ua-mobile":"?0",
+	"sec-ch-ua-platform":"\\",
+	"Accept-Language":"zh-CN,zh;q=0.9",
+	"Content-Type":"application/json"
+}

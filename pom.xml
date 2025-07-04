@@ -22,6 +22,8 @@
         <!-- Jupiter and platform version. 这两个依赖版本对应关系为后两位版本号相同，第一位不同 -->
         <junit.jupiter.version>5.10.0</junit.jupiter.version>
         <junit.platform.version>1.10.0</junit.platform.version>
+        <!-- 跳过测试 -->
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <!-- 模块说明:这里声明多个子模块 -->
@@ -41,6 +43,10 @@
         <module>market</module>
         <module>bdm</module>
         <module>pos</module>
+        <module>testcase-user-app</module>
+        <module>testcase-merchant</module>
+        <module>testcase-delivery</module>
+        <module>testcase-pandafresh</module>
     </modules>
 
     <dependencyManagement>
@@ -97,7 +103,17 @@
             </dependency>
             <dependency>
                 <groupId>com.miller</groupId>
+                <artifactId>merchant</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
                 <artifactId>pos</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miller</groupId>
+                <artifactId>testcase-user-app</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
@@ -112,13 +128,6 @@
                 <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
                 <version>2.2.0</version>
             </dependency>
-
-            <!-- 统一管理 swagger 版本 -->
-<!--            <dependency>-->
-<!--                <groupId>io.springfox</groupId>-->
-<!--                <artifactId>springfox-boot-starter</artifactId>-->
-<!--                <version>3.0.0</version>-->
-<!--            </dependency>-->
             <!-- 统一管理 lombok 版本 -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -131,58 +140,30 @@
                 <artifactId>fastjson</artifactId>
                 <version>1.2.83</version>
             </dependency>
-            <!-- 统一管理 JsonAssert 版本-->
-            <dependency>
-                <groupId>org.skyscreamer</groupId>
-                <artifactId>jsonassert</artifactId>
-                <version>1.5.1</version>
-            </dependency>
+
             <!-- 统一管理 jackson 版本. 保持与当前 SpringBoot 引用的 Jackson 版本相同 -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.13.4.2</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--                <artifactId>jackson-databind</artifactId>-->
+<!--                <version>2.13.4.2</version>-->
+<!--            </dependency>-->
             <!-- 统一管理 commons-lang3 版本 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.12.0</version>
             </dependency>
-            <!-- 统一管理 shiro 版本 -->
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring</artifactId>
-                <version>1.8.0</version>
-            </dependency>
-            <!-- 统一管理 jwt 版本 -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>0.9.1</version>
-            </dependency>
-            <!-- 统一管理 aop 版本 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-aop</artifactId>
-                <version>2.5.5</version>
-            </dependency>
-            <!-- Spring Boot3 引入 MyBatisPlus 3.5.6 -->
+            <!-- 测试平台 Spring Boot3 使用 MyBatisPlus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-                <version>3.5.6</version>
+                <version>3.5.5</version>
             </dependency>
-            <!-- 添加 mybatis-plus-extension 用于加载插件 -->
+            <!-- 指定 mybatis-plus 对应的 mybatis 版本  -->
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-extension</artifactId>
-                <version>3.5.6</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-annotation</artifactId>
-                <version>3.5.6</version>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.15</version>
             </dependency>
 
             <!-- 统一管理 JUnit 版本. 5.9.x 版本 Jupiter 已经包含了 api, engine, params相关依赖 -->
@@ -224,7 +205,6 @@
                 <artifactId>junit-platform-reporting</artifactId>
                 <version>${junit.platform.version}</version>
             </dependency>
-
             <!-- JUnit5 整合 Mockito, mockito-junit-jupiter 已经包含了Mockito的core所以不需要单独引入了 -->
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -236,24 +216,6 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-inline</artifactId>
                 <version>4.4.0</version>
-            </dependency>
-            <!-- JUnit5 整合 Selenium -->
-            <!--            <dependency>-->
-            <!--                <groupId>io.github.bonigarcia</groupId>-->
-            <!--                <artifactId>selenium-jupiter</artifactId>-->
-            <!--                <version>3.4.0</version>-->
-            <!--            </dependency>-->
-            <!-- 引入断言工具 hamcrest -->
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-core</artifactId>
-                <version>2.2</version>
-            </dependency>
-            <!-- 引入流式断言工具 assertj -->
-            <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>3.24.2</version>
             </dependency>
             <!-- 使用 rest-assured 做接口测试。 5.X 版本需要 Spring Boot 比较高的版本，比如 2.7.X 否则还是会加载低版本的依赖 -->
             <dependency>
@@ -274,29 +236,21 @@
                 <artifactId>xml-path</artifactId>
                 <version>5.3.0</version>
             </dependency>
-            <!-- SpringBoot 使用 H2 内存数据库隔离数据库 -->
+
+            <!-- 统一管理JsonUnit 版本
+            使用 JsonUnit 断言工具，可以方便的进行 JSON 字符串的各种断言。里面已经包含了 assertJ core -->
             <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>2.1.212</version>
+                <groupId>net.javacrumbs.json-unit</groupId>
+                <artifactId>json-unit-assertj</artifactId>
+                <version>4.1.1</version>
             </dependency>
-            <!-- 数据库版本管理工具 Flyway。flyway >= 7.15.0 不兼容MySQL5.7 -->
+            <!-- 统一管理 JsonAssert 版本，使用 JsonAssert 可以方便进行全字段匹配-->
             <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-core</artifactId>
-                <version>7.15.0</version>
+                <groupId>org.skyscreamer</groupId>
+                <artifactId>jsonassert</artifactId>
+                <version>1.5.1</version>
             </dependency>
-            <!-- Mock Server 服务端、客户端依赖 -->
-            <dependency>
-                <groupId>org.mock-server</groupId>
-                <artifactId>mockserver-netty</artifactId>
-                <version>5.13.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mock-server</groupId>
-                <artifactId>mockserver-client-java</artifactId>
-                <version>5.13.2</version>
-            </dependency>
+
             <!-- ULID 生成器 -->
             <dependency>
                 <groupId>com.github.f4b6a3</groupId>
@@ -366,7 +320,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.5.7</version>
+                <version>3.5.5</version>
             </dependency>
 
         </dependencies>
@@ -380,7 +334,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
             </plugin>
-            <!-- Maven 站点插件将生成更多报告，如依赖项、插件、摘要以及项目测试报告,报告将保存在项目的“target/site”目录下 -->
+            <!-- Maven 站点插件将生成更多报告，如依赖项、插件、摘要以及项目测试报告,报告将保存在项目的"target/site"目录下 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>

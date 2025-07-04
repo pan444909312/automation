@@ -1,0 +1,24 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "popState": 0,
+    "authType": null,
+    "desc": null,
+    "popType": null,
+    "thriftAmount": null,
+    "thriftAmountStr": null,
+    "oldRenewPrice": null,
+    "newRenewPrice": null,
+    "mainBenefit": null,
+    "subBenefitList": null,
+    "otherBenefitAmountCount": null,
+    "memberRedPacks": null,
+    "memberRedPackBenefitAmount": null
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

@@ -10,20 +10,27 @@ import org.apache.ibatis.session.SqlSession;
 
 public class AccountSql {
     private SqlSession sqlSession;
-    public  AccountSql(SqlSession sqlSession){
+
+    public AccountSql(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
-    public AccountMapper getAccountMapper(){
+
+    public AccountMapper getAccountMapper() {
         return sqlSession.getMapper(AccountMapper.class);
     }
-    public void insert(AccountEntity account){
+
+    public void insert(AccountEntity account) {
         getAccountMapper().insert(account);
     }
-    public int update(Long userId,Integer balance){
+
+    public int update(Long userId, Integer balance) {
+        AccountEntity accountEntity = new AccountEntity();
+        accountEntity.setUserId(userId);
+        accountEntity.setAccountBalance(balance);
         UpdateWrapper<AccountEntity> updateWrapper = new UpdateWrapper<>();
         LambdaUpdateWrapper<AccountEntity> lambda = updateWrapper.lambda();
-        lambda.eq(AccountEntity::getUserId,userId);
-        lambda.set(AccountEntity::getAccountBalance,balance);
-        return getAccountMapper().update(updateWrapper);
+        lambda.eq(AccountEntity::getUserId, userId);
+        lambda.set(AccountEntity::getAccountBalance, balance);
+        return getAccountMapper().update(accountEntity, updateWrapper);
     }
 }

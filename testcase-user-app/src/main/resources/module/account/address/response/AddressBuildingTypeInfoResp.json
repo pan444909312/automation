@@ -1,0 +1,68 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "buildingTypeInfoList": [
+      {
+        "buildingType": 1,
+        "buildingTypeName": "公寓楼",
+        "buildingNameExtDesc": "公寓楼名称",
+        "needBuildingNameExt": true,
+        "needCheckBuildingNameExt": true,
+        "needHouseNum": true,
+        "needCheckHouseNum": true,
+        "needAccessCode": true,
+        "needCheckAccessCode": false
+      },
+      {
+        "buildingType": 2,
+        "buildingTypeName": "写字楼",
+        "buildingNameExtDesc": "大楼名称/公司名称",
+        "needBuildingNameExt": true,
+        "needCheckBuildingNameExt": true,
+        "needHouseNum": true,
+        "needCheckHouseNum": true,
+        "needAccessCode": false,
+        "needCheckAccessCode": false
+      },
+      {
+        "buildingType": 3,
+        "buildingTypeName": "学校",
+        "buildingNameExtDesc": "学校名称/教学楼名称",
+        "needBuildingNameExt": true,
+        "needCheckBuildingNameExt": true,
+        "needHouseNum": true,
+        "needCheckHouseNum": false,
+        "needAccessCode": false,
+        "needCheckAccessCode": false
+      },
+      {
+        "buildingType": 4,
+        "buildingTypeName": "酒店旅馆",
+        "buildingNameExtDesc": "酒店/旅馆名称",
+        "needBuildingNameExt": true,
+        "needCheckBuildingNameExt": true,
+        "needHouseNum": true,
+        "needCheckHouseNum": true,
+        "needAccessCode": false,
+        "needCheckAccessCode": false
+      },
+      {
+        "buildingType": 0,
+        "buildingTypeName": "其他",
+        "buildingNameExtDesc": "地点名称",
+        "needBuildingNameExt": true,
+        "needCheckBuildingNameExt": true,
+        "needHouseNum": true,
+        "needCheckHouseNum": true,
+        "needAccessCode": false,
+        "needCheckAccessCode": false
+      }
+    ]
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

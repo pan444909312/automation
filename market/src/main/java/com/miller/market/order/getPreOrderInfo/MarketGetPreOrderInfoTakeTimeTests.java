@@ -18,12 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("预订单接口")
+@DisplayName("PF_预订单接口")
 public class MarketGetPreOrderInfoTakeTimeTests {
 
     @MethodSource("com.miller.market.order.getPreOrderInfo.provider.MarketGetPreOrderInfoDataProvider#marketTakeTimeDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_预订单创建成功-自取-有时间")
+    @DisplayName("PF_正常流程_预订单创建成功-自取-有时间")
     void getPreOrderInfoTakeWithoutTimeSuccessfully(MarketGetPreOrderInfoRequestDTO marketGetPreOrderInfoRequestDTO) {
         MarketGetPreOrderInfoResponseDTO marketGetPreOrderInfoResponseDTO = MarketGetPreOrderInfoFlow.getPreOrderInfo(marketGetPreOrderInfoRequestDTO);
 

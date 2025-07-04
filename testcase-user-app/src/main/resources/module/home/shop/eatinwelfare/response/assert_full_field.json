@@ -1,0 +1,28 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"list": [{
+			"voucherSn": "${json-unit.any-string}",
+			"voucherName": "${json-unit.any-string}",
+			"voucherShopName":"${json-unit.any-string}",
+			"voucherType": "${json-unit.any-number}",
+			"shopId": "${json-unit.any-number}",
+			"salePrice": "${json-unit.any-string}",
+			"originalPrice": "${json-unit.any-string}",
+			"goodsImage": "${json-unit.any-string}",
+			"isOverdueReturn": "${json-unit.any-number}",
+			"isAnyTimeReturn": "${json-unit.any-number}",
+			"isReservation": "${json-unit.any-number}",
+			"currency": "¥",
+			"rebate": "${json-unit.any-number}",
+			"distanceStr": "${json-unit.any-string}",
+			"userType": "${json-unit.any-number}"
+		}]
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

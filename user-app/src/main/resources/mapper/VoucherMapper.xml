@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.userapp.mapper.shop.VoucherMapper">
+
+    <resultMap id="getShopInfoByVoucherSnResultMap" type="com.hungrypanda.app.server.entity.shop.ShopEntity">
+
+    </resultMap>
+
+    <select id="getShopInfoByVoucherSn" resultMap="getShopInfoByVoucherSnResultMap">
+        SELECT s.* FROM hp_voucher_info hvi INNER JOIN shop s on hvi.shop_id = s.shop_id
+        WHERE voucher_sn = #{voucherSn}
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "list": [
+      {
+        "shopId": 930937488,
+        "shopName": "自动化测试·yqh专用-勿动"
+      }
+    ],
+    "redPacketShopVO": null
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

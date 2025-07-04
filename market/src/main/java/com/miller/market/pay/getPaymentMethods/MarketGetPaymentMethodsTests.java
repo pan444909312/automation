@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("PaymentMethods查询")
+@DisplayName("PF_PaymentMethods查询")
 public class MarketGetPaymentMethodsTests {
 
     @Test
-    @DisplayName("正常流程_已登录_查询PaymentMethods")
+    @DisplayName("PF_正常流程_已登录_查询PaymentMethods")
     void getPaymentMethodsSuccessfully() {
         MarketGetPaymentMethodsResponseDTO responseDTO = MarketGetPaymentMethodsFlow.getPaymentMethods();
 

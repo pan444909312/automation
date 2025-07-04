@@ -23,6 +23,17 @@
         <dependency>
             <groupId>com.miller</groupId>
             <artifactId>service</artifactId>
+            <exclusions>
+                <!-- 需要排除然后单独引用，否则执行会报找不到MBP中的方法 -->
+                <exclusion>
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
         </dependency>
 
         <!-- 数据中心。测试用例之间的公共数据；请求、响应对象使用研发仓库中的数据 -->
@@ -37,20 +48,169 @@
             <artifactId>jsoup</artifactId>
             <version>1.17.2</version>
         </dependency>
-        <!-- 指定 mybatis-plus-annotation 的版本否则会报找不到类的错误
-         java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'
-         -->
+
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-annotation</artifactId>
+            <groupId>com.panda.erp.server</groupId>
+            <artifactId>erp-dal</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
+                </exclusion>
+                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>rest-assured</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-data-redis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                </exclusion>
+                <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+            </exclusions>
+
         </dependency>
-        <!-- 添加 mybatis-plus-extension 用于加载插件，否则会报找不到类的错误
-         Exception in thread "main" java.lang.NoSuchMethodError: 'void org.apache.ibatis.type.TypeHandlerRegistry.setDefaultEnumTypeHandler(java.lang.Class)'
-         -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-extension</artifactId>
+            <groupId>com.panda.product.server</groupId>
+            <artifactId>product-api</artifactId>
+            <version>1.0.74-RELEASE</version>
+            <exclusions>
+                <!-- 必须排除 spring-cloud 因为 SpringBoot3 和 spring-cloud 有对应版本要求；
+                 自动化测试工程使用的是 SpringBoot3 但是 开发工程使用的是 SpringBoot2-->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-openfeign</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-openfeign-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-jackson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.panda</groupId>
+                    <artifactId>risk-control-client</artifactId>
+                </exclusion>
+                <!-- start: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-extension</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>rest-assured</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-data-redis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                </exclusion>
+                <!-- stop: 将测试工程使用到的库在开发工程中排除掉，避免可能存在的冲突 -->
+            </exclusions>
+
         </dependency>
+
+
     </dependencies>
 
 </project>

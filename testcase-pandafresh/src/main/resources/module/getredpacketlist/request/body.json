@@ -1,0 +1,9 @@
+{
+	"selectMethod":1,
+	"selectType":1,
+	"page":{
+		"current":1,
+		"size":10
+	},
+	"redPacketCustomerType":2
+}

@@ -1,0 +1,17 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"newUserAmount": "${json-unit.any-number}",
+		"title": "${json-unit.any-string}",
+		"saleLabel":"${json-unit.any-string}",
+		"praiseAverage": "${json-unit.any-string}",
+		"promoteLabel": "${json-unit.any-string}",
+		"shareImgUrl":"${json-unit.ignore-element}"
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

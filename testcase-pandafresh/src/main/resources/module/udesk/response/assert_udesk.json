@@ -1,0 +1,11 @@
+{
+  "code": 1000,
+  "resultCode": 1000,
+  "currency": "£",
+  "paymentCurrency": "GBP",
+  "error": "请求成功(1)",
+  "result": {
+    "configId": 18,
+    "url": "https://demo-udesk.hungrypanda.co/im_client/?web_plugin_id=152&group_id=129&language=zh-cn&nonce=0f15ee4b-f59a-4c78-a01f-f370b02f0514&timestamp=1748598640614&web_token=null249222&signature=7F296746833FC5ADF75B8D36446C389320A45FE288FA86EB6591A916969C5197&encryption_algorithm=SHA256"
+  }
+}

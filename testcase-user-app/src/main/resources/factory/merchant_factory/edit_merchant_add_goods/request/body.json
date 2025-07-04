@@ -1,0 +1,64 @@
+{
+  "shopId": null,
+  "productPlatformCategoryId": "",
+  "menuId": 4205359,
+  "productName": "商品01",
+  "productNameEn": "Goods01",
+  "productImg": "https://static.hungrypanda.co/crm/1750576757669cf0076918c0d40d08f5087a94f289ab2.jpg",
+  "refer": 0,
+  "proNum": "",
+  "shelfNum": "",
+  "isCombine": 0,
+  "changeProductStatusByCombineProduct": 0,
+  "combineRelationDTOS": [],
+  "taxRate": 0,
+  "packingCharges": 0,
+  "productBuyLimitMin": 1,
+  "limit": 1,
+  "status": 0,
+  "isSpecial": 0,
+  "productSaleType": 1,
+  "productSalesLocationList": [
+    0,
+    1,
+    2
+  ],
+  "spec": {
+    "id": "",
+    "productId": "",
+    "groupName": "规格",
+    "groupNameEn": "specification",
+    "valueList": [
+      {
+        "id": null,
+        "skuGroupId": null,
+        "skuName": "标准",
+        "skuNameEn": "standard",
+        "price": 10,
+        "platformPrice": null,
+        "appPrice": 10,
+        "offlineDineInPrice": null,
+        "sortNum": null,
+        "status": 1,
+        "statusChanged": true,
+        "otherPlatformPriceList": []
+      }
+    ]
+  },
+  "attributeList": [],
+  "tagList": [],
+  "isPersonalRecommend": 0,
+  "productLabel": 0,
+  "taste": "",
+  "quantity": "",
+  "mainIngredient": "",
+  "promotionLabel": "",
+  "showProductLabelTypeList": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "sort": 1
+}

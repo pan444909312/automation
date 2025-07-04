@@ -56,7 +56,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 })
 @Scenario(scenarioID = "01HK72EK76QYGFPH5W6KQJ5VNA",
         scenarioName = "【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新",
-        developmentTime = 12 * 60, maintenanceTime = 0, manualTestTime = 2 * 60)
+        author = "shandongdong@hungrypandagroup.com", developmentTime = 12 * 60, maintenanceTime = 0, manualTestTime = 2 * 60)
 @SuiteDisplayName("【主干场景】【美食城订单】美食城账号接单之后，下面所有档口的订单状态自动更新")
 @Suite
 public class OrderOfFoodCityMasterOrderRecivingOrderAllStallOrderStatusAutoChangeScenarioTests {

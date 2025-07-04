@@ -1,0 +1,19 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "shopId": 930937488,
+    "country": "中国",
+    "shopName": "${json-unit.any-string}",
+    "shopNotice": "",
+    "shopLogo": "${json-unit.any-string}",
+    "bgImage": "${json-unit.any-string}",
+    "longitude": "${json-unit.any-string}",
+    "latitude": "${json-unit.any-string}"
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}

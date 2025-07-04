@@ -1,0 +1,16 @@
+{
+	"origin":"https://voucher-f2e-test.hungrypanda.cn",
+	"accept":"application/json, text/plain, */*",
+	"x-requested-with":"com.hungrypanda.waimai",
+	"user-agent":"Mozilla/5.0 (Linux; Android 14; SM-S9080 Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/117.0.0.0 Mobile Safari/537.36",
+	"referer":"https://voucher-f2e-test.hungrypanda.cn/",
+	"sec-fetch-fite":"same-site",
+	"sec-fetch-dest":"empty",
+	"host":"api-cn-f2e-test.hungrypanda.cn",
+	"sec-fetch-mode":"cors",
+	"sec-ch-ua":"\\",
+	"sec-ch-ua-mobile":"?1",
+	"sec-ch-ua-platform":"\\",
+	"accept-language":"zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+	"content-type":"application/json"
+}

@@ -1,0 +1,15 @@
+{
+	"resultCode": 1000,
+	"error": "Success",
+	"reason": "Success",
+	"result": {
+		"langList": [
+			"CN",
+			"EN"
+		]
+	},
+	"currency": "$",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

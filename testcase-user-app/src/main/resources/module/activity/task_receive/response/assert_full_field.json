@@ -1,0 +1,15 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"title": "今天下3单，即可获得{0}",
+		"taskTips": null,
+		"taskRule": "每单实付满¥0.01",
+		"param": {
+			"{0}": "¥8红包"
+		}
+	},
+	"currency": "¥",
+	"success": true
+}

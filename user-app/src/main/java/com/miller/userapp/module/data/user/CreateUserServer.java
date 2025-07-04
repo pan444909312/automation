@@ -1,19 +1,10 @@
 package com.miller.userapp.module.data.user;
 
 import com.alibaba.fastjson.JSON;
-import com.hungrypanda.app.server.entity.account.AccountEntity;
-import com.hungrypanda.app.server.entity.account.UserAccountEntity;
-import com.hungrypanda.app.server.entity.device.DeviceLoginInfoEntity;
-import com.hungrypanda.app.server.entity.user.IntegralEntity;
 import com.hungrypanda.app.server.entity.user.UserEntity;
-import com.hungrypanda.app.server.entity.user.UserLogEntity;
-import com.hungrypanda.app.server.entity.user.UserRegInfoEntity;
-import com.hungrypanda.server.encryption.api.fallBack.SecurePhoneNumApiFallBack;
-import com.hungrypanda.server.encryption.api.feign.SecurePhoneNumApi;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.cache.remote.redis.RedisService;
 import com.miller.service.framework.http.HttpUtils;
-import com.miller.service.framework.util.JSONUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.constants.PaymentConstant;
 import com.miller.userapp.module.data.pay.db.UserAccountSql;
@@ -23,29 +14,22 @@ import com.miller.userapp.module.home.captcha.request.UserSendVerificationCodeRe
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.home.login.response.UserLoginResponseDTO;
-import com.miller.userapp.module.pay.card.stripe.flow.AddCardRecordFlow;
 import com.miller.userapp.module.pay.card.stripe.flow.CreatePaymentMethodFlow;
 import com.miller.userapp.module.pay.card.stripe.flow.GetPaymentMethodsFlow;
-import com.miller.userapp.module.pay.card.stripe.request.AddCardRecordRequestDTO;
 import com.miller.userapp.module.pay.card.stripe.request.CreatePaymentMethodRequestDTO;
 import com.miller.userapp.module.pay.card.stripe.request.GetPaymentMethodsRequestDTO;
-import com.miller.userapp.module.person.address.create.flow.AddressEditFlow;
 import com.miller.userapp.module.person.address.create.request.AddressRequestDTO;
 import com.miller.userapp.module.person.address.create.response.AddressResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import com.panda.delivery.app.server.common.util.PasswordUtil;
-import com.panda.delivery.app.server.common.util.RedisUtil;
-import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.shiro.crypto.hash.SimpleHash;
 
-import java.time.Instant;
 import java.util.*;
 
-import static com.miller.common.util.MD5Util.string2MD5;
-
 public class CreateUserServer {
-    private static final String[] prefixTels = {"165","167","170","171","187","190","192"};
+    private static final String[] prefixTels = {"165","167","170","171","187","190","192","139","159","195"};
     private String saveOrUpdateUrl = BusinessConstant.DOMAIN + "/api/app/user/v1/address/edit";
     private SqlSession sqlSession;
     private AccountSql accountSql;
@@ -152,7 +136,7 @@ public class CreateUserServer {
             }
             Optional<String> prefixTel = Arrays.stream(prefixTels).filter(tel::startsWith).findAny();
             if(!prefixTel.isPresent()){
-                return "请输入{165,167,170,171,187,190,192}开头手机号！";
+                return "请输入{165,167,170,171,187,190,192,139,159,195}开头手机号！";
             }
             if(checkUser(tel)){
                 createUserData(tel);
@@ -229,7 +213,9 @@ public class CreateUserServer {
      */
     public void updatePWDAndBalance(Long userId){
         String salt = PasswordUtil.genSalt(10);
-        String pwd = PasswordUtil.encrypt(MD5Util.string2MD5(createUserEntity.getLoginPassword()),salt);//12345678
+//        String pwd = PasswordUtil.encrypt(MD5Util.string2MD5(createUserEntity.getLoginPassword()),salt);//12345678
+        //新库直接调用，不用上面方法了
+        String pwd = new SimpleHash("MD5", MD5Util.string2MD5(createUserEntity.getLoginPassword()), salt).toString();
         String pwdBalance = MD5Util.string2MD5(createUserEntity.getPayPassword());
         int balance = createUserEntity.getBalance();
         userSql.updatePassword(userId,salt,pwd); //用户登陆密码

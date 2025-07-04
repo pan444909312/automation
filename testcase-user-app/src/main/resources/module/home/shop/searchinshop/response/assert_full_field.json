@@ -1,0 +1,27 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": [{
+		"productId": "${json-unit.any-number}",
+		"productName": "${json-unit.any-string}",
+		"productPrice": "${json-unit.any-number}",
+		"productPriceStr": "${json-unit.any-string}",
+		"prouctImg": "${json-unit.any-string}",
+		"shopId": 930937488,
+
+		"menuId":"${json-unit.any-number}",
+		"menuName":"${json-unit.any-string}",
+
+		"searchResultsNum": "${json-unit.any-number}",
+		"orgProductPrice":"${json-unit.any-number}",
+
+		"promoteRate": "${json-unit.any-number}"
+
+
+	}],
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

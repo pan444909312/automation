@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.mapper.platform.DeptMapper">
+    <select id="selectByName" resultType="com.miller.entity.platform.Dept">
+        select * from dept where name= #{name} limit 1;
+    </select>
+</mapper>

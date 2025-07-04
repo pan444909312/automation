@@ -36,4 +36,43 @@ public class ShopFeatureTypeConstant {
      */
     public static final Integer FAST_FOOD = 7;
 
+    /**
+     * 最近24小时下单人数
+     */
+    public static final Integer LAST_DAY_ORDER = 9;
+    /**
+     * 高月售人气门店
+     */
+    public static final Integer POPULAR_STORE = 10;
+    /**
+     * 推荐标签
+     */
+    public static final Integer RECOMMENDED_TAGS = 11;
+    /**
+     * 近期n人好评
+     */
+    public static final Integer EVALUATE_NUM = 12;
+    /**
+     * 千人收藏的好店
+     */
+    public static final Integer COLLECT_NUM = 13;
+    /**
+     * 用户下单提醒
+     */
+    public static final Integer USER_ORDER_REMIND = 14;
+    /**
+     * 历史购买提醒
+     */
+    public static final Integer HISTORY_BUG_DAY = 15;
+    /**
+     * 买过的店
+     */
+    public static final Integer BOUGHT_RECENTLY = 16;
+    /**
+     * 首单优先送
+     */
+    public static final Integer FIRST_ORDER_DELIVERY = 17;
+
+
+
 }

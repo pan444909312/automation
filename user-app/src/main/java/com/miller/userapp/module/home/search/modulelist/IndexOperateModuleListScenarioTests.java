@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @TestFramework
 @Scenario(scenarioID = "01J821AKXRZ9E55WEVWG44TQJF", scenarioName = "APP-进入用户首页-需要返回必吃榜全国维度热搜词"
-        , developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
+        , author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("APP-进入用户首页")
 public class IndexOperateModuleListScenarioTests {
     @Test

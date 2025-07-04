@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Scenario(scenarioID = "01J6RQB636FQ6SMJ6E2DYS4HYQ",
         scenarioName = "支付_普通支付_Ronghan支付_Ronghan支付回调",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+        author = "luwei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("Ronghan支付回调")
 @SelectClasses({

@@ -27,7 +27,7 @@ import java.util.stream.Stream;
  */
 @EnvTag.Test
 @TestFramework
-@DisplayName("订单详情")
+@DisplayName("PF_订单详情")
 public class MarketOrderDetailTests {
     private static OrderMapper orderMapper;
     @BeforeAll
@@ -38,7 +38,7 @@ public class MarketOrderDetailTests {
     }
     @MethodSource("staticOrderDataProvider")
     @ParameterizedTest
-    @DisplayName("正常流程_已登录_获取订单详情")
+    @DisplayName("PF_正常流程_已登录_获取订单详情")
     void getOrderDetailSuccessfully(MarketOrderDetailRequestDTO marketOrderDetailRequestDTO) {
         MarketOrderDetailResponseDTO marketOrderDetailResponseDTO = MarketOrderDetailFlow.orderDetail(marketOrderDetailRequestDTO);
 

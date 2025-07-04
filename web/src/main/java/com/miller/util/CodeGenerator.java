@@ -13,7 +13,7 @@ public class CodeGenerator {
     @Test
     public void run() {
         String projectPath = System.getProperty("user.dir");
-        FastAutoGenerator.create("jdbc:mysql://rm-3ns24734o9z8747d0jo.mysql.rds.aliyuncs.com:3306/automation_test", "automation", "20AR@UJsobwLBdih")
+        FastAutoGenerator.create("jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test?allowPublicKeyRetrieval=true", "automation", "20AR@UJsobwLBdih")
                 .globalConfig(builder -> {
                     builder.author("panjuxiang")// 设置作者
                             .outputDir(projectPath + "/src/main/java") // 输出目录
@@ -30,7 +30,7 @@ public class CodeGenerator {
 //                            .xml("mappers"); // 设置 Mapper XML 文件包名
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("auto_case_roi_chart") // 设置需要生成的表名
+                    builder.addInclude("auto_case_chart_future_data") // 设置需要生成的表名
                             .entityBuilder()
                             .enableLombok() // 启用 Lombok
                             .enableTableFieldAnnotation() // 启用字段注解

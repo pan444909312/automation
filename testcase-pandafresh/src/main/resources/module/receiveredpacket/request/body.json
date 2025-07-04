@@ -1,0 +1,29 @@
+{
+	"pm":"POST",
+	"ph":{
+		"content-type":"application/json",
+		"authorization":"dc6ffc478316394bd69b0c64bf9368a0",
+		"latitude":"30.20074",
+		"longitude":"120.22185",
+		"version":"8.62.5",
+		"platform":"WEB_ANDROID",
+		"system":"HungryPanda",
+		"portalId":"3",
+		"cityId":755,
+		"language":"CN",
+		"regionId":"3",
+		"shopId":10061,
+		"cityName":"%E6%9D%AD%E5%B7%9E%E5%B8%82",
+		"userId":"249222",
+		"appTypeId":"1",
+		"marketChannel":"googlePlay",
+		"service-route":"pandafresh"
+	},
+	"pd":{
+		"redPacketTopicId":"1895"
+	},
+	"nv":"2",
+	"nt":"1750314528817",
+	"nn":"firLydd1n2ds1vkSDiegHhobb",
+	"nd":"b40398bb06b6d5a"
+}

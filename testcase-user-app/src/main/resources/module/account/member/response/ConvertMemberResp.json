@@ -1,0 +1,10 @@
+{
+  "resultCode": 1101,
+  "error": "兑换码已失效，请重新输入",
+  "reason": "兑换码已失效，请重新输入",
+  "result": null,
+  "currency": "${json-unit.any-string}",
+  "success": false,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

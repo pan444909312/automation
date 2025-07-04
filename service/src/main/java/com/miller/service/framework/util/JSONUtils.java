@@ -2,9 +2,23 @@ package com.miller.service.framework.util;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
+import com.jayway.jsonpath.Configuration;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * JSON 工具类
@@ -107,6 +121,7 @@ public class JSONUtils {
             throw new UnsupportedOperationException("String to Java Object failure, because " + json + " not to transform " + valueType + ". Error Message:", jsonProcessingException);
         }
     }
+
     /**
      * 对象转 JSON 字符串，使用 Fastjson
      *
@@ -116,6 +131,7 @@ public class JSONUtils {
     public static String toJSONString(Object value) {
         return JSON.toJSONString(value);
     }
+
     /**
      * 对象转 JSON 字符串，使用 Jackson
      *
@@ -131,4 +147,82 @@ public class JSONUtils {
             throw new UnsupportedOperationException("Object to JSON String failure.", e);
         }
     }
+
+    /**
+     * 字符串转为 JSONObject，使用 Fastjson
+     * @param text 文本
+     * @param features 配置，可选
+     * @return JSONObject
+     */
+    public static JSONObject parseObject(String text, Feature... features) {
+        return JSON.parseObject(text, features);
+    }
+
+    /**
+     *  json字符串转jsonArray
+     * @param text json字符串
+     * @return JSONArray
+     */
+    public static JSONArray parseArray(String text) {
+        return parseArray(text, ParserConfig.global);
+    }
+
+    /**
+     * json字符串转jsonArray
+     * @param text json字符串
+     * @param parserConfig 配置
+     * @return JSONArray
+     */
+    public static JSONArray parseArray(String text, ParserConfig parserConfig) {
+        return JSON.parseArray(text, parserConfig);
+    }
+
+
+    /**
+     * 更新 JSON 字符串中指定 key 的值
+     *
+     * @param jsonStr 原始 JSON 字符串
+     * @param key 需要更新的键
+     * @param newValue 新的值
+     * @return 更新后的 JSON 字符串
+     * @throws JSONException 当输入的字符串不是有效的 JSON 格式时抛出
+     */
+    public static String updateJsonValue(String jsonStr, String key, Object newValue) {
+        if (!isJSONFormat(jsonStr)) {
+            throw new JSONException("Invalid JSON format");
+        }
+
+        JSON json = JSON.parseObject(jsonStr);
+        if (json instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) json;
+            jsonObject.put(key, newValue);
+            return jsonObject.toJSONString();
+        }
+        throw new JSONException("Input JSON is not an object");
+    }
+
+    /**
+     * 使用 JSONPath 更新 JSON 字符串中指定 key 的值为新的值
+     *
+     * @param jsonStr 原始JSON字符串
+     * @param jsonPath JSONPath表达式，例如 "$.store.book[0].title"
+     * @param newValue 需要更新的新的值
+     * @return 更新后的JSON字符串
+     * @throws JSONException 当输入的字符串不是有效的JSON格式时抛出
+     * @throws PathNotFoundException 当指定的JSONPath不存在时抛出
+     */
+    public static String updateJsonValueByPath(String jsonStr, String jsonPath, Object newValue) {
+        if (!isJSONFormat(jsonStr)) {
+            throw new JSONException("Invalid JSON format");
+        }
+
+        try {
+            Object document = JsonPath.parse(jsonStr).json();
+            JsonPath.compile(jsonPath).set(document, newValue, Configuration.defaultConfiguration());
+            return JSON.toJSONString(document);
+        } catch (PathNotFoundException e) {
+            throw new PathNotFoundException("JSONPath not found: " + jsonPath, e);
+        }
+    }
+
 }

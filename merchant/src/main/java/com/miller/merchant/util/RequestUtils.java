@@ -160,17 +160,4 @@ public class RequestUtils extends HttpUtils {
         // 请求参数的额外操作
         return stringObjectMap;
     }
-
-
-
-
-    public static Map<String, Object> sendGetRequest(String uri, Map<String, Object> params) {
-        return sendGetRequest(uri, params, headers, null);
-    }
-
-
-
-
-
-
 }

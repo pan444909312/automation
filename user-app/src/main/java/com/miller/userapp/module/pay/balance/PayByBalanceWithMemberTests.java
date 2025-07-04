@@ -1,6 +1,6 @@
 package com.miller.userapp.module.pay.balance;
 
-import com.hungrypanda.app.server.common.enums.payment.PaymentEnum;
+import com.hungrypanda.payserver.biz.enums.PaymentEnum;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.erp.moudle.manage.merchant.member.delete.MemberDeleteFlow;
@@ -69,6 +69,7 @@ public class PayByBalanceWithMemberTests {
         payOfOrder.setOrderSn(PaymentPatternCheckOutFlow.getOrderCombineSn(orderSn));
         // 会员合单
         payOfOrder.setPaymentType(String.valueOf(PaymentEnum.COMBINED_PAY.getValue()));
+        
         return Stream.of(
                 Arguments.of(
                         payOfOrder

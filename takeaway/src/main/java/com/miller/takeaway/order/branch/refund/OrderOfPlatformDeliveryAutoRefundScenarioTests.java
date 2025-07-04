@@ -38,6 +38,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @Suite
 @SuiteDisplayName("【分支场景】【申请售后】待接单阶段，申请售后，系统自动审核通过，自动退款")
 @Scenario(scenarioID = "01HJQH3Y82QYNFVEVCWQQQ93FH", scenarioName = "【分支场景】【申请售后】待接单阶段，申请售后，系统自动审核通过，自动退款"
-        , developmentTime = 3 * 60, maintenanceTime = 60, manualTestTime = 60)
+        , author = "shandongdong@hungrypandagroup.com", developmentTime = 3 * 60, maintenanceTime = 60, manualTestTime = 60)
 public class OrderOfPlatformDeliveryAutoRefundScenarioTests {
 }

@@ -1,7 +1,7 @@
 package com.miller.deliveryapp.module.driver.agreement.request;
 
 
-import com.panda.delivery.app.server.domain.dto.agreement.DeliveryAgreementListReq;
+import lombok.Data;
 
 /**
  * 骑手同意的协议列表获取
@@ -10,5 +10,8 @@ import com.panda.delivery.app.server.domain.dto.agreement.DeliveryAgreementListR
  * @version 1.0
  * @since 2024/04/25 14:59:46
  */
-public class AgreementListRequestDTO extends DeliveryAgreementListReq {
+@Data
+public class AgreementListRequestDTO {
+
+    private String country;
 }

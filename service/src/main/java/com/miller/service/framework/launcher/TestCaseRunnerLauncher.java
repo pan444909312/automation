@@ -2,6 +2,7 @@ package com.miller.service.framework.launcher;
 
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.listenner.TestExecuteListener;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.TestExecutionListener;
@@ -17,6 +18,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 import static org.junit.platform.launcher.TagFilter.excludeTags;
 import static org.junit.platform.launcher.TagFilter.includeTags;
 
@@ -32,6 +35,7 @@ import static org.junit.platform.launcher.TagFilter.includeTags;
  * @see LauncherDiscoveryRequestBuilder
  * @since 2023/10/22 21:20:33
  */
+@Slf4j
 @Component
 @TestFramework
 public class TestCaseRunnerLauncher {
@@ -125,6 +129,62 @@ public class TestCaseRunnerLauncher {
         executeRequest(request);
     }
 
+    /**
+     * 运行指定类的特定测试方法
+     *
+     * @param testClass 测试类
+     * @param testMethodName 测试方法名
+     */
+    public void runTestMethod(Class<?> testClass, String testMethodName) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectMethod(testClass, testMethodName))
+                .build();
+        executeRequest(request);
+    }
+
+    /**
+     * 运行指定类的特定测试方法（通过类名和方法名字符串）
+     *
+     * @param className 测试类的全限定名，例如: com.miller.test.UserTest
+     * @param testMethodName 测试方法名
+     */
+    public void runTestMethod(String className, String testMethodName) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectMethod(className + "#" + testMethodName))
+                .build();
+        executeRequest(request);
+    }
+
+    /**
+     * 运行指定类的特定测试方法（通过类名和方法名字符串），并支持配置参数
+     *
+     * @param className 测试类的全限定名，例如: com.miller.test.UserTest
+     * @param testMethodName 测试方法名
+     * @param configurationParameters 配置参数
+     */
+    public void runTestMethod(String className, String testMethodName, Map<String, String> configurationParameters) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectMethod(className + "#" + testMethodName))
+                .configurationParameters(configurationParameters)
+                .build();
+        executeRequest(request);
+    }
+
+    /**
+     * 运行指定类的特定测试方法（通过Class对象和方法名），并支持配置参数
+     *
+     * @param testClass 测试类
+     * @param testMethodName 测试方法名
+     * @param configurationParameters 配置参数
+     */
+    public void runTestMethod(Class<?> testClass, String testMethodName, Map<String, String> configurationParameters) {
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(selectMethod(testClass, testMethodName))
+                .configurationParameters(configurationParameters)
+                .build();
+        executeRequest(request);
+    }
+
     public SummaryGeneratingListener executeRequest(LauncherDiscoveryRequest request) {
         Launcher launcher = LauncherFactory.create();
         TestPlan testPlan = launcher.discover(request);
@@ -137,8 +197,8 @@ public class TestCaseRunnerLauncher {
         launcher.registerTestExecutionListeners(listener, summaryGeneratingListener);
         // 执行启动器
         launcher.execute(request);
-        // 获取执行结果
-        summaryGeneratingListener.getSummary().printTo(new PrintWriter(System.out));
+        // 获取执行结果打印到控制台
+        // summaryGeneratingListener.getSummary().printTo(new PrintWriter(System.out));
 
         return summaryGeneratingListener;
     }

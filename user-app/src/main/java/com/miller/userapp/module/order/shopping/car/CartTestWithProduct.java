@@ -6,7 +6,7 @@ import com.hungrypanda.app.server.entity.product.ProductEntity;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.userapp.constants.ResponseConstant;
-import com.miller.userapp.mapper.shop.ProcuctMapper;
+import com.miller.userapp.mapper.shop.ProductMapper;
 import com.miller.userapp.module.order.shopping.car.flow.ShoppingCarFlow;
 import com.miller.userapp.module.order.shopping.car.request.ShoppingCarRequestDTO;
 import com.miller.userapp.module.order.shopping.car.response.ShoppingCarResponseDTO;
@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @EnvTag.Test
-@Scenario(scenarioID = "01J9QNPACXKVRS7D0NGX917QY0", scenarioName = "购物车-商品限购", developmentTime = 50, maintenanceTime = 0, manualTestTime = 5)
+@Scenario(scenarioID = "01J9QNPACXKVRS7D0NGX917QY0", scenarioName = "购物车-商品限购", author = "zhangcheng@hungrypandagroup.com", developmentTime = 50, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("购物车-商品限购")
 public class CartTestWithProduct {
     private Integer buyLimitMin = 2;
@@ -37,23 +37,26 @@ public class CartTestWithProduct {
     void beforeEach() {
         // 初始化，链接数据库
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        ProcuctMapper productMapper = sqlSession.getMapper(ProcuctMapper.class);
+        ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProductId(buyLimitMinProductTest);
+        productEntity.setBuyLimitMin(buyLimitMin);
         var lambdaUpdateWrapper = new LambdaUpdateWrapper<ProductEntity>();
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
                 .set(ProductEntity::getBuyLimitMin, buyLimitMin);
-        productMapper.update(lambdaUpdateWrapper);
+        productMapper.update(productEntity, lambdaUpdateWrapper);
     }
 
     @AfterEach
     void afterEach() {
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        ProcuctMapper productMapper = sqlSession.getMapper(ProcuctMapper.class);
+        ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
         var lambdaUpdateWrapper = new LambdaUpdateWrapper<ProductEntity>();
         lambdaUpdateWrapper
                 .eq(ProductEntity::getProductId, buyLimitMinProductTest)
                 .set(ProductEntity::getBuyLimitMin, 1);
-        productMapper.update(lambdaUpdateWrapper);
+        productMapper.update(new ProductEntity(), lambdaUpdateWrapper);
     }
 
     @MethodSource("buyLimitMinProduct")

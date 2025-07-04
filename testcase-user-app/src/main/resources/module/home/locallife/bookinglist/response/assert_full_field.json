@@ -1,0 +1,30 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"records": [{
+			"id": "${json-unit.any-number}",
+			"shopId": "${json-unit.any-number}",
+			"shopName": "${json-unit.any-string}",
+			"shopImg": "${json-unit.any-string}",
+			"serviceImg": "${json-unit.ignore-element}",
+			"appointmentStatus": "${json-unit.any-number}",
+			"serviceName": "${json-unit.any-string}",
+			"servicePersonnel": "${json-unit.any-string}",
+			"quantity": "${json-unit.any-number}",
+			"appointmentTime": "${json-unit.any-string}",
+			"deeplinkUrl": "${json-unit.any-string}",
+			"cancelDeeplinkUrl": "${json-unit.any-string}"
+		}],
+		"pages": "${json-unit.any-number}",
+		"size": "${json-unit.any-number}",
+		"total": "${json-unit.any-number}",
+		"current": "${json-unit.any-number}"
+	},
+
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

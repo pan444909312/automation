@@ -1,0 +1,21 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"activityStatus": null,
+		"hasNext": false,
+		"activitySn": "tUyqEaDWmrL",
+		"subTitle": "九江PHF副标题",
+		"shareTitle": "九江分享卡片文案",
+		"productVOList": [{
+			"productId": 81669214,
+			"productSkuId": 37314966,
+			"productName": "飞机"
+		}]
+	},
+	"currency": "${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"time": "${json-unit.ignore-element}"
+}

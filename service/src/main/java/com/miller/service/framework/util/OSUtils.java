@@ -1,5 +1,9 @@
 package com.miller.service.framework.util;
 
+import com.miller.service.framework.annotation.Scenario;
+
+import java.util.Objects;
+
 /**
  * 操作系统相关工具类
  *
@@ -25,6 +29,7 @@ public class OSUtils {
     public static String getHostNameOfOS() {
         return CommandUtils.executeCommand("hostname");
     }
+
 
     /**
      * 获取当前操作系统名称

@@ -1,0 +1,17 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "isEnable": 1,
+    "updateTime": "${json-unit.any-number}",
+    "languages": {
+      "cn": {},
+      "en": {}
+    }
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

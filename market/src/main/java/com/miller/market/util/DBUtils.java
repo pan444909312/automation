@@ -23,9 +23,9 @@ public class DBUtils {
      */
     public static synchronized SqlSession getDBOfFreshTest() {
         if (sqlSessionOfFreshTest != null) return sqlSessionOfFreshTest;
-        var mySqlUrl = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.url");
-        var userName = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.username");
-        var passWord = new PropertiesUtils().getProperty(DBUtils.class, "spring.datasource.password");
+        var mySqlUrl = new PropertiesUtils().getProperty(DBUtils.class, "datasource.url.panda_fresh");
+        var userName = new PropertiesUtils().getProperty(DBUtils.class, "datasource.username.panda_fresh");
+        var passWord = new PropertiesUtils().getProperty(DBUtils.class, "datasource.password.panda_fresh");
         var myBatisPlusConfig = new MyBatisPlusConfig();
         sqlSessionOfFreshTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), DBUtils.class);
         return sqlSessionOfFreshTest;

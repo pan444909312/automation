@@ -1,7 +1,7 @@
 package com.miller.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @since 2024/9/26 9:18
  */
 @Component
-@Log4j2
+@Slf4j
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
@@ -25,4 +25,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 //        log.info("开始更新填充...");
         this.setFieldValByName("updateTime",System.currentTimeMillis(),metaObject);
     }
+
+
 }
