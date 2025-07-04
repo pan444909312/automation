@@ -6,7 +6,7 @@
     "shopId": 930937488,
     "country": "中国",
     "shopName": "${json-unit.any-string}",
-    "shopNotice": "",
+    "shopNotice": "${json-unit.any-string}",
     "shopLogo": "${json-unit.any-string}",
     "bgImage": "${json-unit.any-string}",
     "longitude": "${json-unit.any-string}",
