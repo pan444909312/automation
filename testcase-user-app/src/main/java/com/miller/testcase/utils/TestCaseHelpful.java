@@ -256,7 +256,12 @@ public class TestCaseHelpful {
         }
         if (!Objects.isNull(body)) {
             if (headers.get("content-type").toString().contains("application/x-www-form-urlencoded")) {
-                body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+//                body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+                // 将 JSON 转为 Map 并确保所有值为简单类型（String/Number）
+                Map<String, Object> rawMap = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+                Map<String, String> formData = new HashMap<>();
+                rawMap.forEach((key, value) -> formData.put(key, value != null ? value.toString() : ""));
+                body = formData; // 传递简单键值对
             } else {
                 body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
             }
