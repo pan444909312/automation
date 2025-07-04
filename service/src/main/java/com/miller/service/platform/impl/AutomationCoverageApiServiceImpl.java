@@ -13,12 +13,9 @@ import com.miller.service.platform.AutomationCoverageApiService;
 import com.miller.service.platform.UserBindProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -76,10 +73,8 @@ public class AutomationCoverageApiServiceImpl extends ServiceImpl<AutomationCove
                     if (ObjectUtils.isEmpty(customHttpRequest)) {
                         continue;
                     }
-                    String path = customHttpRequest.getString("path");
-                    String[] paths = path.split("/api/");
-                    path = "/api/".concat(paths[paths.length - 1]);
-                    log.info("Path：".concat(path));
+
+                    String path = this.formatPath(customHttpRequest.getString("path"));
                     // 已经处理过的数据，直接跳过
                     if (pathList.contains(path)) {
                         continue;
@@ -154,5 +149,24 @@ public class AutomationCoverageApiServiceImpl extends ServiceImpl<AutomationCove
 
         return  this.update(updateWrapper);
     }
+
+    /**
+     * 接口格式处理
+     */
+    public  String  formatPath(String path) {
+        // 处理此类URL数据 {{pos_url}}/api/pos/v1/open/menu/categories
+        String[] paths = path.split("/api/");
+        path = "/api/".concat(paths[paths.length - 1]);
+
+        // 处理此类URL数据 /api/pos/v1/open/menu/categories?aaa=222
+        path = path.split("\\?")[0];
+
+        // 处理此类URL数据 /api/pos/v1/open/menu/{{pos_shop_id}}/categories
+//        path = path.replaceAll("\\{\\{.*?\\}\\}","?");
+
+        log.info("Path：".concat(path));
+        return path;
+    }
+
 
 }

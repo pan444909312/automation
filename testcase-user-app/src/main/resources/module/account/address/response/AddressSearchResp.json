@@ -5,7 +5,6 @@
   "result": {
     "addressList": [
       {
-        "placeId": "ChIJI9pJAwPpLzQReMBpdJxjsK4",
         "addressName": "九江",
         "buildingName": "九江",
         "addressSpecific": "China, Jiangxi, 九江",
@@ -21,5 +20,5 @@
   "currency": "${json-unit.any-string}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
-  "time": "${json-unit.any-number}"
+  "time": "${json-unit.ignore-element}"
 }

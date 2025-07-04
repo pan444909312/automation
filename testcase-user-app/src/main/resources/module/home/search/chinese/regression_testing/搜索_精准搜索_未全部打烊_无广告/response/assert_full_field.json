@@ -1,3 +1,23 @@
 {
-	"resultCode":1000
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"filterGroup": "${json-unit.ignore}",
+		"shopList": "${json-unit.ignore}",
+		"upperListVO": {
+			"upperList": null,
+			"position": 0
+		},
+		"totalShopNum": "${json-unit.any-number}",
+		"hasMemberShop": null,
+		"searchCardVersion": "2.0",
+		"type": null,
+		"searchCodeVO": null
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.ignore}",
+	"queryList": "${json-unit.ignore}",
+	"time": "${json-unit.any-number}"
 }

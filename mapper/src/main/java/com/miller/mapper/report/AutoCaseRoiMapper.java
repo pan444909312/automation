@@ -19,5 +19,6 @@ public interface AutoCaseRoiMapper extends BaseMapper<AutoCaseRoiEntity> {
 
     AutoCaseRoiEntity findByScenarioId(String scenarioId);
 
+
     List<AutoCaseRoiEntity> selectAutoCaseRoiProjectId();
 }

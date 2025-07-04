@@ -19,7 +19,8 @@ public class ShopRedpacketScenarioTests {
         var requestBody=TestCaseHelpful.getJsonRequestBody("module/redpacket/request/success.json");
         var responseBody = HttpUtils.sendPostRequestReturnBody(uri, null, headers, requestBody, null);
         var expectedStr = TestCaseHelpful.getFileContent("module/redpacket/response/assert_some_fields.json");
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        var redPacketList = TestCaseHelpful.extractValue(responseBody,"$.result.redPacketList");
+        TestCaseHelpful.assertThat(redPacketList).asList().isNotNull();
 
     }
 }

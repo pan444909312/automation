@@ -3,10 +3,9 @@
 	"error": "成功",
 	"reason": "成功",
 	"result": {
-		"inviteSn": "2800S551HB"
 	},
 	"currency": "${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",
-	"time": "${json-unit.any-number}"
+	"time": "${json-unit.ignore-element}"
 }

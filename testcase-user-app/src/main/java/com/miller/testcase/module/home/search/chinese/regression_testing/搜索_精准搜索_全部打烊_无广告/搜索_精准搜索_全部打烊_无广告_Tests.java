@@ -7,10 +7,14 @@ import com.miller.testcase.factory.MerchantFactory;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
+import net.minidev.json.JSONArray;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * 场景：搜索-精准搜索&全部打烊&无广告
@@ -31,7 +35,7 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JYBC3SBQQDZC46QFGXAD4NRE", // 自动生成，不要修改
-        scenarioName = "搜索-精准搜索&全部打烊&无广告",
+        scenarioName = "搜索-精准搜索&全部打烊&无广告_搜索coco-检查搜索结果包含【CoCo、中间包含coCo】",
         author = "shandongdong@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("搜索-精准搜索&全部打烊&无广告")
@@ -40,15 +44,11 @@ public class 搜索_精准搜索_全部打烊_无广告_Tests {
     String searchWord = "Coco";
     @BeforeAll
     void beforeAll() {
-        var searchWordSql = """
-                -- 查找指定搜索词
-                SELECT t.search_word
-                FROM panda_test.hp_data_search_entity_word t
-                where t.search_word = 
-                """ + searchWord;
-        searchWord = PandaTestDBHelpful.executeSelectOneSql(searchWordSql).get("search_word").toString();
+        var searchWordSql = "SELECT t.search_word FROM panda_test.hp_data_search_entity_word t where t.search_word = '"
+                + searchWord + "'";
+        Map<String, Object> stringObjectMap = PandaTestDBHelpful.executeSelectOneSql(searchWordSql);
         // 如果不存在需要的数据“Coco”，则插入
-        if (searchWord != null) {
+        if (Objects.isNull(stringObjectMap)) {
             //  查找最大的task_id
             var maxTaskIdSql = """
                     -- 查找最大task_id
@@ -62,28 +62,28 @@ public class 搜索_精准搜索_全部打烊_无广告_Tests {
             PandaTestDBHelpful.executeInsertOrUpdateOrDelete(insertSearchWordSql);
         }
         // 创建两个商家，已经创建了，这里不重复创建
-         MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "CoCo");
+        // MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "CoCo");
         // MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "中间包含coCo");
 
         // 执行定时任务：实体词更新
-        XXLJobUtils.triggerJob("11");
+//         XXLJobUtils.triggerJob("11");
         // 执行定时任务：搜索索引更新
-        XXLJobUtils.triggerJob("298");
+//        XXLJobUtils.triggerJob("298");
     }
 
     @AfterAll
     void afterAll() {
         // 删除 hp_data_search_entity_word 表插入的数据 品牌词 记录
-        String sql = "DELETE FROM panda_test.hp_data_search_entity_word WHERE search_word = " + searchWord;
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
+        // String sql = "DELETE FROM panda_test.hp_data_search_entity_word WHERE search_word = '" + searchWord + "';";
+        // PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
         // 删除 店铺，先打烊
-        MerchantFactory.closedMerchant("CoCo");
-        MerchantFactory.deleteMerchant("CoCo");
-        MerchantFactory.closedMerchant("中间包含coCo");
-        MerchantFactory.deleteMerchant("中间包含coCo");
+        // MerchantFactory.closedMerchant("CoCo");
+        // MerchantFactory.deleteMerchant("CoCo");
+        // MerchantFactory.closedMerchant("中间包含coCo");
+        // MerchantFactory.deleteMerchant("中间包含coCo");
     }
 
-    @DisplayName("搜索coco-检查搜索结果")
+    @DisplayName("搜索coco-检查搜索结果包含【CoCo、中间包含coCo】")
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
@@ -114,6 +114,24 @@ public class 搜索_精准搜索_全部打烊_无广告_Tests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        // 对json文件中排除的字段进行更加复杂的断言
+        // 断言店铺列表中包含指定店铺
+        JSONArray shopList = TestCaseHelpful.extractValue(responseBody, "$.result.upperListVO.upperList");
+        // 收集所有店铺名称
+        java.util.Set<String> shopNames = new java.util.HashSet<>();
+        for (int i = 0; i < shopList.size(); i++) {
+            Map shop = (java.util.Map<String, Object>) shopList.get(i);
+            String shopName = (String) shop.get("shopName");
+            shopNames.add(shopName);
+        }
+
+        // 断言数组中包含指定的店铺名称
+        boolean containsExpectedShop1 = shopNames.stream().anyMatch(name -> name.contains("CoCo"));
+        boolean containsExpectedShop2 = shopNames.stream().anyMatch(name -> name.contains("中间包含coCo"));
+
+        TestCaseHelpful.assertThat(containsExpectedShop1).isEqualTo(true);
+        TestCaseHelpful.assertThat(containsExpectedShop2).isEqualTo(true);
+
     }
 
 } 

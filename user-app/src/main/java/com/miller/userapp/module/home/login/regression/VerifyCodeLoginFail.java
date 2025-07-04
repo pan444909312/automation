@@ -12,6 +12,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.mapper.user.UserLogMapper;
 import com.miller.userapp.module.home.login.UserLoginTests;
+import com.miller.userapp.module.home.login.regression.SendVerificationCodeSuccess;
 import com.miller.userapp.util.RedisUtils;
 import com.miller.userapp.util.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class VerifyCodeLoginFail {
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/combine/login";
     private SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
     private UserLogMapper userLogMapper = sqlSession.getMapper(UserLogMapper.class);
-    private String deviceId = new PropertiesUtils().getProperty(UserLoginTests.class, "user.app.login.device.id");
+    private String deviceId = new PropertiesUtils().getProperty(VerifyCodeLoginFail.class, "user.app.login.device.id");
     private String tel = "13999900001";
     private static Integer checkCode = 15;
     private static String captchaToken = "6274196c69aa47b0959fcb2c6dd0a90d";

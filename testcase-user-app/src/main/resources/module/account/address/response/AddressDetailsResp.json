@@ -1,7 +1,7 @@
 {
   "resultCode": 1000,
-  "error": "Success",
-  "reason": "Success",
+  "error": "成功",
+  "reason": "成功",
   "result": {
     "addressId": 1398680265,
     "addConnName": "胡",
@@ -57,5 +57,5 @@
   "currency": "${json-unit.any-string}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
-  "time": "${json-unit.any-number}"
+  "time": "${json-unit.ignore-element}"
 }

@@ -1,8 +1,11 @@
 package com.miller.controller.tools.product.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.miller.controller.tools.product.service.StringConversionService;
 import com.miller.controller.tools.conversion.StringConversionDto;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -10,10 +13,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Data
+@Slf4j
 public class StringConversionServiceImpl implements StringConversionService {
 
     @Override
     public String toPublishingFormat(StringConversionDto stringConversionDto) {
+        if (ObjectUtils.isEmpty(stringConversionDto)){
+            return "数据格式不合法";
+        }
         Map<String, List<String>> resMap = null;
         if (stringConversionDto.getType().equals("toServerGroup")) {
             resMap = this.toServerGroup(stringConversionDto.getSourceValue());
@@ -25,7 +32,9 @@ public class StringConversionServiceImpl implements StringConversionService {
         StringBuffer resStr = new StringBuffer();
         resMap.forEach((key, values) -> {
             resStr.append("【").append(key).append("】").append("\n");
-            values.forEach(v -> resStr.append("\t").append(v).append("\n"));
+            for (int i = 0; i < values.size(); i++) {
+                resStr.append("\t").append(i+1).append('.').append(values.get(i)).append("\n");
+            }
         });
         return resStr.toString();
     }
@@ -33,6 +42,7 @@ public class StringConversionServiceImpl implements StringConversionService {
     public Map<String, List<String>> toServerGroup(String sourceValue) {
         // 数据拆分组合
         String[] rows = sourceValue.split("\n");
+        log.info(JSONArray.toJSONString(rows));
         Map<String, List<String>> resMap = new HashMap<>();
         for (String row : rows) {
             List<String> colList = Arrays.asList(row.split("\t"));
@@ -46,7 +56,6 @@ public class StringConversionServiceImpl implements StringConversionService {
             valueList.add(value);
             resMap.put(key, valueList);
         }
-
         return resMap;
     }
 
