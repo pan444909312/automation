@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
         scenarioID = "01JXCHW54W6GDVS2DKZBDP81E1",
         scenarioName = "进入店铺获取门店新客商品列表",
         author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
+        developmentTime = 20, maintenanceTime = 10, manualTestTime = 15)
 @DisplayName("进入店铺获取门店新客商品列表")
 public class GetShopProductsForNewUser {
     // 接口请求的 path

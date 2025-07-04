@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
         scenarioID = "01JXHSWVJT3NJZ49VKHDCX9Q5G", // 自动生成，不要修改
         scenarioName = "获取会场信息",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 25, maintenanceTime = 0, manualTestTime = 3)
+        developmentTime = 25, maintenanceTime = 20, manualTestTime = 3)
 @DisplayName("获取会场信息")
 public class Venueinfo_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
