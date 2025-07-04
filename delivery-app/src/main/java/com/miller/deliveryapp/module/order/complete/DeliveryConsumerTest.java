@@ -8,7 +8,7 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
 import com.panda.common.enums.delivery.DriverArriveTypeEnum;
-import com.panda.delivery.app.server.common.enums.OrderDeliveryOperationTypeEnum;
+import com.panda.delivery.app.server.common.enums.OrderDeliveryOptTypeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -39,7 +39,7 @@ public class DeliveryConsumerTest {
      */
 
     static Stream<Arguments> modifyOrderStatusToDriverFinishedOrder() {
-        CompleteOrderRequesDTO completeOrderRequesDTO = modifyDeliveryStatus(OrderDeliveryOperationTypeEnum.DELIVERY_CONSUMER.getValue());
+        CompleteOrderRequesDTO completeOrderRequesDTO = modifyDeliveryStatus(OrderDeliveryOptTypeEnum.DELIVERY_CONSUMER.getValue());
         // 自动化测试使用固定图片，免去上图图片网络操作
         completeOrderRequesDTO.setOrderCompleteImageUrlList(List.of("http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/170174606688616113ac9a0a74ab29cdadf98ad4cf090.jpg"));
         completeOrderRequesDTO.setArriveRemark("留言备注内容-自动化测试创建，图片默认写死资源地址，免去每次上传图片到oss");

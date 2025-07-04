@@ -7,7 +7,7 @@ import com.miller.deliveryapp.module.order.complete.response.CompleteOrderReques
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
-import com.panda.delivery.app.server.common.enums.OrderDeliveryOperationTypeEnum;
+import com.panda.delivery.app.server.common.enums.OrderDeliveryOptTypeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -39,7 +39,7 @@ public class NonOutMealTest {
 
     static Stream<Arguments> modifyOrderStatusToDriverArrivedTheRestaurantButWaitingOrder() {
         return Stream.of(
-                arguments(modifyDeliveryStatus(OrderDeliveryOperationTypeEnum.NON_OUT_MEAL.getValue()))
+                arguments(modifyDeliveryStatus(OrderDeliveryOptTypeEnum.NON_OUT_MEAL.getValue()))
         );
     }
 

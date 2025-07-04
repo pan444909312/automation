@@ -1,7 +1,6 @@
 package com.miller.deliveryapp.module.driver.bankinfo.request;
 
 
-import com.panda.delivery.app.server.domain.dto.agreement.DeliveryAgreementListReq;
 
 /**
  * 骑手银行卡列表信息获取
