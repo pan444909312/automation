@@ -1,8 +1,10 @@
 package com.miller.userapp.module.shop.card.version2.home.feature.returnedVisitor;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.common.consants.IndexListConstants;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
+import com.hungrypanda.app.server.entity.shop.DataShopHomeRecommendLabelEntity;
 import com.hungrypanda.app.server.vo.index.ShopFeatureVO;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
@@ -10,6 +12,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.ShopFeatureTypeConstant;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
+import com.miller.userapp.mapper.shop.DataShopHomeRecommendLabelMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
@@ -31,13 +34,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J5WMVHCECNCSWBP13V103YFV",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签3_回头客_首页-商卡二期：回头客",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasReturnedVisitorFeature {
 
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
+    private DataShopHomeRecommendLabelMapper dataShopHomeRecommendLabelMapper;
 
 
     @BeforeAll
@@ -45,6 +49,7 @@ public class ShopShouldHasReturnedVisitorFeature {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
+        dataShopHomeRecommendLabelMapper = sqlSession.getMapper(DataShopHomeRecommendLabelMapper.class);
     }
 
     @MethodSource("staticDataProvider")
@@ -62,6 +67,7 @@ public class ShopShouldHasReturnedVisitorFeature {
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 
         assertThat(shopIndexVO.getRepeatCustomer()).isEqualTo(shopSearchMiddleEntity.getRepeatCustomer());
+        assertThat(shopIndexVO.getRepeatCustomer()).isEqualTo(dataShopHomeRecommendLabelMapper.getReturnedVis2ByShopId(shopId));
         assertThat(shopFeatureVO.getShowContent()).isEqualTo(String.format(IndexListConstants.REPEAT_CONSUMER , shopIndexVO.getRepeatCustomer()));
     }
 

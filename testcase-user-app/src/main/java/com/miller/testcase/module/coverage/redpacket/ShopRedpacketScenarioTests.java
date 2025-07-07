@@ -1,4 +1,4 @@
-package com.miller.testcase.module.redpacket;
+package com.miller.testcase.module.coverage.redpacket;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.http.HttpUtils;
