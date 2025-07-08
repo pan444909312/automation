@@ -1,5 +1,6 @@
 package com.miller.deliveryapp.module.order.complete;
 
+import com.miller.deliveryapp.constants.OrderDeliveryOptTypeEnum;
 import com.miller.deliveryapp.constants.ResponseConstant;
 import com.miller.deliveryapp.module.order.complete.flow.CompleteOrderFlow;
 import com.miller.deliveryapp.module.order.complete.request.CompleteOrderRequesDTO;
@@ -8,7 +9,6 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
 import com.panda.common.enums.delivery.DriverArriveTypeEnum;
-import com.panda.delivery.app.server.common.enums.OrderDeliveryOptTypeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

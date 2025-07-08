@@ -1,9 +1,8 @@
 package com.miller.deliveryapp.module.driver.agreement.response;
 
 
+import com.miller.deliveryapp.constants.AgreementListResp;
 import com.miller.deliveryapp.dto.BasicResponseDTO;
-import com.panda.delivery.app.server.domain.dto.agreement.AgreementListReq;
-import com.panda.delivery.app.server.domain.dto.agreement.AgreementListResp;
 
 /**
  * 骑手同意的协议列表获取

@@ -2,10 +2,11 @@ package com.miller.deliveryapp.order.status.provider;
 
 import com.miller.data.center.user.CreateOrderResponseDTO;
 import com.miller.data.center.user.TestCaseDataForUserConstant;
+import com.miller.deliveryapp.constants.OrderDeliveryOptTypeEnum;
 import com.miller.deliveryapp.order.status.request.ModifyOrderStatusRequestDTO;
 import com.miller.service.framework.cache.CacheUtils;
 import com.panda.common.enums.delivery.DriverArriveTypeEnum;
-import com.panda.delivery.app.server.common.enums.OrderDeliveryOptTypeEnum;
+//import com.panda.delivery.app.server.common.enums.OrderDeliveryOptTypeEnum;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.List;

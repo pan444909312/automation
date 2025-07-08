@@ -1,12 +1,12 @@
 package com.miller.deliveryapp.module.driver.agreement;
 
+import com.miller.deliveryapp.constants.AgreementListReq;
 import com.miller.deliveryapp.constants.ResponseConstant;
 import com.miller.deliveryapp.module.driver.agreement.flow.AgreementListFlow;
 import com.miller.deliveryapp.module.driver.agreement.request.AgreementListRequestDTO;
 import com.miller.deliveryapp.module.driver.agreement.response.AgreementListResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
-import com.panda.delivery.app.server.domain.dto.agreement.AgreementListReq;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -44,10 +44,10 @@ public class AgreementListTests {
      * 骑手同意的协议列表获取
      */
     static Stream<Arguments> agreementListDataProvider() {
-        AgreementListRequestDTO agreementListRequestDTO = new AgreementListRequestDTO();
-        agreementListRequestDTO.setCountry("中国");
+        AgreementListReq AgreementListReq = new AgreementListReq();
+        AgreementListReq.setCountry("中国");
         return Stream.of(
-                arguments(agreementListRequestDTO)
+                arguments(AgreementListReq)
         );
     }
 

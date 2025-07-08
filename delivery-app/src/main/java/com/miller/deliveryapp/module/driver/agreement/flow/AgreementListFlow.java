@@ -1,11 +1,10 @@
 package com.miller.deliveryapp.module.driver.agreement.flow;
 
+import com.miller.deliveryapp.constants.AgreementListReq;
 import com.miller.deliveryapp.constants.BusinessConstant;
-import com.miller.deliveryapp.module.driver.agreement.request.AgreementListRequestDTO;
 import com.miller.deliveryapp.module.driver.agreement.response.AgreementListResponseDTO;
 import com.miller.deliveryapp.util.RequestUtils;
 import com.miller.service.framework.http.HttpUtils;
-import com.panda.delivery.app.server.domain.dto.agreement.AgreementListReq;
 
 /**
  * 骑手同意的协议列表获取
