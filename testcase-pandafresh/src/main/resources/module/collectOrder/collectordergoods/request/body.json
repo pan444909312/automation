@@ -1,0 +1,8 @@
+{
+	"sortType":1,
+	"page":{
+		"current":1,
+		"size":10
+	},
+	"maxPrice":"5"
+}

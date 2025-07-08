@@ -1,0 +1,32 @@
+{
+	"pm":"POST",
+	"ph":{
+		"content-type":"application/json",
+		"authorization":"a2c7f57c203c6a5c0c55257971b9a383",
+		"latitude":"30.20115",
+		"longitude":"120.22142",
+		"reallatitude":"30.20115",
+		"reallongitude":"120.22142",
+		"version":"8.64.0",
+		"platform":"WEB_IOS",
+		"system":"HungryPanda",
+		"portalId":"3",
+		"cityId":"755",
+		"language":"CN",
+		"regionId":"3",
+		"shopId":"1314",
+		"cityName":"%E6%9D%AD%E5%B7%9E%E5%B8%82",
+		"userId":"1398717076",
+		"appTypeId":"1",
+		"marketChannel":"",
+		"service-route":"pandafresh"
+	},
+	"pd":{
+		"portalId":0,
+		"regionId":0
+	},
+	"nv":"2",
+	"nt":"1751953882573",
+	"nn":"08oGrjQ0AVG21gczSe5iDrt7u",
+	"nd":"eaea4b38b1bb0f7"
+}

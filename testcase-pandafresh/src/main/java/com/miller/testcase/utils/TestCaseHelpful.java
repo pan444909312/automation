@@ -258,7 +258,6 @@ public class TestCaseHelpful {
             }
             requestJsonObject.put("authorization", headers.get("authorization"));
             requestJsonObject.put("_ts", System.currentTimeMillis());
-
             String signReal = SignGenerate.getSignOfHPF(requestJsonObject, "hP*L8pp65_#1flvjk342589fdgjl34m");
             headers.put("_sign", signReal);
             headers.put("_ts", System.currentTimeMillis() + "");
