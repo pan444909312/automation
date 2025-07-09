@@ -110,7 +110,7 @@ public class MerchantFactory {
 
     private void setUP() {
         // 关闭首页店铺流缓存
-        XXLConfUtils.updateConfig("test", "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
+//        XXLConfUtils.updateConfig("test", "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
     }
 
     /**
