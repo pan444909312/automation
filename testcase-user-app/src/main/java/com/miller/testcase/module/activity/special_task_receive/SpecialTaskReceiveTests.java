@@ -59,7 +59,7 @@ public class SpecialTaskReceiveTests {
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         TestCaseHelpful.set("userTaskSn", TestCaseHelpful.extractValue(responseBody, "$.result.indexTaskVO.processingTask.userTaskSn"));
-        String userTaskId = (String) PandaTestDBHelpful.executeSelectOneSql("select * from hp_task_center_user where user_id=\"1398717314\" and task_id=\"2050\" and sub_task_id=0 order by create_time desc").get("id");
+        var userTaskId = PandaTestDBHelpful.executeSelectOneSql("select * from hp_task_center_user where user_id=\"1398717314\" and task_id=\"2050\" and sub_task_id=0 order by create_time desc").get("id");
         TestCaseHelpful.set("userTaskId", userTaskId);
 
 
