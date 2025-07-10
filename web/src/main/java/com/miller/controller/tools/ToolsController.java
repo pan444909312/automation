@@ -54,7 +54,7 @@ public class ToolsController {
         String str = createUserServer.autoCreateUser(!isCustom, createUserData.getPhone());
         try {
             Long.parseLong(str);
-            return Response.success("username:" + str);
+            return Response.success("UserId:" + str);
             // str是有效数字
         } catch (NumberFormatException e) {
             // str不是数字
