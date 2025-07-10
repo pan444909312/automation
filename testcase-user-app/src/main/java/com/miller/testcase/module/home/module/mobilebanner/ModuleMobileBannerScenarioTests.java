@@ -7,7 +7,7 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@Scenario(scenarioID = "01JWCZVXDASV9FCE7F774FJR2Z", scenarioName = "m站-广告banner展示"
+@Scenario(scenarioID = "01JYJWRY2YSPDAQ90V0NJPGDJH", scenarioName = "m站-广告banner展示"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 public class ModuleMobileBannerScenarioTests {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/web/banner/image";
