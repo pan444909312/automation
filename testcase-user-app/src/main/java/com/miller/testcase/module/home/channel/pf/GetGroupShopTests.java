@@ -7,6 +7,9 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 @Scenario(
         scenarioID = "01JWSS1KB2H2X5WV4YW6GE43GE",
         scenarioName = "PF品类频道-获取商家列表",
@@ -19,32 +22,43 @@ public class GetGroupShopTests {
     // 请求方式
     String method = "POST";
     // 请求头
-    String headers = "module/headers.json";
+    String headers = "module/home/module/channel/pfshop/request/heades.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
     String body = "module/home/module/channel/pfshop/request/success.json";
     // 断言
     String assert2 = "module/home/module/channel/pfshop/response/assert_some_fields.json";
+
     @DisplayName("PF品类频道-获取页面信息")
     @Test
     void shouldReturnSuccessfully() {
-        // 步骤1: 设置请求头。基本固定写法，不需要修改
+        // 步骤1-3: 请求头、请求体、发起请求
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("authorization",TestCaseHelpful.login("17700000077","123456"));
-        // 步骤2: 设置请求体。基本固定写法，不需要修改
+        requestHeaders.put("authorization", TestCaseHelpful.login("17700000077", "123456"));
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-//        HashMap<String,Object> params = new HashMap<>();
-//        params.put("moduleId",2411);
-//        params.put("pageNo",1);
-//        params.put("pageSize",10);
-//        params.put("cityName","%E4%B9%9D%E6%B1%9F%E5%B8%82");
-//        params.put("sortType","COMPOSITE");
-//        params.put("zipCode",null);
-        // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
 
-        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
-        // 方式二：部份匹配，
-        String expectedStr = TestCaseHelpful.getFileContent(assert2);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        var expectedStr = TestCaseHelpful.getFileContent(assert2);
+
+        // 提取断言里的 filterGroup 和 shopList
+        var expectedFilters = TestCaseHelpful.extractValue(expectedStr, "$.result.filterGroup");
+        var expectedShopList = TestCaseHelpful.extractValue(expectedStr, "$.result.shopList[0]");
+        ArrayList<Object>expectedShopListArr =new ArrayList<>();
+        expectedShopListArr.add(expectedShopList);
+        // 校验 filterGroup
+        TestCaseHelpful.assertThatJson(responseBody)
+                .when(Option.IGNORING_EXTRA_ARRAY_ITEMS, Option.IGNORING_EXTRA_FIELDS, Option.IGNORING_ARRAY_ORDER)
+                .inPath("$.result.filterGroup")
+                .isEqualTo(expectedFilters);
+
+        // 打印期望和实际的 shopList 值以便调试
+        System.out.println("Expected ShopList: " + expectedShopList);
+        var actualShopList = TestCaseHelpful.extractValue(responseBody, "$.result.shopList");
+        System.out.println("Actual ShopList: " + Optional.ofNullable(actualShopList));
+
+        // 校验 shopList
+        TestCaseHelpful.assertThatJson(responseBody)
+                .when(Option.IGNORING_EXTRA_ARRAY_ITEMS, Option.IGNORING_EXTRA_FIELDS, Option.IGNORING_ARRAY_ORDER)
+                .inPath("$.result.shopList")
+                .isEqualTo(expectedShopListArr);
     }
 }

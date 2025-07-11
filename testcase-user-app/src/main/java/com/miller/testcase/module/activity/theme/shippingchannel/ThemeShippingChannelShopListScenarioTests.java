@@ -19,7 +19,8 @@ public class ThemeShippingChannelShopListScenarioTests {
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/activity/theme/shippingchannel/request/success.json");
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         var expectedStr = TestCaseHelpful.getFileContent("module/activity/theme/shippingchannel/response/assert_some_fields.json");
-        var shopList = TestCaseHelpful.extractValue(responseBody, "$.result.list");
-        TestCaseHelpful.assertThatJson(shopList).isNotNull();
+        var expectedStrArr=TestCaseHelpful.extractValue(expectedStr,"$.result.shopIndexVOS");
+        var shopList = TestCaseHelpful.extractValue(responseBody, "$.result.shopIndexVOS");
+        TestCaseHelpful.assertThatJson(shopList).when(Option.IGNORING_ARRAY_ORDER, Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStrArr);
     }
 }

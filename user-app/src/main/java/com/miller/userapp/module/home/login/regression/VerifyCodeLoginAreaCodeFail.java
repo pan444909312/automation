@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01JYJWRY2YSPDAQ90V0NJPGDJH",
+@Scenario(scenarioID = "01JYJWRY2YSPDAQ90V0NJPGDJJ",
         scenarioName = "验证码登录失败:区号不匹配",
         author = "yancancan@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 10, manualTestTime = 15)
 @EnvTag.Test

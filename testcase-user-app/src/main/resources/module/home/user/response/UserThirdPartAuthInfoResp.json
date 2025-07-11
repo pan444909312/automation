@@ -1,0 +1,10 @@
+{
+  "resultCode": 2033,
+  "error": "微信小程序授权登录失败,请稍后重试",
+  "reason": "微信小程序授权登录失败,请稍后重试",
+  "result": null,
+  "currency": "${json-unit.any-string}",
+  "success": false,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}

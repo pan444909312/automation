@@ -3,6 +3,7 @@ package com.miller.testcase.module.address.getaddresses;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
+import net.javacrumbs.jsonunit.core.internal.JsonUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -39,11 +40,12 @@ public class GetHpfAddresses_Tests {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         //登录用户(请求头包含userid，需修改)
-        requestHeaders.put("userid",249222);
-        requestHeaders.put("authorization",TestCaseHelpful.login("18968046019","123456"));
+//        requestHeaders.put("userid",249222);
+//        requestHeaders.put("authorization",TestCaseHelpful.login("18968046019","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 

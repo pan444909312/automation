@@ -29,7 +29,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import java.util.*;
 
 public class CreateUserServer {
-    private static final String[] prefixTels = {"165","167","170","171","187","190","192","139","159","195"};
+    private static final String[] prefixTels = {"165", "167", "170", "171", "187", "190", "192", "139", "159", "195"};
     private String saveOrUpdateUrl = BusinessConstant.DOMAIN + "/api/app/user/v1/address/edit";
     private SqlSession sqlSession;
     private AccountSql accountSql;
@@ -39,16 +39,19 @@ public class CreateUserServer {
     private UserLogSql userLogSql;
     private UserRegInfoSql userRegInfoSql;
     private UserAccountSql userAccountSql;
-    private Map<String,Object> headers ;
+    private Map<String, Object> headers;
     private RedisService redisService;
     private Long userId;
     private CreateUserEntity createUserEntity;
-    public CreateUserServer(SqlSession sqlSession,CreateUserEntity createUserEntity){
+
+    private String deviceId = "auto-test-device";
+    public CreateUserServer(SqlSession sqlSession, CreateUserEntity createUserEntity) {
         this.sqlSession = sqlSession;
         this.createUserEntity = createUserEntity;
         initSql();
     }
-    public void initSql(){
+
+    public void initSql() {
         accountSql = new AccountSql(sqlSession);
         deviceLoginInfoSql = new DeviceLoginInfoSql(sqlSession);
         integralSql = new IntegralSql(sqlSession);
@@ -59,14 +62,14 @@ public class CreateUserServer {
         headers = new HashMap<>();
         redisService = RedisService.getRedisServiceInstance();
         redisService.connectionSlave("r-3nscqny4art27v9hrzpd.redis.rds.aliyuncs.com", 6379, "YNKAthEbNF3XoK8E");
-        redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9",32,60L);
+        redisService.set("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9", 32, 60L);
     }
 
     /**
      * 1.创建CreateUserEntity 数据
-     *   a.loginPassword为登陆密码，默认12345678
-     *   b.payPassword为支付密码，默认123456
-     *   c.balance为账户余额，默认1_000_000
+     * a.loginPassword为登陆密码，默认12345678
+     * b.payPassword为支付密码，默认123456
+     * c.balance为账户余额，默认1_000_000
      * 2.autoCreateUser 开始创建用户账号，isAuto 为true则自动创建用户，false则根据tel来创建
      * 3.发送短信验证接口 （redis自动插入图形校验值32，根据手机号码前3后4模糊匹配验证码
      * 4.登陆接口 （获取userId）
@@ -74,7 +77,7 @@ public class CreateUserServer {
      * 6.绑定一个默认地址，type为1为创建地址
      * 7.在countryCode=SG 创建一张银行卡
      */
-    public static  void main(String[] args){
+    public static void main(String[] args) {
         String createUserJson = """
                 {
                     "loginPassword":"12345678",
@@ -99,66 +102,66 @@ public class CreateUserServer {
                     
                 }
                 """;
-        CreateUserEntity createUserData = JSON.parseObject(createUserJson,CreateUserEntity.class);
-        CreateUserServer createUserServer = new CreateUserServer(DBUtils.getDBOfPandaTest(),createUserData);
-        String result = createUserServer.autoCreateUser(true,null);
-        System.out.println("result is : "+result);
+        CreateUserEntity createUserData = JSON.parseObject(createUserJson, CreateUserEntity.class);
+        CreateUserServer createUserServer = new CreateUserServer(DBUtils.getDBOfPandaTest(), createUserData);
+        String result = createUserServer.autoCreateUser(true, null);
+        System.out.println("result is : " + result);
 //        createUserServer.autoCreateUser(false,"19225568102");
     }
 
     /**
-     *
      * @param isAuto true为自动创建用户，false则根据tel来创建
      * @param tel
      * @return
      */
-    public String autoCreateUser(Boolean isAuto,String tel){
-        if(isAuto){
+    public String autoCreateUser(Boolean isAuto, String tel) {
+        if (isAuto) {
             int count = 0;
-            while(true){
+            while (true) {
                 count++;
                 int size = prefixTels.length;
                 int random = new Random().nextInt(size);
-                String autoTel = prefixTels[random]+String.valueOf(new Random().nextInt(10_000_000,100_000_000));
-                if(checkUser(autoTel)){
-                    createUserData(autoTel);
-                    return autoTel;
+                String autoTel = prefixTels[random] + String.valueOf(new Random().nextInt(10_000_000, 100_000_000));
+                if (checkUser(autoTel)) {
+                    return createUserData(autoTel)+"";
                 }
-                if(count > 1000){
+                if (count > 1000) {
                     break;
                 }
             }
             return "没有账号可创建了";
 
-        }else {
-            if(StringUtils.isEmpty(tel) || tel.length() != 11){
+        } else {
+            if (StringUtils.isEmpty(tel) || tel.length() != 11) {
                 return "请输入正确手机号！";
             }
             Optional<String> prefixTel = Arrays.stream(prefixTels).filter(tel::startsWith).findAny();
-            if(!prefixTel.isPresent()){
+            if (!prefixTel.isPresent()) {
                 return "请输入{165,167,170,171,187,190,192,139,159,195}开头手机号！";
             }
-            if(checkUser(tel)){
-                createUserData(tel);
-                return tel;
-            }else{
-                return tel+"账号已存在";
+            if (checkUser(tel)) {
+                return createUserData(tel)+"";
+            } else {
+                return tel + "账号已存在";
             }
         }
     }
-    public boolean checkUser(String tel){
+
+    public boolean checkUser(String tel) {
         UserEntity user = userSql.getUser(tel);
-        if(Objects.nonNull(user)){
+        if (Objects.nonNull(user)) {
             return false;
-        }else {
-            return  true;
+        } else {
+            return true;
         }
     }
+
     /**
      * 发送手机验证码
+     *
      * @param tel
      */
-    public void sendVerificationCode(String tel){
+    public void sendVerificationCode(String tel) {
         UserSendVerificationCodeRequest request = new UserSendVerificationCodeRequest();
         UserSendVerificationCodeRequest.CaptchaCheckDTO captchaCheckDTO = new UserSendVerificationCodeRequest.CaptchaCheckDTO();
         UserSendVerificationCodeRequest.CaptchaCheckDTO.ImageCaptchaCheckDTO imageCaptchaCheckDTO = new UserSendVerificationCodeRequest.CaptchaCheckDTO.ImageCaptchaCheckDTO();
@@ -169,7 +172,7 @@ public class CreateUserServer {
         request.setAreaCode("86");
         request.setCaptchaToken("28d33b2425c344c581a4520f3c8c98f9");
         //需要在redis存值，不然图形校验不通过
-        System.out.println("value: "+redisService.get("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9"));
+        System.out.println("value: " + redisService.get("message-server:IMG_CAPTCHA:28d33b2425c344c581a4520f3c8c98f9"));
         request.setScene(102);
         request.setSendType(0);
         request.setPhoneNumber(tel);
@@ -177,20 +180,21 @@ public class CreateUserServer {
         UserSendVerificationCodeFlow.sendVerificationCode(request);
     }
 
-    public Integer getCaptchaCode(String tel){
+    public Integer getCaptchaCode(String tel) {
         Integer verifyCode = userLogSql.getCaptcha(tel);
         return verifyCode;
     }
 
     /**
      * 登陆账号
+     *
      * @param tel
      * @param verificationCode
      */
-    public void userLogin(String tel,String verificationCode){
+    public void userLogin(String tel, String verificationCode) {
         UserLoginRequestDTO request = new UserLoginRequestDTO();
         request.setAreaCode("86");
-        request.setDistinctId("5b309138e2e1e984");
+        request.setDistinctId(deviceId);
         request.setCityName("%E6%9D%AD%E5%B7%9E%E5%B8%82");
         request.setType(1);
         request.setAccount(tel);
@@ -202,33 +206,35 @@ public class CreateUserServer {
         var token = userLoginResponseDTO.getResult().getAccessToken();
         // 获取token
         headers.put("Content-Type", "application/json");
-        headers.put("countrycode","SG");
+        headers.put("countrycode", "SG");
         headers.put("authorization", token);
         userId = userLoginResponseDTO.getResult().getUserId();
     }
 
     /**
      * 修改用户密码（初始值12345678）,修改余额值（初始值1_000_000)
+     *
      * @param userId
      */
-    public void updatePWDAndBalance(Long userId){
+    public void updatePWDAndBalance(Long userId) {
         String salt = PasswordUtil.genSalt(10);
 //        String pwd = PasswordUtil.encrypt(MD5Util.string2MD5(createUserEntity.getLoginPassword()),salt);//12345678
         //新库直接调用，不用上面方法了
         String pwd = new SimpleHash("MD5", MD5Util.string2MD5(createUserEntity.getLoginPassword()), salt).toString();
         String pwdBalance = MD5Util.string2MD5(createUserEntity.getPayPassword());
         int balance = createUserEntity.getBalance();
-        userSql.updatePassword(userId,salt,pwd); //用户登陆密码
-        userAccountSql.update(userId,balance,pwdBalance);//余额支付密码
-        accountSql.update(userId,balance);
+        userSql.updatePassword(userId, salt, pwd); //用户登陆密码
+        userAccountSql.update(userId, balance, pwdBalance);//余额支付密码
+        accountSql.update(userId, balance);
 
     }
 
     /**
      * 创建收货地址，公司地址
+     *
      * @param tel
      */
-    public void createAddress(String tel){
+    public void createAddress(String tel) {
 //        String addressJson = """
 //                {
 //                	"addressRemark": "",
@@ -250,66 +256,66 @@ public class CreateUserServer {
 //        AddressRequestDTO addressRequestDTO = JSON.parseObject(addressJson,AddressRequestDTO.class);
         AddressRequestDTO addressRequestDTO = createUserEntity.getAddress();
         addressRequestDTO.setTelephone(tel);
-        HttpUtils.sendPostRequestReturnJavaObject(saveOrUpdateUrl,null,headers,JSON.toJSONString(addressRequestDTO),null,AddressResponseDTO.class);
+        HttpUtils.sendPostRequestReturnJavaObject(saveOrUpdateUrl, null, headers, JSON.toJSONString(addressRequestDTO), null, AddressResponseDTO.class);
     }
 
     /**
      * 绑定一张测试卡，stripe通道
-     *
      */
-    public void createPaymentCard(){
+    public void createPaymentCard() {
         GetPaymentMethodsRequestDTO getPaymentMethodsRequestDTO = new GetPaymentMethodsRequestDTO();
-        GetPaymentMethodsFlow.getPaymentMethods(getPaymentMethodsRequestDTO,headers); //注册stipe用户信息
+        GetPaymentMethodsFlow.getPaymentMethods(getPaymentMethodsRequestDTO, headers); //注册stipe用户信息
         CreatePaymentMethodRequestDTO createPaymentMethodRequestDTO = new CreatePaymentMethodRequestDTO();
         createPaymentMethodRequestDTO.setCvc("737");
         createPaymentMethodRequestDTO.setExpMonth("09");
         createPaymentMethodRequestDTO.setExpYear("2050");
         createPaymentMethodRequestDTO.setPostalCode("310000");
         createPaymentMethodRequestDTO.setCardNumber(PaymentConstant.CARDNUMBER);
-        CreatePaymentMethodFlow.createPaymentMethod(createPaymentMethodRequestDTO,headers);
+        CreatePaymentMethodFlow.createPaymentMethod(createPaymentMethodRequestDTO, headers);
     }
-
 
 
     /**
      * 创建用户及后续地址、卡等创建
      * 主入口
+     *
      * @param tel
      */
-    private void createUserData(String tel){
-        System.out.println("手机号为："+tel);
+    private Long createUserData(String tel) {
+        System.out.println("手机号为：" + tel);
 
         sendVerificationCode(tel);
         Integer code = getCaptchaCode(tel);
-        userLogin(tel,String.valueOf(code));
-        System.out.println("userId："+userId);
-        UserEntity user ;
+        userLogin(tel, String.valueOf(code));
+        System.out.println("userId：" + userId);
+        UserEntity user;
         int count = 0;
         //后续动作
-        while(true){
+        while (true) {
             count++;
 //            user = userSql.getUser(tel);
             user = userSql.getUser(userId);
-            if(Objects.isNull(user)){
+            if (Objects.isNull(user)) {
                 try {
                     Thread.sleep(500);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else {
+            } else {
                 break;
             }
-            if(count > 60) break;//5分钟后退出
+            if (count > 60) break;//5分钟后退出
 
 
         }
-        System.out.println("user："+JSON.toJSON(user));
+        System.out.println("user：" + JSON.toJSON(user));
 //        if(Objects.isNull(user)){
 //            throw  new RuntimeException("创建用户失败");
 //        }
         updatePWDAndBalance(userId);
         createAddress(tel);
         createPaymentCard();
+        return userId;
     }
 /*
     private void insertUser(String tel){
