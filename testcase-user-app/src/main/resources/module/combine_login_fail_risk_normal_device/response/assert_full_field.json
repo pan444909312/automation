@@ -1,0 +1,10 @@
+{
+	"resultCode": 500,
+	"error": "该设备登录账号已达上限无法登录/注册",
+	"reason": "该设备登录账号已达上限无法登录/注册",
+	"result": null,
+	"currency": "£",
+	"success": false,
+	"queryList": null,
+	"time": null
+}

@@ -1,0 +1,24 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"accessToken": "${json-unit.any-string}",
+		"refresh_token": "${json-unit.any-string}",
+		"userPushToken": "${json-unit.any-string}",
+		"marketToken": "",
+		"shopId": null,
+		"userId": 1398716816,
+		"userName": "15151990629",
+		"userPhone": "15151990629",
+		"aliPaymentUserId": null,
+		"isGive": null,
+		"isRegister": 0,
+		"bioAuthToken": "${json-unit.any-string}",
+		"isOldUser": 1,
+		"isMember": 0,
+		"tokenSrc": "${json-unit.any-string}",
+		"thirdRefreshToken": null
+	},
+	"success": true
+}
