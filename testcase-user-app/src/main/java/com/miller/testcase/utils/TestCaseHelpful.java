@@ -270,16 +270,23 @@ public class TestCaseHelpful {
                 body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
             }
         }
-        //处理验签
+        // 处理验签
         headers.put("_ts", timeStamp);
         JSONObject requestJsonObject = new JSONObject();
         if (!Objects.isNull(body) && body instanceof String) {
             requestJsonObject = JSONObject.parseObject((String) body);
         }
         requestJsonObject.put("_ts", timeStamp);
+
         requestJsonObject.put("authorization", headers.get("authorization") == null ? "" : headers.get("authorization"));
+        // 老签名处理
         String sign = SignGenerateUtil.getSign(requestJsonObject, signAuthKey);
         headers.put("_sign", sign);
+
+        // 新签名处理（老签名使用新的加密方法，且需要比老前面多传一个platform进行加密）
+        requestJsonObject.put("platform", headers.get("platform"));
+        String sig = SignUtil.getSign(signAuthKey, requestJsonObject);
+        headers.put("_sig", sig);
 
 
         method = method.toUpperCase();
