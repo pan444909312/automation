@@ -1,4 +1,4 @@
-package com.miller.testcase.module.order.ordershare;
+package com.miller.testcase.module.coverage.order.ordershare;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;

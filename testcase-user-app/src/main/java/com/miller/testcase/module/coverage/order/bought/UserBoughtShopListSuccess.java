@@ -1,5 +1,6 @@
-package com.miller.testcase.module.order.bought;
+package com.miller.testcase.module.coverage.order.bought;
 
+import com.miller.common.util.StringUtils;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
@@ -10,22 +11,22 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 
-@Scenario(scenarioID = "01JVKR6DPZH7V8WK4B381AMV6J",
-        scenarioName = "订单列表获取买过店铺",
+@Scenario(scenarioID = "01JZSRVX56WEZJ4Q8NWPE015AG",
+        scenarioName = "买过店铺列表",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("/api/app/user/bought/simple/shopList")
-public class UserBoughtSimpleShopListSuccess {
-    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/bought/simple/shopList";
+@DisplayName("/api/app/user/bought/shopList")
+public class UserBoughtShopListSuccess {
+    private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/bought/shopList";
 
-    @DisplayName("订单列表获取买过店铺")
+    @DisplayName("买过店铺列表")
     @Test
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
         // 给请求头添加数据，例如这里添加token
-        headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
-        String requestBody = TestCaseHelpful.getJsonRequestBody("module/order/bought/request/UserBoughtSimpleShopListReq.json");
+        headers.put("Authorization", TestCaseHelpful.login("13960000003", "123456"));
+        String requestBody = TestCaseHelpful.getJsonRequestBody("module/order/bought/request/UserBoughtShopListReq.json");
         String responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
-        String expectedStr = TestCaseHelpful.getFileContent("module/order/bought/response/UserBoughtSimpleShopListResp.json");
+        String expectedStr = TestCaseHelpful.getFileContent("module/order/bought/response/UserBoughtShopListResp.json");
 
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }

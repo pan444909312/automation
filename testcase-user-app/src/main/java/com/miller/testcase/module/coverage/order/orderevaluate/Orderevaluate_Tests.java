@@ -1,4 +1,4 @@
-package com.miller.testcase.module.order.orderevaluate;
+package com.miller.testcase.module.coverage.order.orderevaluate;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
