@@ -4,10 +4,10 @@
 	"data": {
 		"manager": {
 			"userId": "${json-unit.any-number}",
-			"userName": "dongdong_test",
-			"userNick": "单东东",
+			"userName": "auto_test",
+			"userNick": "自动化测试账号",
 			"userPic": "",
-			"userTelphone": "15606690056",
+			"userTelphone": "13968896296",
 			"passwordUpdateTime": "${json-unit.any-number}",
 			"cities": null,
 			"roleNames": null

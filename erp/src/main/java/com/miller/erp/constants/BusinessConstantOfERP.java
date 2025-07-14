@@ -16,11 +16,11 @@ public class BusinessConstantOfERP {
     /**
      * ERP 账号
      */
-    public static final String USERNAME = "dongdong_test";
+    public static final String USERNAME = "auto_test";
     /**
      * ERP 账号密码，MD5 加密
      */
-    public static final String PASSWORD = "9078a56f98d2ac683c8720570c829ac9";
+    public static final String PASSWORD = "91c9bed6752a4f8284904fdb6f988fb2";
 
     /**
      * token: ERP 认证令牌。直接使用token作为默认值，保持名称和值一致，后续名称修改只需要改一个地方。
