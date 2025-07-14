@@ -1,4 +1,4 @@
-package com.miller.testcase.module.home.search.chinese.regression_testing.搜索_普通搜索_多个店铺_店铺和商品;
+package com.miller.testcase.module.business.search.搜索_精准搜索_全部打烊_无广告;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.util.XXLJobUtils;
@@ -17,27 +17,37 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 搜索_普通搜索_多个店铺_店铺
+ * 场景：搜索-精准搜索&全部打烊&无广告
+ *
+ * 前置条件：
+ * 1. hp_data_search_entity_word.search_word = 'Coco'
+ * 2. hp_data_search_entity_word.word_type = 1
+ * 2. hp_data_search_entity_word.task_id 当前最大的
+ * 3. 仅shopId = 1111、2222 店名包含搜索词“coCo”，
+ * 4. shopId = 1111、2222搜索店铺全部打烊，且有效：未删除、已审核、普通店铺或美食城、站点、语言等
+ * 5. 无广告
+ * 6. 搜索定时任务：实体词更新 已执行, jobId = 11
+ *
  *
  * @author 单东东
  * @version 2.0
- * @since 2025/07/09 17:53:23
+ * @since 2025/06/22 16:29:39
  */
 @Scenario(
-        scenarioID = "01JZQ67ERFWEM68JA3V20M9WMT", // 自动生成，不要修改
-        scenarioName = "搜索_普通搜索_多个店铺_店铺和商品包含“喜饺”",
+        scenarioID = "01JYBC3SBQQDZC46QFGXAD4NRE", // 自动生成，不要修改
+        scenarioName = "搜索-精准搜索&全部打烊&无广告_搜索coco-检查搜索结果包含【CoCo、中间包含coCo】",
         author = "shandongdong@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("搜索_普通搜索_多个店铺_店铺和商品包含“喜饺”")
-public class 搜索_普通搜索_多个店铺_店铺和商品_Tests {
+@DisplayName("搜索-精准搜索&全部打烊&无广告")
+public class 搜索_精准搜索_全部打烊_无广告_Tests {
     // 待搜索的词
-    String searchWord = "喜饺";
+    String searchWord = "Coco";
     @BeforeAll
     void beforeAll() {
         var searchWordSql = "SELECT t.search_word FROM panda_test.hp_data_search_entity_word t where t.search_word = '"
                 + searchWord + "'";
         Map<String, Object> stringObjectMap = PandaTestDBHelpful.executeSelectOneSql(searchWordSql);
-        // 如果不存在需要的数据，则插入
+        // 如果不存在需要的数据“Coco”，则插入
         if (Objects.isNull(stringObjectMap)) {
             //  查找最大的task_id
             var maxTaskIdSql = """
@@ -52,8 +62,8 @@ public class 搜索_普通搜索_多个店铺_店铺和商品_Tests {
             PandaTestDBHelpful.executeInsertOrUpdateOrDelete(insertSearchWordSql);
         }
         // 创建两个商家，已经创建了，这里不重复创建
-//         MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "搜索自动化店铺3");
-//         MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "搜索自动化店铺4");
+        // MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "CoCo");
+        // MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "中间包含coCo");
 
         // 执行定时任务：实体词更新
 //         XXLJobUtils.triggerJob("11");
@@ -67,12 +77,13 @@ public class 搜索_普通搜索_多个店铺_店铺和商品_Tests {
         // String sql = "DELETE FROM panda_test.hp_data_search_entity_word WHERE search_word = '" + searchWord + "';";
         // PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
         // 删除 店铺，先打烊
-        // MerchantFactory.closedMerchant("搜索自动化店铺3");
-        // MerchantFactory.deleteMerchant("搜索自动化店铺3");
-        // MerchantFactory.closedMerchant("搜索自动化店铺4");
-        // MerchantFactory.deleteMerchant("搜索自动化店铺4");
+        // MerchantFactory.closedMerchant("CoCo");
+        // MerchantFactory.deleteMerchant("CoCo");
+        // MerchantFactory.closedMerchant("中间包含coCo");
+        // MerchantFactory.deleteMerchant("中间包含coCo");
     }
 
+    @DisplayName("搜索coco-检查搜索结果包含【CoCo、中间包含coCo】")
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
@@ -80,13 +91,13 @@ public class 搜索_普通搜索_多个店铺_店铺和商品_Tests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺和商品/request/headers.json";
+        String headers = "module/home/search/chinese/regression_testing/搜索_精准搜索_全部打烊_无广告/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺和商品/request/body.json";
+        String body = "module/home/search/chinese/regression_testing/搜索_精准搜索_全部打烊_无广告/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺和商品/response/assert_full_field.json";
+        String assertFullField = "module/home/search/chinese/regression_testing/搜索_精准搜索_全部打烊_无广告/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -105,18 +116,18 @@ public class 搜索_普通搜索_多个店铺_店铺和商品_Tests {
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         // 对json文件中排除的字段进行更加复杂的断言
         // 断言店铺列表中包含指定店铺
-        JSONArray shopList = TestCaseHelpful.extractValue(responseBody, "result.shopList");
+        JSONArray shopList = TestCaseHelpful.extractValue(responseBody, "$.result.upperListVO.upperList");
         // 收集所有店铺名称
         java.util.Set<String> shopNames = new java.util.HashSet<>();
         for (int i = 0; i < shopList.size(); i++) {
-            Map shop = (Map<String, Object>) shopList.get(i);
+            Map shop = (java.util.Map<String, Object>) shopList.get(i);
             String shopName = (String) shop.get("shopName");
             shopNames.add(shopName);
         }
 
         // 断言数组中包含指定的店铺名称
-        boolean containsExpectedShop1 = shopNames.stream().anyMatch(name -> name.contains("搜索自动化店铺3"));
-        boolean containsExpectedShop2 = shopNames.stream().anyMatch(name -> name.contains("搜索自动化店铺4"));
+        boolean containsExpectedShop1 = shopNames.stream().anyMatch(name -> name.contains("CoCo"));
+        boolean containsExpectedShop2 = shopNames.stream().anyMatch(name -> name.contains("中间包含coCo"));
 
         TestCaseHelpful.assertThat(containsExpectedShop1).isEqualTo(true);
         TestCaseHelpful.assertThat(containsExpectedShop2).isEqualTo(true);

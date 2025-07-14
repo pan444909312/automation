@@ -1,4 +1,4 @@
-package com.miller.testcase.module.home.search.chinese.regression_testing.搜索_普通搜索_多个店铺_店铺;
+package com.miller.testcase.module.business.search.搜索_普通搜索_多个店铺_店铺和商品;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.util.XXLJobUtils;
@@ -21,17 +21,17 @@ import java.util.Objects;
  *
  * @author 单东东
  * @version 2.0
- * @since 2025/07/09 16:53:23
+ * @since 2025/07/09 17:53:23
  */
 @Scenario(
         scenarioID = "01JZQ67ERFWEM68JA3V20M9WMT", // 自动生成，不要修改
-        scenarioName = "搜索_普通搜索_多个店铺_店铺",
+        scenarioName = "搜索_普通搜索_多个店铺_店铺和商品包含“喜饺”",
         author = "shandongdong@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("搜索_普通搜索_多个店铺_店铺")
-public class 搜索_普通搜索_多个店铺_店铺_Tests {
+@DisplayName("搜索_普通搜索_多个店铺_店铺和商品包含“喜饺”")
+public class 搜索_普通搜索_多个店铺_店铺和商品_Tests {
     // 待搜索的词
-    String searchWord = "隔壁";
+    String searchWord = "喜饺";
     @BeforeAll
     void beforeAll() {
         var searchWordSql = "SELECT t.search_word FROM panda_test.hp_data_search_entity_word t where t.search_word = '"
@@ -52,8 +52,8 @@ public class 搜索_普通搜索_多个店铺_店铺_Tests {
             PandaTestDBHelpful.executeInsertOrUpdateOrDelete(insertSearchWordSql);
         }
         // 创建两个商家，已经创建了，这里不重复创建
-//         MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "隔壁");
-//         MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "中间包含隔壁");
+//         MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "搜索自动化店铺3");
+//         MerchantFactory.quickCreateMerchant(MerchantFactory.City.JIUJIANG, "搜索自动化店铺4");
 
         // 执行定时任务：实体词更新
 //         XXLJobUtils.triggerJob("11");
@@ -67,10 +67,10 @@ public class 搜索_普通搜索_多个店铺_店铺_Tests {
         // String sql = "DELETE FROM panda_test.hp_data_search_entity_word WHERE search_word = '" + searchWord + "';";
         // PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
         // 删除 店铺，先打烊
-        // MerchantFactory.closedMerchant("CoCo");
-        // MerchantFactory.deleteMerchant("CoCo");
-        // MerchantFactory.closedMerchant("中间包含coCo");
-        // MerchantFactory.deleteMerchant("中间包含coCo");
+        // MerchantFactory.closedMerchant("搜索自动化店铺3");
+        // MerchantFactory.deleteMerchant("搜索自动化店铺3");
+        // MerchantFactory.closedMerchant("搜索自动化店铺4");
+        // MerchantFactory.deleteMerchant("搜索自动化店铺4");
     }
 
     @Test
@@ -80,13 +80,13 @@ public class 搜索_普通搜索_多个店铺_店铺_Tests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺/request/headers.json";
+        String headers = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺和商品/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺/request/body.json";
+        String body = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺和商品/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺/response/assert_full_field.json";
+        String assertFullField = "module/home/search/chinese/regression_testing/搜索_普通搜索_多个店铺_店铺和商品/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -109,14 +109,14 @@ public class 搜索_普通搜索_多个店铺_店铺_Tests {
         // 收集所有店铺名称
         java.util.Set<String> shopNames = new java.util.HashSet<>();
         for (int i = 0; i < shopList.size(); i++) {
-            Map shop = (java.util.Map<String, Object>) shopList.get(i);
+            Map shop = (Map<String, Object>) shopList.get(i);
             String shopName = (String) shop.get("shopName");
             shopNames.add(shopName);
         }
 
         // 断言数组中包含指定的店铺名称
-        boolean containsExpectedShop1 = shopNames.stream().anyMatch(name -> name.contains("隔壁"));
-        boolean containsExpectedShop2 = shopNames.stream().anyMatch(name -> name.contains("中间包含隔壁"));
+        boolean containsExpectedShop1 = shopNames.stream().anyMatch(name -> name.contains("搜索自动化店铺3"));
+        boolean containsExpectedShop2 = shopNames.stream().anyMatch(name -> name.contains("搜索自动化店铺4"));
 
         TestCaseHelpful.assertThat(containsExpectedShop1).isEqualTo(true);
         TestCaseHelpful.assertThat(containsExpectedShop2).isEqualTo(true);
