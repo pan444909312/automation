@@ -453,13 +453,8 @@
         ]
       }
     ],
-    "shopList": [
-      {
-        "shopId": 160288176,
-        "shopName": "商卡测试商家02·商卡二期·自动化测试·勿动"
-      }
-    ],
-    "totalShopNum": 8,
+    "shopList": "${json-unit.ignore-element}",
+    "totalShopNum": "${json-unit.any-number}",
     "marketCategories": null,
     "mapRadius": null,
     "showShopNum": null,

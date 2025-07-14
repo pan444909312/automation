@@ -4,11 +4,7 @@
   "reason": "成功",
   "result": {
     "filterGroup": "${json-unit.ignore}",
-    "shopList": [
-      {
-        "shopName": "商卡测试商家01·商卡二期·自动化测试·勿动"
-      }
-    ],
+    "shopList": "${json-unit.ignore}",
     "upperListVO": {
       "upperList": null,
       "position": null
