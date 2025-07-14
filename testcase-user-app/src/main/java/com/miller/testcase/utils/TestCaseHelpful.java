@@ -35,6 +35,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Slf4j
 public class TestCaseHelpful {
+    private static String signAuthKey = "hP*L8pp65_#1flvjk342589fdgjl34m";
+    private static Long timeStamp = System.currentTimeMillis();
+
     /**
      * 获取测试用例资源文件内容作为请求头
      *
@@ -48,6 +51,7 @@ public class TestCaseHelpful {
         if (!hasContentType) {
 //            throw new IllegalArgumentException("请求头中缺少 Content-Type 字段");
         }
+
         return headers;
     }
 
@@ -65,11 +69,9 @@ public class TestCaseHelpful {
     }
 
     /**
-     *
      * 获取测试用例资源文件内容作为请求Params参数，一般是 GET 请求，参数在url上，以 ?key=value&key2=value2的形式
      *
      * @param filePath 文件路径,文件内容为 json
-     *
      * @return 请求的 Params 参数，也叫 QueryParams
      */
     public static Map<String, Object> getJsonRequestParams(String filePath) {
@@ -94,9 +96,10 @@ public class TestCaseHelpful {
 
     /**
      * 添加 AssertJ 断言
+     *
      * @param actual 实际值
+     * @param <T>    泛型
      * @return ObjectAssert
-     * @param <T> 泛型
      */
     public static <T> ObjectAssert<T> assertThat(T actual) {
         return JsonUnitUtils.assertThat(actual);
@@ -254,6 +257,7 @@ public class TestCaseHelpful {
                 // 解析失败说明不是JSON格式,忽略异常
             }
         }
+        // 处理content-type 为 application/x-www-form-urlencoded 类型
         if (!Objects.isNull(body)) {
             if (headers.get("content-type").toString().contains("application/x-www-form-urlencoded")) {
 //                body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
@@ -266,6 +270,18 @@ public class TestCaseHelpful {
                 body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
             }
         }
+        //处理验签
+        headers.put("_ts", timeStamp);
+        JSONObject requestJsonObject = new JSONObject();
+        if (!Objects.isNull(body) && body instanceof String) {
+            requestJsonObject = JSONObject.parseObject((String) body);
+        }
+        requestJsonObject.put("_ts", timeStamp);
+        requestJsonObject.put("authorization", headers.get("authorization") == null ? "" : headers.get("authorization"));
+        String sign = SignGenerateUtil.getSign(requestJsonObject, signAuthKey);
+        headers.put("_sign", sign);
+
+
         method = method.toUpperCase();
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
