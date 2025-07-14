@@ -1,0 +1,19 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "menuList": [{
+      "subMenuList": [{
+        "menuInfo": {
+          "menuId": -1,
+          "menuName": "运营菜单",
+          "menuDesc": "${json-unit.any-string}",
+          "menuType": 2
+        }
+          }]}]},
+  "currency": "¥",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}
