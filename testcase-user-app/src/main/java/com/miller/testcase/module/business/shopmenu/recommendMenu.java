@@ -1,4 +1,4 @@
-package com.miller.testcase.module.home.shop;
+package com.miller.testcase.module.business.shopmenu;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
@@ -7,22 +7,22 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Scenario(
-        scenarioID = "01JZSNT9G8A78SRCXGXRB9W72Y",
-        scenarioName = "店铺NFC品牌信息接口",
+        scenarioID = "01JZW3C6SQ4CZGPXXETJRK25KF",
+        scenarioName = "进入店铺获取特殊菜单-推荐菜单",
         author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("店铺NFC品牌信息接口")
-public class nfcBrandsInfo {
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@DisplayName("进入店铺获取特殊菜单-推荐菜单")
+public class recommendMenu {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST_APP + "/api/app/user/shop/nfc/brands/info";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/shop/menuList";
     // 请求方式
     String method = "POST";
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/home/shop/request/nfcInfoReq.json";
+    String body = "module/home/shop/request/PickupMenulistReq.json";
     // 断言
-    String assert2 = "module/home/shop/response/nfcBrandsInfoResp.json";
+    String assert2 = "module/home/shop/response/recommendMenuResp.json";
 
     @DisplayName("正向流程")
     @Test

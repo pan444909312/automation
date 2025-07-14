@@ -1,4 +1,4 @@
-package com.miller.testcase.module.home.shop;
+package com.miller.testcase.module.business.shopmenu;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
@@ -7,22 +7,22 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Scenario(
-        scenarioID = "01JZSNT9G8A78SRCXGXRB9W72Y",
-        scenarioName = "店铺NFC品牌信息接口",
+        scenarioID = "01JZW5867JG6EBD0FN1KTHNWDH",
+        scenarioName = "进入店铺获取特殊菜单-新客专享菜单",
         author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("店铺NFC品牌信息接口")
-public class nfcBrandsInfo {
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@DisplayName("进入店铺获取特殊菜单-新客专享菜单")
+public class newUserMenu {
     // 接口请求的 path
-    String uri = TestcaseConfig.HOST_APP + "/api/app/user/shop/nfc/brands/info";
+    String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/shop/menuList";
     // 请求方式
     String method = "POST";
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/home/shop/request/nfcInfoReq.json";
+    String body = "module/home/shop/request/PickupMenulistReq.json";
     // 断言
-    String assert2 = "module/home/shop/response/nfcBrandsInfoResp.json";
+    String assert2 = "module/home/shop/response/operationMenuResp.json";
 
     @DisplayName("正向流程")
     @Test
@@ -39,6 +39,6 @@ public class nfcBrandsInfo {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert2);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS,Option.IGNORING_ARRAY_ORDER).isEqualTo(expectedStr);
     }
 }

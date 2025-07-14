@@ -1,0 +1,18 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "menuList": [{
+      "subMenuList": [{
+        "menuInfo": {
+          "menuId": "${json-unit.any-number}",
+          "menuName": "${json-unit.any-string}",
+          "menuType": 0
+        }
+          }]}]},
+  "currency": "¥",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}
