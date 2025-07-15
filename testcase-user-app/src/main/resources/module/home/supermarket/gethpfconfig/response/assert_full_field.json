@@ -3,6 +3,14 @@
 	"error": "成功",
 	"reason": "成功",
 	"result": {
+		"portalId": "${json-unit.any-number}",
+		"portalName": "宁波",
+		"regionId": "${json-unit.any-number}",
+		"regionName": "${json-unit.any-string}",
+		"defaultShopId": "${json-unit.any-number}",
+		"cityName": "${json-unit.any-string}",
+		"hpfCityId": "${json-unit.any-number}",
+		"postCode": "${json-unit.any-string}",
 		"hpfLogic": true
 	}
 }
