@@ -1,0 +1,10 @@
+{
+	"resultCode":1000,
+	"result": {
+		"totalAmount": "0",
+		"freeShipping": "${json-unit.any-boolean}",
+		"deliveryMsg": "${json-unit.any-string}",
+		"preferentialDesc": "${json-unit.any-string}",
+		"isShopCartMultiSettle": "${json-unit.any-number}"
+	}
+}

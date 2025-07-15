@@ -16,6 +16,7 @@ import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -31,6 +32,8 @@ import java.util.Objects;
  */
 @Slf4j
 public class TestCaseHelpful {
+    private static String signAuthKey = "hP*L8pp65_#1flvjk342589fdgjl34m";
+    private static Long timeStamp = System.currentTimeMillis();
     /**
      * 获取测试用例资源文件内容作为请求头
      *
@@ -262,6 +265,9 @@ public class TestCaseHelpful {
             headers.put("_sign", signReal);
             headers.put("_ts", System.currentTimeMillis() + "");
             headers.put("authorization", headers.get("authorization"));
+            //ab测包含autotest可绕过验签
+            headers.replace("testgroup",headers.get("testgroup")+",autotest");
+
         }
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
@@ -276,6 +282,149 @@ public class TestCaseHelpful {
             throw new RuntimeException("不支持的请求方法" + method);
         }
     }
+
+
+    // -------------- 以下为非通用方法，各业务特有 --------------
+
+    /**
+     * 发送 HTTP 请求
+     *
+     * @param method  请求方法, 支持 POST、GET、PUT、DELETE
+     * @param uri     请求地址, 支持 http、https
+     * @param params  请求参数
+     * @param headers 请求头
+     * @param body    请求体
+     * @return 响应体字符串
+     */
+    public static String sendHpRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
+                                     Object body) {
+        // 将headers中的key全部转成小写
+        Map<String, Object> lowerCaseHeaders = new HashMap<>();
+        if (headers != null) {
+            for (Map.Entry<String, Object> entry : headers.entrySet()) {
+                lowerCaseHeaders.put(entry.getKey().toLowerCase(), entry.getValue());
+            }
+        }
+        headers = lowerCaseHeaders;
+        // 处理 Web 站 请求验签。为了后续兼容服务端处理签名逻辑，这里使用方案一
+        if (body instanceof String) {
+            try {
+                JSONObject jsonBody = JSONUtils.parseObject(body.toString());
+                // 判断是否是 Web 站请求体，如果是，则转为 app 请求体
+                if (jsonBody.containsKey("pm") &&
+                        jsonBody.containsKey("ph") &&
+                        jsonBody.containsKey("pd") &&
+                        jsonBody.containsKey("nv") &&
+                        jsonBody.containsKey("nt") &&
+                        jsonBody.containsKey("nn") &&
+                        jsonBody.containsKey("nd")) {
+                    // 转为 app 请求体
+                    String domain = "";
+                    String path = "";
+
+                    if (uri.contains("://")) {
+                        // 包含协议的情况
+                        int protocolEnd = uri.indexOf("://") + 3;
+                        int domainEnd = uri.indexOf("/", protocolEnd);
+                        if (domainEnd != -1) {
+                            domain = uri.substring(0, domainEnd);
+                            path = uri.substring(domainEnd);
+                        } else {
+                            domain = uri;
+                            path = "/";
+                        }
+                    } else {
+                        // 不包含协议的情况，假设是相对路径
+                        path = uri;
+                    }
+
+                    uri = TestcaseConfig.HpHOST + path;
+                    method = JSONUtils.parseObject(body.toString()).getString("pm");
+                    Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph")
+                            .toJavaObject(Map.class);
+                    // 避免 Authorization 被 Web 请求体的 ph 覆盖
+                    webBodyHeaders.remove("authorization");
+                    // 如果H5里面携带了用H5的
+                    Object h5ContentType;
+                    if (webBodyHeaders.containsKey("content-type")) {
+                        h5ContentType = webBodyHeaders.get("content-type");
+                    } else {
+                        h5ContentType = headers.get("content-type");
+                    }
+                    webBodyHeaders.putAll(headers);
+                    headers.putAll(webBodyHeaders);
+                    headers.put("content-type", h5ContentType);
+                    String host = TestcaseConfig.HpHOST;
+                    if (host.startsWith("https://")) {
+                        host = host.substring(8);
+                    }
+                    headers.put("host", host);
+                    headers.put("content-type", h5ContentType);
+                    if (h5ContentType.toString().contains("application/x-www-form-urlencoded")) {
+                        body = JSONUtils.parseObject(body.toString()).getJSONObject("pd")
+                                .toJavaObject(Map.class);
+                    } else {
+                        body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).getJSONObject("pd"));
+                    }
+                    // 方案二：后续处理
+                    WebSignUtils.encode(JSONUtils.parseObject(body.toString()).getString("nt"),
+                            JSONUtils.parseObject(body.toString()).getString("nu"),
+                            JSONUtils.parseObject(body.toString()).getString("nm"),
+                            JSONUtils.parseObject(body.toString()).getString("nh"),
+                            JSONUtils.parseObject(body.toString()).getString("nb"));
+                }
+            } catch (Exception e) {
+                // 解析失败说明不是JSON格式,忽略异常
+            }
+        }
+        // 处理content-type 为 application/x-www-form-urlencoded 类型
+        if (!Objects.isNull(body)) {
+            if (headers.get("content-type").toString().contains("application/x-www-form-urlencoded")) {
+//                body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+                // 将 JSON 转为 Map 并确保所有值为简单类型（String/Number）
+                Map<String, Object> rawMap = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
+                Map<String, String> formData = new HashMap<>();
+                rawMap.forEach((key, value) -> formData.put(key, value != null ? value.toString() : ""));
+                body = formData; // 传递简单键值对
+            } else {
+                body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
+            }
+        }
+        // 处理验签
+        headers.put("_ts", timeStamp);
+        JSONObject requestJsonObject = new JSONObject();
+        if (!Objects.isNull(body) && body instanceof String) {
+            requestJsonObject = JSONObject.parseObject((String) body);
+        }
+        requestJsonObject.put("_ts", timeStamp);
+
+        requestJsonObject.put("authorization", headers.get("authorization") == null ? "" : headers.get("authorization"));
+        // 老签名处理
+        String sign = SignGenerateUtil.getSign(requestJsonObject, signAuthKey);
+        headers.put("_sign", sign);
+
+        // 新签名处理（老签名使用新的加密方法，且需要比老前面多传一个platform进行加密）
+        requestJsonObject.put("platform", headers.get("platform"));
+        String sig = SignUtil.getSign(signAuthKey, requestJsonObject);
+        headers.put("_sig", sig);
+
+
+        method = method.toUpperCase();
+        if ("POST".equals(method)) {
+            return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
+        } else if ("GET".equals(method)) {
+            return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
+        } else if ("PUT".equals(method)) {
+            return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
+        } else if ("DELETE".equals(method)) {
+            return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
+        } else {
+            log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
+            throw new RuntimeException("不支持的请求方法" + method);
+        }
+    }
+
+
 
     /**
      * 登录并返回token
@@ -305,7 +454,7 @@ public class TestCaseHelpful {
         requestBody = JSONUtils.updateJsonValue(updateAccountValue, "password", password);
 
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
+        var responseBody = TestCaseHelpful.sendHpRequest(method, uri, null, requestHeaders, requestBody);
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         TestCaseHelpful.assertThatJson(responseBody).node("result.accessToken").isNotNull();

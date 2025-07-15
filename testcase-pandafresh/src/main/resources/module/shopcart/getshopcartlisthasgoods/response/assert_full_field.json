@@ -1,0 +1,9 @@
+{
+	"resultCode": 1000,
+	"result": {
+		"normalShopCartList": "${json-unit.ignore-element}",
+		"totalAmount": "${json-unit.any-string}",
+		"totalMarkingAmount": "${json-unit.any-string}",
+		"isShopCartMultiSettle": "${json-unit.any-number}"
+	}
+}
