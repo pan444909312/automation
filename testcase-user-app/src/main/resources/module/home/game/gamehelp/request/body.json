@@ -1,0 +1,26 @@
+{
+	"pm":"POST",
+	"ph":{
+		"locale":"CN",
+		"brand":"",
+		"model":"",
+		"version":"8.10.1",
+		"appVersion":"8.64.0",
+		"longitude":"120.69939",
+		"latitude":"27.99492",
+		"platform":"WEB_WECHATMINI",
+		"appTypeId":"1",
+		"uniquetoken":"017090cd2b9a45d1b8fb33715f619e5f",
+		"unionId":"or9Xo5sJT4yoLEMHR5_fgpwYX9IU",
+		"authorization":"eacd53c24bfea63a2fe06b78e49f583d",
+		"language":"CN"
+	},
+	"pd":{
+		"gameSn":"8ktbsPnLiFge",
+		"helpSn":"edeee3e9e6ede2e2e6eb82e8e8eee6e6bd8e5a26931c04f7"
+	},
+	"nv":"2",
+	"nt":"1752486836366",
+	"nn":"WVPP1PYiv9emtZSTatXjqN5oI",
+	"nd":"b603e367d4478d4"
+}

@@ -1,0 +1,23 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"score": "${json-unit.any-number}",
+		"totalNum": "${json-unit.any-number}",
+		"totalPerson": "${json-unit.any-number}",
+		"evaluationScoreList": "${json-unit.ignore-element}",
+		"dataList": "${json-unit.ignore-element}",
+		"page": {
+			"pageNum": "${json-unit.any-number}",
+			"pageSize": "${json-unit.any-number}",
+			"totalPage": "${json-unit.any-number}",
+			"total": "${json-unit.any-number}",
+			"list": "${json-unit.ignore-element}"
+		}
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

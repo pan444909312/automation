@@ -1,0 +1,16 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "pageNum": 1,
+    "pageSize": "${json-unit.any-number}",
+    "totalPage": "${json-unit.any-number}",
+    "total": "${json-unit.any-number}",
+    "list":"${json-unit.ignore-element}"
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}
