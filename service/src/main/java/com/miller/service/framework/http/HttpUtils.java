@@ -26,7 +26,6 @@ public class HttpUtils {
     }
 
     public static Map<String, Object> sendPostRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies) {
-        System.out.println(222);
         return abstractProtocol.sendPostRequest(uri, params, headers, body, cookies);
     }
 
@@ -125,7 +124,6 @@ public class HttpUtils {
      * @see #sendPostRequestReturnBody(String, Map, Map, Object, Map)
      */
     public static <T> T sendPostRequestReturnJavaObject(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies, Class<T> returnType) {
-        System.out.println(11);
         return sendPostRequestReturnJavaObject(uri, params, headers, body, cookies, returnType, JsonLibraryEnum.FASTJSON);
     }
 
