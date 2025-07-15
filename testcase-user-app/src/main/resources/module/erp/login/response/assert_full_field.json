@@ -6,7 +6,7 @@
 			"userId": "${json-unit.any-number}",
 			"userName": "auto_test",
 			"userNick": "自动化测试账号",
-			"userPic": "",
+			"userPic": "https://static-legacy.dingtalk.com/media/lADPDgQ9rFtdSJ7NA4TNA4Q_900_900.jpg",
 			"userTelphone": "13968896296",
 			"passwordUpdateTime": "${json-unit.any-number}",
 			"cities": null,
