@@ -1,6 +1,8 @@
 package com.miller.testcase.module.home.supermarket.gethpfconfig;
 
+import com.miller.service.dto.XXLConfigEnvEnum;
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.util.XXLConfUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
@@ -17,22 +19,23 @@ import org.junit.jupiter.api.Test;
  * @since 2025/07/10 20:40:17
  */
 @Scenario(
-        scenarioID = "01JZT5KMX0W6RQP1GQVHY0RDB7", // 自动生成，不要修改
-        scenarioName = "pf融合开关&开启 & 定位pf运营区域内",
+        scenarioID = "01JZT5KMX0W6RQP1GQVHY0RD15", // 自动生成，不要修改
+        scenarioName = "pf融合开关：开启&定位pf运营区域外",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf融合开关：开启& 定位pf运营区域内")
-public class GetHpfConfig_Tests {
+@DisplayName("pf融合开关：开启&定位pf运营区域外")
+public class GetHpfConfigClose_Tests {
 
     @BeforeAll
-    static void beforeAll(){
-        // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
-        // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
+    static void beforeAll() throws InterruptedException {
+        //关闭融合开关
+//        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", false);
+//        Thread.sleep(3000L);
     }
     @AfterAll
     static void afterAll(){
-        // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次
-        // 你可以在这里执行后置的操作，比如: 销毁测试数据、还原数据库、清理环境等
+        //开启融合开关
+//        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", true);
     }
 
     @DisplayName("正向流程")
@@ -49,10 +52,12 @@ public class GetHpfConfig_Tests {
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
         String body = null;
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/home/supermarket/gethpfconfig/response/assert_full_field.json";
+        String assertFullField = "module/home/supermarket/gethpfconfig/response/assert_full_fieldClose.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.replace("latitude","51.50722");
+        requestHeaders.replace("longitude","-0.12759");
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);

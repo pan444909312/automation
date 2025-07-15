@@ -1,7 +1,8 @@
-package com.miller.testcase.module.home.supermarket.gethpfconfig;
+package com.miller.testcase.module.shopcart.getshopcartlist;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.FreshTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -9,26 +10,31 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-/**
- * getHpfConfig
- *
- * @author zhangpei
- * @version 2.0
- * @since 2025/07/10 20:40:17
- */
-@Scenario(
-        scenarioID = "01JZT5KMX0W6RQP1GQVHY0RDB7", // 自动生成，不要修改
-        scenarioName = "pf融合开关&开启 & 定位pf运营区域内",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf融合开关：开启& 定位pf运营区域内")
-public class GetHpfConfig_Tests {
+import java.util.List;
+import java.util.Map;
 
+
+@Scenario(
+        scenarioID = "01K06KB29CV2B1GESK91ZJAMRT", // 自动生成，不要修改
+        scenarioName = "购物车列表：有商品",
+        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("购物车列表：有商品")
+public class GetShopCartListHasGoods_Tests {
+    String shopCartId = "0";
     @BeforeAll
-    static void beforeAll(){
-        // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
-        // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-    }
+    void beforeAll(){
+        String sql = "SELECT t.* FROM shop_cart t left join goods g on g.goods_id=t.goods_id where t.user_id=252344 and t.add_source=1 and g.status=1 and g.portal_id=3  limit 10";
+        // 查询多条记录
+        List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
+        // 获取查询结果的第1行数据中的数据库列明为“add_id”的值
+        try {
+            shopCartId = selectListSql.get(0).get("shop_cart_id").toString();
+        }catch (Exception e){
+            System.out.println("购物车无商品！！");
+
+        }
+    } 
     @AfterAll
     static void afterAll(){
         // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次
@@ -39,17 +45,22 @@ public class GetHpfConfig_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HOST_APP + "/api/user/supermarket/getHpfConfig";
+        String uri = TestcaseConfig.HpfHost + "/shopcart/getShopCartList";
         // 接口请求方式。如： GET、POST、PUT、DELETE
-        String method = "GET";
+        String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/home/supermarket/gethpfconfig/request/headers.json";
+        String headers = "module/shopcart/getshopcartlisthasgoods/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = null;
+        String body = "module/shopcart/getshopcartlisthasgoods/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/home/supermarket/gethpfconfig/response/assert_full_field.json";
+        String assertFullField = "0";
+        if (shopCartId != "0"){
+            assertFullField = "module/shopcart/getshopcartlisthasgoods/response/assert_full_field.json";
+        }else {
+            assertFullField = "module/shopcart/getshopcartlist/response/assert_full_field.json";
+        }
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -68,4 +79,4 @@ public class GetHpfConfig_Tests {
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
     }
-} 
+}

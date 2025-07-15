@@ -1,0 +1,15 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"portalId": null,
+		"portalName": null,
+		"regionId": null,
+		"regionName": null,
+		"defaultShopId": "${json-unit.any-number}",
+		"hpfCityId": null,
+		"postCode": null,
+		"hpfLogic": false
+	}
+}

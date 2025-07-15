@@ -1,8 +1,6 @@
 
 {
   "resultCode": 1000,
-  "error": "成功",
-  "reason": "成功",
   "result": {
     "ageLimit": "${json-unit.any-number}",
     "zipCode":"${json-unit.any-string}",
@@ -11,11 +9,6 @@
     "cityname": "${json-unit.any-string}",
     "supermarketUrl": "${json-unit.any-string}",
     "type": "${json-unit.any-number}"
-  },
-  "currency": "¥",
-  "success": true,
-  "nowTime": "${json-unit.any-number}",
-  "queryList": "${json-unit.ignore-element}",
-  "time": "${json-unit.ignore-element}"
+  }
 
 }

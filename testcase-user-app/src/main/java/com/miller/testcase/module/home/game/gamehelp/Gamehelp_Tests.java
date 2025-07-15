@@ -1,7 +1,8 @@
-package com.miller.testcase.module.home.supermarket.gethpfconfig;
+package com.miller.testcase.module.home.game.gamehelp;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -10,19 +11,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * getHpfConfig
+ * gamehelp
  *
- * @author zhangpei
+ * @author yaoqianhu
  * @version 2.0
- * @since 2025/07/10 20:40:17
+ * @since 2025/07/14 18:02:08
  */
 @Scenario(
-        scenarioID = "01JZT5KMX0W6RQP1GQVHY0RDB7", // 自动生成，不要修改
-        scenarioName = "pf融合开关&开启 & 定位pf运营区域内",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf融合开关：开启& 定位pf运营区域内")
-public class GetHpfConfig_Tests {
+        scenarioID = "01K0464XNH290QKEYY43EJKMMZ", // 自动生成，不要修改
+        scenarioName = "游戏-为好友助力",
+        author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        developmentTime = 50, maintenanceTime = 0, manualTestTime = 10)
+@DisplayName("游戏-为好友助力")
+public class Gamehelp_Tests {
 
     @BeforeAll
     static void beforeAll(){
@@ -39,20 +40,21 @@ public class GetHpfConfig_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HOST_APP + "/api/user/supermarket/getHpfConfig";
+        String uri = TestcaseConfig.HOST_APP + "/api/user/activity/game/help";
         // 接口请求方式。如： GET、POST、PUT、DELETE
-        String method = "GET";
+        String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/home/supermarket/gethpfconfig/request/headers.json";
+        String headers = "module/home/game/gamehelp/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = null;
+        String body = "module/home/game/gamehelp/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/home/supermarket/gethpfconfig/response/assert_full_field.json";
+        String assertFullField = "module/home/game/gamehelp/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("Authorization", TestCaseHelpful.login("13711111113", "111113"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
