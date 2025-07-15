@@ -127,6 +127,11 @@ public class ToolsController {
             return Response.success(couponGenerate.addPlatformCouponTemplate(autoCreateCouponReqDTO.getCouponType()));
         }
 
+        // 神券
+        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.SUPER_COUPON.getCode())){
+            return Response.fail("暂不支持神券类型");
+        }
+
         return Response.fail("参数错误");
     }
 

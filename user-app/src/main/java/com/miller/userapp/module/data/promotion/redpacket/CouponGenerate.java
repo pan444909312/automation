@@ -2,6 +2,8 @@ package com.miller.userapp.module.data.promotion.redpacket;
 
 import com.miller.entity.constant.CouponTypeEnum;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import com.miller.service.framework.util.ResourceUtils;
 import com.miller.userapp.module.data.promotion.redpacket.flow.CouponTemplateFlow;
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddProductRequestDTO;
@@ -10,7 +12,8 @@ import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplate
 import com.miller.userapp.module.data.promotion.redpacket.response.CouponTemplateAddResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Arrays;
@@ -22,6 +25,9 @@ import java.util.List;
  * @since 2024/8/8 16:48
  */
 @Slf4j
+@Scenario(scenarioID = "01K06P9H5MRQF374VNHGYFCQ8H", scenarioName = "红包工厂_一键自动创建模板优惠券",
+        author = "panjuxiang@hungrypandagroup.com",
+        developmentTime = 4 * 60, maintenanceTime = 0, manualTestTime = 5)
 public class CouponGenerate {
 
     private CouponTemplateFlow couponTemplateFlow;
@@ -32,6 +38,17 @@ public class CouponGenerate {
     private final String defaultProductIds = "82083860,82083858,82083862";
     //默认券类型 满减
     private final Integer defaultCouponType = 1;
+
+    private void tearDown() {
+        new TestCaseRunnerLauncher().runTestMethod(CouponGenerate.class, "reportedData");
+        // 搜索索引更新
+    }
+
+    @Test
+    @DisplayName("一键自动创建商家")
+    void reportedData() {
+        // 什么都不需要做，仅仅是作为数据上报，复用现在测试框架功能
+    }
 
 
     /**
@@ -56,6 +73,8 @@ public class CouponGenerate {
             return couponTemplateAddResponseDTO.getData();
         } catch (Exception e) {
             return "优惠券添加失败";
+        }finally {
+            tearDown();
         }
     }
 
@@ -207,7 +226,6 @@ public class CouponGenerate {
         return addProductCouponTemplate(defaultProductIds);
     }
 
-    @Test
     public void addCouponTest() {
         //创建平台满减优惠券
 //        System.out.println(addPlatformCouponTemplate(1));
@@ -240,7 +258,6 @@ public class CouponGenerate {
     /**
      * 一键测试添加平台满减券、平台折扣券、平台减运费券、商家满减券、商家折扣券、商家减运费券、商品券
      */
-    @Test
     public void addAllCouponTest() {
         // couponType 券类型，1：满减；2：折扣；3：减运费
         addPlatformCouponTemplate(1);
