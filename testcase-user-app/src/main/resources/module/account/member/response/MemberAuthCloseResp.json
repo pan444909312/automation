@@ -1,0 +1,10 @@
+{
+  "resultCode": 160027,
+  "error": "你暂不是自动续费会员",
+  "reason": "你暂不是自动续费会员",
+  "result": null,
+  "currency": "${json-unit.any-string}",
+  "success": false,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}
