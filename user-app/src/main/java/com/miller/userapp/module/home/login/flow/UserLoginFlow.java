@@ -7,6 +7,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.home.login.response.UserLoginResponseDTO;
+import com.miller.userapp.util.AutoSignUtils;
 import com.miller.userapp.util.RequestUtils;
 
 import java.util.HashMap;
@@ -37,6 +38,9 @@ public class UserLoginFlow {
         var header = new HashMap<String, Object>();
         header.put("Content-Type", "application/json");
         RequestUtils.setHeaders(header);
+
+        AutoSignUtils.signHandler(RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(userLoginRequestDTO));
+
         Map<String, Object> objectMap = HttpUtils.sendPostRequest(uri, null,
                 RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(userLoginRequestDTO), null);
         // 当前登录的用用户信息
@@ -79,6 +83,7 @@ public class UserLoginFlow {
      */
     public static UserLoginResponseDTO loginReturnBodyObject(UserLoginRequestDTO userLoginRequestDTO) {
         return JSON.parseObject(loginReturnBodyString(userLoginRequestDTO), UserLoginResponseDTO.class);
+
     }
 
     /**

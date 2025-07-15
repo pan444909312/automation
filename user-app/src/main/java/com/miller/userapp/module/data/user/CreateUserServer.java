@@ -20,7 +20,9 @@ import com.miller.userapp.module.pay.card.stripe.request.CreatePaymentMethodRequ
 import com.miller.userapp.module.pay.card.stripe.request.GetPaymentMethodsRequestDTO;
 import com.miller.userapp.module.person.address.create.request.AddressRequestDTO;
 import com.miller.userapp.module.person.address.create.response.AddressResponseDTO;
+import com.miller.userapp.util.AutoSignUtils;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import com.panda.delivery.app.server.common.util.PasswordUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -256,6 +258,8 @@ public class CreateUserServer {
 //        AddressRequestDTO addressRequestDTO = JSON.parseObject(addressJson,AddressRequestDTO.class);
         AddressRequestDTO addressRequestDTO = createUserEntity.getAddress();
         addressRequestDTO.setTelephone(tel);
+        AutoSignUtils.signHandler(RequestUtils.getHeaders(), JSON.toJSONString(addressRequestDTO));
+
         HttpUtils.sendPostRequestReturnJavaObject(saveOrUpdateUrl, null, headers, JSON.toJSONString(addressRequestDTO), null, AddressResponseDTO.class);
     }
 
