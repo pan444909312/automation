@@ -544,7 +544,7 @@ public class MerchantFactory {
     private void tearDown() {
         new TestCaseRunnerLauncher().runTestMethod(MerchantFactory.class, "reportedData");
         // 搜索索引更新
-        XXLJobUtils.triggerJob("11");
+//        XXLJobUtils.triggerJob("11");
     }
 
 

@@ -23,19 +23,34 @@ public class XXLJobUtils {
     private static HashMap<String, Object> responseCookies;
 
 
-    static {
-        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        login();
+
+    private static volatile boolean initialized = false;
+
+
+    public static synchronized void init() {
+        if (initialized) return;
+        try {
+            headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            login();
+            initialized = true;
+        } catch (Exception e) {
+            throw new RuntimeException("XXLJobUtils 初始化失败", e);
+        }
     }
 
     private static void login() {
-        var params = new HashMap<String, Object>();
-        params.put("userName", "admin");
-        params.put("password", "123456");
-        params.put("ifRemember", "on");
+        try {
+            var params = new HashMap<String, Object>();
+            params.put("userName", "admin");
+            params.put("password", "123456");
+            params.put("ifRemember", "on");
 
-        Map<String, Object> stringObjectMap = HttpUtils.sendPostRequest(XXL_JOB_ADMIN_URL + "/login", params, headers, null, null);
-        responseCookies = (HashMap<String, Object>) stringObjectMap.get("cookies");
+            Map<String, Object> stringObjectMap = HttpUtils.sendPostRequest(XXL_JOB_ADMIN_URL + "/login", params, headers, null, null);
+            responseCookies = (HashMap<String, Object>) stringObjectMap.get("cookies");
+        } catch (Exception e) {
+            log.error("XXLJobUtils login failed", e);
+            throw new RuntimeException("Failed to initialize XXLJobUtils", e);
+        }
     }
 
     /**
@@ -45,6 +60,9 @@ public class XXLJobUtils {
      * @return true:完成; false: 超时
      */
     public static synchronized boolean triggerJob(String jobId) {
+        if (!initialized) {
+            init();  // 按需初始化
+        }
         var params = new HashMap<String, Object>();
         params.put("id", jobId);
 
