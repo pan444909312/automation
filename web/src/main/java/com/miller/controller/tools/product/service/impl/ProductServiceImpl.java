@@ -9,6 +9,8 @@ import com.miller.erp.moudle.pc.product.flow.ProductSaveFlow;
 import com.miller.erp.moudle.pc.product.request.ProductSaveRequest;
 import com.miller.erp.moudle.pc.product.response.ProductSaveResponse;
 import com.miller.erp.util.RequestUtils;
+import com.panda.common.base.Result;
+import com.panda.product.server.api.dto.product.req.ProductEditDTOV2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -29,17 +31,13 @@ public class ProductServiceImpl  implements ProductService {
 
 
     @Async("taskExecutor")
-    public void batchProduct(String token, BatchProductDao productDao, int addCount,String taskId) {
-        //  手动写入 Token
-        Map<String, Object> headers = RequestUtils.getHeaders();
-        headers.put("token",token);
-        RequestUtils.setHeaders(headers);
+    public void batchProduct(BatchProductDao productDao, int addCount,String taskId) {
 
         for (int i = 0; i < addCount; i++) {
-            final String productName = this.insertProduct(token, productDao);
+            final String productName = this.insertProduct(productDao);
             try {
                 // 停顿 1s
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -48,10 +46,10 @@ public class ProductServiceImpl  implements ProductService {
 
     }
 
-    String insertProduct(String token, BatchProductDao batchProductDao) {
+    String insertProduct( BatchProductDao batchProductDao) {
 
-        JSONObject insertProductReqBody = JSON.parseObject("{\"menuId\":4169154,\"productName\":\"商品名称\",\"productNameEn\":\"en_name\",\"productImg\":\"https://static-img.hungrypanda.co/product-img/172735260970010d7c9b67e784df8916e6929a82d7400.jpg?x-oss-process=style/prod_detail\",\"refer\":1,\"productPrice\":10,\"productSaleType\":1,\"referenceOnly\":true,\"proNum\":\"\",\"packingCharges\":0,\"skuSpecName\":\"\",\"skuSpecNameEn\":\"\",\"status\":0,\"skuAddMode\":0,\"attributeList\":[],\"tagList\":[],\"specs\":[],\"productSkuList\":[],\"details\":\"描述描述描述描述描述\",\"detailsEn\":\"en desc en desc en desc en desc en desc en desc\",\"taste\":\"\",\"quantity\":\"\",\"mainIngredient\":\"\",\"promotionLabel\":\"\",\"productLabel\":0,\"productBuyLimitMin\":1,\"isSpecial\":0,\"limit\":1,\"store\":\"\",\"taxRate\":0,\"isSingleSku\":1,\"productId\":0}");
-        ProductSaveRequest productSaveRequest = JSON.toJavaObject(insertProductReqBody, ProductSaveRequest.class);
+        JSONObject insertProductReqBody = JSON.parseObject("{\"shopId\":109925526,\"productPlatformCategoryId\":504,\"menuId\":4205981,\"productName\":\"飘香拌面\",\"productNameEn\":\"dan-Multiple specificatio2131232\",\"productImg\":\"https://static.hungrypanda.co/crm/175263595287474853f7b8a1e470f94e4cd8d9df94d10.jpg\",\"refer\":0,\"proNum\":\"\",\"shelfNum\":\"\",\"isCombine\":0,\"changeProductStatusByCombineProduct\":0,\"combineRelationDTOS\":[],\"taxRate\":0,\"packingCharges\":0,\"productBuyLimitMin\":1,\"limit\":1,\"status\":0,\"isSpecial\":0,\"productSaleType\":1,\"productSalesLocationList\":[0],\"spec\":{\"id\":\"\",\"productId\":\"\",\"groupName\":\"规格\",\"groupNameEn\":\"specification\",\"valueList\":[{\"id\":null,\"skuGroupId\":null,\"skuName\":\"标准\",\"skuNameEn\":\"standard\",\"price\":1,\"appPrice\":2,\"offlineDineInPrice\":1,\"sortNum\":1,\"status\":1,\"statusChanged\":true,\"otherPlatformPriceList\":[],\"platformPrice\":1}]},\"attributeList\":[],\"tagList\":[],\"isPersonalRecommend\":0,\"productLabel\":0,\"taste\":\"\",\"quantity\":\"\",\"mainIngredient\":\"\",\"promotionLabel\":\"\",\"showProductLabelTypeList\":[0,1,2,3,4],\"sort\":1}\n");
+        ProductEditDTOV2 productSaveRequest = JSON.toJavaObject(insertProductReqBody, ProductEditDTOV2.class);
         final Long menuId = batchProductDao.getMenuId();
         String productName = batchProductDao.getProductName();
         if (ObjectUtils.isEmpty(menuId) || menuId ==0) {
@@ -75,9 +73,9 @@ public class ProductServiceImpl  implements ProductService {
         }
 
 
-        ProductSaveResponse response = ProductSaveFlow.productSave(productSaveRequest);
-        if (response.getCode() != 1) {
-            return String.format("%s ：创建失败：%s", productName, response.getMessage());
+        Result result = ProductSaveFlow.productSave(productSaveRequest);
+        if (result.getCode() != 1) {
+            return String.format("%s ：创建失败：%s", productName, result.getMessage());
         }
         return productName;
 
