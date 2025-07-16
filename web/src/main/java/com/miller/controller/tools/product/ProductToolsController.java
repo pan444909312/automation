@@ -5,6 +5,7 @@ import com.miller.controller.tools.ResultVO;
 import com.miller.controller.tools.product.dao.BatchProductDao;
 import com.miller.controller.tools.product.service.LoginService;
 import com.miller.controller.tools.product.service.ProductService;
+import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,9 @@ public class ProductToolsController {
     @PostMapping("/batch/add")
     public ResultVO batchAddProduct(@RequestBody BatchProductDao reqDao) {
         final String taskId = UUID.randomUUID().toString();
-        //  登录并获取 Pc 站 Token
-        String pcToken = loginService.pcLogin(reqDao.getShopId());
+
+        ERPLoginFlow.loginByDefaultUser();
+//        String pcToken = loginService.pcLogin(reqDao.getShopId());
 
         int forCount = 10;
         int threadCount = reqDao.getCount() / forCount;
@@ -39,7 +41,7 @@ public class ProductToolsController {
             if (i == threadCount) {
                 forCount = reqDao.getCount() - forCount * threadCount;
             }
-            productService.batchProduct(pcToken, reqDao, forCount, taskId);
+            productService.batchProduct( reqDao, forCount, taskId);
         }
         executePoolConfig.setTaskPool(taskId);
         log.info("taskId:{}",taskId);
