@@ -45,7 +45,7 @@ public class CouponGenerate {
     }
 
     @Test
-    @DisplayName("一键自动创建商家")
+    @DisplayName("一键自动创建优惠券")
     void reportedData() {
         // 什么都不需要做，仅仅是作为数据上报，复用现在测试框架功能
     }
