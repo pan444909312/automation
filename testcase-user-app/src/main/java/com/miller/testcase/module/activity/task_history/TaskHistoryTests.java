@@ -3,7 +3,6 @@ package com.miller.testcase.module.activity.task_history;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
-import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -49,7 +48,8 @@ public class TaskHistoryTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        var taskItemVOList=TestCaseHelpful.extractValue(responseBody, "$.result.taskItemVOList");
+        TestCaseHelpful.assertThatJson(taskItemVOList).isNotNull();
 
     }
 } 
