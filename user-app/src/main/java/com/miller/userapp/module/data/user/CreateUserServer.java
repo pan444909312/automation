@@ -20,7 +20,7 @@ import com.miller.userapp.module.pay.card.stripe.request.CreatePaymentMethodRequ
 import com.miller.userapp.module.pay.card.stripe.request.GetPaymentMethodsRequestDTO;
 import com.miller.userapp.module.person.address.create.request.AddressRequestDTO;
 import com.miller.userapp.module.person.address.create.response.AddressResponseDTO;
-import com.miller.userapp.util.AutoSignUtils;
+import com.miller.service.util.AutoSignUtils;
 import com.miller.userapp.util.DBUtils;
 import com.miller.userapp.util.RequestUtils;
 import com.panda.delivery.app.server.common.util.PasswordUtil;

@@ -9,7 +9,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.home.login.UserLoginTests;
 import com.miller.userapp.util.RequestUtils;
-import com.miller.userapp.util.SignGenerateUtil;
+import com.miller.service.util.SignGenerateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

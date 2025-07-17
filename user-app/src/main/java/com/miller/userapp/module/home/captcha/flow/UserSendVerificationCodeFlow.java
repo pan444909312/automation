@@ -4,7 +4,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.home.captcha.request.UserSendVerificationCodeRequest;
 import com.miller.userapp.module.home.captcha.response.UserSendVerificationCodeResponse;
-import com.miller.userapp.util.AutoSignUtils;
+import com.miller.service.util.AutoSignUtils;
 import com.miller.userapp.util.RequestUtils;
 
 import java.util.HashMap;

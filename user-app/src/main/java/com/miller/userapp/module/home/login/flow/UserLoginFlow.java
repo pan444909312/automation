@@ -7,7 +7,7 @@ import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.home.login.response.UserLoginResponseDTO;
-import com.miller.userapp.util.AutoSignUtils;
+import com.miller.service.util.AutoSignUtils;
 import com.miller.userapp.util.RequestUtils;
 
 import java.util.HashMap;

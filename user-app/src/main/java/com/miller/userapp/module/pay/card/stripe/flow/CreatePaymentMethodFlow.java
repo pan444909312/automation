@@ -4,7 +4,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.module.pay.card.stripe.request.CreatePaymentMethodRequestDTO;
 import com.miller.userapp.module.pay.card.stripe.response.CreatePaymentMethodResponseDTO;
-import com.miller.userapp.util.AutoSignUtils;
+import com.miller.service.util.AutoSignUtils;
 import com.miller.userapp.util.RequestUtils;
 
 import java.util.Map;
