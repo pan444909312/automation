@@ -8,8 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * pwd reset
@@ -47,11 +45,8 @@ public class PwdResetTests {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         // 步骤2: 设置请求体。基本固定写法，不需要修改
-        Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("areaCode", "86");
-        requestBody.put("passwd", "e10adc3949ba59abbe56e057f20f883e");
-        requestBody.put("userName", "17700000066");
-        requestBody.put("verification", TestCaseHelpful.getVerificationCode("17700000066"));
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        requestBody=TestCaseHelpful.updateJsonValue(requestBody, "verification", TestCaseHelpful.getVerificationCode("17700000066"));
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
