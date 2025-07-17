@@ -1,4 +1,4 @@
-package com.miller.userapp.util;
+package com.miller.service.util;
 
 import com.alibaba.fastjson.JSONObject;
 

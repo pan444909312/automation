@@ -1,6 +1,7 @@
-package com.miller.userapp.util;
+package com.miller.service.util;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +15,8 @@ import java.util.*;
  * @Author: panjuxiang
  * @Since: 2025/7/15
  */
+@Slf4j
 public class SignUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(cn.hutool.crypto.SignUtil.class);
 
     private SignUtil() {
     }
@@ -28,7 +29,7 @@ public class SignUtil {
             return createSign(paraStr);
         } catch (UnsupportedEncodingException var5) {
             UnsupportedEncodingException e = var5;
-            LOGGER.warn("getSign UnsupportedEncodingException ", e);
+            log.warn("getSign UnsupportedEncodingException ", e);
             return "";
         }
     }
@@ -88,7 +89,7 @@ public class SignUtil {
                 return new String(buf);
             } catch (Exception var9) {
                 Exception e = var9;
-                LOGGER.warn("create sign was failed", e);
+                log.warn("create sign was failed", e);
                 return null;
             }
         } else {
