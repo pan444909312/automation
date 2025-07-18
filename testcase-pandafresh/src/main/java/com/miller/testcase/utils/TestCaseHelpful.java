@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.assertj.core.api.ObjectAssert;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -89,6 +90,16 @@ public class TestCaseHelpful {
         return JsonUnitUtils.assertThatJson(actual, callbacks);
     }
 
+    /**
+     * 添加 AssertJ 断言
+     *
+     * @param actual 实际值
+     * @param <T>    泛型
+     * @return ObjectAssert
+     */
+    public static <T> ObjectAssert<T> assertThat(T actual) {
+        return JsonUnitUtils.assertThat(actual);
+    }
 
     /**
      * 获取 JSON 文件内容
