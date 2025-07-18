@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miller.service.framework.constants.JsonLibraryEnum;
 import com.miller.service.framework.util.JSONUtils;
+import com.miller.service.util.AutoSignUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,10 +23,12 @@ public class HttpUtils {
     private static AbstractHTTPUtils abstractProtocol = new HTTPUtilsByRestAssured();
 
     public static Map<String, Object> sendGetRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Map<String, Object> cookies) {
+        AutoSignUtils.signHandler(headers,null);
         return abstractProtocol.sendGetRequest(uri, params, headers, cookies);
     }
 
     public static Map<String, Object> sendPostRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies) {
+        AutoSignUtils.signHandler(headers,body);
         return abstractProtocol.sendPostRequest(uri, params, headers, body, cookies);
     }
 
