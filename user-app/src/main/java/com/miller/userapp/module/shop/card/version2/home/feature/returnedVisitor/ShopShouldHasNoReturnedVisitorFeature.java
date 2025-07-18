@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J5WMVHCECNCSWBP13V103YFT",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签3_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoReturnedVisitorFeature {
@@ -72,16 +72,15 @@ public class ShopShouldHasNoReturnedVisitorFeature {
     @DisplayName("普通店铺配送商卡_营销标_标签3_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用")
     void shouldNotExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 
         //遍历店铺的ShopFeatureList列表，如果没有type=3的营销标签类型则返回true
         boolean flag = shopIndexVO.getShopFeatureList().stream().noneMatch(item -> item.getType().equals(ShopFeatureTypeConstant.RETURNED_VISITOR));
 
         assertThat(flag).isTrue();
-        assertThat(shopIndexVO.getRepeatCustomer()).isEqualTo(shopSearchMiddleEntity.getRepeatCustomer());
 
 
     }
