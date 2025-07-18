@@ -78,11 +78,9 @@ public class HotSearch_Tests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);
-        System.out.println("keywordswei"+keywords);
 
         for (int i = 0; i < keywords.size(); i++) {
             String word = keywords.get(i);
-            System.out.println("word为"+word);
 
             // 断言返回参数是否包含期望热搜词
             boolean containsExpectedGoods = TestCaseHelpful.extractValue(responseBody, "result.hotWords").toString().contains(word);
