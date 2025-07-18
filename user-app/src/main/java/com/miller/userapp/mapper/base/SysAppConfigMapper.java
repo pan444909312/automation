@@ -1,8 +1,7 @@
-package com.miller.userapp.mapper.shop;
+package com.miller.userapp.mapper.base;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.config.SysAppConfigEntity;
-import org.apache.ibatis.type.Alias;
 
 /**
  * @author panjuxiang

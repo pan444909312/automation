@@ -7,7 +7,7 @@ import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.userapp.mapper.shop.SysAppConfigMapper;
+import com.miller.userapp.mapper.base.SysAppConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version2.redPacket.flow.ShopListFlow;

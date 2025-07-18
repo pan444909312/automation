@@ -8,7 +8,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
-import com.miller.userapp.mapper.shop.SysAppConfigMapper;
+import com.miller.userapp.mapper.base.SysAppConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;

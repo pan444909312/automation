@@ -3,8 +3,7 @@ package com.miller.userapp.module.data.basic.db;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.entity.config.SysAppConfigEntity;
-import com.hungrypanda.app.server.entity.shop.FullSubEntity;
-import com.miller.userapp.mapper.shop.SysAppConfigMapper;
+import com.miller.userapp.mapper.base.SysAppConfigMapper;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
