@@ -2,6 +2,7 @@ package com.miller.userapp.module.shop.card.version2.home.feature.specialPromote
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
+import com.hungrypanda.app.server.vo.index.ShopFeatureVO;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
@@ -29,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J5WMVHCECNCSWBP13V103YFW",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签4_特惠商品_首页-商卡二期：特惠商品 - 无",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoSpecialPromoteFeature {
@@ -51,16 +52,23 @@ public class ShopShouldHasNoSpecialPromoteFeature {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
+
+
+//        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 
         //遍历店铺的ShopFeatureList列表，如果没有type=3的营销标签类型则返回true
-        boolean flag = shopIndexVO.getShopFeatureList().stream().noneMatch(item -> item.getType().equals(ShopFeatureTypeConstant.SPECIAL_PROMOTE));
+//        boolean flag = shopIndexVO.getShopFeatureList().stream().noneMatch(item -> item.getType().equals(ShopFeatureTypeConstant.SPECIAL_PROMOTE));
 
-        assertThat(flag).isTrue();
-        assertThat(shopIndexVO.getSpecialPromote()).isEqualTo(0);
-        assertThat(shopSearchMiddleEntity.getSpecialPromote().intValue()).isEqualTo(0);
+//        assertThat(flag).isTrue();
+//        assertThat(shopIndexVO.getSpecialPromote()).isEqualTo(0);
+//        assertThat(shopSearchMiddleEntity.getSpecialPromote().intValue()).isEqualTo(0);
 
+        ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
+                filter(item -> item.getType().equals(ShopFeatureTypeConstant.SPECIAL_PROMOTE)).findFirst().orElse(null);
+
+        // 该标签已删除，检查是否不返回
+        assertThat(shopFeatureVO).isNull();
     }
 
     /**

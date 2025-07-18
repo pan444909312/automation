@@ -53,7 +53,7 @@ public class ShopShouldHasFastFoodFeature {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
 
         ShopFeatureVO shopFeatureVO = null;
         try {

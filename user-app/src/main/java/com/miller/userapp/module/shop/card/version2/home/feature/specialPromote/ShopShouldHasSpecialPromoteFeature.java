@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J5WMVHCECNCSWBP13V103YFX",
         scenarioName = "商卡(中文)_普通店铺配送商卡_营销标_标签4_特惠商品_首页-商卡二期：特惠商品",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasSpecialPromoteFeature {
@@ -55,13 +55,17 @@ public class ShopShouldHasSpecialPromoteFeature {
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
         ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
-                filter(item -> item.getType().equals(ShopFeatureTypeConstant.SPECIAL_PROMOTE)).findFirst().get();
+                filter(item -> item.getType().equals(ShopFeatureTypeConstant.SPECIAL_PROMOTE)).findFirst().orElse(null);
 
-        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+        // 该标签已删除，检查是否不返回
+        assertThat(shopFeatureVO).isNull();
 
-        assertThat(shopIndexVO.getSpecialPromote()).isEqualTo(1);
-        assertThat(shopSearchMiddleEntity.getSpecialPromote().intValue()).isEqualTo(1);
-        assertThat(shopFeatureVO.getShowContent()).isEqualTo(IndexListConstants.SPECIAL_PROMOTE);
+
+//        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+//
+//        assertThat(shopIndexVO.getSpecialPromote()).isEqualTo(1);
+//        assertThat(shopSearchMiddleEntity.getSpecialPromote().intValue()).isEqualTo(1);
+//        assertThat(shopFeatureVO.getShowContent()).isEqualTo(IndexListConstants.SPECIAL_PROMOTE);
     }
 
 
