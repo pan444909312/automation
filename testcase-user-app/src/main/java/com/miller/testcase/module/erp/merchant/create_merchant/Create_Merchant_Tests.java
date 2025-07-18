@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(
         scenarioID = "01JY3G2PQVHWN1V68JN2CM9NYW", // 自动生成，不要修改
         scenarioName = "ERP_创建商家",
-        author = "shandongdong@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("ERP_创建商家")
 public class Create_Merchant_Tests {

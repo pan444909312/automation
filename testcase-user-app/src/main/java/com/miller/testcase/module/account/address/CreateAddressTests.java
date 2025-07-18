@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(
         scenarioID = "01JWDE3J7GDY6GC7JR1GPW5NFW",
         scenarioName = "用户_创建地址",
-        author = "shandongdong@hungrypandagroup.com",
+        author = "panjuxiang@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("用户_创建地址")
 public class CreateAddressTests {

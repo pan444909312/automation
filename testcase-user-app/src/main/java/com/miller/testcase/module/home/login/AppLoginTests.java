@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @Scenario(
         scenarioID = "01JW68KNTBJSEZ0GPXQ9AF6XFN",
         scenarioName = "用户_登录",
-        author = "shandongdong@hungrypandagroup.com",
+        author = "panjuxiang@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 5, manualTestTime = 2)
 @DisplayName("用户_登录")
 public class AppLoginTests {

@@ -29,7 +29,7 @@ import java.util.Objects;
  * @since 2025/06/22 17:23:22
  */
 @Scenario(scenarioID = "01JYBF653F45C8MRHHEB8W27QH", // 自动生成，不要修改
-        scenarioName = "搜索-精准搜索&未全部打烊&无广告_搜索喜茶-检查搜索结果包含【中间包含喜茶的店、喜茶开头的店、喜茶】", author = "shandongdong@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        scenarioName = "搜索-精准搜索&未全部打烊&无广告_搜索喜茶-检查搜索结果包含【中间包含喜茶的店、喜茶开头的店、喜茶】", author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("搜索-精准搜索&未全部打烊&无广告")
 public class 搜索_精准搜索_未全部打烊_无广告_Tests {

@@ -35,8 +35,8 @@ import java.util.Objects;
  */
 @Scenario(
         scenarioID = "01JYBC3SBQQDZC46QFGXAD4NRE", // 自动生成，不要修改
-        scenarioName = "搜索-精准搜索&全部打烊&无广告_搜索coco-检查搜索结果包含【CoCo、中间包含coCo】",
-        author = "shandongdong@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        scenarioName = "搜索_中文版_搜索 - 精准搜索&全部打烊&无广告",
+        author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("搜索-精准搜索&全部打烊&无广告")
 public class 搜索_精准搜索_全部打烊_无广告_Tests {

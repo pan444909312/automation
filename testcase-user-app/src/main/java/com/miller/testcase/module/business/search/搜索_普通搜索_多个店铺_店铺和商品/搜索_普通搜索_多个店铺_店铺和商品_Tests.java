@@ -26,7 +26,7 @@ import java.util.Objects;
 @Scenario(
         scenarioID = "01JZQ67ERFWEM68JA3V20M9WMT", // 自动生成，不要修改
         scenarioName = "搜索_普通搜索_多个店铺_店铺和商品包含“喜饺”",
-        author = "shandongdong@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("搜索_普通搜索_多个店铺_店铺和商品包含“喜饺”")
 public class 搜索_普通搜索_多个店铺_店铺和商品_Tests {
