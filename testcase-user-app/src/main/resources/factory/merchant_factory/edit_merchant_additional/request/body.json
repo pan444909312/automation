@@ -5,15 +5,15 @@
     "operationSwitch": [
       {
         "operationSwitch": "ALCOHOL",
-        "switchValue": 1
+        "switchValue": 0
       },
       {
         "operationSwitch": "TOBACCO",
-        "switchValue": 1
+        "switchValue": 0
       },
       {
         "operationSwitch": "CANNABIS",
-        "switchValue": 1
+        "switchValue": 0
       }
     ],
     "shopLabelId": 0,
@@ -46,14 +46,6 @@
         "url": "https://static.hungrypanda.co/crm/1700206602597795a0d2af712427f814fdf844e6e7263.jpeg"
       }
     ],
-    "alcoholLicenseNo": "",
-    "alcoholLicenseEndTime": "",
-    "alcoholLicensePdfUrl": "",
-    "tobaccoLicenseNo": "",
-    "tobaccoLicenseEndTime": "",
-    "tobaccoLicensePdfUrl": "",
-    "cannabisLicenseNo": "",
-    "cannabisLicenseEndTime": "",
-    "cannabisLicensePdfUrl": ""
+    "productLicense": []
   }
 }
