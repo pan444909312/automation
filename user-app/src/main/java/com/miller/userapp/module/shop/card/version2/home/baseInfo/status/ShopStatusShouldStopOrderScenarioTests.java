@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.pandaLeague.baseinfo.status;
+package com.miller.userapp.module.shop.card.version2.home.baseInfo.status;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.common.enums.ShopStatusEnum;
@@ -15,9 +15,8 @@ import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.home.baseInfo.shopLabel.ShopShouldHasLabelScenarioTests;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.dataProvider.PandaLeagueDataProvider;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,7 +29,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01JKSWF87Q08HNV9H0JRWX6T5G", scenarioName = "商卡(中文)_普通店铺配送商卡_熊猫联盟频道_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-暂停接单"
+@Scenario(scenarioID = "01JKSWF87HHXZMJ276T2V6BQXT", scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-暂停接单"
         ,author = "yancancan@hungrypandagroup.com" ,developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -46,22 +45,22 @@ public class ShopStatusShouldStopOrderScenarioTests {
         ERPLoginFlow.loginByDefaultUser();
         BusinessInfoUpdateStopOrderRequestDTO businessInfoUpdateStopOrderRequestDTO = new BusinessInfoUpdateStopOrderRequestDTO();
         businessInfoUpdateStopOrderRequestDTO.setShopId(shopId);
-        businessInfoUpdateStopOrderRequestDTO.setStopOrderMinutes("60");
+        businessInfoUpdateStopOrderRequestDTO.setStopOrderMinutes("3600");
         businessInfoUpdateStopOrderRequestDTO.setStopOrderToClose(false);
         BusinessInfoUpdateStopOrderResponseDTO businessInfoUpdateStopOrderResponseDTO = BusinessInfoUpdateStatusFlow.businessInfoUpdateStopOrder(businessInfoUpdateStopOrderRequestDTO);
 //        执行搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.shop.index.update.id"));
 
     }
-    @MethodSource("DataProvider")
+    @MethodSource("shopStatusDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_熊猫联盟频道_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-暂停接单")
-    void showLabel(ShopListPandaLeagueRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-暂停接单")
+    void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
         // When
-        var shopList = ShopListPandaLeagueFlow.getShopList(shopListRequestDTO);
-
+        var shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+        assert shopList != null;
         var interfaceResponse = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst()
                 // 获取接口返回的字段
@@ -78,14 +77,14 @@ public class ShopStatusShouldStopOrderScenarioTests {
         assertThat(databaseResponse).isFalse();
     }
 
-    /*
-     * 测试用例数据提供者
-     */
     /**
      * 测试用例数据提供者
      */
-    static Stream<Arguments> DataProvider() {
-        return Stream.of(Arguments.of(PandaLeagueDataProvider.getCommonDataProvider()));
-    }
+    static Stream<Arguments> shopStatusDataProvider() {
+        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+        // 可以不用传参数
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
+        return Stream.of(Arguments.of(shopListRequestDTO));
+    }
 }

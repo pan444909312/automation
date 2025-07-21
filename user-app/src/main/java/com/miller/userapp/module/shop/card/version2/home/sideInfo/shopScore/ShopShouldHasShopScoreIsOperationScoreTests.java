@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.pandaLeague.feature.shopScore;
+package com.miller.userapp.module.shop.card.version2.home.sideInfo.shopScore;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.shop.EvaluationEntity;
@@ -10,9 +10,9 @@ import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.shop.EvaluationMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.home.baseInfo.shopLabel.ShopShouldHasLabelScenarioTests;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.flow.ShopListPandaLeagueFlow;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.request.ShopListPandaLeagueRequestDTO;
-import com.miller.userapp.module.shop.card.version2.pandaLeague.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,12 +23,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01JDKTPH8XCS1H0NYAJW3FWF0P",
-        scenarioName = "普通店铺配送商卡-熊猫联盟频道_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分",
+@Scenario(scenarioID = "01JDKG1GJ7TQQ6VBHHNDHCXTDC",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class PandaShopShouldHasShopOperationEvaluationTests {
+public class ShopShouldHasShopScoreIsOperationScoreTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
      @BeforeAll
@@ -47,10 +47,9 @@ public class PandaShopShouldHasShopOperationEvaluationTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-熊猫联盟频道_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分")
-     void couponGodDsicount(ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO) {
-
-        ShopListResponseDTO shopList = ShopListPandaLeagueFlow.getShopList(shopListPandaLeagueRequestDTO);
+    @DisplayName("商卡(中文)_普通店铺配送商卡_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分")
+     void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
+          ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
                 assert shopIndexVO.getPraiseAverage().equals("4.0");
@@ -60,11 +59,10 @@ public class PandaShopShouldHasShopOperationEvaluationTests {
           * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-ShopListPandaLeagueRequestDTO shopListPandaLeagueRequestDTO = new ShopListPandaLeagueRequestDTO();
+        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListPandaLeagueRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-
-        return Stream.of(Arguments.of(shopListPandaLeagueRequestDTO));
+        shopListRequestDTO.setFiltering(false);
+        return Stream.of(Arguments.of(shopListRequestDTO));
     }
 
 }

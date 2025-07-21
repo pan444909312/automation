@@ -14,7 +14,7 @@ import com.miller.userapp.mapper.member.MemberPacketMapper;
 import com.miller.userapp.module.shop.card.version2.category.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.category.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.category.response.ShopListResponseDTO;
-import com.miller.userapp.module.shop.card.version2.home.baseinfo.shopLabel.ShopShouldHasLabelScenarioTests;
+import com.miller.userapp.module.shop.card.version2.home.baseInfo.shopLabel.ShopShouldHasLabelScenarioTests;
 import com.miller.userapp.util.DBUtils;
 import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
