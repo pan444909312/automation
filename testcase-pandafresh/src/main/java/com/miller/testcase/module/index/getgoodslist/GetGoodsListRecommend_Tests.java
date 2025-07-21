@@ -1,45 +1,33 @@
-package com.miller.testcase.module.search.hotsearch;
+package com.miller.testcase.module.index.getgoodslist;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.utils.FreshTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
+import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 /**
- * hotSearch
+ * getGoodsList
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/07/18 10:41:13
+ * @since 2025/07/18 15:13:45
  */
 @Scenario(
-        scenarioID = "01K0DPGEN1DXXTM35N577TWPF1", // 自动生成，不要修改
-        scenarioName = "热搜词-过滤禁用的热搜词",
+        scenarioID = "01K0E63FZ0JVCWXNCZ73G652V7", // 自动生成，不要修改
+        scenarioName = "pf首页瀑布流-猜你喜欢列表",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 25, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("热搜词-过滤禁用的热搜词")
-public class HotSearchStatusNotMatch_Tests {
-
-    List<String> keywords = new ArrayList<>();
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("pf首页瀑布流-猜你喜欢列表")
+public class GetGoodsListRecommend_Tests {
 
     @BeforeAll
-    void beforeAll(){
-        //查找宁波站点禁用的热搜词
-        String sql = "SELECT g.* FROM hot_search g LEFT JOIN hot_search_portal p on g.id=p.hot_search_id WHERE p.portal_id=3 and g.is_del=0 and g.`status`=0 and p.is_del=0;";
-        // 查询多条记录
-        List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
-        for (int i = 0; i < selectListSql.size(); i++) {
-            String word = selectListSql.get(i).get("name").toString();
-            keywords.add(word);
-        }
+    static void beforeAll(){
+        // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
+        // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
     }
     @AfterAll
     static void afterAll(){
@@ -51,17 +39,17 @@ public class HotSearchStatusNotMatch_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HpfHost + "/search/hotWords";
+        String uri = TestcaseConfig.HpfHost + "/index/getGoodsList";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/search/hotsearch/request/headers.json";
+        String headers = "module/index/getgoodslist/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/search/hotsearch/request/body.json";
+        String body = "module/index/getgoodslist/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/search/hotsearch/response/assert_full_field.json";
+        String assertFullField = "module/index/getgoodslist/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -74,14 +62,10 @@ public class HotSearchStatusNotMatch_Tests {
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
 
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);
+        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
+        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
+        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
-        for (int i = 0; i < keywords.size(); i++) {
-            String word = keywords.get(i);
-
-            // 断言返回参数是否包含期望热搜词
-            boolean containsExpectedGoods = TestCaseHelpful.extractValue(responseBody, "result.hotWords").toString().contains(word);
-            TestCaseHelpful.assertThat(containsExpectedGoods).isEqualTo(false);
-        }
     }
 } 
