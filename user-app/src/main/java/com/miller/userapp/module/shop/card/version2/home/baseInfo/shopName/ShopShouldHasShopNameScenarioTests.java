@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01J3VJ3JM9NZNW9BH5JEBWCN2F",
         scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺名称_首页-商卡二期:店铺名称",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 3 * 60, maintenanceTime = 0, manualTestTime = 30)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 5, manualTestTime = 30)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopNameScenarioTests {
@@ -52,7 +52,7 @@ public class ShopShouldHasShopNameScenarioTests {
         // Given
 
         // When
-        var shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        var shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 
         var interfaceResponse = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst()

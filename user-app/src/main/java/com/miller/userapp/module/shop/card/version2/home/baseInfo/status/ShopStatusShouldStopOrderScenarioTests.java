@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.common.enums.ShopStatusEnum;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
 import com.hungrypanda.app.server.vo.index.BaseShopIndexVO;
+import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.erp.moudle.manage.merchant.business.config.time.status.flow.BusinessInfoUpdateStatusFlow;
 import com.miller.erp.moudle.manage.merchant.business.config.time.status.request.BusinessInfoUpdateStopOrderRequestDTO;
 import com.miller.erp.moudle.manage.merchant.business.config.time.status.response.BusinessInfoUpdateStopOrderResponseDTO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.cache.remote.redis.RedisService;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.service.util.XXLJobUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
@@ -18,7 +20,10 @@ import com.miller.userapp.module.shop.card.version2.home.baseInfo.shopLabel.Shop
 import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RedisUtils;
+import com.panda.merchant.server.api.vo.crm.merchant.req.ShopIdReqVO;
 import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,12 +35,15 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JKSWF87HHXZMJ276T2V6BQXT", scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-暂停接单"
-        ,author = "yancancan@hungrypandagroup.com" ,developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+        , author = "yancancan@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 30, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopStatusShouldStopOrderScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId.stop.order"));
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
+    private RedisService redisInstance = RedisUtils.getRedisInstance();
+
+
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
@@ -45,13 +53,23 @@ public class ShopStatusShouldStopOrderScenarioTests {
         ERPLoginFlow.loginByDefaultUser();
         BusinessInfoUpdateStopOrderRequestDTO businessInfoUpdateStopOrderRequestDTO = new BusinessInfoUpdateStopOrderRequestDTO();
         businessInfoUpdateStopOrderRequestDTO.setShopId(shopId);
-        businessInfoUpdateStopOrderRequestDTO.setStopOrderMinutes("3600");
+        businessInfoUpdateStopOrderRequestDTO.setStopOrderMinutes("60");
         businessInfoUpdateStopOrderRequestDTO.setStopOrderToClose(false);
-        BusinessInfoUpdateStopOrderResponseDTO businessInfoUpdateStopOrderResponseDTO = BusinessInfoUpdateStatusFlow.businessInfoUpdateStopOrder(businessInfoUpdateStopOrderRequestDTO);
+        BusinessInfoUpdateStatusFlow.businessInfoUpdateStopOrder(businessInfoUpdateStopOrderRequestDTO);
 //        执行搜索索引定时任务
-        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.shop.index.update.id"));
+//        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(ShopShouldHasLabelScenarioTests.class, "user.app.job.increment.shop.index.update.id"));
 
     }
+
+    @AfterAll
+    void afterAll() {
+        ShopIdReqVO shopIdReqVO = new ShopIdReqVO();
+        shopIdReqVO.setShopId(shopId);
+        BusinessInfoUpdateStatusFlow.updateShopStatusToRecover(shopIdReqVO);
+
+        redisInstance.delete("merchant.shop.stop.order.lock.prefix." + shopId);
+    }
+
     @MethodSource("shopStatusDataProvider")
     @ParameterizedTest
     @DisplayName("普通店铺配送商卡_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-暂停接单")
@@ -59,12 +77,12 @@ public class ShopStatusShouldStopOrderScenarioTests {
         // Given
 
         // When
-        var shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+        var shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         assert shopList != null;
-        var interfaceResponse = shopList.getResult().getShopList().stream()
+        ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst()
                 // 获取接口返回的字段
-                .map(BaseShopIndexVO::getShopStatus).orElseThrow();
+                .orElseThrow();
 
         // Then. 校验接口返回的字段与数据库字段匹配,
         var databaseResponse = shopSearchMiddleMapper.selectOne(
@@ -73,7 +91,8 @@ public class ShopStatusShouldStopOrderScenarioTests {
                 // 获取数据库字段值
                 .getShopStatus();
 
-        assertThat(interfaceResponse).isEqualTo(ShopStatusEnum.OPEN.getCode());
+        assertThat(shopIndexVO.getShopStatus()).isEqualTo(ShopStatusEnum.OPEN.getCode());
+        assertThat(shopIndexVO.getShopStatusTimeStr()).isNotNull();
         assertThat(databaseResponse).isFalse();
     }
 

@@ -10,6 +10,7 @@ import com.miller.erp.moudle.manage.merchant.business.config.time.status.respons
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.erp.util.RequestUtils;
 
+import com.panda.merchant.server.api.vo.crm.merchant.req.ShopIdReqVO;
 import com.panda.merchant.server.api.vo.crm.merchant.req.ShopStopOrderReq;
 
 /**
@@ -33,7 +34,6 @@ public class BusinessInfoUpdateStatusFlow {
 
     /**
      * 暂停接单
-     * TODO
      */
     private static final String stopOrderUri = BusinessConstantOfERP.DOMAIN_TEST_GATEWAY + "/api/erp/shop/order-stop/stop";
 
@@ -85,8 +85,9 @@ public class BusinessInfoUpdateStatusFlow {
      * https://test-gateway.hungrypanda.cn/api/erp/shop/order-stop/recover
      * {"shopId":"59750820"}
      */
-    public static BusinessInfoUpdateStatusResponseDTO updateShopStatusToRecover(Long shopId) {
-        return null;
+    public static BusinessInfoUpdateStatusResponseDTO updateShopStatusToRecover(ShopIdReqVO shopIdReqVO) {
+        RequestUtils.getHeaders().put("Content-Type", "application/json");
+        return HttpUtils.sendPostRequestReturnJavaObject(recoverOrderUri, null, RequestUtils.getHeaders(), RequestUtils.putBodyOfJson(shopIdReqVO), null, BusinessInfoUpdateStatusResponseDTO.class);
     }
 
 

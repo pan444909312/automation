@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01J86YH7Y0T8WKQASENM6Z7D7Z",
         scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopStatusShouldNoOrderStopTests {
@@ -55,7 +55,7 @@ void beforeAll() {
     @DisplayName("商卡(中文)_普通店铺配送商卡_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据")
     void OrderStop(ShopListRequestDTO shopListRequestDTO) {
 //        请求首页店铺数据
-     ShopListResponseDTO shopList= ShopListFlow.getShopList(shopListRequestDTO);
+     ShopListResponseDTO shopList= ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         //遍历店铺的ShopPromoteList列表，

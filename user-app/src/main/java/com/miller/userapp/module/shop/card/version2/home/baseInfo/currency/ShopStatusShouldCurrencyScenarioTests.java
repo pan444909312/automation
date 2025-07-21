@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01J87H7YDD0SRZDXX18B0D13D3",
         scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_首页-商卡二期：货币符号",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopStatusShouldCurrencyScenarioTests {
@@ -26,7 +26,7 @@ public class ShopStatusShouldCurrencyScenarioTests {
     void ShowCurrency(ShopListRequestDTO shopListRequestDTO) {
          UserLoginFlow.loginByDefaultUser();
 //        请求首页店铺数据;
-     ShopListResponseDTO shopList= ShopListFlow.getShopList(shopListRequestDTO);
+     ShopListResponseDTO shopList= ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 //        请求的国家=CN，因此断言currency=¥
         assert shopList.getCurrency().equals("¥");
 
