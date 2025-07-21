@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.sideInfo.deliveryTime;
+package com.miller.userapp.module.shop.card.version3.home.sideInfo.deliveryTime;
 
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
@@ -24,8 +24,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/25 18:12
  */
-@Scenario(scenarioID = "01J8MFQJYPKS8X8R4MENRKGDFP",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
+@Scenario(scenarioID = "01K0P0B4N79G5M7CKCBAZW80SV",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -49,7 +49,7 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
 
    @MethodSource("DataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间 ")
+   @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
       ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 

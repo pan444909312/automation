@@ -38,7 +38,7 @@ public class ShopShouldNotHasCategoryNameScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest()
     void hasCategoryName(ShopListRequestDTO shopListRequestDTO) {
-        ShopListResponseDTO shopListResponseDTO = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopListResponseDTO = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         String merchantCategoryName = shopListResponseDTO.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getMerchantCategoryName).orElseThrow();
         Integer merchantCategoryId = shopListResponseDTO.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map(ShopIndexVO::getMerchantCategoryId).orElseThrow();
         assertThat(merchantCategoryName).isEqualTo("");

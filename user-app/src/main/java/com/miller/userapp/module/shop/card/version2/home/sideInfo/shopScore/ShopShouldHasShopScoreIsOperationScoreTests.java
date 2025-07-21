@@ -49,7 +49,7 @@ public class ShopShouldHasShopScoreIsOperationScoreTests {
     @ParameterizedTest
     @DisplayName("商卡(中文)_普通店铺配送商卡_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
-          ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+          ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
                 assert shopIndexVO.getPraiseAverage().equals("4.0");

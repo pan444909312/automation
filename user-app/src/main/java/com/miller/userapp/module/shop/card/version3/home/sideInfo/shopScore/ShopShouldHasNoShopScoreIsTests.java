@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.sideInfo.shopScore;
+package com.miller.userapp.module.shop.card.version3.home.sideInfo.shopScore;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
@@ -8,9 +8,9 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,8 +21,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01JDKG1GHJ9RJJF12A65ZJ1FGV",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_店铺评分_首页-商卡二期：店铺评分-无数据",
+@Scenario(scenarioID = "01K0P3K4NY5Y6HPZ6KQN73FS7F",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-无数据",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -45,7 +45,7 @@ public class ShopShouldHasNoShopScoreIsTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("商卡(中文)_普通店铺配送商卡_辅助信息_店铺评分_首页-商卡二期：店铺评分-无数据")
+    @DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-无数据")
     void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
