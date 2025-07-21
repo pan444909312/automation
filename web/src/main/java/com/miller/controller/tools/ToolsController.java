@@ -70,8 +70,7 @@ public class ToolsController {
         try {
             result = MerchantFactory.quickCreateMerchant(autoCreateMerchantReqDTO.getCityName(), autoCreateMerchantReqDTO.getShopName());
         }catch (Exception e){
-            // 实际成功了，后续再处理异常问题
-            return Response.success("创建成功");
+            return Response.fail(e.getMessage());
         }
 
         return Response.success(result);
@@ -86,7 +85,7 @@ public class ToolsController {
         return Response.success(list);
     }
 
-        @Operation(description = "验证码查询工具")
+    @Operation(description = "验证码查询工具")
     @PostMapping("/codeQuery")
     public Response<String> codeQuery() {
 
@@ -99,8 +98,8 @@ public class ToolsController {
         CouponGenerate couponGenerate = new CouponGenerate();
 
         // 商家券
-        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.SHOP_COUPON.getCode())){
-            if (autoCreateCouponReqDTO.getShopList() == null || autoCreateCouponReqDTO.getShopList().isEmpty()){
+        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.SHOP_COUPON.getCode())) {
+            if (autoCreateCouponReqDTO.getShopList() == null || autoCreateCouponReqDTO.getShopList().isEmpty()) {
                 // 设置商家默认值
                 ArrayList<Long> shopList = new ArrayList<>();
                 shopList.add(536235947L);
@@ -110,8 +109,8 @@ public class ToolsController {
         }
 
         // 商品券
-        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.PRODUCT_COUPON.getCode())){
-            if (autoCreateCouponReqDTO.getProductList() == null || autoCreateCouponReqDTO.getProductList().isEmpty()){
+        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.PRODUCT_COUPON.getCode())) {
+            if (autoCreateCouponReqDTO.getProductList() == null || autoCreateCouponReqDTO.getProductList().isEmpty()) {
                 // 设置商品默认值
                 ArrayList<Long> productList = new ArrayList<>();
                 productList.add(82083860L);
@@ -123,12 +122,12 @@ public class ToolsController {
         }
 
         // 平台券
-        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.PLATFORM_COUPON.getCode())){
+        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.PLATFORM_COUPON.getCode())) {
             return Response.success(couponGenerate.addPlatformCouponTemplate(autoCreateCouponReqDTO.getCouponType()));
         }
 
         // 神券
-        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.SUPER_COUPON.getCode())){
+        if (autoCreateCouponReqDTO.getCouponScope().equals(CouponScopeEnum.SUPER_COUPON.getCode())) {
             return Response.fail("暂不支持神券类型");
         }
 
@@ -140,7 +139,7 @@ public class ToolsController {
     public Response<String> sendRedPacket(@RequestBody SendRedPacketReqDTO sendRedPacketReqDTO) {
 
         SendRedPacket sendRedPacket = new SendRedPacket();
-        sendRedPacket.sendRedPacketToUserByUserId(sendRedPacketReqDTO.getUserId(),sendRedPacketReqDTO.getRedPacketId());
+        sendRedPacket.sendRedPacketToUserByUserId(sendRedPacketReqDTO.getUserId(), sendRedPacketReqDTO.getRedPacketId());
 
         return Response.success("添加成功");
     }

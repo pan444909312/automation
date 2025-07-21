@@ -2,8 +2,6 @@ package com.miller.testcase.factory;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
-import com.miller.service.util.XXLConfUtils;
-import com.miller.service.util.XXLJobUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
@@ -42,7 +40,8 @@ public class MerchantFactory {
 
     /**
      * 使用枚举创建商家（内部调用方法）
-     * @param city 城市枚举
+     *
+     * @param city         城市枚举
      * @param merchantName 商家名称
      */
     public static void quickCreateMerchant(City city, String merchantName) {
@@ -51,6 +50,7 @@ public class MerchantFactory {
 
     /**
      * 打烊
+     *
      * @param merchantName 商家名称
      */
     public static void closedMerchant(String merchantName) {
@@ -81,6 +81,7 @@ public class MerchantFactory {
 
     /**
      * 删除商家, 删除之前需要先打烊
+     *
      * @param merchantName 商家名称
      */
     public static void deleteMerchant(String merchantName) {
@@ -116,7 +117,7 @@ public class MerchantFactory {
     /**
      * ERP-商家列表-创建商家
      */
-    private String step02CreateMerchant(String merchantName) {
+    private String step02CreateMerchant(String merchantName, String body) {
         // 如果不为空则认为是进行商家编辑
         if (Objects.nonNull(editMerchantByShopId)) {
             return null;
@@ -128,7 +129,7 @@ public class MerchantFactory {
         String method = "POST";
         String headers = "factory/merchant_factory/create_merchant/request/headers.json";
         String params = null;
-        String body = "factory/merchant_factory/create_merchant/request/body.json";
+//        String body = "factory/merchant_factory/create_merchant/request/body.json";
         String assertFullField = "factory/merchant_factory/create_merchant/response/assert_full_field.json";
 
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -147,6 +148,24 @@ public class MerchantFactory {
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         TestCaseHelpful.set("shopId", TestCaseHelpful.extractValue(responseBody, "data.shopId"));
         return responseBody;
+    }
+
+    private String step02CreateMerchantHangZhou(String merchantName) {
+        String body = "factory/merchant_factory/create_merchant/request/bodyHangZhou.json";
+
+        return step02CreateMerchant(merchantName, body);
+    }
+
+    private String step02CreateMerchantJiuJiang(String merchantName) {
+        String body = "factory/merchant_factory/create_merchant/request/bodyJiuJiang.json";
+
+        return step02CreateMerchant(merchantName, body);
+    }
+
+    private String step02CreateMerchantWenZhou(String merchantName) {
+        String body = "factory/merchant_factory/create_merchant/request/bodyWenZhou.json";
+
+        return step02CreateMerchant(merchantName, body);
     }
 
 
@@ -180,7 +199,6 @@ public class MerchantFactory {
 
     /**
      * ERP-编辑商家-费用配置
-     *
      */
     private void step04EditMerchantInfoOfCost() {
         // 使用默认值，暂不需要编辑费用配置
@@ -278,6 +296,7 @@ public class MerchantFactory {
 
     /**
      * 添加菜单，使用SQL实现
+     *
      * @return menuId
      */
     private String addMenuToShop() {
@@ -339,7 +358,7 @@ public class MerchantFactory {
     /**
      * ERP-编辑商家-配送围栏
      */
-    private void step09AddFence() {
+    private void step09AddFence(String sql) {
         /*
         // 注意：erp 老项目特殊处理，需要添加 cookie
         String uri = "https://platform-test-backup.hungrypanda.cn/admin/merchant/fence/save/fenceLatlngChain.htm";
@@ -376,6 +395,51 @@ public class MerchantFactory {
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         */
+//        String sql;
+//        // 设置九江市围栏
+//        // 如果不为空则认为是进行商家编辑
+//        if (Objects.nonNull(editMerchantByShopId)) {
+//            // 修改 ShopId 为指定的 ShopId
+//
+//            sql = updateSql;
+//        } else {
+//            // 修改 ShopId 为创建商家的 ShopId
+//            sql = insertSql;
+//
+//        }
+        int[] ints = PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
+        TestCaseHelpful.assertThatJson(ints).isArray().size().isGreaterThanOrEqualTo(1);
+    }
+
+    private void step09AddFenceHangZhou() {
+
+        String sql;
+        // 设置九江市围栏
+        // 如果不为空则认为是进行商家编辑
+        if (Objects.nonNull(editMerchantByShopId)) {
+            // 修改 ShopId 为指定的 ShopId
+
+            sql = """
+                    UPDATE panda_test.hp_shop_delivery_fence t
+                    SET t.fence_latlng = '30.32115,120.02386|30.35493,120.15123|30.35345,120.43756|30.12922,120.46194|30.07721,120.06046',
+                        t.fence_name = '店铺配送围栏',
+                        t.last_modify_admin = 2308,
+                        t.delivery_type = 1,
+                        t.fence_template_id = 0
+                    WHERE t.shop_id = 
+                    """ + editMerchantByShopId;
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            sql = " INSERT INTO panda_test.hp_shop_delivery_fence (shop_id, fence_latlng, fence_name, create_time, last_update_time, last_modify_admin, delivery_type, fence_template_id) VALUES ( " +
+                    TestCaseHelpful.get("shopId")
+                    + ", '30.32115,120.02386|30.35493,120.15123|30.35345,120.43756|30.12922,120.46194|30.07721,120.06046', '店铺配送围栏', DEFAULT, DEFAULT, 1748, 1, 0); ";
+
+        }
+
+        step09AddFence(sql);
+    }
+
+    private void step09AddFenceJiuJiang() {
         String sql;
         // 设置九江市围栏
         // 如果不为空则认为是进行商家编辑
@@ -398,8 +462,33 @@ public class MerchantFactory {
                     + ", '29.80146,115.87807|29.73590,115.81490|29.66313,115.81147|29.60688,115.84271|29.60255,115.91996|29.61807,116.04149|29.65627,116.12767|29.79282,116.08750|29.80772,116.00888|29.81665,115.93609', '九江市', DEFAULT, DEFAULT, 1748, 1, 0); ";
 
         }
-        int[] ints = PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
-        TestCaseHelpful.assertThatJson(ints).isArray().size().isGreaterThanOrEqualTo(1);
+        step09AddFence(sql);
+    }
+
+    private void step09AddFenceWenZhou() {
+        String sql;
+        // 设置九江市围栏
+        // 如果不为空则认为是进行商家编辑
+        if (Objects.nonNull(editMerchantByShopId)) {
+            // 修改 ShopId 为指定的 ShopId
+
+            sql = """
+                    UPDATE panda_test.hp_shop_delivery_fence t
+                    SET t.fence_latlng = '28.08249,120.49988|28.10914,121.03477|27.81621,120.91392|27.85325,120.47172',
+                        t.fence_name = '温州店铺围栏',
+                        t.last_modify_admin = 1748,
+                        t.delivery_type = 1,
+                        t.fence_template_id = 0
+                    WHERE t.shop_id = 
+                    """ + editMerchantByShopId;
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            sql = " INSERT INTO panda_test.hp_shop_delivery_fence (shop_id, fence_latlng, fence_name, create_time, last_update_time, last_modify_admin, delivery_type, fence_template_id) VALUES ( " +
+                    TestCaseHelpful.get("shopId")
+                    + ", '28.08249,120.49988|28.10914,121.03477|27.81621,120.91392|27.85325,120.47172', '温州店铺围栏', DEFAULT, DEFAULT, 1748, 1, 0); ";
+
+        }
+        step09AddFence(sql);
     }
 
     /**
@@ -455,7 +544,6 @@ public class MerchantFactory {
 
     /**
      * 结算信息子项-佣金
-     *
      */
     private void saveCommission(String fileName) {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/merchant/finance/config/saveCommission";
@@ -563,26 +651,66 @@ public class MerchantFactory {
             public String createMerchant(String merchantName) {
                 MerchantFactory merchantFactory = new MerchantFactory();
                 merchantFactory.setUP();
-                String result = merchantFactory.step02CreateMerchant(merchantName);
+                String result = merchantFactory.step02CreateMerchantJiuJiang(merchantName);
                 merchantFactory.step03EditMerchantInfoOfBusiness();
                 merchantFactory.step04EditMerchantInfoOfCost();
                 merchantFactory.step05EditMerchantInfoOfAdditional();
                 merchantFactory.step06EditMerchantInfoOfAddKP();
                 merchantFactory.step07CreateGoods();
                 merchantFactory.step08AddShopBusinessTime();
-                merchantFactory.step09AddFence();
+                merchantFactory.step09AddFenceJiuJiang();
                 merchantFactory.step10SaveBillInfo();
                 merchantFactory.step11MerchantAuth();
                 merchantFactory.step12RecommendMerchant();
                 merchantFactory.tearDown();
                 return result;
+
+
             }
         },
         HANGZHOU("杭州市") {
             @Override
             public String createMerchant(String merchantName) {
-                // TODO: 创建杭州市商家，需要修改店铺位置、配送范围围栏等
-                throw new UnsupportedOperationException("杭州市商家创建功能尚未实现，待完善");
+                MerchantFactory merchantFactory = new MerchantFactory();
+                merchantFactory.setUP();
+                // 修改对应地址
+                String result = merchantFactory.step02CreateMerchantHangZhou(merchantName);
+                merchantFactory.step03EditMerchantInfoOfBusiness();
+                merchantFactory.step04EditMerchantInfoOfCost();
+                merchantFactory.step05EditMerchantInfoOfAdditional();
+                merchantFactory.step06EditMerchantInfoOfAddKP();
+                merchantFactory.step07CreateGoods();
+                merchantFactory.step08AddShopBusinessTime();
+                // 修改对应地址
+                merchantFactory.step09AddFenceHangZhou();
+                merchantFactory.step10SaveBillInfo();
+                merchantFactory.step11MerchantAuth();
+                merchantFactory.step12RecommendMerchant();
+                merchantFactory.tearDown();
+                return result;
+
+            }
+        },
+        WENZHOU("温州市") {
+            @Override
+            public String createMerchant(String merchantName) {
+                MerchantFactory merchantFactory = new MerchantFactory();
+                merchantFactory.setUP();
+                String result = merchantFactory.step02CreateMerchantWenZhou(merchantName);
+                merchantFactory.step03EditMerchantInfoOfBusiness();
+                merchantFactory.step04EditMerchantInfoOfCost();
+                merchantFactory.step05EditMerchantInfoOfAdditional();
+                merchantFactory.step06EditMerchantInfoOfAddKP();
+                merchantFactory.step07CreateGoods();
+                merchantFactory.step08AddShopBusinessTime();
+                merchantFactory.step09AddFenceWenZhou();
+                merchantFactory.step10SaveBillInfo();
+                merchantFactory.step11MerchantAuth();
+                merchantFactory.step12RecommendMerchant();
+                merchantFactory.tearDown();
+                return result;
+
+
             }
         };
 
@@ -598,12 +726,14 @@ public class MerchantFactory {
 
         /**
          * 创建指定城市的商家
+         *
          * @param merchantName 商家名称
          */
         public abstract String createMerchant(String merchantName);
 
         /**
          * 根据城市名称获取城市枚举
+         *
          * @param cityName 城市名称
          * @return 城市枚举
          */
@@ -618,6 +748,7 @@ public class MerchantFactory {
 
         /**
          * 获取支持的城市列表
+         *
          * @return 支持的城市名称列表
          */
         public static String getSupportedCities() {
