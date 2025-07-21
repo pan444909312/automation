@@ -21,22 +21,23 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标
+ * 商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示
  *
  * @author Miller Shan
  * @version 1.0
  * @since 2024/06/25 21:17:39
  */
-@Scenario(scenarioID = "01J3VJ3JM9NZNW9BH5JEBWCN2G",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 4 * 60, maintenanceTime = 30, manualTestTime = 30)
+@Scenario(scenarioID = "01K0P3NHK4Z5XJR1NGA4QAGT2F",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasLabelScenarioTests {
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+public class ShopShouldHasNoLabelScenarioTests {
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.blank.02.compare.shopId"));
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
 
     @BeforeAll
@@ -48,7 +49,7 @@ public class ShopShouldHasLabelScenarioTests {
 
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示")
+    @DisplayName("普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
@@ -69,8 +70,8 @@ public class ShopShouldHasLabelScenarioTests {
         interfaceResponse = interfaceResponse.substring(interfaceResponse.lastIndexOf("/") + 1);
         databaseResponse = databaseResponse.substring(databaseResponse.lastIndexOf("/") + 1);
 
-        assertThat(interfaceResponse).isEqualTo(databaseResponse);
-        assertThat(interfaceResponse).isNotNull();
+        assertThat(interfaceResponse).isEqualTo("");
+        assertThat(databaseResponse).isEqualTo("");
 
     }
 

@@ -1,12 +1,17 @@
 package com.miller.userapp.module.shop.card.version2.home.baseInfo.shopLabel;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
+import com.hungrypanda.app.server.entity.shop.BdmExclusiveShopEntity;
+import com.hungrypanda.app.server.entity.shop.ShopEntity;
 import com.hungrypanda.app.server.vo.index.BaseShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
+import com.miller.userapp.mapper.shop.BdmExclusiveShopMapper;
+import com.miller.userapp.mapper.shop.ShopMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
@@ -23,32 +28,32 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * 商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标
- *
- * @author Miller Shan
- * @version 1.0
- * @since 2024/06/25 21:17:39
- */
-@Scenario(scenarioID = "01J3VJ3JM9NZNW9BH5JEBWCN2G",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 4 * 60, maintenanceTime = 30, manualTestTime = 30)
+
+@Scenario(scenarioID = "01K0P754Q2C4Q8C7WVEGAX07SE",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_基础信息_店铺角标_非独家店铺，配置了独家角标也不展示该角标",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasLabelScenarioTests {
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+public class ShopShouldHasNoExclusiveLabelScenarioTests {
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
     private static ShopSearchMiddleMapper shopSearchMiddleMapper;
+    private static ShopMapper shopMapper;
+
+    private static BdmExclusiveShopMapper bdmExclusiveShopMapper;
 
     @BeforeAll
-    static void beforeAll() {
+    void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
+        shopMapper = sqlSession.getMapper(ShopMapper.class);
+        bdmExclusiveShopMapper = sqlSession.getMapper(BdmExclusiveShopMapper.class);
+
     }
 
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_基础信息_店铺角标_首页-商卡二期:店铺角标-展示")
+    @DisplayName("普通店铺配送商卡_基础信息_店铺角标_非独家店铺，配置了独家角标也不展示该角标")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
@@ -61,16 +66,19 @@ public class ShopShouldHasLabelScenarioTests {
                 .map(BaseShopIndexVO::getNewShopLabelUrl).orElseThrow();
 
         // Then. 校验接口返回的字段与数据库字段匹配, JSON.result.shopList[x].newShopLabelUrl = hp_shop_search_middle.new_channel_label_url（大于8.15版本返回字段为 new_channel_label_url）
-        String databaseResponse = shopSearchMiddleMapper.selectOne(
-                        // 查询条件，店铺ID
-                        new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId))
-                // 获取数据库字段值
-                .getNewChannelLabelUrl();
-        interfaceResponse = interfaceResponse.substring(interfaceResponse.lastIndexOf("/") + 1);
-        databaseResponse = databaseResponse.substring(databaseResponse.lastIndexOf("/") + 1);
+        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(
+                // 查询条件，店铺ID
+                new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId));
 
-        assertThat(interfaceResponse).isEqualTo(databaseResponse);
-        assertThat(interfaceResponse).isNotNull();
+        ShopEntity shopEntity = shopMapper.selectOne(new QueryWrapper<ShopEntity>().eq("shop_id", shopId));
+
+        Long count = bdmExclusiveShopMapper.selectCount(new QueryWrapper<BdmExclusiveShopEntity>().eq("shop_id", shopId));
+
+        assertThat(count == 0).isTrue();
+        assertThat(shopEntity.getShopBorderUrl()).isNotNull();
+        assertThat(shopSearchMiddleEntity.getNewChannelLabelUrl()).isEqualTo("");
+        assertThat(shopSearchMiddleEntity.getNewShopLabelUrl()).isEqualTo("");
+        assertThat(interfaceResponse).isEqualTo("");
 
     }
 
