@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.sideInfo.sendMoney;
+package com.miller.userapp.module.shop.card.version3.home.sideInfo.sendMoney;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.entity.address.CityFunctionConfigEntity;
@@ -9,9 +9,9 @@ import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.shop.CityFunctionConfigMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,16 +19,17 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-//import com.hungrypanda.app.server.vo.index;
+
 import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01J81XK2V4JKD5F9WSWEGP6DQM", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-配送价格-首页-商卡二期：配送价格 - 运费减免优惠"
+@Scenario(scenarioID = "01K0P29TRKSGG3SQFTREWAWKNA", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-首页-商卡二期：配送价格 - 运费减免优惠"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-配送价格-首页-商卡二期：配送价格 - 运费减免优惠")
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-首页-商卡二期：配送价格 - 运费减免优惠")
 public class ShopShouldHasSendMoneyCDeliveryOffScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.04.shopId"));
@@ -43,7 +44,7 @@ public class ShopShouldHasSendMoneyCDeliveryOffScenarioTests {
         );
 
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-辅助信息-配送价格-首页-商卡二期：配送价格 - 运费减免优惠")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-首页-商卡二期：配送价格 - 运费减免优惠")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){

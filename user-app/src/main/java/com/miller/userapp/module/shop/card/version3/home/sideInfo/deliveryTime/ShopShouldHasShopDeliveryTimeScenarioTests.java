@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.sideInfo.deliveryTime;
+package com.miller.userapp.module.shop.card.version3.home.sideInfo.deliveryTime;
 
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
@@ -6,9 +6,9 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,8 +24,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/19 10:18
  */
-@Scenario(scenarioID = "01J8J4CHKZ5HM4CR5RY39H3J5T",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取单独商家配送时间",
+@Scenario(scenarioID = "01K0P0BQZHS5GXE3ZEFW7KPRXY",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取单独商家配送时间",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -49,13 +49,13 @@ public class ShopShouldHasShopDeliveryTimeScenarioTests {
 
     @MethodSource("DataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取单独商家配送时间 ")
+    @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取单独商家配送时间 ")
     void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 
         Integer predictDeliveryTime= shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getPredictDeliveryTime();
-        Integer realDeliveryTime = 15+((20+60)/2);
+        Integer realDeliveryTime = 20+((50+60)/2);
         assertThat(predictDeliveryTime).isEqualTo(realDeliveryTime);
 
 

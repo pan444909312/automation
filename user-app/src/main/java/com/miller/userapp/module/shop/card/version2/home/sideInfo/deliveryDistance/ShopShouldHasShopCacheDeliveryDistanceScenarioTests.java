@@ -11,6 +11,7 @@ import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.mapper.shop.AdsHpSearchDistanceMatrix;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
 import com.miller.userapp.util.RequestUtils;
@@ -65,8 +66,7 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
       RequestUtils.getHeaders().put("Content-Type", "application/json");
       RequestUtils.getHeaders().put("latitude", "29.7514799");
       RequestUtils.getHeaders().put("longitude", "115.9541");
-      ShopListResponseDTO shopList = HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
-              RequestUtils.putBodyOfJson(shopListRequestDTO), null, ShopListResponseDTO.class);
+      ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 
       String distance= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getDistance();

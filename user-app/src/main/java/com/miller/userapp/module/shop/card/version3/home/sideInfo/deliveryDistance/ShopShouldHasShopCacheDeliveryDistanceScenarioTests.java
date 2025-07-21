@@ -1,14 +1,21 @@
-package com.miller.userapp.module.shop.card.version2.home.sideInfo.deliveryTime;
+package com.miller.userapp.module.shop.card.version3.home.sideInfo.deliveryDistance;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hungrypanda.app.server.entity.data.AdsSearchDistanceMatrixEntity;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.userapp.constants.BusinessConstant;
+import com.miller.userapp.mapper.shop.AdsHpSearchDistanceMatrix;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.util.RequestUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -22,16 +29,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author heyuan
  * @version 1.0
- * @since 2024/9/25 18:12
+ * @since 2024/9/25 19:39
  */
-@Scenario(scenarioID = "01J8MFQJYPKS8X8R4MENRKGDFP",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
+@Scenario(scenarioID = "01K0P43MYA1TK7NV3M41EPCZPG",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
+public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
    UserLoginRequestDTO userLoginRequestDTO;
+   private static final String uri = BusinessConstant.DOMAIN + "/api/user/v2/index/shopList";
+   private AdsHpSearchDistanceMatrix adsHpSearchDistanceMatrix;
+   private Double cacheDistance;
+
 
 
    @BeforeAll
@@ -44,20 +55,27 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
       userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode"));
 
       UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
-
+      SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
+      adsHpSearchDistanceMatrix = sqlSession.getMapper(AdsHpSearchDistanceMatrix.class);
    }
 
    @MethodSource("DataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间 ")
+   @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
+      RequestUtils.getHeaders().put("Content-Type", "application/json");
+      RequestUtils.getHeaders().put("latitude", "29.751");
+      RequestUtils.getHeaders().put("longitude", "115.954");
       ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 
-      Integer predictDeliveryTime= shopList.getResult().getShopList().stream()
-              .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getPredictDeliveryTime();
-      Integer realDeliveryTime = 20+((20+40)/2);
-      assertThat(predictDeliveryTime).isEqualTo(realDeliveryTime);
+      String distance= shopList.getResult().getShopList().stream()
+              .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getDistance();
+      AdsSearchDistanceMatrixEntity adsSearchDistanceMatrixEntity = adsHpSearchDistanceMatrix.selectOne(new QueryWrapper<AdsSearchDistanceMatrixEntity>().
+              eq("start_tudustr", "115.984,29.669").
+              eq("target_tudustr", "115.954,29.751"));
 
+          cacheDistance = (adsSearchDistanceMatrixEntity.getDistance().doubleValue())/1000;
+      assertThat(distance).isEqualTo(cacheDistance+"km");
 
 
 
@@ -77,4 +95,3 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
    }
 
 }
-  
