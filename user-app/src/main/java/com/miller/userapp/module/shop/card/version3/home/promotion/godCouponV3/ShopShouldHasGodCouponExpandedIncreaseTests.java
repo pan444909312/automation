@@ -70,6 +70,7 @@ public class ShopShouldHasGodCouponExpandedIncreaseTests {
               filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst().get();
       assertThat(shopPromoteVO.getShowContent()).isEqualTo("已膨至¥11");
       assertThat(shopPromoteVO.getSubsidyContent()).isEqualTo("额外减¥1");
+      assertThat(shopPromoteVO.getTagType()).isEqualTo(1);
 
      }
 

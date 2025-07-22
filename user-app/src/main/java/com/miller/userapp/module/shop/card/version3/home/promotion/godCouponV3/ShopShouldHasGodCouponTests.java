@@ -20,6 +20,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
+
 @Scenario(scenarioID = "01K0RPDKEC0MG8C8J2SSXPRKW0", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：神券标签41-最高膨胀至X｜店铺未加码",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
@@ -51,7 +53,9 @@ public class ShopShouldHasGodCouponTests {
 
       ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
               filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst().get();
-                assert shopPromoteVO.getShowContent().equals("最高膨至¥100");
+         assert shopPromoteVO.getShowContent().equals("最高膨至¥100");
+         assertThat(shopPromoteVO.getTagType()).isEqualTo(1);
+
 
      }
 

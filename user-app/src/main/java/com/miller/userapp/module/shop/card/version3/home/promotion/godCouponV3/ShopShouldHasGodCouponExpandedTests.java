@@ -69,6 +69,8 @@ public class ShopShouldHasGodCouponExpandedTests {
       ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
               filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst().get();
       assertThat(shopPromoteVO.getShowContent()).isEqualTo("已膨至¥10");
+      assertThat(shopPromoteVO.getTagType()).isEqualTo(1);
+
 
      }
 

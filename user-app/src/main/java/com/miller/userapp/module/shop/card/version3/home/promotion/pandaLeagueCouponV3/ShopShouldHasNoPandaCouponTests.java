@@ -1,6 +1,7 @@
-package com.miller.userapp.module.shop.card.version3.home.promotion.godCouponV3;
+package com.miller.userapp.module.shop.card.version3.home.promotion.pandaLeagueCouponV3;
 
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
+import com.hungrypanda.app.server.entity.redpacket.UserCdKeyEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
 import com.miller.common.util.MD5Util;
@@ -13,25 +14,27 @@ import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0RPQRR925Q1DHTEJB0VGDWM", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：神券标签41-最高膨胀至X｜店铺加码",
+@Scenario(scenarioID = "01K0S2DDRAP138YC41MCRBRJPZ", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：熊猫联盟券40 - 折扣红包 - 不展示：对照组",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasGodIncreaseCouponTests {
-     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.increase.shopId"));
+public class ShopShouldHasNoPandaCouponTests {
+     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.userId"));
-
+    UserCdKeyEntity userCdKeyEntity;
      @BeforeAll
     void beforeAll() {
 
@@ -43,19 +46,33 @@ public class ShopShouldHasGodIncreaseCouponTests {
         userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.public.login.type")));
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.callingCode"));
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
+
+         //临时删除账户内神券红包
+         UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
+         userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId")), (byte) 1);
+         userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId2")), (byte) 1);
+         userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId3")), (byte) 1);
+
+
+     }
+     @AfterAll
+     void afterAll(){
+         //神券信息修改:恢复账户内神券红包
+         UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
+         userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId")), (byte) 0);
+         userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId2")), (byte) 0);
+         userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId3")), (byte) 0);
+
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：神券标签41-最高膨胀至X｜店铺加码")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：熊猫联盟券40 - 折扣红包 - 不展示：对照组")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-
-      ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
-              filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst().get();
-       assertThat(shopPromoteVO.getShowContent()).isEqualTo("最高膨至¥101");
-       assertThat(shopPromoteVO.getTagType()).isEqualTo(1);
+      List<ShopPromoteVO> shopPromoteVOS=shopIndexVO.getShopPromoteList().stream().filter(item -> item.getType().equals(ShopPromoteEnum.PANDA_LEAGUE.getType())).toList();
+      assertThat(shopPromoteVOS.size()).isEqualTo(0);
 
 
      }

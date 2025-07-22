@@ -53,4 +53,31 @@ public boolean updateRedPacketScopeTypeAndPrice(String userId, Long redPacketId,
     }
     return false;
 }
+/**
+ * 修改红包的使用状态
+ *
+ * @param userId 用户ID
+ * @param redPacketId 红包ID
+ * @param isUsed 新的使用状态
+ * @return 如果更新成功返回true，否则返回false
+ */
+public boolean updateRedPacketUsedStatus(String userId, Long redPacketId, Byte isUsed) {
+    // 获取UserCdKeyMapper映射器
+    UserCdKeyMapper userCdKeyMapper = sqlSession.getMapper(UserCdKeyMapper.class);
+
+    // 查询现有的UserCdKeyEntity
+    QueryWrapper<UserCdKeyEntity> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("user_id", userId);
+    queryWrapper.eq("red_packet_id", redPacketId);
+    UserCdKeyEntity entity = userCdKeyMapper.selectOne(queryWrapper);
+
+    if (entity != null) {
+        // 更新is_used状态
+        entity.setIsUsed(isUsed);
+
+        // 执行更新
+        return userCdKeyMapper.updateById(entity) > 0;
+    }
+    return false;
+}
 }
