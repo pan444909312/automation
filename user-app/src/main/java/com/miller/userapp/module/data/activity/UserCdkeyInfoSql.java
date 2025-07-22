@@ -23,4 +23,34 @@ public class UserCdkeyInfoSql {
         queryWrapper.eq("red_packet_id", redPacketId);
         return userCdKeyMapper.selectOne(queryWrapper);
     }
+
+    /**
+ * 修改红包的可膨胀状态 和当前金额
+ *
+ * @param userId 用户ID
+ * @param redPacketId 红包ID
+ * @param newScopeType 新的红包范围类型
+ * @param newPrice 新的红包价格
+ * @return 如果更新成功返回true，否则返回false
+ */
+public boolean updateRedPacketScopeTypeAndPrice(String userId, Long redPacketId, Integer newScopeType, int newPrice) {
+    // 获取UserCdKeyMapper映射器
+    UserCdKeyMapper userCdKeyMapper = sqlSession.getMapper(UserCdKeyMapper.class);
+
+    // 查询现有的UserCdKeyEntity
+    QueryWrapper<UserCdKeyEntity> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("user_id", userId);
+    queryWrapper.eq("red_packet_id", redPacketId);
+    UserCdKeyEntity entity = userCdKeyMapper.selectOne(queryWrapper);
+
+    if (entity != null) {
+        // 更新redpacketScopeType和redpacketprice
+        entity.setRedPacketScopeType(newScopeType);
+        entity.setRedPacketPrice(newPrice);
+
+        // 执行更新
+        return userCdKeyMapper.updateById(entity) > 0;
+    }
+    return false;
+}
 }

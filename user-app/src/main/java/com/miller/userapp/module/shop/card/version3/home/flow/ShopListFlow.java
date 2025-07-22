@@ -41,11 +41,10 @@ public class ShopListFlow {
         try {
             // 设置请求头
             RequestUtils.getHeaders().put("Content-Type", "application/json");
-            String testGroupNew=BusinessConstant.testGroup+"SKYX01";
+            String testGroupNew=BusinessConstant.testGroup.replace("SKYX02","SKYX01");
             RequestUtils.getHeaders().put("testGroup", testGroupNew);
             int pageNo = 1;
             RequestUtils.getHeaders().put("pageNo", pageNo);
-
             // 发送请求获取数据
             ShopListResponseDTO shopListResponse = HttpUtils.sendPostRequestReturnJavaObject(
                     uri,

@@ -7,6 +7,7 @@ import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.userapp.module.data.activity.UserCdkeyInfoSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
@@ -20,12 +21,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K0RPDKEC0MG8C8J2SSXPRKW0", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：神券标签41-最高膨胀至X｜店铺未加码",
+@Scenario(scenarioID = "01K0RPQRR925Q1DHTEJB0VGDWM", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：神券标签41-最高膨胀至X｜店铺加码",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopShouldHasGodCouponTests {
-     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.shopId"));
+public class ShopShouldHasGodIncreaseCouponTests {
+     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.increase.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.userId"));
 
@@ -43,7 +44,7 @@ public class ShopShouldHasGodCouponTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：神券标签41-最高膨胀至X｜店铺未加码")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：神券标签41-最高膨胀至X｜店铺加码")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
@@ -51,7 +52,7 @@ public class ShopShouldHasGodCouponTests {
 
       ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
               filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst().get();
-                assert shopPromoteVO.getShowContent().equals("最高膨至¥100");
+      assert shopPromoteVO.getShowContent().equals("最高膨至¥101");
 
      }
 
