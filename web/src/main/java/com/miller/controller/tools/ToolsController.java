@@ -67,11 +67,11 @@ public class ToolsController {
     @PostMapping("/autoCreateMerchant")
     public Response<String> autoCreateMerchant(@RequestBody AutoCreateMerchantReqDTO autoCreateMerchantReqDTO) {
         String result;
-        try {
+//        try {
             result = MerchantFactory.quickCreateMerchant(autoCreateMerchantReqDTO.getCityName(), autoCreateMerchantReqDTO.getShopName());
-        }catch (Exception e){
-            return Response.fail(e.getMessage());
-        }
+//        }catch (Exception e){
+//            return Response.fail(e.getMessage());
+//        }
 
         return Response.success(result);
     }
