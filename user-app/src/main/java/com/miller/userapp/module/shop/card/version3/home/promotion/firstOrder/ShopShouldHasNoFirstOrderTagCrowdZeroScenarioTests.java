@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version2.home.promotion.firstOrder;
+package com.miller.userapp.module.shop.card.version3.home.promotion.firstOrder;
 
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -10,15 +10,13 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.userapp.constants.BusinessConstant;
 import com.miller.userapp.mapper.shop.ShopNewUserLabelMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version2.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version2.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
-import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -33,10 +31,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01J7QY2D2DYTX4CZ7DMMR4BDX6", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：对照组"
+@Scenario(scenarioID = "01K0RCYNYFJN63V4DTVRAVYHHW", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：对照组")
-public class ShopShouldHasNoFirstOrderTagControlGroupTests {
+@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
+public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
     private final Integer type=35;
@@ -58,21 +56,17 @@ public class ShopShouldHasNoFirstOrderTagControlGroupTests {
         user.setType(Integer.valueOf(loginType));
         user.setDistinctId(distinctId);
         UserLoginFlow.loginAndPutToken(user);
-//        更新数据库，将user_label表数据label_id设置为1
+//        更新数据库，将user_label表数据label_id设置为0
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
-        shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
+        shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,0)
         );
-        // 这里将新人价实验组(默认)改为对照组,需要改两个实验
-        RequestUtils.getHeaders().put("Content-Type", "application/json");
-        String newTestGroup= BusinessConstant.testGroup.replace("XRJ01","XRJ02").replace("SKXRB01","SKXRB02");
-        RequestUtils.getHeaders().put("testGroup", newTestGroup);
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：对照组")
+    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-不展示：非人群")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasNoFirstOrderTagCrowdZero(ShopListRequestDTO ShopListRequestdto){
-        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopList(ShopListRequestdto);
+        ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();
 //        校验营销标签中无新人标签
