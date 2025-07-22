@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Objects;
 
 
-@Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "商家工厂_一键自动创建模板商家", author = "shandongdong@hungrypandagroup.com", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
+@Scenario(scenarioID = "01J4QYGE34BJ7SP84EBBTWEJPT", scenarioName = "商家工厂_一键自动创建模板商家", author = "panjuxiang@hungrypandagroup.com", developmentTime = 6 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
 @DisplayName("商家工厂")
 @Data
 public class MerchantFactory {
@@ -164,6 +164,24 @@ public class MerchantFactory {
 
     private String step02CreateMerchantWenZhou(String merchantName) {
         String body = "factory/merchant_factory/create_merchant/request/bodyWenZhou.json";
+
+        return step02CreateMerchant(merchantName, body);
+    }
+
+    private String step02CreateMerchantShaoXing(String merchantName) {
+        String body = "factory/merchant_factory/create_merchant/request/bodyShaoXing.json";
+
+        return step02CreateMerchant(merchantName, body);
+    }
+
+    private String step02CreateMerchantShenYang(String merchantName) {
+        String body = "factory/merchant_factory/create_merchant/request/bodyShenYang.json";
+
+        return step02CreateMerchant(merchantName, body);
+    }
+
+    private String step02CreateMerchantShangQiu(String merchantName) {
+        String body = "factory/merchant_factory/create_merchant/request/bodyShangQiu.json";
 
         return step02CreateMerchant(merchantName, body);
     }
@@ -441,7 +459,7 @@ public class MerchantFactory {
 
     private void step09AddFenceJiuJiang() {
         String sql;
-        // 设置九江市围栏
+        // 设置杭州市围栏
         // 如果不为空则认为是进行商家编辑
         if (Objects.nonNull(editMerchantByShopId)) {
             // 修改 ShopId 为指定的 ShopId
@@ -467,7 +485,7 @@ public class MerchantFactory {
 
     private void step09AddFenceWenZhou() {
         String sql;
-        // 设置九江市围栏
+        // 设置温州市围栏
         // 如果不为空则认为是进行商家编辑
         if (Objects.nonNull(editMerchantByShopId)) {
             // 修改 ShopId 为指定的 ShopId
@@ -486,6 +504,84 @@ public class MerchantFactory {
             sql = " INSERT INTO panda_test.hp_shop_delivery_fence (shop_id, fence_latlng, fence_name, create_time, last_update_time, last_modify_admin, delivery_type, fence_template_id) VALUES ( " +
                     TestCaseHelpful.get("shopId")
                     + ", '28.08249,120.49988|28.10914,121.03477|27.81621,120.91392|27.85325,120.47172', '温州店铺围栏', DEFAULT, DEFAULT, 1748, 1, 0); ";
+
+        }
+        step09AddFence(sql);
+    }
+
+    private void step09AddFenceShangQiu() {
+        String sql;
+        // 设置商丘市围栏
+        // 如果不为空则认为是进行商家编辑
+        if (Objects.nonNull(editMerchantByShopId)) {
+            // 修改 ShopId 为指定的 ShopId
+
+            sql = """
+                    UPDATE panda_test.hp_shop_delivery_fence t
+                    SET t.fence_latlng = '34.47331,115.56669|34.47175,115.70179|34.35621,115.79062|34.29497,115.59424',
+                        t.fence_name = '商丘店铺围栏',
+                        t.last_modify_admin = 1748,
+                        t.delivery_type = 1,
+                        t.fence_template_id = 0
+                    WHERE t.shop_id = 
+                    """ + editMerchantByShopId;
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            sql = " INSERT INTO panda_test.hp_shop_delivery_fence (shop_id, fence_latlng, fence_name, create_time, last_update_time, last_modify_admin, delivery_type, fence_template_id) VALUES ( " +
+                    TestCaseHelpful.get("shopId")
+                    + ", '34.47331,115.56669|34.47175,115.70179|34.35621,115.79062|34.29497,115.59424', '商丘店铺围栏', DEFAULT, DEFAULT, 1748, 1, 0); ";
+
+        }
+        step09AddFence(sql);
+    }
+
+    private void step09AddFenceShaoXing() {
+        String sql;
+        // 设置绍兴市围栏
+        // 如果不为空则认为是进行商家编辑
+        if (Objects.nonNull(editMerchantByShopId)) {
+            // 修改 ShopId 为指定的 ShopId
+
+            sql = """
+                    UPDATE panda_test.hp_shop_delivery_fence t
+                    SET t.fence_latlng = '30.00217,120.59073|30.00879,120.61519|29.98753,120.61913|29.97154,120.61192|29.97162,120.59071|29.97381,120.58025|29.97794,120.56436|29.98991,120.55261',
+                        t.fence_name = '绍兴店铺围栏',
+                        t.last_modify_admin = 1748,
+                        t.delivery_type = 1,
+                        t.fence_template_id = 0
+                    WHERE t.shop_id = 
+                    """ + editMerchantByShopId;
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            sql = " INSERT INTO panda_test.hp_shop_delivery_fence (shop_id, fence_latlng, fence_name, create_time, last_update_time, last_modify_admin, delivery_type, fence_template_id) VALUES ( " +
+                    TestCaseHelpful.get("shopId")
+                    + ", '30.00217,120.59073|30.00879,120.61519|29.98753,120.61913|29.97154,120.61192|29.97162,120.59071|29.97381,120.58025|29.97794,120.56436|29.98991,120.55261', '绍兴店铺围栏', DEFAULT, DEFAULT, 1748, 1, 0); ";
+
+        }
+        step09AddFence(sql);
+    }
+
+    private void step09AddFenceShenYang() {
+        String sql;
+        // 设置沈阳市围栏
+        // 如果不为空则认为是进行商家编辑
+        if (Objects.nonNull(editMerchantByShopId)) {
+            // 修改 ShopId 为指定的 ShopId
+
+            sql = """
+                    UPDATE panda_test.hp_shop_delivery_fence t
+                    SET t.fence_latlng = '41.81115,123.18454|41.97267,123.27930|41.98492,123.73798|41.63998,123.84372|41.58248,123.19828',
+                        t.fence_name = '沈阳店铺围栏',
+                        t.last_modify_admin = 1748,
+                        t.delivery_type = 1,
+                        t.fence_template_id = 0
+                    WHERE t.shop_id = 
+                    """ + editMerchantByShopId;
+        } else {
+            // 修改 ShopId 为创建商家的 ShopId
+            sql = " INSERT INTO panda_test.hp_shop_delivery_fence (shop_id, fence_latlng, fence_name, create_time, last_update_time, last_modify_admin, delivery_type, fence_template_id) VALUES ( " +
+                    TestCaseHelpful.get("shopId")
+                    + ", '41.81115,123.18454|41.97267,123.27930|41.98492,123.73798|41.63998,123.84372|41.58248,123.19828', '沈阳店铺围栏', DEFAULT, DEFAULT, 1748, 1, 0); ";
 
         }
         step09AddFence(sql);
@@ -683,6 +779,75 @@ public class MerchantFactory {
                 merchantFactory.step08AddShopBusinessTime();
                 // 修改对应地址
                 merchantFactory.step09AddFenceHangZhou();
+                merchantFactory.step10SaveBillInfo();
+                merchantFactory.step11MerchantAuth();
+                merchantFactory.step12RecommendMerchant();
+                merchantFactory.tearDown();
+                return result;
+
+            }
+        },
+        SHAOXING("绍兴市") {
+            @Override
+            public String createMerchant(String merchantName) {
+                MerchantFactory merchantFactory = new MerchantFactory();
+                merchantFactory.setUP();
+                // 修改对应地址
+                String result = merchantFactory.step02CreateMerchantShaoXing(merchantName);
+                merchantFactory.step03EditMerchantInfoOfBusiness();
+                merchantFactory.step04EditMerchantInfoOfCost();
+                merchantFactory.step05EditMerchantInfoOfAdditional();
+                merchantFactory.step06EditMerchantInfoOfAddKP();
+                merchantFactory.step07CreateGoods();
+                merchantFactory.step08AddShopBusinessTime();
+                // 修改对应地址
+                merchantFactory.step09AddFenceShaoXing();
+                merchantFactory.step10SaveBillInfo();
+                merchantFactory.step11MerchantAuth();
+                merchantFactory.step12RecommendMerchant();
+                merchantFactory.tearDown();
+                return result;
+
+            }
+        },
+        SHANGQIU("商丘市") {
+            @Override
+            public String createMerchant(String merchantName) {
+                MerchantFactory merchantFactory = new MerchantFactory();
+                merchantFactory.setUP();
+                // 修改对应地址
+                String result = merchantFactory.step02CreateMerchantShangQiu(merchantName);
+                merchantFactory.step03EditMerchantInfoOfBusiness();
+                merchantFactory.step04EditMerchantInfoOfCost();
+                merchantFactory.step05EditMerchantInfoOfAdditional();
+                merchantFactory.step06EditMerchantInfoOfAddKP();
+                merchantFactory.step07CreateGoods();
+                merchantFactory.step08AddShopBusinessTime();
+                // 修改对应地址
+                merchantFactory.step09AddFenceShangQiu();
+                merchantFactory.step10SaveBillInfo();
+                merchantFactory.step11MerchantAuth();
+                merchantFactory.step12RecommendMerchant();
+                merchantFactory.tearDown();
+                return result;
+
+            }
+        },
+        SHENYANG("沈阳市") {
+            @Override
+            public String createMerchant(String merchantName) {
+                MerchantFactory merchantFactory = new MerchantFactory();
+                merchantFactory.setUP();
+                // 修改对应地址
+                String result = merchantFactory.step02CreateMerchantShenYang(merchantName);
+                merchantFactory.step03EditMerchantInfoOfBusiness();
+                merchantFactory.step04EditMerchantInfoOfCost();
+                merchantFactory.step05EditMerchantInfoOfAdditional();
+                merchantFactory.step06EditMerchantInfoOfAddKP();
+                merchantFactory.step07CreateGoods();
+                merchantFactory.step08AddShopBusinessTime();
+                // 修改对应地址
+                merchantFactory.step09AddFenceShenYang();
                 merchantFactory.step10SaveBillInfo();
                 merchantFactory.step11MerchantAuth();
                 merchantFactory.step12RecommendMerchant();
