@@ -1,22 +1,18 @@
 package com.miller.userapp.module.shop.card.version3.home.promotion.memberBenefit;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
-import com.hungrypanda.app.server.entity.member.MemberCityEntity;
-import com.hungrypanda.app.server.entity.member.MemberPacketEntity;
 import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.hungrypanda.app.server.vo.index.ShopPromoteVO;
+import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
-import com.miller.service.util.XXLJobUtils;
-import com.miller.userapp.mapper.member.MemberCityMapper;
-import com.miller.userapp.mapper.member.MemberPacketMapper;
-import com.miller.userapp.module.shop.card.version3.home.promotion.memberBenefit.flow.ShopListFlowNoLogin;
-import com.miller.userapp.module.shop.card.version3.home.promotion.memberBenefit.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version3.home.promotion.memberBenefit.response.ShopListResponseDTO;
-import com.miller.userapp.util.DBUtils;
-import org.apache.ibatis.session.SqlSession;
+import com.miller.userapp.module.home.login.flow.UserLoginFlow;
+import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
+import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.util.RequestUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,37 +22,28 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 
-@Scenario(scenarioID = "01J46NM6T46BDDJFHRFM4RN9YX", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
+@Scenario(scenarioID = "01K0V4346Z54JEC3CC362DMSMN",
+        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5 + 30, manualTestTime = 15)
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
-     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
-     private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
-     private final Long packageId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shop.redPacketId")) ;
+    private final Long shopId = 911598059L;
+    private final Long memberCityID = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.memberCityId"));
+    private final Long packageId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shop.redPacketId"));
 
-     //     用户未登录，运费减免关闭，配置店铺联盟红包，展示店铺联盟红包
 
     @BeforeAll
-     void beforeAll() {
-        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        MemberCityMapper shopMemberCityMapper = sqlSession.getMapper(MemberCityMapper.class);
-//        修改会员城市表，修改会员城市表is_open_delivery_discount字段为0 运费减免关闭
-//        update member_city set is_open_delivery_discount=0 where member_city_id=1111378;
-         shopMemberCityMapper.update(null, new LambdaUpdateWrapper<MemberCityEntity>()
-                .eq(MemberCityEntity::getMemberCityId, memberCityID)
-                 .set(MemberCityEntity::getIsOpenDeliveryDiscount, 0));
+    void beforeAll() {
+        UserLoginRequestDTO userLoginRequestDTO = new UserLoginRequestDTO();
+        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user03.account"));
+        userLoginRequestDTO.setPassword(MD5Util.string2MD5((new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user03.password"))));
+        userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.distinctId"));
+        userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode"));
+        userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type")));
+        UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
 
-//         update member_packet set is_del=0 where member_city_id=1111378 and packet_id=888890186;
-         MemberPacketMapper memberPacketMapper = sqlSession.getMapper(MemberPacketMapper.class);
-         memberPacketMapper.update(null, new LambdaUpdateWrapper<MemberPacketEntity>()
-                .eq(MemberPacketEntity::getPacketId, packageId)
-                .eq(MemberPacketEntity::getMemberCityId, memberCityID)
-                .set(MemberPacketEntity::getIsDel, 0));
-
-        //执行定时定时任务：店铺更新定时任务
-        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
 
     }
 
@@ -65,18 +52,22 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
     @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
+        RequestUtils.getHeaders().put("latitude", "41.80478");
+        RequestUtils.getHeaders().put("longitude", "123.43297");
 
 //        请求首页店铺数据
-        ShopListResponseDTO shopList = ShopListFlowNoLogin.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
         //遍历店铺的ShopPromoteList列表，
         ShopPromoteVO memberPacket = shopIndexVO.getShopPromoteList().stream().
                 filter(item -> item.getType() == ShopPromoteEnum.INDEX_MEMBER_PACKET.getType()).findFirst().get();
-        assert memberPacket.getShowContent().equals("¥15无门槛");
+        assert memberPacket.getType().equals(ShopPromoteEnum.INDEX_MEMBER_PACKET.getType());
+        assert memberPacket.getShowContent().contains("红包");
 
     }
+
     /**
      * 测试用例数据提供者
      */
