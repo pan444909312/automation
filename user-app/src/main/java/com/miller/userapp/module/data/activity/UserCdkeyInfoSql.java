@@ -69,6 +69,7 @@ public boolean updateRedPacketUsedStatus(String userId, Long redPacketId, Byte i
     QueryWrapper<UserCdKeyEntity> queryWrapper = new QueryWrapper<>();
     queryWrapper.eq("user_id", userId);
     queryWrapper.eq("red_packet_id", redPacketId);
+    queryWrapper.eq("is_used", 0);
     UserCdKeyEntity entity = userCdKeyMapper.selectOne(queryWrapper);
 
     if (entity != null) {
