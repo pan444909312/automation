@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01K0P0B4N79G5M7CKCBAZW80SV",
         scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
