@@ -52,7 +52,7 @@ public class ShopShouldHasShopIncreaseCouponScenarioTests {
         shopPromoteList=shopIndexVO.getShopPromoteList().stream().filter(item -> item.getType() == ShopPromoteEnum.SHOP_RED_PACKET.getType()).toList();
         assertThat(shopPromoteList.size()).isEqualTo(2);
         assertThat(shopPromoteList.get(0).getShowContent()).isEqualTo("¥6无门槛");
-        assertThat(shopPromoteList.get(1).getShowContent()).isEqualTo("¥3折无门槛");
+        assertThat(shopPromoteList.get(1).getShowContent()).isEqualTo("3折无门槛");
         assertThat(shopPromoteList.get(0).getTagType()).isEqualTo(1);
         assertThat(shopPromoteList.get(1).getTagType()).isEqualTo(1);
 
