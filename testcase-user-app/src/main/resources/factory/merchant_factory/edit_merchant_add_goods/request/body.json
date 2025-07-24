@@ -1,13 +1,11 @@
 {
   "shopId": null,
   "productPlatformCategoryId": "",
-  "menuId": 4205359,
-  "productName": "商品01",
-  "productNameEn": "Goods01",
-  "productImg": "https://static.hungrypanda.co/crm/1750576757669cf0076918c0d40d08f5087a94f289ab2.jpg",
+  "menuId": 4207154,
+  "productName": "测试商品001",
+  "productNameEn": "test product001",
+  "productImg": "https://static.hungrypanda.co/crm/175332854124375b32a92d936421caa6552ef7feab71b.jpg",
   "refer": 0,
-  "proNum": "",
-  "shelfNum": "",
   "isCombine": 0,
   "changeProductStatusByCombineProduct": 0,
   "combineRelationDTOS": [],
@@ -19,7 +17,9 @@
   "isSpecial": 0,
   "productSaleType": 1,
   "productSalesLocationList": [
-    0,
+    0
+  ],
+  "pickUpType": [
     1,
     2
   ],
