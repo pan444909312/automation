@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoShopScoreIsTests {
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.04.shopId"));
 
     @BeforeAll
     void beforeAll() {

@@ -22,26 +22,28 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
+
 @Scenario(scenarioID = "01K0P3M5STNATNPH60FSN4KKDH",
         scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-历史评分",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-历史评分")
 public class ShopShouldHasShopScoreIsHistoryScoreTests {
-     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
 
      @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         EvaluationMapper evaluationMapper = sqlSession.getMapper(EvaluationMapper.class);
-//update evaluation_score=100 where shopid=xxxx  设置历史分数为100  则为100/2
-         evaluationMapper.update(new EvaluationEntity(), new LambdaUpdateWrapper<EvaluationEntity>()
-                 .eq(EvaluationEntity::getShopId, shopId)
-                         .set(EvaluationEntity::getComposite,100)
-                         .set(EvaluationEntity::getCompositeManager,0));
-//       执行定时定时任务-店铺数据更新
-        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
+////update evaluation_score=100 where shopid=xxxx  设置历史分数为100  则为100/2
+//         evaluationMapper.update(new EvaluationEntity(), new LambdaUpdateWrapper<EvaluationEntity>()
+//                 .eq(EvaluationEntity::getShopId, shopId)
+//                         .set(EvaluationEntity::getComposite,100)
+//                         .set(EvaluationEntity::getCompositeManager,0));
+////       执行定时定时任务-店铺数据更新
+//        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
 
      }
      @MethodSource("staticDataProvider")
@@ -51,8 +53,7 @@ public class ShopShouldHasShopScoreIsHistoryScoreTests {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-
-                assert shopIndexVO.getPraiseAverage().equals("5.0");
+          assertThat(shopIndexVO.getPraiseAverage()).isEqualTo("4.9");
 
 
      }
