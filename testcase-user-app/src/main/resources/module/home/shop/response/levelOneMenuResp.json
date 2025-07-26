@@ -1,0 +1,17 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "isShowSorting": "${json-unit.any-number}",
+    "dataList": [
+      {
+        "menuId": "${json-unit.ignore-element}",
+        "menuName": "${json-unit.any-string}"
+
+      }]},
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+}
