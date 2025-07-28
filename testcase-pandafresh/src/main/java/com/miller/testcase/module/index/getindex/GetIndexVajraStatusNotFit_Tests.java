@@ -20,20 +20,20 @@ import java.util.Map;
  * @since 2025/07/28 16:28:58
  */
 @Scenario(
-        scenarioID = "01K0E6ZB3Z1N0FXPJR0RVHKW48", // 自动生成，不要修改
-        scenarioName = "pf首页-金刚区-隐藏：用户身份不符合",
+        scenarioID = "01K0E6ZB3Z1N0FXPJR0RVHKW49", // 自动生成，不要修改
+        scenarioName = "pf首页-金刚区-隐藏：未生效",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf首页-金刚区-隐藏：用户身份不符合")
-public class GetIndexVajraPersonNotFit_Tests {
+@DisplayName("pf首页-金刚区-隐藏：未生效")
+public class GetIndexVajraStatusNotFit_Tests {
 
     Map<String, Object> selectOneSql;
     @BeforeAll
      void beforeAll() throws InterruptedException {
-        //查找生效中的渠道含app的生效的老用户可见的金刚区
+        //查找生效中的渠道含app的未生效的所有用户可见的金刚区
         //达达-1、h5-2、h5&达达-3、app-4、app&达达-5、app&h5-6、app&h5&达达-7
-        String sql = "SELECT * FROM ad a WHERE a.type=5 and a.del_status=0 and a.`status`=1 " +
-                "and a.is_shield_nested_web>3 and a.portal_id=3 and a.push_user=2 ORDER BY a.sort DESC LIMIT 1;";
+        String sql = "SELECT * FROM ad a WHERE a.type=5 and a.del_status=0 and a.`status`=0 " +
+                "and a.is_shield_nested_web>3 and a.portal_id=3 and a.push_user=0 ORDER BY a.sort DESC LIMIT 1;";
         // 查询1条记录
         selectOneSql = FreshTestDBHelpful.executeSelectOneSql(sql);
     }
@@ -61,9 +61,6 @@ public class GetIndexVajraPersonNotFit_Tests {
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        //登录新用户
-        requestHeaders.put("userId","1398717076");
-        requestHeaders.put("authorization",TestCaseHelpful.login("17799887766","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
