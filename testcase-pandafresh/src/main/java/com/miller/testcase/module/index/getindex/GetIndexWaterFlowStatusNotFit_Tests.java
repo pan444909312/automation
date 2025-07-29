@@ -21,16 +21,16 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01K0E6ZB3Z1N0FXPJR0RVHKW53", // 自动生成，不要修改
-        scenarioName = "pf首页-专题推荐-隐藏：未生效",
+        scenarioName = "pf首页-专题推荐-隐藏：未开启",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf首页-专题推荐-隐藏：未生效")
+@DisplayName("pf首页-专题推荐-隐藏：未开启")
 public class GetIndexWaterFlowStatusNotFit_Tests {
 
     Map<String, Object> selectOneSql;
     @BeforeAll
      void beforeAll() throws InterruptedException {
-        //查找生效中的渠道包含app的未生效的所有用户可见的专题推荐
+        //查找渠道包含app的未开启的所有用户可见的专题推荐
         //达达-1、h5-2、h5&达达-3、app-4、app&达达-5、app&h5-6、app&h5&达达-7
         String sql = "SELECT * FROM ad a WHERE a.model=9 and a.del_status=0 and a.`status`=0 " +
                 "and a.is_shield_nested_web>3 and a.portal_id=3 and a.push_user=0 and a.end_date>NOW()  ORDER BY a.sort DESC LIMIT 1;";

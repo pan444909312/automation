@@ -32,7 +32,7 @@ public class GetIndexVajraChannelNotFit_Tests {
     Map<String, Object> selectOneSql;
     @BeforeAll
      void beforeAll() throws InterruptedException {
-        //查找生效中的渠道不含app的生效的金刚区
+        //查找渠道不含app的生效的金刚区
         //达达-1、h5-2、h5&达达-3、app-4、app&达达-5、app&h5-6、app&h5&达达-7
         String sql = "SELECT * FROM ad a WHERE a.model=5 and a.del_status=0 and a.`status`=1  and a.end_date>NOW() " +
                 "and a.is_shield_nested_web<4 and a.portal_id=3 and a.push_user=0 ORDER BY a.sort DESC LIMIT 1;";

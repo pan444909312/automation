@@ -17,34 +17,38 @@ import java.util.Map;
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/07/28 16:28:58
+ * @since 2025/07/29 14:28:58
  */
 @Scenario(
-        scenarioID = "01K0E6ZB3Z1N0FXPJR0RVHKW49", // 自动生成，不要修改
-        scenarioName = "pf首页-金刚区-隐藏：未开启",
+        scenarioID = "01K0E6ZB3Z1N0FXPJR0RVHKW55", // 自动生成，不要修改
+        scenarioName = "pf首页-中通广告-隐藏：生效渠道不符合",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 15, maintenanceTime = 2, manualTestTime = 3)
-@DisplayName("pf首页-金刚区-隐藏：未开启")
-public class GetIndexVajraStatusNotFit_Tests {
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("pf首页-中通广告-隐藏：生效渠道不符合")
+public class GetIndexGirdleChannelNotFit_Tests {
 
     Map<String, Object> selectOneSql;
     @BeforeAll
      void beforeAll() throws InterruptedException {
-        //查找生效中的渠道含app的未开启的所有用户可见的金刚区
+        //查找渠道包含app的生效的非新人用户可见的优先级最高的中通广告
         //达达-1、h5-2、h5&达达-3、app-4、app&达达-5、app&h5-6、app&h5&达达-7
-        String sql = "SELECT * FROM ad a WHERE a.model=5 and a.del_status=0 and a.`status`=0 and a.end_date>NOW()  " +
-                "and a.is_shield_nested_web>3 and a.portal_id=3 and a.push_user=0 ORDER BY a.sort DESC LIMIT 1;";
+        String sql = "SELECT * FROM ad a WHERE a.model=7 and a.del_status=0 and a.`status`=1 " +
+                "and a.is_shield_nested_web>3 and a.portal_id=3 and a.push_user!=1 and a.end_date>NOW()  ORDER BY a.sort DESC LIMIT 1;";
         try {
             // 查询1条记录
             selectOneSql = FreshTestDBHelpful.executeSelectOneSql(sql);
+            String sql1 = "update ad a set a.is_shield_nested_web=3 where a.id="+selectOneSql.get("id")+"";
+            //将此广告的渠道更新为非app
+            FreshTestDBHelpful.executeInsertOrUpdateOrDelete(sql1);
         }catch (Exception e){
-            System.out.println("无符合的金刚区数据！！");
+            System.out.println("无符合的中通广告数据！！");
         }
     }
     @AfterAll
-    static void afterAll(){
-        // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次
-        // 你可以在这里执行后置的操作，比如: 销毁测试数据、还原数据库、清理环境等
+     void afterAll(){
+        String sql2 = "update ad a set a.is_shield_nested_web=7 where a.id="+selectOneSql.get("id")+"";
+        //将此广告的渠道更新为三个渠道可用
+        FreshTestDBHelpful.executeInsertOrUpdateOrDelete(sql2);
     }
 
     @DisplayName("正向流程")
@@ -75,9 +79,9 @@ public class GetIndexVajraStatusNotFit_Tests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);
 
-        JSONArray vajraList = TestCaseHelpful.extractValue(responseBody,"$.result.indexList[?(@.type=='vajra')].items");
+        JSONArray vajraList = TestCaseHelpful.extractValue(responseBody,"$.result.indexList[?(@.type=='girdle')].items.[0].adBuriedPoint");
 
-        //返回的金刚区列表里不能包含此金刚区
+        //返回的中通广告不能包含此广告
         TestCaseHelpful.assertThatJson(vajraList.toString().contains(selectOneSql.get("id").toString())).isEqualTo(false);
 
     }
