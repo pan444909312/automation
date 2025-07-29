@@ -23,7 +23,7 @@ import java.util.Map;
         scenarioID = "01K0E6ZB3Z1N0FXPJR0RVHKW49", // 自动生成，不要修改
         scenarioName = "pf首页-金刚区-隐藏：未生效",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+        developmentTime = 15, maintenanceTime = 2, manualTestTime = 3)
 @DisplayName("pf首页-金刚区-隐藏：未生效")
 public class GetIndexVajraStatusNotFit_Tests {
 
@@ -32,10 +32,14 @@ public class GetIndexVajraStatusNotFit_Tests {
      void beforeAll() throws InterruptedException {
         //查找生效中的渠道含app的未生效的所有用户可见的金刚区
         //达达-1、h5-2、h5&达达-3、app-4、app&达达-5、app&h5-6、app&h5&达达-7
-        String sql = "SELECT * FROM ad a WHERE a.type=5 and a.del_status=0 and a.`status`=0 " +
+        String sql = "SELECT * FROM ad a WHERE a.model=5 and a.del_status=0 and a.`status`=0 and a.end_date>NOW()  " +
                 "and a.is_shield_nested_web>3 and a.portal_id=3 and a.push_user=0 ORDER BY a.sort DESC LIMIT 1;";
-        // 查询1条记录
-        selectOneSql = FreshTestDBHelpful.executeSelectOneSql(sql);
+        try {
+            // 查询1条记录
+            selectOneSql = FreshTestDBHelpful.executeSelectOneSql(sql);
+        }catch (Exception e){
+            System.out.println("无符合的金刚区数据！！");
+        }
     }
     @AfterAll
     static void afterAll(){
