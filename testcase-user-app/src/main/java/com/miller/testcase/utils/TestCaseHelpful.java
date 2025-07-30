@@ -1,5 +1,6 @@
 package com.miller.testcase.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.jayway.jsonpath.PathNotFoundException;
@@ -18,10 +19,10 @@ import org.assertj.core.api.ObjectAssert;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import com.alibaba.fastjson.JSONArray;
 
 /**
  * 测试用例助手, 简化和提高用例开发效率，作用如下：
@@ -403,6 +404,63 @@ public class TestCaseHelpful {
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         return TestCaseHelpful.extractValue(responseBody, "$.data.token");
+    }
+
+    /**
+     * @param shopId 店铺Id
+     * @param mobilePhone
+     * @param password
+     * @return 店铺在首页店铺流的VO信息,当首页店铺流不存在店铺时返回null
+     */
+    public static JSONObject getShopVOByShopId(String shopId, String mobilePhone, String password) {
+        String uri = TestcaseConfig.HOST_APP + "/api/user/v2/index/shopList";
+        String method = "POST";
+        String headers = "module/home/en_shoplist_v1/request/headers_cn.json";
+        String body = "module/home/en_shoplist_v1/request/body_cn.json";
+
+        // 设置请求头
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("authorization", TestCaseHelpful.login(mobilePhone, password));
+
+        // 获取请求体基础模板
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        
+        int pageNo = 1;
+        int maxPage = 50; // 设置最大页数限制，避免无限循环
+        
+        while (pageNo <= maxPage) {
+            try {
+                // 更新请求体中的页码
+                requestHeaders.put("pageno", String.valueOf(pageNo));
+                
+                // 发起请求
+                var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
+                
+                // 使用fastjson解析响应
+                JSONObject jsonResponse = JSON.parseObject(responseBody);
+                JSONObject result = jsonResponse.getJSONObject("result");
+                JSONArray shopList = result.getJSONArray("shopList");
+                
+                // 如果shopList为空，说明已经到最后一页
+                if (shopList == null || shopList.isEmpty()) {
+                    break;
+                }
+                
+                // 遍历当前页的商铺列表
+                for (int i = 0; i < shopList.size(); i++) {
+                    JSONObject shop = shopList.getJSONObject(i);
+                    if (shopId.equals(shop.getString("shopId"))) {
+                        return shop;
+                    }
+                }
+                
+                pageNo++; // 继续查找下一页
+                
+            } catch (Exception e) {
+                throw new RuntimeException("获取商铺列表失败: " + e.getMessage());
+            }
+        }
+        return null;
     }
 
 }
