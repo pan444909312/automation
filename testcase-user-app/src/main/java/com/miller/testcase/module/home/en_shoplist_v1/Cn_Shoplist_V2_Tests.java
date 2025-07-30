@@ -49,7 +49,7 @@ public class Cn_Shoplist_V2_Tests {
         var responseShopBody = TestCaseHelpful.getShopVOByShopId("703996760", "17700000077", "123456", testGroupNew, null,null);
         // 检查响应体不为空
         assertThat(responseShopBody).isNotNull();
-        // 检查响应体不为空
+        // 检查响应体为空
 //        assertThat(responseShopBody).isNull();
         // 获取并校验 deliveryAndStatus
         Integer deliveryAndStatus = responseShopBody.getInteger("deliveryAndStatus");
