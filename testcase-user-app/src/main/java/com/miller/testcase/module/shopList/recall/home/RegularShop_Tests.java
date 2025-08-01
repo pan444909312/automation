@@ -50,5 +50,9 @@ public class RegularShop_Tests {
         Integer deliveryAndStatus = responseShopBody.getInteger("deliveryAndStatus");
         Assertions.assertNotNull(deliveryAndStatus, "deliveryAndStatus 不应为空");
         assertThat(deliveryAndStatus).isEqualTo(1);
+        // 获取并校验 shopType
+        Integer shopType = responseShopBody.getInteger("shopType");
+        Assertions.assertNotNull(shopType, "shopType 不应为空");
+        assertThat(shopType).isEqualTo(0);
     }
 } 
