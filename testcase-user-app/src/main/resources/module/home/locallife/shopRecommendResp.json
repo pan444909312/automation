@@ -1,0 +1,15 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"dataList":"${json-unit.ignore-element}",
+		"totalCount":"${json-unit.any-number}",
+		"currency": "${json-unit.ignore-element}"
+	},
+
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

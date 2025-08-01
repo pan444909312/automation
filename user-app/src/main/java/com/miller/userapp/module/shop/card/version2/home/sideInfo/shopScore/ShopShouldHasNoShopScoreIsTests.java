@@ -21,25 +21,27 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
+
 @Scenario(scenarioID = "01JDKG1GHJ9RJJF12A65ZJ1FGV",
         scenarioName = "商卡(中文)_普通店铺配送商卡_辅助信息_店铺评分_首页-商卡二期：店铺评分-无数据",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoShopScoreIsTests {
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.04.shopId"));
 
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopSearchMiddleMapper shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
-//update evaluation_score=100 where shopid=xxxx  没有则不展示
-        shopSearchMiddleMapper.update(null, new LambdaUpdateWrapper<ShopSearchMiddleEntity>()
-                .eq(ShopSearchMiddleEntity::getShopId, shopId)
-                .set(ShopSearchMiddleEntity::getPraiseAverage, 0)
-                .set(ShopSearchMiddleEntity::getShowShopEvaluation, 0)
-                .set(ShopSearchMiddleEntity::getPraiseAverageNew, 0));
+////update evaluation_score=100 where shopid=xxxx  没有则不展示
+//        shopSearchMiddleMapper.update(null, new LambdaUpdateWrapper<ShopSearchMiddleEntity>()
+//                .eq(ShopSearchMiddleEntity::getShopId, shopId)
+//                .set(ShopSearchMiddleEntity::getPraiseAverage, 0)
+//                .set(ShopSearchMiddleEntity::getShowShopEvaluation, 0)
+//                .set(ShopSearchMiddleEntity::getPraiseAverageNew, 0));
 
     }
 
@@ -50,7 +52,7 @@ public class ShopShouldHasNoShopScoreIsTests {
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-        assert shopIndexVO.getPraiseAverage().equals("0");
+        assertThat (shopIndexVO.getPraiseAverage()).isEqualTo("0");
     }
 
     /*

@@ -22,6 +22,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
+
 @Scenario(scenarioID = "01K0P3W8876JM4N87XKKB9T6GT",
         scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
@@ -41,7 +43,7 @@ public class ShopShouldHasShopScoreIsOperationScoreTests {
                          .set(EvaluationEntity::getComposite,100)
                          .set(EvaluationEntity::getCompositeManager,80));
 //       执行定时定时任务-店铺数据更新
-        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
+//        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
 
      }
      @MethodSource("staticDataProvider")
@@ -51,7 +53,7 @@ public class ShopShouldHasShopScoreIsOperationScoreTests {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-                assert shopIndexVO.getPraiseAverage().equals("4.0");
+          assertThat(shopIndexVO.getPraiseAverage()).isEqualTo("4.0");
      }
 
 /*
