@@ -1,5 +1,6 @@
 package com.miller.controller.testcase;
 
+import com.miller.entity.platform.req.TestCaseRunScenarioReq;
 import com.miller.service.testcase.TestCaseService;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,8 @@ import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.junit.platform.engine.discovery.ClassNameFilter.includeClassNamePatterns;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
@@ -26,12 +29,13 @@ public class TestCaseController {
     @Autowired
     private TestCaseService testCaseService;
 
-    @GetMapping("/runScenario")
-    public String runScenario(@RequestParam(value = "packageName") String packageName) {
-        if (null == packageName || StringUtils.isBlank(packageName)) {
+    @PostMapping("/runScenario")
+    public String runScenario(@RequestBody TestCaseRunScenarioReq req) {
+        List<String> packageNameList = req.getPackageNameList();
+        if (null == packageNameList || packageNameList.isEmpty()) {
             return "packageName is empty.";
         }
-        String runTestCaseULID = testCaseService.runTestCase(packageName);
+        String runTestCaseULID = testCaseService.runTestCase(packageNameList);
 
         return String.valueOf(runTestCaseULID);
     }
