@@ -1,0 +1,15 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"ruleList": [{
+			"ruleType": 7,
+			"value": 3,
+			"reissueSns": ["A01E2B1148C54C779C868C77F66F3A74"],
+			"reissueIds": null
+		}],
+		"newUersRuleList": null
+	},
+	"success": true
+}

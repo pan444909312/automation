@@ -1,0 +1,19 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"inviteUserRecordVO": null,
+		"newUserBroadcastVO": null,
+		"activityCardVO": null,
+		"newUserUrgeIndexBroadCastVO": {
+			"redPacketId": 888890144,
+			"userCdkyId": 1727087090903,
+			"content": "你有{0}待使用",
+			"contentParam": {
+				"{0}": "¥8无门槛红包"
+			}
+		}
+	},
+	"success": true
+}
