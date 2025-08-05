@@ -1,0 +1,42 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"specialOrderId": 1456,
+		"createTimeStr": "2025-05-27 10:58:47",
+		"refundCreateTimeStr": "2025-05-27 10:58:52",
+		"refundFinishTimeStr": "2025-05-27 10:58:52",
+		"specialOrderStatus": 3,
+		"totalRefundAmount": "29.60",
+		"specialOrderGoodsDetails": [{
+			"specialOrderId": 1456,
+			"goodsId": 10561,
+			"goodsName": "酒商品-测试告警-不要动-002",
+			"goodsImage": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/IMG_0980/1634181618450IMG_0980.JPG",
+			"goodsCount": 1.00,
+			"goodsSpe": "003",
+			"goodsPrice": "6.00",
+			"goodsType": 1
+		}],
+		"deliveryFee": "11.00",
+		"tips": "0.60",
+		"packPrice": "0.00",
+		"differencePrice": "0.00",
+		"orderSn": "PFZC2505271757543163",
+		"specialOrderSn": "2025-05-27-00002",
+		"currency": "£",
+		"showStatusStr": "PandaFresh已经将货款按照原支付方式退回，实际到账时间由银行决定，请注意查收！",
+		"createTime": 1748339927,
+		"portalId": 3,
+		"refundCreateTime": 1748339932,
+		"refundTime": 1748339932,
+		"smallOrderFee": "6.00",
+		"specialOrderType": 1,
+		"exchangeGoodsType": 0,
+		"compensationAmount": "0.00",
+		"platformFee": "6.00"
+	}
+}

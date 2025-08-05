@@ -1,0 +1,168 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"orderInfo": {
+			"orderActivityType": "COMMON_ORDER",
+			"orderType": 0,
+			"canCancel": false,
+			"orderSn": "PFZC2408201124053051",
+			"orderViewStatus": 8,
+			"orderViewStatusStr": "已完成",
+			"isArrived": 1,
+			"isOutMealTime": null,
+			"deliveryStatusStr": null,
+			"deliveryStatusSubTitle": null,
+			"orderStatusSubTitle": null,
+			"weatherIcon": null,
+			"weatherIconDesc": null,
+			"refundStatus": null,
+			"orderStatus": 8,
+			"orderStatusName": "已完成",
+			"payCountDown": 0,
+			"secondCountDown": 0,
+			"orderTip": null,
+			"orderSubTitle": "祝您生活愉快，期待再次光临",
+			"deliveryType": 2,
+			"deliveryTypeStr": "",
+			"payWayName": "线上支付",
+			"orderRemark": "",
+			"createTimeStr": "2024/08/20 11:24:05",
+			"orderProcessList": [{
+				"orderStatusStr": "用户已取货",
+				"createTimeStr": "08-20 11:24"
+			}, {
+				"orderStatusStr": "商家备餐中",
+				"createTimeStr": "08-20 11:24"
+			}, {
+				"orderStatusStr": "商家已收到该订单",
+				"createTimeStr": "08-20 11:24"
+			}, {
+				"orderStatusStr": "待付款",
+				"createTimeStr": "08-20 11:24"
+			}],
+			"metricUnitType": 0,
+			"hasUpdateOrder": false,
+			"updateOrderIconView": 0,
+			"bannerInfo": {
+				"bannerImg": "${json-unit.any-string}",
+				"bannerLinkUrl": "${json-unit.any-string}",
+				"bannerType": 1,
+				"adId": null
+			},
+			"afterSalesInfo": null,
+			"afterSalesUrl": null,
+			"needHelpStatus": 0,
+			"npsInfo": {
+				"showNpsCondition": 0,
+				"npsContent": null
+			},
+			"supportReview": 0,
+			"selfServiceInfo": {
+				"rushOrderUrl": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmYyZS1wa2ctbGVhZmxldC10ZXN0Lmh1bmdyeXBhbmRhLmNuJTJGZGlhbG9nJTJGdXJnZU9yZGVyJTNGaW1tZXJzZSUzRDElMjZsb2FkaW5nJTNEMSUyNm1vZGUlM0QxJTI2cnVzaFNvdXJjZSUzRDElMjZvcmRlclNuJTNEUEZaQzI0MDgyMDExMjQwNTMwNTEifQ**&callback=CALLBACK_NAME&code=ac96f64699b3d88"
+			},
+			"firstOrderShowVO": {
+				"firstOrder": 0,
+				"firstOrderRedPacket": 0
+			},
+			"isHpf": 1,
+			"hpfPickUpCode": "31071",
+			"isSupermarket": 1,
+			"inventoryType": {
+				"adPic": null,
+				"adLinkUrl": null,
+				"type": null,
+				"adId": null,
+				"adType": null,
+				"adSense": 2,
+				"googleAdUnitId": "ca-app-pub-5066204861113818/3593362708"
+			},
+			"adSense": 1,
+			"adUnitId": "ca-app-pub-5066204861113818/3593362708"
+		},
+		"productInfo": {
+			"shopId": 10061,
+			"shopName": "😊熊猫优鲜🥬pandafresh(宁波超市)",
+			"productDetailList": [{
+				"productId": null,
+				"productImg": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1723515962589/1723515962589fcbe9eb9.JPG",
+				"productName": "生菜-虚拟",
+				"productCount": 1,
+				"productSkuId": "76054",
+				"tagName": "默认",
+				"productTagIdExt": null,
+				"totalProductPrice": 0,
+				"totalOriginalPrice": 0,
+				"minProductPrice": null,
+				"isLotProduct": null,
+				"expireDate": null,
+				"pickUpType": null
+			}]
+		},
+		"priceInfo": {
+			"orderAmountItemList": [{
+				"itemKey": "goodsAmount",
+				"itemName": "商品小计",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 0,
+				"itemInfo": null,
+				"sort": 0,
+				"iconImg": null,
+				"mergeList": null
+			}],
+			"orderAmountItemMerge": null,
+			"subTotalAmount": null,
+			"afterDiscountDeliveryPrice": null,
+			"totalPrice": null,
+			"totalDiscount": 0,
+			"totalAmount": 0,
+			"totalOriginalAmount": null,
+			"deliveryAddRule": null,
+			"deliveryAddPrice": null,
+			"deliveryAddOrgPlatformPrice": null,
+			"notice": null
+		},
+		"deliveryInfo": {
+			"deliveryTime": "08-20 04:24-05:24",
+			"orderArrivedTime": "2024-08-20 11:24:11",
+			"userName": "",
+			"userPhone": "+4417700004444",
+			"userAreaCode": "44",
+			"userPostCode": "",
+			"userHouseNum": "",
+			"userLocation": "",
+			"userLatitude": "30.18230570463442",
+			"userLongitude": "120.2019739151001",
+			"shopImg": "https://static.hungrypanda.co/panda/165184644432736bdbe27b2354b8aa1db9c6b68bce8f7.png?x-oss-process=style/shop_logo",
+			"shopPhone": "8618888888888",
+			"shopLatitude": "30.18230570463442",
+			"shopLongitude": "120.2019739151001",
+			"shopAddress": "浙江省杭州市滨江区 57 西南方向141米",
+			"driverUserCode": null,
+			"driverImg": null,
+			"driverRealName": null,
+			"driverPhone": null,
+			"driverLatitude": null,
+			"driverLongitude": null,
+			"deliveryRunType": null,
+			"deliverableAction": 0,
+			"deliverableActionName": "",
+			"deliverableRemark": "",
+			"arriveRemark": null,
+			"arriveImage": null,
+			"consigneeTelMask": null,
+			"takeMealCode": null,
+			"updateAddressButtonStatus": null
+		},
+		"refundInfo": null,
+		"spellGroupInfo": null,
+		"fastDeliveryAdditionalVO": null,
+		"trackInfo": null,
+		"groupShareInfo": null,
+		"addressChangeInfo": null,
+		"reserveInfo": null
+	}
+}

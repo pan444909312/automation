@@ -20,11 +20,11 @@ public class BusinessConstant {
      * 请求头公共参数.
      * 纬度
      */
-    public static String latitude = "29.72005";
+    public static String latitude = "29.6605799";
     /**
      * 经度
      */
-    public static String longitude = "115.99882";
+    public static String longitude = "115.9541";
     /**
      * 真实的纬度
      */

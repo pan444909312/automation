@@ -1,16 +1,20 @@
 package com.miller.userapp.module.home.index.common;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.api.req.launchAd.PullLaunchAdReq;
 import com.hungrypanda.app.server.api.res.launchAd.LaunchAdDetail;
 import com.hungrypanda.app.server.api.res.launchAd.PullLaunchAdRes;
 import com.hungrypanda.app.server.common.result.Result;
+import com.hungrypanda.app.server.entity.ad.LaunchAdEntity;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.userapp.constants.BusinessConstant;
+import com.miller.userapp.mapper.home.LaunchAdMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.util.RequestUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,10 +36,15 @@ public class LaunchAdPullSuccess {
      * 接口_启动页广告
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/v1/launchAd/pull";
+    private LaunchAdMapper launchAdMapper;
 
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
+        SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
+        launchAdMapper = sqlSession.getMapper(LaunchAdMapper.class);
+        launchAdMapper.update(new UpdateWrapper<LaunchAdEntity>().eq("la_id",232).set("state",1));
+
     }
 
     @MethodSource("staticDataProvider")

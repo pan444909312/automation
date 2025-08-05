@@ -11,13 +11,13 @@ import java.util.Map;
 
 
 @Scenario(scenarioID = "01JVKR6DPZH7V8WK4B381AMV6Q",
-        scenarioName = "定位地址获取成功",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+        scenarioName = "定位地址获取成功-已登录用户有地址",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 5)
 @DisplayName("/api/user/location")
 public class UserLocationSuccess {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/location";
 
-    @DisplayName("定位地址获取成功")
+    @DisplayName("定位地址获取成功-已登录用户有地址")
     @Test
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");

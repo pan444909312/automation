@@ -70,6 +70,8 @@ public class Operatemodulelistv2_Tests {
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.address").isNotNull();
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.hotSearch").isNotNull();
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.indexModuleVo.viewAreaListNew").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.venueVO").isNotNull();
+
 
     }
 } 

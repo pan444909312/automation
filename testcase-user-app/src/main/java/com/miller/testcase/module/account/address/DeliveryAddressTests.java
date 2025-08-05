@@ -2,6 +2,7 @@ package com.miller.testcase.module.account.address;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
@@ -10,10 +11,10 @@ import org.junit.jupiter.api.Test;
 
 @Scenario(
         scenarioID = "01JXCG5RDZG3ZAXK5F47NHVHBA",
-        scenarioName = "获取收货地址列表",
+        scenarioName = "获取收货地址列表-有数据",
         author = "huyang@hungrypandagroup.com",
-        developmentTime = 90, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("获取收货地址列表")
+        developmentTime = 90, maintenanceTime = 10, manualTestTime = 5)
+@DisplayName("获取收货地址列表-有数据")
 public class DeliveryAddressTests {
     // 接口请求的 path
     String uri = TestcaseConfig.HOST_APP + "/api/user/delivery/address";
@@ -31,10 +32,12 @@ public class DeliveryAddressTests {
     @DisplayName("正向流程")
     @Test
     void shouldLoginSuccessfully() {
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update address set is_del = 0 WHERE add_id = 1398681061");
+
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         // 给请求头添加数据，例如这里添加token
-        requestHeaders.put("Authorization", TestCaseHelpful.login("19157824000", "123456a"));
+        requestHeaders.put("Authorization", TestCaseHelpful.login("13999900008", "123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
@@ -47,12 +50,8 @@ public class DeliveryAddressTests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
        // 从预期响应中提取第一个地址对象用于断言
-        var expectedAddress = TestCaseHelpful.extractValue(expectedStr, "$.result[0]");
         // 断言result数组中包含预期的地址对象
         TestCaseHelpful.assertThatJson(responseBody)
-            .when(Option.IGNORING_EXTRA_FIELDS, Option.IGNORING_EXTRA_ARRAY_ITEMS)
-            .node("result")
-            .isArray()
-            .contains(expectedAddress);
+            .when(Option.IGNORING_EXTRA_FIELDS, Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
     }
 }

@@ -1,0 +1,228 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"orderInfo": {
+			"orderActivityType": "COMMON_ORDER",
+			"orderType": 0,
+			"canCancel": false,
+			"orderSn": "PFZC2408171532349577",
+			"orderViewStatus": 2,
+			"orderViewStatusStr": "商家备餐中",
+			"isArrived": 0,
+			"isOutMealTime": 1,
+			"deliveryStatusStr": null,
+			"deliveryStatusSubTitle": null,
+			"orderStatusSubTitle": {
+				"tipInfo": "${json-unit.any-string}",
+				"lightMap": {
+					"{0}": "${json-unit.any-string}"
+				}
+			},
+			"weatherIcon": null,
+			"weatherIconDesc": null,
+			"refundStatus": null,
+			"orderStatus": 2,
+			"orderStatusName": "${json-unit.any-string}",
+			"payCountDown": 0,
+			"secondCountDown": 0,
+			"orderTip": null,
+			"orderSubTitle": "预计 @@2025-08-17 00:00-23:59@@ 送达",
+			"deliveryType": 1,
+			"deliveryTypeStr": "Panda配送",
+			"payWayName": "礼品卡",
+			"orderRemark": "",
+			"createTimeStr": "2024/08/17 15:32:34",
+			"orderProcessList": [{
+				"orderStatusStr": "商家备餐中",
+				"createTimeStr": "08-17 15:33"
+			}, {
+				"orderStatusStr": "商家已收到该订单",
+				"createTimeStr": "08-17 15:33"
+			}, {
+				"orderStatusStr": "待付款",
+				"createTimeStr": "08-17 15:32"
+			}],
+			"metricUnitType": 0,
+			"hasUpdateOrder": false,
+			"updateOrderIconView": 0,
+			"bannerInfo": {
+				"bannerImg": "${json-unit.any-string}",
+				"bannerLinkUrl": "${json-unit.any-string}",
+				"bannerType": 1,
+				"adId": null
+			},
+			"afterSalesInfo": null,
+			"afterSalesUrl": null,
+			"needHelpStatus": 1,
+			"npsInfo": {
+				"showNpsCondition": 0,
+				"npsContent": null
+			},
+			"supportReview": 0,
+			"selfServiceInfo": {
+				"rushOrderUrl": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmYyZS1wa2ctbGVhZmxldC10ZXN0Lmh1bmdyeXBhbmRhLmNuJTJGZGlhbG9nJTJGdXJnZU9yZGVyJTNGaW1tZXJzZSUzRDElMjZsb2FkaW5nJTNEMSUyNm1vZGUlM0QxJTI2cnVzaFNvdXJjZSUzRDElMjZvcmRlclNuJTNEUEZaQzI0MDgxNzE1MzIzNDk1NzcifQ**&callback=CALLBACK_NAME&code=0c378efb4eed09f"
+			},
+			"firstOrderShowVO": {
+				"firstOrder": 0,
+				"firstOrderRedPacket": 0
+			},
+			"isHpf": 1,
+			"hpfPickUpCode": null,
+			"isSupermarket": 1,
+			"inventoryType": {
+				"adPic": null,
+				"adLinkUrl": null,
+				"type": null,
+				"adId": null,
+				"adType": null,
+				"adSense": 2,
+				"googleAdUnitId": "ca-app-pub-5066204861113818/3593362708"
+			},
+			"adSense": 1,
+			"adUnitId": "ca-app-pub-5066204861113818/3593362708"
+		},
+		"productInfo": {
+			"shopId": 10042,
+			"shopName": "😊熊猫优鲜🥬pandafresh(宁波超市)",
+			"productDetailList": [{
+				"productId": null,
+				"productImg": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/319c432b479f1b0d1d84143398f05ea6/1653651333931319c432b479f1b0d1d84143398f05ea6.jpeg",
+				"productName": "番薯王66两站点",
+				"productCount": 1,
+				"productSkuId": "74942",
+				"tagName": "默认",
+				"productTagIdExt": null,
+				"totalProductPrice": 12300,
+				"totalOriginalPrice": 12300,
+				"minProductPrice": null,
+				"isLotProduct": null,
+				"expireDate": null,
+				"pickUpType": null
+			}, {
+				"productId": null,
+				"productImg": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1679986384008/1679986384008971a1146.jpg",
+				"productName": "菠菜1",
+				"productCount": 1,
+				"productSkuId": "72",
+				"tagName": "默认",
+				"productTagIdExt": null,
+				"totalProductPrice": 658,
+				"totalOriginalPrice": 1400,
+				"minProductPrice": null,
+				"isLotProduct": null,
+				"expireDate": null,
+				"pickUpType": null
+			}]
+		},
+		"priceInfo": {
+			"orderAmountItemList": [{
+				"itemKey": "goodsAmount",
+				"itemName": "商品小计",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 12958,
+				"itemInfo": null,
+				"sort": 0,
+				"iconImg": null,
+				"mergeList": null
+			}, {
+				"itemKey": "deliveryFee",
+				"itemName": "配送费",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 776,
+				"itemInfo": null,
+				"sort": 3,
+				"iconImg": null,
+				"mergeList": null
+			}, {
+				"itemKey": "platformFee",
+				"itemName": "平台服务费",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 600,
+				"itemInfo": null,
+				"sort": 4,
+				"iconImg": null,
+				"mergeList": null
+			}, {
+				"itemKey": "tips",
+				"itemName": "小费",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 1296,
+				"itemInfo": null,
+				"sort": 5,
+				"iconImg": null,
+				"mergeList": null
+			}, {
+				"itemKey": "redPacketUserId",
+				"itemName": "红包",
+				"itemIconType": null,
+				"itemType": 1,
+				"originalAmount": null,
+				"itemAmount": 1100,
+				"itemInfo": null,
+				"sort": 8,
+				"iconImg": null,
+				"mergeList": null
+			}],
+			"orderAmountItemMerge": null,
+			"subTotalAmount": null,
+			"afterDiscountDeliveryPrice": null,
+			"totalPrice": null,
+			"totalDiscount": 1224,
+			"totalAmount": 14530,
+			"totalOriginalAmount": null,
+			"deliveryAddRule": null,
+			"deliveryAddPrice": null,
+			"deliveryAddOrgPlatformPrice": null,
+			"notice": null
+		},
+		"deliveryInfo": {
+			"deliveryTime": "08-17 00:00-23:59",
+			"orderArrivedTime": "",
+			"userName": "春",
+			"userPhone": "+8617700004444",
+			"userAreaCode": "86",
+			"userPostCode": "tyu",
+			"userHouseNum": "ert",
+			"userLocation": "China, Zhejiang, Hangzhou, Binjiang District, 072, 东北方向160米星耀中心星耀中心",
+			"userLatitude": "30.20074",
+			"userLongitude": "120.22185",
+			"shopImg": "https://static.hungrypanda.co/panda/164991511492044e0e252541c495890b8cf470b6ec7c1.png?x-oss-process=style/shop_logo",
+			"shopPhone": "8619157820001",
+			"shopLatitude": "30.18230570463442",
+			"shopLongitude": "120.2019739151001",
+			"shopAddress": "浙江省杭州市滨江区 57 西南方向141米",
+			"driverUserCode": 1,
+			"driverImg": "",
+			"driverRealName": "",
+			"driverPhone": "",
+			"driverLatitude": null,
+			"driverLongitude": null,
+			"deliveryRunType": 0,
+			"deliverableAction": 2,
+			"deliverableActionName": "见面交付",
+			"deliverableRemark": "",
+			"arriveRemark": "",
+			"arriveImage": null,
+			"consigneeTelMask": null,
+			"takeMealCode": null,
+			"updateAddressButtonStatus": null
+		},
+		"refundInfo": null,
+		"spellGroupInfo": null,
+		"fastDeliveryAdditionalVO": null,
+		"trackInfo": null,
+		"groupShareInfo": null,
+		"addressChangeInfo": null,
+		"reserveInfo": null
+	}
+}

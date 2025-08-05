@@ -1,0 +1,21 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "currentPosition": null,
+    "currentPositionCity": null,
+    "latitude": "29.66058",
+    "longitude": "115.95410",
+    "country": null,
+    "postalCode": null,
+    "addressList": [
+
+    ],
+    "currentCity": null
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}
