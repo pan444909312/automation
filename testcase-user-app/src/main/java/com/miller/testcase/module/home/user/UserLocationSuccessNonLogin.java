@@ -10,21 +10,20 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 
-@Scenario(scenarioID = "01JVKR6DPZH7V8WK4B381AMV6Q",
-        scenarioName = "定位地址获取成功-已登录用户有地址",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 5)
+@Scenario(scenarioID = "01K1T84GW8DBCRPPNTRT6R72H6",
+        scenarioName = "定位地址获取成功-未登录",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/location")
-public class UserLocationSuccess {
+public class UserLocationSuccessNonLogin {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/location";
 
-    @DisplayName("定位地址获取成功-已登录用户有地址")
+    @DisplayName("定位地址获取成功-未登录")
     @Test
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
         // 给请求头添加数据，例如这里添加token
-        headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
         String responseBody = TestCaseHelpful.sendRequest("GET", uri, null, headers, null);
-        String expectedStr = TestCaseHelpful.getFileContent("module/home/user/response/UserLocationResp.json");
+        String expectedStr = TestCaseHelpful.getFileContent("module/home/user/response/UserLocationNonLoginResp.json");
 
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
     }

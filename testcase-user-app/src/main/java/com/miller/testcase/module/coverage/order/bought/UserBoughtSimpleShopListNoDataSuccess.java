@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 
-@Scenario(scenarioID = "01K1T2TVGM3CG4Z6AYZBY2TVEE",
-        scenarioName = "订单列表获取买过店铺-用户有买过的店",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
+@Scenario(scenarioID = "01JVKR6DPZH7V8WK4B381AMV6J",
+        scenarioName = "订单列表获取买过店铺-用户未下过单",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 5)
 @DisplayName("/api/app/user/bought/simple/shopList")
-public class UserBoughtSimpleShopListSuccess {
+public class UserBoughtSimpleShopListNoDataSuccess {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/bought/simple/shopList";
 
-    @DisplayName("订单列表获取买过店铺-用户有买过的店")
+    @DisplayName("订单列表获取买过店铺-用户未下过单")
     @Test
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
         // 给请求头添加数据，例如这里添加token
-        headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
+        headers.put("Authorization", TestCaseHelpful.login("13999900003", "123456"));
         String requestBody = TestCaseHelpful.getJsonRequestBody("module/order/bought/request/UserBoughtSimpleShopListReq.json");
         String responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         String expectedStr = TestCaseHelpful.getFileContent("module/order/bought/response/UserBoughtSimpleShopListResp.json");
