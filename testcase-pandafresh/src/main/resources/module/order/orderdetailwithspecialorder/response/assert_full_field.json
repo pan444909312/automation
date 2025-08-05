@@ -1,0 +1,218 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"orderInfo": {
+			"orderActivityType": "COMMON_ORDER",
+			"orderType": 0,
+			"canCancel": false,
+			"orderSn": "PFZC2505271757543163",
+			"orderViewStatus": 11,
+			"orderViewStatusStr": "已取消",
+			"isArrived": 0,
+			"isOutMealTime": null,
+			"deliveryStatusStr": null,
+			"deliveryStatusSubTitle": null,
+			"orderStatusSubTitle": null,
+			"weatherIcon": null,
+			"weatherIconDesc": null,
+			"refundStatus": null,
+			"orderStatus": 11,
+			"orderStatusName": "已取消",
+			"payCountDown": 0,
+			"secondCountDown": 0,
+			"orderTip": {
+				"tipInfo": "订单已关闭",
+				"lightMap": {}
+			},
+			"orderSubTitle": "预计 @@2026-05-27 00:00-12:59@@ 送达",
+			"deliveryType": 1,
+			"deliveryTypeStr": "",
+			"payWayName": "礼品卡",
+			"orderRemark": "",
+			"createTimeStr": "2025/05/27 17:57:54",
+			"orderProcessList": [{
+				"orderStatusStr": "已取消",
+				"createTimeStr": "05-27 17:58"
+			}, {
+				"orderStatusStr": "商家备餐中",
+				"createTimeStr": "05-27 17:58"
+			}, {
+				"orderStatusStr": "商家已收到该订单",
+				"createTimeStr": "05-27 17:58"
+			}, {
+				"orderStatusStr": "待付款",
+				"createTimeStr": "05-27 17:57"
+			}],
+			"metricUnitType": 0,
+			"hasUpdateOrder": false,
+			"updateOrderIconView": 0,
+			"bannerInfo": null,
+			"afterSalesInfo": null,
+			"afterSalesUrl": null,
+			"needHelpStatus": 0,
+			"npsInfo": {
+				"showNpsCondition": 0,
+				"npsContent": null
+			},
+			"supportReview": 0,
+			"selfServiceInfo": {
+				"rushOrderUrl": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmYyZS1wa2ctbGVhZmxldC10ZXN0Lmh1bmdyeXBhbmRhLmNuJTJGZGlhbG9nJTJGdXJnZU9yZGVyJTNGaW1tZXJzZSUzRDElMjZsb2FkaW5nJTNEMSUyNm1vZGUlM0QxJTI2cnVzaFNvdXJjZSUzRDElMjZvcmRlclNuJTNEUEZaQzI1MDUyNzE3NTc1NDMxNjMifQ**&callback=CALLBACK_NAME&code=75de83f50adc622"
+			},
+			"firstOrderShowVO": {
+				"firstOrder": 0,
+				"firstOrderRedPacket": 0
+			},
+			"isHpf": 1,
+			"hpfPickUpCode": null,
+			"isSupermarket": 1,
+			"inventoryType": {
+				"adPic": null,
+				"adLinkUrl": null,
+				"type": null,
+				"adId": null,
+				"adType": null,
+				"adSense": 2,
+				"googleAdUnitId": "ca-app-pub-5066204861113818/3593362708"
+			},
+			"adSense": 1,
+			"adUnitId": "ca-app-pub-5066204861113818/3593362708"
+		},
+		"productInfo": {
+			"shopId": 166955977,
+			"shopName": "😊熊猫优鲜🥬pandafresh(宁波超市)",
+			"productDetailList": [{
+				"productId": null,
+				"productImg": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/IMG_0980/1634181618450IMG_0980.JPG",
+				"productName": "酒商品-测试告警-不要动-002",
+				"productCount": 1,
+				"productSkuId": "10004",
+				"tagName": "003",
+				"productTagIdExt": null,
+				"totalProductPrice": 600,
+				"totalOriginalPrice": 1200,
+				"minProductPrice": null,
+				"isLotProduct": null,
+				"expireDate": null,
+				"pickUpType": null
+			}]
+		},
+		"priceInfo": {
+			"orderAmountItemList": [{
+				"itemKey": "goodsAmount",
+				"itemName": "商品小计",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 600,
+				"itemInfo": null,
+				"sort": 0,
+				"iconImg": null,
+				"mergeList": null
+			}, {
+				"itemKey": "smallOrderFee",
+				"itemName": "小额订单费",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 600,
+				"itemInfo": null,
+				"sort": 1,
+				"iconImg": null,
+				"mergeList": null
+			}, {
+				"itemKey": "deliveryFee",
+				"itemName": "配送费",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 1100,
+				"itemInfo": null,
+				"sort": 3,
+				"iconImg": null,
+				"mergeList": null
+			}, {
+				"itemKey": "platformFee",
+				"itemName": "平台服务费",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 600,
+				"itemInfo": null,
+				"sort": 4,
+				"iconImg": null,
+				"mergeList": null
+			}, {
+				"itemKey": "tips",
+				"itemName": "小费",
+				"itemIconType": null,
+				"itemType": null,
+				"originalAmount": null,
+				"itemAmount": 60,
+				"itemInfo": null,
+				"sort": 5,
+				"iconImg": null,
+				"mergeList": null
+			}],
+			"orderAmountItemMerge": null,
+			"subTotalAmount": null,
+			"afterDiscountDeliveryPrice": null,
+			"totalPrice": null,
+			"totalDiscount": 0,
+			"totalAmount": 2960,
+			"totalOriginalAmount": null,
+			"deliveryAddRule": null,
+			"deliveryAddPrice": null,
+			"deliveryAddOrgPlatformPrice": null,
+			"notice": null
+		},
+		"deliveryInfo": {
+			"deliveryTime": "05-27 00:00-12:59",
+			"orderArrivedTime": "",
+			"userName": "接口测试111",
+			"userPhone": "+867518945235",
+			"userAreaCode": "86",
+			"userPostCode": "311200",
+			"userHouseNum": "",
+			"userLocation": "中国浙江省杭州市滨江区江陵路1519号 邮政编码: 311200回",
+			"userLatitude": "30.2037576",
+			"userLongitude": "120.2168624",
+			"shopImg": "https://static.hungrypanda.co/panda/165184644432736bdbe27b2354b8aa1db9c6b68bce8f7.png?x-oss-process=style/shop_logo",
+			"shopPhone": "8618888888888",
+			"shopLatitude": "30.18230570463442",
+			"shopLongitude": "120.2019739151001",
+			"shopAddress": "浙江省杭州市滨江区 57 西南方向141米",
+			"driverUserCode": null,
+			"driverImg": null,
+			"driverRealName": null,
+			"driverPhone": null,
+			"driverLatitude": null,
+			"driverLongitude": null,
+			"deliveryRunType": 0,
+			"deliverableAction": 2,
+			"deliverableActionName": "见面交付",
+			"deliverableRemark": "",
+			"arriveRemark": "",
+			"arriveImage": null,
+			"consigneeTelMask": null,
+			"takeMealCode": null,
+			"updateAddressButtonStatus": null
+		},
+		"refundInfo": {
+			"refundList": [{
+				"refundType": 1,
+				"refundAmountStr": "¥29.6",
+				"refundStatus": 3,
+				"refundStatusStr": "已退款",
+				"targetId": "1456"
+			}]
+		},
+		"spellGroupInfo": null,
+		"fastDeliveryAdditionalVO": null,
+		"trackInfo": null,
+		"groupShareInfo": null,
+		"addressChangeInfo": null,
+		"reserveInfo": null
+	}
+}
