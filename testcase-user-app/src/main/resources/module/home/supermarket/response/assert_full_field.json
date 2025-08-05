@@ -3,11 +3,9 @@
   "resultCode": 1000,
   "result": {
     "ageLimit": "${json-unit.any-number}",
-    "zipCode":"${json-unit.any-string}",
     "tabName": "${json-unit.any-string}",
     "isOpen": "${json-unit.any-number}",
     "cityname": "${json-unit.any-string}",
-    "supermarketUrl": "${json-unit.any-string}",
     "type": "${json-unit.any-number}"
   }
 

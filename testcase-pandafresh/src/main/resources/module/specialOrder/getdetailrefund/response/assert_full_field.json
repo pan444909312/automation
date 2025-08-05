@@ -1,0 +1,41 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"specialOrderId": 1418,
+		"createTimeStr": "",
+		"refundCreateTimeStr": "",
+		"refundFinishTimeStr": "",
+		"specialOrderStatus": 5,
+		"totalRefundAmount": "23.00",
+		"specialOrderGoodsDetails": [{
+			"specialOrderId": 1418,
+			"goodsId": 149768,
+			"goodsName": "烟类-虚拟",
+			"goodsImage": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1723433747140/172343374714080a18743.jpeg",
+			"goodsCount": 1.00,
+			"goodsSpe": "",
+			"goodsPrice": "23.00",
+			"goodsType": 7
+		}],
+		"deliveryFee": "0.00",
+		"tips": "0.00",
+		"packPrice": "0.00",
+		"differencePrice": "0.00",
+		"orderSn": "PFZC2408161759506470",
+		"specialOrderSn": "2024-08-17-00002",
+		"currency": "£",
+		"showStatusStr": "您的退款申请被拒绝，请及时联系客服！",
+		"createTime": 1723861774,
+		"portalId": 3,
+		"refundCreateTime": 0,
+		"smallOrderFee": "0.00",
+		"specialOrderType": 1,
+		"exchangeGoodsType": 0,
+		"compensationAmount": "0.00",
+		"platformFee": "0.00"
+	}
+}
