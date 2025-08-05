@@ -2,6 +2,7 @@ package com.miller.testcase.module.coverage.specialsCard;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
@@ -16,11 +17,11 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXH324SD5B9NJNRC4E2NAD9W", // 自动生成，不要修改
-        scenarioName = "首页专题卡片",
+        scenarioName = "首页专题卡片-首页推荐有数据",
         author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("首页专题卡片")
-public class SpecialsCardTests {
+        developmentTime = 20, maintenanceTime = 5, manualTestTime = 15)
+@DisplayName("首页专题卡片-首页推荐有数据")
+public class SpecialsCardRecommendHasData {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/user/activity/specials/card";
     // 接口请求方式。如： GET、POST、PUT、DELETE
@@ -37,6 +38,8 @@ public class SpecialsCardTests {
     @DisplayName("正向流程")
     @Test
     void shouldSuccess() {
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("UPDATE module_activity_card set card_state = 1 WHERE id = 147");
+
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
 

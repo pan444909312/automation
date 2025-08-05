@@ -25,17 +25,18 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DCE",
-        scenarioName = "启动页广告拉取成功",
+@Scenario(scenarioID = "01K1WBNXXETNF8499810BSBW97",
+        scenarioName = "拉取启动页广告-未配置广告数据不返回",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @EnvTag.Test
 @DisplayName("/api/user/v1/launchAd/pull")
-public class LaunchAdPullSuccess {
+public class LaunchAdPullHasNoAd {
 
     /**
      * 接口_启动页广告
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/v1/launchAd/pull";
+
     private LaunchAdMapper launchAdMapper;
 
     @BeforeAll
@@ -43,24 +44,22 @@ public class LaunchAdPullSuccess {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         launchAdMapper = sqlSession.getMapper(LaunchAdMapper.class);
-        launchAdMapper.update(new UpdateWrapper<LaunchAdEntity>().eq("la_id",232).set("state",1));
-
+        launchAdMapper.update(new UpdateWrapper<LaunchAdEntity>().eq("la_id",232).set("state",0));
     }
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("启动页广告拉取成功")
+    @DisplayName("拉取启动页广告-未配置广告数据不返回")
     void testCase(PullLaunchAdReq pullLaunchAdReq ) {
 
         Result result = HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
                 RequestUtils.putBodyOfJson(pullLaunchAdReq), null, Result.class);
         PullLaunchAdRes pullLaunchAdRes = JSON.parseObject(result.getResult().toString(),PullLaunchAdRes.class);
 
-        LaunchAdDetail launchAdDetail = pullLaunchAdRes.getLaunchAdList().stream().filter(item -> item.getLaId().equals(232L)).findFirst().orElse(null);
+        int size = pullLaunchAdRes.getLaunchAdList().size();
 
         assertThat(result.getResultCode()).isEqualTo(1000);
-        assertThat(launchAdDetail).isNotNull();
-
+        assertThat(size).isEqualTo(0);
     }
 
     /**

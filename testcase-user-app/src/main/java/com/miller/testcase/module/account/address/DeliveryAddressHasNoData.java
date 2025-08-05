@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 
 @Scenario(
-        scenarioID = "01JXCG5RDZG3ZAXK5F47NHVHBA",
-        scenarioName = "获取收货地址列表-有数据",
-        author = "huyang@hungrypandagroup.com",
-        developmentTime = 90, maintenanceTime = 10, manualTestTime = 5)
-@DisplayName("获取收货地址列表-有数据")
-public class DeliveryAddressTests {
+        scenarioID = "01K1WMHS48WSZ0KFXN52CXT0KF",
+        scenarioName = "获取收货地址列表-无数据",
+        author = "panjuxiang@hungrypandagroup.com",
+        developmentTime = 20, maintenanceTime = 0, manualTestTime = 5)
+@DisplayName("获取收货地址列表-无数据")
+public class DeliveryAddressHasNoData {
     // 接口请求的 path
     String uri = TestcaseConfig.HOST_APP + "/api/user/delivery/address";
     // 请求方式
@@ -27,12 +27,13 @@ public class DeliveryAddressTests {
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 paras 参数
     String params = null;
     // 断言
-    String assert1 = "module/account/address/response/DeliveryAddressResp.json";
+    String assert1 = "module/account/address/response/DeliveryAddressNoDataResp.json";
 
     @DisplayName("正向流程")
     @Test
     void shouldLoginSuccessfully() {
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update address set is_del = 0 WHERE add_id = 1398681061");
+
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update address set is_del = -1 WHERE add_id = 1398681061");
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
