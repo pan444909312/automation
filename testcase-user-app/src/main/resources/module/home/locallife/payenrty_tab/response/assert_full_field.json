@@ -1,0 +1,40 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"dataList": [{
+			"shopId": "${json-unit.any-number}",
+			"shopStatus": "${json-unit.ignore-element}",
+			"secondShopType": "${json-unit.ignore-element}",
+			"shopImg": "${json-unit.any-string}",
+			"shopName": "${json-unit.any-string}",
+
+			"distanceD":"${json-unit.any-number}",
+			"distanceStr": "${json-unit.any-string}",
+			"lotName": "${json-unit.any-string}",
+
+			"promotionTag": {
+				"labelType": 1,
+				"label": "${json-unit.any-string}"
+			},
+			"manuallySort": "${json-unit.any-number}",
+			"address": "${json-unit.any-string}",
+
+			"longitude": "${json-unit.any-string}",
+			"latitude": "${json-unit.any-string}"
+		}],
+
+			"totalCount": "${json-unit.any-number}",
+			"currency": "¥",
+			"paymentShopDataBanner": {
+				"bannerContent": "${json-unit.any-string}",
+				"bannerTitle": "到店买单",
+				"jumpContent": "如何享返点",
+				"jumpUrl": "${json-unit.any-string}"
+			}
+			},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"}

@@ -18,7 +18,6 @@
 			"collectAmount": null,
 			"collectStatus": 1,
 			"num": 3,
-			"currency": "€",
 			"outUrl": null,
 			"hold": null,
 			"redPackets": [{
@@ -59,7 +58,6 @@
 				"maxRedPacketPrice": null,
 				"minDiscountRate": null,
 				"minThresholdPrice": null,
-				"validDays": 6680,
 				"redPacketGroupId": null,
 				"showLabel": null,
 				"redPacketScopeType": null,

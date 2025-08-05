@@ -1,0 +1,16 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"parentList": [{
+			"categoryId":  "${json-unit.any-number}",
+			"categoryName":  "${json-unit.any-string}",
+			"shopNum": "${json-unit.ignore-element}",
+			"parentId":  "${json-unit.any-number}"
+		}]}
+			,
+			"currency": "¥",
+			"success": true,
+			"nowTime": "${json-unit.any-number}",
+			"queryList": "${json-unit.ignore-element}"}

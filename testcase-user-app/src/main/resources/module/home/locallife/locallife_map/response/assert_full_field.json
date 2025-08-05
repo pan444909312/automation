@@ -1,0 +1,24 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"dataList": [{
+			"shopId": "${json-unit.any-number}",
+			"shopStatus": "${json-unit.ignore-element}",
+			"secondShopType": "${json-unit.ignore-element}",
+			"shopImg": "${json-unit.any-string}",
+			"shopName": "${json-unit.any-string}",
+
+			"distanceD":"${json-unit.any-number}",
+			"distanceStr": "${json-unit.any-string}",
+			"lotName": "${json-unit.any-string}"
+
+
+		}]
+
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"}

@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXHJ3TBKRV3WQ6STWKTTXVBE", // 自动生成，不要修改
-        scenarioName = "获取会场的楼层商品信息",
+        scenarioName = "进入会场-获取会场商品楼层信息",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 40, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("获取会场的楼层商品信息")
+@DisplayName("进入会场-获取会场商品楼层信息")
 public class GetproductlistbyflooridTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/venue/getProductListByFloorId";

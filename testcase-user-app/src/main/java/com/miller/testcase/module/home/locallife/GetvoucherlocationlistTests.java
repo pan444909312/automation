@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXEZ4J5SK1X91DZPBVS7BEB4", // 自动生成，不要修改
-        scenarioName = "获取团购地段列表",
+        scenarioName = "进入本地生活-获取团购地段",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("获取团购地段列表")
+@DisplayName("进入本地生活-获取团购地段")
 public class GetvoucherlocationlistTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/voucher/location/list";

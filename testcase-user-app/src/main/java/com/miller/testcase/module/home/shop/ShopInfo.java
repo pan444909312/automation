@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 
 @Scenario(
         scenarioID = "01JWG8TJANDRCAGQS0NVB0PYKY",
-        scenarioName = "进入店铺获取店铺信息",
+        scenarioName = "进入店铺获取店铺信息（中文版）",
         author = "yaoqianhu@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 10, manualTestTime = 10)
-@DisplayName("进入店铺获取店铺信息")
+@DisplayName("进入店铺获取店铺信息（中文版）")
 public class ShopInfo {
     // 接口请求的 path
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/shop/base/info";

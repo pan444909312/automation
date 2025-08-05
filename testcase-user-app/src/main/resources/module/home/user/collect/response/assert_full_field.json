@@ -215,7 +215,7 @@
       "predictDeliveryTimeStr": null
     }
   ],
-  "currency": "¥",
+  "currency":"${json-unit.any-string}",
   "success": true,
   "nowTime": 1748598982663,
   "queryList": {
