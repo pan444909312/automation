@@ -1,4 +1,4 @@
-package com.miller.testcase.module.activity.special_task_receive;
+package com.miller.testcase.module.activity.task.special_task_receive;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -28,17 +28,17 @@ public class SpecialTaskReceiveTests {
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
-    String headers = "module/activity/special_task_receive/request/headers.json";
+    String headers = "module/activity/task/special_task_receive/request/headers.json";
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
     String params = null;
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-    String body = "module/activity/special_task_receive/request/should_success.json";
+    String body = "module/activity/task/special_task_receive/request/should_success.json";
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assert1 = "module/activity/special_task_receive/response/assert_full_field.json";
+    String assert1 = "module/activity/task/special_task_receive/response/assert_full_field.json";
     @BeforeAll ()
     public static void beforeAll() {
         //清除用户任务数据
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_user where user_id=\"1398717314\" and task_id=\"2050\"  order by create_time desc\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from panda_test.hp_task_center_user where user_id=\"1398717289\" and task_id=\"2011\" order by create_time desc\n");
     }
     @DisplayName("正向流程")
     @Test

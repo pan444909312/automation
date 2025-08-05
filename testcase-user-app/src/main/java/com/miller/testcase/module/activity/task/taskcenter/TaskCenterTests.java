@@ -1,4 +1,4 @@
-package com.miller.testcase.module.activity.taskcenter;
+package com.miller.testcase.module.activity.task.taskcenter;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -22,11 +22,11 @@ public class TaskCenterTests {
     // 请求方式
     String method = "POST";
     // 请求头
-    String headers = "module/activity/taskcenter/request/headers_topic.json";
+    String headers = "module/activity/task/taskcenter/request/headers_topic.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/activity/taskcenter/request/success.json";
+    String body = "module/activity/task/taskcenter/request/success.json";
     // 断言
-    String assert2 = "module/activity/taskcenter/response/assert_some_fields.json";
+    String assert2 = "module/activity/task/taskcenter/response/assert_some_fields.json";
     @BeforeAll()
     public static void beforeAll() {
         //清除用户任务数据

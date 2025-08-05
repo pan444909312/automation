@@ -1,8 +1,8 @@
-package com.miller.testcase.module.activity.special_task_close;
+package com.miller.testcase.module.activity.task.special_task_close;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.module.activity.special_task_receive.SpecialTaskReceiveTests;
+import com.miller.testcase.module.activity.task.special_task_receive.SpecialTaskReceiveTests;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
@@ -30,13 +30,13 @@ public class SpecialTaskCloseTests {
     // 接口请求方式。如： GET、POST、PUT、DELETE
     String method = "POST";
     // 请求头。默认从 resources 目录下读取文件。
-    String headers = "module/activity/special_task_close/request/headers.json";
+    String headers = "module/activity/task/special_task_close/request/headers.json";
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
     String params = null;
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-    String body = "module/activity/special_task_close/request/should_success.json";
+    String body = "module/activity/task/special_task_close/request/should_success.json";
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assert1 = "module/activity/special_task_close/response/assert_full_field.json";
+    String assert1 = "module/activity/task/special_task_close/response/assert_full_field.json";
     @BeforeAll()
     public static void beforeAll(){
         //领取特殊任务
