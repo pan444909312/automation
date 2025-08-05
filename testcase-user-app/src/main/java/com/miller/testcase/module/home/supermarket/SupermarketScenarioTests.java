@@ -8,11 +8,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-@Scenario(scenarioID = "01JWWF717DPCCRW2Y1KVH2EK9R", scenarioName = "获取首页底部tab跳转链接"
+@Scenario(scenarioID = "01JWWF717DPCCRW2Y1KVH2EK9R", scenarioName = "获取首页底部tab：定位运营区域内"
         , author = "zhangpei@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
 public class SupermarketScenarioTests {
     private static final String uri = TestcaseConfig.HOST_APP+"/api/user/supermarket";
-    @DisplayName("获取首页底部tab跳转链接")
+    @DisplayName("获取首页底部tab：定位运营区域内")
     @Test
     void shouldReturnTaskSuccessfully(){
         var headers = TestCaseHelpful.getHeaders("module/headers.json");
@@ -24,7 +24,7 @@ public class SupermarketScenarioTests {
         var expectedStr = TestCaseHelpful.getFileContent("module/home/supermarket/response/assert_full_field.json");
 
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.isOpen").isEqualTo(1);
 
     }
 }
