@@ -44,9 +44,9 @@
 			"channelType": null
 		}],
 		"voucherCity": "九江市",
-		"currency": "¥"
+		"currency":"${json-unit.any-string}"
 	},
-	"currency": "¥",
+	"currency":"${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",
 	"queryList": "${json-unit.ignore-element}"

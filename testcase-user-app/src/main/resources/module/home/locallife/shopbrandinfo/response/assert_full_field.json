@@ -12,7 +12,7 @@
 			"linkAddress": "${json-unit.any-string}"
 		}
 	},
-	"currency": "¥",
+	"currency":"${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",
 	"queryList": "${json-unit.ignore-element}"

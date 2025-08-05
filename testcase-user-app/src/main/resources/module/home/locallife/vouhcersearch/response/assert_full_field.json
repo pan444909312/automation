@@ -4,7 +4,7 @@
 	"reason": "成功",
 	"result": {
 		"dataList": [{
-			"shopId": 195420037,
+			"shopId":  "${json-unit.any-number}",
 			"shopStatus": "${json-unit.any-number}",
 			"secondShopType": "${json-unit.any-number}",
 			"shopImg": "${json-unit.any-string}",
@@ -45,9 +45,9 @@
 			"voucherCanUse": "${json-unit.any-boolean}"
 		}],
 		"totalCount": "${json-unit.any-number}",
-		"currency": "¥"
+		"currency":"${json-unit.any-string}"
 	},
-	"currency": "¥",
+	"currency":"${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",
 	"queryList": "${json-unit.ignore-element}"

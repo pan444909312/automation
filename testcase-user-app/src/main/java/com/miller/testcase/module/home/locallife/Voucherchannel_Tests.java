@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JYR4QQQZJ31WK5QQNNYF0KP1", // 自动生成，不要修改
-        scenarioName = "本地生活频道页",
+        scenarioName = "进入本地生活-获取团购首页频道流数据",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("本地生活频道页")
+@DisplayName("进入本地生活-获取团购首页频道流数据")
 public class Voucherchannel_Tests {
 
     @BeforeAll

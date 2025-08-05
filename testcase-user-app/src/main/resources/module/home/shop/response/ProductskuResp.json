@@ -114,7 +114,7 @@
     "buyLimitMin": "${json-unit.any-number}",
     "packingCharges": "${json-unit.any-number}"
   },
-  "currency": "¥",
+  "currency":"${json-unit.any-string}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
   "queryList": "${json-unit.ignore-element}"

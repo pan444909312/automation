@@ -15,13 +15,13 @@
 			"isOverdueReturn": "${json-unit.any-number}",
 			"isAnyTimeReturn": "${json-unit.any-number}",
 			"isReservation": "${json-unit.any-number}",
-			"currency": "¥",
+			"currency":"${json-unit.any-string}",
 			"rebate": "${json-unit.any-number}",
 			"distanceStr": "${json-unit.any-string}",
 			"userType": "${json-unit.any-number}"
 		}]
 	},
-	"currency": "¥",
+	"currency":"${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",
 	"queryList": "${json-unit.ignore-element}"

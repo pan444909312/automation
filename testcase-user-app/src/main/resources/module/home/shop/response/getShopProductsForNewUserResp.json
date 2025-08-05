@@ -3,7 +3,7 @@
   "error": "成功",
   "reason": "成功",
   "result": "${json-unit.ignore-element}",
-  "currency": "¥",
+  "currency": "${json-unit.any-string}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
   "queryList": "${json-unit.ignore-element}"

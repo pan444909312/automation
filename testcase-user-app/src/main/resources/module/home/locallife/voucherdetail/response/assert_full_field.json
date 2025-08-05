@@ -6,7 +6,7 @@
 		"voucherSn": "3738SFIFES",
 		"voucherName": "${json-unit.any-string}",
 		"voucherShopName": "${json-unit.any-string}",
-		"voucherType": "${json-unit.any-number}",
+		"voucherType": 1,
 		"shopId": 195420037,
 		"salePrice": "${json-unit.any-string}",
 		"originalPrice": "${json-unit.any-string}",
@@ -61,7 +61,7 @@
 		"pictureIntroList": "${json-unit.ignore-element}",
 		"serviceNote": "${json-unit.any-string}"
 	},
-	"currency": "¥",
+	"currency":"${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",
 	"queryList": "${json-unit.ignore-element}"
