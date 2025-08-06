@@ -32,20 +32,24 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01K0V7PH8YJNKZ0YBB6T9R0NCF",
         scenarioName = "普通店铺配送商卡-SKYX01_营销标_买过的店_返回条件：满足下列所有条件时，返回买过的店标签",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasBoughtRecentlyFeature {
 
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+
     private DataShopUserOrderMapper dataShopUserOrderMapper;
+
+    private String userId;
 
 
     @BeforeAll
     void beforeAll() {
         UserLoginRequestDTO userLoginRequestDTO = new UserLoginRequestDTO();
-        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user03.account"));
-        userLoginRequestDTO.setPassword(MD5Util.string2MD5((new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user03.password"))));
+        userId = new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user04.account.id");
+        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user04.account"));
+        userLoginRequestDTO.setPassword(MD5Util.string2MD5((new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user04.password"))));
         userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.distinctId"));
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode"));
         userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type")));
@@ -66,7 +70,7 @@ public class ShopShouldHasBoughtRecentlyFeature {
         ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
                 filter(item -> item.getType().equals(ShopFeatureEnum.BOUGHT_RECENTLY.getType())).findFirst().orElse(null);
 
-        DataShopUserOrderEntity dataShopUserOrderEntity = dataShopUserOrderMapper.selectOne(new QueryWrapper<DataShopUserOrderEntity>().eq("shop_id", shopId));
+        DataShopUserOrderEntity dataShopUserOrderEntity = dataShopUserOrderMapper.selectOne(new QueryWrapper<DataShopUserOrderEntity>().eq("shop_id", shopId).eq("user_id", userId));
 
 
         assertThat(dataShopUserOrderEntity.getBusinessType()).isEqualTo(1);

@@ -30,6 +30,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * CARD_RECOMMEND_TAG_SORT
  *
  * [
  *     {
