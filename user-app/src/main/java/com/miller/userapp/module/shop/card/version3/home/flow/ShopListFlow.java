@@ -46,6 +46,8 @@ public class ShopListFlow {
             RequestUtils.getHeaders().put("testGroup", testGroupNew);
             int pageNo = 1;
             RequestUtils.getHeaders().put("pageNo", pageNo);
+            RequestUtils.getHeaders().put("latitude", "29.66058");
+            RequestUtils.getHeaders().put("longitude", "115.954");
             // 发送请求获取数据
             ShopListResponseDTO shopListResponse = HttpUtils.sendPostRequestReturnJavaObject(
                     uri,
@@ -80,6 +82,9 @@ public class ShopListFlow {
                 // 获取下一页
                 pageNo++;
                 RequestUtils.getHeaders().put("pageNo", pageNo);
+                RequestUtils.getHeaders().put("latitude", "29.66058");
+                RequestUtils.getHeaders().put("longitude", "115.954");
+
                 shopListResponse = HttpUtils.sendPostRequestReturnJavaObject(
                         uri,
                         null,

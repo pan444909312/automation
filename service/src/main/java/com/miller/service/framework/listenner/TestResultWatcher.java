@@ -350,6 +350,8 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      */
     private void sendExecuteNotificationExceptSuccess(ExtensionContext context, String testResult) {
 
+        //todo 测试用例执行失败或异常 excel输出结果汇总
+
         DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", notificationContentHandler(context, testResult));
 
     }

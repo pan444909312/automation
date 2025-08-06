@@ -38,14 +38,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ShopShouldHasBoughtRecentlyFeature {
 
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+
     private DataShopUserOrderMapper dataShopUserOrderMapper;
+
+    private String userId;
 
 
     @BeforeAll
     void beforeAll() {
         UserLoginRequestDTO userLoginRequestDTO = new UserLoginRequestDTO();
-        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user03.account"));
-        userLoginRequestDTO.setPassword(MD5Util.string2MD5((new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user03.password"))));
+        userId = new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user04.account.id");
+        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user04.account"));
+        userLoginRequestDTO.setPassword(MD5Util.string2MD5((new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user04.password"))));
         userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.distinctId"));
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode"));
         userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type")));
@@ -66,7 +70,7 @@ public class ShopShouldHasBoughtRecentlyFeature {
         ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
                 filter(item -> item.getType().equals(ShopFeatureEnum.BOUGHT_RECENTLY.getType())).findFirst().orElse(null);
 
-        DataShopUserOrderEntity dataShopUserOrderEntity = dataShopUserOrderMapper.selectOne(new QueryWrapper<DataShopUserOrderEntity>().eq("shop_id", shopId));
+        DataShopUserOrderEntity dataShopUserOrderEntity = dataShopUserOrderMapper.selectOne(new QueryWrapper<DataShopUserOrderEntity>().eq("shop_id", shopId).eq("user_id", new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.new.user04.account.id") ));
 
 
         assertThat(dataShopUserOrderEntity.getBusinessType()).isEqualTo(1);
