@@ -3,7 +3,7 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "addressId": "${json-unit.any-number}"
+    "addressId": 0
   },
   "currency": "${json-unit.any-string}",
   "success": true,

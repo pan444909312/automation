@@ -1,12 +1,13 @@
 {
   "accessCode": "123456",
   "address": "China, Jiangxi, 九江",
+  "addressId": 0,
   "addressRemark": "",
   "addTag": 1,
   "buildingName": "九江",
   "buildingNameExt": "测试",
   "buildingType": "1",
-  "contacts": "自动化测试",
+  "contacts": "自动化测试11",
   "countryCode": "86",
   "gender": 1,
   "houseNum": "测试",
@@ -15,5 +16,5 @@
   "longitude": "115.9541",
   "postcode": "000000",
   "telephone": "13999900008",
-  "type": 1
+  "type": 2
 }
