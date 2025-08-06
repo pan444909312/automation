@@ -64,15 +64,15 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
    @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
       RequestUtils.getHeaders().put("Content-Type", "application/json");
-      RequestUtils.getHeaders().put("latitude", "29.751");
-      RequestUtils.getHeaders().put("longitude", "115.954");
+      RequestUtils.getHeaders().put("latitude", "29.66058");
+      RequestUtils.getHeaders().put("longitude", "115.95410");
       ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 
       String distance= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getDistance();
       AdsSearchDistanceMatrixEntity adsSearchDistanceMatrixEntity = adsHpSearchDistanceMatrix.selectOne(new QueryWrapper<AdsSearchDistanceMatrixEntity>().
               eq("start_tudustr", "115.984,29.669").
-              eq("target_tudustr", "115.954,29.751"));
+              eq("target_tudustr", "115.954,29.660"));
 
           cacheDistance = (adsSearchDistanceMatrixEntity.getDistance().doubleValue())/1000;
       assertThat(distance).isEqualTo(cacheDistance+"km");
