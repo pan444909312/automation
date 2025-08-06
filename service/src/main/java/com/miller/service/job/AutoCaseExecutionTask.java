@@ -31,15 +31,13 @@ public class AutoCaseExecutionTask {
     //每5分钟执行一次
 //    @Scheduled(cron = "0 0/5 * * * ?")
     public void execute() {
-//        ArrayList<String> packageNameList = new ArrayList<>();
         String executionCaseUrl = configService.getConfigByKey("EXECUTION_CASE_URL");
-
         List<String> strings = StringToListUtils.stringToList(executionCaseUrl);
 
-//        packageNameList.add("com.miller.userapp.module.shop.card.version3");
-//        packageNameList.add("com.miller.testcase.module.account.promote_confirm");
-//        packageNameList.add("com.miller.testcase.module.account.redpacket");
-//        packageNameList.add("com.miller.testcase.module.account.member.Buymemberdetail_Tests");
+//        ArrayList<String> strings = new ArrayList<>();
+//        strings.add("com.miller.testcase.module.account.promote_confirm");
+//        strings.add("com.miller.testcase.module.account.redpacket");
+//        strings.add("com.miller.testcase.module.account.member");
         testCaseService.runTestCase(strings);
     }
 }
