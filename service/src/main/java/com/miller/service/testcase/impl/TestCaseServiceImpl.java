@@ -1,7 +1,6 @@
 package com.miller.service.testcase.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.miller.common.util.ULIDUtils;
 import com.miller.entity.testcase.TestCaseEntity;
 import com.miller.mapper.tesetcase.TestCaseMapper;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
@@ -53,7 +52,8 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         StringBuilder stringBuilder = new StringBuilder();
         long costTime = (summary.getTimeFinished() - summary.getTimeStarted()) / 1000;
 
-        double passRate = (double) summary.getTestsSucceededCount() / summary.getTestsFoundCount() * 100;
+//        double passRate = (double) summary.getTestsSucceededCount() / summary.getTestsFoundCount() * 100;
+        double passRate = Math.round(((double) summary.getTestsSucceededCount() / summary.getTestsFoundCount()) * 100 * 100) / 100.0;
 
         stringBuilder.append("#### 自动化定时执行结果汇总").append(" \n ");
         stringBuilder.append("- **共**: " + summary.getTestsFoundCount() + "个").append(" \n ");

@@ -33,6 +33,10 @@ public class DingTalkUtils {
      * 机器人应用的 access_token 的值
      */
     public static final String CUSTOM_ROBOT_TOKEN = "0de7c87ac7e3e8506c142d1929068a9c15feea710152aca9c2eeb1e9aa3202ff";
+    /**
+     * 测试token
+     */
+    public static final String CUSTOM_ROBOT_TOKEN_TEST = "1a6a884b38ef34aa7442ca3390f58de71003e4518417a8c660e603110c03b80f";
 
 
 
@@ -40,6 +44,10 @@ public class DingTalkUtils {
      * 钉钉机器人管理中的 安全设置，加签密钥
      */
     public static final String SECRET = "SECcc2d9a57ff038735ba738a2325e5623749e3016cbe931d930b8ce7253f265854";
+    /**
+     * 测试secret
+     */
+    public static final String SECRET_TEST = "SECff0e8a7c6c0b81fba98b6c8c33ba4eb2721985c8ce31584e17ee84ab53b4a91c";
 
 
 
@@ -52,16 +60,32 @@ public class DingTalkUtils {
      */
     public static final String MOBILE_NUMBER = "< mobile number>";
 
+    public static void sendTextMessage(String content) {
+        sendTextMessage(content, CUSTOM_ROBOT_TOKEN, SECRET);
+    }
+
+    public static void sendTextMessageTest(String content) {
+        sendTextMessage(content, CUSTOM_ROBOT_TOKEN_TEST, SECRET_TEST);
+    }
+
+    public static void sendMarkdownMessage(String title, String content) {
+        sendMarkdownMessage(title,content,CUSTOM_ROBOT_TOKEN, SECRET);
+    }
+
+    public static void sendMarkdownMessageTest(String title, String content) {
+        sendMarkdownMessage(title,content,CUSTOM_ROBOT_TOKEN_TEST, SECRET_TEST);
+    }
+
+
     /**
      * 发送文本消息
      *
      * @param content 文本内容
      */
-    public static void sendTextMessage(String content) {
+    private static void sendTextMessage(String content, String token, String secret) {
         try {
             Long timestamp = System.currentTimeMillis();
-            // System.out.println(timestamp);
-            String secret = SECRET;
+//            String secret = SECRET;
             String stringToSign = timestamp + "\n" + secret;
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));
@@ -85,7 +109,7 @@ public class DingTalkUtils {
             req.setMsgtype("text");
             req.setText(text);
             req.setAt(at);
-            OapiRobotSendResponse rsp = client.execute(req, CUSTOM_ROBOT_TOKEN);
+            OapiRobotSendResponse rsp = client.execute(req, token);
             System.out.println(rsp.getBody());
         } catch (ApiException e) {
             log.error("钉钉发送消息失败", e);
@@ -117,11 +141,10 @@ public class DingTalkUtils {
      * @see <a href="https://open.dingtalk.com/document/orgapp/enterprise-internal-robots-send-markdown-messages#title-w87-omz-3es">代码示例</a>
      * @see <a href="https://open.dingtalk.com/document/orgapp/custom-bot-send-message-type">custom-bot-send-message-type</a>
      */
-    public static void sendMarkdownMessage(String title, String content) {
+    private static void sendMarkdownMessage(String title, String content, String token, String secret) {
         try {
             Long timestamp = System.currentTimeMillis();
-            // System.out.println(timestamp);
-            String secret = SECRET;
+//            String secret = SECRET;
             String stringToSign = timestamp + "\n" + secret;
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));
@@ -152,7 +175,7 @@ public class DingTalkUtils {
             request.setMarkdown(markdown);
             request.setAt(at);
             // 发送消息
-            OapiRobotSendResponse response = client.execute(request, CUSTOM_ROBOT_TOKEN);
+            OapiRobotSendResponse response = client.execute(request, token);
             if (response.getErrcode() != 0) System.err.println("发送钉钉推送消息失败:" + response.getBody());
             // System.out.println(rsp.getBody());
         } catch (ApiException e) {
