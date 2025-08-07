@@ -44,8 +44,6 @@ public class ShopListFlow {
             RequestUtils.getHeaders().put("Content-Type", "application/json");
             String testGroupNew = BusinessConstant.testGroup.replace("SKYX02", "SKYX01");
             RequestUtils.getHeaders().put("testGroup", testGroupNew);
-            RequestUtils.getHeaders().put("latitude", "29.66058");
-            RequestUtils.getHeaders().put("longitude", "115.95410");
             int pageNo = 1;
             RequestUtils.getHeaders().put("pageNo", pageNo);
             // 发送请求获取数据
