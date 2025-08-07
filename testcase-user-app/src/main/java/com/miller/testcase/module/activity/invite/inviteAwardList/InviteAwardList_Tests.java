@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXYEKRBBQJ67WCYFWC0KSMYV", // 自动生成，不要修改
-        scenarioName = "推荐有奖_我的奖励",
+        scenarioName = "推荐有奖_我的奖励：无奖励",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("推荐有奖_我的奖励")
+        developmentTime = 15, maintenanceTime = 5, manualTestTime = 3)
+@DisplayName("推荐有奖_我的奖励：无奖励")
 public class InviteAwardList_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/invite/award/list";
