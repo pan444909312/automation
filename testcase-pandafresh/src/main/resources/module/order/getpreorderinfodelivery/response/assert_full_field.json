@@ -1,0 +1,118 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"shopCartGoodsInfo": [{
+			"shopCartId": "${json-unit.any-number}",
+			"goodsId": 13,
+			"goodsSkuId": 6,
+			"goodsName": "导入更新测试011111",
+			"price": "5",
+			"originalPrice": "6",
+			"goodsCount": 1,
+			"goodsPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/88-01/162582361646288-01.JPG",
+			"specValue": "",
+			"categoryId": "${json-unit.any-number}",
+			"secondaryCategoryId": "${json-unit.any-number}",
+			"secondaryCategory": "蜜瓜西瓜",
+			"specialTopicId": "${json-unit.any-number}",
+			"specialTopicType": "${json-unit.any-number}",
+			"sourceType": "${json-unit.any-number}",
+			"isUsedActivityPrice": "${json-unit.any-number}",
+			"goodsAmount": "5",
+			"preferentialMutualExclusion": {
+				"available": true
+			},
+			"preferentialMutualEX": false,
+			"specialTopicMenuId": "${json-unit.any-number}",
+			"specialTopicDataId": "${json-unit.any-number}",
+			"setMealNum": "",
+			"setMealCount": "${json-unit.any-number}",
+			"haveFollowGoods": false,
+			"expireDate": ""
+		}],
+		"settleInfo": {
+			"goodsAmount": "${json-unit.any-number}",
+			"newGoodsAmount": "${json-unit.any-number}",
+			"newCustomTaxAmount": "${json-unit.any-number}",
+			"customTaxAmount": "1.03",
+			"deliveryFee": "3.99",
+			"oldDeliveryFee": "3.99",
+			"orderAmount": "${json-unit.any-number}",
+			"differenceValue": "5.09",
+			"preventAmount": "4.99",
+			"deliveryFeeHint": "因订单金额低于£10.09，您的订单将被加收£4.99配送费。建议添加更多商品，来免除该费用。",
+			"taxRate": "${json-unit.any-number}",
+			"totalBuyCount": 1,
+			"smallOrderFeeTax": "${json-unit.any-number}",
+			"deliveryFeeTax": "${json-unit.any-number}",
+			"goodsAmountSubtractPme": "5.00",
+			"deliveryFeeThreshold": "${json-unit.any-number}",
+			"goodsAmountWithCoupon": "${json-unit.any-number}",
+			"redPacketPrice": 0,
+			"goodsAmountWithCouponAndRedPacket": "${json-unit.any-number}",
+			"platformFee": "${json-unit.any-number}",
+			"orgPlatformFee": "${json-unit.any-number}",
+			"memberFreePlatformFee": "${json-unit.any-number}",
+			"memberFreeDeliveryPrice": "${json-unit.any-number}"
+		},
+		"deliveryDate": "今日",
+		"deliveryTime": "${json-unit.ignore-element}",
+		"tipsList": "${json-unit.ignore-element}",
+		"totalCount": 1,
+		"goodsNameList": [],
+		"discountList": [],
+		"couponsInfo": {
+			"usableRedPacketCount": 0
+		},
+		"discountPrice": "${json-unit.any-number}",
+		"orderFieldColumnList": [{
+			"showName": "商品总价",
+			"showPrompt": "",
+			"showValue": "5.00",
+			"showCode": "goodsTotalPrice",
+			"showImgPath": "",
+			"fontColor": "#252628"
+		}, {
+			"showName": "配送费",
+			"showValue": "3.99",
+			"showCode": "deliveryFee",
+			"showImgPath": "",
+			"fontColor": "#252628",
+			"showTips": "1、购物满£8 可免配送费£1\n2、不同地址的配送费可能不同，请以APP的实际显示为准\n3、每个新用户可享受1次免配送费权益",
+			"discountPrompt": "还差£3可免配送费£1"
+		}, {
+			"showName": "小额订单费",
+			"showPrompt": "因订单金额低于£10.09，您的订单将被加收£4.99小额订单费。建议添加更多商品，来免除该费用。",
+			"showValue": "4.99",
+			"showCode": "smallOrderFee",
+			"showImgPath": "",
+			"fontColor": "#252628",
+			"showTips": "1、购物满£10.09 可免小额订单£4.99\n2、不同地址的小额订单费不同，请以APP的实际显示为准",
+			"discountPrompt": "还差£5.09可免小额订单费£4.99"
+		}, {
+			"showName": "平台服务费",
+			"showPrompt": "",
+			"showValue": "11",
+			"showCode": "platformFee",
+			"showImgPath": "",
+			"fontColor": "#252628",
+			"showTips": "此项费用支持我们为你提供高质量的客户服务,每笔订单收取 £11"
+		}],
+		"orderFee": {
+			"goodsAmount": "${json-unit.any-number}",
+			"smallOrderFee": "${json-unit.any-number}"
+		},
+		"deliveryMsgFlag": true,
+		"includingTax": true,
+		"isSupportSelf": 1,
+		"isPreOrder": false,
+		"deliverableActionInfoList":"${json-unit.ignore}",
+		"orderBottomText": "如果因顾客原因导致订单无法送达，顾客可能会承担相应损失（如打包费、配送费、冻品货损等）。",
+		"followGoodsDiscountAmount": 0,
+		"isPreSaleOrder": 0
+	}
+}

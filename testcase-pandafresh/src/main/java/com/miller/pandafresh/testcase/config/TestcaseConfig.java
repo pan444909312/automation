@@ -34,6 +34,15 @@ public class TestcaseConfig {
 
     public  static final String HP_AUTH_KEY="hP*L8pp65_#1flvjk342589fdgjl34m";
 
-
-
+    public static String shopCartId = "0";
+    public static String goodsId = "0";
+    public static String goodsSkuId = "0";
+    public static String goodsCount = "1";
+    public static String addressId = "0";
+    public static String deliveryTime = "0";
+    public static String deliveryDate = "0";
+    public static String deliveryTimeId = "0";
+    public static String takeTimeId = "0";
+    public static String takeTime = "0";
+    public static String takeDate = "0";
 }

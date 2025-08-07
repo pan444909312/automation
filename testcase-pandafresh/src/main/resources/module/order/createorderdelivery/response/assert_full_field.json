@@ -1,0 +1,15 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"goodsNameList": [],
+		"orderId": "${json-unit.any-number}",
+		"orderSn": "${json-unit.any-string}",
+		"payMoney": "${json-unit.any-string}",
+		"isFirstOrder": false,
+		"isZeroPay": false
+	}
+}
