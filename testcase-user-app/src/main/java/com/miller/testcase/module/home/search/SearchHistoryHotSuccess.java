@@ -7,6 +7,7 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,8 +25,10 @@ public class SearchHistoryHotSuccess {
         // 给请求头添加数据，例如这里添加token
         headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
         String responseBody = TestCaseHelpful.sendRequest("GET", uri, null, headers, null);
+        List<Object> list = TestCaseHelpful.extractValue(responseBody, "$.result");
         String expectedStr = TestCaseHelpful.getFileContent("module/home/search/response/SearchHistoryHotResp.json");
 
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThat(list.isEmpty()).isEqualTo(false);
     }
 }
