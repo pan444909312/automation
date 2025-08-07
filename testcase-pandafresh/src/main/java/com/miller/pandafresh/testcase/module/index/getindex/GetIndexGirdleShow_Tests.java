@@ -76,7 +76,7 @@ public class GetIndexGirdleShow_Tests {
 
         JSONArray vajraList = TestCaseHelpful.extractValue(responseBody,"$.result.indexList[?(@.type=='girdle')].items.[0].adBuriedPoint");
 
-        //返回的中通广告不能包含此广告
+        //返回的中通广告包含此广告
         TestCaseHelpful.assertThatJson(vajraList.toString().contains(selectOneSql.get("id").toString())).isEqualTo(true);
 
     }

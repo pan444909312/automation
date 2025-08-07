@@ -2,7 +2,10 @@
 	"resultCode": 1000,
 	"error": "成功",
 	"reason": "成功",
-	"result": {},
+	"result": {
+		"country": null,
+		"shortUrl": "${json-unit.any-string}"
+	},
 	"currency": "${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",

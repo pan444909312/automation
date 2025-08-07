@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXYCG4K0XJCDX228630S3PW5", // 自动生成，不要修改
-        scenarioName = "推荐有奖活动信息",
+        scenarioName = "推荐有奖活动信息：有活动信息-已登录",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("推荐有奖活动信息")
+        developmentTime = 15, maintenanceTime = 10, manualTestTime = 3)
+@DisplayName("推荐有奖活动信息：有活动信息-已登录")
 public class RecommendActivityInfo_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/recommend/activity/info";
@@ -54,6 +54,5 @@ public class RecommendActivityInfo_Tests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-
     }
 } 
