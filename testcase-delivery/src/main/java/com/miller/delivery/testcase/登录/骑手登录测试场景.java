@@ -1,8 +1,8 @@
-package com.miller.testcase.业务模块.首页.登录;
+package com.miller.delivery.testcase.登录;
 
+import com.miller.delivery.testcase.工具.测试用例助手;
+import com.miller.delivery.testcase.配置.测试用例配置;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.testcase.工具.测试用例助手;
-import com.miller.testcase.配置.测试用例配置;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

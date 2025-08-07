@@ -1,4 +1,4 @@
-package com.miller.testcase.工具;
+package com.miller.delivery.testcase.工具;
 
 import com.jayway.jsonpath.Predicate;
 import com.miller.service.framework.http.HttpUtils;
