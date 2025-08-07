@@ -3,6 +3,7 @@ package com.miller.pandafresh.testcase.module.address.getaddresses;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.util.JSONUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -38,9 +39,9 @@ public class GetHpfAddresses_Tests {
     void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        //登录用户(请求头包含userid，需修改)
-//        requestHeaders.put("userid",249222);
-//        requestHeaders.put("authorization",TestCaseHelpful.login("18968046019","123456"));
+        //登录老用户
+        requestHeaders.put("userId","1398661332");
+        requestHeaders.put("authorization",TestCaseHelpful.login("17700004444","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
@@ -55,5 +56,9 @@ public class GetHpfAddresses_Tests {
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList").isNotNull();
 
+        //获取第一个可用地址
+        TestcaseConfig.addressId= TestCaseHelpful.extractValue(responseBody,"$.result.deliverableAddressList.[0].addId").toString();
+
+        System.out.println("地址"+TestcaseConfig.addressId);
     }
 } 

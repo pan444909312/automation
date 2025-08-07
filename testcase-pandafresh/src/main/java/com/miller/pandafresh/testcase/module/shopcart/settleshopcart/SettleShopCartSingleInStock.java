@@ -1,10 +1,11 @@
-package com.miller.pandafresh.testcase.module.shopcart.addshopcart;
+package com.miller.pandafresh.testcase.module.shopcart.settleshopcart;
 
-import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.util.JSONUtils;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.util.JSONUtils;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,30 +16,38 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * addShopCart
+ * settleShopCart
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/07/15 16:36:03
+ * @since 2025/08/07 13:51:03
  */
-@Scenario(
-        scenarioID = "01K06KM1A67ECXKWK4CKTR2GCF", // 自动生成，不要修改
-        scenarioName = "pf加购-加购普通商品成功",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf加购-加购普通商品成功")
-public class AddShopCartOrdinaryGoods_Tests {
 
-    String goodsId = "10561";
-    String goodsSkuId = "10004";
+//用于组合场景
+@TestFramework
+@DisplayName("购物车-去结算-结算单个现货商品")
+public class SettleShopCartSingleInStock {
+
+    String shopCartId = "0";
+    String goodsId = "0";
+    String goodsSkuId = "0";
+    String goodsCount = "1";
     @BeforeAll
     void beforeAll(){
-        //查询普通商品
-        String sql = "SELECT g.goods_id,gs.goods_sku_id FROM goods g left join goods_sku gs on gs.goods_id=g.goods_id where g.status=1 and g.portal_id=3 and g.is_del=0 and gs.is_del=0 and type=1 limit 10";
+        //查找用户普通商品的加购记录
+        String sql = "SELECT t.* FROM shop_cart t left join goods g on g.goods_id=t.goods_id where t.user_id=252344 and t.add_source=1 and g.status=1 and g.portal_id=3 and g.type=1  limit 10";
         // 查询多条记录
         List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
-        goodsId = selectListSql.get(0).get("goods_id").toString();
-        goodsSkuId = selectListSql.get(0).get("goods_sku_id").toString();
+        // 获取查询结果的第1行数据中的数据库列明为“add_id”的值
+        try {
+            shopCartId = selectListSql.get(0).get("shop_cart_id").toString();
+            goodsId = selectListSql.get(0).get("goods_id").toString();
+            goodsSkuId = selectListSql.get(0).get("goods_sku_id").toString();
+            goodsCount = selectListSql.get(0).get("goods_count").toString();
+        }catch (Exception e){
+            System.out.println("购物车无商品！！");
+
+        }
     }
     @AfterAll
     static void afterAll(){
@@ -50,28 +59,32 @@ public class AddShopCartOrdinaryGoods_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HpfHost + "/shopcart/addShopcart";
+        String uri = TestcaseConfig.HpfHost + "/shopcart/settleShopCart";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/shopcart/addshopcart/request/headers.json";
+        String headers = "module/shopcart/settleshopcart/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/shopcart/addshopcart/request/body.json";
+        String body = "module/shopcart/settleshopcart/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/shopcart/addshopcart/response/assert_full_field.json";
+        String assertFullField = "module/shopcart/settleshopcart/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        //登录老用户
+
         requestHeaders.put("userId","1398661332");
         requestHeaders.put("authorization",TestCaseHelpful.login("17700004444","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"goodsId",goodsId);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"goodsSkuId",goodsSkuId);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.mulitiSettleAllShopCartIdList.[0]",shopCartId);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.shopCartList.[0].shopCartId",shopCartId);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.shopCartList.[0].goodsId",goodsId);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.shopCartList.[0].goodsSkuId",goodsSkuId);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.shopCartList.[0].goodsCount",goodsCount);
+
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -82,6 +95,15 @@ public class AddShopCartOrdinaryGoods_Tests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].shopCartId").isEqualTo(shopCartId);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].goodsId").isEqualTo(goodsId);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].goodsSkuId").isEqualTo(goodsSkuId);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].goodsCount").isEqualTo(goodsCount);
 
+        //赋值全局变量，后续接口使用
+        TestcaseConfig.shopCartId=shopCartId;
+        TestcaseConfig.goodsId=goodsId;
+        TestcaseConfig.goodsSkuId=goodsSkuId;
+        TestcaseConfig.goodsCount=goodsCount;
     }
 } 

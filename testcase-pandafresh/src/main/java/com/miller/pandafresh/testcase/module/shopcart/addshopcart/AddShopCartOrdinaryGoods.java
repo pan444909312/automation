@@ -1,10 +1,11 @@
 package com.miller.pandafresh.testcase.module.shopcart.addshopcart;
 
-import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.util.JSONUtils;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.util.JSONUtils;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,26 +20,20 @@ import java.util.Map;
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/07/15 16:36:03
+ * @since 2025/08/07 16:36:03
  */
-@Scenario(
-        scenarioID = "01K06KM1A67ECXKWK4CKTR2GCF", // 自动生成，不要修改
-        scenarioName = "pf加购-加购普通商品成功",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
+//用于组合场景
+@TestFramework
 @DisplayName("pf加购-加购普通商品成功")
-public class AddShopCartOrdinaryGoods_Tests {
+public class AddShopCartOrdinaryGoods {
 
-    String goodsId = "10561";
-    String goodsSkuId = "10004";
+    String goodsId = "13";
+    String goodsSkuId = "6";
     @BeforeAll
     void beforeAll(){
-        //查询普通商品
-        String sql = "SELECT g.goods_id,gs.goods_sku_id FROM goods g left join goods_sku gs on gs.goods_id=g.goods_id where g.status=1 and g.portal_id=3 and g.is_del=0 and gs.is_del=0 and type=1 limit 10";
-        // 查询多条记录
-        List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
-        goodsId = selectListSql.get(0).get("goods_id").toString();
-        goodsSkuId = selectListSql.get(0).get("goods_sku_id").toString();
+        //清空购物车商品
+        String sql = "delete from shop_cart t  where t.user_id=252344 and t.add_source=1";
+        FreshTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
     }
     @AfterAll
     static void afterAll(){
