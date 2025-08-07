@@ -1,4 +1,4 @@
-package com.miller.testcase.配置;
+package com.miller.delivery.testcase.配置;
 
 /**
  * 测试用例配置
