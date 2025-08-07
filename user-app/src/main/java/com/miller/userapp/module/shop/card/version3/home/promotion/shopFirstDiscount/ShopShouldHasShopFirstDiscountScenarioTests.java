@@ -63,7 +63,7 @@ public class ShopShouldHasShopFirstDiscountScenarioTests {
         ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
                 filter(item -> item.getType() == ShopPromoteEnum.INDEX_SHOP_FIRST_DISCOUNT.getType()).findFirst().get();
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
-        ShopFirstDiscountConfigEntity shopFirstDiscountConfigEntity = shopFirstDiscountMapper.selectOne(new QueryWrapper<ShopFirstDiscountConfigEntity>().eq("shop_id", shopId));
+        ShopFirstDiscountConfigEntity shopFirstDiscountConfigEntity = shopFirstDiscountMapper.selectOne(new QueryWrapper<ShopFirstDiscountConfigEntity>().eq("shop_id", shopId).eq("status",1));
 
         assert shopFirstDiscountConfigEntity.getId().equals(id);
         assert shopFirstDiscountConfigEntity.getShopFirstDiscount().equals(shopSearchMiddleEntity.getShopFirstDiscount());

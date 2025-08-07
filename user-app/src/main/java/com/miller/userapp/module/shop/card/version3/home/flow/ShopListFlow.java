@@ -44,6 +44,7 @@ public class ShopListFlow {
             RequestUtils.getHeaders().put("Content-Type", "application/json");
             String testGroupNew = BusinessConstant.testGroup.replace("SKYX02", "SKYX01");
             RequestUtils.getHeaders().put("testGroup", testGroupNew);
+
             int pageNo = 1;
             RequestUtils.getHeaders().put("pageNo", pageNo);
             // 发送请求获取数据
