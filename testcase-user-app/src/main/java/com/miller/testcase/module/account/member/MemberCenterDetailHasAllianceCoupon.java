@@ -11,21 +11,29 @@ import java.util.Map;
 
 
 @Scenario(scenarioID = "01JY42MG2TX1CRBDC1S917005W",
-        scenarioName = "获取会员中心页详情成功",
+        scenarioName = "会员购买页-有会员店铺联盟券",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/member/memberCenterDetail")
-public class MemberCenterDetailSuccess {
+public class MemberCenterDetailHasAllianceCoupon {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/member/memberCenterDetail";
 
-    @DisplayName("获取会员中心页详情成功")
+    @DisplayName("会员购买页-有会员店铺联盟券")
     @Test
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
+
+        headers.put("latitude", 41.80478);
+        headers.put("longitude", 123.43297);
         // 给请求头添加数据，例如这里添加token
-        headers.put("Authorization", TestCaseHelpful.login("13999900007", "123456"));
+        headers.put("Authorization", TestCaseHelpful.login("13966600001", "123456"));
         String responseBody = TestCaseHelpful.sendRequest("GET", uri, null, headers, null);
         String expectedStr = TestCaseHelpful.getFileContent("module/account/member/response/MemberCenterDetailResp.json");
 
+        Object result1 = TestCaseHelpful.extractValue(responseBody, "$.result.memberCenterBenefitList[?(@.benefitType==4)]");
+        Object result2 = TestCaseHelpful.extractValue(responseBody, "$.result.memberDetailBenefitDescList[?(@.benefitType==4)].name");
+
+        TestCaseHelpful.assertThat(result1.toString()).isNotEqualTo("[]");
+        TestCaseHelpful.assertThat(result2.toString()).isEqualTo("[\"店铺联盟券\"]");
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
 }

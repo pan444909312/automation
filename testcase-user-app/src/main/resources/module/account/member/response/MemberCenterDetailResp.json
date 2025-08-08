@@ -5,12 +5,12 @@
   "result": {
     "bulletin": "",
     "isMember": 1,
-    "memberVersion": 1,
-    "memberCityName": "九江市",
-    "memberPrivilegeDescUrl": "https://free-edition-f2e-test.hungrypanda.cn?is2020NewWebview=1&activityId=1504&title=%E5%8A%A0%E7%A0%81%E7%BA%A2%E5%8C%85%E9%A2%86%E5%8F%96&immerse=1",
+    "memberVersion": "${json-unit.any-number}",
+    "memberCityName": "沈阳市",
+    "memberPrivilegeDescUrl": "",
     "thriftAmount": 0,
     "memberCardType": 2,
-    "memberDeadline": "2025-07-20",
+    "memberDeadline": "${json-unit.any-string}",
     "platformCoupon": null,
     "deliveryDiscount": null,
     "deliveryCoupon": null,
@@ -20,107 +20,12 @@
     "memberShopCoupon": null,
     "autoRenew": 1,
     "onLineState": 1,
-    "addressConfigId": 540,
+    "addressConfigId": 688,
     "memberSuperCoupon": null,
     "memberCenterVersion": null,
-    "memberCenterBenefitList": [
-      {
-        "benefitType": 5,
-        "totalQuantity": null,
-        "surplusQuantity": null,
-        "redPacketBenefitList": null,
-        "deliveryUseNum": 10000,
-        "deliveryRemainNum": null,
-        "deliveryUsedNum": 0,
-        "deliveryUseNumLimit": 0,
-        "deliverySaveAmount": null,
-        "deratePrice": 100,
-        "minDelivery": null,
-        "maxDelivery": null,
-        "metricUnit": null,
-        "deliveryRangeLimit": null,
-        "deliveryDesc": "立减¥6",
-        "remainNum": 10000,
-        "useNumLimit": null,
-        "thriftAmount": 0,
-        "benefitTitle": "免配送费 x {0}次",
-        "benefitContent": "满¥1可享，{0}\n下单自动抵扣，可与红包叠加",
-        "benefitTitleMap": {
-          "{0}": "无限"
-        },
-        "benefitContentMap": {
-          "{0}": "立减¥6"
-        },
-        "collectOrderBenefit": null
-      },
-      {
-        "benefitType": 10,
-        "totalQuantity": null,
-        "surplusQuantity": null,
-        "redPacketBenefitList": null,
-        "deliveryUseNum": null,
-        "deliveryRemainNum": null,
-        "deliveryUsedNum": null,
-        "deliveryUseNumLimit": null,
-        "deliverySaveAmount": null,
-        "deratePrice": null,
-        "minDelivery": null,
-        "maxDelivery": null,
-        "metricUnit": null,
-        "deliveryRangeLimit": null,
-        "deliveryDesc": null,
-        "remainNum": null,
-        "useNumLimit": null,
-        "thriftAmount": null,
-        "benefitTitle": "全国通用",
-        "benefitContent": "会员权益全国通享",
-        "benefitTitleMap": null,
-        "benefitContentMap": null,
-        "collectOrderBenefit": null
-      },
-      {
-        "benefitType": 9,
-        "totalQuantity": null,
-        "surplusQuantity": null,
-        "redPacketBenefitList": null,
-        "deliveryUseNum": null,
-        "deliveryRemainNum": null,
-        "deliveryUsedNum": null,
-        "deliveryUseNumLimit": null,
-        "deliverySaveAmount": null,
-        "deratePrice": null,
-        "minDelivery": null,
-        "maxDelivery": null,
-        "metricUnit": null,
-        "deliveryRangeLimit": null,
-        "deliveryDesc": null,
-        "remainNum": null,
-        "useNumLimit": null,
-        "thriftAmount": null,
-        "benefitTitle": "专属客服",
-        "benefitContent": "精选客服提供1对1优质服务",
-        "benefitTitleMap": null,
-        "benefitContentMap": null,
-        "collectOrderBenefit": null
-      }
-    ],
-    "memberDetailBenefitDescList": [
-      {
-        "benefitType": 5,
-        "name": "运费减免"
-      },
-      {
-        "benefitType": 10,
-        "name": "全国通用"
-      },
-      {
-        "benefitType": 9,
-        "name": "专属客服"
-      }
-    ],
-    "protocolUrl": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmZyZWUtZWRpdGlvbi1mMmUtdGVzdC5odW5ncnlwYW5kYS5jbiUzRmlzMjAyME5ld1dlYnZpZXclM0QxJTI2YWN0aXZpdHlJZCUzRDE1MDQlMjZ0aXRsZSUzRCUyNUU1JTI1OEElMjVBMCUyNUU3JTI1QTAlMjU4MSUyNUU3JTI1QkElMjVBMiUyNUU1JTI1OEMlMjU4NSUyNUU5JTI1QTIlMjU4NiUyNUU1JTI1OEYlMjU5NiUyNmltbWVyc2UlM0QxIn0*&callback=CALLBACK_NAME&code=ff41be6377078bd",
-    "firstMonthRenewPrice": null,
-    "renewPrice": null
+    "memberCenterBenefitList": "${json-unit.ignore-element}",
+    "memberDetailBenefitDescList": "${json-unit.ignore-element}",
+    "protocolUrl": null
   },
   "currency": "${json-unit.any-string}",
   "success": true,
