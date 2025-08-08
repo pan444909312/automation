@@ -31,7 +31,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import java.util.*;
 
 public class CreateUserServer {
-    private static final String[] prefixTels = {"165", "167", "170", "171", "187", "190", "192", "139", "159", "195"};
+    private static final String[] prefixTels = {"165", "167", "170", "171", "187", "190", "192", "139", "159", "195", "137"};
     private String saveOrUpdateUrl = BusinessConstant.DOMAIN + "/api/app/user/v1/address/edit";
     private SqlSession sqlSession;
     private AccountSql accountSql;
@@ -47,6 +47,7 @@ public class CreateUserServer {
     private CreateUserEntity createUserEntity;
 
     private String deviceId = "auto-test-device";
+
     public CreateUserServer(SqlSession sqlSession, CreateUserEntity createUserEntity) {
         this.sqlSession = sqlSession;
         this.createUserEntity = createUserEntity;
@@ -125,7 +126,7 @@ public class CreateUserServer {
                 int random = new Random().nextInt(size);
                 String autoTel = prefixTels[random] + String.valueOf(new Random().nextInt(10_000_000, 100_000_000));
                 if (checkUser(autoTel)) {
-                    return createUserData(autoTel)+"";
+                    return createUserData(autoTel) + "";
                 }
                 if (count > 1000) {
                     break;
@@ -139,10 +140,10 @@ public class CreateUserServer {
             }
             Optional<String> prefixTel = Arrays.stream(prefixTels).filter(tel::startsWith).findAny();
             if (!prefixTel.isPresent()) {
-                return "请输入{165,167,170,171,187,190,192,139,159,195}开头手机号！";
+                return "请输入{165,167,170,171,187,190,192,139,159,195,137}开头手机号！";
             }
             if (checkUser(tel)) {
-                return createUserData(tel)+"";
+                return createUserData(tel) + "";
             } else {
                 return tel + "账号已存在";
             }
