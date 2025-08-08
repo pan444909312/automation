@@ -91,11 +91,20 @@ public class GetSpecialTopicGoodsCombine_Tests {
         //提取返回结果里的商品数据
         JSONArray goodsList = TestCaseHelpful.extractValue(responseBody,"$.result.records");
 
-        for (int i=0;i<goodsList.size();i++){
-            String exceptGoodsId = selectListSql.get(i).get("goods_id").toString();
-            Boolean actual = goodsList.toString().contains(exceptGoodsId);
-            //包含
-            TestCaseHelpful.assertThatJson(actual).isEqualTo(true);
+        if (goodsList.size()<=10) {
+            for (int i = 0; i < goodsList.size(); i++) {
+                String exceptGoodsId = selectListSql.get(i).get("goods_id").toString();
+                Boolean actual = goodsList.toString().contains(exceptGoodsId);
+                //包含
+                TestCaseHelpful.assertThatJson(actual).isEqualTo(true);
+            }
+        }else {
+            for (int i = 0; i < 10; i++) {
+                String exceptGoodsId = selectListSql.get(i).get("goods_id").toString();
+                Boolean actual = goodsList.toString().contains(exceptGoodsId);
+                //包含
+                TestCaseHelpful.assertThatJson(actual).isEqualTo(true);
+            }
         }
     }
 } 

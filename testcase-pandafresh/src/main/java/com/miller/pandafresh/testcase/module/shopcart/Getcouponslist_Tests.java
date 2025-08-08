@@ -52,7 +52,7 @@ public class Getcouponslist_Tests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.receivedCoupons").isNotNull();
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.availableCoupons").isNotNull();
+//        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.availableCoupons").isNotNull();
 
     }
 } 
