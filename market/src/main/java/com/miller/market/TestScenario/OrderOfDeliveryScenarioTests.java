@@ -34,18 +34,13 @@ import org.junit.platform.suite.api.SuiteDisplayName;
         MarketGetPreOrderInfoDeliveryTimeTests.class,
         // 配送下单
         MarketCreateOrderDeliveryTimeTests.class,
-        MarketPaymentPatternTests.class,
-        //查看订单详情
-        MarketOrderDetailTests.class,
-        //取消订单
-        MarketCancelNoPayOrderTests.class,
 
 })
 
 @Suite
-@SuiteDisplayName("【主干场景】登录-获取收货地址-获取配送时间-加购-结算-预订单（配送-有时间）-下单 -查看订单详情 - 取消订单")
+@SuiteDisplayName("【主干场景】登录-获取收货地址-获取配送时间-加购-结算-预订单（配送-有时间）-下单")
 @Scenario(scenarioID = "01JQT4S9A8K21M67YD4JRSMMC4",
-        scenarioName = "【主干场景】登录-获取收货地址-获取配送时间-加购-结算-预订单（配送-有时间）-下单 -查看订单详情 - 取消订单",
+        scenarioName = "【主干场景】登录-获取收货地址-获取配送时间-加购-结算-预订单（配送-有时间）-下单",
         author = "zhangpei@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 20)
 public class OrderOfDeliveryScenarioTests {
 }

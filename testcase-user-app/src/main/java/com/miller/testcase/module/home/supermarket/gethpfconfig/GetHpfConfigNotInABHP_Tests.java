@@ -2,12 +2,16 @@ package com.miller.testcase.module.home.supermarket.gethpfconfig;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * getHpfConfig
@@ -29,11 +33,17 @@ public class GetHpfConfigNotInABHP_Tests {
         //关闭融合开关
 //        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", false);
 //        Thread.sleep(3000L);
+        //关闭ab测
+        String sql = "update hp_sys_app_config c set c.config_value='{\"rate\":0}' where c.config_key='hpf' ";
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
     }
     @AfterAll
     static void afterAll(){
         //开启融合开关
 //        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", true);
+        //开启ab测
+        String sql = "update hp_sys_app_config c set c.config_value='{\"rate\":100}' where c.config_key='hpf' ";
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
     }
 
     @DisplayName("正向流程")
@@ -54,7 +64,7 @@ public class GetHpfConfigNotInABHP_Tests {
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.replace("testgroup","HPF","no");
+        requestHeaders.replace("testgroup","HPF02");
         requestHeaders.replace("apptypeid","1");
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
