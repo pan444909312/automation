@@ -17,12 +17,12 @@ import java.util.Map;
  * @since 2025/06/19 20:02:30
  */
 @Scenario(
-        scenarioID = "01JY413BBZ6V5TTZRQQGR6H2QA", // 自动生成，不要修改
-        scenarioName = "获取会员购买页详情",
+        scenarioID = "01K22A9MN26RFJ3RZNN3F5JWTT", // 自动生成，不要修改
+        scenarioName = "会员购买页-有运费减免",
         author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("BuyMemberDetail")
-public class Buymemberdetail_Tests {
+@DisplayName("会员购买页-有运费减免")
+public class BuymemberdetailHasFeeDiscount {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/user/member/buyMemberDetail";
     // 接口请求方式。如： GET、POST、PUT、DELETE
@@ -37,7 +37,8 @@ public class Buymemberdetail_Tests {
     void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
-        headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
+        headers.put("latitude", 41.80478);
+        headers.put("longitude", 123.43297);
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
@@ -45,11 +46,13 @@ public class Buymemberdetail_Tests {
 
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, headers, null);
+        Object result = TestCaseHelpful.extractValue(responseBody, "$.result.memberBenefitlList[?(@.benefitType==5)]");
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThat(result.toString()).isNotEqualTo("[]");
 
     }
 } 

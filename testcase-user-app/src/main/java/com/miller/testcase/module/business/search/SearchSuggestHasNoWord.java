@@ -13,7 +13,7 @@ import java.util.Map;
 @Scenario(scenarioID = "01K1WQMHFQK9W3PST0M2PNQ6DX",
         scenarioName = "搜索输入任意内容-无联想词",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("/api/user/search/categories")
+@DisplayName("/api/app/user/suggest/search")
 public class SearchSuggestHasNoWord {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/suggest/search";
 
