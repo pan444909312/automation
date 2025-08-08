@@ -87,7 +87,8 @@ public class ToolsController {
 
     @Operation(description = "验证码查询工具")
     @PostMapping("/codeQuery")
-    public Response<String> codeQuery() {
+    public Response<String> codeQuery(@RequestParam String phone) {
+
 
         return Response.success("");
     }
