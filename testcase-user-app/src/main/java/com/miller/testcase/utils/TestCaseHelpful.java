@@ -413,9 +413,10 @@ public class TestCaseHelpful {
      * @param testgroup 测试组别，可为空
      * @param longitude 经度，可为空
      * @param latitude 纬度，可为空
+     * @param apptypeid 站点，可为空
      * @return 店铺在首页店铺流的VO信息,当首页店铺流不存在店铺时返回null
      */
-    public static JSONObject getShopVOByShopId(String shopId, String mobilePhone, String password, String testgroup, String longitude, String latitude) {
+    public static JSONObject getShopVOByShopId(String shopId, String mobilePhone, String password, String testgroup, String longitude, String latitude, String apptypeid) {
         String uri = TestcaseConfig.HOST_APP + "/api/user/v2/index/shopList";
         String method = "POST";
         String headers = "module/home/en_shoplist_v1/request/headers_cn.json";
@@ -441,6 +442,9 @@ public class TestCaseHelpful {
                 if(longitude != null && latitude != null) {
                     requestHeaders.put("longitude", longitude);
                     requestHeaders.put("latitude", latitude);
+                }
+                if(apptypeid != null) {
+                    requestHeaders.put("apptypeid", apptypeid);
                 }
                 // 发起请求
                 var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
