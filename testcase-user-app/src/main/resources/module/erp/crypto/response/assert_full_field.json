@@ -1,0 +1,10 @@
+{
+	"code": 1,
+	"message": "SUCCESS",
+	"data": {
+		"content":"${json-unit.any-string}"
+	},
+	"currencySymbol": "￥",
+	"sql": null,
+	"queryList": null
+}

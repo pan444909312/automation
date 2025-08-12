@@ -1,0 +1,57 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"type": 3,
+		"types": "${json-unit.ignore-element}",
+		"spellGroupBroadcastVO": {
+			"productVOList": [
+				{
+					"productId": "${json-unit.any-number}",
+					"productSkuId": "${json-unit.any-number}",
+					"productName": "${json-unit.any-string}",
+					"productPrice": "${json-unit.any-number}",
+					"orgProductPrice": "${json-unit.any-number}",
+					"productImg": "${json-unit.any-string}",
+					"hasSku": "${json-unit.any-number}",
+					"isHasSpec": "${json-unit.any-number}",
+					"productSaleType": "${json-unit.any-number}",
+					"shopId": "${json-unit.any-number}",
+					"productSaleNum": "${json-unit.any-number}",
+					"salesTag": "${json-unit.ignore-element}",
+					"systemMarketingTag": "${json-unit.ignore-element}",
+					"sort": "${json-unit.ignore-element}",
+					"praiseAverage": "${json-unit.any-number}",
+					"deliveryTime": "${json-unit.any-number}",
+					"distanceStr": "${json-unit.any-string}",
+					"shopStatus": "${json-unit.any-number}",
+					"preorderClosedSupport": "${json-unit.any-number}",
+					"shopStatusTimeStr": "${json-unit.ignore-element}",
+					"shopName": "${json-unit.any-string}",
+					"isGroupPrimary": "${json-unit.ignore-element}",
+					"stock": "${json-unit.any-number}",
+					"productBadgeStatus": "${json-unit.any-number}",
+					"productBadgeImg":"${json-unit.any-string}",
+					"hasPriceLabel": "${json-unit.any-number}",
+					"deliveryType": "${json-unit.any-number}",
+					"remainAmount": "${json-unit.any-number}",
+					"url": "${json-unit.any-string}",
+					"ageLimit": "${json-unit.any-number}",
+					"priceShow": "${json-unit.any-number}",
+					"spellSelfPriceShowTitle": "${json-unit.any-string}",
+					"freeShipping":"${json-unit.any-number}"
+				}
+			],
+			"subTitle": "${json-unit.any-string}",
+			"url": "${json-unit.any-string}",
+			"iconImg": "${json-unit.any-string}",
+			"activityTitleImg": "${json-unit.any-string}"
+		}
+
+	},
+	"currency":"${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}
