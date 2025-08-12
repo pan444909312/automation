@@ -1,7 +1,10 @@
 package com.miller.testcase.module.home.supermarket.gethpfconfig;
 
+import com.miller.service.dto.XXLConfigEnvEnum;
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.util.XXLConfUtils;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -18,22 +21,29 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JZT5KMX0W6RQP1GQVHY0RD16", // 自动生成，不要修改
-        scenarioName = "pf融合开关：开启&不在ab测&PFapp依旧返回达达店铺id",
+        scenarioName = "pf融合开关：关闭&不在ab测&PFapp依旧返回达达店铺id",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf融合开关：开启&不在ab测&PFapp依旧返回达达店铺id")
+        developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
+@DisplayName("pf融合开关：关闭&不在ab测&PFapp依旧返回达达店铺id")
 public class GetHpfConfigNotInABPF_Tests {
 
     @BeforeAll
     static void beforeAll() throws InterruptedException {
         //关闭融合开关
-//        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", false);
-//        Thread.sleep(3000L);
+        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", false);
+        Thread.sleep(3000L);
+        //关闭ab测
+        String sql = "update hp_sys_app_config c set c.config_value='{\"rate\":0}' where c.config_key='hpf' ";
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
     }
     @AfterAll
     static void afterAll(){
         //开启融合开关
-//        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", true);
+        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.hpf.switch", "PF融合开关", true);
+
+        //开启ab测
+        String sql = "update hp_sys_app_config c set c.config_value='{\"rate\":100}' where c.config_key='hpf' ";
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
     }
 
     @DisplayName("正向流程")
@@ -54,7 +64,7 @@ public class GetHpfConfigNotInABPF_Tests {
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.replace("testgroup","HPF","no");
+        requestHeaders.replace("testgroup","HPF02");
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);

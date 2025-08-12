@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 @Scenario(
         scenarioID = "01JXCKT82ATVM0EVG4WZR1GHHG",
-        scenarioName = "地址搜索",
+        scenarioName = "地址搜索-搜到地址",
         author = "huyang@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("地址搜索")
+@DisplayName("地址搜索-搜到地址")
 public class AddressSearchTests {
     // 接口请求的 path
     String uri = TestcaseConfig.HOST_APP + "/api/user/address/search";

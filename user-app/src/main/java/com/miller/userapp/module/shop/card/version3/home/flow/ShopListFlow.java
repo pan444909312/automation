@@ -80,6 +80,7 @@ public class ShopListFlow {
                 // 获取下一页
                 pageNo++;
                 RequestUtils.getHeaders().put("pageNo", pageNo);
+
                 shopListResponse = HttpUtils.sendPostRequestReturnJavaObject(
                         uri,
                         null,

@@ -2,7 +2,38 @@
 	"resultCode": 1000,
 	"error": "成功",
 	"reason": "成功",
-	"result": {},
+	"result": {
+		"pageVOList": [{
+			"itemVOList": [{
+				"contentType": 1
+			}],
+			"pageType": 1,
+			"type": 0,
+			"url": "https://f2e-pkg-leaflet-test.hungrypanda.cn/alwaysInviteNew?immerse=1&is2020NewWebview=1&loading=1&riskFlag=true&code=&country=86&riskFlag=true",
+			"linkId": null
+		}, {
+			"itemVOList": [{
+				"contentType": 1
+			}, {
+				"contentType": 2
+			}],
+			"pageType": 3,
+			"type": 0,
+			"url": "https://f2e-pkg-leaflet-test.hungrypanda.cn/alwaysInviteNew?immerse=1&is2020NewWebview=1&loading=1&riskFlag=true&code=&country=86&riskFlag=true",
+			"linkId": null
+		}, {
+			"itemVOList": [{
+				"contentType": 1
+			}, {
+				"contentType": 2
+			}],
+			"pageType": 4,
+			"type": 0,
+			"url": "https://f2e-pkg-leaflet-test.hungrypanda.cn/alwaysInviteNew?immerse=1&is2020NewWebview=1&loading=1&riskFlag=true&code=&country=86&riskFlag=true",
+			"linkId": null
+		}],
+		"url": "https://f2e-pkg-leaflet-test.hungrypanda.cn/alwaysInviteNew?immerse=1&is2020NewWebview=1&loading=1&riskFlag=true&code=&country=86&riskFlag=true"
+	},
 	"currency": "${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",

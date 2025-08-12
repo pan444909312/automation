@@ -1,16 +1,22 @@
 package com.miller.userapp.module.data.promotion.redpacket;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.constant.CouponTypeEnum;
+import com.miller.entity.tools.resp.CouponToolsDTO;
 import com.miller.erp.moudle.login.flow.ERPLoginFlow;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import com.miller.service.framework.util.ResourceUtils;
+import com.miller.userapp.mapper.redpacket.CouponTemplateRuleRedPacketRelationMapper;
+import com.miller.userapp.mapper.shop.DataShopUserOrderMapper;
 import com.miller.userapp.module.data.promotion.redpacket.flow.CouponTemplateFlow;
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddProductRequestDTO;
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddRequestDTO;
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddShopRequestDTO;
 import com.miller.userapp.module.data.promotion.redpacket.response.CouponTemplateAddResponseDTO;
+import com.panda.erp.server.dal.dataobject.cdkey.CouponTemplateRuleRedPacketRelation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.SqlSession;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +36,9 @@ import java.util.List;
         developmentTime = 4 * 60, maintenanceTime = 0, manualTestTime = 5)
 public class CouponGenerate {
 
+    private CouponTemplateRuleRedPacketRelationMapper couponTemplateRuleRedPacketRelationMapper;
+    private SqlSession sqlSession;
+
     private CouponTemplateFlow couponTemplateFlow;
     private final String fileURL = "coupon" + File.separator;
     //默认店铺id
@@ -38,6 +47,12 @@ public class CouponGenerate {
     private final String defaultProductIds = "82083860,82083858,82083862";
     //默认券类型 满减
     private final Integer defaultCouponType = 1;
+
+    public CouponGenerate() {
+        sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
+        couponTemplateRuleRedPacketRelationMapper = sqlSession.getMapper(CouponTemplateRuleRedPacketRelationMapper.class);
+    }
+
 
     private void tearDown() {
         new TestCaseRunnerLauncher().runTestMethod(CouponGenerate.class, "reportedData");
@@ -58,7 +73,8 @@ public class CouponGenerate {
      * @param couponDataResource 优惠券入参文件 url
      * @return 添加结果，成功则返回优惠券template_sn
      */
-    private String addCoupon(String couponDataResource) {
+    private CouponToolsDTO addCoupon(String couponDataResource) {
+        CouponToolsDTO couponToolsDTO = new CouponToolsDTO();
 
         ERPLoginFlow.loginByDefaultUser();
         couponTemplateFlow = new CouponTemplateFlow();
@@ -70,10 +86,17 @@ public class CouponGenerate {
 
         try {
             CouponTemplateAddResponseDTO couponTemplateAddResponseDTO = couponTemplateFlow.addCoupon(couponData);
-            return couponTemplateAddResponseDTO.getData();
+
+            String couponSn = couponTemplateAddResponseDTO.getData();
+            couponToolsDTO.setCouponSn(couponSn);
+            couponContentHandler(couponToolsDTO);
+
+            return couponToolsDTO;
         } catch (Exception e) {
-            return "优惠券添加失败";
-        }finally {
+            couponToolsDTO.setContent("优惠券添加失败");
+            return couponToolsDTO;
+        }
+        finally {
             tearDown();
         }
     }
@@ -87,15 +110,15 @@ public class CouponGenerate {
     public String addPlatformCouponTemplate(Integer couponType) {
         // 满减券
         if (couponType == CouponTypeEnum.FULL_SUB.getCode()) {
-            return addCoupon("CouponPlatformFullSub.json");
+            return addCoupon("CouponPlatformFullSub.json").getContent();
         }
         // 折扣券
         if (couponType == CouponTypeEnum.DISCOUNT.getCode()) {
-            return addCoupon("CouponPlatformDiscount.json");
+            return addCoupon("CouponPlatformDiscount.json").getContent();
         }
         // 减运费券
         if (couponType == CouponTypeEnum.DELIVERY_FEE.getCode()) {
-            return addCoupon("CouponPlatformShippingSub.json");
+            return addCoupon("CouponPlatformShippingSub.json").getContent();
         }
         return "券类型不存在";
     }
@@ -122,28 +145,33 @@ public class CouponGenerate {
         Integer errorNum = 0;
         // 满减券
         if (couponType == CouponTypeEnum.FULL_SUB.getCode()) {
-            templateSn = addCoupon("CouponShopFullSub.json");
-            requestDTO.setTemplateSn(templateSn);
+            CouponToolsDTO couponToolsDTO = addCoupon("CouponShopFullSub.json");
+            requestDTO.setTemplateSn(couponToolsDTO.getCouponSn());
             requestDTO.setShopIds(shopList);
             errorNum = couponTemplateFlow.addCouponShop(requestDTO).getData().getErrorShopNum();
+            couponContentHandler(couponToolsDTO);
+            return errorNum <= 0 ? couponToolsDTO.getContent() : couponToolsDTO.getCouponSn() + "，导入商家，失败商家数：" + errorNum;
         }
         // 折扣券
         else if (couponType == CouponTypeEnum.DISCOUNT.getCode()) {
-            templateSn = addCoupon("CouponShopDiscount.json");
-            requestDTO.setTemplateSn(templateSn);
+            CouponToolsDTO couponToolsDTO = addCoupon("CouponShopDiscount.json");
+            requestDTO.setTemplateSn(couponToolsDTO.getCouponSn());
             requestDTO.setShopIds(shopList);
             errorNum = couponTemplateFlow.addCouponShop(requestDTO).getData().getErrorShopNum();
+            couponContentHandler(couponToolsDTO);
+            return errorNum <= 0 ? couponToolsDTO.getContent() : couponToolsDTO.getCouponSn() + "，导入商家，失败商家数：" + errorNum;
+
         }
         // 减运费券
         else if (couponType == CouponTypeEnum.DELIVERY_FEE.getCode()) {
-            templateSn = addCoupon("CouponShopShippingSub.json");
-            requestDTO.setTemplateSn(templateSn);
+            CouponToolsDTO couponToolsDTO = addCoupon("CouponShopShippingSub.json");
+            requestDTO.setTemplateSn(couponToolsDTO.getCouponSn());
             requestDTO.setShopIds(shopList);
             errorNum = couponTemplateFlow.addCouponShop(requestDTO).getData().getErrorShopNum();
+            couponContentHandler(couponToolsDTO);
+            return errorNum <= 0 ? couponToolsDTO.getContent() : couponToolsDTO.getCouponSn() + "，导入商家，失败商家数：" + errorNum;
+
         } else return "券类型不存在";
-
-        return errorNum <= 0 ? templateSn : templateSn + "，导入商家，失败商家数：" + errorNum;
-
     }
 
     /**
@@ -198,11 +226,13 @@ public class CouponGenerate {
     public String addProductCouponTemplate(List<Long> productList) {
         Integer errorNum = 0;
         CouponTemplateAddProductRequestDTO requestDTO = new CouponTemplateAddProductRequestDTO();
-        String templateSn = addCoupon("CouponProduct.json");
-        requestDTO.setTemplateSn(templateSn);
+        CouponToolsDTO couponToolsDTO = addCoupon("CouponProduct.json");
+        requestDTO.setTemplateSn(couponToolsDTO.getCouponSn());
         requestDTO.setProductIds(productList);
         errorNum = couponTemplateFlow.addCouponProduct(requestDTO).getData().getErrorShopNum();
-        return errorNum <= 0 ? templateSn : templateSn + "，导入商品失败，商品不存在或被删除，失败数：" + errorNum;
+
+        couponContentHandler(couponToolsDTO);
+        return errorNum <= 0 ? couponToolsDTO.getContent() : couponToolsDTO.getCouponSn() + "，导入商品失败，商品不存在或被删除，失败数：" + errorNum;
 
     }
 
@@ -224,6 +254,29 @@ public class CouponGenerate {
      */
     public String addProductCouponTemplate() {
         return addProductCouponTemplate(defaultProductIds);
+    }
+
+
+    public CouponToolsDTO couponContentHandler(CouponToolsDTO couponToolsDTO) {
+        QueryWrapper<CouponTemplateRuleRedPacketRelation> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("template_sn", couponToolsDTO.getCouponSn());
+        // 清除当前会话的一级缓存，解决相同sql未执行取缓存导致的bug
+        sqlSession.clearCache();
+
+        List<CouponTemplateRuleRedPacketRelation> list = couponTemplateRuleRedPacketRelationMapper.selectList(
+                queryWrapper);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("优惠券添加成功，优惠券sn为：").
+                append(System.lineSeparator()).
+                append(couponToolsDTO.getCouponSn()).
+                append(System.lineSeparator()).
+                append("对应红包id：").
+                append(System.lineSeparator());
+        if (list != null && !list.isEmpty()) {
+            list.forEach(item -> stringBuilder.append(item.getRedPacketId()).append("\n"));
+        }
+        couponToolsDTO.setContent(stringBuilder.toString());
+        return couponToolsDTO;
     }
 
     public void addCouponTest() {

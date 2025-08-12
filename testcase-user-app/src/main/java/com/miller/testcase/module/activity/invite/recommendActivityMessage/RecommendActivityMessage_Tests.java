@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXYDEJBQK1J7WJDTRNGM4YJ8", // 自动生成，不要修改
-        scenarioName = "老邀新-邀请短信",
+        scenarioName = "老邀新-邀请短信：已登录",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("老邀新-邀请短信")
+        developmentTime = 20, maintenanceTime = 15, manualTestTime = 3)
+@DisplayName("老邀新-邀请短信：已登录")
 public class RecommendActivityMessage_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/recommend/activity/message";
@@ -55,5 +55,7 @@ public class RecommendActivityMessage_Tests {
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
+        // 步骤5: 断言message字段包含特定文本
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.message").asString().contains("，邀请码Code:831855r");
     }
 } 

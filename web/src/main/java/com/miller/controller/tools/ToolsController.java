@@ -9,8 +9,6 @@ import com.miller.entity.tools.req.AutoCreateMerchantReqDTO;
 import com.miller.entity.tools.req.SendRedPacketReqDTO;
 import com.miller.entity.util.Response;
 import com.miller.testcase.factory.MerchantFactory;
-import com.miller.testcase.utils.PandaTestDBHelpful;
-import com.miller.testcase.utils.TestCaseHelpful;
 import com.miller.userapp.module.data.promotion.redpacket.CouponGenerate;
 import com.miller.userapp.module.data.promotion.redpacket.SendRedPacket;
 import com.miller.userapp.module.data.user.CreateUserEntity;
@@ -20,14 +18,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
 
 /**
  * @Author: panjuxiang
@@ -93,51 +87,10 @@ public class ToolsController {
 
     @Operation(description = "验证码查询工具")
     @PostMapping("/codeQuery")
-    public Response<List<Map<String, Object>>> codeQuery(@RequestBody CodeQueryRequest request) {
-        try {
-            // 从请求中获取手机号
-            String phone = request.getPhone();
+    public Response<String> codeQuery() {
 
-            if (phone == null || phone.trim().isEmpty()) {
-                return Response.fail("请输入手机号");
-            }
-
-            // 加密手机号
-            String encryptedPhone = getPhoneNumber(phone);
-            System.out.println("原始手机号: " + phone);
-            System.out.println("加密后的手机号: " + encryptedPhone);
-
-            // 查询数据库
-            String sql = String.format(
-                    "SELECT user_id, telephone, FROM_UNIXTIME(create_time/1000) as create_time, verifycode " +
-                            "FROM user_log " +
-                            "WHERE telephone = '%s' OR telephone = '%s' " +
-                            "ORDER BY create_time DESC " +
-                            "LIMIT 5",
-                    encryptedPhone, phone);
-
-            List<Map<String, Object>> selectListSql = PandaTestDBHelpful.executeSelectListSql(sql);
-
-            return Response.success(selectListSql);
-
-        } catch (Exception e) {
-            System.err.println("查询验证码时出错: " + e.getMessage());
-            e.printStackTrace();
-            return Response.fail("查询失败: " + e.getMessage());
-        }
+        return Response.success("");
     }
-    public static class CodeQueryRequest {
-        private String phone;
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-    }
-
 
     @Operation(description = "一键创建优惠券")
     @PostMapping("/autoCreateCoupon")

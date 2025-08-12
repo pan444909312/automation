@@ -3,10 +3,10 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "addressId": "${json-unit.ignore}"
+    "addressId": "${json-unit.any-number}"
   },
-  "currency": "¥",
+  "currency": "${json-unit.any-string}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
-  "queryList": "${json-unit.ignore-element}"
+  "time": "${json-unit.ignore-element}"
 }

@@ -102,6 +102,8 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     @Override
     public void testSuccessful(ExtensionContext context) {
+        String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
+
         log.info(this.getClass().getName() + " testSuccessful method invoked...");
         // 记录成功的方法
         context.getTestMethod().ifPresent(method -> successfulTestMethods.add(method.getName()));
@@ -117,7 +119,12 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
                 YApiUtils.updateYApiData(element);
             }
         }
-        if (isSendNotification) sendExecuteNotification(context, SUCCESSFUL);
+        // 新增执行人DevOps判断
+        if (Objects.equals(executor, "DevOps")) {
+            if (isSendNotification) sendExecuteNotificationOnlySuccess(context, SUCCESSFUL);
+        } else {
+            if (isSendNotification) sendExecuteNotification(context, SUCCESSFUL);
+        }
         updateAutoExecutionRecordTestResult(context, SUCCESSFUL);
         // 将 HTTP 协议数据存储到数据库中
         if (isOpenCoverage) updateAutomationCoverageResult(context, SUCCESSFUL, HTTPUtilsByRestAssured.httpInfoMap);
@@ -125,11 +132,17 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
+        String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
         log.info(this.getClass().getName() + " testFailed method invoked...");
         // 如果类中的某一个方法失败了，那么认为这个类也执行失败了
         String failedClassName = context.getTestClass().orElse(null).getName();
         failedTestClasses.add(failedClassName);
-        if (isSendNotification) sendExecuteNotification(context, FAILED);
+        // 新增执行人DevOps判断
+        if (Objects.equals(executor, "DevOps")) {
+            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, FAILED);
+        } else {
+            if (isSendNotification) sendExecuteNotification(context, FAILED);
+        }
         updateAutoExecutionRecordTestResult(context, FAILED);
         // 将 HTTP 协议数据存储到数据库中
         if (isOpenCoverage) updateAutomationCoverageResult(context, FAILED, HTTPUtilsByRestAssured.httpInfoMap);
@@ -138,8 +151,14 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
+        String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
         log.info(this.getClass().getName() + " testDisabled method invoked...");
-        if (isSendNotification) sendExecuteNotification(context, DISABLED);
+        // 新增执行人DevOps判断
+        if (Objects.equals(executor, "DevOps")) {
+            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, DISABLED);
+        } else {
+            if (isSendNotification) sendExecuteNotification(context, DISABLED);
+        }
         updateAutoExecutionRecordTestResult(context, DISABLED);
         // 将 HTTP 协议数据存储到数据库中
         if (isOpenCoverage) updateAutomationCoverageResult(context, DISABLED, HTTPUtilsByRestAssured.httpInfoMap);
@@ -147,8 +166,14 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
+        String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
         log.info(this.getClass().getName() + " testAborted method invoked...");
-        if (isSendNotification) sendExecuteNotification(context, ABORTED);
+        // 新增执行人DevOps判断
+        if (Objects.equals(executor, "DevOps")) {
+            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, ABORTED);
+        } else {
+            if (isSendNotification) sendExecuteNotification(context, ABORTED);
+        }
         updateAutoExecutionRecordTestResult(context, ABORTED);
         // 将 HTTP 协议数据存储到数据库中
         if (isOpenCoverage) updateAutomationCoverageResult(context, ABORTED, HTTPUtilsByRestAssured.httpInfoMap);
@@ -217,9 +242,12 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     }
 
     /**
-     * 发送自动化测试执行消息
+     * 生成钉钉消息
+     * @param context
+     * @param testResult
+     * @return
      */
-    private void sendExecuteNotification(ExtensionContext context, String testResult) {
+    private String notificationContentHandler(ExtensionContext context, String testResult) {
         // 获取执行人员
         String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
         Optional<Scenario> scenarioAnnotation = Optional.ofNullable(context.getRequiredTestClass().getAnnotation(Scenario.class));
@@ -291,7 +319,41 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
             content.append("- **<font color=black>用例ID:</font>** ").append(scenarioID).append(" \n ");
         }
 
-        DingTalkUtils.sendMarkdownMessage("自动化执行通知", content.toString());
+        return content.toString();
+
+    }
+
+    /**
+     * 默认发送自动化测试执行消息
+     */
+    private void sendExecuteNotification(ExtensionContext context, String testResult) {
+
+        DingTalkUtils.sendMarkdownMessage("自动化执行通知", notificationContentHandler(context, testResult));
+    }
+
+
+    /**
+     * 发送自动化测试执行消息-成功消息
+     * @param context
+     * @param testResult
+     */
+    private void sendExecuteNotificationOnlySuccess(ExtensionContext context, String testResult) {
+
+        DingTalkUtils.sendMarkdownMessage("自动化执行通知", notificationContentHandler(context, testResult));
+
+    }
+
+    /**
+     * 发送自动化测试执行消息-非成功的消息
+     * @param context
+     * @param testResult
+     */
+    private void sendExecuteNotificationExceptSuccess(ExtensionContext context, String testResult) {
+
+        //todo 测试用例执行失败或异常 excel输出结果汇总
+
+        DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", notificationContentHandler(context, testResult));
+
     }
 
     private void updateAutoExecutionRecordTestResult(ExtensionContext context, String result) {
@@ -351,8 +413,8 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     /**
      * 将 HTTP 协议数据存储到数据库中,用于自动统计接口覆盖率
-     * @param stringObjectMap {@link HTTPUtilsByRestAssured#processResponseResult(Response, RequestSpecification)}
      *
+     * @param stringObjectMap {@link HTTPUtilsByRestAssured#processResponseResult(Response, RequestSpecification)}
      */
     private void updateAutomationCoverageResult(ExtensionContext context, String executeResult, Map<String, Object> stringObjectMap) {
         // 如果请求都没有发出去，则不处理

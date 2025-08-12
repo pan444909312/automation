@@ -56,7 +56,7 @@ public class GetHpfConfigClose_Tests {
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.replace("latitude","51.50722");
+        requestHeaders.replace("latitude","59.50722");
         requestHeaders.replace("longitude","-0.12759");
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
