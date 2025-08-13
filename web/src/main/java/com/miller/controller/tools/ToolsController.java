@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.miller.controller.tools.conversion.StringConversionDto;
 import com.miller.controller.tools.product.service.StringConversionService;
 import com.miller.entity.constant.CouponScopeEnum;
+import com.miller.entity.tools.CodeInfo;
 import com.miller.entity.tools.req.AutoCreateCouponReqDTO;
 import com.miller.entity.tools.req.AutoCreateMerchantReqDTO;
 import com.miller.entity.tools.req.CodeQueryRequest;
@@ -89,7 +90,7 @@ public class ToolsController {
 
     @Operation(description = "验证码查询工具")
     @PostMapping("/codeQuery")
-    public Response<String> codeQuery(@RequestBody CodeQueryRequest codeQueryRequest) {
+    public Response<List<CodeInfo>> codeQuery(@RequestBody CodeQueryRequest codeQueryRequest) {
         try {
             String phone = codeQueryRequest.getPhone();
 
@@ -98,9 +99,8 @@ public class ToolsController {
             }
 
             // 调用UserFactory的getCaptchas方法
-            String result = UserFactory.getCaptchas(phone);
 
-            return Response.success(result);
+            return Response.success(UserFactory.getCaptchas(phone));
 
         } catch (Exception e) {
             System.err.println("查询验证码时出错: " + e.getMessage());
