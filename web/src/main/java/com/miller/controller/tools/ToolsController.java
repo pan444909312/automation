@@ -6,9 +6,11 @@ import com.miller.controller.tools.product.service.StringConversionService;
 import com.miller.entity.constant.CouponScopeEnum;
 import com.miller.entity.tools.req.AutoCreateCouponReqDTO;
 import com.miller.entity.tools.req.AutoCreateMerchantReqDTO;
+import com.miller.entity.tools.req.CodeQueryRequest;
 import com.miller.entity.tools.req.SendRedPacketReqDTO;
 import com.miller.entity.util.Response;
 import com.miller.testcase.factory.MerchantFactory;
+import com.miller.testcase.factory.UserFactory;
 import com.miller.userapp.module.data.promotion.redpacket.CouponGenerate;
 import com.miller.userapp.module.data.promotion.redpacket.SendRedPacket;
 import com.miller.userapp.module.data.user.CreateUserEntity;
@@ -87,10 +89,26 @@ public class ToolsController {
 
     @Operation(description = "验证码查询工具")
     @PostMapping("/codeQuery")
-    public Response<String> codeQuery() {
+    public Response<String> codeQuery(@RequestBody CodeQueryRequest codeQueryRequest) {
+        try {
+            String phone = codeQueryRequest.getPhone();
 
-        return Response.success("");
+            if (phone == null || phone.trim().isEmpty()) {
+                return Response.fail("请输入手机号");
+            }
+
+            // 调用UserFactory的getCaptchas方法
+            String result = UserFactory.getCaptchas(phone);
+
+            return Response.success(result);
+
+        } catch (Exception e) {
+            System.err.println("查询验证码时出错: " + e.getMessage());
+            e.printStackTrace();
+            return Response.fail("查询失败: " + e.getMessage());
+        }
     }
+
 
     @Operation(description = "一键创建优惠券")
     @PostMapping("/autoCreateCoupon")
