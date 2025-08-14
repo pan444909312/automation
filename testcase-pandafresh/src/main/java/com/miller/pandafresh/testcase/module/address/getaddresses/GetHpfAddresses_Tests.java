@@ -4,6 +4,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.util.JSONUtils;
+import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +17,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JY317E0C3WXMCYKN6SPHGJH3", // 自动生成，不要修改
-        scenarioName = "融合订单结算页获取收货地址",
+        scenarioName = "融合订单结算页获取收货地址:pf配送区域内",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("融合订单结算页获取收货地址")
+        developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
+@DisplayName("融合订单结算页获取收货地址：pf配送区域内")
 public class GetHpfAddresses_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HpfHost + "/address/hpf/getAddresses";
@@ -40,7 +41,7 @@ public class GetHpfAddresses_Tests {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         //登录老用户
-        requestHeaders.put("userId","1398661332");
+        requestHeaders.replace("userid","1398661332");
         requestHeaders.put("authorization",TestCaseHelpful.login("17700004444","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
@@ -55,7 +56,23 @@ public class GetHpfAddresses_Tests {
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList").isNotNull();
-
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addId").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addressId").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addConnName").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addConnTel").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addProvince").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addCity").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addStreet").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addLocation").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addPostcode").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addLongitude").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addLatitude").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addCountry").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].countryCode").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addTag").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].buildingName").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].deliverableAction").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliverableAddressList.[0].addConnTelMask").isNotNull();
         //获取第一个可用地址
         TestcaseConfig.addressId= TestCaseHelpful.extractValue(responseBody,"$.result.deliverableAddressList.[0].addId").toString();
 
