@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Scenario(scenarioID = "01JVKR6DPZH7V8WK4B381AMV6R",
         scenarioName = "获取第二单减免的关联店铺信息",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 5)
 @DisplayName("/api/user/shop/spellList")
 public class UserShopSpellListSuccess {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/shop/spellList";
@@ -23,6 +23,7 @@ public class UserShopSpellListSuccess {
     void shouldReturnSuccessfully() {
         String apiUri = uri + "?pageSize=10&shopId=764707652&categoryIdList=%5B%5D&orderSn=975141807984274006181&pageNo=1";
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/home/shop/headers/spellListHeaders.json");
+        headers.put("Authorization", TestCaseHelpful.login("13960000007", "123456"));
 
         Map<String, Object> params = new HashMap<>();
         params.put("shopId",764707652);

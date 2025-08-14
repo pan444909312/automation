@@ -8,7 +8,7 @@
     "expiresIn": 15811200,
     "refresh_token": "${json-unit.ignore}",
     "userPushToken": "${json-unit.ignore}",
-    "marketToken": "",
+    "marketToken": "${json-unit.ignore}",
     "shopId": null,
     "userId": 1398708422,
     "userName": "18711110002",
