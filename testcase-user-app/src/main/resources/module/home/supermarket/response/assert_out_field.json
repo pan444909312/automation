@@ -1,0 +1,12 @@
+
+{
+  "resultCode": 1000,
+  "result": {
+    "tabName":"超市",
+    "isOpen":0,
+    "localLifeOrderCount":0,
+    "supermarketUrl":"",
+    "type":1
+  }
+
+}
