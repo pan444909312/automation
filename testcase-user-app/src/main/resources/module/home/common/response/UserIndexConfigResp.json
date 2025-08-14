@@ -3,11 +3,12 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "userPackConfig": false,
+    "userPackConfig": "${json-unit.ignore}",
     "orderVirtualConfig": true,
     "shopTakeSelfTabConfig": true,
     "startSendMoneyBaseOnOrg": false,
-    "pfSuperMarketDeepLink": null
+    "pfSuperMarketDeepLink": null,
+    "localLifePayEntryShow": "${json-unit.ignore}"
   },
   "currency": "${json-unit.ignore}",
   "success": true,

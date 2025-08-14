@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DDD",
         scenarioName = "首页配置获取成功",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 5)
 @DisplayName("/api/app/user/index/config")
 public class UserIndexConfigSuccess {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/index/config";
