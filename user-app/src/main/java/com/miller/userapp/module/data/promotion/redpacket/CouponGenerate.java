@@ -8,7 +8,6 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import com.miller.service.framework.util.ResourceUtils;
 import com.miller.userapp.mapper.redpacket.CouponTemplateRuleRedPacketRelationMapper;
-import com.miller.userapp.mapper.shop.DataShopUserOrderMapper;
 import com.miller.userapp.module.data.promotion.redpacket.flow.CouponTemplateFlow;
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddProductRequestDTO;
 import com.miller.userapp.module.data.promotion.redpacket.request.CouponTemplateAddRequestDTO;

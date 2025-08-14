@@ -1,8 +1,5 @@
 package com.miller.userapp;
 
-import com.miller.userapp.module.home.login.UserLoginTests;
-//import com.miller.userapp.module.shop.card.version2.promotion.takeself.ShopShouldHasSendMoneyCDeliveryScenarioTests;
-//import com.miller.userapp.module.shop.card.version2.promotion.takeself.ShopShouldHasSendMoneyDiscountScenarioTests;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
