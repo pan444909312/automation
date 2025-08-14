@@ -2,10 +2,14 @@ package com.miller.testcase.module.home.unbind;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * nbindTests
@@ -18,7 +22,7 @@ import org.junit.jupiter.api.Test;
         scenarioID = "01JXHVGKXHQ624ZCHHC5TPF5SG", // 自动生成，不要修改
         scenarioName = "push设备解绑",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+        developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @DisplayName("push设备解绑")
 public class UnBindTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
@@ -39,7 +43,7 @@ public class UnBindTests {
     void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("authorization",TestCaseHelpful.login("18968046019","123456"));
+        requestHeaders.put("authorization",TestCaseHelpful.login("17700004444","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
@@ -54,5 +58,9 @@ public class UnBindTests {
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
+        //查找绑定记录，不存在
+        String sql = "SELECT d.registration_id FROM panda_test.device d WHERE d.user_id in ('1398661332')  and d.sts=1;";
+        List<Map<String, Object>> records = PandaTestDBHelpful.executeSelectListSql(sql);
+        TestCaseHelpful.assertThatJson(records.toString().contains("abcdefghijklmnopqrstuvwxyz")).isEqualTo(false);
     }
 } 
