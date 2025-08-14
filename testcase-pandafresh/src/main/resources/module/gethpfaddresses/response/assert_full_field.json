@@ -1,3 +1,44 @@
 {
-	"resultCode":1000
-}
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"deliveryAddressFlag": 1,
+		"deliverableAddressList": [
+			{
+				"addId": "${json-unit.any-number}",
+				"addressId": "${json-unit.any-number}",
+				"addConnName": "${json-unit.any-string}",
+				"addConnSex": "${json-unit.any-string}",
+				"addConnTel": "${json-unit.any-string}",
+				"addProvince": "${json-unit.any-string}",
+				"addCity": "${json-unit.any-string}",
+				"addStreet": "${json-unit.any-string}",
+				"addLocation": "${json-unit.any-string}",
+				"addPostcode": "${json-unit.any-string}",
+				"addPostCode": "${json-unit.any-string}",
+				"addLongitude": "${json-unit.any-string}",
+				"addLatitude": "${json-unit.any-string}",
+				"isDel": 0,
+				"isDefult": "${json-unit.any-number}",
+				"addCountry": "中国",
+				"countryCode": "${json-unit.any-string}",
+				"deliveryNote": "",
+				"firstName": "${json-unit.any-string}",
+				"lastName": "",
+				"userId": 1398661332,
+				"effectivePostalCode": "${json-unit.any-string}",
+				"addTag": "${json-unit.any-number}",
+				"addSource": "${json-unit.any-number}",
+				"buildingName": "${json-unit.any-string}",
+				"deliverableAction": "${json-unit.any-number}",
+				"deliverableRemark": "",
+				"addConnTelMask": "${json-unit.any-string}",
+				"geoLongitude": "${json-unit.any-string}",
+				"geoLatitude": "${json-unit.any-string}",
+				"geoLocationType": "${json-unit.any-number}"
+			}]
+			}
+		}

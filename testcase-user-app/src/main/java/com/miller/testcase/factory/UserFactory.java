@@ -1,9 +1,11 @@
 package com.miller.testcase.factory;
 
 import com.miller.entity.tools.CodeInfo;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
+import org.junit.jupiter.api.DisplayName;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +23,8 @@ import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
  * @version 1.0
  * @since 2025/5/27 23:03:37
  */
+@Scenario(scenarioID = "01K2M24RTG530TEPTVNQAX3MAA", scenarioName = "商家工厂_一键查询验证码", author = "yaoqianhu@hungrypandagroup.com", developmentTime = 8 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
+@DisplayName("查询验证码")
 public class UserFactory {
 
     // 添加辅助方法来安全转换各种类型到String
