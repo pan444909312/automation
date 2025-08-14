@@ -11,13 +11,13 @@ import java.util.Map;
 
 
 @Scenario(scenarioID = "01JY42MG2TX1CRBDC1S917005W",
-        scenarioName = "会员购买页-有会员店铺联盟券",
+        scenarioName = "会员中心页-有会员店铺联盟券",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/member/memberCenterDetail")
 public class MemberCenterDetailHasAllianceCoupon {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/member/memberCenterDetail";
 
-    @DisplayName("会员购买页-有会员店铺联盟券")
+    @DisplayName("会员中心页-有会员店铺联盟券")
     @Test
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");

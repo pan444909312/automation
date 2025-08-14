@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 
-@Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DDD",
+@Scenario(scenarioID = "01K2KJ6BH2QHC2Z5CRYQC1VY95",
         scenarioName = "获取红包商家分类列表-旧版",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("/api/user/redPacket/shopList")

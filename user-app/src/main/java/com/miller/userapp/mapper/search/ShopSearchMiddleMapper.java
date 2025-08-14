@@ -2,6 +2,7 @@ package com.miller.userapp.mapper.search;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 搜索结果中间表
@@ -16,5 +17,6 @@ import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
  * @version 1.0
  * @since 2024/6/24 20:00:26
  */
+@Mapper
 public interface ShopSearchMiddleMapper extends BaseMapper<ShopSearchMiddleEntity> {
 }

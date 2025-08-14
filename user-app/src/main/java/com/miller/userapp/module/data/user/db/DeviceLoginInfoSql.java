@@ -1,7 +1,7 @@
 package com.miller.userapp.module.data.user.db;
 
 import com.hungrypanda.app.server.entity.device.DeviceLoginInfoEntity;
-import com.miller.userapp.mapper.user.DeviceLoginInfoMapper;
+import com.miller.userapp.mapper.device.DeviceLoginInfoMapper;
 import org.apache.ibatis.session.SqlSession;
 
 public class DeviceLoginInfoSql {

@@ -2,6 +2,7 @@ package com.miller.userapp.mapper.shop;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.shop.ShopExtraInfoEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 商家扩展信息
@@ -11,5 +12,6 @@ import com.hungrypanda.app.server.entity.shop.ShopExtraInfoEntity;
  * 包命名可以参考开发代码工程，开发代码工程包路径一般在 com.xxx.entity.xxx
  * </p>
  */
+@Mapper
 public interface ShopExtraInfoMapper extends BaseMapper<ShopExtraInfoEntity> {
 }

@@ -2,10 +2,12 @@ package com.miller.userapp.mapper.shop;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.shop.DataShopHomeRecommendLabelEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * hp_data_shop_home_recommend_label表
  */
+@Mapper
 public interface DataShopHomeRecommendLabelMapper extends BaseMapper<DataShopHomeRecommendLabelEntity> {
 
     /**

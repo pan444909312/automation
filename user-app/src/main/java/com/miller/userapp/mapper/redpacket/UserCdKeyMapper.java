@@ -2,7 +2,7 @@ package com.miller.userapp.mapper.redpacket;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.redpacket.UserCdKeyEntity;
-
+import org.apache.ibatis.annotations.Mapper;
 /**
  *
  * 用户-兑换码实体类
@@ -16,5 +16,6 @@ import com.hungrypanda.app.server.entity.redpacket.UserCdKeyEntity;
  * @version 1.0
  * @since 2024/7/23 20:00:26
  */
+@Mapper
 public interface UserCdKeyMapper extends BaseMapper<UserCdKeyEntity> {
 }

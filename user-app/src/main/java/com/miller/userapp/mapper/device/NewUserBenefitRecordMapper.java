@@ -3,6 +3,7 @@ package com.miller.userapp.mapper.device;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.user.UserBenefitRedPacketRecord;
 import com.hungrypanda.app.server.entity.user.UserLogEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 添加对数据库 hp_user_benefit_red_packet_record 表的操作
@@ -17,5 +18,6 @@ import com.hungrypanda.app.server.entity.user.UserLogEntity;
  * @version 1.0
  * @since 2024/6/17 18:34:40
  */
+@Mapper
 public interface NewUserBenefitRecordMapper extends BaseMapper<UserBenefitRedPacketRecord> {
 }
