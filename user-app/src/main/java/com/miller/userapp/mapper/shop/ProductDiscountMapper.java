@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author panjuxiang

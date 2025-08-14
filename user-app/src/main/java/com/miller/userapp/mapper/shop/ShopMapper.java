@@ -2,6 +2,7 @@ package com.miller.userapp.mapper.shop;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.shop.ShopEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 店铺表
@@ -16,5 +17,6 @@ import com.hungrypanda.app.server.entity.shop.ShopEntity;
  * @version 1.0
  * @since 2024/6/24 20:02:27
  */
+@Mapper
 public interface ShopMapper extends BaseMapper<ShopEntity> {
 }

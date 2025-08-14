@@ -2,6 +2,7 @@ package com.miller.userapp.mapper.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hungrypanda.app.server.entity.user.UserEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 添加对数据库 user 表的操作
@@ -16,5 +17,6 @@ import com.hungrypanda.app.server.entity.user.UserEntity;
  * @version 1.0
  * @since 2024/6/17 15:34:40
  */
+@Mapper
 public interface UserMapper extends BaseMapper<UserEntity> {
 }
