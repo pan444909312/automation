@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@MapperScan({"com.miller.userapp.mapper", "com.miller.mapper"}) //开启扫描mapper
+@MapperScan({"com.miller.mapper"}) //开启扫描mapper
 @EnableScheduling //开启定时任务
 public class WebApplication {
 
