@@ -1,11 +1,11 @@
 package com.miller.pandafresh.testcase.module.shopcart.settleshopcart;
 
-import com.miller.pandafresh.testcase.config.TestcaseConfig;
-import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
-import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.JSONUtils;
+import com.miller.pandafresh.testcase.config.TestcaseConfig;
+import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
+import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,13 +20,13 @@ import java.util.Map;
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/08/07 13:51:03
+ * @since 2025/07/28 13:51:03
  */
 
 //用于组合场景
 @TestFramework
-@DisplayName("购物车-去结算-结算单个现货商品")
-public class SettleShopCartSingleInStock {
+@DisplayName("购物车-去结算-结算单个预售商品")
+public class SettleShopCartSinglePreSale {
 
     String shopCartId = "0";
     String goodsId = "0";
@@ -34,8 +34,8 @@ public class SettleShopCartSingleInStock {
     String goodsCount = "1";
     @BeforeAll
     void beforeAll(){
-        //查找用户普通商品的加购记录
-        String sql = "SELECT t.* FROM shop_cart t left join goods g on g.goods_id=t.goods_id where t.user_id=252344 and t.add_source=1 and g.status=1 and g.portal_id=3 and g.type=1  limit 10";
+        //查找用户预售商品的加购记录
+        String sql = "SELECT t.* FROM shop_cart t left join goods g on g.goods_id=t.goods_id where t.user_id=252344 and t.add_source=1 and g.status=1 and g.portal_id=3 and g.type=8  limit 10";
         // 查询多条记录
         List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
         // 获取查询结果的第1行数据中的数据库列明为“add_id”的值
@@ -99,11 +99,7 @@ public class SettleShopCartSingleInStock {
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].goodsId").isEqualTo(goodsId);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].goodsSkuId").isEqualTo(goodsSkuId);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].goodsCount").isEqualTo(goodsCount);
-
-        //赋值全局变量，后续接口使用
-        TestcaseConfig.shopCartId=shopCartId;
-        TestcaseConfig.goodsId=goodsId;
-        TestcaseConfig.goodsSkuId=goodsSkuId;
-        TestcaseConfig.goodsCount=goodsCount;
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].preSaleSendDate").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.normalSettleShopCartList.[0].beforePreSalePushDays").isNotNull();
     }
 } 
