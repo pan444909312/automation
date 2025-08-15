@@ -2,10 +2,12 @@ package com.miller.testcase.factory;
 
 import com.miller.entity.tools.CodeInfo;
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,9 +25,19 @@ import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
  * @version 1.0
  * @since 2025/5/27 23:03:37
  */
-@Scenario(scenarioID = "01K2M24RTG530TEPTVNQAX3MAA", scenarioName = "商家工厂_一键查询验证码", author = "yaoqianhu@hungrypandagroup.com", developmentTime = 8 * 60, maintenanceTime = 0, manualTestTime = 4 * 60)
+@Scenario(scenarioID = "01K2M24RTG530TEPTVNQAX3MAA", scenarioName = "数据工厂_一键查询验证码", author = "yaoqianhu@hungrypandagroup.com", developmentTime = 8 * 60, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("查询验证码")
 public class UserFactory {
+    private static void tearDown() {
+        new TestCaseRunnerLauncher().runTestMethod(UserFactory.class, "reportedData");
+        // 搜索索引更新
+    }
+
+    @Test
+    @DisplayName("验证码查询")
+    void reportedData() {
+        // 什么都不需要做，仅仅是作为数据上报，复用现在测试框架功能
+    }
 
     // 添加辅助方法来安全转换各种类型到String
     private static String safeToString(Object obj) {
@@ -64,11 +76,11 @@ public class UserFactory {
                 codeInfoList.add(codeInfo);
             }
         }
-
+        tearDown();
         return codeInfoList;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         List<CodeInfo> result = getCaptchas("13711111111");
         System.out.println(result);
     }
