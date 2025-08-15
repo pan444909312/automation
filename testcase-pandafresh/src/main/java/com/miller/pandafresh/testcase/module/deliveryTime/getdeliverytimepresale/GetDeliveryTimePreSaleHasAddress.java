@@ -1,8 +1,9 @@
-package com.miller.pandafresh.testcase.module.deliveryTime.getdeliverytime;
+package com.miller.pandafresh.testcase.module.deliveryTime.getdeliverytimepresale;
 
-import com.miller.service.framework.annotation.TestFramework;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.JSONUtils;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -11,15 +12,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * getDeliveryTime
+ * getDeliveryTimePreSaleNoAddress
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/08/07 20:11:36
+ * @since 2025/08/15 16:16:33
  */
+//用于组合场景
 @TestFramework
-@DisplayName("获取配送时间段")
-public class GetDeliveryTime {
+@DisplayName("获取配送时间段:预售单-有地址")
+public class GetDeliveryTimePreSaleHasAddress {
 
     @BeforeAll
     static void beforeAll(){
@@ -40,16 +42,19 @@ public class GetDeliveryTime {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/deliveryTime/getdeliverytime/request/headers.json";
+        String headers = "module/deliveryTime/getdeliverytimepresale/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/deliveryTime/getdeliverytime/request/body.json";
+        String body = "module/deliveryTime/getdeliverytimepresale/request/bodyHasAddress.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/deliveryTime/getdeliverytime/response/assert_full_field.json";
+        String assertFullField = "module/deliveryTime/getdeliverytimepresale/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        //登录老用户
+        requestHeaders.replace("userid","1398661332");
+        requestHeaders.put("authorization",TestCaseHelpful.login("17700004444","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
@@ -73,7 +78,6 @@ public class GetDeliveryTime {
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliveryTimeList.[0].timeFulls.[0].timeSpace").isNotNull();
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliveryTimeList.[0].timeFulls.[0].deliveryTime").isNotNull();
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.deliveryTimeList.[0].timeFulls.[0].deliveryType").isNotNull();
-
 
         //获取配送时间
         TestcaseConfig.deliveryDate = TestCaseHelpful.extractValue(responseBody,"$.result.deliveryTimeList.[0].date").toString();

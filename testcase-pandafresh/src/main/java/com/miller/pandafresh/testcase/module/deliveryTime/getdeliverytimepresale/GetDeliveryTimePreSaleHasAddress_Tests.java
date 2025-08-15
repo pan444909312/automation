@@ -1,13 +1,10 @@
-package com.miller.pandafresh.testcase.module.deliveryTime.getdeliverytime;
+package com.miller.pandafresh.testcase.module.deliveryTime.getdeliverytimepresale;
 
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.module.address.getaddresses.GetHpfAddresses_Tests;
-import com.miller.pandafresh.testcase.module.order.getpreorderinfo.GetPreOrderInfoDelivery;
-import com.miller.pandafresh.testcase.module.shopcart.addshopcart.AddShopCartOrdinaryGoods;
-import com.miller.pandafresh.testcase.module.shopcart.settleshopcart.SettleShopCartSingleInStock;
+import com.miller.pandafresh.testcase.module.deliveryTime.getdeliverytime.GetDeliveryTime;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.util.JSONUtils;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -18,26 +15,23 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
 /**
- * getDeliveryTime
+ * getDeliveryTimePreSaleNoAddress
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/08/07 20:11:36
+ * @since 2025/08/15 16:16:33
  */
-
 @SelectClasses({
         GetHpfAddresses_Tests.class,
-        GetDeliveryTime.class
+        GetDeliveryTimePreSaleHasAddress.class
 })
 @Scenario(
-        scenarioID = "01JY317E0C3WXMCYKN6SPHGJH4", // 自动生成，不要修改
-        scenarioName = "获取配送时间段:普通单-有地址",
+        scenarioID = "01K2PCTKC75KK5K7DE35ZWW05Y", // 自动生成，不要修改
+        scenarioName = "获取配送时间段:预售单-有地址",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 2, manualTestTime = 3)
-@DisplayName("获取配送时间段:普通单-有地址")
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("获取配送时间段:预售单-有地址")
 @Suite
-public class GetDeliveryTime_Tests {
-
-
+public class GetDeliveryTimePreSaleHasAddress_Tests {
 
 } 
