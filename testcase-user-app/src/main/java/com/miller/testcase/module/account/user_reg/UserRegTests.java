@@ -1,7 +1,8 @@
-package com.miller.testcase.module.business.login.combine_login;
+package com.miller.testcase.module.account.user_reg;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -10,24 +11,31 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * comibine login old user verifycode fail
+ * user reg
  *
  * @author yancancan
  * @version 2.0
- * @since 2025/07/10 16:46:20
+ * @since 2025/08/15 11:10:24
  */
 @Scenario(
-        scenarioID = "01JZSR78MQYBX25HA4YT0GP2CW", // 自动生成，不要修改
-        scenarioName = "comibine login old user verifycode fail",
+        scenarioID = "01K2NVA0NBN6H2R8S88PBRB2YT", // 自动生成，不要修改
+        scenarioName = "user reg",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("comibine login old user verifycode fail:错误验证码登陆")
-public class CombineLoginOldUserVerifycodeFailTests {
+@DisplayName("user reg")
+public class UserRegTests {
 
     @BeforeAll
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
+        // 清除已注册用户数据
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from account where user_id=1398719227;\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from device_login_info where user_id=1398719227;\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from integral where user_id=1398719227;\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from user_log where user_id=1398719227;\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from user_account where user_id=1398719227;\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from `user` where user_id=1398719227;\n");
     }
     @AfterAll
     static void afterAll(){
@@ -39,17 +47,19 @@ public class CombineLoginOldUserVerifycodeFailTests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HOST_APP + "/api/user/combine/login";
+        String uri = TestcaseConfig.HOST_APP + "/api/user/reg";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/comibine_login_old_user_verifycode_fail/request/headers.json";
+        String headers = "module/account/user_reg/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/comibine_login_old_user_verifycode_fail/request/body.json";
+        String body = "module/account/user_reg/request/body.json";
+        TestCaseHelpful.updateJsonValue(body, "$.pd.code", "1398719227");
+        TestCaseHelpful.updateJsonValue(body, "$.pd.captcha", TestCaseHelpful.getVerificationCode("16584808139"));
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/comibine_login_old_user_verifycode_fail/response/assert_full_field.json";
+        String assertFullField = "module/account/user_reg/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);

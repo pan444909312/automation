@@ -1,0 +1,40 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"accessToken": "6eab40858990f37a2b3ba73fda6fdb51",
+		"expiresIn": 15811200,
+		"refresh_token": "acda2b3bfb24076ca554a330720b000c",
+		"userPushToken": "6eb03db842fc563cccde2a2210f3ad4c",
+		"marketToken": null,
+		"shopId": null,
+		"userId": 1398716816,
+		"userName": "15151990629",
+		"userPhone": "15151990629",
+		"aliPaymentUserId": null,
+		"isGive": null,
+		"isRegister": 0,
+		"bioAuthToken": "381e71d6949d486249d1068620ab9c2f",
+		"isOldUser": 1,
+		"isMember": 1,
+		"tokenSrc": "4cdce91786615211ca0996092a03685d",
+		"thirdRefreshToken": null
+	},
+	"currency": "¥",
+	"success": true,
+	"nowTime": 1755229447155,
+	"queryList": {
+		"1": "hp_master: /*FORCE_MASTER*/ select user_id,user_name,user_password,user_pic,user_telphone,user_wx_openid,user_Invitation_code,user_code,user_ali_open_id, create_time,update_time,is_del,reg_ip,user_nick,role_id,user_status,user_salt,user_push_token,bs,audit_status,real_name, delivery_new_user_status,user_push_token,user_email,user_name_mask,user_telphone_mask,user_email_mask ,country,calling_code,is_tip_show,reg_area_id,new_user_status from user where user_name_mask = '151jrok0629' and role_id=0 and is_del=0",
+		"2": "hp_master: /*FORCE_MASTER*/ select user_id,user_name,user_password,user_pic,user_telphone,user_wx_openid,user_Invitation_code,user_code,user_ali_open_id, create_time,update_time,is_del,reg_ip,user_nick,role_id,user_status,user_salt,user_push_token,bs,audit_status,real_name, delivery_new_user_status,user_push_token,user_email,user_name_mask,user_telphone_mask,user_email_mask ,country,calling_code,is_tip_show,reg_area_id,new_user_status from user where user_name_mask = '151jrok0629' and role_id=0 and is_del=0",
+		"3": "hp_master: SELECT rec_id,user_id,device_id,create_time,update_time FROM device_login_info WHERE (device_id = '9BC80942-C8CB-4AA1-8044-2D9F66924CE2') ORDER BY update_time DESC limit 99",
+		"4": "hp_master: UPDATE device_login_info SET user_id=1398716816, device_id='9BC80942-C8CB-4AA1-8044-2D9F66924CE2', create_time=1753681701454, update_time=1755229446941 WHERE rec_id=6222",
+		"5": "hp_master: select ac.address_config_id as addressConfigId, ac.country_name as countryName, ac.province_name as provinceName, ac.city_name as cityName, ac.special_city_mark as specialCityMark, haf.fence_latlng as fenceLatLng, haf.fence_name as fenceName from address_config ac left join hp_area_fence haf on haf.city_id = ac.address_config_id where ac.is_del = 0 and (haf.id > 0 or ac.special_city_mark = 1)",
+		"6": "hp_master: INSERT INTO user_log ( login_ip, user_id, user_type, macId, user_name, accessToken, expiresIn, refresh_token, create_time, device_id, user_name_mask ) VALUES ( '157.15.28.49', 1398716816, 0, '381e71d6949d486249d1068620ab9c2f', '151jrok0629', '6eab40858990f37a2b3ba73fda6fdb51', 15811200, 'acda2b3bfb24076ca554a330720b000c', 1755229447005, '9BC80942-C8CB-4AA1-8044-2D9F66924CE2', '151jrok0629' )",
+		"7": "hp_master: select * from hp_user_reg_send_member where mobile_mask = '151jrok0629' limit 1",
+		"8": "hp_master: select a.id, a.`name`, a.long_lat_list from hp_delivery_consumer_area as a, city_config as b where a.is_del = 0 and a.type = 1 and a.city_id = b.city_id and b.is_del = 0 order by b.sort desc",
+		"9": "hp_master: select * from hp_user_reg_send_member where mobile_mask = '151jrok0629' limit 1",
+		"10": "hp_master: select a.id, a.`name`, a.long_lat_list from hp_delivery_consumer_area as a, city_config as b where a.is_del = 0 and a.type = 1 and a.city_id = b.city_id and b.is_del = 0 order by b.sort desc"
+	},
+	"time": 241
+}

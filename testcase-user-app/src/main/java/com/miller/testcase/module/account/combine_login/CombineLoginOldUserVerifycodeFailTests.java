@@ -1,4 +1,4 @@
-package com.miller.testcase.module.business.login.combine_login;
+package com.miller.testcase.module.account.combine_login;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -10,19 +10,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * combine login old user password fail
+ * comibine login old user verifycode fail
  *
  * @author yancancan
  * @version 2.0
- * @since 2025/07/10 16:41:41
+ * @since 2025/07/10 16:46:20
  */
 @Scenario(
-        scenarioID = "01JZSQYQXXNDA8QC1BSKWVA60Z", // 自动生成，不要修改
-        scenarioName = "combine login old user password fail",
+        scenarioID = "01JZSR78MQYBX25HA4YT0GP2CW", // 自动生成，不要修改
+        scenarioName = "comibine login old user verifycode fail",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("combine login old user password fail:错误密码登陆")
-public class CombineLoginOldUserPasswordFailTests {
+@DisplayName("comibine login old user verifycode fail:错误验证码登陆")
+public class CombineLoginOldUserVerifycodeFailTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -43,13 +43,13 @@ public class CombineLoginOldUserPasswordFailTests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/combine_login_old_user_password_fail/request/headers.json";
+        String headers = "module/comibine_login_old_user_verifycode_fail/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/combine_login_old_user_password_fail/request/body.json";
+        String body = "module/comibine_login_old_user_verifycode_fail/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/combine_login_old_user_password_fail/response/assert_full_field.json";
+        String assertFullField = "module/comibine_login_old_user_verifycode_fail/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
