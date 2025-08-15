@@ -21,6 +21,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
+import java.io.InputStream;
+
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileInputStream;
@@ -130,21 +132,24 @@ public class MyBatisPlusConfig {
                     in.close();
                 }
             } else {
-                // jar包 不处理
-                /*
-                JarURLConnection urlConnection = (JarURLConnection) url.openConnection();
-                JarFile jarFile = urlConnection.getJarFile();
-                Enumeration<JarEntry> entries = jarFile.entries();
-                while (entries.hasMoreElements()) {
-                    JarEntry jarEntry = entries.nextElement();
-                    if (jarEntry.getName().endsWith(".xml")) {
-                        InputStream in = jarFile.getInputStream(jarEntry);
-                        XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(in, configuration, jarEntry.getName(), configuration.getSqlFragments());
-                        xmlMapperBuilder.parse();
-                        in.close();
-                    }
-                }
-                */
+                // 打包需要开启以下代码
+                // jar包处理
+//                try {
+//                    java.net.JarURLConnection urlConnection = (java.net.JarURLConnection) url.openConnection();
+//                    java.util.jar.JarFile jarFile = urlConnection.getJarFile();
+//                    java.util.Enumeration<java.util.jar.JarEntry> entries = jarFile.entries();
+//                    while (entries.hasMoreElements()) {
+//                        java.util.jar.JarEntry jarEntry = entries.nextElement();
+//                        if (jarEntry.getName().startsWith(classPath) && jarEntry.getName().endsWith(".xml")) {
+//                            InputStream in = jarFile.getInputStream(jarEntry);
+//                            XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(in, configuration, jarEntry.getName(), configuration.getSqlFragments());
+//                            xmlMapperBuilder.parse();
+//                            in.close();
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    log.error("解析JAR包中的mapper.xml文件失败", e);
+//                }
             }
 
         }
