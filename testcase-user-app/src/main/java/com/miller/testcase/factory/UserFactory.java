@@ -57,9 +57,7 @@ public class UserFactory {
         String encryptedPhone = getPhoneNumber(phone);
 
         // 移除 user_id 字段
-        String sql = String.format(
-                "SELECT telephone, FROM_UNIXTIME(create_time/1000) as create_time, verifycode FROM user_log WHERE telephone = '%s' OR telephone = '%s' ORDER BY create_time DESC limit 5",
-                encryptedPhone, phone);
+        String sql = String.format("SELECT telephone, FROM_UNIXTIME(create_time/1000) as create_time, verifycode FROM user_log WHERE telephone = '%s' OR telephone = '%s' ORDER BY create_time DESC limit 5", encryptedPhone, phone);
         List<Map<String, Object>> selectListSql = PandaTestDBHelpful.executeSelectListSql(sql);
 
         // 创建新的CodeInfo对象列表
@@ -68,11 +66,7 @@ public class UserFactory {
         if (!selectListSql.isEmpty()) {
             for (Map<String, Object> row : selectListSql) {
                 // 只传递三个参数，不包括 user_id
-                CodeInfo codeInfo = new CodeInfo(
-                        safeToString(row.get("telephone")),
-                        safeToString(row.get("create_time")),
-                        safeToString(row.get("verifycode"))
-                );
+                CodeInfo codeInfo = new CodeInfo(safeToString(row.get("telephone")), safeToString(row.get("create_time")), safeToString(row.get("verifycode")));
                 codeInfoList.add(codeInfo);
             }
         }
