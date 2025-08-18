@@ -5,29 +5,14 @@
   "result": {
     "buyRecordList": [
       {
-        "buyType": 2,
-        "memberCardType": 2,
-        "buyTime": "2025-07-18 09:00:00",
-        "buyAmount": 600,
-        "recordDesc": "自动续费：熊猫月卡会员"
-      },
-      {
         "buyType": 0,
         "memberCardType": 2,
-        "buyTime": "2025-06-19 20:25:50",
-        "buyAmount": 400,
+        "buyTime": "2025-08-18 15:39:15",
+        "buyAmount": 500,
         "recordDesc": "开通：熊猫月卡会员"
       }
     ],
-    "memberAutoRenewVO": {
-      "memberCardType": 2,
-      "endDate": "2025.08.20",
-      "nextRenewDate": "2025.08.18",
-      "renewPrice": 600,
-      "memberPrice": 1000,
-      "payType": 50,
-      "payTypeName": "银行卡/信用卡"
-    }
+    "memberAutoRenewVO": null
   },
   "currency": "${json-unit.any-string}",
   "success": true,

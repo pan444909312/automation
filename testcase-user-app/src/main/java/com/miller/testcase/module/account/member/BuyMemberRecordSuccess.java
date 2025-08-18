@@ -22,7 +22,7 @@ public class BuyMemberRecordSuccess {
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
         // 给请求头添加数据，例如这里添加token
-        headers.put("Authorization", TestCaseHelpful.login("13999900007", "123456"));
+        headers.put("Authorization", TestCaseHelpful.login("13966600002", "123456"));
         String responseBody = TestCaseHelpful.sendRequest("GET", uri, null, headers, null);
         String expectedStr = TestCaseHelpful.getFileContent("module/account/member/response/BuyMemberRecordListResp.json");
 
