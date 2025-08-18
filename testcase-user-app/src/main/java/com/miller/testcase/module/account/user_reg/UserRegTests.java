@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
+
 /**
  * user reg
  *
@@ -29,13 +31,11 @@ public class UserRegTests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-        // 清除已注册用户数据
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from account where user_id=1398719227;\n");
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from device_login_info where user_id=1398719227;\n");
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from integral where user_id=1398719227;\n");
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from user_log where user_id=1398719227;\n");
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from user_account where user_id=1398719227;\n");
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete  from `user` where user_id=1398719227;\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from `user_log` where  device_id='cd58f63a82fb4f1f80a6cfd18c5f46c9' ;\n" +
+                "delete from `hp_user_benefit_red_packet_record` where device_id='cd58f63a82fb4f1f80a6cfd18c5f46c9' ;" +
+                "delete from `hp_user_new_red_packet_record` where   device_id='2cd58f63a82fb4f1f80a6cfd18c5f46c9' ;\n" +
+                "delete FROM hp_invite_award_benefit_record WHERE device_id in ('cd58f63a82fb4f1f80a6cfd18c5f46c9');\n"
+                );
     }
     @AfterAll
     static void afterAll(){
@@ -56,8 +56,6 @@ public class UserRegTests {
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
         String body = "module/account/user_reg/request/body.json";
-        TestCaseHelpful.updateJsonValue(body, "$.pd.code", "1398719227");
-        TestCaseHelpful.updateJsonValue(body, "$.pd.captcha", TestCaseHelpful.getVerificationCode("16584808139"));
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
         String assertFullField = "module/account/user_reg/response/assert_full_field.json";
 
@@ -66,16 +64,30 @@ public class UserRegTests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        var verificationCode = TestCaseHelpful.getVerificationCode("16584808139");
+        System.out.println("获取到的验证码: " + verificationCode);
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.captcha", verificationCode);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
-
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.inviteRedPacketVOS").isNotNull();
+        String telephone = getPhoneNumber("16584808139");
+        System.out.println("获取到的手机号: " + telephone);
+        String user_id =PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
+        System.out.println("获取到的用户id: " + user_id);
+        // 清除已注册用户数据
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from integral where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
 
     }
 } 
