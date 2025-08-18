@@ -23,8 +23,8 @@ import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
         scenarioID = "01K2NVA0NBN6H2R8S88PBRB2YT", // 自动生成，不要修改
         scenarioName = "user reg",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("user reg")
+        developmentTime = 120, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("H5-老邀新注册：新账户注册成功")
 public class UserRegTests {
 
     @BeforeAll
@@ -81,6 +81,11 @@ public class UserRegTests {
         System.out.println("获取到的手机号: " + telephone);
         String user_id =PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
         System.out.println("获取到的用户id: " + user_id);
+        //校验表数据
+        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from user where user_id=?", user_id).size()).isEqualTo(1);
+        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from hp_invite_award_benefit_record where device_id in (?)", "cd58f63a82fb4f1f80a6cfd18c5f46c9")).isNotNull();
+        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from hp_new_user_cdkey_record where user_id=?", user_id).size()).isEqualTo(1);
+
         // 清除已注册用户数据
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
