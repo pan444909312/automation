@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
         scenarioName = "promote confirm",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("promote confirm")
+@DisplayName("用户接受营销推送")
 public class PromoteConfirmTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/promote/confirm";
