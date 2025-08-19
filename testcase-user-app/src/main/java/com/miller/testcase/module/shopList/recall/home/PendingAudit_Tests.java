@@ -18,10 +18,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01K1J2QJBH9CRNBWJ6DB520E6N", // 自动生成，不要修改
-        scenarioName = "中文版_店铺流_召回_首页_店铺-召回：店铺有效状态-待审核 - 不召回",
+        scenarioName = "店铺流_召回_首页_店铺-召回：店铺有效状态-待审核 - 不召回",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("中文版_店铺流_召回_首页_店铺-召回：店铺有效状态-待审核 - 不召回")
+@DisplayName("店铺流_召回_首页_店铺-召回：店铺有效状态-待审核 - 不召回")
 public class PendingAudit_Tests {
 
     @BeforeAll

@@ -15,10 +15,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01K2ETE6434EXAZVG4YY07JJ2V", // 自动生成，不要修改
-        scenarioName = "中文版_店铺流_召回_首页_店铺-召回：店铺有效状态-站点-HP及EASI（EASI APP）",
+        scenarioName = "店铺流_召回_首页_店铺-召回：店铺有效状态-站点-HP及EASI（EASI APP）",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("中文版_店铺流_召回_首页_店铺-召回：店铺有效状态-站点-HP及EASI（EASI APP）")
+@DisplayName("店铺流_召回_首页_店铺-召回：店铺有效状态-站点-HP及EASI（EASI APP）")
 public class HPAndEasiShopSiteEasi_Tests {
 
     @BeforeAll
