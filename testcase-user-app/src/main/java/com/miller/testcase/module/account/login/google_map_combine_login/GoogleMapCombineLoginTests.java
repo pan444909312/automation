@@ -1,8 +1,6 @@
-package com.miller.testcase.module.account.thirdpart_login;
-
+package com.miller.testcase.module.account.login.google_map_combine_login;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -11,19 +9,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * thirdPart Login
+ * google map combine login
  *
  * @author yancancan
  * @version 2.0
- * @since 2025/08/19 10:38:20
+ * @since 2025/08/19 10:13:39
  */
 @Scenario(
-        scenarioID = "01K30326BKJN5DSKJYAY0AZH0K", // 自动生成，不要修改
-        scenarioName = "thirdPart Login",
+        scenarioID = "01K301N0535412B6GTGVVJA5TY", // 自动生成，不要修改
+        scenarioName = "google map combine login",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("微信小程序渠道：手机号快捷登录失败，授权失败")
-public class ThirdPartLoginTests {
+@DisplayName("GFO渠道：老用户登录成功")
+public class GoogleMapCombineLoginTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -40,23 +38,26 @@ public class ThirdPartLoginTests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HOST_APP + "/api/app/user/thirdPart/login";
+        String uri = TestcaseConfig.HOST_APP + "/api/user/combine/login";
         // 接口请求方式。如： GET、POST、PUT、DELETE
-        String method = "POST";
+        String method = "GET";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/account/thirdpart_login/request/headers.json";
+        String headers = "module/account/google_map_combine_login/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/account/thirdpart_login/request/body.json";
+        String body = "module/account/google_map_combine_login/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/account/thirdpart_login/response/assert_full_field.json";
+        String assertFullField = "module/account/google_map_combine_login/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        var verification=TestCaseHelpful.getVerificationCode("15900000001");
+        System.out.println("获取到的验证码"+verification);
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.verification",verification);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -66,8 +67,9 @@ public class ThirdPartLoginTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.resultCode").isEqualTo("2033");
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.accessToken").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.userId").isEqualTo("250542");
 
     }
 } 

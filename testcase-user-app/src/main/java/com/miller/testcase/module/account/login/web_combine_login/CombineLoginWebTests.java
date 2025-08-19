@@ -1,8 +1,7 @@
-package com.miller.testcase.module.account.combine_login_web;
+package com.miller.testcase.module.account.login.web_combine_login;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;

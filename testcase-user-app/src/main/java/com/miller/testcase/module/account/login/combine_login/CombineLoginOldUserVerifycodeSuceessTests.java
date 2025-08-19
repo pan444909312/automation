@@ -1,4 +1,5 @@
-package com.miller.testcase.module.account.wx_combine_login;
+package com.miller.testcase.module.account.login.combine_login;
+
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
@@ -9,19 +10,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * wx combine login
+ * combine login old user verifycode Suceess
  *
  * @author yancancan
  * @version 2.0
- * @since 2025/08/19 10:30:10
+ * @since 2025/07/10 17:07:40
  */
 @Scenario(
-        scenarioID = "01K302K7G3FKSBBWZ30WXVQE5Y", // 自动生成，不要修改
-        scenarioName = "wx combine login",
+        scenarioID = "01JZSSEAK8M80FYBSCWD1HFEEA", // 自动生成，不要修改
+        scenarioName = "combine login old user verifycode Suceess",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("微信小程序渠道：老用户登录成功")
-public class WXCombineLoginTests {
+@DisplayName("combine login old user verifycode Suceess:正确验证码登陆")
+public class CombineLoginOldUserVerifycodeSuceessTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -42,22 +43,22 @@ public class WXCombineLoginTests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/account/wx_combine_login/request/headers.json";
+        String headers = "module/combine_login_old_user_verifycode_suceess/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/account/wx_combine_login/request/body.json";
+        String body = "module/combine_login_old_user_verifycode_suceess/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/account/wx_combine_login/response/assert_full_field.json";
+        String assertFullField = "module/combine_login_old_user_verifycode_suceess/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        var verification=TestCaseHelpful.getVerificationCode("15900000002");
-        System.out.println("获取到的验证码"+verification);
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.verification",verification);
+        // 额外步骤：获取正确验证码
+        var verifyCode = TestCaseHelpful.getVerificationCode("15151990629");
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "verification", verifyCode);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -68,9 +69,6 @@ public class WXCombineLoginTests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.accessToken").isNotNull();
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.userId").isEqualTo("250543");
 
     }
 } 

@@ -1,7 +1,8 @@
-package com.miller.testcase.module.account.combine_login;
+package com.miller.testcase.module.account.login.pf_password_combine_login;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -10,19 +11,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * combine login old user success
+ * pf password combine login
  *
  * @author yancancan
  * @version 2.0
- * @since 2025/07/10 16:34:25
+ * @since 2025/08/19 10:59:19
  */
 @Scenario(
-        scenarioID = "01JZSQHE2W7VQSXNDSQQ9B15K7", // 自动生成，不要修改
-        scenarioName = "combine login old user success",
+        scenarioID = "01K3048KRGY6F3KHDGP2912Y6Q", // 自动生成，不要修改
+        scenarioName = "pf password combine login",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("combine login old user success:老用户账号密码登陆成功")
-public class CombineLoginOldUserPassWordSuccessTests {
+@DisplayName("PF套壳-登录：老用户账号密码登录成功")
+public class PFPasswordCombineLoginTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -43,13 +44,13 @@ public class CombineLoginOldUserPassWordSuccessTests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/combine_login_old_user_success/request/headers.json";
+        String headers = "module/account/pf_password_combine_login/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/combine_login_old_user_success/request/body.json";
+        String body = "module/account/pf_password_combine_login/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/combine_login_old_user_success/response/assert_full_field.json";
+        String assertFullField = "module/account/pf_password_combine_login/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -66,6 +67,9 @@ public class CombineLoginOldUserPassWordSuccessTests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo("1000");
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.accessToken").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.userId").isEqualTo("1398716816");
 
     }
 } 

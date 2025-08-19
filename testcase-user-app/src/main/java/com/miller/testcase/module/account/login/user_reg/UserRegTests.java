@@ -1,4 +1,4 @@
-package com.miller.testcase.module.account.user_reg;
+package com.miller.testcase.module.account.login.user_reg;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;

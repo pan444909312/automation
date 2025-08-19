@@ -1,4 +1,4 @@
-package com.miller.testcase.module.account.easi_register_combine_login;
+package com.miller.testcase.module.account.login.easi_register_combine_login;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;

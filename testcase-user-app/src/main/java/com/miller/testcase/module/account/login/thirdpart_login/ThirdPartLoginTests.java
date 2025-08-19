@@ -1,4 +1,4 @@
-package com.miller.testcase.module.account.combine_login;
+package com.miller.testcase.module.account.login.thirdpart_login;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -11,28 +11,24 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * combine login Success Risk normal device
+ * thirdPart Login
  *
  * @author yancancan
  * @version 2.0
- * @since 2025/07/10 20:12:48
+ * @since 2025/08/19 10:38:20
  */
 @Scenario(
-        scenarioID = "01JZT419EBV66XTTDEYKXY6AXB", // 自动生成，不要修改
-        scenarioName = "combine login Success Risk normal device",
+        scenarioID = "01K30326BKJN5DSKJYAY0AZH0K", // 自动生成，不要修改
+        scenarioName = "thirdPart Login",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("combine login Success Risk normal device:未超出普通设备登陆限制，登陆成功")
-public class CombineLoginSuccessRiskNormalDeviceTests {
+@DisplayName("微信小程序渠道：手机号快捷登录失败，授权失败")
+public class ThirdPartLoginTests {
 
     @BeforeAll
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-        // 后台风控配置改为普通设备，最大限制99次
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
-                "UPDATE risk_test.risk_control_rule SET param = '{\"maxAllowed\":99,\"useDeviceIdType\":\"NORMAL\"}' WHERE rule_code = 'device_sign_in_account_limit_rule';"
-        );
     }
     @AfterAll
     static void afterAll(){
@@ -44,17 +40,17 @@ public class CombineLoginSuccessRiskNormalDeviceTests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HOST_APP + "/api/user/combine/login";
+        String uri = TestcaseConfig.HOST_APP + "/api/app/user/thirdPart/login";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/combine_login_success_risk_normal_device/request/headers.json";
+        String headers = "module/account/thirdpart_login/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/combine_login_success_risk_normal_device/request/body.json";
+        String body = "module/account/thirdpart_login/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/combine_login_success_risk_normal_device/response/assert_full_field.json";
+        String assertFullField = "module/account/thirdpart_login/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -70,7 +66,8 @@ public class CombineLoginSuccessRiskNormalDeviceTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.resultCode").isEqualTo("2033");
 
     }
 } 
