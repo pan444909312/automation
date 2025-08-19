@@ -44,13 +44,13 @@ public class ThirdPartLoginTests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/account/thirdpart_login/request/headers.json";
+        String headers = "module/account/login/thirdpart_login/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/account/thirdpart_login/request/body.json";
+        String body = "module/account/login/thirdpart_login/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/account/thirdpart_login/response/assert_full_field.json";
+        String assertFullField = "module/account/login/thirdpart_login/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);

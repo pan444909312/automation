@@ -51,13 +51,13 @@ public class UserRegTests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/account/user_reg/request/headers.json";
+        String headers = "module/account/login/user_reg/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/account/user_reg/request/body.json";
+        String body = "module/account/login/user_reg/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/account/user_reg/response/assert_full_field.json";
+        String assertFullField = "module/account/login/user_reg/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -85,6 +85,8 @@ public class UserRegTests {
         TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from user where user_id=?", user_id).size()).isEqualTo(1);
         TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from hp_invite_award_benefit_record where device_id in (?)", "cd58f63a82fb4f1f80a6cfd18c5f46c9")).isNotNull();
         TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from hp_new_user_cdkey_record where user_id=?", user_id).size()).isEqualTo(1);
+        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from user where user_id=?", user_id).get(0).get("register_source")).isEqualTo(15);
+
 
         // 清除已注册用户数据
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
