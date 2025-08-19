@@ -1,7 +1,8 @@
-package com.miller.testcase.module.account.easi_combine_login;
+package com.miller.testcase.module.account.combine_login_mobile;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -10,19 +11,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * easi combine login
+ * combine login mobile
  *
  * @author yancancan
  * @version 2.0
- * @since 2025/08/15 11:47:11
+ * @since 2025/08/18 14:02:52
  */
 @Scenario(
-        scenarioID = "01K2NXD2J8G270Q44X1YY6ZSVJ", // 自动生成，不要修改
-        scenarioName = "easi combine login",
+        scenarioID = "01K2XWBZ08VMH7XZXGWKE71WBX", // 自动生成，不要修改
+        scenarioName = "combine login mobile",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("EASI-登陆：老用户账号密码登录成功")
-public class EasiCombineLoginTests {
+@DisplayName("M站渠道：老用户登陆成功")
+public class CombineLoginMobileTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -43,19 +44,22 @@ public class EasiCombineLoginTests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/account/easi_combine_login/request/headers.json";
+        String headers = "module/account/combine_login_mobile/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/account/easi_combine_login/request/body.json";
+        String body = "module/account/combine_login_mobile/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/account/easi_combine_login/response/assert_full_field.json";
+        String assertFullField = "module/account/combine_login_mobile/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        var verification=TestCaseHelpful.getVerificationCode("16888800077");
+        System.out.println("获取到的验证码"+verification);
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.verification",verification);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -64,11 +68,7 @@ public class EasiCombineLoginTests {
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-//        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-//        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo("1000");
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.accessToken").isNotNull();
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.userId").isEqualTo("1398716816");
-
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.accessToken").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.userId").isEqualTo("1398719271");
     }
 } 
