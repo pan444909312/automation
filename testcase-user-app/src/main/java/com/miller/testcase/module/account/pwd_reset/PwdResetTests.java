@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
         scenarioName = "pwd reset",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pwd reset")
+@DisplayName("忘记密码重置成功")
 public class PwdResetTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/user/pwd/reset";
