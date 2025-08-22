@@ -75,6 +75,7 @@ public class ShopStatusShouldOrderStopTests {
     void OrderStop(ShopListRequestDTO shopListRequestDTO) {
 //        请求首页店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
+
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         //遍历店铺的ShopPromoteList列表，
