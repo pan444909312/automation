@@ -92,6 +92,7 @@ public class CouponGenerate {
 
             return couponToolsDTO;
         } catch (Exception e) {
+            log.error("优惠券添加失败", e);
             couponToolsDTO.setContent("优惠券添加失败");
             return couponToolsDTO;
         }
