@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +25,7 @@ import java.util.Map;
         scenarioID = "01K0C3VPR6T8F1HQ70SVSH28JY", // 自动生成，不要修改
         scenarioName = "搜索-搜索词匹配商品类目名称",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
+        developmentTime = 20, maintenanceTime = 5, manualTestTime = 3)
 @DisplayName("搜索-搜索词匹配商品类目名称")
 public class SearchForGoodsCategory_Tests {
 
@@ -70,8 +72,9 @@ public class SearchForGoodsCategory_Tests {
 
         // 对json文件中排除的字段进行更加复杂的断言
         JSONArray goodsList = TestCaseHelpful.extractValue(responseBody, "result.records");
+
         // 收集所有类目名称
-        java.util.Set<String> goodsNames = new java.util.HashSet<>();
+        List<String> goodsNames = new ArrayList<>();
         for (int i = 0; i < goodsList.size(); i++) {
             Map goods = (Map<String, Object>) goodsList.get(i);
             String goodsName = (String) goods.get("categoryName");
@@ -79,7 +82,7 @@ public class SearchForGoodsCategory_Tests {
         }
 
         // 断言数组中包含指定的商品类目
-        boolean containsExpectedGoods = goodsNames.stream().anyMatch(categoryName -> categoryName.contains("青菜"));
+        boolean containsExpectedGoods = goodsNames.contains("青菜");
 
         TestCaseHelpful.assertThat(containsExpectedGoods).isEqualTo(true);
 

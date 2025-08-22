@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  */
 //用于组合场景
 @TestFramework
-@DisplayName("pf加购-加购预售商品成功")
+@DisplayName("步骤：pf加购-加购预售商品成功")
 public class AddShopCartPreSaleGoods {
 
     String preGoodsId = "149969";

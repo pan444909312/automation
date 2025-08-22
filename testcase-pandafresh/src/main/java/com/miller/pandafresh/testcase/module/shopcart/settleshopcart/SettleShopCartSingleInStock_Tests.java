@@ -30,6 +30,11 @@ import java.util.Map;
         AddShopCartOrdinaryGoods.class,
         SettleShopCartSingleInStock.class
 })
+@Scenario(
+        scenarioID = "01K17SB8AMTC4R18C4G073SPVA", // 自动生成，不要修改
+        scenarioName = "购物车-去结算-结算单个预售商品",
+        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("购物车-去结算-结算单个现货商品")
 @Suite
 public class SettleShopCartSingleInStock_Tests {

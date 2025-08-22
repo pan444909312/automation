@@ -24,7 +24,7 @@ import java.util.Map;
  */
 //用于组合场景
 @TestFramework
-@DisplayName("pf加购-加购普通商品成功")
+@DisplayName("步骤：pf加购-加购普通商品成功")
 public class AddShopCartOrdinaryGoods {
 
     String goodsId = "13";

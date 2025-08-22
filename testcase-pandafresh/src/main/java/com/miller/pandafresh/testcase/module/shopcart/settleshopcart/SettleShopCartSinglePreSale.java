@@ -25,7 +25,7 @@ import java.util.Map;
 
 //用于组合场景
 @TestFramework
-@DisplayName("购物车-去结算-结算单个预售商品")
+@DisplayName("步骤：购物车-去结算-结算单个预售商品")
 public class SettleShopCartSinglePreSale {
 
     String shopCartId = "0";

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
  * @since 2025/08/07 17:35:45
  */
 @TestFramework
-@DisplayName("pf结算页-自取")
+@DisplayName("步骤：pf结算页-自取")
 public class GetPreOrderInfoTakeSelf {
 
     @BeforeAll

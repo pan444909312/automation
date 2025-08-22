@@ -21,7 +21,7 @@ import java.util.Map;
  * @since 2025/06/18 16:48:08
  */
 @TestFramework
-@DisplayName("修改购物车商品数量-减少")
+@DisplayName("步骤：修改购物车商品数量-减少")
 public class UpdateGoodsCountDelete {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HpfHost + "/shopcart/updateGoodsCount";

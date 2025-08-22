@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  */
 //用于组合场景
 @TestFramework
-@DisplayName("创建自取单")
+@DisplayName("步骤：创建自取单")
 public class CreateOrderTakeSelf {
 
     @BeforeAll

@@ -1,0 +1,20 @@
+{
+	"latitude":"30.203537",
+	"channel":"google",
+	"Host":"test.pandafreshmart.com",
+	"language":"CN",
+	"cityid":"755",
+	"_sign":"2cc46a2daa5a62ec61e752f94040b533",
+	"version":"4.24.0",
+	"platform":"H5",
+	"authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNzcwMDAwNDQ0NDg4ODg4OCIsImlhdCI6MTc1NDYzNjg5NCwiZXhwIjoyNjI1NTQ4ODk0fQ.yD_PFVhm4llzGOdoxgmuRKn-gWDVyYi3xFL_muPYqLGxybgdeOIFQneF4rz1SJmRlOZaYTrfk39rqQgwfOMitw",
+	"devicenumber":"d8c7eb56-73b8-4b25-996d-71abdf4cc491",
+	"system":"PandaFresh",
+	"regionid":"3",
+	"portalid":"3",
+	"content-type":"application/json;charset=UTF-8",
+	"abtestgroups":"102,103,101,104,105,106",
+	"longitude":"120.217059",
+	"_ts":"1754637068230",
+	"user-agent":"okhttp/4.9.2"
+}
