@@ -1,11 +1,17 @@
 package com.miller.pandafresh.testcase.module.goods.recommendgoods;
 
+import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import net.minidev.json.JSONArray;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * recommendGoods
@@ -18,7 +24,7 @@ import org.junit.jupiter.api.Test;
         scenarioID = "01JY132Z6G8YJHNKBFJMTNF288", // 自动生成，不要修改
         scenarioName = "加购推荐：首页瀑布流",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+        developmentTime = 10, maintenanceTime = 2, manualTestTime = 3)
 @DisplayName("加购推荐：首页瀑布流")
 public class RecommendGoodsIndex_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
@@ -34,6 +40,14 @@ public class RecommendGoodsIndex_Tests {
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
     String assertFullField = "module/recommendgoods/response/assert_full_field.json";
 
+    List<Map<String, Object>> goodsSns;
+    @BeforeAll
+    void beforeAll(){
+        //查询加购商品的推荐编码
+        String sql = "SELECT a.rec_goods_sn FROM addcart_best_match_manual_config a WHERE a.add_goods_sn='tz0816002';";
+        // 查询多条记录
+        goodsSns = FreshTestDBHelpful.executeSelectListSql(sql);
+    }
     @DisplayName("正向流程")
     @Test
     void shouldSuccess() {
@@ -52,5 +66,14 @@ public class RecommendGoodsIndex_Tests {
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.records").isNotNull();
 
+        JSONArray goodsList = TestCaseHelpful.extractValue(responseBody, "result.records");
+        for (int i = 0; i < goodsList.size(); i++) {
+            Map goods = (Map<String, Object>) goodsList.get(i);
+            String goodsSn = (String) goods.get("goodsSn");
+            // 断言推荐的商品编码在配置的推荐编码中
+            boolean containsExpectedGoods = goodsSns.stream().anyMatch(name -> name.containsValue(goodsSn));
+
+            TestCaseHelpful.assertThat(containsExpectedGoods).isEqualTo(true);
+        }
     }
 } 
