@@ -34,11 +34,11 @@
             <artifactId>delivery-app</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.panda.delivery.app.server</groupId>
-            <artifactId>delivery-app-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.panda.delivery.app.server</groupId>-->
+<!--            <artifactId>delivery-app-common</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>

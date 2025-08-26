@@ -136,11 +136,6 @@
             <groupId>com.miller</groupId>
             <artifactId>pos</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.miller</groupId>
-            <artifactId>user-app</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
 
         <dependency>
             <groupId>com.miller</groupId>
