@@ -10,6 +10,8 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
 import com.miller.mapper.report.AutoExecutionRecordMapper;
 import com.miller.service.report.AutoCaseRoiService;
@@ -186,5 +188,15 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
     @Override
     public List<AutoCaseExecutionRecordRespDTO> listAutoExecutionRecordWithProjectId(long startTime, long endTime, int executionType, String projectId) {
         return autoExecutionRecordMapper.selectAutoExecutionRecordWithProjectId(startTime, endTime, executionType, projectId);
+    }
+
+    @Override
+    public List<AutoCaseExecutionDailyDTO> listDailyCaseExecutionResult(String projectId, int executionType, int executionStatus, Date date) {
+        return autoExecutionRecordMapper.selectDailyCaseExecutionResult(projectId, executionType, executionStatus, date);
+    }
+
+    @Override
+    public List<AutoCaseExecutionDailySummaryDTO> listDailyCaseExecutionResultSummary(String projectId, int executionType, int executionStatus, Date date) {
+        return autoExecutionRecordMapper.selectDailyCaseExecutionResultSummary(projectId, executionType, executionStatus, date);
     }
 }

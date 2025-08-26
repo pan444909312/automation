@@ -5,8 +5,11 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,4 +38,8 @@ public interface AutoExecutionRecordService extends IService<AutoExecutionRecord
 
     List<AutoCaseExecutionRecordRespDTO> listAutoExecutionRecordWithProjectId(long startTime, long endTime, int executionType, String projectId);
 
+
+    List<AutoCaseExecutionDailyDTO> listDailyCaseExecutionResult(String projectId, int executionType, int executionStatus, Date date);
+
+    List<AutoCaseExecutionDailySummaryDTO> listDailyCaseExecutionResultSummary(String projectId, int executionType, int executionStatus, Date date);
 }
