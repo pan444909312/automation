@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * @since 2024/5/27 13:58:40
  */
-@Mapper
+//@Mapper
 public interface UserMapper {
 
 

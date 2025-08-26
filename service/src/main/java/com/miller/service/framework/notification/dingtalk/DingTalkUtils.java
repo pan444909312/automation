@@ -141,7 +141,7 @@ public class DingTalkUtils {
      * @see <a href="https://open.dingtalk.com/document/orgapp/enterprise-internal-robots-send-markdown-messages#title-w87-omz-3es">代码示例</a>
      * @see <a href="https://open.dingtalk.com/document/orgapp/custom-bot-send-message-type">custom-bot-send-message-type</a>
      */
-    private static void sendMarkdownMessage(String title, String content, String token, String secret) {
+    public static void sendMarkdownMessage(String title, String content, String token, String secret) {
         try {
             Long timestamp = System.currentTimeMillis();
 //            String secret = SECRET;
