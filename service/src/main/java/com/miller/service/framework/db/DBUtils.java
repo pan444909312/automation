@@ -1,5 +1,6 @@
 package com.miller.service.framework.db;
 
+import com.miller.service.framework.util.PropertiesUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,6 +35,8 @@ public class DBUtils {
     public DBUtils(String mySqlUrl, String userName, String passWord) {
         getDataSourceByDruid(mySqlUrl, userName, passWord);
     }
+
+
 
     /**
      * @see JdbcUtilsByDruid#getDataSource(String, String, String)
@@ -161,4 +164,13 @@ public class DBUtils {
         return result;
     }
 
+
+    /**
+     * apifox 数据源
+     */
+    public  DBUtils initApifoxDB(){
+        return new DBUtils(new PropertiesUtils().getProperty(this.getClass(), "datasource.url.apifox"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.username.apifox"),
+                new PropertiesUtils().getProperty(this.getClass(), "datasource.password.apifox"));
+    }
 }

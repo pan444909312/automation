@@ -19,6 +19,8 @@
 
     <properties>
         <java.version>17</java.version>
+        <!-- Spring Cloud 版本与 Spring Boot 3.1.4 兼容 -->
+        <spring-cloud.version>2022.0.4</spring-cloud.version>
         <!-- Jupiter and platform version. 这两个依赖版本对应关系为后两位版本号相同，第一位不同 -->
         <junit.jupiter.version>5.10.0</junit.jupiter.version>
         <junit.platform.version>1.10.0</junit.platform.version>
@@ -51,6 +53,15 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Spring Cloud BOM 管理 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            
             <dependency>
                 <groupId>com.miller</groupId>
                 <artifactId>common</artifactId>
