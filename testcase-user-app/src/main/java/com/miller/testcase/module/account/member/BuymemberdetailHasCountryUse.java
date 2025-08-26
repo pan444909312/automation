@@ -22,7 +22,7 @@ import java.util.Map;
         author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("会员购买页-有全国通用")
-public class BuymemberdetailHasCountryUser {
+public class BuymemberdetailHasCountryUse {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/user/member/buyMemberDetail";
     // 接口请求方式。如： GET、POST、PUT、DELETE
@@ -53,7 +53,9 @@ public class BuymemberdetailHasCountryUser {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
+
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+
         TestCaseHelpful.assertThat(result.toString()).isNotEqualTo("[]");
 
     }
