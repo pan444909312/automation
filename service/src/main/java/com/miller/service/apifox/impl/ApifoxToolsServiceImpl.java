@@ -166,18 +166,15 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 String body = requestObj.getJSONObject("body").getString("raw");
                 //  正则匹配 scenarioId、scenarioName、负责人
                 final String scenarioId = PatternUtils.matcher(body, "\"scenarioId\": \"(.*?)\"|\"scenarioId\": \"(.*?)\"");
-                log.error(body);
                 reportItem.setScenarioId(scenarioId);
-                log.error("scenarioId: {}", scenarioId);
+
                 final String scenarioName = PatternUtils.matcher(body, "\"scenarioName\": \"(.*?)\"|\"scenarioName\": \"(.*?)\"");
                 reportItem.setScenarioName(scenarioName);
-                log.error("scenarioName: {}", scenarioName);
+
                  String executionUser = PatternUtils.matcher(body, "\"executionUser\": \"(.*?)\"|\"executionUser\": \"(.*?)\"");
                 final String author = PatternUtils.matcher(body, "\"author\": \"(.*?)\"|\"author\": \"(.*?)\"");
                 executionUser = (executionUser.isEmpty() || "".equals(executionUser)) ? author : executionUser;
                 reportItem.setPersonInCharge(executionUser);
-                System.out.println("executionUser: " + executionUser);
-                log.error("executionUser: {}", executionUser);
             }
 
             reportItemDTOMap.put(reportItem.getCaseId(), reportItem);
@@ -221,9 +218,6 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
             runResultObj.setScenarioNameList(scenarioName);
             personCaseDataMap.put(personInCharge, runResultObj);
         });
-
-        log.error("reportItemDTOMap:{}", reportItemDTOMap.toString());
-        log.error("personCaseDataMap:{}", personCaseDataMap.toString());
 
         // 结果数据，发送钉钉消息
         StringBuffer msg = new StringBuffer();
@@ -326,22 +320,5 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
         return reportJson;
     }
 
-    /**
-     * 字段调研：
-     * relatedId ->  对应数据库的 api_test_cases 的 id
-     * httpApiId ->  对应数据库的 api_test_case_custom_http_requests 的 id
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
 
-//        DBUtils dbUtils = new DBUtils().initApifoxDB();
-//        System.out.println(dbUtils);
-
-        ApifoxToolsServiceImpl apifoxToolsService = new ApifoxToolsServiceImpl();
-        apifoxToolsService.parsingReport(AttributionGroupEnum.B);
-        JSONObject jsonObject = ApifoxToolsServiceImpl.readApifoxReport("b");
-
-//        System.out.println(jsonObject.toJSONString());
-    }
 }
