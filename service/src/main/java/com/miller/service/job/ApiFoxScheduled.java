@@ -53,7 +53,7 @@ public class ApiFoxScheduled {
 
     @Scheduled(cron = "0 10 4 * * ?")
     public void scheduledTaskD() {
-        this.scheduledTask(AttributionGroupEnum.P);
+        this.scheduledTask(AttributionGroupEnum.D);
     }
 
     public void scheduledTask(AttributionGroupEnum  attributionGroupEnum) {
@@ -64,15 +64,24 @@ public class ApiFoxScheduled {
                 .append(" -t  ").append(attributionGroupEnum.getT())
                 .append(" -e 345508 ")
                 .append(" -n 1 ")
-                .append(" -r html,cli,json")
+//                .append(" -r html,cli,json")
+                .append(" -r json")
                 .append(" --out-dir ./apifox-reports")
-                .append(" --out-file B-apifox-report-").append(format)
+                .append(" --out-file ").append(attributionGroupEnum).append("-apifox-report-").append(format)
                 .append(" --database-connection ./database-connections.json")
                 .append(" --api-base-url https://apifox.hungrypanda.it ")
                 .append(" --notification 300302 ")
                 .append(" --global-var auto_execution_record=1 ")
+                .append(" --global-var apifox_host=http://localhost:9080 ")
                 .append(" --upload-report");
         int executeShell = JavaShellUtil.executeShell(apiFoxRunUrl.toString());
+
+        // 避免执行的时候，响应报告文件还没创建，导致报错。
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         this.apifoxToolsService.parsingReport(attributionGroupEnum);
     }
 

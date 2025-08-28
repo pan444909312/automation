@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JY127Z6RWAJ6S9X4HNXH2CB0", // 自动生成，不要修改
-        scenarioName = "融合首页拉新广告",
+        scenarioName = "融合首页浮窗：拉新广告",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("融合首页拉新广告")
+@DisplayName("融合首页浮窗：拉新广告")
 public class GetAdOfFloatWindowInvite_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HpfHost + "/ad/getAdOfFloatWindow";
@@ -49,6 +49,9 @@ public class GetAdOfFloatWindowInvite_Tests {
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.inviteAdDTO").isNotNull();
-
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.inviteAdDTO.adSubTitle").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.inviteAdDTO.adTitle").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.inviteAdDTO.adName").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.inviteAdDTO.deepLink").isNotNull();
     }
 } 
