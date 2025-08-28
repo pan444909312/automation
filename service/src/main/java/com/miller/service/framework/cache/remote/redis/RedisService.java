@@ -142,11 +142,13 @@ public class RedisService extends AbstractCacheService {
         // redis key的序列化器
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         //  非hash结构的value序列化器
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
         // hash结构的field序列化器
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         // hash结构的value序列化器
         redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+
+        redisTemplate.setStringSerializer(new StringRedisSerializer());
         // 当序列化器为空的时候是否使用默认序列化器
         redisTemplate.setEnableDefaultSerializer(true);
         redisTemplate.afterPropertiesSet();
@@ -217,7 +219,7 @@ public class RedisService extends AbstractCacheService {
      * @param value 值
      */
     public void set(String key, Object value) {
-        redisTemplate.opsForValue().set(key, value);
+        redisTemplate.opsForValue().set(key, value.toString());
     }
 
     /**
@@ -229,9 +231,9 @@ public class RedisService extends AbstractCacheService {
      */
     public void set(String key, Object value, Long time) {
         if (time > 0) {
-            redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(key, value.toString(), time, TimeUnit.SECONDS);
         } else {
-            redisTemplate.opsForValue().set(key, value);
+            redisTemplate.opsForValue().set(key, value.toString());
         }
     }
 
