@@ -14,6 +14,7 @@ import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.util.PandaTestDBHelpful;
 import com.miller.userapp.util.RedisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,13 +23,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKBY",
         scenarioName = "普通店铺配送商卡-SKYX01_营销标_评价标签_满足所有条件时，返回：评价人数标签",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasHighEvaluateFeature {
@@ -36,15 +39,12 @@ public class ShopShouldHasHighEvaluateFeature {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
 
-    private DataShopHomeRecommendLabelMapper dataShopHomeRecommendLabelMapper;
-
 
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
-        dataShopHomeRecommendLabelMapper = sqlSession.getMapper(DataShopHomeRecommendLabelMapper.class);
     }
 
     @MethodSource("staticDataProvider")
@@ -52,7 +52,7 @@ public class ShopShouldHasHighEvaluateFeature {
     @DisplayName("普通店铺配送商卡-SKYX01_营销标_评价标签_满足所有条件时，返回：评价人数标签")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
@@ -60,7 +60,10 @@ public class ShopShouldHasHighEvaluateFeature {
                 filter(item -> item.getType().equals(ShopFeatureEnum.EVALUATE_NUM.getType())).findFirst().orElse(null);
 
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
-        int evaluationOver4UserCnt180dByShopId = dataShopHomeRecommendLabelMapper.getEvaluationOver4Usercnt180dByShopId(shopId);
+        List<Map<String, Object>> maps = PandaTestDBHelpful.executeSelectListSql("SELECT evaluation_over_4_usercnt_180d FROM hp_data_shop_home_recommend_label where shop_id =" + shopId);
+        Map<String, Object> map = maps.get(0);
+        long evaluationOver4UserCnt180dByShopId = (long) map.get("evaluation_over_4_usercnt_180d");
+
         int cardEvaluateNum = Integer.parseInt(RedisUtils.getRedisInstance().get("CARD_EVALUATE_NUM").toString());
 
         assertThat(evaluationOver4UserCnt180dByShopId > cardEvaluateNum).isTrue();
