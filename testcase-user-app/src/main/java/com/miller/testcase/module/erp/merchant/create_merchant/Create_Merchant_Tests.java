@@ -14,11 +14,11 @@ import org.junit.jupiter.api.Test;
  * @version 2.0
  * @since 2025/06/19 15:05:03
  */
-@Scenario(
-        scenarioID = "01JY3G2PQVHWN1V68JN2CM9NYW", // 自动生成，不要修改
-        scenarioName = "ERP_创建商家",
-        author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+//@Scenario(
+//        scenarioID = "01JY3G2PQVHWN1V68JN2CM9NYW", // 自动生成，不要修改
+//        scenarioName = "ERP_创建商家",
+//        author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+//        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("ERP_创建商家")
 public class Create_Merchant_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"

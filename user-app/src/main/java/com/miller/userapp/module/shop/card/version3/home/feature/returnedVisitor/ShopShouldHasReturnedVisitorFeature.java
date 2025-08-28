@@ -15,6 +15,7 @@ import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.util.PandaTestDBHelpful;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCC",
         scenarioName = "普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 30, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime =45, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasReturnedVisitorFeature {
@@ -63,9 +66,10 @@ public class ShopShouldHasReturnedVisitorFeature {
                 filter(item -> item.getType().equals(ShopFeatureTypeConstant.RETURNED_VISITOR)).findFirst().orElse(null);
 
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
-
+        List<Map<String, Object>> maps = PandaTestDBHelpful.executeSelectListSql("SELECT returned_vis2 FROM hp_data_shop_home_recommend_label where shop_id = " + shopId);
+        Map<String, Object> map = maps.get(0);
         assertThat(shopFeatureVO.getShowContent()).isEqualTo(String.format(IndexListConstants.REPEAT_CONSUMER , shopSearchMiddleEntity.getRepeatCustomer()));
-        assertThat(shopFeatureVO.getShowContent()).isEqualTo(String.format(IndexListConstants.REPEAT_CONSUMER , dataShopHomeRecommendLabelMapper.getReturnedVis2ByShopId(shopId)));
+        assertThat(shopFeatureVO.getShowContent()).isEqualTo(String.format(IndexListConstants.REPEAT_CONSUMER , map.get("returned_vis2")));
     }
 
 

@@ -14,6 +14,7 @@ import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.util.PandaTestDBHelpful;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,14 +34,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCB",
         scenarioName = "普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客，不满足最低限制，不展示",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoReturnedVisitorFeatureCauseLimit {
 
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
-    private DataShopHomeRecommendLabelMapper dataShopHomeRecommendLabelMapper;
 
 
     @BeforeAll
@@ -46,7 +48,6 @@ public class ShopShouldHasNoReturnedVisitorFeatureCauseLimit {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
-        dataShopHomeRecommendLabelMapper = sqlSession.getMapper(DataShopHomeRecommendLabelMapper.class);
     }
 
     @MethodSource("staticDataProvider")
@@ -54,7 +55,7 @@ public class ShopShouldHasNoReturnedVisitorFeatureCauseLimit {
     @DisplayName("普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客，不满足最低限制，不展示")
     void shouldExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
 
@@ -63,7 +64,9 @@ public class ShopShouldHasNoReturnedVisitorFeatureCauseLimit {
 
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 
-        assertThat(dataShopHomeRecommendLabelMapper.getReturnedVis2ByShopId(shopId)>0).isTrue();
+        List<Map<String, Object>> maps = PandaTestDBHelpful.executeSelectListSql("SELECT returned_vis2 FROM hp_data_shop_home_recommend_label where shop_id = " + shopId);
+        Map<String, Object> map = maps.get(0);
+        assertThat((Integer) map.get("returned_vis2") > 0).isTrue();
         assertThat(shopFeatureVO).isNull();
         assertThat(shopSearchMiddleEntity.getRepeatCustomer()).isEqualTo(0);
     }
