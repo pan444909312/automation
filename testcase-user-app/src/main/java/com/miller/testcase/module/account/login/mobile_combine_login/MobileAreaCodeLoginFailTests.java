@@ -3,7 +3,6 @@ package com.miller.testcase.module.account.login.mobile_combine_login;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
-import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -17,12 +16,12 @@ import org.junit.jupiter.api.Test;
  * @since 2025/08/18 14:02:52
  */
 @Scenario(
-        scenarioID = "01K2XWBZ08VMH7XZXGWKE71WBX", // 自动生成，不要修改
-        scenarioName = "combine login mobile",
+        scenarioID = "01K3QM97JENRQV3AETWP0DPBA6", // 自动生成，不要修改
+        scenarioName = "M站渠道：老用户登录失败（验证码区号不匹配）",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("M站渠道：老用户登陆成功")
-public class CombineLoginMobileTests {
+@DisplayName("M站渠道：老用户登录失败（验证码区号不匹配）")
+public class MobileAreaCodeLoginFailTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -56,9 +55,12 @@ public class CombineLoginMobileTests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+//        var verification=TestCaseHelpful.getVerificationCode("16888800077");
+//        System.out.println("获取到的验证码"+verification);
         var verification=TestCaseHelpful.getVerificationCode("16888800077");
         System.out.println("获取到的验证码"+verification);
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.verification",verification);
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.areaCode","43");
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -67,7 +69,7 @@ public class CombineLoginMobileTests {
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.accessToken").isNotNull();
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.userId").isEqualTo("1398719271");
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo("3");
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("区号错误");
     }
 } 
