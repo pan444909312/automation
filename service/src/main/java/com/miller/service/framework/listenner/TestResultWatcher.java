@@ -120,9 +120,10 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
             }
         }
         // 新增执行人DevOps判断
-        if (Objects.equals(executor, "DevOps")) {
-            if (isSendNotification) sendExecuteNotificationOnlySuccess(context, SUCCESSFUL);
-        } else {
+        if (!Objects.equals(executor, "DevOps")) {
+//            if (isSendNotification)
+//                sendExecuteNotificationOnlySuccess(context, SUCCESSFUL);
+//        } else {
             if (isSendNotification) sendExecuteNotification(context, SUCCESSFUL);
         }
         updateAutoExecutionRecordTestResult(context, SUCCESSFUL);
@@ -243,6 +244,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     /**
      * 生成钉钉消息
+     *
      * @param context
      * @param testResult
      * @return
@@ -334,6 +336,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     /**
      * 发送自动化测试执行消息-成功消息
+     *
      * @param context
      * @param testResult
      */
@@ -345,6 +348,7 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
 
     /**
      * 发送自动化测试执行消息-非成功的消息
+     *
      * @param context
      * @param testResult
      */
