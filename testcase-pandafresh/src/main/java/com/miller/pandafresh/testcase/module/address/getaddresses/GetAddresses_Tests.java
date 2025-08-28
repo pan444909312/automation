@@ -50,6 +50,18 @@ public class GetAddresses_Tests {
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].location").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].postcode").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].longitude").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].countryCode").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].contact").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].contactTelephone").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].addressCity").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].countryCode").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].addressProvince").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].addressDistrict").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].addressStreet").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.addressDTOList.[0].addressCity").isNotNull();
 
     }
 } 
