@@ -52,7 +52,7 @@ public class CollectOrderGoods_Tests {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         //登录用户(请求头包含userid，需修改)
-        requestHeaders.put("userid",249222);
+        requestHeaders.replace("userid",249222);
         requestHeaders.put("authorization",TestCaseHelpful.login("18968046019","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
