@@ -1,6 +1,7 @@
-package com.miller.testcase.module.order.createorderdelivery;
+package com.miller.pandafresh.testcase.module.order.createorderdelivery;
 
 import com.miller.pandafresh.testcase.module.address.getaddresses.GetAddresses_Tests;
+import com.miller.pandafresh.testcase.module.address.getaddresses.GetHpfAddresses;
 import com.miller.pandafresh.testcase.module.address.getaddresses.GetHpfAddresses_Tests;
 import com.miller.pandafresh.testcase.module.deliveryTime.getdeliverytime.GetDeliveryTime;
 import com.miller.pandafresh.testcase.module.order.createorderdelivery.Createorderdelivery;
@@ -22,7 +23,7 @@ import org.junit.platform.suite.api.Suite;
 @SelectClasses({
         AddShopCartOrdinaryGoods.class,
         SettleShopCartSingleInStock.class,
-        GetHpfAddresses_Tests.class,
+        GetHpfAddresses.class,
         GetDeliveryTime.class,
         GetPreOrderInfoDelivery.class,
         Createorderdelivery.class

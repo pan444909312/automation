@@ -44,7 +44,7 @@
 			"orderAmount": "${json-unit.any-number}",
 			"differenceValue": "${json-unit.any-string}",
 			"preventAmount": "${json-unit.any-string}",
-			"deliveryFeeHint": "因订单金额低于£8.00，您的订单将被加收£0.01配送费。建议添加更多商品，来免除该费用。",
+			"deliveryFeeHint": "${json-unit.any-string}",
 			"taxRate": "${json-unit.any-number}",
 			"totalBuyCount": 1,
 			"smallOrderFeeTax": "${json-unit.any-number}",
@@ -79,14 +79,23 @@
 			"fontColor": "#252628",
 			"showTips": "1、不同地址的配送费可能不同，请以APP的实际显示为准\n2、每个新用户可享受1次免配送费权益"
 		}, {
+			"showName": "包装费用",
+			"showPrompt": "",
+			"showValue": "3",
+			"showCode": "packPrice",
+			"showImgPath": "",
+			"fontColor": "#252628",
+			"showTips": "${json-unit.any-string}",
+			"discountPrompt": "${json-unit.any-string}"
+		}, {
 			"showName": "小额订单费",
-			"showPrompt": "因订单金额低于£8.00，您的订单将被加收£0.01小额订单费。建议添加更多商品，来免除该费用。",
+			"showPrompt": "${json-unit.any-string}",
 			"showValue": "${json-unit.any-string}",
 			"showCode": "smallOrderFee",
 			"showImgPath": "",
 			"fontColor": "#252628",
-			"showTips": "1、购物满£8 可免小额订单£0.01\n2、不同地址的小额订单费不同，请以APP的实际显示为准",
-			"discountPrompt": "还差£3可免小额订单费£0.01"
+			"showTips": "${json-unit.any-string}",
+			"discountPrompt": "${json-unit.any-string}"
 		}, {
 			"showName": "平台服务费",
 			"showPrompt": "",
@@ -94,7 +103,7 @@
 			"showCode": "platformFee",
 			"showImgPath": "",
 			"fontColor": "#252628",
-			"showTips": "此项费用支持我们为你提供高质量的客户服务,按照10%比例收取"
+			"showTips": "${json-unit.any-string}"
 		}],
 		"orderFee": {
 			"goodsAmount": "${json-unit.any-number}",
@@ -111,7 +120,7 @@
 			"deliveryAreaId": 0,
 			"createTime": "2020-12-18 08:25:53",
 			"createUser": "sumeiling2020-addison",
-			"updateTime": "2025-07-28 14:21:39",
+			"updateTime": "${json-unit.any-string}",
 			"updateUser": "zhangpei123-张培",
 			"IsDel": false,
 			"longitude": "120.2019739151001",
