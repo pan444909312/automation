@@ -64,7 +64,7 @@ public class AddShopCartONewPersonGoodsFail_Tests {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         //登录老用户
-        requestHeaders.put("userId","1398661332");
+        requestHeaders.replace("userId","1398661332");
         requestHeaders.put("authorization",TestCaseHelpful.login("17700004444","123456"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改

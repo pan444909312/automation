@@ -1,11 +1,10 @@
 package com.miller.pandafresh.testcase.module.shopcart.addshopcart;
 
-import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.util.JSONUtils;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
-import net.javacrumbs.jsonunit.core.Option;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.util.JSONUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -19,22 +18,22 @@ import java.util.Map;
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/07/15 16:36:03
+ * @since 2025/09/01 16:36:03
  */
 @Scenario(
-        scenarioID = "01K06KM1A67ECXKWK4CKTR2GCG", // 自动生成，不要修改
-        scenarioName = "pf加购-加购预售商品成功",
+        scenarioID = "01K06KM1A67ECXKWK4CKTR2GD1", // 自动生成，不要修改
+        scenarioName = "pf加购-加购失败：商品下架",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf加购-加购预售商品成功")
-public class AddShopCartPreSaleGoods_Tests {
+@DisplayName("pf加购-加购失败：商品下架")
+public class AddShopCartOffShelfGoodsFail_Tests {
 
-    String goodsId = "185";
-    String goodsSkuId = "154";
+    String goodsId = "8019";
+    String goodsSkuId = "7113";
     @BeforeAll
     void beforeAll(){
-        //查询普通商品
-        String sql = "SELECT g.goods_id,gs.goods_sku_id FROM goods g left join goods_sku gs on gs.goods_id=g.goods_id where g.status=1 and g.portal_id=3 and g.is_del=0 and gs.is_del=0 and type=8 limit 10";
+        //查询普通下架商品
+        String sql = "SELECT g.goods_id,gs.goods_sku_id FROM goods g left join goods_sku gs on gs.goods_id=g.goods_id where g.status=0 and g.portal_id=3 and g.is_del=0 and gs.is_del=0 and type=1 limit 10";
         // 查询多条记录
         List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
         goodsId = selectListSql.get(0).get("goods_id").toString();
@@ -80,8 +79,8 @@ public class AddShopCartPreSaleGoods_Tests {
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(5033);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("抱歉，该商品已下架(5033)");
 
     }
 } 
