@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
         scenarioID = "01K1WJYQ6ZP8GQX9JSD0TF8DW4", // 自动生成，不要修改
         scenarioName = "pf订单-订单详情-有特殊单",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+        developmentTime = 15, maintenanceTime = 2, manualTestTime = 3)
 @DisplayName("pf订单-订单详情-有特殊单")
 public class OrderDetailWithSpecialOrder_Tests {
 

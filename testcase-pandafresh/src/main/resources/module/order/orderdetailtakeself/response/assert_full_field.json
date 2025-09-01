@@ -42,7 +42,7 @@
 				"orderStatusStr": "待付款",
 				"createTimeStr": "08-20 11:24"
 			}],
-			"metricUnitType": 0,
+			"metricUnitType": "${json-unit.any-number}",
 			"hasUpdateOrder": false,
 			"updateOrderIconView": 0,
 			"bannerInfo": {

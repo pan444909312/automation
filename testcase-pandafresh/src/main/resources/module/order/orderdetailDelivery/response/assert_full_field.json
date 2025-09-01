@@ -28,7 +28,7 @@
 			"payCountDown": 0,
 			"secondCountDown": 0,
 			"orderTip": null,
-			"orderSubTitle": "预计 @@2025-08-17 00:00-23:59@@ 送达",
+			"orderSubTitle": "${json-unit.any-string}",
 			"deliveryType": 1,
 			"deliveryTypeStr": "Panda配送",
 			"payWayName": "礼品卡",
@@ -44,7 +44,7 @@
 				"orderStatusStr": "待付款",
 				"createTimeStr": "08-17 15:32"
 			}],
-			"metricUnitType": 0,
+			"metricUnitType": "${json-unit.any-number}",
 			"hasUpdateOrder": false,
 			"updateOrderIconView": 0,
 			"bannerInfo": {
