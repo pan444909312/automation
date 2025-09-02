@@ -1,0 +1,28 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "filterGroup": "${json-unit.ignore}",
+    "shopList": [
+      {
+        "shopId": 160288176,
+        "shopName": "商卡测试商家02·商卡二期·自动化测试·勿动",
+        "city": "九江市"
+      }
+    ],
+    "upperListVO": {
+      "upperList": null,
+      "position": null
+    },
+    "totalShopNum": "${json-unit.any-number}",
+    "hasMemberShop": null,
+    "searchCardVersion": "2.0",
+    "type": null,
+    "searchCodeVO": null
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}
