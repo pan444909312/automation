@@ -15,6 +15,7 @@ import com.miller.userapp.mapper.home.LaunchAdMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DCE",
         scenarioName = "启动页广告拉取成功",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 5)
 @EnvTag.Test
 @DisplayName("/api/user/v1/launchAd/pull")
 public class LaunchAdPullSuccess {
@@ -45,6 +46,10 @@ public class LaunchAdPullSuccess {
         launchAdMapper = sqlSession.getMapper(LaunchAdMapper.class);
         launchAdMapper.update(new UpdateWrapper<LaunchAdEntity>().eq("la_id",232).set("state",1));
 
+    }
+    @AfterAll
+    void afterAll() {
+        launchAdMapper.update(new UpdateWrapper<LaunchAdEntity>().eq("la_id",232).set("state",0));
     }
 
     @MethodSource("staticDataProvider")

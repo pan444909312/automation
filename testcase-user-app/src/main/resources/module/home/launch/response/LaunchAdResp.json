@@ -1,0 +1,35 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "launchAdList": [
+      {
+        "laId": "${json-unit.ignore}",
+        "laType": "${json-unit.ignore}",
+        "laName": "${json-unit.ignore}",
+        "startDate": "${json-unit.ignore}",
+        "endDate": "${json-unit.ignore}",
+        "jumpType": "${json-unit.ignore}",
+        "jumpUrl": "${json-unit.ignore}",
+        "limitType": "${json-unit.ignore}",
+        "dayLimit": "${json-unit.ignore}",
+        "timeLimitList": "${json-unit.ignore}",
+        "languageCode": "CN",
+        "imgUrl": "${json-unit.ignore}",
+        "updateTime": "${json-unit.ignore}",
+        "enable": "${json-unit.ignore}",
+        "drainageScene": "${json-unit.ignore}",
+        "openType": "${json-unit.ignore}",
+        "androidUrl": "${json-unit.ignore}",
+        "iosUrl": "${json-unit.ignore}",
+        "cardType": "${json-unit.ignore}",
+        "cardId": "${json-unit.ignore}"
+      }
+    ]
+  },
+  "currency": "${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "time": "${json-unit.ignore-element}"
+}
