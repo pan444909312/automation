@@ -2,11 +2,13 @@ package com.miller.userapp.module.shop.card.version3.home.baseInfo.shopName;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hungrypanda.app.server.entity.search.ShopSearchMiddleEntity;
+import com.hungrypanda.app.server.entity.shop.ShopEntity;
 import com.hungrypanda.app.server.vo.index.BaseShopIndexVO;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
+import com.miller.userapp.mapper.shop.ShopMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
@@ -31,18 +33,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01K0V5A8YDP2DYYHSJKSZNRA7S",
         scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店铺名称_首页-商卡二期:店铺名称",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 5, manualTestTime = 30)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 30)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopNameScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
-    private static ShopSearchMiddleMapper shopSearchMiddleMapper;
+    private static ShopMapper shopMapper;
+
 
     @BeforeAll
     static void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
+        shopMapper = sqlSession.getMapper(ShopMapper.class);
     }
 
     @MethodSource("shopNameDataProvider")
@@ -60,9 +63,9 @@ public class ShopShouldHasShopNameScenarioTests {
                 .map(BaseShopIndexVO::getShopName).orElseThrow();
 
         // Then. 校验接口返回的字段与数据库字段匹配，hp_shop_search_middle.shop_name  = shop.shop_name
-        var databaseResponse = shopSearchMiddleMapper.selectOne(
+        var databaseResponse = shopMapper.selectOne(
                         // 查询条件，店铺ID
-                        new LambdaQueryWrapper<ShopSearchMiddleEntity>().eq(ShopSearchMiddleEntity::getShopId, shopId))
+                        new LambdaQueryWrapper<ShopEntity>().eq(ShopEntity::getShopId, shopId))
                 // 获取数据库字段值
                 .getShopName();
 
