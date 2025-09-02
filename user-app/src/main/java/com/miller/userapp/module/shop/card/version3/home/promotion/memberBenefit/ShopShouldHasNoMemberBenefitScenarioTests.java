@@ -76,9 +76,9 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
     @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_首页-商卡二期：会员权益32-不展示")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
-        RequestUtils.getHeaders().put("latitude", "-33.86882");
-        RequestUtils.getHeaders().put("countrycode", "AU");
-        RequestUtils.getHeaders().put("longitude", "151.20930");
+        // 使用城市 烟台
+        RequestUtils.getHeaders().put("latitude", "37.46353");
+        RequestUtils.getHeaders().put("longitude", "121.44801");
 //        获取首页店铺列表数据
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().get(0);
