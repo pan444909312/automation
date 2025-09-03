@@ -20,7 +20,7 @@ public class discountMenu {
     // 请求头
     String headers = "module/headers.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
-    String body = "module/home/shop/request/PickupMenulistReq.json";
+    String body = "module/home/shop/request/DelivryMenulistReq.json";
     // 断言
     String assert2 = "module/home/shop/response/discountMenuResp.json";
 
