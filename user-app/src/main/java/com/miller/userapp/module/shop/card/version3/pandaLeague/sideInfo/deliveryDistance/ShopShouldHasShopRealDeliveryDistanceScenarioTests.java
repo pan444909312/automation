@@ -24,6 +24,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,14 +34,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/26 10:57
  */
-@Scenario(scenarioID = "01K0P8AAD6B6N3V19AA1YCCM4Q",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重",
+@Scenario(scenarioID = "01K47416E0WZS970E3KPXSDXCQ",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_辅助信息_配送距离_熊猫联盟频道-商卡二期：配送距离 - 取实际距离*距离权重",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
 
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
     private ShopMapper shopMapper;
     private SysAppConfigMapper sysAppConfigMapper;
@@ -85,9 +86,9 @@ public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
         return distance * 1.4;
     }
 
-    @MethodSource("DataProvider")
+    @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重 ")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_辅助信息_配送距离_熊猫联盟频道-商卡二期：配送距离 - 取实际距离*距离权重 ")
     void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
 
         RequestUtils.getHeaders().put("longitude", "115.95410");
@@ -125,13 +126,14 @@ public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
     /**
      * 测试用例数据提供者
      */
-    static Stream<Arguments> DataProvider() {
+    static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
+
 
 }
   

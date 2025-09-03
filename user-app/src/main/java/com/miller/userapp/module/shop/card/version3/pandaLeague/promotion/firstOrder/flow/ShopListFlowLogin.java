@@ -8,12 +8,12 @@ import com.miller.userapp.util.RequestUtils;
 
 public class ShopListFlowLogin {
     /**
-     * 接口_首页店铺流
+     * 接口_熊猫联盟频道店铺流
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/v2/index/shopList";
 
     /**
-     * 流程_获取首页店铺流
+     * 流程_获取熊猫联盟频道店铺流
      */
     public static ShopListResponseDTO getShopList(ShopListRequestDTO shopListRequestDTO) {
         // 这里需要测试已登陆新人人群1，所以仅传入Content-Type

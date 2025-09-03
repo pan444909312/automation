@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/31 14:54
  */
-@Scenario(scenarioID = "01K0R3FHW6D5QJAJ6PQA6G6QTD", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_平台首单_首页-商卡二期：平台首单23-不展示",
+@Scenario(scenarioID = "01K47416DXFVM27WFYXACDTBZ6", scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_平台首单_熊猫联盟频道-商卡二期：平台首单23-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -37,7 +37,7 @@ public class ShopShouldHasNoFirstDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_平台首单_首页-商卡二期：平台首单23-不展示")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_平台首单_熊猫联盟频道-商卡二期：平台首单23-不展示")
     void shouldNotExistFirstDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

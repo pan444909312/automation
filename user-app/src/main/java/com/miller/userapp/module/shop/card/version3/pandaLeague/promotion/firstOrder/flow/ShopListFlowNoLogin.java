@@ -11,12 +11,12 @@ import java.util.HashMap;
 
 public class ShopListFlowNoLogin {
     /**
-     * 接口_首页店铺流
+     * 接口_熊猫联盟频道店铺流
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/v2/index/shopList";
 
     /**
-     * 流程_获取首页店铺流
+     * 流程_获取熊猫联盟频道店铺流
      */
     public static ShopListResponseDTO getShopList(ShopListRequestDTO shopListRequestDTO) {
         // 这里需要测试未登录的情况，所以 RequestUtils.setHeaders(header)

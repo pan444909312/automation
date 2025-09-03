@@ -15,6 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,9 +23,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0NZPB3PY3T6P1WFBPPK1M08", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-类目-首页-商卡二期：类目 - 无数据"
+@Scenario(scenarioID = "01K47416E0WZS970E3KPXSDXCN", scenarioName = "用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目 - 无数据"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-类目-首页-商卡二期：类目 - 无数据")
+@DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目 - 无数据")
 public class ShopShouldNotHasCategoryNameScenarioTests {
 
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.blank.02.compare.shopId"));
@@ -34,7 +35,7 @@ public class ShopShouldNotHasCategoryNameScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-类目-首页-商卡二期：类目 - 无数据")
+    @DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-类目-熊猫联盟频道-商卡二期：类目 - 无数据")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest()
     void hasCategoryName(ShopListRequestDTO shopListRequestDTO) {
@@ -46,10 +47,11 @@ public class ShopShouldNotHasCategoryNameScenarioTests {
 
     }
 
-    static Stream<Arguments> showLabelDataProvider() {
+        static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

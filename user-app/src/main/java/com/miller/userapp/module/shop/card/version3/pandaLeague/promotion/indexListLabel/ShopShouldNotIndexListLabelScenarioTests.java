@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author huyang
  * @since 2024/8/16 17:47
  */
-@Scenario(scenarioID = "01K0R4609CC184YWTGA1EV1C6G", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_营销标签_首页-商卡二期：营销标签tpye=22-不展示",
+@Scenario(scenarioID = "01K47416DYTE34FK0ZBRFPPQMF", scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_营销标签_熊猫联盟频道-商卡二期：营销标签tpye=22-不展示",
         author = "huyang@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -37,7 +38,7 @@ public class ShopShouldNotIndexListLabelScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_营销标签_首页-商卡二期：营销标签tpye=22-不展示")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_营销标签_熊猫联盟频道-商卡二期：营销标签tpye=22-不展示")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
@@ -49,10 +50,11 @@ public class ShopShouldNotIndexListLabelScenarioTests {
 
     }
 
-    static Stream<Arguments> showLabelDataProvider() {
+        static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

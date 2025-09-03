@@ -21,6 +21,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/25 19:39
  */
-@Scenario(scenarioID = "01K0P43MYA1TK7NV3M41EPCZPG",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离",
+@Scenario(scenarioID = "01K47416E0WZS970E3KPXSDXCP",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_辅助信息_配送距离_熊猫联盟频道-商卡二期：配送距离 - 取缓存距离",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -58,9 +59,9 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
       adsHpSearchDistanceMatrix = sqlSession.getMapper(AdsHpSearchDistanceMatrix.class);
    }
 
-   @MethodSource("DataProvider")
+   @MethodSource("showLabelDataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离 ")
+   @DisplayName("普通店铺配送商卡-熊猫联盟频道_辅助信息_配送距离_熊猫联盟频道-商卡二期：配送距离 - 取缓存距离 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
       RequestUtils.getHeaders().put("Content-Type", "application/json");
       RequestUtils.getHeaders().put("latitude", "29.66058");
@@ -85,12 +86,13 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
    /**
     * 测试用例数据提供者
     */
-   static Stream<Arguments> DataProvider() {
+   static Stream<Arguments> showLabelDataProvider() {
       ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-      // 可以不用传参数
-      shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-
+      shopListRequestDTO.setFiltering(false);
+      shopListRequestDTO.setTabType((byte) 1);
+      shopListRequestDTO.setRedPacketList(new ArrayList<>());
       return Stream.of(Arguments.of(shopListRequestDTO));
    }
+
 
 }
