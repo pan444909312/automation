@@ -1,9 +1,8 @@
 package com.miller.service.util;
 
 import com.alibaba.fastjson.JSON;
-import com.miller.service.dto.XXLConfigEnvEnum;
-import com.miller.service.dto.XXLConfigRequestDTO;
-import com.miller.service.dto.XXLResponseDTO;
+import com.alibaba.fastjson.JSONPath;
+import com.miller.service.dto.*;
 import com.miller.service.framework.http.HttpUtils;
 
 import java.util.HashMap;
@@ -46,6 +45,10 @@ public class XXLConfUtils {
      * @return 成功返回true， 失败返回false
      */
     public static boolean updateConfig(String env, String key, String title, Boolean value) {
+        return updateConfig(env, key, title, value.toString());
+    }
+
+    public static boolean updateConfig(String env, String key, String title, String value) {
         XXLConfigEnvEnum xxlConfigEnvEnum = XXLConfigEnvEnum.valueOf(env.toUpperCase());
         XXLConfigRequestDTO xxlConfigRequestDTO = new XXLConfigRequestDTO();
         xxlConfigRequestDTO.setEnv(xxlConfigEnvEnum.getEnv());
@@ -65,8 +68,25 @@ public class XXLConfUtils {
         }
     }
 
+    public static String getConfigValue(String env, String key) {
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("key", key);
+        map.put("appname", key.substring(0, key.indexOf('.')));
+        map.put("start", 0);
+        map.put("length", 1);
+        map.put("searchAllEnv", 0);
+        responseCookies.put("XXL_CONF_CURRENT_ENV", env);
+        String result = HttpUtils.sendPostRequestReturnBody(XXL_CONFIG_URL + "/conf/pageList", map, headers, null, responseCookies);
+
+        return JSONPath.eval(result, "$.data[0].value").toString();
+    }
+
     public static void main(String[] args) {
-        updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "user-app-server.shoplist.cache", "【首页店铺流】是否读redis缓存", false);
+        updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "search-server.category.prediction.algorithm.switch", "类目分数最低阈值", "false");
+//        System.out.println("获取到的结果是：" + getConfigValue("test", "search-server.category.prediction.algorithm.switch"));
+//        System.out.println("获取到的结果是：" + getConfigValue("test", "hp-pos-server.aipos.callbackurl"));
+
     }
 
 }

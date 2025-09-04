@@ -14,5 +14,5 @@ public class XXLConfigRequestDTO {
     private String Env;
     private String key;
     private String title;
-    private Boolean value;
+    private String value;
 }
