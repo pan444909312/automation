@@ -1,6 +1,5 @@
 package com.miller.pandafresh.testcase.module.order.createorderdelivery;
 
-import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
@@ -21,7 +20,7 @@ import org.junit.jupiter.api.Test;
 //用于组合场景
 @TestFramework
 @DisplayName("步骤：创建配送单")
-public class Createorderdelivery {
+public class CreateOrderDelivery {
 
     @BeforeAll
     static void beforeAll(){
