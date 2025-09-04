@@ -57,7 +57,7 @@ public class CPTShop_Tests {
         Assertions.assertNotNull(saType, "saType 不应为空");
         assertThat(saType).isEqualTo(1);
         // 获取并校验 saId
-        Integer saId = responseShopBody.getInteger("saId");
+        String saId = responseShopBody.getString("saId");
         Assertions.assertNotNull(saId, "saId 不应为空");
         assertThat(saId).isEqualTo("L20250806001");
     }
