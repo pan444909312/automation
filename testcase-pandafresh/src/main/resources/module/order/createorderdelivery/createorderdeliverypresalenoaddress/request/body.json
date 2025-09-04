@@ -1,0 +1,17 @@
+{
+	"isConfirmAddress": 0,
+	"deliverableAction": 2,
+	"deliveryTime": "08:00-10:00",
+	"orderReserveInfo": {
+		"reserveEmail": "467898998",
+		"reservePhone": "2233556",
+		"reserveWx": "3456788",
+		"updateAddressButtonStatus": 0
+	},
+	"deliveryMethod": 1,
+	"deliveryTimeId": 7138,
+	"deliveryDate": "12/31",
+	"isPreSaleOrder": 1,
+	"preSaleSendDate": "2025-12-31",
+	"tips": "0.5"
+}
