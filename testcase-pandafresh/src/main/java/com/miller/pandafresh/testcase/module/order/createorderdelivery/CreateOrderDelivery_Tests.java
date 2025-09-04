@@ -1,10 +1,7 @@
 package com.miller.pandafresh.testcase.module.order.createorderdelivery;
 
-import com.miller.pandafresh.testcase.module.address.getaddresses.GetAddresses_Tests;
 import com.miller.pandafresh.testcase.module.address.getaddresses.GetHpfAddresses;
-import com.miller.pandafresh.testcase.module.address.getaddresses.GetHpfAddresses_Tests;
 import com.miller.pandafresh.testcase.module.deliveryTime.getdeliverytime.GetDeliveryTime;
-import com.miller.pandafresh.testcase.module.order.createorderdelivery.Createorderdelivery;
 import com.miller.pandafresh.testcase.module.order.getpreorderinfo.GetPreOrderInfoDelivery;
 import com.miller.pandafresh.testcase.module.shopcart.addshopcart.AddShopCartOrdinaryGoods;
 import com.miller.pandafresh.testcase.module.shopcart.settleshopcart.SettleShopCartSingleInStock;
@@ -26,7 +23,7 @@ import org.junit.platform.suite.api.Suite;
         GetHpfAddresses.class,
         GetDeliveryTime.class,
         GetPreOrderInfoDelivery.class,
-        Createorderdelivery.class
+        CreateOrderDelivery.class
 })
 @Scenario(
         scenarioID = "01K229PRN3TVCQAPPSAXSG072R", // 自动生成，不要修改

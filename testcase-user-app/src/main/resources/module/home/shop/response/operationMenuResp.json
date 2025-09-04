@@ -6,13 +6,13 @@
     "menuList": [{
       "subMenuList": [{
         "menuInfo": {
-          "menuId": -1,
+          "menuId": -2,
           "menuName": "运营菜单",
           "menuDesc": "${json-unit.any-string}",
           "menuType": 2
         }
           }]}]},
-  "currency": "¥",
+  "currency": "${json-unit.any-string}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
   "queryList": "${json-unit.ignore-element}"

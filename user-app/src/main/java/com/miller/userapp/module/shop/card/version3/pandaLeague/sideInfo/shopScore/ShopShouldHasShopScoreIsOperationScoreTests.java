@@ -19,15 +19,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0P3W8876JM4N87XKKB9T6GT",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分",
+@Scenario(scenarioID = "01K47416E1M9F1A2ZXMQYBDM8H",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_辅助信息_店铺评分_熊猫联盟频道-商卡二期：店铺评分-手动设置综合评分",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分")
+@DisplayName("商卡(中文)_普通店铺配送商卡-熊猫联盟频道_辅助信息_店铺评分_熊猫联盟频道-商卡二期：店铺评分-手动设置综合评分")
 public class ShopShouldHasShopScoreIsOperationScoreTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
 
@@ -45,9 +46,9 @@ public class ShopShouldHasShopScoreIsOperationScoreTests {
 //        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
 
      }
-     @MethodSource("staticDataProvider")
+     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-手动设置综合评分")
+    @DisplayName("商卡(中文)_普通店铺配送商卡-熊猫联盟频道_辅助信息_店铺评分_熊猫联盟频道-商卡二期：店铺评分-手动设置综合评分")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
@@ -58,11 +59,13 @@ public class ShopShouldHasShopScoreIsOperationScoreTests {
 /*
           * 测试用例数据提供者
      */
-    static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
-    }
+static Stream<Arguments> showLabelDataProvider() {
+    ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+    shopListRequestDTO.setFiltering(false);
+    shopListRequestDTO.setTabType((byte) 1);
+    shopListRequestDTO.setRedPacketList(new ArrayList<>());
+    return Stream.of(Arguments.of(shopListRequestDTO));
+}
+
 
 }

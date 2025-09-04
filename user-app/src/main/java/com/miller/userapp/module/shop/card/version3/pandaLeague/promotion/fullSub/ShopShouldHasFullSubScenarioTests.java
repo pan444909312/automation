@@ -33,11 +33,11 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/30 17:47
  */
-@Scenario(scenarioID = "01K0R3KGKM3055H0KV6N31F9J8", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_满减_首页-商卡二期：满减29",
+@Scenario(scenarioID = "01K47416DYTE34FK0ZBRFPPQM6", scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_满减_熊猫联盟频道-商卡二期：满减29",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
-@DisplayName("普通店铺配送商卡-SKYX01_优惠标签_满减_首页-商卡二期：满减29")
+@DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_满减_熊猫联盟频道-商卡二期：满减29")
 public class ShopShouldHasFullSubScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
@@ -56,7 +56,7 @@ public class ShopShouldHasFullSubScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_满减_首页-商卡二期：满减29")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_满减_熊猫联盟频道-商卡二期：满减29")
     void shouldExistFullSub(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);

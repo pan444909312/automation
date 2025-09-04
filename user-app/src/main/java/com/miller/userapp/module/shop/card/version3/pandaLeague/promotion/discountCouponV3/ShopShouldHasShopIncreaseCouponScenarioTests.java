@@ -27,7 +27,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
  * author: yancancan
  * date: 2025/07/26
  */
-@Scenario(scenarioID = "01K0RHQEYSFCJTKQ3E79MNPB6E", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_店铺红包首页-首页-商卡二期-SKYX实验组：店铺红包42｜店铺金额加码（满减）",
+@Scenario(scenarioID = "01K47416DXFVM27WFYXACDTBZ3", scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_店铺红包熊猫联盟频道-熊猫联盟频道-商卡二期-SKYX实验组：店铺红包42｜店铺金额加码（满减）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -41,7 +41,7 @@ public class ShopShouldHasShopIncreaseCouponScenarioTests {
     }
     @MethodSource("couponDataProvider")
     @ParameterizedTest
-    @DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_店铺红包首页-首页-商卡二期-SKYX实验组：店铺红包42｜店铺金额加码（满减）")
+    @DisplayName("商卡(中文)_普通店铺配送商卡-熊猫联盟频道_优惠标签_店铺红包熊猫联盟频道-熊猫联盟频道-商卡二期-SKYX实验组：店铺红包42｜店铺金额加码（满减）")
     void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 

@@ -15,6 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,8 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/19 10:18
  */
-@Scenario(scenarioID = "01K0P0BQZHS5GXE3ZEFW7KPRXY",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取单独商家配送时间",
+@Scenario(scenarioID = "01K47416E0WZS970E3KPXSDXCS",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-熊猫联盟频道_辅助信息_配送时间_熊猫联盟频道-商卡二期：配送时间 - 取单独商家配送时间",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -47,9 +48,9 @@ public class ShopShouldHasShopDeliveryTimeScenarioTests {
 
     }
 
-    @MethodSource("DataProvider")
+    @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取单独商家配送时间 ")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_辅助信息_配送时间_熊猫联盟频道-商卡二期：配送时间 - 取单独商家配送时间 ")
     void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 
@@ -68,11 +69,11 @@ public class ShopShouldHasShopDeliveryTimeScenarioTests {
     /**
      * 测试用例数据提供者
      */
-    static Stream<Arguments> DataProvider() {
+    static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 

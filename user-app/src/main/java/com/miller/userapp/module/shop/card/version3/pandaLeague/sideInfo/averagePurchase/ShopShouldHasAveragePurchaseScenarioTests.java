@@ -21,6 +21,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,9 +29,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0NWTNTH9883XEDG5C5M94ZT", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-首页-商卡二期：人均"
+@Scenario(scenarioID = "01K47416DZGHBWMAFMZG74WZXV", scenarioName = "用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-熊猫联盟频道-商卡二期：人均"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-首页-商卡二期：人均")
+@DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-熊猫联盟频道-商卡二期：人均")
 public class ShopShouldHasAveragePurchaseScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -45,9 +46,8 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
-        Thread.sleep(15000);
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-首页-商卡二期：人均")
+    @DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-熊猫联盟频道-商卡二期：人均")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){
@@ -57,10 +57,11 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
 
     }
     //    DataProvider改为在测试用例文件里写,提供测试数据
-    static Stream<Arguments> showLabelDataProvider() {
+        static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

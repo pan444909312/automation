@@ -24,15 +24,16 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01K0RCC4706BVNPY1VCQGSHDNX", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群2"
+@Scenario(scenarioID = "01K47416DYTE34FK0ZBRFPPQM3", scenarioName = "用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-新人人群2"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群2")
+@DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-新人人群2")
 public class ShopShouldHasFirstOrderTagCrowdSecondScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
@@ -62,7 +63,7 @@ public class ShopShouldHasFirstOrderTagCrowdSecondScenarioTests {
         );
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群2")
+    @DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-熊猫联盟频道-商卡二期：新人首单标签35-新人人群2")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdSecond(ShopListRequestDTO ShopListRequestdto){
@@ -73,10 +74,11 @@ public class ShopShouldHasFirstOrderTagCrowdSecondScenarioTests {
         String showContent=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getShowContent).orElseThrow();
         assertThat(showContent).isEqualTo("无门槛减¥8");
     }
-    static Stream<Arguments> showLabelDataProvider() {
+        static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

@@ -17,14 +17,15 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0RBDM3GGCAS227BPG05KHGX", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-首页-商卡二期：可自取33（已删除）"
+@Scenario(scenarioID = "01K47416DZGHBWMAFMZG74WZXR", scenarioName = "用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-熊猫联盟频道-商卡二期：可自取33（已删除）"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-首页-商卡二期：可自取33（已删除）")
+@DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-熊猫联盟频道-商卡二期：可自取33（已删除）")
 public class ShopShouldHasSelfTakeTagScenarioTests {
 //    测试店铺：店铺1,测试标签类型：33，content：可自取
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -33,7 +34,7 @@ public class ShopShouldHasSelfTakeTagScenarioTests {
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-不展示自取标签（已删除）")
+    @DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-优惠标签-可自取-不展示自取标签（已删除）")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
@@ -46,10 +47,11 @@ public class ShopShouldHasSelfTakeTagScenarioTests {
         assert flag;
     }
 //    DataProvider改为在测试用例文件里写,提供测试数据
-    static Stream<Arguments> showLabelDataProvider() {
+        static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

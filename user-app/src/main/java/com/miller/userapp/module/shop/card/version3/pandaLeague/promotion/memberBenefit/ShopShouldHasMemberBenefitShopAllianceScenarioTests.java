@@ -22,8 +22,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 
-@Scenario(scenarioID = "01K0V4346Z54JEC3CC362DMSMN",
-        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券",
+@Scenario(scenarioID = "01K47416DYTE34FK0ZBRFPPQMH",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道_优惠标签_会员权益_熊猫联盟频道-商卡二期：会员权益32-店铺联盟券",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5 + 30, manualTestTime = 15)
 
 @EnvTag.Test
@@ -49,13 +49,13 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_首页-商卡二期：会员权益32-店铺联盟券")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_会员权益_熊猫联盟频道-商卡二期：会员权益32-店铺联盟券")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
         RequestUtils.getHeaders().put("latitude", "41.80478");
         RequestUtils.getHeaders().put("longitude", "123.43297");
 
-//        请求首页店铺数据
+//        请求熊猫联盟频道店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();

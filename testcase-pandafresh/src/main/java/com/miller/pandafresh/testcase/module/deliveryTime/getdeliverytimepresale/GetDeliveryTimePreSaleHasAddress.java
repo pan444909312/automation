@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  */
 //用于组合场景
 @TestFramework
-@DisplayName("获取配送时间段:预售单-有地址")
+@DisplayName("步骤：获取配送时间段:预售单-有地址")
 public class GetDeliveryTimePreSaleHasAddress {
 
     @BeforeAll

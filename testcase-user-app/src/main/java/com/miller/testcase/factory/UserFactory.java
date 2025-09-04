@@ -25,7 +25,7 @@ import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
  * @version 1.0
  * @since 2025/5/27 23:03:37
  */
-@Scenario(scenarioID = "01K2M24RTG530TEPTVNQAX3MAA", scenarioName = "数据工厂_一键查询验证码", author = "yaoqianhu@hungrypandagroup.com", developmentTime = 8 * 60, maintenanceTime = 0, manualTestTime = 5)
+@Scenario(scenarioID = "01K2M24RTG530TEPTVNQAX3MAA", scenarioName = "一键查询验证码", author = "yaoqianhu@hungrypandagroup.com", developmentTime = 8 * 60, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("查询验证码")
 public class UserFactory {
     private static void tearDown() {
