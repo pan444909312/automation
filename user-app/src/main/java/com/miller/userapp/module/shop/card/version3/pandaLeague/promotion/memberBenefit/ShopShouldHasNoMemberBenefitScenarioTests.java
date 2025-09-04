@@ -21,6 +21,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -76,9 +77,9 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
     @DisplayName("普通店铺配送商卡-熊猫联盟频道_优惠标签_会员权益_熊猫联盟频道-商卡二期：会员权益32-不展示")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
-        // 使用城市 烟台
-        RequestUtils.getHeaders().put("latitude", "37.46353");
-        RequestUtils.getHeaders().put("longitude", "121.44801");
+        // 使用城市 日照
+        RequestUtils.getHeaders().put("latitude", "35.41646");
+        RequestUtils.getHeaders().put("longitude", "119.52719");
 //        获取熊猫联盟频道店铺列表数据
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().get(0);
@@ -96,8 +97,9 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

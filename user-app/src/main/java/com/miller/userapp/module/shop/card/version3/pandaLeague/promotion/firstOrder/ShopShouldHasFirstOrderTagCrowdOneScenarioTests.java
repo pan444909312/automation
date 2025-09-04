@@ -79,10 +79,10 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         assertThat(tagType).isEqualTo(1);
     }
         static Stream<Arguments> showLabelDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        shopListRequestDTO.setFiltering(false);
-        shopListRequestDTO.setTabType((byte) 1);
-        shopListRequestDTO.setRedPacketList(new ArrayList<>());
-        return Stream.of(Arguments.of(shopListRequestDTO));
+            ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+            shopListRequestDTO.setFiltering(false);
+            shopListRequestDTO.setTabType((byte) 1);
+            shopListRequestDTO.setRedPacketList(new ArrayList<>());
+            return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

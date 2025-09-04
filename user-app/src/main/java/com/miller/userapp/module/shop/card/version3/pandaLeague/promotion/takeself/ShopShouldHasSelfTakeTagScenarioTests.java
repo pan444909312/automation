@@ -48,10 +48,10 @@ public class ShopShouldHasSelfTakeTagScenarioTests {
     }
 //    DataProvider改为在测试用例文件里写,提供测试数据
         static Stream<Arguments> showLabelDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        shopListRequestDTO.setFiltering(false);
-        shopListRequestDTO.setTabType((byte) 1);
-        shopListRequestDTO.setRedPacketList(new ArrayList<>());
-        return Stream.of(Arguments.of(shopListRequestDTO));
+            ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
+            shopListRequestDTO.setFiltering(false);
+            shopListRequestDTO.setTabType((byte) 1);
+            shopListRequestDTO.setRedPacketList(new ArrayList<>());
+            return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }
