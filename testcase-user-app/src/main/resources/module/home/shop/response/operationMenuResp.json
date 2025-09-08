@@ -3,16 +3,17 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "menuList": [{
-      "subMenuList": [{
-        "menuInfo": {
-          "menuId": -2,
-          "menuName": "运营菜单",
-          "menuDesc": "${json-unit.any-string}",
-          "menuType": 2
-        }
-          }]}]},
-  "currency": "${json-unit.any-string}",
+    "menuList": [
+      {
+        "subMenuList": [{
+          "menuInfo": {
+            "menuId": "${json-unit.any-number}",
+            "menuName": "${json-unit.any-string}",
+            "menuDesc": "${json-unit.any-string}",
+            "menuType": "${json-unit.any-number}"
+          }
+        }]}]},
+  "currency":  "${json-unit.any-string}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
   "queryList": "${json-unit.ignore-element}"

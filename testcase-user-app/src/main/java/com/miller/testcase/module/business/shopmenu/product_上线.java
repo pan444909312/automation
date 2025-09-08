@@ -7,12 +7,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Scenario(
-        scenarioID = "01JZW5JDVNK9WJFY6WHWTSFF0N",
-        scenarioName = "进入店铺获取特殊菜单-折扣菜单",
+        scenarioID = "01K4ACFB4JTYQX609X645CPM4T",
+        scenarioName = "商卡-商品信息-商品状态：上线",
         author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("进入店铺获取特殊菜单-折扣菜单")
-public class discountMenu {
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
+@DisplayName("商卡-商品信息-商品状态：上线")
+public class product_上线 {
     // 接口请求的 path
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/shop/menuList";
     // 请求方式
@@ -22,8 +22,9 @@ public class discountMenu {
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
     String body = "module/home/shop/request/DelivryMenulistReq.json";
     // 断言
-    String assert2 = "module/home/shop/response/discountMenuResp.json";
+    String assert2 = "module/home/shop/response/product_info.json";
 
+    String assert1 = "module/home/shop/response/product_上线.json";
     @DisplayName("正向流程")
     @Test
     public void getMenuListSuccessfully() {
@@ -36,11 +37,16 @@ public class discountMenu {
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
 
-        Object result = TestCaseHelpful.extractValue(responseBody,"$.result.menuList[0].subMenuList[?(@.menuInfo.menuType==1)].menuInfo");
-        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
+        Object result = TestCaseHelpful.extractValue(responseBody,"$.result.menuList[0].subMenuList[*].productList[?(@.productId==82537906)]");        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert2);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
         TestCaseHelpful.assertThat(result.toString()).isNotEqualTo("[]");
+
+        var expectedStr2 = TestCaseHelpful.getFileContent(assert1);
+        TestCaseHelpful.assertThatJson(result).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr2);
+
+
     }
 }
+

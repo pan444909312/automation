@@ -3,13 +3,14 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "menuList": [{
+    "menuList": [
+      {
       "subMenuList": [{
         "menuInfo": {
           "menuId": "${json-unit.any-number}",
-          "menuName": "新客专享",
+          "menuName": "${json-unit.any-string}",
           "menuDesc": "${json-unit.any-string}",
-          "menuType": 10
+          "menuType": "${json-unit.any-number}"
         }
           }]}]},
   "currency":  "${json-unit.any-string}",

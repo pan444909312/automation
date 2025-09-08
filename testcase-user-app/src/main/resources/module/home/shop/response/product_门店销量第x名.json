@@ -1,0 +1,6 @@
+[{
+  "content": "门店销量第1名",
+  "tagType": 1,
+  "rankingType": 1,
+  "canJump": "${json-unit.ignore-element}"
+}]

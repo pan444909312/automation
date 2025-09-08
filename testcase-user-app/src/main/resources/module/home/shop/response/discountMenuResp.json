@@ -7,8 +7,8 @@
       "subMenuList": [{
         "menuInfo": {
           "menuId":"${json-unit.any-number}",
-          "menuName": "折扣",
-          "menuType": 1
+          "menuName":  "${json-unit.any-string}",
+          "menuType": "${json-unit.any-number}"
         }
           }]}]},
   "currency": "${json-unit.any-string}",

@@ -1,0 +1,22 @@
+{
+	"pm":"GET",
+	"ph":{
+		"content-type":"application/json",
+		"countryCode":"CN",
+		"authorization":"",
+		"platform":"MINI_APP_WECHAT",
+		"version":"8.8.0",
+		"zipCode":"",
+		"unionId":"or9Xo5sJT4yoLEMHR5_fgpwYX9IU",
+		"latitude":30.203577071104043,
+		"longitude":120.21687320212204,
+		"uniqueToken":"or9Xo5sJT4yoLEMHR5_fgpwYX9IU",
+		"testGroup":"",
+		"Content-Type":"application/json; charset=utf-8"
+	},
+	"pd":{},
+	"nv":"2",
+	"nt":"1756973724231",
+	"nn":"3e54vsM2x4JXql4rc5vRlnbSF",
+	"nd":"58b7898683a8612"
+}

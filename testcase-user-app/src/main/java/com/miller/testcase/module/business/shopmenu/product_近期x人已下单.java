@@ -1,4 +1,5 @@
 package com.miller.testcase.module.business.shopmenu;
+
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
@@ -6,24 +7,32 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * product_店内复购第x名
+ *
+ * @author yaoqianhu
+ * @version 2.0
+ * @since 2025/09/05 13:45:43
+ */
 @Scenario(
-        scenarioID = "01JZW5JDVNK9WJFY6WHWTSFF0N",
-        scenarioName = "进入店铺获取特殊菜单-折扣菜单",
-        author = "yaoqianhu@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("进入店铺获取特殊菜单-折扣菜单")
-public class discountMenu {
-    // 接口请求的 path
+        scenarioID = "01K4CH6EXE0QC02QPFZX7GHEYG", // 自动生成，不要修改
+        scenarioName = "商卡-商品信息-商品标签：近期x人已下单",
+        author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("商卡-商品信息-商品标签：近期x人已下单")
+public class product_近期x人已下单 {
+
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/v1/shop/menuList";
     // 请求方式
     String method = "POST";
     // 请求头
-    String headers = "module/headers.json";
+    String headers = "module/home/shop/request/headers_new.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
     String body = "module/home/shop/request/DelivryMenulistReq.json";
     // 断言
-    String assert2 = "module/home/shop/response/discountMenuResp.json";
+    String assert2 = "module/home/shop/response/product_info.json";
 
+    String assert1 = "module/home/shop/response/product_近期x人已下单.json";
     @DisplayName("正向流程")
     @Test
     public void getMenuListSuccessfully() {
@@ -36,11 +45,16 @@ public class discountMenu {
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
 
-        Object result = TestCaseHelpful.extractValue(responseBody,"$.result.menuList[0].subMenuList[?(@.menuInfo.menuType==1)].menuInfo");
-        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
-        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
+        // 直接提取productId=82539065商品中tagType=1的标签
+        Object result = TestCaseHelpful.extractValue(responseBody,"$.result.menuList[0].subMenuList[*].productList[?(@.productId==82539065)].systemMarketingTags[*][?(@.tagType==4)]");
+
         var expectedStr = TestCaseHelpful.getFileContent(assert2);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
         TestCaseHelpful.assertThat(result.toString()).isNotEqualTo("[]");
+
+        var expectedStr2 = TestCaseHelpful.getFileContent(assert1);
+        TestCaseHelpful.assertThatJson(result).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr2);
+
+
     }
 }
