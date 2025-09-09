@@ -20,10 +20,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXXXPFADRZ5QDMWW412SNJX1", // 自动生成，不要修改
-        scenarioName = "special task close",
+        scenarioName = "关闭特殊任务成功",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("special task close")
+@DisplayName("关闭特殊任务成功")
 public class SpecialTaskCloseTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/task/close";

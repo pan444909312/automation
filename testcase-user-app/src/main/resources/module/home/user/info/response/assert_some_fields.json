@@ -3,12 +3,12 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "userName": "17700000077",
-    "userNameMasked": "177****0077",
-    "userNick": "17****077",
+    "userName": null,
+    "userNameMasked": "137****6130",
+    "userNick": "PanPan",
     "userPic": null,
-    "userTel": "17700000077",
-    "userTelMasked": "177****0077",
+    "userTel": "13752886130",
+    "userTelMasked": "137****6130",
     "userWx": null,
     "userSex": null,
     "userEmail": "",
@@ -17,6 +17,5 @@
     "googleId": null,
     "facebookId": null
   },
-  "currency": "¥",
   "success": true
 }

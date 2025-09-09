@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXVA45KACA0X96TPEHZPS263", // 自动生成，不要修改
-        scenarioName = "reissue get prizes",
+        scenarioName = "reissue get prizes:获取天降补发权益",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("reissue get prizes:获取天降补发权益")

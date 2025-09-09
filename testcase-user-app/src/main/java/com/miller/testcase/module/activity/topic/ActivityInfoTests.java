@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 
 @Scenario(
-        scenarioID = "01JWSS1KB2H2X5WV4YW6GE43G6",
+        scenarioID = "01K4Q2M5Z80V026YQBWPNDHDC7",
         scenarioName = "获取活动专题信息",
         author = "yancancan@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)

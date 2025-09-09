@@ -21,7 +21,7 @@ import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
  */
 @Scenario(
         scenarioID = "01K30KCXY6RV4G0S24K8B5GMXS", // 自动生成，不要修改
-        scenarioName = "inviteCode register combine login",
+        scenarioName = "app-邀请码注册：新账户注册成功",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("app-邀请码注册：新账户注册成功")
