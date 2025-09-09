@@ -23,6 +23,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -93,9 +94,9 @@ public class ShopShouldHasPickupDiscountScenarioTests {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 

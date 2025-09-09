@@ -34,8 +34,7 @@
                 "productPrice": "${json-unit.any-number}",
                 "orgProductPrice": "${json-unit.any-number}",
 
-                "menuId": "${json-unit.any-number}",
-                "menuName": "${json-unit.any-string}"
+                "menuId": "${json-unit.any-number}"
 
               }
             ]
