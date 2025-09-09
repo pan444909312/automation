@@ -22,14 +22,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKBY",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_评价标签_满足所有条件时，返回：评价人数标签",
+@Scenario(scenarioID = "01M2N3P4Q5R6S7T8U9V0W1X3D4",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_营销标_评价标签_满足所有条件时，返回：评价人数标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -48,7 +49,7 @@ public class ShopShouldHasHighEvaluateFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_评价标签_满足所有条件时，返回：评价人数标签")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道-SKYX01_营销标_评价标签_满足所有条件时，返回：评价人数标签")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -78,6 +79,8 @@ public class ShopShouldHasHighEvaluateFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

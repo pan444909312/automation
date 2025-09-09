@@ -128,42 +128,49 @@
 
     <select id="selectDailyCaseExecutionResult" resultMap="selectDailyCaseExecutionResultMap">
         SELECT e.scenario_id,
-               r.scenario_name,
-               e.execution_status,
-               e.execution_type,
-               e.execution_time,
-               e.execution_user,
-               r.author,
-               r.project_id
+        r.scenario_name,
+        e.execution_status,
+        e.execution_type,
+        e.execution_time,
+        e.execution_user,
+        r.author,
+        r.project_id
         FROM auto_execution_record e
-                 LEFT JOIN auto_case_roi r on e.scenario_id = r.scenario_id
+        LEFT JOIN auto_case_roi r on e.scenario_id = r.scenario_id
         WHERE e.execution_time > UNIX_TIMESTAMP(#{date}) * 1000
-          and e.execution_status != #{executionStatus}
-          and r.project_id = #{projectId}
-          and e.execution_type = #{executionType}
+          and e.execution_time &lt; UNIX_TIMESTAMP(#{date}) * 1000 + 100*60*60*24
+        and e.execution_status != #{executionStatus}
+        <if test="projectId != null and projectId != ''">
+            and r.project_id = #{projectId}
+        </if>
+        and e.execution_type = #{executionType}
 
     </select>
 
     <resultMap id="selectDailyCaseExecutionResultSummaryMap" type="com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO">
         <result property="author" column="author"/>
         <result property="count" column="case_count"/>
+        <result property="projectId" column="project_id"/>
     </resultMap>
 
     <select id="selectDailyCaseExecutionResultSummary" resultMap="selectDailyCaseExecutionResultSummaryMap">
         SELECT a.author,
-               COUNT(a.scenario_id) AS case_count
+        COUNT(a.scenario_id) AS case_count,
+        a.project_id
         FROM auto_case_roi a
-                 INNER JOIN
-             auto_execution_record e ON a.scenario_id = e.scenario_id
+        INNER JOIN
+        auto_execution_record e ON a.scenario_id = e.scenario_id
         WHERE e.execution_status != #{executionStatus}
-          AND e.execution_time
-            > UNIX_TIMESTAMP(#{date}) *1000
-          and a.project_id = #{projectId}
-          and e.execution_type = #{executionType}
+        AND e.execution_time > UNIX_TIMESTAMP(#{date}) *1000
+        AND e.execution_time &lt; UNIX_TIMESTAMP(#{date}) *1000 + 100*60*60*24
+        <if test="projectId != null and projectId != ''">
+            and a.project_id = #{projectId}
+        </if>
+        and e.execution_type = #{executionType}
         GROUP BY
-            a.author
+        a.author
         ORDER BY
-            case_count DESC;
+        case_count DESC;
     </select>
 
 </mapper>

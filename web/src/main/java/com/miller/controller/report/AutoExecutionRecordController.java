@@ -1,8 +1,11 @@
 package com.miller.controller.report;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.miller.entity.constant.ExecutionStatusEnum;
+import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.constant.ProjectTypeEnum;
 import com.miller.entity.report.AutoExecutionRecordEntity;
+import com.miller.entity.report.req.ListDailyResultSummaryReqDTO;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
@@ -67,26 +70,45 @@ public class AutoExecutionRecordController {
 
     @Operation(description = "查询定时执行结果汇总")
     @PostMapping("/listDailyResultSummary")
-    public Map<String, Object> listDailyResultSummary() {
-//        LocalDate yesterdayLocalDate = LocalDate.now().minusDays(1);
-//        Date yesterday = Date.from(yesterdayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        LocalDate todayLocalDate = LocalDate.now();
+    public Map<String, Object> listDailyResultSummary(@RequestBody ListDailyResultSummaryReqDTO reqDTO) {
+        String projectId = reqDTO.getProjectId();
+        String date = reqDTO.getDate();
+        LocalDate todayLocalDate;
+
+        if (date != null && !date.isEmpty()){
+            todayLocalDate = LocalDate.parse(reqDTO.getDate());
+        }else {
+            todayLocalDate = LocalDate.now();
+        }
+
+        // 校验projectId在枚举内
+        if (projectId != null && !projectId.isEmpty()){
+            projectId = ProjectTypeEnum.getValueByKey(Integer.parseInt(projectId));
+        }
+
         Date today = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
 
-
         List<AutoCaseExecutionDailyDTO> autoCaseExecutionDailyDTOList = autoExecutionRecordService.listDailyCaseExecutionResult(
-                ProjectTypeEnum.PROJECT_C.getProjectId(), 1, 1, today);
+                projectId,
+                ExecutionTypeEnum.DAILY_CHECK.getCode(),
+                ExecutionStatusEnum.SUCCESS.getCode(),
+                today
+        );
 
 
         List<AutoCaseExecutionDailySummaryDTO> autoCaseExecutionDailySummaryDTOList = autoExecutionRecordService.listDailyCaseExecutionResultSummary(
-                ProjectTypeEnum.PROJECT_C.getProjectId(), 1, 1, today);
+                projectId,
+                ExecutionTypeEnum.DAILY_CHECK.getCode(),
+                ExecutionStatusEnum.SUCCESS.getCode(),
+                today
+        );
 
 
         Map<String, Object> result = new HashMap<>();
-        result.put("total",autoCaseExecutionDailyDTOList.size());
+        result.put("total", autoCaseExecutionDailyDTOList.size());
         result.put("detail", autoCaseExecutionDailyDTOList);
-        result.put("summary",autoCaseExecutionDailySummaryDTOList);
+        result.put("summary", autoCaseExecutionDailySummaryDTOList);
         return result;
 
     }

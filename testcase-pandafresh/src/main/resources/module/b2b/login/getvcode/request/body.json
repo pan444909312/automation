@@ -1,0 +1,22 @@
+{
+	"pm":"POST",
+	"ph":{
+		"content-type":"application/json",
+		"authorization":"",
+		"latitude":"",
+		"longitude":"",
+		"version":"4.24.0",
+		"platform":"H5",
+		"system":"none",
+		"language":"CN",
+		"regionId":3,
+		"appTypeId":21,
+		"marketChannel":"",
+		"service-route":"pandafresh"
+	},
+	"pd":{},
+	"nv":"2",
+	"nt":"1757402604594",
+	"nn":"1itdigVG0fsq3VYa5sa8OqkcB",
+	"nd":"5ccd7ba8ceb9251"
+}

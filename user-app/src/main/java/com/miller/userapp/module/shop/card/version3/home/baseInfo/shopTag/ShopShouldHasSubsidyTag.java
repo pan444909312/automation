@@ -57,7 +57,7 @@ public class ShopShouldHasSubsidyTag {
     @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店前标签：百万补贴_首页-商卡二期：百万补贴")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
-
+        // 经纬度为沈阳
         RequestUtils.getHeaders().put("latitude","41.80478");
         RequestUtils.getHeaders().put("longitude","123.43297");
 

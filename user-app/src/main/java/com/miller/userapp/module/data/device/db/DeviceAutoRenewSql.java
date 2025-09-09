@@ -3,9 +3,11 @@ package com.miller.userapp.module.data.device.db;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hungrypanda.app.server.entity.invite.InviteAwardBenefitRecordEntity;
+import com.hungrypanda.app.server.entity.redpacket.UserNewRedPacketRecordEntity;
 import com.hungrypanda.app.server.entity.user.UserBenefitRedPacketRecord;
 import com.hungrypanda.app.server.entity.user.UserLabelEntity;
 import com.hungrypanda.app.server.entity.user.UserLogEntity;
+import com.miller.userapp.mapper.device.NewRedPacketRecordMapper;
 import com.miller.userapp.mapper.device.NewUserBenefitRecordMapper;
 import com.miller.userapp.mapper.device.NewUserInviteBenefitRecordMapper;
 import com.miller.userapp.mapper.device.UserLogInfoMapper;
@@ -37,11 +39,18 @@ public class DeviceAutoRenewSql {
         deleteWrapper.eq("device_Id",deviceId);
         newUserInviteBenefitRecordMapper.delete(deleteWrapper);
     }
+    public void deleteRedPacketRecord(String deviceId){
+        NewRedPacketRecordMapper NewRedPacketRecordMapper=sqlSession.getMapper(NewRedPacketRecordMapper.class);
+        UpdateWrapper<UserNewRedPacketRecordEntity> deleteWrapper = new UpdateWrapper<>();
+        deleteWrapper.eq("device_Id",deviceId);
+        NewRedPacketRecordMapper.delete(deleteWrapper);
+    }
 //    删除上述所有设备数据
     public void deviceAutoRenew(String deviceId){
         deleteUserLog(deviceId);
         deleteNewUserBenefitRecord(deviceId);
         deleteNewUserInviteBenefitRecord(deviceId);
+        deleteRedPacketRecord(deviceId);
     }
 
 

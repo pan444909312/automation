@@ -49,6 +49,9 @@ public class Login_Tests {
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.token").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.user.b2BPortalId").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.user.ucUserId").isNotNull();
 
     }
 } 

@@ -21,6 +21,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -31,8 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/19 21:10
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCB",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客，不满足最低限制，不展示",
+@Scenario(scenarioID = "01M2N3P4Q5R6S7T8U9V0W1X3E0",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_营销标_回头客_首页-商卡二期：回头客，不满足最低限制，不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -51,7 +52,7 @@ public class ShopShouldHasNoReturnedVisitorFeatureCauseLimit {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客，不满足最低限制，不展示")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道-SKYX01_营销标_回头客_首页-商卡二期：回头客，不满足最低限制，不展示")
     void shouldExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -78,6 +79,8 @@ public class ShopShouldHasNoReturnedVisitorFeatureCauseLimit {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

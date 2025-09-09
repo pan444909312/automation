@@ -56,6 +56,7 @@ public class BuymemberdetailHasNoBenefit {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
 //        headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
+        // 沈阳经纬度
         headers.put("latitude", 41.80478);
         headers.put("longitude", 123.43297);
 

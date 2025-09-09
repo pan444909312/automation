@@ -19,19 +19,20 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 普通店铺配送商卡-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示
+ * 普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示
  *
  * @author Miller Shan
  * @version 1.0
  * @since 2024/06/25 21:17:39
  */
-@Scenario(scenarioID = "01K0V5C1C3V5ZGBEEWH158X7RZ",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示",
+@Scenario(scenarioID = "01M2N3P4Q5R6S7T8U9V0W1X3B7",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -48,7 +49,7 @@ public class ShopShouldHasNoLabelScenarioTests {
 
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
@@ -80,7 +81,9 @@ public class ShopShouldHasNoLabelScenarioTests {
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>()); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
