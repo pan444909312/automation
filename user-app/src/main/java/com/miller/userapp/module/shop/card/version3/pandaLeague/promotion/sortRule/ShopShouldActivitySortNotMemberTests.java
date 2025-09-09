@@ -14,9 +14,9 @@ import com.miller.userapp.module.data.activity.UserCdkeyInfoSql;
 import com.miller.userapp.module.data.device.db.DeviceAutoRenewSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version3.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4PSKRBFMBFX56WK3QVWT40S", scenarioName = "熊猫联盟频道-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）",
+@Scenario(scenarioID = "01K4PW5YAVZRAR3RBXMV446APJ", scenarioName = "熊猫联盟频道-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("熊猫联盟频道-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）")
@@ -77,7 +77,7 @@ public class ShopShouldActivitySortNotMemberTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("首页-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）")
+    @DisplayName("熊猫联盟频道-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
@@ -93,13 +93,15 @@ public class ShopShouldActivitySortNotMemberTests {
 
      }
 
-/*
-          * 测试用例数据提供者
+
+    /**
+     * 测试用例数据提供者
      */
     static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
+        com.miller.userapp.module.shop.card.version3.pandaLeague.request.ShopListRequestDTO shopListRequestDTO = new com.miller.userapp.module.shop.card.version3.pandaLeague.request.ShopListRequestDTO();
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 
