@@ -1,0 +1,17 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "productDetail": {
+      "productId": 82457768,
+      "productName": "套餐2号，有规格",
+      "isCombine": 1
+    }
+  },
+  "currency":"${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+
+}

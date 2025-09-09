@@ -1,0 +1,19 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "productDetail": {
+      "productId": 82542043,
+      "productName": "自取商品",
+      "pickUpType": 2
+
+    }
+
+  },
+  "currency":"${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+
+}

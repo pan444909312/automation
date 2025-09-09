@@ -1,0 +1,23 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "productDetail": {
+      "productId": 82539065,
+      "productName": "标签商品",
+      "systemMarketingTags": [{
+        "content": "门店销量第1名",
+        "tagType": 1,
+        "rankingType": 1,
+        "canJump": false
+      }]
+    }
+
+  },
+  "currency":"${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+
+}
