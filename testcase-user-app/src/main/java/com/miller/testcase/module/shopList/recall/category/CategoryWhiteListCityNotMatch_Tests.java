@@ -18,10 +18,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01K317GEGN2VQF7MNDE75WETG6", // 自动生成，不要修改
-        scenarioName = "店铺流_召回_首页_店铺-召回：白名单店铺-当前定位城市与店铺城市不同 - 不召回",
+        scenarioName = "店铺流_品类频道_店铺-召回：白名单店铺-当前定位城市与店铺城市不同 - 不召回",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_召回_首页_店铺-召回：白名单店铺-当前定位城市与店铺城市不同 - 不召回")
+@DisplayName("店铺流_品类频道_店铺-召回：白名单店铺-当前定位城市与店铺城市不同 - 不召回")
 public class CategoryWhiteListCityNotMatch_Tests {
 
     @BeforeAll

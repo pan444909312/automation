@@ -15,10 +15,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01K4C6WG00F4F588KFAGD39BGP", // 自动生成，不要修改
-        scenarioName = "店铺流_首页_店铺-召回-配送围栏：围栏优先-未配置围栏且配置邮编-请求无邮编",
+        scenarioName = "店铺流_品类频道_店铺-召回-配送围栏：围栏优先-未配置围栏且配置邮编-请求无邮编",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_首页_店铺-召回-配送围栏：围栏优先-未配置围栏且配置邮编-请求无邮编")
+@DisplayName("店铺流_品类频道_店铺-召回-配送围栏：围栏优先-未配置围栏且配置邮编-请求无邮编")
 public class CategoryNoAreaNoPostcodeRequestNoPc_Tests {
 
     @BeforeAll

@@ -15,10 +15,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01K3180E0N66Z07FCHH4KMJN7Y", // 自动生成，不要修改
-        scenarioName = "店铺流_召回_首页_店铺-召回：白名单店铺",
+        scenarioName = "店铺流_品类频道_店铺-召回：白名单店铺",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_召回_首页_店铺-召回：白名单店铺")
+@DisplayName("店铺流_品类频道_店铺-召回：白名单店铺")
 public class CategoryWhiteListOutOfDeliveryRange_Tests {
 
     @BeforeAll

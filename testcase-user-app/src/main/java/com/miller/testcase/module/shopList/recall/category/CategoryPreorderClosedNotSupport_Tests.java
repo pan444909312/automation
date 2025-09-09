@@ -15,10 +15,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01K1HVGN3GBP4NSFGGDWF4YKS4", // 自动生成，不要修改
-        scenarioName = "店铺流_召回_首页_店铺-召回：店铺营业状态-打烊不可预约",
+        scenarioName = "店铺流_品类频道_店铺-召回：店铺营业状态-打烊不可预约",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_召回_首页_店铺-召回：店铺营业状态-打烊不可预约")
+@DisplayName("店铺流_品类频道_店铺-召回：店铺营业状态-打烊不可预约")
 public class CategoryPreorderClosedNotSupport_Tests {
 
     @BeforeAll
