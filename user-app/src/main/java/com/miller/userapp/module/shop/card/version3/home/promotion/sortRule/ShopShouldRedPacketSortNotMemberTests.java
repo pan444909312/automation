@@ -56,10 +56,10 @@ public class ShopShouldRedPacketSortNotMemberTests {
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.callingCode"));
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
 
-//        更新数据库，将user_label表数据label_id设置为2,使其出新人首单标签35
+//        更新数据库，将user_label表数据label_id设置为1,使其出新人首单标签35
          SqlSession sqlSession = DBUtils.getDBOfPandaTest();
          ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
-         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,2)
+         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
          );
          //清除设备对应的活动数据
          DeviceAutoRenewSql deviceAutoRenewSql = new DeviceAutoRenewSql();

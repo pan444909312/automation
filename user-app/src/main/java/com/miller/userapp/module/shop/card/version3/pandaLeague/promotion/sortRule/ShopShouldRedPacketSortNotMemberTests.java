@@ -14,9 +14,9 @@ import com.miller.userapp.module.data.activity.UserCdkeyInfoSql;
 import com.miller.userapp.module.data.device.db.DeviceAutoRenewSql;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
-import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version3.pandaLeague.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.pandaLeague.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
@@ -33,10 +33,10 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4A1JR1R2CCWGVRDV3TXVK7N", scenarioName = "首页-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）",
+@Scenario(scenarioID = "01K4PXJQ5A112W41MC62GZ9V4K", scenarioName = "熊猫联盟频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("首页-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
+@DisplayName("熊猫联盟频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
 public class ShopShouldRedPacketSortNotMemberTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.increase.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
@@ -54,10 +54,10 @@ public class ShopShouldRedPacketSortNotMemberTests {
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.callingCode"));
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
 
-//        更新数据库，将user_label表数据label_id设置为2,使其出新人首单标签35
+//        更新数据库，将user_label表数据label_id设置为1,使其出新人首单标签35
          SqlSession sqlSession = DBUtils.getDBOfPandaTest();
          ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
-         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,2)
+         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
          );
          //清除设备对应的活动数据
          DeviceAutoRenewSql deviceAutoRenewSql = new DeviceAutoRenewSql();
@@ -77,7 +77,7 @@ public class ShopShouldRedPacketSortNotMemberTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("首页-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
+    @DisplayName("熊猫联盟频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
@@ -96,11 +96,12 @@ public class ShopShouldRedPacketSortNotMemberTests {
 /*
           * 测试用例数据提供者
      */
-    static Stream<Arguments> staticDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
-    }
+static Stream<Arguments> staticDataProvider() {
+    com.miller.userapp.module.shop.card.version3.pandaLeague.request.ShopListRequestDTO shopListRequestDTO = new com.miller.userapp.module.shop.card.version3.pandaLeague.request.ShopListRequestDTO();
+    shopListRequestDTO.setFiltering(false);
+    shopListRequestDTO.setTabType((byte) 1);
+    shopListRequestDTO.setRedPacketList(new ArrayList<>());
+    return Stream.of(Arguments.of(shopListRequestDTO));
+}
 
 }
