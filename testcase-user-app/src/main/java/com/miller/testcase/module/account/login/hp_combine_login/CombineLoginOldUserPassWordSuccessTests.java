@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JZSQHE2W7VQSXNDSQQ9B15K7", // 自动生成，不要修改
-        scenarioName = "combine login old user success",
+        scenarioName = "combine login old user success:老用户账号密码登陆成功",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("combine login old user success:老用户账号密码登陆成功")

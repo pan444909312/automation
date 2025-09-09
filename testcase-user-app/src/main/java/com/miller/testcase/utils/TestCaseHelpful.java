@@ -362,6 +362,12 @@ public class TestCaseHelpful {
         // 获取验证码,需要查询加密后的手机号
         String telephone = getPhoneNumber(tel);
         System.out.println("查询验证码："+ telephone);
+        //加入延时查询
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return (Integer) PandaTestDBHelpful
                 .executeSelectOneSql("select * from user_log where telephone = ? order by create_time desc limit 1",
                         telephone)

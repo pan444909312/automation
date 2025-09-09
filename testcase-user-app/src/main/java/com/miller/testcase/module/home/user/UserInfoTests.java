@@ -31,11 +31,10 @@ public class UserInfoTests {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         // 给请求头添加数据，例如这里添加token
-        requestHeaders.put("Authorization", TestCaseHelpful.login("17700000077", "123456"));
+        requestHeaders.put("Authorization", TestCaseHelpful.login("13752886130", "12345678"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
 

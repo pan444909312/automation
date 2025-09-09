@@ -18,10 +18,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXXX55W6TQYH6DQ8HT5TF3AJ", // 自动生成，不要修改
-        scenarioName = "special task receive",
+        scenarioName = "自动领取特殊任务成功",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("special task receive")
+@DisplayName("自动领取特殊任务成功")
 public class SpecialTaskReceiveTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/index/broadcast";
@@ -59,7 +59,7 @@ public class SpecialTaskReceiveTests {
         var expectedStr = TestCaseHelpful.getFileContent(assert1);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         TestCaseHelpful.set("userTaskSn", TestCaseHelpful.extractValue(responseBody, "$.result.indexTaskVO.processingTask.userTaskSn"));
-        var userTaskId = PandaTestDBHelpful.executeSelectOneSql("select * from hp_task_center_user where user_id=\"1398717314\" and task_id=\"2050\" and sub_task_id=0 order by create_time desc").get("id");
+        var userTaskId = PandaTestDBHelpful.executeSelectOneSql("select * from hp_task_center_user where user_id=\"1398717314\" and task_id=\"2050\" and sub_task_id=0 order by create_time desc limit 1").get("id");
         TestCaseHelpful.set("userTaskId", userTaskId);
 
 

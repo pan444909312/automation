@@ -49,7 +49,7 @@ public class WXAreaCodeRegisterFailTests {
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
         String body = "module/account/login/wx_register_combine_login/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module//account/login/wx_register_combine_login/response/assert_full_field.json";
+        String assertFullField = "module/account/login/wx_register_combine_login/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
