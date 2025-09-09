@@ -16,4 +16,7 @@ public class AutoCaseExecutionDailySummaryDTO {
 
     @Schema(description = "个数")
     private int count;
+
+    @Schema(description = "项目Id")
+    private int projectId;
 }
