@@ -23,10 +23,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K0V4X8N88VZ1PAGJWNPVC689",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约",
+@Scenario(scenarioID = "01M2N3P4Q5R6S7T8U9V0W1X3A4",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -71,7 +72,7 @@ public class ShopStatusShouldOrderStopTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约")
     void OrderStop(ShopListRequestDTO shopListRequestDTO) {
 //        请求首页店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -92,6 +93,8 @@ public class ShopStatusShouldOrderStopTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

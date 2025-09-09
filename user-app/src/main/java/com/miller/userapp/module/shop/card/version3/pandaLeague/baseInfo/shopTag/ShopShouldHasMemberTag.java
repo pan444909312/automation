@@ -23,12 +23,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0V5E94ADBN3YE5226AMGTQ2",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店前标签：VIP标签_首页-商卡二期：VIP标签",
+@Scenario(scenarioID = "01M2N3P4Q5R6S7T8U9V0W1X3A5",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店前标签：VIP标签_首页-商卡二期：VIP标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
 @EnvTag.Test
@@ -59,7 +60,7 @@ public class ShopShouldHasMemberTag {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店前标签：VIP标签_首页-商卡二期：VIP标签")
+    @DisplayName("普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店前标签：VIP标签_首页-商卡二期：VIP标签")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -85,6 +86,8 @@ public class ShopShouldHasMemberTag {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setTabType((byte) 1);
+        shopListRequestDTO.setRedPacketList(new ArrayList<>());
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }
