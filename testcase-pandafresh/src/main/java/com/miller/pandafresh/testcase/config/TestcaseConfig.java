@@ -45,4 +45,9 @@ public class TestcaseConfig {
     public static String takeTimeId = "0";
     public static String takeTime = "0";
     public static String takeDate = "0";
+
+    public static String b2bCodeKey = "0";
+    public static String b2bCode = "0";
+
+    public static String b2bMessageCode = "0";
 }

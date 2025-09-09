@@ -1,8 +1,10 @@
 package com.miller.pandafresh.testcase.module.b2b.login;
 
-import com.miller.service.framework.annotation.Scenario;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.util.JSONUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,15 +13,11 @@ import org.junit.jupiter.api.Test;
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/06/18 11:53:40
+ * @since 2025/09/09 15:53:40
  */
-@Scenario(
-        scenarioID = "01JY0JQJ9SEC35RYKDC8XVXGMK", // 自动生成，不要修改
-        scenarioName = "B2Blogin",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("B2Blogin")
-public class Login_Tests {
+@TestFramework
+@DisplayName("B2Blogin：使用验证码")
+public class LoginWithCode {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.H5HOST + "/api/b2b/user/login";
     // 接口请求方式。如： GET、POST、PUT、DELETE
@@ -41,6 +39,8 @@ public class Login_Tests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.code",TestcaseConfig.b2bMessageCode);
+
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -51,6 +51,5 @@ public class Login_Tests {
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data").isNotNull();
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.user.b2BPortalId").isNotNull();
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.user.ucUserId").isNotNull();
-
     }
 } 

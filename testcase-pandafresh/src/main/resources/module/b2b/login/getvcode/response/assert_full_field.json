@@ -1,0 +1,11 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"key": "${json-unit.any-string}",
+		"picData": "${json-unit.any-string}"
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP"
+}
