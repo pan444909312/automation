@@ -530,18 +530,17 @@ public class TestCaseHelpful {
                 if(language != null) {
                     requestHeaders.put("language", language);
                 }
-                if(isNeedMarketCategory != null) {
-                    requestHeaders.put("isneedmarketcategory", isNeedMarketCategory);
-                }
-                if(marketCategoryId != null) {
-                    requestHeaders.put("marketcategoryid", marketCategoryId);
-                }
-                if(marketCategoryId != null) {
+                if(zipcode != null) {
                     requestHeaders.put("zipcode", zipcode);
+                }
+                if (isNeedMarketCategory!=null){
+                    requestBody=TestCaseHelpful.updateJsonValue(requestBody,"$.isNeedMarketCategory",isNeedMarketCategory);
+                }
+                if (marketCategoryId!=null){
+                    requestBody=TestCaseHelpful.updateJsonValue(requestBody,"$.marketCategoryId",marketCategoryId);
                 }
                 // 发起请求
                 var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
-
                 // 使用fastjson解析响应
                 JSONObject jsonResponse = JSON.parseObject(responseBody);
                 JSONObject result = jsonResponse.getJSONObject("result");
