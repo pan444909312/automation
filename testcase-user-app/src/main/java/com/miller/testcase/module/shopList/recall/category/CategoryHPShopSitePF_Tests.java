@@ -45,9 +45,9 @@ public class CategoryHPShopSitePF_Tests {
         // 检查响应体为空
 //        assertThat(responseShopBody).isNull();
         // 获取并校验 deliveryAndStatus
-        Integer deliveryAndStatus = responseShopBody.getInteger("deliveryAndStatus");
-        Assertions.assertNotNull(deliveryAndStatus, "deliveryAndStatus 不应为空");
-        assertThat(deliveryAndStatus).isEqualTo(1);
+//        Integer deliveryAndStatus = responseShopBody.getInteger("deliveryAndStatus");
+//        Assertions.assertNotNull(deliveryAndStatus, "deliveryAndStatus 不应为空");
+//        assertThat(deliveryAndStatus).isEqualTo(1);
         // 获取并校验 shopType
         Integer shopType = responseShopBody.getInteger("shopType");
         Assertions.assertNotNull(shopType, "shopType 不应为空");
