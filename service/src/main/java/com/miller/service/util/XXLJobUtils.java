@@ -19,7 +19,11 @@ import com.miller.service.dto.XXLJobLogResponseDTO;
 @Slf4j
 public class XXLJobUtils {
 
+    // 外网地址
     private static final String XXL_JOB_ADMIN_URL = "http://8.210.167.35:8122/hp-job-admin";
+
+    // 内网地址
+//    private static final String XXL_JOB_ADMIN_URL = "http://172.31.236.14:8122/hp-job-admin";
     private static HashMap<String, Object> headers = new HashMap<>();
     private static HashMap<String, Object> responseCookies;
 
