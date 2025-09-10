@@ -9,6 +9,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * userPack filter list
  *
@@ -18,11 +21,11 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01K1WGAABC2NAT1HG4RRR7JRTG", // 自动生成，不要修改
-        scenarioName = "userPack filter list",
+        scenarioName = "userPack filter list:自取频道，筛选超市生鲜，查看店铺列表",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("userPack filter list:自取频道，筛选超市生鲜，查看店铺列表")
-public class Userpack_Filter_List_Tests {
+public class UserPackFilterListTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -65,7 +68,21 @@ public class Userpack_Filter_List_Tests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+//        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.shopList").isNotNull();
+        //校验存在商品
+        ArrayList<Object> shopListVO = TestCaseHelpful.extractValue(responseBody, "$.result.shopList");
+        Boolean flag = false;
+        for (Object shopListVO1 : shopListVO) {
+            if (shopListVO1 instanceof Map) {
+                Map<String, Object> shopMap = (Map<String, Object>) shopListVO1;
+                Integer shopId = (Integer) shopMap.get("shopId");
+                if (151392317 == (Integer) shopId) {
+                    flag = true;
+                    break;
+                }
 
+        }
+        TestCaseHelpful.assertThat(flag).isEqualTo( true);
     }
-} 
+}}

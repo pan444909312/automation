@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
 
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
     private ShopMapper shopMapper;
     private SysAppConfigMapper sysAppConfigMapper;

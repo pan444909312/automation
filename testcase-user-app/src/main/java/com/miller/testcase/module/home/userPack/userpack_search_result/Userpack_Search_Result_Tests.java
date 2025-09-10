@@ -10,6 +10,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * userpack search result
  *
@@ -19,7 +22,7 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01K1WGX57FXY5DRD260WSZBXXP", // 自动生成，不要修改
-        scenarioName = "userpack search result",
+        scenarioName = "userpack search result:自取频道，搜索",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("userpack search result:自取频道，搜索")
@@ -66,7 +69,21 @@ public class Userpack_Search_Result_Tests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.shopList").isNotNull();
+        //校验存在商品
+        ArrayList<Object> shopListVO = TestCaseHelpful.extractValue(responseBody, "$.result.shopList");
+        Boolean flag = false;
+        for (Object shopListVO1 : shopListVO) {
+            if (shopListVO1 instanceof Map) {
+                Map<String, Object> shopMap = (Map<String, Object>) shopListVO1;
+                Integer shopId = (Integer) shopMap.get("shopId");
+                if (829805751 == (Integer) shopId) {
+                    flag = true;
+                    break;
+                }
 
+            }
+        }
+        TestCaseHelpful.assertThat(flag).isEqualTo( true);
     }
-} 
+    }

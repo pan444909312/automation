@@ -21,7 +21,7 @@ import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
  */
 @Scenario(
         scenarioID = "01K30E44X0D6VK26N04XGHDP09", // 自动生成，不要修改
-        scenarioName = "google map register combine login",
+        scenarioName = "GFO渠道：新账户注册成功",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("GFO渠道：新账户注册成功")
@@ -31,6 +31,20 @@ public class GoogleMapRegisterCombineLoginTests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
+        String telephone = getPhoneNumber("15900000006");
+        System.out.println("获取到的手机号: " + telephone);
+        String user_id = PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
+        System.out.println("获取到的用户id: " + user_id);
+        //校验表数据
+        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from user where user_id=?", user_id).size()).isEqualTo(1);
+        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from user where user_id=?", user_id).get(0).get("register_source")).isEqualTo(0);
+//        // 清除已注册用户数据
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from integral where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
     }
     @AfterAll
     static void afterAll(){
