@@ -70,13 +70,13 @@
 		"goodsNameList": [],
 		"discountList": [],
 		"redPacketInfo": {
-			"usableRedPacketCount": 0,
+			"usableRedPacketCount": "${json-unit.any-number}",
 			"isPf": true
 		},
 		"couponsInfo": {
-			"usableRedPacketCount": 0
+			"usableRedPacketCount": "${json-unit.any-number}"
 		},
-		"discountPrice": 0.00,
+		"discountPrice": "${json-unit.any-number}",
 		"orderFieldColumnList": [{
 			"showName": "商品总价",
 			"showPrompt": "",
