@@ -1,0 +1,35 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国山东省日照市东港区276800",
+      "city": "日照市",
+      "longitude": "119.5137031420",
+      "latitude": "35.4099491712",
+      "postCode": "276800"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 12414,
+        "type": 0
+      }
+    ],
+    "managerId": 4055,
+    "extraManagerId": 2308,
+    "merchantNotes": null,
+    "brandWordsCn": [],
+    "brandWordsEn": []
+  }
+}

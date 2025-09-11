@@ -1,0 +1,35 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国山东省青岛市市南区266005",
+      "city": "青岛市",
+      "longitude": "120.3189217216",
+      "latitude": "36.0625929249",
+      "postCode": "266005"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 12414,
+        "type": 0
+      }
+    ],
+    "managerId": 4055,
+    "extraManagerId": 2308,
+    "merchantNotes": null,
+    "brandWordsCn": [],
+    "brandWordsEn": []
+  }
+}
