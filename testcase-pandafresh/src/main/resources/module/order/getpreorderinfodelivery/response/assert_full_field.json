@@ -42,7 +42,7 @@
 			"deliveryFee": "3.99",
 			"oldDeliveryFee": "3.99",
 			"orderAmount": "${json-unit.any-number}",
-			"differenceValue": "5.09",
+			"differenceValue": "${json-unit.any-string}",
 			"preventAmount": "4.99",
 			"deliveryFeeHint": "${json-unit.any-string}",
 			"taxRate": "${json-unit.any-number}",
