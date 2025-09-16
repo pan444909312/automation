@@ -1,16 +1,13 @@
-package com.miller.testcase.module.account.login.user_reg;
+package com.miller.testcase.module.account.login.user_reg_old_invite;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
-import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
 
 /**
  * user reg
@@ -20,12 +17,12 @@ import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
  * @since 2025/08/15 11:10:24
  */
 @Scenario(
-        scenarioID = "01K2NVA0NBN6H2R8S88PBRB2YT", // 自动生成，不要修改
-        scenarioName = "H5-老邀新注册：新账户注册成功",
+        scenarioID = "01K4PYCE6WKW9WMKJMMD9HM3GX", // 自动生成，不要修改
+        scenarioName = "H5-老邀新注册：新账户注册失败（验证码错误）",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 120, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("H5-老邀新注册：新账户注册成功")
-public class UserRegTests {
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("H5-老邀新注册：新账户注册失败（验证码错误）")
+public class UserCheckCodeRegFailTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -36,17 +33,6 @@ public class UserRegTests {
                 "delete from `hp_user_new_red_packet_record` where   device_id='2cd58f63a82fb4f1f80a6cfd18c5f46c9' ;\n" +
                 "delete FROM hp_invite_award_benefit_record WHERE device_id in ('cd58f63a82fb4f1f80a6cfd18c5f46c9');\n"
                 );
-        String telephone = getPhoneNumber("16584808139");
-        System.out.println("获取到的手机号: " + telephone);
-        String user_id =PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
-        System.out.println("获取到的用户id: " + user_id);
-        // 清除已注册用户数据
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from integral where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
     }
     @AfterAll
     static void afterAll(){
@@ -75,9 +61,9 @@ public class UserRegTests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        var verificationCode = TestCaseHelpful.getVerificationCode("16584808139");
-        System.out.println("获取到的验证码: " + verificationCode);
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.captcha", verificationCode);
+//        var verificationCode = TestCaseHelpful.getVerificationCode("16584808139");
+//        System.out.println("获取到的验证码: " + verificationCode);
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.captcha", "123456");
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -86,26 +72,9 @@ public class UserRegTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.inviteRedPacketVOS").isNotNull();
-        String telephone = getPhoneNumber("16584808139");
-        System.out.println("获取到的手机号: " + telephone);
-        String user_id =PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
-        System.out.println("获取到的用户id: " + user_id);
-        //校验表数据
-        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from user where user_id=?", user_id).size()).isEqualTo(1);
-        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from hp_invite_award_benefit_record where device_id in (?)", "cd58f63a82fb4f1f80a6cfd18c5f46c9")).isNotNull();
-        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from hp_new_user_cdkey_record where user_id=?", user_id).size()).isEqualTo(1);
-        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from user where user_id=?", user_id).get(0).get("register_source")).isEqualTo(16);
-
-
-        // 清除已注册用户数据
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from integral where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
+//        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo(2011);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("验证码错误，请重新输入");
 
     }
 } 

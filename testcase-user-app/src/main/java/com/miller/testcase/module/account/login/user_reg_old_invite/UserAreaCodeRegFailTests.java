@@ -1,4 +1,4 @@
-package com.miller.testcase.module.account.login.user_reg;
+package com.miller.testcase.module.account.login.user_reg_old_invite;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -17,12 +17,12 @@ import org.junit.jupiter.api.Test;
  * @since 2025/08/15 11:10:24
  */
 @Scenario(
-        scenarioID = "01K4PYRJAV8TS7MR2DKXAW23V9", // 自动生成，不要修改
-        scenarioName = "H5-老邀新注册：新账户注册失败（老账号已注册）",
+        scenarioID = "01K4PYK438FX4NC3TKS21T5827", // 自动生成，不要修改
+        scenarioName = "H5-老邀新注册：新账户注册失败（验证码区号不匹配）",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("H5-老邀新注册：新账户注册失败（老账号已注册）")
-public class UserOldUserRegFailTests {
+@DisplayName("H5-老邀新注册：新账户注册失败（验证码区号不匹配）")
+public class UserAreaCodeRegFailTests {
 
     @BeforeAll
     static void beforeAll(){
@@ -61,9 +61,9 @@ public class UserOldUserRegFailTests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        var verificationCode = TestCaseHelpful.getVerificationCode("15151990629");
+        var verificationCode = TestCaseHelpful.getVerificationCode("16584808139");
         System.out.println("获取到的验证码: " + verificationCode);
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.account", "15151990629");
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.areaCode", "43");
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.captcha", verificationCode);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
@@ -74,8 +74,8 @@ public class UserOldUserRegFailTests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
 //        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo(4011);
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("用户已存在");
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo(3);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("区号错误");
 
     }
 } 
