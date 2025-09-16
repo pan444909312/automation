@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
  * @since 2025/09/16 14:29:27
  */
 @Scenario(
-        scenarioID = "01K4YM46P244MQK188KKP8FY4W", // 自动生成，不要修改
+        scenarioID = "01K4YM46P244MQK188KKP8FY4X", // 自动生成，不要修改
         scenarioName = "预售个性化check：不属于预售",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
