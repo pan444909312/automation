@@ -31,19 +31,30 @@ public class H5RegisterAreaCodeFailExternalTests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-        // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
-        // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-        String telephone = getPhoneNumber("18744185504");
+        //关闭登录注册限制
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_up_account_limit_rule\";"
+        );
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
+        );
+        String tel="18744185504";
+        String telephone = getPhoneNumber(tel);
         System.out.println("获取到的手机号: " + telephone);
         if (PandaTestDBHelpful.executeSelectListSql("select user_id from user where user_name = ?", telephone).isEmpty()) {
             return;
         }
-        String user_id =PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
-        if (user_id == null) {
-            return;
-        }
+        String user_id = PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
         System.out.println("获取到的用户id: " + user_id);
-        // 清除已注册用户数据
+        //校验表数据
+        TestCaseHelpful.assertThat(PandaTestDBHelpful.executeSelectListSql("select * from user where user_id=?", user_id).size()).isEqualTo(1);
+//        // 清除已注册用户数据
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from integral where user_id=" + user_id);

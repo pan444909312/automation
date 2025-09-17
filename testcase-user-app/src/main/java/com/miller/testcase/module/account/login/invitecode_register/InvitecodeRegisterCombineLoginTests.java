@@ -62,7 +62,8 @@ public class InvitecodeRegisterCombineLoginTests {
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
-    }      @AfterAll
+    }
+    @AfterAll
     static void afterAll(){
         // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行后置的操作，比如: 销毁测试数据、还原数据库、清理环境等
