@@ -54,7 +54,7 @@ public class ShopShouldHasNoFirstOrderDeliveryFeature {
 
 
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
-//        redisInstance.set("FIRST_ORDER_DELIVERY_CONFIG","0");
+        redisInstance.set("FIRST_ORDER_DELIVERY_CONFIG","0");
         // 熊猫联盟系统配置直接查的数据库，没查redis（首页店铺流查redis）
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_sys_app_config set config_value = 0 where config_key='FIRST_ORDER_DELIVERY_CONFIG'");
     }
@@ -62,7 +62,7 @@ public class ShopShouldHasNoFirstOrderDeliveryFeature {
     @AfterAll
     void afterAll(){
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_sys_app_config set config_value = 'all' where config_key='FIRST_ORDER_DELIVERY_CONFIG'");
-//        redisInstance.set("FIRST_ORDER_DELIVERY_CONFIG","all");
+        redisInstance.set("FIRST_ORDER_DELIVERY_CONFIG","all");
     }
 
     @MethodSource("staticDataProvider")

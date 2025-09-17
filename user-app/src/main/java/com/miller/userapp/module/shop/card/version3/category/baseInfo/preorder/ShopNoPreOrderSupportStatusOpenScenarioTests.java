@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K0V4Y0P1WBDWRW11WDHBSXWW", scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店铺可预约状态_首页-商卡二期：店铺可预约状态 - 营业不可预约"
+@Scenario(scenarioID = "01K4W45TP3JFJE0AAHXZMCAWN0", scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺可预约状态_品类频道页-商卡二期：店铺可预约状态 - 营业不可预约"
         , author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -40,7 +40,7 @@ public class ShopNoPreOrderSupportStatusOpenScenarioTests {
 
     @MethodSource("shopStatusDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店铺可预约状态_首页-商卡二期：店铺可预约状态 - 营业不可预约")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺可预约状态_品类频道页-商卡二期：店铺可预约状态 - 营业不可预约")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
@@ -69,7 +69,8 @@ public class ShopNoPreOrderSupportStatusOpenScenarioTests {
     static Stream<Arguments> shopStatusDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

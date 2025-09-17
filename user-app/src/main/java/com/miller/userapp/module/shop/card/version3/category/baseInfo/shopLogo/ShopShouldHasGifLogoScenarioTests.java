@@ -31,8 +31,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K0V5AKS4X9GC20S74RD8Z725",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店铺logo_首页-商卡二期:店铺logo-独家商铺开启独家logo，展示动图",
+@Scenario(scenarioID = "01K4WBSVT2A7PJY248SF0WFFYB",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺logo_品类频道页-商卡二期:店铺logo-独家商铺开启独家logo，展示动图",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -57,7 +57,7 @@ public class ShopShouldHasGifLogoScenarioTests {
 
     @MethodSource("staticLogoDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店铺logo_首页-商卡二期:店铺logo-独家商铺开启独家logo，展示动图")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺logo_品类频道页-商卡二期:店铺logo-独家商铺开启独家logo，展示动图")
     void shouldExistStaticLogo(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
@@ -96,7 +96,8 @@ public class ShopShouldHasGifLogoScenarioTests {
     static Stream<Arguments> staticLogoDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码 Bug，没有对 null 进行判断，应该默认给 false
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1); // 开发代码 Bug，没有对 null 进行判断，应该默认给 false
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

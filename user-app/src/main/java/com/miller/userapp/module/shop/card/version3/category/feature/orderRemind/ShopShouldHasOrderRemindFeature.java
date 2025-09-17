@@ -25,8 +25,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKC9",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_用户下单提醒_满足所有条件时，返回：用户XX刚刚下单了",
+@Scenario(scenarioID = "01K4WC89D23CMHGCRHSCQFC4CQ",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_用户下单提醒_满足所有条件时，返回：用户XX刚刚下单了",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -51,7 +51,7 @@ public class ShopShouldHasOrderRemindFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_用户下单提醒_满足所有条件时，返回：用户XX刚刚下单了")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_用户下单提醒_满足所有条件时，返回：用户XX刚刚下单了")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -73,6 +73,7 @@ public class ShopShouldHasOrderRemindFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

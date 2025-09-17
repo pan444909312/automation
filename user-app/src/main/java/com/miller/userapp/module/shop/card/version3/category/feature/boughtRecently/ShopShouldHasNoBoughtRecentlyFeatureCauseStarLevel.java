@@ -31,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 16:34
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKBM",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_买过的店_店铺星级不符合买过的店标签时，不返回标签",
+@Scenario(scenarioID = "01K4WC2XY368BXVW3NMNNWDNZG",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_买过的店_店铺星级不符合买过的店标签时，不返回标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -71,7 +71,7 @@ public class ShopShouldHasNoBoughtRecentlyFeatureCauseStarLevel {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_买过的店_店铺星级不符合买过的店标签时，不返回标签")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_买过的店_店铺星级不符合买过的店标签时，不返回标签")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -97,6 +97,7 @@ public class ShopShouldHasNoBoughtRecentlyFeatureCauseStarLevel {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
