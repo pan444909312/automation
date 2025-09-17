@@ -1,0 +1,25 @@
+{
+  "pm": "POST",
+  "ph": {
+    "locale": "CN",
+    "brand": "",
+    "model": "",
+    "version": "8.10.1",
+    "appVersion": "",
+    "longitude": "",
+    "latitude": "",
+    "platform": "WEB_PC",
+    "appTypeId": 1,
+    "uniquetoken": "61f4062df5a84056ad4fa115a9b632f5",
+    "language": "CN"
+  },
+  "pd": {
+    "areaCode": "86",
+    "account": "15151990629",
+    "captcha": "123456"
+  },
+  "nv": "2",
+  "nt": "1758023938930",
+  "nn": "SlW3UnRbnT2xPQa2UyCgxhrTF",
+  "nd": "3fb9d73584d7d9d"
+}

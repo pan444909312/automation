@@ -16,7 +16,6 @@
 		"isRegister": 0,
 		"bioAuthToken": "${json-unit.any-string}",
 		"isOldUser": 1,
-		"isMember": 0,
 		"tokenSrc": "${json-unit.any-string}",
 		"thirdRefreshToken": null
 	},
