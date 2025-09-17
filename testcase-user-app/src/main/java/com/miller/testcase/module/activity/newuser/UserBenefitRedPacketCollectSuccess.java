@@ -10,12 +10,14 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 
-@Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DDA",
+@Scenario(scenarioID = "01K4YEK2RPG51KX76D9GYJVHT5",
         scenarioName = "领取新人权益红包-权益不存在",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("/api/user/benefit/redPacket/collect")
 public class UserBenefitRedPacketCollectSuccess {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/benefit/redPacket/collect";
+
+    // 如果再次报错 就添加一个before操作，清楚一下数据 SELECT * FROM hp_user_benefit_red_packet_record WHERE user_id in (1398715012)
 
     @DisplayName("领取新人权益红包-权益不存在")
     @Test

@@ -11,6 +11,7 @@ import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version3.category.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.category.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.category.response.ShopListResponseDTO;
+import com.miller.userapp.util.PandaTestDBHelpful;
 import com.miller.userapp.util.RedisUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,8 +28,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/28 17:56
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKBX",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_首单优先送_首页-商卡二期：首单优先送 - 不展示",
+@Scenario(scenarioID = "01K4WC5NAYVT80QJD7YR88M2PV",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_首单优先送_品类频道页-商卡二期：首单优先送 - 不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 25, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -53,18 +54,18 @@ public class ShopShouldHasNoFirstOrderDeliveryFeature {
 
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
         redisInstance.set("FIRST_ORDER_DELIVERY_CONFIG","0");
-//        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_sys_app_config set config_value = 0 where config_key='FIRST_ORDER_DELIVERY_CONFIG'");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_sys_app_config set config_value = 0 where config_key='FIRST_ORDER_DELIVERY_CONFIG'");
     }
 
     @AfterAll
     void afterAll(){
-//        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_sys_app_config set config_value = all where config_key='FIRST_ORDER_DELIVERY_CONFIG'");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_sys_app_config set config_value = 'all' where config_key='FIRST_ORDER_DELIVERY_CONFIG'");
         redisInstance.set("FIRST_ORDER_DELIVERY_CONFIG","all");
     }
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_首单优先送_首页-商卡二期：首单优先送 - 不展示")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_首单优先送_品类频道页-商卡二期：首单优先送 - 不展示")
     void shouldNotExistFirstOrderDeliveryFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
@@ -83,6 +84,7 @@ public class ShopShouldHasNoFirstOrderDeliveryFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

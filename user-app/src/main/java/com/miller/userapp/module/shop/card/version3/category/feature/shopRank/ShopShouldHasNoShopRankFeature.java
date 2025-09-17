@@ -27,8 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 16:33
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCD",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_品类榜单_首页-商卡二期：榜单 - 无榜单数据",
+@Scenario(scenarioID = "01K4WCHR0TNCFEE6HVEJAQ84D1",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_品类榜单_品类频道页-商卡二期：榜单 - 无榜单数据",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -46,7 +46,7 @@ public class ShopShouldHasNoShopRankFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_品类榜单_首页-商卡二期：榜单 - 无榜单数据")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_品类榜单_品类频道页-商卡二期：榜单 - 无榜单数据")
     void shouldNotExistShopRankFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -69,6 +69,7 @@ public class ShopShouldHasNoShopRankFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

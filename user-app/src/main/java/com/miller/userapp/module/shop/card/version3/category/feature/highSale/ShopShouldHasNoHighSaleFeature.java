@@ -24,8 +24,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKC3",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_人气销量标签_不满足条件时，不返回：高月售人气门店",
+@Scenario(scenarioID = "01K4WC5J2Z9JCT299V571DCA1Z",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_人气销量标签_不满足条件时，不返回：高月售人气门店",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -41,7 +41,7 @@ public class ShopShouldHasNoHighSaleFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_人气销量标签_不满足条件时，不返回：高月售人气门店")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_人气销量标签_不满足条件时，不返回：高月售人气门店")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -68,6 +68,7 @@ public class ShopShouldHasNoHighSaleFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

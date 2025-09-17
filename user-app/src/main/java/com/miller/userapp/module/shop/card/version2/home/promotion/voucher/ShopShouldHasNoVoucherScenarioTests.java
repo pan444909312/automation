@@ -41,7 +41,7 @@ public class ShopShouldHasNoVoucherScenarioTests {
     @DisplayName("普通店铺配送商卡_优惠标签_代金券_首页-商卡二期：代金券31-不展示")
     void shouldNotExistVoucher(ShopListRequestDTO shopListRequestDTO) {
 
-        ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
