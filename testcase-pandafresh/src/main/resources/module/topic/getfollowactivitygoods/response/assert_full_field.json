@@ -1,0 +1,30 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"specialTopicId": 1461,
+		"pic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1660270400100/1660270400100海底捞.jpeg",
+		"backgroundColor": "",
+		"title": "api别动 Iris 随心配6😊江河湖海来个长名字（1+1）",
+		"subTitle": "1 娃娃菜啊testsku002+3 娃娃菜啊testsku001",
+		"preferentialPrice": "${json-unit.any-string}",
+		"originalPrice": "${json-unit.any-string}",
+		"price": "${json-unit.any-string}",
+		"packageLowPrice": "6.15",
+		"activityMenus": [{
+			"specialTopicMenuId": 72,
+			"specialTopicMenuName": "娃娃菜啊testsku002",
+			"pickNumber": 1,
+			"activityGoods": "${json-unit.ignore-element}"},
+			{
+				"specialTopicMenuId": 73,
+				"specialTopicMenuName": "娃娃菜啊testsku001",
+				"pickNumber": 3,
+				"activityGoods": "${json-unit.ignore-element}"
+			}],
+		"outShareUrl": "https://supermarket-h5-f2e-test.hungrypanda.cn/common/specialEvent/mealDealDetailOutApp?appTypeId=3&specialTopicId=1461&portalId=3&regionId=3"
+	}
+}

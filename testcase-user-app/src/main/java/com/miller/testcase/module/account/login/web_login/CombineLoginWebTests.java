@@ -2,6 +2,7 @@ package com.miller.testcase.module.account.login.web_login;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -28,6 +29,19 @@ public class CombineLoginWebTests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
+        //关闭登录注册限制
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_up_account_limit_rule\";"
+        );
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
+        );
     }
     @AfterAll
     static void afterAll(){

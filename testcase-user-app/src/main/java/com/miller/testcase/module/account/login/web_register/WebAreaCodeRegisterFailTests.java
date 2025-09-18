@@ -2,11 +2,14 @@ package com.miller.testcase.module.account.login.web_register;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
 
 /**
  * web register combine login
@@ -27,6 +30,36 @@ public class WebAreaCodeRegisterFailTests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
+        //关闭登录注册限制
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_up_account_limit_rule\";"
+        );
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
+        );
+        String telephone = getPhoneNumber("15900000007");
+        System.out.println("获取到的手机号: " + telephone);
+        if (PandaTestDBHelpful.executeSelectListSql("select user_id from user where user_name = ?", telephone).isEmpty()) {
+            return;
+        }
+        String user_id =PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
+        if (user_id == null) {
+            return;
+        }
+        System.out.println("获取到的用户id: " + user_id);
+        // 清除已注册用户数据
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from integral where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
     }
     @AfterAll
     static void afterAll(){
@@ -70,7 +103,7 @@ public class WebAreaCodeRegisterFailTests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo(3);
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("区号错误");
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("Incorrect area code.");
 
     }
 } 

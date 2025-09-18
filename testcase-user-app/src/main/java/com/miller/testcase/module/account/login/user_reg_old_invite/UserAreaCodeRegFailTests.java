@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
+
 /**
  * user reg
  *
@@ -28,11 +30,36 @@ public class UserAreaCodeRegFailTests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from `user_log` where  device_id='cd58f63a82fb4f1f80a6cfd18c5f46c9' ;\n" +
-                "delete from `hp_user_benefit_red_packet_record` where device_id='cd58f63a82fb4f1f80a6cfd18c5f46c9' ;" +
-                "delete from `hp_user_new_red_packet_record` where   device_id='2cd58f63a82fb4f1f80a6cfd18c5f46c9' ;\n" +
-                "delete FROM hp_invite_award_benefit_record WHERE device_id in ('cd58f63a82fb4f1f80a6cfd18c5f46c9');\n"
-                );
+        //关闭登录注册限制
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_up_account_limit_rule\";"
+        );
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
+        );
+        String telephone = getPhoneNumber("16584808139");
+        System.out.println("获取到的手机号: " + telephone);
+        if (PandaTestDBHelpful.executeSelectListSql("select user_id from user where user_name = ?", telephone).isEmpty()) {
+            return;
+        }
+        String user_id =PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
+        if (user_id == null) {
+            return;
+        }
+        System.out.println("获取到的用户id: " + user_id);
+        // 清除已注册用户数据
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from integral where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
     }
     @AfterAll
     static void afterAll(){

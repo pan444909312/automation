@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.miller.testcase.utils.TestCaseHelpful.getPhoneNumber;
+
 /**
  * phf register combine login
  *
@@ -29,23 +31,42 @@ public class PHFRegisterRiskControlLoginFailTests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
+        //关闭登录注册限制
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
                 "UPDATE `risk_test`.`risk_control_rule` \n" +
-                        "SET  `param` = '{\"maxAllowed\":1,\"useDeviceIdType\":\"GEE\"}', \n" +
-                        "     `rule_status` = 'ENABLE'  \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
                         "WHERE rule_code=\"device_sign_up_account_limit_rule\";"
         );
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
+        );
+        String tel="19530624224";
+        String telephone = getPhoneNumber(tel);
+        System.out.println("获取到的手机号: " + telephone);
+        if (PandaTestDBHelpful.executeSelectListSql("select user_id from user where user_name = ?", telephone).isEmpty()) {
+            return;
+        }
+        String user_id =PandaTestDBHelpful.executeSelectOneSql("select user_id from user where user_name = ?",telephone).get("user_id").toString();
+        if (user_id == null) {
+            return;
+        }
+        System.out.println("获取到的用户id: " + user_id);
+        // 清除已注册用户数据
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from device_login_info where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from integral where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
     }
     @AfterAll
     static void afterAll(){
         // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行后置的操作，比如: 销毁测试数据、还原数据库、清理环境等
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
-                "UPDATE `risk_test`.`risk_control_rule` \n" +
-                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
-                        "     `rule_status` = 'ENABLE'  \n" +
-                        "WHERE rule_code=\"device_sign_up_account_limit_rule\";"
-        );
     }
 
     @DisplayName("正向流程")

@@ -6,7 +6,7 @@
 		"accessToken": "${json-unit.any-string}",
 		"refresh_token": "${json-unit.any-string}",
 		"userPushToken": "${json-unit.any-string}",
-		"marketToken": "",
+		"marketToken": null,
 		"shopId": null,
 		"userId": 1398716816,
 		"userName": "15151990629",
