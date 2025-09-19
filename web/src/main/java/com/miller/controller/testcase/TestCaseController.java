@@ -35,7 +35,7 @@ public class TestCaseController {
         if (null == packageNameList || packageNameList.isEmpty()) {
             return "packageName is empty.";
         }
-        String runTestCaseULID = testCaseService.runTestCase(packageNameList);
+        String runTestCaseULID = testCaseService.runTestCase(packageNameList,false);
 
         return String.valueOf(runTestCaseULID);
     }

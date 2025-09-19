@@ -46,7 +46,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
      * @return 测试执行计划ID，通过ID查询测试结果
      */
     @Override
-    public String runTestCase(List<String> packageNameList) {
+    public String runTestCase(List<String> packageNameList,boolean isTask) {
         TestExecutionSummary summary = syncRunTestCase(packageNameList);
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -59,26 +59,43 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
 
 
         double passRate = Math.round(((double) testsSucceededCount / testsFoundCount) * 100 * 100) / 100.0;
+        if (isTask){
 
-        stringBuilder.append("#### 自动化定时执行结果汇总").append(" \n ");
-        stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
-        stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
-        stringBuilder.append("- **失败**: " + testsFailedCount + "个").append(" \n ");
-        stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
-        stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
-        stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
-        DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
+            stringBuilder.append("#### 自动化定时执行结果汇总").append(" \n ");
+            stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
+            stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
+            stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
+            if (testsFailedCount > 0) {
+                stringBuilder.append("[查看失败详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
+            }else{
+                stringBuilder.append(" \n ");
+            }
+            stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
+            stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
+            stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
+            DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
 
-        if (testsSucceededCount > 0) {
-            stringBuilderSuccess.append("#### 自动化定时执行结果汇总").append(" \n ");
-            stringBuilderSuccess.append("- **共**: " + testsSucceededCount + "个").append(" \n ");
-            stringBuilderSuccess.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
-            stringBuilderSuccess.append("- **失败**: " + 0 + "个").append(" \n ");
-            stringBuilderSuccess.append("- **跳过**: " + 0 + "个").append(" \n ");
-            stringBuilderSuccess.append("- **通过率**: " + "100%").append(" \n ");
-            stringBuilderSuccess.append("- **花费时间**: " + costTime + "秒").append(" \n ");
-            DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilderSuccess.toString());
+            if (testsSucceededCount > 0) {
+                stringBuilderSuccess.append("#### 自动化定时执行结果汇总").append(" \n ");
+                stringBuilderSuccess.append("- **共**: " + testsSucceededCount + "个").append(" \n ");
+                stringBuilderSuccess.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
+                stringBuilderSuccess.append("- **失败**: " + 0 + "个").append(" \n ");
+                stringBuilderSuccess.append("- **跳过**: " + 0 + "个").append(" \n ");
+                stringBuilderSuccess.append("- **通过率**: " + "100%").append(" \n ");
+                stringBuilderSuccess.append("- **花费时间**: " + costTime + "秒").append(" \n ");
+                DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilderSuccess.toString());
+            }
+        }else{
+            stringBuilder.append("#### 自动化手动执行结果汇总").append(" \n ");
+            stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
+            stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
+            stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
+            stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
+            stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
+            stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
+            DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
         }
+
 
 
         // todo 执行结果

@@ -18,5 +18,5 @@ public interface TestCaseService extends IService<TestCaseEntity> {
      * @param packageNameList 包名
      * @return 测试用例数量
      */
-    String runTestCase(List<String> packageNameList);
+    String runTestCase(List<String> packageNameList, boolean isTask);
 }
