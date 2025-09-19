@@ -1,8 +1,8 @@
 package com.miller.pandafresh.testcase.module.redpacket.receiveredpacket;
 
-import com.miller.service.framework.annotation.Scenario;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/06/19 14:30:13
+ * @since 2025/09/18 20:30:13
  */
 @Scenario(
-        scenarioID = "01JY3E2Y8RF9M0B3V2357P39JQ", // 自动生成，不要修改
-        scenarioName = "一键领取红包:专题红包已领取",
+        scenarioID = "01JY3E2Y8RF9M0B3V2357P39JR", // 自动生成，不要修改
+        scenarioName = "一键领取红包:用户已领取",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("一键领取红包:专题红包已领取")
-public class ReceiveRedPacket_Tests {
+@DisplayName("一键领取红包:用户已领取")
+public class ReceiveRedPacketHasGet_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.H5HOST + "/redPacket/receiveRedPacket";
     // 接口请求方式。如： GET、POST、PUT、DELETE
@@ -33,11 +33,13 @@ public class ReceiveRedPacket_Tests {
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
     String assertFullField = "module/receiveredpacket/response/assert_full_field.json";
 
+
     @DisplayName("正向流程")
     @Test
     void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        //登录用户
         //登录用户
         requestHeaders.put("authorization",TestCaseHelpful.login("18968046019","123456"));
         requestHeaders.put("userId",249222);
