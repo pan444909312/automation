@@ -124,6 +124,7 @@
     </select>
 
     <resultMap id="selectDailyCaseExecutionResultMap" type="com.miller.entity.report.resp.AutoCaseExecutionDailyDTO">
+        <result property="author" column="name"/>
     </resultMap>
 
     <select id="selectDailyCaseExecutionResult" resultMap="selectDailyCaseExecutionResultMap">
@@ -133,10 +134,11 @@
         e.execution_type,
         e.execution_time,
         e.execution_user,
-        r.author,
+        u.name,
         r.project_id
         FROM auto_execution_record e
         LEFT JOIN auto_case_roi r on e.scenario_id = r.scenario_id
+        INNER JOIN user u on r.author = u.email
         WHERE e.execution_time > UNIX_TIMESTAMP(#{date}) * 1000
           and e.execution_time &lt; UNIX_TIMESTAMP(#{date}) * 1000 + 100*60*60*24
         and e.execution_status != #{executionStatus}
