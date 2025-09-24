@@ -18,7 +18,7 @@ public class ReissueListRuleScenarioTests {
     @Test
     void shouldReturnRuleSuccessfully(){
         var headers = TestCaseHelpful.getHeaders("module/headers.json");
-        headers.put("Authorization",TestCaseHelpful.login("17700000066","123456"));
+        headers.put("Authorization",TestCaseHelpful.login("17000000077","123456"));
         var requestBody=TestCaseHelpful.getJsonRequestBody("module/activity/popup/reissue/request/success.json");
         var responseBody = HttpUtils.sendPostRequestReturnBody(uri, null, headers, requestBody, null);
         var expectedStr = TestCaseHelpful.getFileContent("module/activity/popup/reissue/response/assert_some_fields.json");

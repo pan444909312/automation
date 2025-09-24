@@ -38,16 +38,17 @@ public class ShopShouldHasNoMonthlySalesScenarioTests {
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
 //        开启地址配置-城市功能管理-九江市-商卡月售开关
-        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
-        cityFunctionConfigMapper.update(null, new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,7).set(CityFunctionConfigEntity::getStatus,0)
-        );
+//        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
+//        CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
+//        cityFunctionConfigMapper.update(null, new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,7).set(CityFunctionConfigEntity::getStatus,0)
+//        );
 
     }
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-首页-商卡二期：月售 - 月售展示开关禁用")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){
+
         ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
         ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         assertThat(shopIndexVO.getShopMonthlySales()).isNull();

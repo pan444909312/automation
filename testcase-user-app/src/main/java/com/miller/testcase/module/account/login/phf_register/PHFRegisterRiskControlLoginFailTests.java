@@ -31,17 +31,17 @@ public class PHFRegisterRiskControlLoginFailTests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-        //关闭登录注册限制
+        //开启登录注册限制
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
                 "UPDATE `risk_test`.`risk_control_rule` \n" +
-                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
-                        "     `rule_status` = 'DISABLE'  \n" +
+                        "SET  `param` = '{\"maxAllowed\":1,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'ENABLE'  \n" +
                         "WHERE rule_code=\"device_sign_up_account_limit_rule\";"
         );
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
                 "UPDATE `risk_test`.`risk_control_rule` \n" +
-                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
-                        "     `rule_status` = 'DISABLE'  \n" +
+                        "SET  `param` = '{\"maxAllowed\":1,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'ENABLE'  \n" +
                         "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
         );
         String tel="19530624224";
@@ -67,6 +67,19 @@ public class PHFRegisterRiskControlLoginFailTests {
     static void afterAll(){
         // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行后置的操作，比如: 销毁测试数据、还原数据库、清理环境等
+        //关闭登录注册限制
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_up_account_limit_rule\";"
+        );
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "UPDATE `risk_test`.`risk_control_rule` \n" +
+                        "SET  `param` = '{\"maxAllowed\":99,\"useDeviceIdType\":\"GEE\"}', \n" +
+                        "     `rule_status` = 'DISABLE'  \n" +
+                        "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
+        );
     }
 
     @DisplayName("正向流程")
