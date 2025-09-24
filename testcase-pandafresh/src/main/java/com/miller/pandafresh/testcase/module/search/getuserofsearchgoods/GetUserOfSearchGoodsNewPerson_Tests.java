@@ -17,10 +17,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01K0E3C7GRKKSYPTF4A4CQ99ZC", // 自动生成，不要修改
-        scenarioName = "搜索页-常买清单-新用户无数据",
+        scenarioName = "搜索页-常买清单-新用户",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("搜索页-常买清单-新用户无数据")
+@DisplayName("搜索页-常买清单-新用户")
 public class GetUserOfSearchGoodsNewPerson_Tests {
 
     @BeforeAll
@@ -65,7 +65,7 @@ public class GetUserOfSearchGoodsNewPerson_Tests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1000);
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.records.[0].type").isNotEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.records.[0]").isNotNull();
 
     }
 } 

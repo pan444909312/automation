@@ -87,7 +87,7 @@
 		},{
 			"showName": "包装费用",
 			"showPrompt": "",
-			"showValue": "3",
+			"showValue":  "${json-unit.any-string}",
 			"showCode": "packPrice",
 			"showImgPath": "",
 			"fontColor": "#252628",

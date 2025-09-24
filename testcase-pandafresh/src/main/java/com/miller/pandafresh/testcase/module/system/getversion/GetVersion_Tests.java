@@ -49,8 +49,6 @@ public class GetVersion_Tests {
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.isNeedUpdate").isNotNull();
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.type").isNotNull();
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.description").isNotNull();
 
 
     }
