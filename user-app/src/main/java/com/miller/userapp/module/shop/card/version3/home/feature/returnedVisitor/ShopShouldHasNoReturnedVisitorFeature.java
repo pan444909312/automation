@@ -51,7 +51,8 @@ public class ShopShouldHasNoReturnedVisitorFeature {
         UpdateWrapper<CityFunctionConfigEntity> cityFunctionConfigEntityUpdateWrapper = new UpdateWrapper<>();
         cityFunctionConfigEntityUpdateWrapper.eq("type",8).eq("city_id",cityId);
         CityFunctionConfigEntity cityFunctionConfigEntity = new CityFunctionConfigEntity();
-        //关闭城市回头客开关
+        // 关闭城市回头客开关
+        // 有服务器本地缓存10分钟
         cityFunctionConfigEntity.setStatus(0);
         cityFunctionConfigMapper.update(cityFunctionConfigEntity,cityFunctionConfigEntityUpdateWrapper);
 

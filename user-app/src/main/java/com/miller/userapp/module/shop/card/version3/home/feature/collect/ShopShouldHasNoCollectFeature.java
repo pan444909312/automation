@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKBP",
         scenarioName = "普通店铺配送商卡-SKYX01_营销标_收藏店铺人数_收藏人数不满足配置，不展示",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 20, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoCollectFeature {
@@ -58,7 +58,11 @@ public class ShopShouldHasNoCollectFeature {
         List<Map<String, Object>> maps = PandaTestDBHelpful.executeSelectListSql("SELECT collect_shop_usercnt FROM hp_data_shop_home_recommend_label where shop_id = " + shopId);
         Map<String, Object> map = maps.get(0);
         long collectShopUserCntByShopId = (long) map.get("collect_shop_usercnt");
-        int cardCollectNum = Integer.parseInt(RedisUtils.getRedisInstance().get("CARD_COLLECT_NUM").toString());
+
+
+        int cardCollectNum = Integer.parseInt(RedisUtils.getSysAppConfigValue("CARD_COLLECT_NUM"));
+
+
 
         assertThat(collectShopUserCntByShopId < cardCollectNum).isTrue();
         assertThat(shopFeatureVO).isNull();

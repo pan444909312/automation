@@ -4,6 +4,8 @@ import com.miller.service.framework.cache.remote.redis.RedisService;
 import com.miller.service.framework.util.PropertiesUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.Map;
+
 /**
  * Redis 工具类
  *
@@ -21,4 +23,16 @@ public class RedisUtils extends RedisService {
         redisService.connectionSlave(redisHost, Integer.valueOf(redisPort), redisPassword);
         return redisService;
     }
+
+
+    public static String getSysAppConfigValue(String key) {
+        Object valueObj = RedisUtils.getRedisInstance().get(key);
+        if (valueObj != null) {
+            return valueObj.toString();
+        } else {
+            Map<String, Object> configMap = PandaTestDBHelpful.executeSelectOneSql("SELECT `config_value` FROM hp_sys_app_config WHERE config_key = '" + key + "' limit 1");
+            return configMap.get("config_value").toString();
+        }
+    }
+
 }
