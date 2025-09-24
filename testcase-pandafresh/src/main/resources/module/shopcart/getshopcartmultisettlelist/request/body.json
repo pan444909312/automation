@@ -1,0 +1,26 @@
+{
+	"mulitiSettleAllShopCartIdList":[
+		51162,
+		51161
+	],
+	"shopCartList":[
+		{
+			"goodsCount":1,
+			"goodsId":149969,
+			"goodsSkuId":76354,
+			"preSellActualStatus":0,
+			"setMealCount":0,
+			"setMealNum":"",
+			"shopCartId":51162
+		},
+		{
+			"goodsCount":1,
+			"goodsId":13,
+			"goodsSkuId":6,
+			"preSellActualStatus":0,
+			"setMealCount":0,
+			"setMealNum":"",
+			"shopCartId":51161
+		}
+	]
+}
