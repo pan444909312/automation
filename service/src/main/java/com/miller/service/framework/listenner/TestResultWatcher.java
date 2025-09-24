@@ -139,9 +139,9 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         String failedClassName = context.getTestClass().orElse(null).getName();
         failedTestClasses.add(failedClassName);
         // 新增执行人DevOps判断
-        if (Objects.equals(executor, "DevOps")) {
-            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, FAILED);
-        } else {
+        if (!Objects.equals(executor, "DevOps")) {
+//            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, FAILED);
+//        } else {
             if (isSendNotification) sendExecuteNotification(context, FAILED);
         }
         updateAutoExecutionRecordTestResult(context, FAILED);
@@ -155,9 +155,9 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
         log.info(this.getClass().getName() + " testDisabled method invoked...");
         // 新增执行人DevOps判断
-        if (Objects.equals(executor, "DevOps")) {
-            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, DISABLED);
-        } else {
+        if (!Objects.equals(executor, "DevOps")) {
+//            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, DISABLED);
+//        } else {
             if (isSendNotification) sendExecuteNotification(context, DISABLED);
         }
         updateAutoExecutionRecordTestResult(context, DISABLED);
@@ -170,9 +170,9 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         String executor = TestCaseUtils.getExecutor(context.getRequiredTestClass());
         log.info(this.getClass().getName() + " testAborted method invoked...");
         // 新增执行人DevOps判断
-        if (Objects.equals(executor, "DevOps")) {
-            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, ABORTED);
-        } else {
+        if (!Objects.equals(executor, "DevOps")) {
+//            if (isSendNotification) sendExecuteNotificationExceptSuccess(context, ABORTED);
+//        } else {
             if (isSendNotification) sendExecuteNotification(context, ABORTED);
         }
         updateAutoExecutionRecordTestResult(context, ABORTED);
