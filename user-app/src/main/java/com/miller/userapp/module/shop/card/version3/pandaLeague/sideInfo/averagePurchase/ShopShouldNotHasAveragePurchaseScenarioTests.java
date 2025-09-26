@@ -46,6 +46,8 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
+        Thread.sleep(60000);
+
 
     }
     @DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-人均-熊猫联盟频道-商卡二期：人均 - 人均展示开关关闭")
