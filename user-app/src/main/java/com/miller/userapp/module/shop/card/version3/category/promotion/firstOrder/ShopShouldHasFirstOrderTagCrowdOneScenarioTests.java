@@ -30,9 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01K0RBVKDDSN56ZRXPDD79BZ7V", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1"
+@Scenario(scenarioID = "01K0RBVKDDSN56ZRXPDD79BZ7V", scenarioName = "用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-品类频道-商卡二期：新人首单标签35-新人人群1"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1")
+@DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-品类频道-商卡二期：新人首单标签35-新人人群1")
 public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
@@ -64,7 +64,7 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         );
     }
 
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-首页-商卡二期：新人首单标签35-新人人群1")
+    @DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-品类频道-商卡二期：新人首单标签35-新人人群1")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdOne(ShopListRequestDTO ShopListRequestdto){

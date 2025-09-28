@@ -34,10 +34,10 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4BRVQNJX5EJCWWTSZSWAD57", scenarioName = "首页-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）",
+@Scenario(scenarioID = "01K4BRVQNJX5EJCWWTSZSWAD57", scenarioName = "品类频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("首页-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）")
+@DisplayName("品类频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）")
 public class ShopShouldActivitytSortMemberTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.sort.member.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
@@ -78,7 +78,7 @@ public class ShopShouldActivitytSortMemberTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("首页-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）")
+    @DisplayName("品类频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
          //衢州测试（不是衢州市）
          RequestUtils.getHeaders().put("latitude", "28.93592");

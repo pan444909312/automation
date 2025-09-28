@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/31 11:42
  */
-@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWXC", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_代金券_首页-商卡二期：代金券31-不展示",
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWXC", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_代金券_品类频道-商卡二期：代金券31-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -37,7 +37,7 @@ public class ShopShouldHasNoVoucherScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_代金券_首页-商卡二期：代金券31-不展示")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_代金券_品类频道-商卡二期：代金券31-不展示")
     void shouldNotExistVoucher(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
