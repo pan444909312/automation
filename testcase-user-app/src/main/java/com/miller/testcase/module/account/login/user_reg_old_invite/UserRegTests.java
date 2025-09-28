@@ -61,6 +61,11 @@ public class UserRegTests {
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_log where user_id=" + user_id);
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user_account where user_id=" + user_id);
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
+        //清除老邀新活动数据
+        String device_id="cd58f63a82fb4f1f80a6cfd18c5f46c9";
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_invite_award_benefit_record where device_id =" + device_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_benefit_red_packet_record where device_id =" + device_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_new_red_packet_record where device_id =" + device_id);
     }
     @AfterAll
     static void afterAll(){

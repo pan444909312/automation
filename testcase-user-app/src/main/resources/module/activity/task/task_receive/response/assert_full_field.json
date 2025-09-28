@@ -3,7 +3,7 @@
 	"error": "成功",
 	"reason": "成功",
 	"result": {
-		"title": "今天下3单，即可获得{0}",
+		"title": "今天下3单，得{0}",
 		"taskTips": null,
 		"taskRule": "每单实付满¥0.01",
 		"param": {

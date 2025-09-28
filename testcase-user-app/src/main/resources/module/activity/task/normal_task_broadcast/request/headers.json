@@ -1,7 +1,7 @@
 {
 	"cityname":"%E4%B9%9D%E6%B1%9F%E5%B8%82",
 	"countrycode":"CN",
-	"latitude":"29.6605799",
+	"latitude":"29.66058",
 	"Host":"app-test.hungrypanda.cn",
 	"language":"CN",
 	"type":"1",
@@ -19,7 +19,7 @@
 	"uniquetoken":"898ab4a009285a72",
 	"device_safe_token":"a0_b1_c0_h0_i0_j0_m0_n0_p0_s0",
 	"_sig":"54eb62ea84185011a78a4cb59f465d8ba95cf105",
-	"longitude":"115.9541",
+	"longitude":"115.95410",
 	"user-agent":"8.65.0",
 	"_ts":"1754379482085"
 }
