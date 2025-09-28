@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/9/25 19:39
  */
 @Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVE",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送距离_品类频道-商卡二期：配送距离 - 取缓存距离",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -60,7 +60,7 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
 
    @MethodSource("DataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取缓存距离 ")
+   @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送距离_品类频道-商卡二期：配送距离 - 取缓存距离 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
       RequestUtils.getHeaders().put("Content-Type", "application/json");
       RequestUtils.getHeaders().put("latitude", "29.66058");
@@ -72,9 +72,14 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
       AdsSearchDistanceMatrixEntity adsSearchDistanceMatrixEntity = adsHpSearchDistanceMatrix.selectOne(new QueryWrapper<AdsSearchDistanceMatrixEntity>().
               eq("start_tudustr", "115.984,29.669").
               eq("target_tudustr", "115.954,29.660"));
-
-          cacheDistance = (adsSearchDistanceMatrixEntity.getDistance().doubleValue())/1000;
-      assertThat(distance).isEqualTo(cacheDistance+"km");
+      cacheDistance = (adsSearchDistanceMatrixEntity.getDistance().doubleValue())/1000;
+      //这里可能是km或者mile
+      if (distance.contains("km")){
+         assertThat(distance).isEqualTo(cacheDistance+"km");
+      }
+      else{
+         assertThat(distance).isEqualTo(String.format("%.2f", cacheDistance*0.621)+"mile");
+      }
 
 
 

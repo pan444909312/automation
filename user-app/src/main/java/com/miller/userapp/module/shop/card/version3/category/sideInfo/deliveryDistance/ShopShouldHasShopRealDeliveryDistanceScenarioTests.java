@@ -34,13 +34,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/9/26 10:57
  */
 @Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVF",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送距离_品类频道-商卡二期：配送距离 - 取实际距离*距离权重",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
 
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
     private ShopMapper shopMapper;
     private SysAppConfigMapper sysAppConfigMapper;
@@ -87,7 +87,7 @@ public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
 
     @MethodSource("DataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重 ")
+    @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送距离_品类频道-商卡二期：配送距离 - 取实际距离*距离权重 ")
     void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
 
         RequestUtils.getHeaders().put("longitude", "115.95410");
@@ -115,8 +115,13 @@ public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
             }
         }
         distance1 /= 1000.0D;
+        if (distance.contains("km")){
+            assertThat(distance).isEqualTo(NumberUtil.NumberFormat(distance1, "#0.00")+"km");
+        }
+        else{
+            assertThat(distance).isEqualTo(NumberUtil.NumberFormat(distance1*0.621, "#0.00")+"mile");
 
-        assertThat(distance).isEqualTo(NumberUtil.NumberFormat(distance1, "#0.00")+"km");
+        }
 
 
 

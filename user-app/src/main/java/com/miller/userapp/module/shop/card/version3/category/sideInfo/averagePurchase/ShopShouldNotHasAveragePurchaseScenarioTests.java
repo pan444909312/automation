@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVB", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭"
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVB", scenarioName = "用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-品类频道-商卡二期：人均 - 人均展示开关关闭"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
+@DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-品类频道-商卡二期：人均 - 人均展示开关关闭")
 public class ShopShouldNotHasAveragePurchaseScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -45,10 +45,10 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
-        Thread.sleep(15000);
+        Thread.sleep(25000);
 
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
+    @DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-品类频道-商卡二期：人均 - 人均展示开关关闭")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){

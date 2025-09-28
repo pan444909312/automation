@@ -13,6 +13,7 @@ import com.miller.userapp.module.shop.card.version3.category.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.category.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.category.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -27,12 +28,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVM", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-首页-商卡二期：月售 - 月售展示开关禁用"
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVM", scenarioName = "用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-品类频道-商卡二期：月售 - 月售展示开关禁用"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-首页-商卡二期：月售 - 月售展示开关禁用")
+@DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-品类频道-商卡二期：月售 - 月售展示开关禁用")
 public class ShopShouldHasNoMonthlySalesScenarioTests {
     //    测试店铺
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version3.shopId.sun"));
 
     @BeforeAll
     void beforeAll() {
@@ -44,10 +45,14 @@ public class ShopShouldHasNoMonthlySalesScenarioTests {
 //        );
 
     }
-    @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-首页-商卡二期：月售 - 月售展示开关禁用")
+    @DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-品类频道-商卡二期：月售 - 月售展示开关禁用")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){
+
+        //采用日照市进行测试
+        RequestUtils.getHeaders().put("latitude", "35.41646");
+        RequestUtils.getHeaders().put("longitude", "119.52719");
 
         ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
         ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();
