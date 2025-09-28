@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/26 10:57
  */
-@Scenario(scenarioID = "01K0P8AAD6B6N3V19AA1YCCM4Q",
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVF",
         scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送距离_首页-商卡二期：配送距离 - 取实际距离*距离权重",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test

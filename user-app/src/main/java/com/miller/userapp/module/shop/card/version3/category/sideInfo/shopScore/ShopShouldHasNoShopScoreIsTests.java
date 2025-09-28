@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0P3K4NY5Y6HPZ6KQN73FS7F",
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVQ",
         scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-无数据",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test

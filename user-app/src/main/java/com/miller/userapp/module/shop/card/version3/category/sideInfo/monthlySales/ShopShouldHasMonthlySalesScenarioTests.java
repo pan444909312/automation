@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0P26T2HA6DN3KGPSB302NMC", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-首页-商卡二期：月售"
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVK", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-首页-商卡二期：月售"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-首页-商卡二期：月售")
 public class ShopShouldHasMonthlySalesScenarioTests {

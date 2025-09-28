@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0RBDM3GGCAS227BPG05KHGX", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-首页-商卡二期：可自取33（已删除）"
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWXB", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-首页-商卡二期：可自取33（已删除）"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-首页-商卡二期：可自取33（已删除）")
 public class ShopShouldHasSelfTakeTagScenarioTests {

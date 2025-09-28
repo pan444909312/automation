@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/30 17:47
  */
-@Scenario(scenarioID = "01K0R3KGKM3055H0KV6N31F9J8", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_满减_首页-商卡二期：满减29",
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWX1", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_满减_首页-商卡二期：满减29",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework

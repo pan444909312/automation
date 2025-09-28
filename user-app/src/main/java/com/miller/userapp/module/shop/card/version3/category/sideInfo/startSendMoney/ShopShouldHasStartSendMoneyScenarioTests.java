@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01JDR9SSRCPFQ00ECRA2RG74GA", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-起送价-商卡二期：起送价"
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVT", scenarioName = "用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-起送价-商卡二期：起送价"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-起送价-商卡二期：起送价")
 public class ShopShouldHasStartSendMoneyScenarioTests {
