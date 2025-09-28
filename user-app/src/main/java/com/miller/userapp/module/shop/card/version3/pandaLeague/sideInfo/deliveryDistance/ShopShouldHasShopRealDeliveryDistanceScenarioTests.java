@@ -116,9 +116,13 @@ public class ShopShouldHasShopRealDeliveryDistanceScenarioTests {
             }
         }
         distance1 /= 1000.0D;
+        if (distance.contains("km")){
+            assertThat(distance).isEqualTo(NumberUtil.NumberFormat(distance1, "#0.00")+"km");
+        }
+        else{
+            assertThat(distance).isEqualTo(NumberUtil.NumberFormat(distance1*0.621, "#0.00")+"mile");
 
-        assertThat(distance).isEqualTo(NumberUtil.NumberFormat(distance1, "#0.00")+"km");
-
+        }
 
 
     }
