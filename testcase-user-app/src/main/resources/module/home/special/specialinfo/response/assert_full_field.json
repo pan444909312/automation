@@ -1,0 +1,30 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"specialSn":"${json-unit.any-string}",
+		"bgSpecialThemeTitle": "${json-unit.any-string}",
+		"specialThemeTitle": "${json-unit.any-string}",
+		"specialTopPic": "${json-unit.any-string}",
+		"privacyCode":"${json-unit.any-string}",
+		"themeInfoVOList": [
+			{
+				"themeSn":  "${json-unit.any-string}",
+				"themeId": "${json-unit.any-number}",
+				"themeName": "${json-unit.any-string}",
+				"beforeIcon": "${json-unit.any-string}",
+				"afterIcon": "${json-unit.any-string}",
+				"isSelected":"${json-unit.any-number}",
+				"themeType": "${json-unit.any-number}",
+				"refreshTime": "${json-unit.ignore-element}",
+				"themeTimeVOList": "${json-unit.ignore-element}"
+
+			}
+		]
+	},
+	"currency": "${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}
