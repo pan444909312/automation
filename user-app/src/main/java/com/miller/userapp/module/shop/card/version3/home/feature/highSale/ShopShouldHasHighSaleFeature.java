@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKC0",
         scenarioName = "普通店铺配送商卡-SKYX01_营销标_人气销量标签_满足条件时，返回：高月售人气门店",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasHighSaleFeature {
@@ -63,7 +63,9 @@ public class ShopShouldHasHighSaleFeature {
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
         List<Map<String, Object>> maps = PandaTestDBHelpful.executeSelectListSql("SELECT monthly_sales FROM hp_data_shop_home_recommend_label where shop_id = " + shopId);
         Map<String, Object> map = maps.get(0);
-        int cardMonthSaleNum = Integer.parseInt(RedisUtils.getRedisInstance().get("CARD_MONTH_SALE_NUM").toString());
+
+        int cardMonthSaleNum = Integer.parseInt(RedisUtils.getSysAppConfigValue("CARD_MONTH_SALE_NUM"));
+
 
         assertThat((int)map.get("monthly_sales") > cardMonthSaleNum).isEqualTo(true);
         assertThat(shopSearchMiddleEntity.getHighSaleShop()).isEqualTo(1);

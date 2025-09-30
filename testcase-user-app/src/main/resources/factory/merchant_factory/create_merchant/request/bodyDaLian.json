@@ -1,0 +1,35 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国辽宁省大连市中山区116006",
+      "city": "大连市",
+      "longitude": "121.6471637302",
+      "latitude": "38.9218527885",
+      "postCode": "116006"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 12414,
+        "type": 0
+      }
+    ],
+    "managerId": 4055,
+    "extraManagerId": 2308,
+    "merchantNotes": null,
+    "brandWordsCn": [],
+    "brandWordsEn": []
+  }
+}

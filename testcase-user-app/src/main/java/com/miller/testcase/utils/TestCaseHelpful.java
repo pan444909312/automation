@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
 import com.alibaba.fastjson.JSONArray;
 
 /**
@@ -361,7 +362,13 @@ public class TestCaseHelpful {
         // 需要在redis存值，不然图形校验不通过
         // 获取验证码,需要查询加密后的手机号
         String telephone = getPhoneNumber(tel);
-        System.out.println("查询验证码："+ telephone);
+        System.out.println("查询验证码：" + telephone);
+        //加入延时查询
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return (Integer) PandaTestDBHelpful
                 .executeSelectOneSql("select * from user_log where telephone = ? order by create_time desc limit 1",
                         telephone)
@@ -408,14 +415,14 @@ public class TestCaseHelpful {
     }
 
     /**
-     * @param shopId 店铺Id
+     * @param shopId      店铺Id
      * @param mobilePhone 手机号
-     * @param password 密码
-     * @param testgroup 测试组别，可为空
-     * @param longitude 经度，可为空
-     * @param latitude 纬度，可为空
-     * @param apptypeid 站点，可为空
-     * @return 店铺在首页店铺流的VO信息,当首页店铺流不存在店铺时返回null
+     * @param password    密码
+     * @param testgroup   测试组别，可为空
+     * @param longitude   经度，可为空
+     * @param latitude    纬度，可为空
+     * @param apptypeid   站点，可为空
+     * @return 店铺在首页店铺流的VO信息, 当首页店铺流不存在店铺时返回null
      */
     public static JSONObject getShopVOByShopId(String shopId, String mobilePhone, String password, String testgroup, String longitude, String latitude, String apptypeid) {
         String uri = TestcaseConfig.HOST_APP + "/api/user/v2/index/shopList";
@@ -429,37 +436,37 @@ public class TestCaseHelpful {
 
         // 获取请求体基础模板
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        
+
         int pageNo = 1;
         int maxPage = 50; // 设置最大页数限制，避免无限循环
-        
+
         while (pageNo <= maxPage) {
             try {
                 // 更新请求体中的页码
                 requestHeaders.put("pageno", String.valueOf(pageNo));
-                if(testgroup != null){
+                if (testgroup != null) {
                     requestHeaders.put("testgroup", testgroup);
-                    }
-                if(longitude != null && latitude != null) {
+                }
+                if (longitude != null && latitude != null) {
                     requestHeaders.put("longitude", longitude);
                     requestHeaders.put("latitude", latitude);
                 }
-                if(apptypeid != null) {
+                if (apptypeid != null) {
                     requestHeaders.put("apptypeid", apptypeid);
                 }
                 // 发起请求
                 var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
-                
+
                 // 使用fastjson解析响应
                 JSONObject jsonResponse = JSON.parseObject(responseBody);
                 JSONObject result = jsonResponse.getJSONObject("result");
                 JSONArray shopList = result.getJSONArray("shopList");
-                
+
                 // 如果shopList为空，说明已经到最后一页
                 if (shopList == null || shopList.isEmpty()) {
                     break;
                 }
-                
+
                 // 遍历当前页的商铺列表
                 for (int i = 0; i < shopList.size(); i++) {
                     JSONObject shop = shopList.getJSONObject(i);
@@ -467,9 +474,9 @@ public class TestCaseHelpful {
                         return shop;
                     }
                 }
-                
+
                 pageNo++; // 继续查找下一页
-                
+
             } catch (Exception e) {
                 throw new RuntimeException("获取商铺列表失败: " + e.getMessage());
             }
@@ -478,18 +485,18 @@ public class TestCaseHelpful {
     }
 
     /**
-     * @param shopId 店铺Id
-     * @param mobilePhone 手机号
-     * @param password 密码
-     * @param testgroup 测试组别，可为空
-     * @param longitude 经度，可为空
-     * @param latitude 纬度，可为空
-     * @param apptypeid 站点，可为空
-     * @param language 语言，可为空
+     * @param shopId               店铺Id
+     * @param mobilePhone          手机号
+     * @param password             密码
+     * @param testgroup            测试组别，可为空
+     * @param longitude            经度，可为空
+     * @param latitude             纬度，可为空
+     * @param apptypeid            站点，可为空
+     * @param language             语言，可为空
      * @param isNeedMarketCategory 是否需要品类频道，可为空
-     * @param marketCategoryId 品类频道Id，可为空
-     * @param zipcode 邮编，可为空
-     * @return 店铺在首页店铺流的VO信息,当首页店铺流不存在店铺时返回null
+     * @param marketCategoryId     品类频道Id，可为空
+     * @param zipcode              邮编，可为空
+     * @return 店铺在首页店铺流的VO信息, 当首页店铺流不存在店铺时返回null
      */
     public static JSONObject categoryGetShopVOByShopId(String shopId, String mobilePhone, String password, String testgroup, String longitude, String latitude, String apptypeid, String language, Integer isNeedMarketCategory, Integer marketCategoryId, String zipcode) {
         String uri = TestcaseConfig.HOST_APP + "/api/app/user/category/channel";
@@ -511,31 +518,30 @@ public class TestCaseHelpful {
             try {
                 // 更新请求体中的页码
                 requestHeaders.put("pageno", String.valueOf(pageNo));
-                if(testgroup != null){
+                if (testgroup != null) {
                     requestHeaders.put("testgroup", testgroup);
                 }
-                if(longitude != null && latitude != null) {
+                if (longitude != null && latitude != null) {
                     requestHeaders.put("longitude", longitude);
                     requestHeaders.put("latitude", latitude);
                 }
-                if(apptypeid != null) {
+                if (apptypeid != null) {
                     requestHeaders.put("apptypeid", apptypeid);
                 }
-                if(language != null) {
+                if (language != null) {
                     requestHeaders.put("language", language);
                 }
-                if(isNeedMarketCategory != null) {
-                    requestHeaders.put("isneedmarketcategory", isNeedMarketCategory);
-                }
-                if(marketCategoryId != null) {
-                    requestHeaders.put("marketcategoryid", marketCategoryId);
-                }
-                if(marketCategoryId != null) {
+                if (zipcode != null) {
                     requestHeaders.put("zipcode", zipcode);
+                }
+                if (isNeedMarketCategory != null) {
+                    requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.isNeedMarketCategory", isNeedMarketCategory);
+                }
+                if (marketCategoryId != null) {
+                    requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.marketCategoryId", marketCategoryId);
                 }
                 // 发起请求
                 var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
-
                 // 使用fastjson解析响应
                 JSONObject jsonResponse = JSON.parseObject(responseBody);
                 JSONObject result = jsonResponse.getJSONObject("result");
@@ -551,6 +557,65 @@ public class TestCaseHelpful {
                     JSONObject shop = shopList.getJSONObject(i);
                     if (shopId.equals(shop.getString("shopId"))) {
                         return shop;
+                    }
+                }
+
+                pageNo++; // 继续查找下一页
+
+            } catch (Exception e) {
+                throw new RuntimeException("获取商铺列表失败: " + e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param shopId      店铺Id
+     * @param testgroup   测试组别，可为空
+     * @param longitude   经度，可为空
+     * @param latitude    纬度，可为空
+     * @param apptypeid   站点，可为空
+     * @return 店铺在首页店铺流的VO信息, 当首页店铺流不存在店铺时返回null
+     */
+    public static String searchGetShopVOByShopId(String shopId, String requestBody, Map<String, Object> headers, String testgroup, String longitude, String latitude, String apptypeid) {
+        String uri = TestcaseConfig.HOST_APP + "/api/user/v2/search";
+        String method = "POST";
+
+        int pageNo = 1;
+        int maxPage = 50; // 设置最大页数限制，避免无限循环
+
+        while (pageNo <= maxPage) {
+            try {
+                // 更新请求体中的页码
+                headers.put("pageno", String.valueOf(pageNo));
+                if (testgroup != null) {
+                    headers.put("testgroup", testgroup);
+                }
+                if (longitude != null && latitude != null) {
+                    headers.put("longitude", longitude);
+                    headers.put("latitude", latitude);
+                }
+                if (apptypeid != null) {
+                    headers.put("apptypeid", apptypeid);
+                }
+                // 发起请求
+                var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+                // 使用fastjson解析响应
+                JSONObject jsonResponse = JSON.parseObject(responseBody);
+                JSONObject result = jsonResponse.getJSONObject("result");
+                JSONArray shopList = result.getJSONArray("shopList");
+
+                // 如果shopList为空，说明已经到最后一页
+                if (shopList == null || shopList.isEmpty()) {
+                    break;
+                }
+
+                // 遍历当前页的商铺列表
+                for (int i = 0; i < shopList.size(); i++) {
+                    JSONObject shop = shopList.getJSONObject(i);
+                    if (shopId.equals(shop.getString("shopId"))) {
+                        return responseBody;
                     }
                 }
 

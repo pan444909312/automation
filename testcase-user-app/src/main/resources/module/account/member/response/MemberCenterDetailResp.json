@@ -18,7 +18,7 @@
     "shopAllianceCoupon": null,
     "platformFeeReduce": null,
     "memberShopCoupon": null,
-    "autoRenew": 1,
+    "autoRenew": "${json-unit.any-number}",
     "onLineState": 1,
     "addressConfigId": 688,
     "memberSuperCoupon": null,

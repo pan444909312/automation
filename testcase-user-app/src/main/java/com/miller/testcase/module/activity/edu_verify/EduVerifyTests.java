@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01JXM8AQWAD7ZNMTFYK1K91BJ3", // 自动生成，不要修改
-        scenarioName = "edu_verify",
+        scenarioName = "edu_verify:学生认证接口",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("edu_verify:学生认证接口")
@@ -41,10 +41,10 @@ public class EduVerifyTests {
     String assert1 = "module/activity/edu_verify/response/assert_full_field.json";
     @BeforeAll
     public static void beforeAll() {
-        // 获取验证码
+        // 删除学生认证信息
         new EduGetCaptchaTests().shouldSuccess();
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_edu_info where edu_email =\"1538680572@qq.com\"");
-
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_edu_info where user_id=\"1398717289\"");
     }
     @DisplayName("正向流程")
     @Test

@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Scenario(scenarioID = "01K2KJ6BH2QHC2Z5CRYQC1VY95",
         scenarioName = "获取红包商家分类列表-旧版",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 15, manualTestTime = 10)
 @DisplayName("/api/user/redPacket/shopList")
 public class UserRedPacketShopListSuccess {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/user/redPacket/shopList";
@@ -26,7 +26,11 @@ public class UserRedPacketShopListSuccess {
         String requestBody = TestCaseHelpful.getJsonRequestBody("module/account/redpacket/request/UserRedPacketShopListReq.json");
         String responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         String expectedStr = TestCaseHelpful.getFileContent("module/account/redpacket/response/UserRedPacketShopListResp.json");
+        String expectedStrPart = TestCaseHelpful.getFileContent("module/account/redpacket/response/UserRedPacketShopListPartResp.json");
+        Object result = TestCaseHelpful.extractValue(responseBody, "$.result.list[?(@.shopId==55995353)]");
 
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_ARRAY_ORDER,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThat(result.toString()).isNotEqualTo("[]");
+        TestCaseHelpful.assertThatJson(result.toString()).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStrPart);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
     }
 }

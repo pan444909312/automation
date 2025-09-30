@@ -13,6 +13,7 @@ import com.miller.userapp.module.shop.card.version3.pandaLeague.flow.ShopListFlo
 import com.miller.userapp.module.shop.card.version3.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -33,22 +34,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-熊猫联盟频道-商卡二期：月售 - 月售展示开关禁用")
 public class ShopShouldHasNoMonthlySalesScenarioTests {
     //    测试店铺
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
+    private final Long shopId = 969518737L;
 
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
-//        开启地址配置-城市功能管理-九江市-商卡月售开关
-        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
-        cityFunctionConfigMapper.update(null, new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,7).set(CityFunctionConfigEntity::getStatus,0)
-        );
+
 
     }
     @DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-熊猫联盟频道-商卡二期：月售 - 月售展示开关禁用")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){
+        //采用日照市进行测试
+        RequestUtils.getHeaders().put("latitude", "35.41646");
+        RequestUtils.getHeaders().put("longitude", "119.52719");
+
         ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
         ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();
         assertThat(shopIndexVO.getShopMonthlySales()).isNull();

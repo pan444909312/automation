@@ -93,9 +93,11 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             //更新 TestSuite 执行结果。suite会多次（子类多个），所以如果不是失败的需要再次更新（map已校验） && !autoExecutionRecordSuite.getExecutionStatus().equals(ExecutionStatusEnum.FAIL.getCode())
             if (Objects.nonNull(autoExecutionRecordSuite)) {
                 // 测试执行结果与数据库最新的一次执行记录不等才做更新操作，减少 update 操作
-                if (!autoExecutionRecordSuite.getExecutionStatus().equals(value.getCode())) {
-                    autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecordSuite, value);
-                }
+
+                // 0919 更新会有问题，会将最近的一条执行记录更新，影响统计数据，先注释了
+//                if (!autoExecutionRecordSuite.getExecutionStatus().equals(value.getCode())) {
+//                    autoExecutionRecordSql.updateAutoExecutionRecord(autoExecutionRecordSuite, value);
+//                }
             }
         });
 
@@ -311,6 +313,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         autoExecutionRecord.setExecutionUser(executor);
         autoExecutionRecord.setCreateTime(System.currentTimeMillis());
         autoExecutionRecord.setExecutionTime(System.currentTimeMillis());
+        // 默认先存-1，此时还获取不到执行状态
         autoExecutionRecord.setExecutionStatus(ExecutionStatusEnum.ERROR.getCode());
         autoExecutionRecord.setUpdateTime(System.currentTimeMillis());
         return autoExecutionRecord;

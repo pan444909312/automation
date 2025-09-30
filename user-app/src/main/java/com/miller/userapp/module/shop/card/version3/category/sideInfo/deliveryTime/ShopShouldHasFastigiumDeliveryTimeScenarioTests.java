@@ -24,8 +24,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/25 18:12
  */
-@Scenario(scenarioID = "01K0P0B4N79G5M7CKCBAZW80SV",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间",
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVG",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_配送时间_品类频道-商卡二期：配送时间 - 取高峰期出餐时间",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -49,13 +49,13 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
 
    @MethodSource("DataProvider")
    @ParameterizedTest
-   @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送时间_首页-商卡二期：配送时间 - 取高峰期出餐时间 ")
+   @DisplayName("普通店铺配送商卡-SKYX01_辅助信息_配送时间_品类频道-商卡二期：配送时间 - 取高峰期出餐时间 ")
    void shouldShowPandLeagueFullSubCouponLabel(ShopListRequestDTO shopListRequestDTO) {
       ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
 
       Integer predictDeliveryTime= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getPredictDeliveryTime();
-      Integer realDeliveryTime = 20+((20+40)/2);
+      Integer realDeliveryTime =27;
       assertThat(predictDeliveryTime).isEqualTo(realDeliveryTime);
 
 

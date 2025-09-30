@@ -64,7 +64,7 @@ public class ShopShouldHasCollectFeature {
         Map<String, Object> map = maps.get(0);
         long collectShopUserCntByShopId = (long) map.get("collect_shop_usercnt");
 
-        int cardCollectNum = Integer.parseInt(RedisUtils.getRedisInstance().get("CARD_COLLECT_NUM").toString());
+        int cardCollectNum = Integer.parseInt(RedisUtils.getSysAppConfigValue("CARD_COLLECT_NUM"));
 
         assertThat(collectShopUserCntByShopId > cardCollectNum).isTrue();
         assertThat(shopSearchMiddleEntity.getCollectNum()).isEqualTo(collectShopUserCntByShopId);

@@ -25,8 +25,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V4X9EKRFHG96SW5ESA5E2S",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据",
+@Scenario(scenarioID = "01K4W453WTJC1VMM0JXVZGHEA7",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_下次营业时间_品类频道页-商卡二期：下次营业时间-无数据",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -53,9 +53,9 @@ public class ShopStatusShouldNoOrderStopTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_下次营业时间_首页-商卡二期：下次营业时间-无数据")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_下次营业时间_品类频道页-商卡二期：下次营业时间-无数据")
     void OrderStop(ShopListRequestDTO shopListRequestDTO) {
-//        请求首页店铺数据
+//        请求品类频道页店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
@@ -70,6 +70,7 @@ public class ShopStatusShouldNoOrderStopTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

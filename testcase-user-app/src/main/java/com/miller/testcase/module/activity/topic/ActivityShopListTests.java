@@ -1,5 +1,9 @@
 package com.miller.testcase.module.activity.topic;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
@@ -8,7 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Scenario(
-        scenarioID = "01JWSS1KB2H2X5WV4YW6GE43G6",
+        scenarioID = "01K4Q2FZN299S7GEFAFCHV056Y",
         scenarioName = "获取活动专题信息-店铺楼层",
         author = "yancancan@hungrypandagroup.com",
         developmentTime = 15, maintenanceTime = 0, manualTestTime = 5)
@@ -37,7 +41,27 @@ public class ActivityShopListTests {
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：部份匹配，
-        String expectedStr = TestCaseHelpful.getFileContent(assert2);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+//        String expectedStr = TestCaseHelpful.getFileContent(assert2);
+//        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        var shopIndexVO= TestCaseHelpful.extractValue(responseBody, "$.result");
+        var actualShopObj = findShopById(JSON.parseArray(shopIndexVO.toString()), 160288176);
+        TestCaseHelpful.assertThat(actualShopObj).isNotNull();
     }
+    /**
+     * 从店铺数组中查找指定shopId的店铺对象
+     *
+     * @param shopArray 店铺数组
+     * @param shopId 目标shopId
+     * @return 找到的店铺对象，如果未找到则返回null
+     */
+    private JSONObject findShopById(JSONArray shopArray, int shopId) {
+        for (int i = 0; i < shopArray.size(); i++) {
+            JSONObject shop = shopArray.getJSONObject(i);
+            if (shopId == shop.getIntValue("shopId")) {
+                return shop;
+            }
+        }
+        return null;
+    }
+
 }

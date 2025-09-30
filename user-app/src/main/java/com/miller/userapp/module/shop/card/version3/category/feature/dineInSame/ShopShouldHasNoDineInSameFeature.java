@@ -27,8 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 17:05
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKBR",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_堂食同价_首页-商卡二期：堂食同价 - 不展示",
+@Scenario(scenarioID = "01K4WC56NVZ174ZQHE6KY5VHBR",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_堂食同价_品类频道页-商卡二期：堂食同价 - 不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -46,7 +46,7 @@ public class ShopShouldHasNoDineInSameFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_堂食同价_首页-商卡二期：堂食同价 - 不展示")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_堂食同价_品类频道页-商卡二期：堂食同价 - 不展示")
     void shouldNotExistDineInTimeFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -69,6 +69,7 @@ public class ShopShouldHasNoDineInSameFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

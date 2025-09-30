@@ -9,7 +9,7 @@
 			"completeTask": null,
 			"waitTask": null,
 			"processingTask": {
-				"title": "今天下3单，即可获得{0}",
+				"title": "4天内下3单，得{0}",
 				"remainingDaysStr": null,
 				"orderNum": 3,
 				"completeOrders": 0,

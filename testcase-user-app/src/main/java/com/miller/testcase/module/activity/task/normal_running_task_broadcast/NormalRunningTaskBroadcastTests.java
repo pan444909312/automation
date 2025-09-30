@@ -11,6 +11,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+
 /**
  * normal running task broadcast
  *
@@ -20,20 +24,33 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01K1WKCCKB7VQNKPW0FAGXCK59", // 自动生成，不要修改
-        scenarioName = "normal running task broadcast",
+        scenarioName = "进行中普通任务展示",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("normal running task broadcast：进行中普通任务展示")
+@DisplayName("进行中普通任务展示")
 public class NormalRunningTaskBroadcastTests {
 
     @BeforeAll
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
-        // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-        //清除用户任务数据
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_user where user_id=\"1398717289\"  order by create_time desc\n");
-        //重新领取普通任务
-        new TaskReceiveTests().shouldSuccess();
+//        // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
+//        //清除用户任务数据
+//        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_user where user_id=\"1398720181\"  order by create_time desc\n");
+//        //重新领取普通任务
+//        new TaskReceiveTests().shouldSuccess();
+        // 获取当前时间后3天的23:59:59
+        LocalDateTime threeDaysLater = LocalDateTime.now()
+                // 加3天
+                .plus(3, ChronoUnit.DAYS)
+                // 设置时间为23:59:59
+                .withHour(23)
+                .withMinute(59)
+                .withSecond(59)
+                .withNano(0); // 清除纳秒，确保精确到秒
+
+        // 转换为时间戳（毫秒级），使用系统默认时区
+        long timestamp = threeDaysLater.atZone(ZoneId.of("Asia/Shanghai")).toInstant().toEpochMilli();
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_task_center_user set end_time=" + timestamp + " where user_id=1398720181");
     }
     @AfterAll
     static void afterAll(){
@@ -59,7 +76,7 @@ public class NormalRunningTaskBroadcastTests {
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("authorization", TestCaseHelpful.login("17700000066","123456"));
+        requestHeaders.put("authorization", TestCaseHelpful.login("13990385424","12345678"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改

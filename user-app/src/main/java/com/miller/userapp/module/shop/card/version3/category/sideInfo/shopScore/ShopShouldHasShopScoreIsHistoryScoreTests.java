@@ -21,11 +21,11 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0P3M5STNATNPH60FSN4KKDH",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-历史评分",
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVR",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_品类频道-商卡二期：店铺评分-历史评分",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-历史评分")
+@DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_品类频道-商卡二期：店铺评分-历史评分")
 public class ShopShouldHasShopScoreIsHistoryScoreTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
 
@@ -45,7 +45,7 @@ public class ShopShouldHasShopScoreIsHistoryScoreTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_首页-商卡二期：店铺评分-历史评分")
+    @DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_品类频道-商卡二期：店铺评分-历史评分")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()

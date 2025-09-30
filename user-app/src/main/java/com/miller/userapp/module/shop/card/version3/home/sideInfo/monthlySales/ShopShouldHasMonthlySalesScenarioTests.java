@@ -37,11 +37,17 @@ public class ShopShouldHasMonthlySalesScenarioTests {
     @BeforeAll
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
-//        开启地址配置-城市功能管理-九江市-商卡月售开关
-        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
-        CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
-        cityFunctionConfigMapper.update(null, new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,7).set(CityFunctionConfigEntity::getStatus,1)
-        );
+////        开启地址配置-城市功能管理-九江市-商卡月售开关
+//        SqlSession sqlSession = DBUtils.getDBOfPandaTest();
+//        CityFunctionConfigMapper cityFunctionConfigMapper = sqlSession.getMapper(CityFunctionConfigMapper.class);
+//        cityFunctionConfigMapper.update(null, new LambdaUpdateWrapper<CityFunctionConfigEntity>().eq(CityFunctionConfigEntity::getCityId,508).eq(CityFunctionConfigEntity::getType,7).set(CityFunctionConfigEntity::getStatus,1)
+//        );
+//        try {
+//            Thread.sleep(30000);
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//            throw new RuntimeException("线程中断异常", e);
+//        }
 
     }
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-月售-首页-商卡二期：月售")

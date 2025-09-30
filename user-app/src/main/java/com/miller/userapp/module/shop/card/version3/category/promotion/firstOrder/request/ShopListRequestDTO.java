@@ -3,10 +3,10 @@ package com.miller.userapp.module.shop.card.version3.category.promotion.firstOrd
 import com.hungrypanda.app.server.api.req.shop.ShopListReq;
 
 /**
- * 请求首页店铺流入参对象
+ * 请求品类频道店铺流入参对象
  */
 public class ShopListRequestDTO extends ShopListReq {
     /*
-     * 首页店铺流入参对象
+     * 品类频道店铺流入参对象
      */
 }

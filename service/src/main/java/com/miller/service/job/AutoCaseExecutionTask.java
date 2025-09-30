@@ -38,6 +38,6 @@ public class AutoCaseExecutionTask {
 //        strings.add("com.miller.testcase.module.account.promote_confirm");
 //        strings.add("com.miller.testcase.module.account.redpacket");
 //        strings.add("com.miller.testcase.module.account.member");
-        testCaseService.runTestCase(strings);
+        testCaseService.runTestCase(strings,true);
     }
 }

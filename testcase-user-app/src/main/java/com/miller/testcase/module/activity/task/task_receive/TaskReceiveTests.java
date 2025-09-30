@@ -18,10 +18,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JXXVZPS3ZJH3QF3TJH4XD5ME", // 自动生成，不要修改
-        scenarioName = "task receive",
+        scenarioName = "领取普通任务成功",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("task receive:领取任务")
+@DisplayName("领取普通任务成功")
 public class TaskReceiveTests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HOST_APP + "/api/app/user/task/receive";
@@ -38,14 +38,14 @@ public class TaskReceiveTests {
     @BeforeAll()
     public static void beforeAll() {
         //清除用户任务领取记录
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from panda_test.hp_task_center_user where user_id=\"1398717289\" and task_id=\"2011\" order by create_time desc\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from panda_test.hp_task_center_user where user_id=\"1398720180\"order by create_time desc\n");
     }
     @DisplayName("正向流程:领取任务")
     @Test
     public void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("Authorization", TestCaseHelpful.login("17700000066","123456"));
+        requestHeaders.put("Authorization", TestCaseHelpful.login("19553887405","12345678"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改

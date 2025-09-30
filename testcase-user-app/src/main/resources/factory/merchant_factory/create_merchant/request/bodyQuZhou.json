@@ -1,0 +1,35 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国浙江省衢州市柯城区324000",
+      "city": "衢州",
+      "longitude": "118.8537322152",
+      "latitude": "28.9729615859",
+      "postCode": "324000"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 12414,
+        "type": 0
+      }
+    ],
+    "managerId": 4055,
+    "extraManagerId": 2308,
+    "merchantNotes": null,
+    "brandWordsCn": [],
+    "brandWordsEn": []
+  }
+}

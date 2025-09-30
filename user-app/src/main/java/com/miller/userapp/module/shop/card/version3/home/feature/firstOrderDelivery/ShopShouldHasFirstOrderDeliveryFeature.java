@@ -6,6 +6,7 @@ import com.hungrypanda.app.server.vo.index.ShopIndexVO;
 import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.cache.remote.redis.RedisService;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
@@ -13,6 +14,8 @@ import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.util.PandaTestDBHelpful;
+import com.miller.userapp.util.RedisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -30,13 +33,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKBW",
         scenarioName = "普通店铺配送商卡-SKYX01_营销标_首单优先送_首页-商卡二期：首单优先送",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFirstOrderDeliveryFeature {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
     private UserLoginRequestDTO userLoginRequestDTO ;
+
+    private RedisService redisInstance = RedisUtils.getRedisInstance();
 
 
     @BeforeAll
@@ -51,6 +56,9 @@ public class ShopShouldHasFirstOrderDeliveryFeature {
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_sys_app_config set config_value = 'all' where config_key='FIRST_ORDER_DELIVERY_CONFIG'");
+        redisInstance.set("FIRST_ORDER_DELIVERY_CONFIG","all");
+
     }
 
     @MethodSource("staticDataProvider")

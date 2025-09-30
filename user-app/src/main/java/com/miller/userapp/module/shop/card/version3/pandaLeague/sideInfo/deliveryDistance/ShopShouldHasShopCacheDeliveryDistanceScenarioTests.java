@@ -74,8 +74,14 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
               eq("start_tudustr", "115.984,29.669").
               eq("target_tudustr", "115.954,29.660"));
 
-          cacheDistance = (adsSearchDistanceMatrixEntity.getDistance().doubleValue())/1000;
-      assertThat(distance).isEqualTo(cacheDistance+"km");
+      cacheDistance = (adsSearchDistanceMatrixEntity.getDistance().doubleValue())/1000;
+      //这里可能是km或者mile
+      if (distance.contains("km")){
+         assertThat(distance).isEqualTo(cacheDistance+"km");
+      }
+      else{
+         assertThat(distance).isEqualTo(String.format("%.2f", cacheDistance*0.621)+"mile");
+      }
 
 
 

@@ -15,7 +15,7 @@ public class UserCollectListScenarioTests {
     @Test
     void shouldReturnSuccessfully() {
         var headers = TestCaseHelpful.getHeaders("module/headers.json");
-        headers.put("authorization",TestCaseHelpful.login("17700000077","123456"));
+        headers.put("authorization",TestCaseHelpful.login("17000000077","123456"));
         var responseBody = TestCaseHelpful.sendRequest("GET", uri, null, headers, null);
         assert TestCaseHelpful.extractValue(responseBody, "$.result").toString().contains("59750820");
 

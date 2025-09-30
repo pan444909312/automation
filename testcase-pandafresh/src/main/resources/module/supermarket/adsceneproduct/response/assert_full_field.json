@@ -1,0 +1,13 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"sceneId": 5,
+		"scenePrimaryImg": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1692071616695/1692071616695111f1872.jpg",
+		"sceneType": 1,
+		"totalPage": 1,
+		"productList":"${json-unit.ignore-element}" ,
+		"goodsSkuIdList": ["10", "75440", "75437", "75401", "898", "897", "6"]
+	}
+}

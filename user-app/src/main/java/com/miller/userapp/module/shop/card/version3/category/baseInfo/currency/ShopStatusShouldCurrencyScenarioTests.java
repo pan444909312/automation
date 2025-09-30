@@ -14,8 +14,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K0V4X9X204XR5AZZGWT7S15Z",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_首页-商卡二期：货币符号",
+@Scenario(scenarioID = "01K4W3SA1RN1TZ25HQY56TVHXH",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_品类频道页-商卡二期：货币符号",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -24,10 +24,10 @@ public class ShopStatusShouldCurrencyScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_首页-商卡二期：货币符号")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_品类频道页-商卡二期：货币符号")
     void ShowCurrency(ShopListRequestDTO shopListRequestDTO) {
         UserLoginFlow.loginByDefaultUser();
-//        请求首页店铺数据;
+//        请求品类频道页店铺数据;
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
 //        请求的国家=CN，因此断言currency=¥
         assert shopList.getCurrency().equals("¥");
@@ -41,6 +41,7 @@ public class ShopStatusShouldCurrencyScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

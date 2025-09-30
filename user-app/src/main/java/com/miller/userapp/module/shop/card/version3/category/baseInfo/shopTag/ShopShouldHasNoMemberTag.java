@@ -28,8 +28,8 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0V5E94ADBN3YE5226AMGTQ3",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店前标签：VIP标签_首页-商卡二期：VIP标签 - 不返回",
+@Scenario(scenarioID = "01K4WBVC42FE11FJN88FCVARM3",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店前标签：VIP标签_品类频道页-商卡二期：VIP标签 - 不返回",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 10)
 
 @EnvTag.Test
@@ -59,7 +59,7 @@ public class ShopShouldHasNoMemberTag {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店前标签：VIP标签_首页-商卡二期：VIP标签 - 不返回")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店前标签：VIP标签_品类频道页-商卡二期：VIP标签 - 不返回")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
         RequestUtils.getHeaders().put("latitude","41.80478");
@@ -87,6 +87,7 @@ public class ShopShouldHasNoMemberTag {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

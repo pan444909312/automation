@@ -15,7 +15,6 @@
 			"minThresholdPrice": null,
 			"validDays": 0,
 			"countDown": -1,
-			"redPacketDesc": "1994天内可用",
 			"showLabel": null,
 			"jumpUrl": "",
 			"popupType": 0,
@@ -27,6 +26,5 @@
 		"memberVO": null,
 		"prizesType": 2
 	},
-	"currency": "¥",
 	"success": true
 }

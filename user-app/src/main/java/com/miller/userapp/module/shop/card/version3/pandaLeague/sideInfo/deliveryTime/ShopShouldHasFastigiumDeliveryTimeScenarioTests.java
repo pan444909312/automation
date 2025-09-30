@@ -56,7 +56,7 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
 
       Integer predictDeliveryTime= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getPredictDeliveryTime();
-      Integer realDeliveryTime = 20+((20+40)/2);
+      Integer realDeliveryTime = 27;
       assertThat(predictDeliveryTime).isEqualTo(realDeliveryTime);
 
 

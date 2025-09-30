@@ -1,0 +1,35 @@
+{
+  "shopId": null,
+  "shopType": 0,
+  "baseInfo": {
+    "operationNameList": [
+      {
+        "lang": "CN",
+        "sortList": [
+          {
+            "operationName": "NAME",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "location": {
+      "address": "中华人民共和国辽宁省抚顺市新抚区113000",
+      "city": "抚顺市",
+      "longitude": "123.9240099930",
+      "latitude": "41.8689998498",
+      "postCode": "113000"
+    },
+    "businessCategoryList": [
+      {
+        "businessCategoryId": 12414,
+        "type": 0
+      }
+    ],
+    "managerId": 4055,
+    "extraManagerId": 2308,
+    "merchantNotes": null,
+    "brandWordsCn": [],
+    "brandWordsEn": []
+  }
+}

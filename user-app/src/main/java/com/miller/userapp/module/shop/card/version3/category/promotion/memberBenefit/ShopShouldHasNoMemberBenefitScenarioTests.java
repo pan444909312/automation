@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01K0V43220FZVP76VBFW5HNCF9",
-        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_首页-商卡二期：会员权益32-不展示",
+        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_品类频道-商卡二期：会员权益32-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 30, manualTestTime = 10)
 
 @EnvTag.Test
@@ -73,13 +73,13 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_首页-商卡二期：会员权益32-不展示")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_品类频道-商卡二期：会员权益32-不展示")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
         // 使用城市 烟台
         RequestUtils.getHeaders().put("latitude", "37.46353");
         RequestUtils.getHeaders().put("longitude", "121.44801");
-//        获取首页店铺列表数据
+//        获取品类频道店铺列表数据
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().get(0);
 

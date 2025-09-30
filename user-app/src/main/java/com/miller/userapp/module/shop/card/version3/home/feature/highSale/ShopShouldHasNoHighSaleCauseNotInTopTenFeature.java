@@ -62,7 +62,7 @@ public class ShopShouldHasNoHighSaleCauseNotInTopTenFeature {
 
         List<Map<String, Object>> maps = PandaTestDBHelpful.executeSelectListSql("SELECT monthly_sales FROM hp_data_shop_home_recommend_label where shop_id = " + shopId);
         Map<String, Object> map = maps.get(0);
-        int cardMonthSaleNum = Integer.parseInt(RedisUtils.getRedisInstance().get("CARD_MONTH_SALE_NUM").toString());
+        int cardMonthSaleNum = Integer.parseInt(RedisUtils.getSysAppConfigValue("CARD_MONTH_SALE_NUM"));
 
         // 月售是满足的
         assertThat((int) map.get("monthly_sales") > cardMonthSaleNum).isEqualTo(true);

@@ -33,8 +33,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/19 21:10
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCC",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客",
+@Scenario(scenarioID = "01K4WC8QK2NBM49N4DTA31T0PM",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime =45, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -55,7 +55,7 @@ public class ShopShouldHasReturnedVisitorFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客")
     void shouldExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
@@ -80,6 +80,7 @@ public class ShopShouldHasReturnedVisitorFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1);
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

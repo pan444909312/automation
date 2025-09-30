@@ -64,7 +64,7 @@ public class ShopShouldHasHighEvaluateFeature {
         Map<String, Object> map = maps.get(0);
         long evaluationOver4UserCnt180dByShopId = (long) map.get("evaluation_over_4_usercnt_180d");
 
-        int cardEvaluateNum = Integer.parseInt(RedisUtils.getRedisInstance().get("CARD_EVALUATE_NUM").toString());
+        long cardEvaluateNum = Long.parseLong(RedisUtils.getSysAppConfigValue("CARD_EVALUATE_NUM"));
 
         assertThat(evaluationOver4UserCnt180dByShopId > cardEvaluateNum).isTrue();
         assertThat(shopSearchMiddleEntity.getEvaluateNum()).isEqualTo(evaluationOver4UserCnt180dByShopId);

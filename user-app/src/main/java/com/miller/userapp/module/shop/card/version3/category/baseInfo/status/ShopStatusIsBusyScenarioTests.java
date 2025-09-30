@@ -26,8 +26,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K0V5E94ADBN3YE5226AMGTQ6",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-忙碌",
+@Scenario(scenarioID = "01K4WBW15814J5Q7G5EA7J6QD4",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺营业状态_品类频道页-商卡二期:店铺营业状态-忙碌",
         author = "panjuxiang@hungrypandagroup.com",
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
@@ -55,7 +55,7 @@ public class ShopStatusIsBusyScenarioTests {
 
     @MethodSource("shopStatusDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-忙碌")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺营业状态_品类频道页-商卡二期:店铺营业状态-忙碌")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
 
         UpdateWrapper<ShopSearchMiddleEntity> updateWrapper = new UpdateWrapper<>();
@@ -88,7 +88,8 @@ public class ShopStatusIsBusyScenarioTests {
     static Stream<Arguments> shopStatusDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setMarketCategoryId(1); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

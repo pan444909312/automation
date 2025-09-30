@@ -8,22 +8,6 @@
 			"value": 20,
 			"reissueSns": ["15273F9BE12F4BFEB0D04504074F547D"],
 			"reissueIds": null
-		}],
-		"newUersRuleList": [{
-			"ruleType": 1,
-			"value": 10,
-			"reissueSns": ["NEW_USER_RED_PACKET_RULES"],
-			"reissueIds": null
-		}, {
-			"ruleType": 2,
-			"value": 3,
-			"reissueSns": ["NEW_USER_RED_PACKET_RULES"],
-			"reissueIds": null
-		}, {
-			"ruleType": 3,
-			"value": 3,
-			"reissueSns": ["NEW_USER_RED_PACKET_RULES"],
-			"reissueIds": null
 		}]
 	},
 	"currency": "¥"

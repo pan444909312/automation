@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01K1WJRMFYQ48PGXHM6F4MP1AN", // 自动生成，不要修改
-        scenarioName = "normal task broadcast",
+        scenarioName = "normal task broadcast:普通任务曝光",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("normal task broadcast:普通任务曝光")
@@ -30,7 +30,7 @@ public class NormalTaskBroadcastTests {
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
         //清除用户任务数据
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_user where user_id=\"1398717289\" order by create_time desc\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_user where user_id=\"1398720175\" order by create_time desc\n");
     }
     @AfterAll
     static void afterAll(){
@@ -56,7 +56,7 @@ public class NormalTaskBroadcastTests {
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("authorization", TestCaseHelpful.login("17700000066","123456"));
+        requestHeaders.put("authorization", TestCaseHelpful.login("15956370798","12345678"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
@@ -68,7 +68,11 @@ public class NormalTaskBroadcastTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.title").isEqualTo("\"今天下3单，得{0}\"");
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.orderNum").isEqualTo("3");
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.taskSn").isEqualTo("611QZQFOM8");
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.taskType").isEqualTo("1");
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.param").isEqualTo("{\"{0}\":\"¥8红包\"}");
 
     }
 } 

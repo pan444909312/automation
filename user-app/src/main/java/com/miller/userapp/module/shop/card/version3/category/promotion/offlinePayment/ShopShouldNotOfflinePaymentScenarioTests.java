@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author huyang
  * @since 2024/8/16 17:47
  */
-@Scenario(scenarioID = "01K0RA7NME8DZ9WTHV6JG4B8Y3", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_货到付款_首页-商卡二期：货到付款34-不展示",
+@Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWX6", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_货到付款_品类频道-商卡二期：货到付款34-不展示",
         author = "huyang@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -38,7 +38,7 @@ public class ShopShouldNotOfflinePaymentScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_货到付款_首页-商卡二期：货到付款34-不展示")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_货到付款_品类频道-商卡二期：货到付款34-不展示")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto) {

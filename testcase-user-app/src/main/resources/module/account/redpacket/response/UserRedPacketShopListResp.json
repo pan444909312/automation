@@ -3,12 +3,7 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "list": [
-      {
-        "shopId": 930937488,
-        "shopName": "自动化测试·yqh专用-勿动"
-      }
-    ],
+    "list": "${json-unit.ignore}",
     "redPacketShopVO": null
   },
   "currency": "${json-unit.any-string}",

@@ -1,4 +1,4 @@
 {
-	"autoDeductRedPacket":1,
+	"autoDeductRedPacket":0,
 	"deliveryMethod":1
 }
