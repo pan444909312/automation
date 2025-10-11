@@ -5,9 +5,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
+import com.miller.common.util.ULIDUtils;
+import com.miller.entity.apifox.ApiFoxRunErrorSceneEntity;
+import com.miller.entity.apifox.ApiFoxRunReportEntity;
 import com.miller.entity.platform.User;
 import com.miller.entity.report.req.ApifoxReportItemDTO;
 import com.miller.entity.report.req.ApifoxRunResultDTO;
+import com.miller.mapper.apifox.ApiFoxRunReportMapper;
+import com.miller.service.apifox.ApiFoxRunErrorSceneService;
+import com.miller.service.apifox.ApiFoxRunReportService;
 import com.miller.service.apifox.ApifoxToolsService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 import com.miller.service.framework.db.DBUtils;
@@ -38,6 +44,12 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ApiFoxRunReportService apiFoxRunReportService;
+
+    @Autowired
+    private ApiFoxRunErrorSceneService apiFoxRunErrorSceneService;
 
     /**
      * 一次性代码，apifox 钉钉通知二次包装，实现 @ 指定人
@@ -171,7 +183,7 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 final String scenarioName = PatternUtils.matcher(body, "\"scenarioName\": \"(.*?)\"|\"scenarioName\": \"(.*?)\"");
                 reportItem.setScenarioName(scenarioName);
 
-                 String executionUser = PatternUtils.matcher(body, "\"executionUser\": \"(.*?)\"|\"executionUser\": \"(.*?)\"");
+                String executionUser = PatternUtils.matcher(body, "\"executionUser\": \"(.*?)\"|\"executionUser\": \"(.*?)\"");
                 final String author = PatternUtils.matcher(body, "\"author\": \"(.*?)\"|\"author\": \"(.*?)\"");
                 executionUser = (executionUser.isEmpty() || "".equals(executionUser)) ? author : executionUser;
                 reportItem.setPersonInCharge(executionUser);
@@ -219,6 +231,30 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
             personCaseDataMap.put(personInCharge, runResultObj);
         });
 
+        // 运行报告落库
+        final String runId = ULIDUtils.generateULID();
+        personCaseDataMap.forEach((name, runResultObj) -> {
+
+            ApiFoxRunReportEntity apiFoxRunReportEntity = apiFoxRunReportService.converToEntity(runId, name, attributionGroup, runResultObj);
+            final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
+
+            if (!runResultObj.getScenarioNameList().isEmpty()) {
+
+                runResultObj.getScenarioNameList().forEach((scenarioName) -> {
+                    if (ObjectUtils.isNotEmpty(scenarioName)) {
+                        ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
+                        apiFoxRunErrorSceneEntity.setReportId(id)
+                                .setScenarioName(scenarioName)
+                                .setResponsiblePerson(name)
+                                .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR);
+                        apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
+                    }
+
+                });
+            }
+
+        });
+
         // 结果数据，发送钉钉消息
         StringBuffer msg = new StringBuffer();
         msg.append("## ").append(attributionGroup).append("组-各成员自动化执行结果通知：\n");
@@ -232,8 +268,8 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
             Integer failCount = runResultDTO.getFailCount();
             Integer totalCount = successCount + failCount;
             DecimalFormat df = new DecimalFormat("#.00");
-            String successRate =df.format( (double) successCount / totalCount * 100);
-            String failRate =df.format(  (double) failCount / totalCount * 100);
+            String successRate = df.format((double) successCount / totalCount * 100);
+            String failRate = df.format((double) failCount / totalCount * 100);
 
 
             msg.append("<p><b>- ").append(name)
@@ -252,18 +288,18 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 msg.toString(),
                 "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
                 "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
+        log.info("Apifox每日运行报告推送钉钉: 成功");
+
 
     }
 
-    /**
-     * 查询用例名称
-     */
-    public String queryCaseName(String caseId) {
-        DBUtils dbUtils = new DBUtils().initApifoxDB();
-        return dbUtils.queryOneObjectReturnObject("select name from api_test_cases  where id= ? ", String.class, caseId);
-    }
-
-    ;
+//    /**
+//     * 查询用例名称
+//     */
+//    public String queryCaseName(String caseId) {
+//        DBUtils dbUtils = new DBUtils().initApifoxDB();
+//        return dbUtils.queryOneObjectReturnObject("select name from api_test_cases  where id= ? ", String.class, caseId);
+//    };
 
 
     public static JSONObject readApifoxReport(String containsStr) {
