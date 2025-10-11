@@ -391,9 +391,10 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         ExecutionStatusEnum value = scenarioResultMap.get(scenarioId);
         switch (result) {
             case SUCCESSFUL:
-                if (ExecutionStatusEnum.FAIL.equals(value)) {
-                    return;
-                }
+                //
+//                if (ExecutionStatusEnum.FAIL.equals(value)) {
+//                    return;
+//                }
                 value = ExecutionStatusEnum.SUCCESS;
                 break;
             case FAILED:
