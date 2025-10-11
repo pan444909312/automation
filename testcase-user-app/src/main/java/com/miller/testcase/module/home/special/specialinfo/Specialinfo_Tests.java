@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01K6CM62H6T7Q7CG1BYJZYCY9E", // 自动生成，不要修改
-        scenarioName = "菜品专区信息",
+        scenarioName = "天天特价：菜品专区信息",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 25, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("菜品专区信息")
+@DisplayName("天天特价：菜品专区信息")
 public class Specialinfo_Tests {
 
     @BeforeAll

@@ -1,4 +1,4 @@
-package com.miller.testcase.module.home.special.themeproductlist;
+package com.miller.testcase.module.home.module.broadcast.broadcast_special;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -11,19 +11,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * themeproductlist
+ * broadcast_special
  *
  * @author yaoqianhu
  * @version 2.0
- * @since 2025/09/30 14:34:40
+ * @since 2025/10/11 10:51:23
  */
 @Scenario(
-        scenarioID = "01K6CN93ZWMTWJV4VK8BX2MDF7", // 自动生成，不要修改
-        scenarioName = "天天特价：主题下的商品列表",
+        scenarioID = "01K78JW5DKCXD1BZNV8TPE6QE8", // 自动生成，不要修改
+        scenarioName = "天天特价：天天特价正常展示",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("天天特价：主题下的商品列表")
-public class Themeproductlist_Tests {
+@DisplayName("天天特价：天天特价正常展示")
+public class Broadcast_Special_Tests {
 
     @BeforeAll
     static void beforeAll(){
@@ -40,20 +40,21 @@ public class Themeproductlist_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HOST_APP + "/api/app/user/shop/special/theme/productList";
+        String uri = TestcaseConfig.HOST_APP + "/api/app/user/index/broadcast";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/home/special/themeproductlist/request/headers.json";
+        String headers = "module/home/module/broadcast_special/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/home/special/themeproductlist/request/body.json";
+        String body = "module/home/module/broadcast_special/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/home/special/themeproductlist/response/assert_full_field.json";
+        String assertFullField = "module/home/module/broadcast_special/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("Authorization", TestCaseHelpful.login("13711111111", "111111"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
@@ -66,7 +67,7 @@ public class Themeproductlist_Tests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS,Option.IGNORING_ARRAY_ORDER).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_ARRAY_ORDER,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
 
     }
 } 

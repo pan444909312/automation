@@ -1,0 +1,23 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "productDetail": {
+      "productId": 82591669,
+      "productName": "商详推荐"
+
+    },
+    "recommendProductList": [{
+      "productId": 82537906,
+      "productName": "普通商品",
+      "pickUpType": 0
+
+    }]
+  },
+  "currency":"${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+
+}

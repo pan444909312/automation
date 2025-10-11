@@ -1,0 +1,23 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "productDetail": {
+      "productId": 82591674,
+      "productName": "商详推荐2"
+
+    },
+    "recommendProductList": [{
+      "productId": 82538086,
+      "productName": "烟类商品",
+      "productSaleType": 3
+
+    }]
+  },
+  "currency":"${json-unit.any-string}",
+  "success": true,
+  "nowTime": "${json-unit.any-number}",
+  "queryList": "${json-unit.ignore-element}"
+
+}
