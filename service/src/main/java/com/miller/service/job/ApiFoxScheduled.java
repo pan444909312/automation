@@ -21,7 +21,7 @@ import java.util.Date;
  */
 @Component
 public class ApiFoxScheduled {
-    public static final String runApiFoxCommand = "apifox run https://apifox.hungrypanda.it/api/v1/projects/345145/api-test/ci-config/345113/detail?token=x6O0_WS0DlzSRJNhr5Lh63 -r html,cli,json --out-dir ./apifox-reports --database-connection ./database-connections.json --global-var auto_execution_record=1 --upload-report";
+//    public static final String runApiFoxCommand = "apifox run https://apifox.hungrypanda.it/api/v1/projects/345145/api-test/ci-config/345113/detail?token=x6O0_WS0DlzSRJNhr5Lh63 -r html,cli,json --out-dir ./apifox-reports --database-connection ./database-connections.json --global-var auto_execution_record=1 --upload-report";
 
     @Autowired
     private ApifoxToolsService apifoxToolsService;
@@ -144,7 +144,6 @@ public class ApiFoxScheduled {
                 while (stdError != null && (line1 = stdError.readLine()) != null) {
                     stringBuffer.append(line1).append("\r\n");
                 }
-                System.out.println("stringBuffer:" + stringBuffer);
             } catch (Exception ioe) {
                 stringBuffer.append("执行Shell命令时发生异常：\r\n").append(ioe.getMessage()).append("\r\n");
             } finally {
@@ -157,7 +156,6 @@ public class ApiFoxScheduled {
                         OutputStream outputStream = new FileOutputStream(executeShellLogFile);
                         outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
                         outputStreamWriter.write(stringBuffer.toString());
-                        System.out.println("stringBuffer.toString():" + stringBuffer.toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
