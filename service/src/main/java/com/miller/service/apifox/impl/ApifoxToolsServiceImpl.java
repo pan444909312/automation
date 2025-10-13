@@ -217,42 +217,45 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                     personCaseDataMap.get(personInCharge) : new ApifoxRunResultDTO();
             Integer failCount = runResultObj.getFailCount();
             Integer successCount = runResultObj.getSuccessCount();
+            final String scenarioName = value.getScenarioName();
+            runResultObj.setScenarioNameList(scenarioName);
 
             if (runStatus) {
                 successCount = successCount + 1;
                 runResultObj.setSuccessCount(successCount);
+                runResultObj.setSuccessList(scenarioName);
             } else {
                 failCount = failCount + 1;
                 runResultObj.setFailCount(failCount);
+                runResultObj.setFailList(scenarioName);
             }
 
-            final String scenarioName = value.getScenarioName();
-            runResultObj.setScenarioNameList(scenarioName);
             personCaseDataMap.put(personInCharge, runResultObj);
         });
+
 
         // 运行报告落库
         final String runId = ULIDUtils.generateULID();
         personCaseDataMap.forEach((name, runResultObj) -> {
 
             ApiFoxRunReportEntity apiFoxRunReportEntity = apiFoxRunReportService.converToEntity(runId, name, attributionGroup, runResultObj);
-            final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
+            if (ObjectUtils.isNotEmpty(name) && name.length() > 0) {
+                final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
 
-            if (!runResultObj.getScenarioNameList().isEmpty()) {
+                if (ObjectUtils.isNotEmpty(runResultObj.getFailList())) {
+                    runResultObj.getFailList().forEach((scenarioName) -> {
+                        if (ObjectUtils.isNotEmpty(scenarioName)) {
+                            ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
+                            apiFoxRunErrorSceneEntity.setReportId(id)
+                                    .setScenarioName(scenarioName)
+                                    .setResponsiblePerson(name)
+                                    .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR);
+                            apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
+                        }
 
-                runResultObj.getScenarioNameList().forEach((scenarioName) -> {
-                    if (ObjectUtils.isNotEmpty(scenarioName)) {
-                        ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
-                        apiFoxRunErrorSceneEntity.setReportId(id)
-                                .setScenarioName(scenarioName)
-                                .setResponsiblePerson(name)
-                                .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR);
-                        apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
-                    }
-
-                });
+                    });
+                }
             }
-
         });
 
         // 结果数据，发送钉钉消息
@@ -283,12 +286,12 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
             ;
         });
         // 推送钉钉群消息
-        DingTalkUtils.sendMarkdownMessage(
-                "各成员自动化执行结果通知:",
-                msg.toString(),
-                "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
-                "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
-        log.info("Apifox每日运行报告推送钉钉: 成功");
+//        DingTalkUtils.sendMarkdownMessage(
+//                "各成员自动化执行结果通知:",
+//                msg.toString(),
+//                "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
+//                "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
+//        log.info("Apifox每日运行报告推送钉钉: 成功");
 
 
     }

@@ -48,8 +48,8 @@ public class ApifoxToolsController {
      * @return
      */
     @GetMapping("/parsingReport")
-    public boolean parsingReport(){
-        apifoxToolsService.parsingReport(AttributionGroupEnum.B);
+    public boolean parsingReport(@RequestParam AttributionGroupEnum groupEnum){
+        apifoxToolsService.parsingReport(groupEnum);
         return true;
     }
 
