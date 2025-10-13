@@ -1,4 +1,4 @@
-package com.miller.userapp.module.shop.card.version3.home.promotion.discount;
+package com.miller.userapp.module.shop.card.version3.userPack.promotion.discount;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hungrypanda.app.server.common.enums.ShopPromoteEnum;
@@ -11,10 +11,11 @@ import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.util.PropertiesUtils;
 import com.miller.userapp.mapper.search.ShopSearchMiddleMapper;
+import com.miller.userapp.mapper.shop.ProductDiscountMapper;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
-import com.miller.userapp.module.shop.card.version3.home.flow.ShopListFlow;
-import com.miller.userapp.module.shop.card.version3.home.request.ShopListRequestDTO;
-import com.miller.userapp.module.shop.card.version3.home.response.ShopListResponseDTO;
+import com.miller.userapp.module.shop.card.version3.userPack.flow.ShopListFlow;
+import com.miller.userapp.module.shop.card.version3.userPack.request.ShopListRequestDTO;
+import com.miller.userapp.module.shop.card.version3.userPack.response.ShopListResponseDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -27,21 +28,22 @@ import java.util.stream.Stream;
 
 /**
  * @author panjuxiang
- * @since 2024/7/25 15:02
+ * @since 2024/7/25 15:03
  */
-@Scenario(scenarioID = "01K0R1KJXK5KW52C8J5JGC1E42",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-外卖可用",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 5, manualTestTime = 15)
+@Scenario(scenarioID = "01K3N5N091WRQB3K1BZRDE1VTR",
+        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_商品折扣_自取频道-商卡二期:商品折扣28-自取可用",
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
-public class ShopShouldHasTakeoutDiscountScenarioTests {
-
+public class ShopShouldHasPickupDiscountScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.shopId"));
     private ShopSearchMiddleMapper shopSearchMiddleMapper;
+    private ProductDiscountMapper productDiscountMapper;
     private DBUtils dbUtils;
-    //单品折扣使用渠道为外卖的活动sn
-    private String discountSn = new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.takeout.discountSn");
+    //单品折扣使用渠道为自取的活动sn
+    private String discountSn = new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.pickup.discountSn");
+
 
     @BeforeAll
     void beforeAll() {
@@ -51,31 +53,38 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
         UserLoginFlow.loginByDefaultUser();
         SqlSession sqlSession = com.miller.userapp.util.DBUtils.getDBOfPandaTest();
         shopSearchMiddleMapper = sqlSession.getMapper(ShopSearchMiddleMapper.class);
+        productDiscountMapper = sqlSession.getMapper(ProductDiscountMapper.class);
     }
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_首页-商卡二期:商品折扣28-外卖可用")
-    void shouldExistTakeoutDiscount(ShopListRequestDTO shopListRequestDTO) {
+    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_自取频道-商卡二期:商品折扣28-自取可用")
+    void shouldExistPickupDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
 
         ShopPromoteVO pickup = shopIndexVO.getShopPromoteList().stream().
-                filter(item -> item.getShowContent().contains("外卖")).findFirst().get();
+                filter(item -> item.getShowContent().contains("自取")).findFirst().get();
+//        目前ProductDiscountEntity类的字段和数据库对不上，调用Mapper的方法会报错，改使用jdbcTemplate
+//        ProductDiscountEntity productDiscountEntity = productDiscountMapper.selectOne(new QueryWrapper<ProductDiscountEntity>().eq("shop_id", shopId).eq("discount_sn",discountSn));
         ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
+
+//        List<ProductDiscountEntity> prouctDiscountDiscountValue = productDiscountMapper.getProductDiscountDiscountValue(shopId.toString());
 
 
         String sql = "SELECT * FROM hp_product_discount where shop_id = ? and discount_sn = ?";
-        Map<String, Object> stringObjectMap = dbUtils.queryOneObjectReturnMap(sql, shopId, discountSn);
+        Map<String, Object> stringObjectMap = dbUtils.queryOneObjectReturnMap(sql,shopId,discountSn);
 
-        Integer discountValueInteger = (Integer) stringObjectMap.get("discount_value");
-        double discountValue = discountValueInteger.doubleValue();
+//        double discountValue = (double)productDiscountEntity.getDiscountValue();
+        Integer discountValueInteger = (Integer)stringObjectMap.get("discount_value");
+        Double discountValue = discountValueInteger.doubleValue();
 
-        assert shopSearchMiddleEntity.getDiscountExc() == discountValue / 10;
+
+        assert shopSearchMiddleEntity.getTakeSelfDiscountExc() == discountValue/10;
         assert pickup.getType() == ShopPromoteEnum.INDEX_PRODUCT_DISCOUNT.getType();
-        assert pickup.getShowContent().equals(shopSearchMiddleEntity.getDiscountTagExc());
+        assert pickup.getShowContent().equals(shopSearchMiddleEntity.getTakeSelfDiscountTagExc());
 
     }
 
@@ -89,5 +98,6 @@ public class ShopShouldHasTakeoutDiscountScenarioTests {
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
+
 
 }
