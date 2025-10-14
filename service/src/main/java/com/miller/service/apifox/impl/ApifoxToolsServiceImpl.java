@@ -286,12 +286,12 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
             ;
         });
         // 推送钉钉群消息
-//        DingTalkUtils.sendMarkdownMessage(
-//                "各成员自动化执行结果通知:",
-//                msg.toString(),
-//                "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
-//                "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
-//        log.info("Apifox每日运行报告推送钉钉: 成功");
+        DingTalkUtils.sendMarkdownMessage(
+                "各成员自动化执行结果通知:",
+                msg.toString(),
+                "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
+                "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
+        log.info("Apifox每日运行报告推送钉钉: 成功");
 
 
     }
