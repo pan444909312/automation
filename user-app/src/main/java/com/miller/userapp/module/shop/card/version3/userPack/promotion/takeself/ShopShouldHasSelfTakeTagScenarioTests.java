@@ -22,9 +22,9 @@ import java.util.stream.Stream;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0RBDM3GGCAS227BPG05KHGX", scenarioName = "用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-自取频道-商卡二期：可自取33（已删除）"
+@Scenario(scenarioID = "01K7EE2BWZ396C9P37PZ1TVP4R", scenarioName = "用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-可自取-自取频道-商卡二期：可自取33（已删除）"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-自取频道-商卡二期：可自取33（已删除）")
+@DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-可自取-自取频道-商卡二期：可自取33（已删除）")
 public class ShopShouldHasSelfTakeTagScenarioTests {
 //    测试店铺：店铺1,测试标签类型：33，content：可自取
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -33,8 +33,8 @@ public class ShopShouldHasSelfTakeTagScenarioTests {
     void beforeAll() {
         UserLoginFlow.loginByDefaultUser();
     }
-    @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-可自取-不展示自取标签（已删除）")
-    @MethodSource("showLabelDataProvider")
+    @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-可自取-不展示自取标签（已删除）")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);

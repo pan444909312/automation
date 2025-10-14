@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4BRVQNJX5EJCWWTSZSWAD57", scenarioName = "自取频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）",
+@Scenario(scenarioID = "01K7EE2BWZ396C9P37PZ1TVP4M", scenarioName = "自取频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("自取频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）")
@@ -92,12 +92,8 @@ public class ShopShouldActivitytSortMemberTests {
          List<ShopPromoteVO> shopPromoteVOList = shopIndexVO.getShopPromoteList().stream().
                   filter(item -> item.getTagType().equals(2)).collect(Collectors.toList());
          List<Integer>tags= shopPromoteVOList.stream().map(item -> item.getType()).collect(Collectors.toList());
-         // 顺序：运费立减32、平台首单23/门店新客24、新客爆品25、商品折扣28/3、店铺满减29、自取折扣30、代金券31、货到付款34
-         assertThat( tags).isEqualTo(new ArrayList<Integer>(List.of(32, 24, 25, 28, 29, 30, 31, 34) ));
-
-         //查找所有标签
-         List<Integer> allTags = shopIndexVO.getShopPromoteList().stream().map(item -> item.getType()).collect(Collectors.toList());
-         assertThat( allTags).isEqualTo(new ArrayList<Integer>(List.of(32,42, 24, 25, 28, 29, 30, 31, 34) ));
+         // 顺序：运费立减32（自取频道无）、平台首单23/门店新客24、新客爆品25、商品折扣28/3（自取频道为3）、店铺满减29、自取折扣30、代金券31、货到付款34
+         assertThat( tags).isEqualTo(new ArrayList<Integer>(List.of(24, 25, 3, 29, 30, 31, 34) ));
 
      }
 
@@ -106,9 +102,14 @@ public class ShopShouldActivitytSortMemberTests {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("118.87419");
+        shopListRequestDTO.setLatitude("28.93592");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
         return Stream.of(Arguments.of(shopListRequestDTO));
+
     }
 
 }

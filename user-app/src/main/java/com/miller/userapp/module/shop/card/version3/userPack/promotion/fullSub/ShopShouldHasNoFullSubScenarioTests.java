@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/30 17:39
  */
-@Scenario(scenarioID = "01K0R42BZH64KBQ4MD8VX57AD7", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_满减_自取频道-商卡二期：满减29-不展示",
+@Scenario(scenarioID = "01K7EE2BWXF6RC5CE3HNXK95PR", scenarioName = "商卡(中文)_普通店铺自取商卡-SKYX01_优惠标签_满减_自取频道-商卡二期：满减29-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -35,9 +35,9 @@ public class ShopShouldHasNoFullSubScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_满减_自取频道-商卡二期：满减29-不展示")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_满减_自取频道-商卡二期：满减29-不展示")
     void shouldNotExistFullSub(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

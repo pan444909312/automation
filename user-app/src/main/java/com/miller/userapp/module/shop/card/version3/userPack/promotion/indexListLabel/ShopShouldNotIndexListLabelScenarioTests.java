@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author huyang
  * @since 2024/8/16 17:47
  */
-@Scenario(scenarioID = "01K0R4609CC184YWTGA1EV1C6G", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_营销标签_自取频道-商卡二期：营销标签tpye=22-不展示",
+@Scenario(scenarioID = "01K7EE2BWY5839G3R05DV7HRXH", scenarioName = "商卡(中文)_普通店铺自取商卡-SKYX01_优惠标签_营销标签_自取频道-商卡二期：营销标签tpye=22-不展示",
         author = "huyang@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -37,8 +37,8 @@ public class ShopShouldNotIndexListLabelScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_营销标签_自取频道-商卡二期：营销标签tpye=22-不展示")
-    @MethodSource("showLabelDataProvider")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_营销标签_自取频道-商卡二期：营销标签tpye=22-不展示")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);

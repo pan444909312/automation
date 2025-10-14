@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4A1JR1R2CCWGVRDV3TXVK7N", scenarioName = "自取频道-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）",
+@Scenario(scenarioID = "01K7EE2BWZ396C9P37PZ1TVP4K", scenarioName = "自取频道-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("自取频道-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）")
@@ -75,7 +75,7 @@ public class ShopShouldActivitySortNotMemberTests {
          userCdkeyInfoSql.updateRedPacketScopeTypeAndPrice(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId")),1,400);
 
      }
-     @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
     @DisplayName("自取频道-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
@@ -89,7 +89,7 @@ public class ShopShouldActivitySortNotMemberTests {
                   filter(item -> item.getTagType().equals(2)).collect(Collectors.toList());
          List<Integer>tags= shopPromoteVOList.stream().map(item -> item.getType()).collect(Collectors.toList());
          // 平台首单23/门店新客24、新客爆品25、商品折扣28、店铺满减29、运费立减32(仅活动)、自取折扣30、代金券31、货到付款34
-         assertThat( tags).isEqualTo(new ArrayList<Integer>(List.of(24, 25, 28, 28, 29, 29, 32, 30, 31, 34) ));
+         assertThat( tags).isEqualTo(new ArrayList<Integer>(List.of(24, 25, 3,3, 29, 29, 30, 31, 34) ));
 
      }
 

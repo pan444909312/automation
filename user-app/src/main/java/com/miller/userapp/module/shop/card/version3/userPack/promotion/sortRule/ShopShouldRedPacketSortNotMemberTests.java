@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4A1JR1R2CCWGVRDV3TXVK7N", scenarioName = "自取频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）",
+@Scenario(scenarioID = "01K7EE2BWZ396C9P37PZ1TVP4P", scenarioName = "自取频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("自取频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
@@ -44,7 +44,7 @@ public class ShopShouldRedPacketSortNotMemberTests {
     UserCdKeyEntity userCdKeyEntity;
      @BeforeAll
     void beforeAll() {
-        String distinctId=new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.distinctId");
+        String distinctId=new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.distinctId2");
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
         userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.sort.account"));
@@ -57,7 +57,7 @@ public class ShopShouldRedPacketSortNotMemberTests {
 //        更新数据库，将user_label表数据label_id设置为1,使其出新人首单标签35
          SqlSession sqlSession = DBUtils.getDBOfPandaTest();
          ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
-         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
+         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,2)
          );
          //清除设备对应的活动数据
          DeviceAutoRenewSql deviceAutoRenewSql = new DeviceAutoRenewSql();
@@ -75,7 +75,7 @@ public class ShopShouldRedPacketSortNotMemberTests {
          userCdkeyInfoSql.updateRedPacketScopeTypeAndPrice(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId")),1,400);
 
      }
-     @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
     @DisplayName("自取频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {

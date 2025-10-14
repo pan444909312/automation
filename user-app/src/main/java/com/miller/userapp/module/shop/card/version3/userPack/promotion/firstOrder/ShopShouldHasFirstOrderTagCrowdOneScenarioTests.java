@@ -30,9 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01K0RBVKDDSN56ZRXPDD79BZ7V", scenarioName = "用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-新人人群1"
+@Scenario(scenarioID = "01K7EE2BWXF6RC5CE3HNXK95PK", scenarioName = "用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-新人人群1"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-新人人群1")
+@DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-新人人群1")
 public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
@@ -64,8 +64,8 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         );
     }
 
-    @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-新人人群1")
-    @MethodSource("showLabelDataProvider")
+    @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-新人人群1")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdOne(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponseDto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
@@ -76,11 +76,5 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         assertThat(showContent).isEqualTo("无门槛减¥9");
         Integer tagType=shopPromoteList.stream().filter(item -> item.getType().equals(type)).findFirst().map( ShopPromoteVO::getTagType).orElseThrow();
         assertThat(tagType).isEqualTo(1);
-    }
-    static Stream<Arguments> showLabelDataProvider() {
-        ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
-        return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

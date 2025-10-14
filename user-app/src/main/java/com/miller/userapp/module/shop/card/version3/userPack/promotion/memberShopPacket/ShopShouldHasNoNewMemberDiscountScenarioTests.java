@@ -21,8 +21,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V43S32PBK4W1M3TE55CD4X",
-        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_新会员优惠标签_自取频道-商卡二期：新会员优惠标签37-不展示",
+@Scenario(scenarioID = "01K7EE2BWY5839G3R05DV7HRXQ",
+        scenarioName = "普通店铺自取商卡-SKYX01_优惠标签_新会员优惠标签_自取频道-商卡二期：新会员优惠标签37-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -39,9 +39,9 @@ public class ShopShouldHasNoNewMemberDiscountScenarioTests {
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
     }
 
-    @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_新会员优惠标签_自取频道-商卡二期：新会员优惠标签37-不展示")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_新会员优惠标签_自取频道-商卡二期：新会员优惠标签37-不展示")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
 

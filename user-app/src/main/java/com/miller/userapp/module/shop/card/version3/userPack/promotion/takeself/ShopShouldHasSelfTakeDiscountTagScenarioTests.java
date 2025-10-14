@@ -23,9 +23,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01K0RBA6J507FXD9AFM229M6TA", scenarioName = "用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-自取折扣-自取频道-商卡二期：自取折扣30 - 无独享商品折扣"
+@Scenario(scenarioID = "01K7EE2BWZ396C9P37PZ1TVP4Q", scenarioName = "用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-自取折扣-自取频道-商卡二期：自取折扣30 - 无独享商品折扣"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-自取折扣-自取频道-商卡二期：自取折扣30 - 无独享商品折扣")
+@DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-自取折扣-自取频道-商卡二期：自取折扣30 - 无独享商品折扣")
 public class ShopShouldHasSelfTakeDiscountTagScenarioTests {
 //    采用店铺2的数据，标签类型：30，自取折扣
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.04.shopId"));
@@ -35,8 +35,8 @@ public class ShopShouldHasSelfTakeDiscountTagScenarioTests {
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-自取折扣-自取频道-商卡二期：自取折扣30 - 无独享商品折扣")
-    @MethodSource("showLabelDataProvider")
+    @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-自取折扣-自取频道-商卡二期：自取折扣30 - 无独享商品折扣")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
     void hasSelfTakeTag(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);

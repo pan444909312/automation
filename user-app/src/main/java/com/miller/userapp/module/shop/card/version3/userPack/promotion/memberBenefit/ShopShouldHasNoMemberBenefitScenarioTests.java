@@ -25,8 +25,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V43220FZVP76VBFW5HNCF9",
-        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益32-不展示",
+@Scenario(scenarioID = "01K7EE2BWY5839G3R05DV7HRXN",
+        scenarioName = "普通店铺自取商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益32-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 30, manualTestTime = 10)
 
 @EnvTag.Test
@@ -73,7 +73,7 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益32-不展示")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益32-不展示")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
         // 使用城市 烟台
@@ -96,8 +96,12 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("121.44801");
+        shopListRequestDTO.setLatitude("37.46353");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

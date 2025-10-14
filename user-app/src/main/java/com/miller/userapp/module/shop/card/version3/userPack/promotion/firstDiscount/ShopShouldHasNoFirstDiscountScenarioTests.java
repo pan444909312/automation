@@ -22,22 +22,22 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/31 14:54
  */
-@Scenario(scenarioID = "01K0R3FHW6D5QJAJ6PQA6G6QTD", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_平台首单_自取频道-商卡二期：平台首单23-不展示",
+@Scenario(scenarioID = "01K7EE2BWXF6RC5CE3HNXK95PJ", scenarioName = "商卡(中文)_普通店铺自取商卡-SKYX01_优惠标签_平台首单_自取频道-商卡二期：平台首单23-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoFirstDiscountScenarioTests {
-    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.blank.compare.shopId"));
+    private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.03.shopId"));
 
     @BeforeAll
     void beforeAll(){
         UserLoginFlow.loginByDefaultUser();
     }
 
-    @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_平台首单_自取频道-商卡二期：平台首单23-不展示")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_平台首单_自取频道-商卡二期：平台首单23-不展示")
     void shouldNotExistFirstDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
