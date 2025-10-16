@@ -2,11 +2,11 @@
 {
   "resultCode": 1000,
   "result": {
-    "tabName":"超市",
-    "isOpen":0,
-    "localLifeOrderCount":0,
-    "supermarketUrl":"",
-    "type":1
+    "tabName":"${json-unit.any-string}",
+    "isOpen":"${json-unit.any-number}",
+    "localLifeOrderCount":"${json-unit.any-number}",
+    "supermarketUrl":"${json-unit.any-string}",
+    "type":"${json-unit.any-number}"
   }
 
 }

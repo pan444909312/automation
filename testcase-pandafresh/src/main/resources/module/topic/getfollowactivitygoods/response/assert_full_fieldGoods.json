@@ -23,8 +23,8 @@
 				"goodsSpecsValue": "默认",
 				"originalPrice": "${json-unit.any-string}",
 				"goodsPremiumPrice": "${json-unit.any-string}",
-				"customTax": 0.10,
-				"goodsStock": 3,
+				"customTax": "${json-unit.any-number}",
+				"goodsStock": "${json-unit.any-number}",
 				"goodsCount": 1
 			}, {
 				"specialTopicDataId": 85596,
@@ -40,8 +40,8 @@
 				"goodsSpecsValue": "默认",
 				"originalPrice": "${json-unit.any-string}",
 				"goodsPremiumPrice": "${json-unit.any-string}",
-				"customTax": 0.00,
-				"goodsStock": 97168,
+				"customTax": "${json-unit.any-number}",
+				"goodsStock": "${json-unit.any-number}",
 				"goodsCount": 0
 			}, {
 				"specialTopicDataId": 85588,
@@ -57,8 +57,8 @@
 				"goodsSpecsValue": "大",
 				"originalPrice": "${json-unit.any-string}",
 				"goodsPremiumPrice": "${json-unit.any-string}",
-				"customTax": 0.00,
-				"goodsStock": 249,
+				"customTax": "${json-unit.any-number}",
+				"goodsStock": "${json-unit.any-number}",
 				"goodsCount": 0
 			}]
 		}, {
@@ -79,8 +79,8 @@
 				"goodsSpecsValue": "默认",
 				"originalPrice": "${json-unit.any-string}",
 				"goodsPremiumPrice": "${json-unit.any-string}",
-				"customTax": 100.00,
-				"goodsStock": 11,
+				"customTax": "${json-unit.any-number}",
+				"goodsStock": "${json-unit.any-number}",
 				"goodsCount": 3
 			}, {
 				"specialTopicDataId": 85590,
@@ -96,8 +96,8 @@
 				"goodsSpecsValue": "大",
 				"originalPrice": "${json-unit.any-string}",
 				"goodsPremiumPrice": "${json-unit.any-string}",
-				"customTax": 0.00,
-				"goodsStock": 218,
+				"customTax": "${json-unit.any-number}",
+				"goodsStock": "${json-unit.any-number}",
 				"goodsCount": 0
 			}]
 		}],

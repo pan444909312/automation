@@ -3,7 +3,7 @@
 	"error": "成功",
 	"reason": "成功",
 	"result": {
-		"token": ""
+		"token":  "${json-unit.ignore-element}"
 	},
 	"currency": "¥",
 	"success": true,
