@@ -237,27 +237,27 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
         // 运行报告落库
         final String runId = ULIDUtils.generateULID();
-        personCaseDataMap.forEach((name, runResultObj) -> {
-
-            ApiFoxRunReportEntity apiFoxRunReportEntity = apiFoxRunReportService.converToEntity(runId, name, attributionGroup, runResultObj);
-            if (ObjectUtils.isNotEmpty(name) && name.length() > 0) {
-                final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
-
-                if (ObjectUtils.isNotEmpty(runResultObj.getFailList())) {
-                    runResultObj.getFailList().forEach((scenarioName) -> {
-                        if (ObjectUtils.isNotEmpty(scenarioName)) {
-                            ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
-                            apiFoxRunErrorSceneEntity.setReportId(id)
-                                    .setScenarioName(scenarioName)
-                                    .setResponsiblePerson(name)
-                                    .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR);
-                            apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
-                        }
-
-                    });
-                }
-            }
-        });
+//        personCaseDataMap.forEach((name, runResultObj) -> {
+//
+//            ApiFoxRunReportEntity apiFoxRunReportEntity = apiFoxRunReportService.converToEntity(runId, name, attributionGroup, runResultObj);
+//            if (ObjectUtils.isNotEmpty(name) && name.length() > 0) {
+//                final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
+//
+//                if (ObjectUtils.isNotEmpty(runResultObj.getFailList())) {
+//                    runResultObj.getFailList().forEach((scenarioName) -> {
+//                        if (ObjectUtils.isNotEmpty(scenarioName)) {
+//                            ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
+//                            apiFoxRunErrorSceneEntity.setReportId(id)
+//                                    .setScenarioName(scenarioName)
+//                                    .setResponsiblePerson(name)
+//                                    .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR);
+//                            apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
+//                        }
+//
+//                    });
+//                }
+//            }
+//        });
 
         // 结果数据，发送钉钉消息
         StringBuffer msg = new StringBuffer();
@@ -283,11 +283,12 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
 
                 msg.append(" **").append(name).append(":**  \n\n  ")
-                        .append("-  TotalCount: ").append(totalCount).append("  \n\n  ")
-                        .append("-  Success:").append(runResultDTO.getSuccessCount()).append("  \n\n  ")
-                        .append("-  Fail: ").append(runResultDTO.getFailCount()).append("  \n\n  ")
-                        .append("-  SuccessRate: ").append(successRate).append("%  \n\n  ")
-                        .append("-  FailRate: ").append(failRate).append("%    \n\n  ")
+                        .append("-  **TotalCount:** ").append(totalCount).append("  \n\n  ")
+                        .append("-   **Fail: <font color=red>").append(runResultDTO.getFailCount()).append("</font>**   \n\n  ")
+                        .append("-  Success: ").append(runResultDTO.getSuccessCount()).append("  \n\n  ")
+                        .append("-  **FailRate: <font color=red>").append(failRate).append("% </font>**    \n\n  ")
+                        .append("-  **SuccessRate: <font color=green>").append(successRate).append("% </font>** \n\n  ")
+
                 ;
             }
         });
