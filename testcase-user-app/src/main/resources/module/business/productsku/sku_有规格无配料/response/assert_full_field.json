@@ -1,0 +1,68 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"defaultSkuId": 1734599557934,
+		"tagLimit": 0,
+		"tagLimitLower": 0,
+		"sku": [{
+			"specGroupName": "规格",
+			"specGroupId": 11,
+			"specValues": [{
+				"specValueName": "标准",
+				"pickPercentRate": "${json-unit.ignore-element}",
+				"productSkuId": [1734599557934]
+			}, {
+				"specValueName": "大份",
+				"pickPercentRate": "${json-unit.ignore-element}",
+				"productSkuId": [1734599557935]
+			}]
+		}],
+		"validCombination": [{
+			"productSkuId": 1734599557934,
+			"productSkuName":"${json-unit.any-string}",
+			"skuValueName": "${json-unit.ignore-element}",
+			"price": "${json-unit.any-number}",
+			"orgPrice": "${json-unit.any-number}",
+			"promoteRate": "${json-unit.any-number}",
+			"promoteType": "${json-unit.ignore-element}",
+			"promoteStockNum": "${json-unit.ignore-element}",
+			"saleLimit": "${json-unit.any-number}",
+			"discountLimitNum": "${json-unit.ignore-element}",
+			"discountLimitType": "${json-unit.ignore-element}",
+			"promoteSn": "${json-unit.ignore-element}",
+			"discountValueLimit": "${json-unit.ignore-element}",
+			"estimatedPrice": "${json-unit.any-number}",
+			"limitDesc": "${json-unit.ignore-element}",
+			"discountThresholdDesc": "${json-unit.ignore-element}",
+			"secKillFlag": "${json-unit.ignore-element}"
+		}, {
+			"productSkuId": 1734599557935,
+			"productSkuName": "${json-unit.any-string}",
+			"skuValueName": "${json-unit.ignore-element}",
+			"price": "${json-unit.any-number}",
+			"orgPrice": "${json-unit.any-number}",
+			"promoteRate": "${json-unit.any-number}",
+			"promoteType": "${json-unit.ignore-element}",
+			"promoteStockNum": "${json-unit.ignore-element}",
+			"saleLimit": 0,
+			"discountLimitNum": "${json-unit.ignore-element}",
+			"discountLimitType": "${json-unit.ignore-element}",
+			"promoteSn": "${json-unit.ignore-element}",
+			"discountValueLimit": "${json-unit.ignore-element}",
+			"estimatedPrice": "${json-unit.any-number}",
+			"limitDesc": "${json-unit.ignore-element}",
+			"discountThresholdDesc": "${json-unit.ignore-element}",
+			"secKillFlag": "${json-unit.ignore-element}"
+		}],
+		"tagModels": [],
+		"limitNum": 0,
+		"buyLimitMin": 1,
+		"packingCharges": 0
+	},
+	"currency":"${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

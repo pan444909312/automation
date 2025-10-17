@@ -1,0 +1,80 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"defaultSkuId": 1734599561832,
+		"tagLimit": 0,
+		"tagLimitLower": 0,
+		"sku": [{
+			"specGroupName": "规格",
+			"specGroupId": 11,
+			"specValues": [{
+				"specValueName": "标准",
+				"pickPercentRate": "${json-unit.ignore-element}",
+				"productSkuId": [1734599561832]
+			}]
+		}],
+		"validCombination": [{
+			"productSkuId": 1734599561832,
+			"productSkuName": "${json-unit.any-string}",
+			"skuValueName": "${json-unit.ignore-element}",
+			"price":  "${json-unit.any-number}",
+			"orgPrice":  "${json-unit.any-number}",
+			"promoteRate":  "${json-unit.any-number}",
+			"promoteType": "${json-unit.ignore-element}",
+			"promoteStockNum": "${json-unit.ignore-element}",
+			"saleLimit": 0,
+			"discountLimitNum": "${json-unit.ignore-element}",
+			"discountLimitType": "${json-unit.ignore-element}",
+			"promoteSn": "${json-unit.ignore-element}",
+			"discountValueLimit": "${json-unit.ignore-element}",
+			"estimatedPrice":  "${json-unit.any-number}",
+			"limitDesc": "${json-unit.ignore-element}",
+			"discountThresholdDesc": "${json-unit.ignore-element}",
+			"secKillFlag": "${json-unit.ignore-element}"
+		}],
+		"tagModels": [{
+			"tagGroupId": 313,
+			"tagGroupName": "配料",
+			"tagValues": [{
+				"productTagId": 6830206,
+				"productTagName": "珍珠",
+				"tagPrice": 500,
+				"buyLimitMin": 0,
+				"buyLimitMax": 0,
+				"orgTagPrice": 500,
+				"discountLimitNum": "${json-unit.ignore-element}",
+				"promoteType": "${json-unit.ignore-element}",
+				"promoteSn": "${json-unit.ignore-element}",
+				"discountValueLimit": "${json-unit.ignore-element}",
+				"sortNum": 1,
+				"pickPercentRate": "${json-unit.ignore-element}"
+			}, {
+				"productTagId": 6830207,
+				"productTagName": "椰果",
+				"tagPrice": 300,
+				"buyLimitMin": 0,
+				"buyLimitMax": 0,
+				"orgTagPrice": 300,
+				"discountLimitNum": "${json-unit.ignore-element}",
+				"promoteType": "${json-unit.ignore-element}",
+				"promoteSn": "${json-unit.ignore-element}",
+				"discountValueLimit": "${json-unit.ignore-element}",
+				"sortNum": 1,
+				"pickPercentRate": "${json-unit.ignore-element}"
+			}],
+			"buyLimitMin": 0,
+			"buyLimitMax": 0,
+			"isRequire": 0,
+			"sortNum": 1
+		}],
+		"limitNum": 0,
+		"buyLimitMin": 1,
+		"packingCharges": 0
+	},
+	"currency":"${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

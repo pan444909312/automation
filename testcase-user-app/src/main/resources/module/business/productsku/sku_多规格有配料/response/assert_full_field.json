@@ -1,0 +1,124 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"defaultSkuId": 1734599198267,
+		"tagLimit": 0,
+		"tagLimitLower": 0,
+		"sku": [{
+			"specGroupName": "规格",
+			"specGroupId": 11,
+			"specValues": [{
+				"specValueName": "标准",
+				"pickPercentRate": "${json-unit.ignore-element}",
+				"productSkuId": [1734599198265]
+			}, {
+				"specValueName": "大份",
+				"pickPercentRate": "${json-unit.ignore-element}",
+				"productSkuId": [1734599198266]
+			}, {
+				"specValueName": "小份",
+				"pickPercentRate": "${json-unit.ignore-element}",
+				"productSkuId": [1734599198267]
+			}]
+		}],
+		"validCombination": [{
+			"productSkuId": 1734599198265,
+			"productSkuName": "自动化专用·勿动·勿动·有规格(标准)",
+			"skuValueName": "${json-unit.ignore-element}",
+			"price": "${json-unit.any-number}",
+			"orgPrice": "${json-unit.any-number}",
+			"promoteRate": "${json-unit.any-number}",
+			"promoteType": "${json-unit.ignore-element}",
+			"promoteStockNum": "${json-unit.ignore-element}",
+			"saleLimit": 0,
+			"discountLimitNum": "${json-unit.ignore-element}",
+			"discountLimitType": "${json-unit.ignore-element}",
+			"promoteSn": "${json-unit.ignore-element}",
+			"discountValueLimit": "${json-unit.ignore-element}",
+			"estimatedPrice": "${json-unit.any-number}",
+			"limitDesc": "${json-unit.ignore-element}",
+			"discountThresholdDesc": "${json-unit.ignore-element}",
+			"secKillFlag": "${json-unit.ignore-element}"
+		}, {
+			"productSkuId": 1734599198266,
+			"productSkuName": "自动化专用·勿动·勿动·有规格(大份)",
+			"skuValueName": null,
+			"price": "${json-unit.any-number}",
+			"orgPrice": "${json-unit.any-number}",
+			"promoteRate": "${json-unit.any-number}",
+			"promoteType": "${json-unit.ignore-element}",
+			"promoteStockNum": "${json-unit.ignore-element}",
+			"saleLimit": 0,
+			"discountLimitNum": "${json-unit.ignore-element}",
+			"discountLimitType": "${json-unit.ignore-element}",
+			"promoteSn": "${json-unit.ignore-element}",
+			"discountValueLimit": "${json-unit.ignore-element}",
+			"estimatedPrice": "${json-unit.any-number}",
+			"limitDesc": "${json-unit.ignore-element}",
+			"discountThresholdDesc": "${json-unit.ignore-element}",
+			"secKillFlag": "${json-unit.ignore-element}"
+		}, {
+			"productSkuId": 1734599198267,
+			"productSkuName": "自动化专用·勿动·勿动·有规格(小份)",
+			"skuValueName": "${json-unit.ignore-element}",
+			"price": "${json-unit.any-number}",
+			"orgPrice": "${json-unit.any-number}",
+			"promoteRate":"${json-unit.any-number}",
+			"promoteType": "${json-unit.ignore-element}",
+			"promoteStockNum": "${json-unit.ignore-element}",
+			"saleLimit": "${json-unit.ignore-element}",
+			"discountLimitNum": "${json-unit.ignore-element}",
+			"discountLimitType": "${json-unit.ignore-element}",
+			"promoteSn":  "${json-unit.ignore-element}",
+			"discountValueLimit":  "${json-unit.ignore-element}",
+			"estimatedPrice": "${json-unit.any-number}",
+			"limitDesc":  "${json-unit.ignore-element}",
+			"discountThresholdDesc":  "${json-unit.ignore-element}",
+			"secKillFlag": "${json-unit.ignore-element}"
+		}],
+		"tagModels": [{
+			"tagGroupId": 1,
+			"tagGroupName": "加料",
+			"tagValues": [{
+				"productTagId": 6232021,
+				"productTagName": "加芝士",
+				"tagPrice": 500,
+				"buyLimitMin": 0,
+				"buyLimitMax": 0,
+				"orgTagPrice": 500,
+				"discountLimitNum": "${json-unit.ignore-element}",
+				"promoteType": "${json-unit.ignore-element}",
+				"promoteSn": "${json-unit.ignore-element}",
+				"discountValueLimit": "${json-unit.ignore-element}",
+				"sortNum": 1,
+				"pickPercentRate": "${json-unit.ignore-element}"
+			}, {
+				"productTagId": 6232022,
+				"productTagName": "加珍珠",
+				"tagPrice": 300,
+				"buyLimitMin": 0,
+				"buyLimitMax": 0,
+				"orgTagPrice": 300,
+				"discountLimitNum": "${json-unit.ignore-element}",
+				"promoteType": "${json-unit.ignore-element}",
+				"promoteSn": "${json-unit.ignore-element}",
+				"discountValueLimit": "${json-unit.ignore-element}",
+				"sortNum": 1,
+				"pickPercentRate": "${json-unit.ignore-element}"
+			}],
+			"buyLimitMin": 0,
+			"buyLimitMax": 0,
+			"isRequire": 0,
+			"sortNum": 1
+		}],
+		"limitNum": 0,
+		"buyLimitMin": 1,
+		"packingCharges": 0
+	},
+"currency":"${json-unit.any-string}",
+"success": true,
+"nowTime": "${json-unit.any-number}",
+"queryList": "${json-unit.ignore-element}"
+}

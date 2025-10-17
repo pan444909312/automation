@@ -1,0 +1,49 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"defaultSkuId": 1734599564271,
+		"tagLimit": 0,
+		"tagLimitLower": 0,
+		"sku": [{
+			"specGroupName": "规格",
+			"specGroupId": 11,
+			"specValues": [{
+				"specValueName": "标准",
+				"pickPercentRate": "${json-unit.ignore-element}",
+				"productSkuId": [1734599564271]
+			}]
+		}],
+		"validCombination": [{
+			"productSkuId": 1734599564271,
+			"productSkuName": "配料最大购买数量限制(标准)",
+			"skuValueName": "${json-unit.ignore-element}",
+			"price": "${json-unit.any-number}",
+			"orgPrice": "${json-unit.any-number}"
+		}],
+		"tagModels": [{
+			"tagGroupId": 391,
+			"tagGroupName": "1",
+			"tagValues": [{
+				"productTagId": 6830755,
+				"productTagName": "1",
+				"tagPrice": "${json-unit.any-number}",
+				"buyLimitMin": 0,
+				"buyLimitMax": 10,
+				"orgTagPrice": "${json-unit.any-number}"
+			}],
+			"buyLimitMin": 0,
+			"buyLimitMax": 0,
+			"isRequire": 0,
+			"sortNum": 1
+		}],
+		"limitNum": 0,
+		"buyLimitMin": 1,
+		"packingCharges": 0
+	},
+	"currency":"${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

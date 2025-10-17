@@ -1,0 +1,30 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"subtitle": "1人这样搭配",
+		"productList": [{
+			"productId": 82537906,
+			"productName": "普通商品",
+			"productPrice": "${json-unit.any-number}",
+			"orgProductPrice": "${json-unit.any-number}",
+			"productImg": "https://static.hungrypanda.co/crm/175695602941134208eac9bd14b74b6a8c6673935a517.jpg?x-oss-process=style/prod_detail",
+			"productStatus": 0,
+			"shopId": 930937488
+		}, {
+			"productId": 82537918,
+			"productName": "角标-新品",
+			"productPrice": "${json-unit.any-number}",
+			"orgProductPrice": "${json-unit.any-number}",
+			"productImg": "https://static.hungrypanda.co/crm/17569567702183f8dfc03e7434464977068c368a37e63.jpg?x-oss-process=style/prod_detail",
+			"productStatus": 0,
+			"shopId": 930937488
+
+		}]
+	},
+	"currency":"${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}

@@ -1,0 +1,79 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"defaultSkuId": 1734599561835,
+		"tagLimit": 0,
+		"tagLimitLower": 0,
+		"sku": [{
+			"specGroupName": "规格",
+			"specGroupId": 11,
+			"specValues": [{
+				"specValueName": "标准",
+				"pickPercentRate":  "${json-unit.ignore-element}",
+				"productSkuId": [1734599561835]
+			}]
+		}],
+		"validCombination": [{
+			"productSkuId": 1734599561835,
+			"productSkuName": "${json-unit.any-string}",
+			"skuValueName":  "${json-unit.ignore-element}",
+			"price": "${json-unit.any-number}",
+			"orgPrice": "${json-unit.any-number}"
+
+		}],
+		"tagModels": [{
+			"tagGroupId": 581,
+			"tagGroupName": "配料组1",
+			"tagValues": [{
+				"productTagId": 6830212,
+				"productTagName": "珍珠",
+				"tagPrice": 200,
+				"buyLimitMin": 0,
+				"buyLimitMax": 0,
+				"orgTagPrice": 200
+			}, {
+				"productTagId": 6830213,
+				"productTagName": "椰果",
+				"tagPrice": "${json-unit.any-number}",
+				"buyLimitMin": 0,
+				"buyLimitMax": 0,
+				"orgTagPrice": "${json-unit.any-number}"
+			}],
+			"buyLimitMin": 0,
+			"buyLimitMax": 0,
+			"isRequire": 0,
+			"sortNum": 1
+		}, {
+			"tagGroupId": 582,
+			"tagGroupName": "配料组2",
+			"tagValues": [{
+				"productTagId": 6830214,
+				"productTagName": "仙草",
+				"tagPrice": "${json-unit.any-number}",
+				"buyLimitMin": 0,
+				"buyLimitMax": 0,
+				"orgTagPrice": "${json-unit.any-number}"
+			}, {
+				"productTagId": 6830215,
+				"productTagName": "茶冻",
+				"tagPrice": "${json-unit.any-number}",
+				"buyLimitMin": 0,
+				"buyLimitMax": 0,
+				"orgTagPrice": "${json-unit.any-number}"
+
+			}],
+			"buyLimitMin": 0,
+			"buyLimitMax": 0,
+			"isRequire": 0,
+			"sortNum": 1
+		}],
+		"limitNum": 0,
+		"buyLimitMin": 1,
+		"packingCharges": 0
+	},"currency":"${json-unit.any-string}",
+"success": true,
+"nowTime": "${json-unit.any-number}",
+"queryList": "${json-unit.ignore-element}"
+}
