@@ -22,7 +22,7 @@ import java.util.Objects;
  * @since 2025/07/09 17:53:23
  */
 @Scenario(
-        scenarioID = "01JZQ67ERFWEM68JA3V20M9WMT", // 自动生成，不要修改
+        scenarioID = "01K7G6M5HGYMPEE94E9KVGGKBQ", // 自动生成，不要修改
         scenarioName = "搜索_普通搜索_多个店铺_店铺和商品包含“喜饺”",
         author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)

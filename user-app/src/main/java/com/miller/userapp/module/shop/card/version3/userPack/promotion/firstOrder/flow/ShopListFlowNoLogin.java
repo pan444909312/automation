@@ -13,7 +13,7 @@ public class ShopListFlowNoLogin {
     /**
      * 接口_自取频道店铺流
      */
-    private static final String uri = BusinessConstant.DOMAIN + "/api/user/v2/index/shopList";
+    private static final String uri = BusinessConstant.DOMAIN + "/api/app/user/userPack/list";
 
     /**
      * 流程_获取自取频道店铺流

@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/7/31 14:54
  */
-@Scenario(scenarioID = "01K4YC1DN91JN4W1270B0X8Y2F", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_平台首单_自取频道-商卡二期：平台首单23",
+@Scenario(scenarioID = "01K7EE2BWXF6RC5CE3HNXK95PH", scenarioName = "商卡(中文)_普通店铺自取商卡-SKYX01_优惠标签_平台首单_自取频道-商卡二期：平台首单23",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -47,8 +47,9 @@ public class ShopShouldHasFirstDiscountScenarioTests {
 
     @BeforeAll
     void beforeAll() {
+        //需要登录新人账号
         userLoginRequestDTO = new UserLoginRequestDTO();
-        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.new.user02.account"));
+        userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.account1"));
         userLoginRequestDTO.setPassword(MD5Util.string2MD5(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.new.user02.password")));
         userLoginRequestDTO.setDistinctId(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.distinctId"));
         userLoginRequestDTO.setType(Integer.valueOf(new PropertiesUtils().getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type")));
@@ -60,9 +61,9 @@ public class ShopShouldHasFirstDiscountScenarioTests {
         shopMapper = sqlSession.getMapper(ShopMapper.class);
     }
 
-    @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_平台首单_自取频道-商卡二期：平台首单23")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_平台首单_自取频道-商卡二期：平台首单23")
     void shouldExistFirstDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

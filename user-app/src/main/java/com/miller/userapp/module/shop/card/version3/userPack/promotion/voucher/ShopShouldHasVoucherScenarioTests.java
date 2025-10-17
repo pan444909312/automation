@@ -30,7 +30,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/31 11:42
  */
-@Scenario(scenarioID = "01K0RBVKDDSN56ZRXPDD79BZ7V", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_代金券_自取频道-商卡二期：代金券31",
+@Scenario(scenarioID = "01K7EE2BWZ396C9P37PZ1TVP4T", scenarioName = "商卡(中文)_普通店铺自取商卡-SKYX01_优惠标签_代金券_自取频道-商卡二期：代金券31",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -51,9 +51,9 @@ public class ShopShouldHasVoucherScenarioTests {
         voucherMapper = sqlSession.getMapper(VoucherMapper.class);
     }
 
-    @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_代金券_自取频道-商卡二期：代金券31")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_代金券_自取频道-商卡二期：代金券31")
     void shouldExistVoucher(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

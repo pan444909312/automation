@@ -26,8 +26,8 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0V5E94ADBN3YE5226AMGTQ5",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店前标签：百万补贴_首页-商卡二期：百万补贴",
+@Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6Y7",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_店前标签：百万补贴_自取频道：百万补贴不会在自取频道展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
 @EnvTag.Test
@@ -54,12 +54,15 @@ public class ShopShouldHasSubsidyTag {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店前标签：百万补贴_首页-商卡二期：百万补贴")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_店前标签：百万补贴_自取频道：百万补贴")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
         // 经纬度为沈阳
         RequestUtils.getHeaders().put("latitude","41.80478");
         RequestUtils.getHeaders().put("longitude","123.43297");
+        shopListRequestDTO.setLongitude("123.43297");
+        shopListRequestDTO.setLatitude("41.80478");
+
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
@@ -70,8 +73,8 @@ public class ShopShouldHasSubsidyTag {
 
         assertThat(shopSearchMiddleEntity.getActivityTagType()).isEqualTo(1);
 
-        assertThat(shopIndexVO.getActivityTag()).isNotNull();
-        assertThat(shopIndexVO.getActivityTag()).isNotEqualTo("");
+        // 类型是百万补贴 type=1  但是activityTag=null 自取不展示百亿补贴
+        assertThat(shopIndexVO.getActivityTag()).isNull();
         assertThat(shopIndexVO.getActivityTagType()).isEqualTo(1);
 
     }
@@ -81,8 +84,12 @@ public class ShopShouldHasSubsidyTag {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

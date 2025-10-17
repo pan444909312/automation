@@ -23,15 +23,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+
+import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 /**
  * @author panjuxiang
  * @since 2024/7/25 15:03
  */
-@Scenario(scenarioID = "01K3N5N091WRQB3K1BZRDE1VTR",
-        scenarioName = "商卡(中文)_普通店铺配送商卡_优惠标签_商品折扣_自取频道-商卡二期:商品折扣28-自取可用",
+@Scenario(scenarioID = "01K7EE2BWXF6RC5CE3HNXK95PC",
+        scenarioName = "商卡(中文)_普通店铺自取商卡_优惠标签_商品折扣_自取频道-商卡二期:商品折扣3-自取可用",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
@@ -56,35 +59,35 @@ public class ShopShouldHasPickupDiscountScenarioTests {
         productDiscountMapper = sqlSession.getMapper(ProductDiscountMapper.class);
     }
 
-    @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡_优惠标签_商品折扣_自取频道-商卡二期:商品折扣28-自取可用")
+    @DisplayName("普通店铺自取商卡_优惠标签_商品折扣_自取频道-商卡二期:商品折扣3-自取可用")
     void shouldExistPickupDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-
-        ShopPromoteVO pickup = shopIndexVO.getShopPromoteList().stream().
-                filter(item -> item.getShowContent().contains("自取")).findFirst().get();
+        List<ShopPromoteVO> shopPromoteList = shopIndexVO.getShopPromoteList();
+        shopPromoteList = shopIndexVO.getShopPromoteList().stream().
+                filter(item -> item.getType() == ShopPromoteEnum.DISCOUNT.getType()).toList() ;
+        assertThat(shopPromoteList.size()).isEqualTo(2);
+        assertThat(shopPromoteList.get(0).getShowContent()).isEqualTo("低至8.6折");
+        assertThat(shopPromoteList.get(1).getShowContent()).isEqualTo("自取低至8.6折");
 //        目前ProductDiscountEntity类的字段和数据库对不上，调用Mapper的方法会报错，改使用jdbcTemplate
 //        ProductDiscountEntity productDiscountEntity = productDiscountMapper.selectOne(new QueryWrapper<ProductDiscountEntity>().eq("shop_id", shopId).eq("discount_sn",discountSn));
-        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
-
+//        ShopSearchMiddleEntity shopSearchMiddleEntity = shopSearchMiddleMapper.selectOne(new QueryWrapper<ShopSearchMiddleEntity>().eq("shop_id", shopId));
 //        List<ProductDiscountEntity> prouctDiscountDiscountValue = productDiscountMapper.getProductDiscountDiscountValue(shopId.toString());
-
-
-        String sql = "SELECT * FROM hp_product_discount where shop_id = ? and discount_sn = ?";
-        Map<String, Object> stringObjectMap = dbUtils.queryOneObjectReturnMap(sql,shopId,discountSn);
-
-//        double discountValue = (double)productDiscountEntity.getDiscountValue();
-        Integer discountValueInteger = (Integer)stringObjectMap.get("discount_value");
-        Double discountValue = discountValueInteger.doubleValue();
-
-
-        assert shopSearchMiddleEntity.getTakeSelfDiscountExc() == discountValue/10;
-        assert pickup.getType() == ShopPromoteEnum.INDEX_PRODUCT_DISCOUNT.getType();
-        assert pickup.getShowContent().equals(shopSearchMiddleEntity.getTakeSelfDiscountTagExc());
+//        String sql = "SELECT * FROM hp_product_discount where shop_id = ? and discount_sn = ?";
+//        Map<String, Object> stringObjectMap = dbUtils.queryOneObjectReturnMap(sql,shopId,discountSn);
+//
+////        double discountValue = (double)productDiscountEntity.getDiscountValue();
+//        Integer discountValueInteger = (Integer)stringObjectMap.get("discount_value");
+//        Double discountValue = discountValueInteger.doubleValue();
+//
+//
+//        assert shopSearchMiddleEntity.getTakeSelfDiscountExc() == discountValue/10;
+//        assert pickup.getType() == ShopPromoteEnum.INDEX_PRODUCT_DISCOUNT.getType();
+//        assert pickup.getShowContent().equals(shopSearchMiddleEntity.getTakeSelfDiscountTagExc());
 
     }
 

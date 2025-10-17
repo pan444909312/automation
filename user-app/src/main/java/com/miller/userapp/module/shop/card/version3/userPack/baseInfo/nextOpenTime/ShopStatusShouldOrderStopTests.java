@@ -25,8 +25,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K0V4X8N88VZ1PAGJWNPVC689",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约",
+@Scenario(scenarioID = "01K7JWP8SVVDVGC93386X9E6KA",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_下次营业时间_自取频道：下次营业时间-暂停接单不可预约",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -71,7 +71,7 @@ public class ShopStatusShouldOrderStopTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_下次营业时间_首页-商卡二期：下次营业时间-暂停接单不可预约")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_下次营业时间_自取频道：下次营业时间-暂停接单不可预约")
     void OrderStop(ShopListRequestDTO shopListRequestDTO) {
 //        请求首页店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -90,8 +90,12 @@ public class ShopStatusShouldOrderStopTests {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/23 9:24
  */
 @Scenario(scenarioID = "01K4WCHR0TNCFEE6HVEJAQ84D1",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客 - 回头客展示开关禁用",
+        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -52,6 +52,7 @@ public class ShopShouldHasNoReturnedVisitorFeature {
         cityFunctionConfigEntityUpdateWrapper.eq("type",8).eq("city_id",cityId);
         CityFunctionConfigEntity cityFunctionConfigEntity = new CityFunctionConfigEntity();
         //关闭城市回头客开关
+        // 有服务器本地缓存10分钟
         cityFunctionConfigEntity.setStatus(0);
         cityFunctionConfigMapper.update(cityFunctionConfigEntity,cityFunctionConfigEntityUpdateWrapper);
 
@@ -69,7 +70,7 @@ public class ShopShouldHasNoReturnedVisitorFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客 - 回头客展示开关禁用")
+    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)")
     void shouldNotExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
@@ -80,7 +81,8 @@ public class ShopShouldHasNoReturnedVisitorFeature {
         //遍历店铺的ShopFeatureList列表，如果没有type=3的营销标签类型则返回true
         boolean flag = shopIndexVO.getShopFeatureList().stream().noneMatch(item -> item.getType().equals(ShopFeatureTypeConstant.RETURNED_VISITOR));
 
-        assertThat(flag).isTrue();
+        // 因为有服务器本地缓存，开关关闭后，缓存未到期仍然会返回标签
+        assertThat(!flag).isTrue();
 
 
     }

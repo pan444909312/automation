@@ -23,8 +23,8 @@ import java.util.stream.Stream;
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 
-@Scenario(scenarioID = "01K0V433PSNAFB4GT8FC1RXQ7J",
-        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_自取频道-商卡二期：会员权益41-会员神券",
+@Scenario(scenarioID = "01K7EE2BWY5839G3R05DV7HRXM",
+        scenarioName = "普通店铺自取商卡_优惠标签_会员权益_自取频道-商卡二期：会员权益41-会员神券",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
 @EnvTag.Test
@@ -48,9 +48,9 @@ public class ShopShouldHasMemberBenefitSuperCoupon {
 
     }
 
-    @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益41-会员神券")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益41-会员神券")
     void shouldSuccess(ShopListRequestDTO shopListRequestDTO) {
 
 

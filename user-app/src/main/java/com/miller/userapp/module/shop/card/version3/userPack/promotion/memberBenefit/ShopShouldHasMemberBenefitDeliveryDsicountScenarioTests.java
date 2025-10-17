@@ -7,6 +7,7 @@ import com.miller.common.util.MD5Util;
 import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.PropertiesUtils;
+import com.miller.userapp.constants.ShopFeatureTypeConstant;
 import com.miller.userapp.module.home.login.flow.UserLoginFlow;
 import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version3.userPack.flow.ShopListFlow;
@@ -20,8 +21,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K0V434NZ1FME2Y8NGXJQ9DSB",
-        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益32-会员运费减免",
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@Scenario(scenarioID = "01K7EE2BWY5839G3R05DV7HRXJ",
+        scenarioName = "普通店铺自取商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益32-会员运费减免-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 20 + 30, manualTestTime = 15)
 
 @EnvTag.Test
@@ -42,19 +45,17 @@ public class ShopShouldHasMemberBenefitDeliveryDsicountScenarioTests {
     }
 
 
-    @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益32-会员运费免减")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_会员权益_自取频道-商卡二期：会员权益32-会员运费免减-不展示")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-
-        //遍历店铺的ShopPromoteList列表，
-        ShopPromoteVO memberPacket = shopIndexVO.getShopPromoteList().stream().
-                filter(item -> item.getShowContent().contains("运费")).findFirst().orElseThrow();
-        assert memberPacket.getType().equals(ShopPromoteEnum.INDEX_MEMBER_PACKET.getType());
+        //判断是否有会员权益-运费
+        boolean flag = shopIndexVO.getShopPromoteList().stream().noneMatch(item -> item.getShowContent().contains("运费"));
+        assertThat(flag).isTrue();
 
 
     }

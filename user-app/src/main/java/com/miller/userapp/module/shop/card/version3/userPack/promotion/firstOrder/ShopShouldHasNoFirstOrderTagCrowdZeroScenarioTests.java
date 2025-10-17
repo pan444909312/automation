@@ -31,9 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01K0RCYNYFJN63V4DTVRAVYHHW", scenarioName = "用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-不展示：非人群"
+@Scenario(scenarioID = "01K7EE2BWXF6RC5CE3HNXK95PP", scenarioName = "用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-不展示：非人群"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-不展示：非人群")
+@DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-不展示：非人群")
 public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
@@ -62,8 +62,8 @@ public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,0)
         );
     }
-    @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺配送商卡-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-不展示：非人群")
-    @MethodSource("showLabelDataProvider")
+    @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-不展示：非人群")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
     void hasNoFirstOrderTagCrowdZero(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);

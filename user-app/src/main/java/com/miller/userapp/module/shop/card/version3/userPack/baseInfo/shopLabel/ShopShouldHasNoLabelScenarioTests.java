@@ -24,14 +24,14 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 普通店铺配送商卡-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示
+ * 普通店铺配送商卡-自取频道-SKYX01_基础信息_店铺角标_自取频道:店铺角标 - 不展示
  *
  * @author Miller Shan
  * @version 1.0
  * @since 2024/06/25 21:17:39
  */
-@Scenario(scenarioID = "01K0V5C1C3V5ZGBEEWH158X7RZ",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示",
+@Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6XY",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_店铺角标_自取频道:店铺角标 - 不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -48,7 +48,7 @@ public class ShopShouldHasNoLabelScenarioTests {
 
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店铺角标_首页-商卡二期:店铺角标 - 不展示")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_店铺角标_自取频道:店铺角标 - 不展示")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
@@ -79,8 +79,12 @@ public class ShopShouldHasNoLabelScenarioTests {
      */
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
+        // 自取频道店铺流必须传经纬度
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

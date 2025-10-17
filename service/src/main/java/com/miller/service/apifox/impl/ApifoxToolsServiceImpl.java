@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
+import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.miller.common.util.ULIDUtils;
 import com.miller.entity.apifox.ApiFoxRunErrorSceneEntity;
@@ -217,81 +218,96 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                     personCaseDataMap.get(personInCharge) : new ApifoxRunResultDTO();
             Integer failCount = runResultObj.getFailCount();
             Integer successCount = runResultObj.getSuccessCount();
+            final String scenarioName = value.getScenarioName();
+            runResultObj.setScenarioNameList(scenarioName);
 
             if (runStatus) {
                 successCount = successCount + 1;
                 runResultObj.setSuccessCount(successCount);
+                runResultObj.setSuccessList(scenarioName);
             } else {
                 failCount = failCount + 1;
                 runResultObj.setFailCount(failCount);
+                runResultObj.setFailList(scenarioName);
             }
 
-            final String scenarioName = value.getScenarioName();
-            runResultObj.setScenarioNameList(scenarioName);
             personCaseDataMap.put(personInCharge, runResultObj);
         });
+
 
         // 运行报告落库
         final String runId = ULIDUtils.generateULID();
         personCaseDataMap.forEach((name, runResultObj) -> {
 
             ApiFoxRunReportEntity apiFoxRunReportEntity = apiFoxRunReportService.converToEntity(runId, name, attributionGroup, runResultObj);
-            final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
+            if (ObjectUtils.isNotEmpty(name) && name.length() > 0) {
+                final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
 
-            if (!runResultObj.getScenarioNameList().isEmpty()) {
+                if (ObjectUtils.isNotEmpty(runResultObj.getFailList())) {
+                    runResultObj.getFailList().forEach((scenarioName) -> {
+                        if (ObjectUtils.isNotEmpty(scenarioName)) {
+                            ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
+                            apiFoxRunErrorSceneEntity.setReportId(id)
+                                    .setScenarioName(scenarioName)
+                                    .setResponsiblePerson(name)
+                                    .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR);
+                            apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
+                        }
 
-                runResultObj.getScenarioNameList().forEach((scenarioName) -> {
-                    if (ObjectUtils.isNotEmpty(scenarioName)) {
-                        ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
-                        apiFoxRunErrorSceneEntity.setReportId(id)
-                                .setScenarioName(scenarioName)
-                                .setResponsiblePerson(name)
-                                .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR);
-                        apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
-                    }
-
-                });
+                    });
+                }
             }
-
         });
 
         // 结果数据，发送钉钉消息
         StringBuffer msg = new StringBuffer();
-        msg.append("## ").append(attributionGroup).append("组-各成员自动化执行结果通知：\n");
+        msg.append("## ").append(attributionGroup).append("组-各成员自动化执行结果通知：  \n\n  ");
         personCaseDataMap.forEach((name, runResultDTO) -> {
 
-            if (StringUtils.isEmpty(name)) {
-                name = "other";
+            if (StringUtils.isNotEmpty(name) && !"".equals(name)) {
+
+                Integer successCount = runResultDTO.getSuccessCount();
+                Integer failCount = runResultDTO.getFailCount();
+                Integer totalCount = successCount + failCount;
+                DecimalFormat df = new DecimalFormat("#.00");
+
+                String successRate = "0.00";
+                if (successCount > 0) {
+                    successRate = df.format((double) successCount / totalCount * 100);
+                }
+
+                String failRate = "0.00";
+                if (failCount > 0) {
+                    failRate = df.format((double) failCount / totalCount * 100);
+                }
+
+
+                msg.append(" **").append(name).append(":**  \n\n  ")
+                        .append("-  **TotalCount:** ").append(totalCount).append("  \n\n  ")
+                        .append("-   **Fail: <font color=red>").append(runResultDTO.getFailCount()).append("</font>**   \n\n  ")
+                        .append("-  Success: ").append(runResultDTO.getSuccessCount()).append("  \n\n  ")
+                        .append("-  **FailRate: <font color=red>").append(failRate).append("% </font>**    \n\n  ")
+                        .append("-  **SuccessRate: <font color=green>").append(successRate).append("% </font>** \n\n  ")
+
+                ;
             }
-
-            Integer successCount = runResultDTO.getSuccessCount();
-            Integer failCount = runResultDTO.getFailCount();
-            Integer totalCount = successCount + failCount;
-            DecimalFormat df = new DecimalFormat("#.00");
-            String successRate = df.format((double) successCount / totalCount * 100);
-            String failRate = df.format((double) failCount / totalCount * 100);
-
-
-            msg.append("<p><b>- ").append(name)
-                    .append(": </b></p>\n")
-                    .append(" <p>· TotalCount: ").append(totalCount).append("</p>\n")
-                    .append(" <p>· Success:").append(runResultDTO.getSuccessCount()).append("</p>\n ")
-                    .append(" <p>· Fail: ").append(runResultDTO.getFailCount()).append("</p>\n ")
-                    .append(" <p>· SuccessRate: ").append(successRate).append("% </p>\n ")
-                    .append(" <p>· FailRate: ").append(failRate).append("% </p>\n")
-                    .append("<p> </p>")
-            ;
         });
+        msg.append("> **ApiFox_每日定时运行报告:[点击查看](http://47.242.73.37:2080/app/application/apifox-68db96e1b752566623a315fa)**  \n  ")
+        ;
+
+
+        log.info("Apifox每日运行报告推送钉钉: 成功");
+        log.info(msg.toString());
         // 推送钉钉群消息
         DingTalkUtils.sendMarkdownMessage(
                 "各成员自动化执行结果通知:",
                 msg.toString(),
                 "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
                 "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
-        log.info("Apifox每日运行报告推送钉钉: 成功");
 
 
     }
+
 
 //    /**
 //     * 查询用例名称

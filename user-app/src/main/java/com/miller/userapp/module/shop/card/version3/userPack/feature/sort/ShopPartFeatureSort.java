@@ -97,8 +97,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 16:34
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCH",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_排序_当商家满足部份标签时，取当前可展示的标签作排序处理",
+@Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6Z8",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_营销标_排序_当商家满足部份标签时，取当前可展示的标签作排序处理",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -135,7 +135,7 @@ public class ShopPartFeatureSort {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_排序_当商家满足部份标签时，取当前可展示的标签作排序处理")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_营销标_排序_当商家满足部份标签时，取当前可展示的标签作排序处理")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) throws JsonProcessingException {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -170,8 +170,12 @@ public class ShopPartFeatureSort {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

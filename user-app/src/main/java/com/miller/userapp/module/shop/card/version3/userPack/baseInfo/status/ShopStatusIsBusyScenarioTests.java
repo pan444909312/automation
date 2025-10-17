@@ -26,8 +26,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K0V5E94ADBN3YE5226AMGTQ6",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-忙碌",
+@Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6Y8",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_店铺营业状态_自取频道:店铺营业状态-忙碌",
         author = "panjuxiang@hungrypandagroup.com",
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
@@ -55,7 +55,7 @@ public class ShopStatusIsBusyScenarioTests {
 
     @MethodSource("shopStatusDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店铺营业状态_首页-商卡二期:店铺营业状态-忙碌")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_店铺营业状态_自取频道:店铺营业状态-忙碌")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
 
         UpdateWrapper<ShopSearchMiddleEntity> updateWrapper = new UpdateWrapper<>();
@@ -87,8 +87,12 @@ public class ShopStatusIsBusyScenarioTests {
      */
     static Stream<Arguments> shopStatusDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
+        // 自取频道店铺流必须传经纬度
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

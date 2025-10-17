@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0S4CTMSZ75DDKJ0A2Q0DJFK", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_自取频道-商卡二期-SKYX实验组：账户内最大红包43｜店铺加码",
+@Scenario(scenarioID = "01K7EE2BWXF6RC5CE3HNXK95PV", scenarioName = "普通店铺自取商卡-SKYX01_优惠标签_神券_自取频道-商卡二期-SKYX实验组：账户内最大红包43｜店铺加码",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -62,9 +62,9 @@ public class ShopShouldHasReceivedIncreaseCouponTests {
          userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId3")), (byte) 0);
 
      }
-     @MethodSource("staticDataProvider")
+    @MethodSource("com.miller.userapp.module.shop.card.version3.userPack.dataProvider.StaticDataProvider#StaticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_自取频道-商卡二期-SKYX实验组：账户内最大红包43｜店铺加码")
+    @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_神券_自取频道-商卡二期-SKYX实验组：账户内最大红包43｜店铺加码")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
