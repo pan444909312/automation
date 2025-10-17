@@ -27,8 +27,8 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0V5E94ADBN3YE5226AMGTQ2",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店前标签：VIP标签_首页-商卡二期：VIP标签",
+@Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6Y4",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_店前标签：VIP标签_自取频道：VIP标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
 @EnvTag.Test
@@ -59,7 +59,7 @@ public class ShopShouldHasMemberTag {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店前标签：VIP标签_首页-商卡二期：VIP标签")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_店前标签：VIP标签_自取频道：VIP标签")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -83,8 +83,12 @@ public class ShopShouldHasMemberTag {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

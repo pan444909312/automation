@@ -14,8 +14,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K0V4X9X204XR5AZZGWT7S15Z",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_首页-商卡二期：货币符号",
+@Scenario(scenarioID = "01K7JWP2SJSKF26J71YGNAW168",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_自取频道：货币符号",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -24,7 +24,7 @@ public class ShopStatusShouldCurrencyScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_首页-商卡二期：货币符号")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_自取频道：货币符号")
     void ShowCurrency(ShopListRequestDTO shopListRequestDTO) {
         UserLoginFlow.loginByDefaultUser();
 //        请求首页店铺数据;
@@ -39,8 +39,12 @@ public class ShopStatusShouldCurrencyScenarioTests {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

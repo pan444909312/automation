@@ -31,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/23 9:24
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCA",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)",
+@Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6Z1",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_营销标_回头客_自取频道：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -70,7 +70,7 @@ public class ShopShouldHasNoReturnedVisitorFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_回头客_首页-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_营销标_回头客_自取频道：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)")
     void shouldNotExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
@@ -91,8 +91,12 @@ public class ShopShouldHasNoReturnedVisitorFeature {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

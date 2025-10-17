@@ -23,14 +23,14 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 普通店铺配送商卡-SKYX01_基础信息_店铺名称_首页-商卡二期:店铺名称
+ * 普通店铺配送商卡-自取频道-SKYX01_基础信息_店铺名称_自取频道:店铺名称
  *
  * @author Miller Shan
  * @version 1.0
  * @since 2024/07/28 12:17:39
  */
-@Scenario(scenarioID = "01K0V5A8YDP2DYYHSJKSZNRA7S",
-        scenarioName = "普通店铺配送商卡-SKYX01_基础信息_店铺名称_首页-商卡二期:店铺名称",
+@Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6Y3",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_店铺名称_自取频道:店铺名称",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 30)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -48,7 +48,7 @@ public class ShopShouldHasShopNameScenarioTests {
 
     @MethodSource("shopNameDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_基础信息_店铺名称_首页-商卡二期:店铺名称")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_店铺名称_自取频道:店铺名称")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 
@@ -75,8 +75,12 @@ public class ShopShouldHasShopNameScenarioTests {
      */
     static Stream<Arguments> shopNameDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
+        // 自取频道店铺流必须传经纬度
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

@@ -30,8 +30,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 16:34
  */
-@Scenario(scenarioID = "01K0V7PH8YJNKZ0YBB6T9R0NCF",
-        scenarioName = "普通店铺配送商卡-SKYX01_营销标_买过的店_返回条件：满足下列所有条件时，返回买过的店标签",
+@Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6YC",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_营销标_买过的店_返回条件：满足下列所有条件时，返回买过的店标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -60,7 +60,7 @@ public class ShopShouldHasBoughtRecentlyFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_营销标_买过的店_返回条件：满足下列所有条件时，返回买过的店标签")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_营销标_买过的店_返回条件：满足下列所有条件时，返回买过的店标签")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
@@ -85,8 +85,12 @@ public class ShopShouldHasBoughtRecentlyFeature {
      */
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
-        // 可以不用传参数
-        shopListRequestDTO.setFiltering(false);
+        // 自取频道店铺流必须传经纬度
+        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setLongitude("115.954100");
+        shopListRequestDTO.setLatitude("29.660580");
+        shopListRequestDTO.setIsNeedMarketCategory(1);
+        shopListRequestDTO.setMarketCategoryId(0);
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
