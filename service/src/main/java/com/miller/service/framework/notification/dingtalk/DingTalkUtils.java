@@ -2,11 +2,14 @@ package com.miller.service.framework.notification.dingtalk;
 
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
+import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request;
 import com.dingtalk.api.request.OapiRobotSendRequest;
+import com.dingtalk.api.response.OapiMessageCorpconversationAsyncsendV2Response;
 import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.taobao.api.ApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.ObjectUtils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -14,7 +17,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -39,7 +44,6 @@ public class DingTalkUtils {
     public static final String CUSTOM_ROBOT_TOKEN_TEST = "1a6a884b38ef34aa7442ca3390f58de71003e4518417a8c660e603110c03b80f";
 
 
-
     /**
      * 钉钉机器人管理中的 安全设置，加签密钥
      */
@@ -48,7 +52,6 @@ public class DingTalkUtils {
      * 测试secret
      */
     public static final String SECRET_TEST = "SECff0e8a7c6c0b81fba98b6c8c33ba4eb2721985c8ce31584e17ee84ab53b4a91c";
-
 
 
     /**
@@ -69,11 +72,11 @@ public class DingTalkUtils {
     }
 
     public static void sendMarkdownMessage(String title, String content) {
-        sendMarkdownMessage(title,content,CUSTOM_ROBOT_TOKEN, SECRET);
+        sendMarkdownMessage(title, content, CUSTOM_ROBOT_TOKEN, SECRET);
     }
 
     public static void sendMarkdownMessageTest(String title, String content) {
-        sendMarkdownMessage(title,content,CUSTOM_ROBOT_TOKEN_TEST, SECRET_TEST);
+        sendMarkdownMessage(title, content, CUSTOM_ROBOT_TOKEN_TEST, SECRET_TEST);
     }
 
 
@@ -199,6 +202,82 @@ public class DingTalkUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static void senOaMessage(
+            String title,
+            List<OapiMessageCorpconversationAsyncsendV2Request.Form> formList,
+            OapiMessageCorpconversationAsyncsendV2Request.Rich rich,
+            String token,
+            String secret
+    ) {
+
+
+        try {
+            Long timestamp = System.currentTimeMillis();
+//            String secret = SECRET;
+            String stringToSign = timestamp + "\n" + secret;
+            Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));
+            byte[] signData = mac.doFinal(stringToSign.getBytes("UTF-8"));
+            String sign = URLEncoder.encode(new String(Base64.encodeBase64(signData)), "UTF-8");
+
+            //sign字段和timestamp字段必须拼接到请求URL上，否则会出现 310000 的错误信息
+            DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/robot/send?sign=" + sign + "&timestamp=" + timestamp);
+
+            OapiMessageCorpconversationAsyncsendV2Request.Msg msg = new OapiMessageCorpconversationAsyncsendV2Request.Msg();
+
+            OapiMessageCorpconversationAsyncsendV2Request.OA oa = new OapiMessageCorpconversationAsyncsendV2Request.OA();
+
+            OapiMessageCorpconversationAsyncsendV2Request request = new OapiMessageCorpconversationAsyncsendV2Request();
+            request.setToAllUser(true);
+
+            OapiMessageCorpconversationAsyncsendV2Request.Body body = new OapiMessageCorpconversationAsyncsendV2Request.Body();
+            if (ObjectUtils.isEmpty(formList)) {
+                formList = new ArrayList<>();
+            }
+            body.setForm(formList);
+
+            // 富文本数据
+            if (ObjectUtils.isEmpty(rich)) {
+                rich = new  OapiMessageCorpconversationAsyncsendV2Request.Rich();
+            }
+            body.setRich(rich);
+
+            OapiMessageCorpconversationAsyncsendV2Request.Head head = new OapiMessageCorpconversationAsyncsendV2Request.Head();
+            head.setText("");
+
+            body.setTitle(title);
+            oa.setHead(head);
+            oa.setBody(body);
+            msg.setOa(oa);
+            msg.setMsgtype("oa");
+            request.setMsg(msg);
+            OapiMessageCorpconversationAsyncsendV2Response rsp = client.execute(request, token);
+            System.out.println(rsp.getBody());
+
+
+        } catch (ApiException e) {
+            log.error("钉钉发送消息失败", e);
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            log.error("编码错误", e);
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            log.error("加密错误", e);
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            log.error("验证key错误", e);
+            throw new RuntimeException(e);
+        }
+        try {
+            // 每个机器人每分钟最多发送20条消息到群里，如果超过20条，会限流10分钟。
+            Thread.sleep(TimeUnit.SECONDS.toMillis(3));
+        } catch (InterruptedException e) {
+            log.error("线程休眠错误", e);
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public static void main(String[] args) {
         sendTextMessage("测试消息请忽略。");
