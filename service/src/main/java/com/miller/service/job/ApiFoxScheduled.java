@@ -21,30 +21,19 @@ import java.util.Date;
  */
 @Component
 public class ApiFoxScheduled {
-//    public static final String runApiFoxCommand = "apifox run https://apifox.hungrypanda.it/api/v1/projects/345145/api-test/ci-config/345113/detail?token=x6O0_WS0DlzSRJNhr5Lh63 -r html,cli,json --out-dir ./apifox-reports --database-connection ./database-connections.json --global-var auto_execution_record=1 --upload-report";
 
     @Autowired
     private ApifoxToolsService apifoxToolsService;
 
-    // "0 15 10 * * ?" 每天上午10:15触发
-//    @Scheduled(cron = "0 10 1 * * ?")
-//    public void scheduledTask() {
-//        JavaShellUtil.executeShell(runApiFoxCommand);
-//        //        JavaShellUtil.executeShell("ls -l");
-//        //        System.out.println("任务执行时间：" + Date.from(Instant.now()));
-//    }
-
-
     @Scheduled(cron = "0 10 1 * * ?")
-//    @Scheduled(cron = " 0 */1 * * * *")
     public void scheduledTaskB() {
        this.scheduledTask(AttributionGroupEnum.B);
     }
 
-    @Scheduled(cron = "0 10 2 * * ?")
-    public void scheduledTaskC() {
-        this.scheduledTask(AttributionGroupEnum.C);
-    }
+//    @Scheduled(cron = "0 10 2 * * ?")
+//    public void scheduledTaskC() {
+//        this.scheduledTask(AttributionGroupEnum.C);
+//    }
 
     @Scheduled(cron = "0 10 3 * * ?")
     public void scheduledTaskP() {
