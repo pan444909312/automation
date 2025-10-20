@@ -4,6 +4,7 @@ import com.miller.service.framework.annotation.EnvTag;
 import com.miller.service.framework.annotation.TestFramework;
 import com.miller.service.framework.cache.CacheUtils;
 import com.miller.service.framework.db.DBUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -17,9 +18,9 @@ import static com.miller.service.framework.asserts.AssertUtils.assertThat;
 @TestFramework
 @DisplayName("逻辑删除sql插入的订单")
 public class DeleteDeliveryOrderTest {
-    private static final String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com/panda_test";
-    private static final String userName = "panda_test";
-    private static final String passWord = "Pan$te19*";
+    private static final String mySqlUrl = new PropertiesUtils().getProperty(DeleteDeliveryOrderTest.class, "datasource.url.panda_test");
+    private static final String userName = new PropertiesUtils().getProperty(DeleteDeliveryOrderTest.class, "datasource.username.panda_test");
+    private static final String passWord = new PropertiesUtils().getProperty(DeleteDeliveryOrderTest.class, "datasource.password.panda_test");
     private static DBUtils dbUtils;
     @BeforeAll
     public static void beforeAll() {
