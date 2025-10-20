@@ -2,6 +2,7 @@ package com.miller.service.framework.lifecycle;
 
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.constant.PlatformTypeEnum;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.service.framework.report.entity.AutoCaseRoiLogEntity;
 import com.miller.service.framework.report.sql.AutoCaseRoiLogSql;
@@ -224,12 +225,15 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
             autoCaseRoi.setManualTestTime(scenario.manualTestTime());
             autoCaseRoi.setAuthor(scenario.author());
+            // 只在新增用例的时候才写入创建人，默认写本次写入的用例负责人
+            autoCaseRoi.setCreator(scenario.author());
             autoCaseRoi.setTimes(1);
             autoCaseRoi.setSaveTime(Long.valueOf(scenario.manualTestTime()));
             autoCaseRoi.setRoi(calculateRoi(autoCaseRoi));
             autoCaseRoi.setCreateTime(System.currentTimeMillis());
             autoCaseRoi.setUpdateTime(System.currentTimeMillis());
             autoCaseRoi.setExecutionUser(executor);
+            autoCaseRoi.setPlatformType(PlatformTypeEnum.JAVA.getCode());
             autoCaseRoiSql.saveAutoCaseRoi(autoCaseRoi);
 //            log.info("autoCaseRoi: "+ autoCaseRoi);
         }

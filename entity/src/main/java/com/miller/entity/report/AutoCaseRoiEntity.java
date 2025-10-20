@@ -94,4 +94,14 @@ public class AutoCaseRoiEntity implements Serializable {
     @Schema(description = "备注信息")
     @TableField("remark")
     private String remark;
+
+    @Schema(description = "用例创建人")
+    @TableField("creator")
+    private String creator;
+
+    @Schema(description = "用例归属平台类型（1：JAVA 2：APIFOX 3：JMETER 4：UI自动化）")
+    @TableField("platform_type")
+    private Integer platformType;
+
+
 }

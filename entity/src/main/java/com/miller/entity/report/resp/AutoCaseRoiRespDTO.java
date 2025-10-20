@@ -49,4 +49,12 @@ public class AutoCaseRoiRespDTO {
     @Schema(description = "关联项目id")
     private String projectId;
 
+    @Schema(description = "用例负责人，邮箱地址")
+    private String author;
+
+    @Schema(description = "用例创建人")
+    private String creator;
+
+    @Schema(description = "用例归属平台类型（1：JAVA 2：APIFOX 3：JMETER 4：UI自动化）")
+    private Integer platformType;
 }

@@ -1,6 +1,7 @@
 package com.miller.service.report.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.miller.entity.constant.PlatformTypeEnum;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.mapper.report.AutoCaseRoiMapper;
@@ -34,6 +35,7 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
         long currentTimeMillis = System.currentTimeMillis();
 
         if (!ObjectUtils.isEmpty(autoCaseRoi)) {
+            // 更新
             autoCaseRoi.setDevelopmentTime(dto.getDevelopmentTime());
             autoCaseRoi.setManualTestTime(dto.getManualTestTime());
 
@@ -47,12 +49,17 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
             autoCaseRoi.setUpdateTime(currentTimeMillis);
 
         } else {
+            // 新增
             autoCaseRoi = new AutoCaseRoiEntity();
             BeanUtils.copyProperties(dto, autoCaseRoi);
 
             // 初始化执行次数
             Integer times = ObjectUtils.isNotEmpty(dto.getTimes()) && dto.getTimes() > 0 ? dto.getTimes() : 1;
             autoCaseRoi.setTimes(times);
+            // 只在新增用例的时候才写入创建人，默认写本次写入的用例负责人
+            autoCaseRoi.setCreator(dto.getAuthor());
+
+            autoCaseRoi.setPlatformType(PlatformTypeEnum.APIFOX.getCode());
 
             //  初始化创建时间:  时间格式不对则当前创建时间
             String createTime = dto.getCreateTime();
