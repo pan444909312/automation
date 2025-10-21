@@ -67,6 +67,6 @@ public class SpecialTaskCloseTests {
     public static void afterAll(){
         //清除已关闭任务数据
         String userTaskId = (String) TestCaseHelpful.get("userTaskId");
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_special_close  where user_task_id =?",userTaskId);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_special_close  where user_task_id ="+userTaskId);
     }
 } 

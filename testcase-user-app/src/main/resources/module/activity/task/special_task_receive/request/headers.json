@@ -2,7 +2,7 @@
 	"Cookie":"_clck=2u05tr%7C2%7Cfwt%7C0%7C1993; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%2219777b4697166a-0aa23d1a5663078-3a176a50-304704-19777b469729e9%22%2C%22first_id%22%3A%22%22%2C%22props%22%3A%7B%7D%2C%22identities%22%3A%22eyIkaWRlbnRpdHlfY29va2llX2lkIjoiMTk3NzdiNDY5NzE2NmEtMGFhMjNkMWE1NjYzMDc4LTNhMTc2YTUwLTMwNDcwNC0xOTc3N2I0Njk3MjllOSJ9%22%2C%22history_login_id%22%3A%7B%22name%22%3A%22%22%2C%22value%22%3A%22%22%7D%7D",
 	"_pendingsign":"_ts1750129015858authorization411bbb07e2c95097c46903d3c5e4f88d",
 	"accept-language":"zh-Hans-CN;q=1, en-CN;q=0.9",
-	"latitude":"29.66058",
+	"latitude":"28.93592",
 	"countrycode":"CN",
 	"Host":"app-test.hungrypanda.cn",
 	"language":"CN",
@@ -21,5 +21,5 @@
 	"_sig":"c2ee71c0f400fa2d97e2c154bd9a5d39b1895d97",
 	"user-agent":"PandaH/8.62.0 (iPhone; iOS 16.7.2; Scale/3.00) OKPOS",
 	"_ts":"1750129015858",
-	"longitude":"115.95410"
+	"longitude":"118.87419"
 }

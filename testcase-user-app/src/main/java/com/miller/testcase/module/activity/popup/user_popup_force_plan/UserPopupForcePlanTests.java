@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01K1WV9WZKCXP0X7PXM4ZZ9863", // 自动生成，不要修改
-        scenarioName = "user popup force plan",
+        scenarioName = "天降强推活动,手动领取模式弹窗",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("user popup force plan:强推活动,手动领取")
+@DisplayName("天降强推活动,手动领取模式弹窗")
 public class UserPopupForcePlanTests {
 
     @BeforeAll
@@ -34,7 +34,7 @@ public class UserPopupForcePlanTests {
                 "SET one_day_exposure = 999,\n" +
                 "    need_collect = 1\n" +
                 "WHERE city = \"郑州市\" AND is_del = 0");
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete FROM activity_popup_red_packet_group_red_packet_collect where user_id='1398718113'\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete FROM activity_popup_red_packet_group_red_packet_collect where user_id='1398720570'\n");
 
     }
     @AfterAll
@@ -61,7 +61,7 @@ public class UserPopupForcePlanTests {
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("Authorization", TestCaseHelpful.login("19095893861","12345678"));
+        requestHeaders.put("Authorization", TestCaseHelpful.login("16500000066","123456"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
 //        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
