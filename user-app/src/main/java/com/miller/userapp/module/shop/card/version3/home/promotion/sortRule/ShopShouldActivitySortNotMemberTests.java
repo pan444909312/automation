@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4A1JR1R2CCWGVRDV3TXVK7N", scenarioName = "首页-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）",
+@Scenario(scenarioID = "01K82XWTSYV4FS585HTTS4J9N9", scenarioName = "首页-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("首页-商卡二期-SKYX实验组：活动类型标签-优先级（非会员默认排序）")
