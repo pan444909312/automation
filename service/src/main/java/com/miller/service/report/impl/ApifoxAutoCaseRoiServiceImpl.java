@@ -57,7 +57,7 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
             Integer times = ObjectUtils.isNotEmpty(dto.getTimes()) && dto.getTimes() > 0 ? dto.getTimes() : 1;
             autoCaseRoi.setTimes(times);
             // 只在新增用例的时候才写入创建人，默认写本次写入的用例负责人
-            autoCaseRoi.setCreator(dto.getAuthor());
+            autoCaseRoi.setCreator(dto.getEmail());
 
             autoCaseRoi.setPlatformType(PlatformTypeEnum.APIFOX.getCode());
 
