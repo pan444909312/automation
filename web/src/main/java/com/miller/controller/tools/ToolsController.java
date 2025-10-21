@@ -173,9 +173,9 @@ public class ToolsController {
     @GetMapping("/report")
     public Response<List<String>> report() {
         // 本地
-        String reportDirectory = "D:\\code\\automation-admin\\public";
+//        String reportDirectory = "D:\\code\\automation-admin\\public";
         // 服务器
-//        String reportDirectory = "/home/sa/ct-frontend/dist";
+        String reportDirectory = "/home/sa/ct-frontend/dist";
 
         try {
             log.info("正在扫描报告目录: {}", reportDirectory);
