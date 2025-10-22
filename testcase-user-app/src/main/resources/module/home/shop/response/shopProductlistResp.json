@@ -9,7 +9,7 @@
     "total": "${json-unit.any-number}",
     "list":"${json-unit.ignore-element}"
   },
-  "currency": "¥",
+  "currency": "${json-unit.any-string}",
   "success": true,
   "nowTime": "${json-unit.any-number}",
   "queryList": "${json-unit.ignore-element}"
