@@ -25,6 +25,10 @@
       "evaluateFilterType": 2,
       "evaluateCount": "${json-unit.any-number}"
     }, {
+      "evaluateFilterName": "有图",
+      "evaluateFilterType": 3,
+      "evaluateCount": "${json-unit.any-number}"
+    }, {
       "evaluateFilterName": "好评",
       "evaluateFilterType": 4,
       "evaluateCount": "${json-unit.any-number}"
