@@ -82,6 +82,18 @@ public class AutoCaseRoiController {
         Integer orderBy = pageAutoCaseRoiReqDto.getOrderBy();
         Integer sort = pageAutoCaseRoiReqDto.getSort();
         String projectId = pageAutoCaseRoiReqDto.getProjectId();
+        String author = pageAutoCaseRoiReqDto.getAuthor();
+        Integer platformType = pageAutoCaseRoiReqDto.getPlatformType();
+        String creator = pageAutoCaseRoiReqDto.getCreator();
+        if (!StringUtils.isEmpty(author)) {
+            queryWrapper.like("author", author);
+        }
+        if (!StringUtils.isEmpty(platformType)) {
+            queryWrapper.eq("platform_type", platformType);
+        }
+        if (!StringUtils.isEmpty(creator)) {
+            queryWrapper.like("creator", creator);
+        }
         if (!StringUtils.isEmpty(projectId)) {
             queryWrapper.eq("project_id", projectId);
         }

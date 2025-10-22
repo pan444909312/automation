@@ -19,12 +19,15 @@ import com.miller.userapp.module.data.user.CreateUserServer;
 import com.miller.userapp.util.DBUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: panjuxiang
@@ -34,6 +37,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/automation/tools")
 @Tag(name = "工具相关接口")
+@Slf4j
 public class ToolsController {
 
     @Autowired
@@ -163,6 +167,54 @@ public class ToolsController {
     public Response<String> autoCreateGoods() {
 
         return Response.success("");
+    }
+
+    @Operation(description = "UI报告")
+    @GetMapping("/report")
+    public Response<List<String>> report() {
+        // 本地
+//        String reportDirectory = "D:\\code\\automation-admin\\public";
+        // 服务器
+        String reportDirectory = "/home/sa/ct-frontend/dist";
+
+        try {
+            log.info("正在扫描报告目录: {}", reportDirectory);
+
+            File directory = new File(reportDirectory);
+
+            if (!directory.exists() || !directory.isDirectory()) {
+                log.warn("报告目录不存在: {}", reportDirectory);
+                return Response.fail("报告不存在");
+            }
+
+            // 获取所有以html_report开头且以.html结尾的文件
+            File[] files = directory.listFiles((dir, name) ->
+                    name.startsWith("html_report") && name.endsWith(".html")
+            );
+
+            if (files == null || files.length == 0) {
+                log.info("未找到报告文件");
+                return Response.fail("未找到报告");
+            }
+
+            // 按修改时间倒序排序
+            Arrays.sort(files, (a, b) ->
+                    Long.compare(b.lastModified(), a.lastModified())
+            );
+
+            // 提取文件名
+            List<String> fileNames = Arrays.stream(files)
+                    .map(File::getName)
+                    .collect(Collectors.toList());
+
+            log.info("成功找到 {} 个报告文件", fileNames.size());
+
+            return Response.success(fileNames);
+
+        } catch (Exception e) {
+            log.error("获取报告列表失败", e);
+            return Response.fail(e.getMessage());
+        }
     }
 
 }

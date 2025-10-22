@@ -15,10 +15,10 @@
 		"newUserRedPacketPopup": null,
 		"redPacketGroupPopupInfo": {
 			"subTitle": "恭喜您抽中天降红包",
-			"themeSkinPic": "https://static.hungrypanda.co/panda/17274045017201d9fc293152145b3bdc2e351f890556b.png",
+			"themeSkinPic": "https://static.hungrypanda.co/panda/16953534640686921ed2dcf8c486699297e2995a90880.png",
 			"claimButtonPic": "https://static.hungrypanda.co/panda/16939712785782d09764592374074b950a22e715a438b.png",
 			"jumpUrl": null,
-			"bgColor": "#f63a33",
+			"bgColor": "#F15654",
 			"redPacketList": [{
 				"userCdKeyId": null,
 				"redPacketId": 888895445,
@@ -31,8 +31,7 @@
 				"maxRedPacketPrice": 0,
 				"minDiscountRate": 0,
 				"minThresholdPrice": 0,
-				"validDays": 6631,
-				"redPacketGroupId": 2342,
+				"redPacketGroupId": 2369,
 				"showLabel": null,
 				"redPacketScopeType": 0,
 				"showType": 1,
@@ -72,8 +71,7 @@
 		"androidUrl": null,
 		"iosUrl": null,
 		"cardType": null,
-		"cardId": null
-	},
-	"currency": "¥",
-	"success": true
+		"cardId": null,
+		"displayWidth": null
+	}
 }

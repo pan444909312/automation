@@ -15,7 +15,7 @@ public class PandaChannelScenarioTests {
     @Test
     void shouldReturnRuleSuccessfully(){
         var headers = TestCaseHelpful.getHeaders("module/headers.json");
-        headers.put("authorization",TestCaseHelpful.login("17700000077","123456"));
+        headers.put("authorization",TestCaseHelpful.login("17100000077","123456"));
         var requestBody=TestCaseHelpful.getJsonRequestBody("module/activity/popup/panda/request/success.json");
         var responseBody = HttpUtils.sendPostRequestReturnBody(uri, null, headers, requestBody, null);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.redPacketList").isNotNull();

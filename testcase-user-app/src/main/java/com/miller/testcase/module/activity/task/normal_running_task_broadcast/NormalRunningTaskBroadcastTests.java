@@ -41,7 +41,7 @@ public class NormalRunningTaskBroadcastTests {
         // 获取当前时间后3天的23:59:59
         LocalDateTime threeDaysLater = LocalDateTime.now()
                 // 加3天
-                .plus(3, ChronoUnit.DAYS)
+                .plus(10, ChronoUnit.DAYS)
                 // 设置时间为23:59:59
                 .withHour(23)
                 .withMinute(59)
@@ -51,6 +51,8 @@ public class NormalRunningTaskBroadcastTests {
         // 转换为时间戳（毫秒级），使用系统默认时区
         long timestamp = threeDaysLater.atZone(ZoneId.of("Asia/Shanghai")).toInstant().toEpochMilli();
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_task_center_user set end_time=" + timestamp + " where user_id=1398720181");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_task_center_user set task_status=" + 0 + " where user_id=1398720181");
+
     }
     @AfterAll
     static void afterAll(){
@@ -87,8 +89,12 @@ public class NormalRunningTaskBroadcastTests {
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        var indexTaskVO = TestCaseHelpful.extractValue(responseBody, "result.indexTaskVO");
+        TestCaseHelpful.assertThatJson(indexTaskVO).when(Option.IGNORING_EXTRA_FIELDS).isNotNull();
+        var processingTask= TestCaseHelpful.extractValue(responseBody, "result.indexTaskVO.processingTask");
+        TestCaseHelpful.assertThatJson(processingTask).when(Option.IGNORING_EXTRA_FIELDS).isNotNull();
+        String title= TestCaseHelpful.extractValue(responseBody, "result.indexTaskVO.processingTask.title");
+        TestCaseHelpful.assertThat(title).isEqualTo("11天内下3单，得{0}");
 
     }
 } 

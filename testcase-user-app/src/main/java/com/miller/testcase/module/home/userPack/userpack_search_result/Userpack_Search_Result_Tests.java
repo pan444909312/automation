@@ -22,10 +22,10 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01K1WGX57FXY5DRD260WSZBXXP", // 自动生成，不要修改
-        scenarioName = "userpack search result:自取频道，搜索",
+        scenarioName = "自取频道，查看搜索结果",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("userpack search result:自取频道，搜索")
+@DisplayName("自取频道，查看搜索结果")
 public class Userpack_Search_Result_Tests {
 
     @BeforeAll

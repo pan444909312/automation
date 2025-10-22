@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-辅助信息-月售-自取频道-商卡二期：月售 - 月售展示开关禁用")
 public class ShopShouldHasNoMonthlySalesScenarioTests {
     //    测试店铺
-    private final Long shopId = 969518737L;
+    private final Long shopId = 820422420L;
 
     @BeforeAll
     void beforeAll() {
@@ -49,9 +49,9 @@ public class ShopShouldHasNoMonthlySalesScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){
-        //采用日照市进行测试
-        RequestUtils.getHeaders().put("latitude", "35.41646");
-        RequestUtils.getHeaders().put("longitude", "119.52719");
+        //采用沈阳市进行测试
+        RequestUtils.getHeaders().put("latitude", "41.80478");
+        RequestUtils.getHeaders().put("longitude", "123.43297");
 
         ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
         ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();
@@ -63,8 +63,8 @@ public class ShopShouldHasNoMonthlySalesScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 自取频道店铺流必须传经纬度
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        shopListRequestDTO.setLongitude("119.52719");
-        shopListRequestDTO.setLatitude("35.41646");
+        shopListRequestDTO.setLongitude("123.43297");
+        shopListRequestDTO.setLatitude("41.80478");
         shopListRequestDTO.setIsNeedMarketCategory(1);
         shopListRequestDTO.setMarketCategoryId(0);
         return Stream.of(Arguments.of(shopListRequestDTO));

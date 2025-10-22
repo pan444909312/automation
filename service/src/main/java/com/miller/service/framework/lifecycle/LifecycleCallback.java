@@ -2,6 +2,7 @@ package com.miller.service.framework.lifecycle;
 
 import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.constant.PlatformTypeEnum;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.service.framework.report.entity.AutoCaseRoiLogEntity;
 import com.miller.service.framework.report.sql.AutoCaseRoiLogSql;
@@ -17,6 +18,7 @@ import com.miller.service.framework.report.AutoDBUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.extension.*;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -193,8 +195,14 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
         checkScenarioAnnotationValueAreCorrect(cls, scenario);
         String scenarioId = scenario.scenarioID();
         AutoCaseRoiEntity autoCaseRoi = autoCaseRoiSql.getAutoCaseRoi(scenarioId);
-        // ID 不为空表示已经保存过，不需要再保存，则做更新
+        String executionUser = null;
         if (Objects.nonNull(autoCaseRoi)) {
+            executionUser = autoCaseRoi.getExecutionUser();
+        }
+
+
+        // ID 不为空表示已经保存过，不需要再保存，则做更新
+        if (Objects.nonNull(autoCaseRoi) && !StringUtils.isEmpty(executionUser)) {
             autoCaseRoi.setScenarioName(scenario.scenarioName());
             autoCaseRoi.setDevelopmentTime(scenario.developmentTime());
             autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
@@ -217,21 +225,30 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 //            log.info("autoCaseRoi: "+ autoCaseRoi);
         } else {
             // ID 为空表示第一次保存，则做插入
-            autoCaseRoi = new AutoCaseRoiEntity();
-            autoCaseRoi.setScenarioId(scenarioId);
-            autoCaseRoi.setScenarioName(scenario.scenarioName());
-            autoCaseRoi.setDevelopmentTime(scenario.developmentTime());
-            autoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
-            autoCaseRoi.setManualTestTime(scenario.manualTestTime());
-            autoCaseRoi.setAuthor(scenario.author());
-            autoCaseRoi.setTimes(1);
-            autoCaseRoi.setSaveTime(Long.valueOf(scenario.manualTestTime()));
-            autoCaseRoi.setRoi(calculateRoi(autoCaseRoi));
-            autoCaseRoi.setCreateTime(System.currentTimeMillis());
-            autoCaseRoi.setUpdateTime(System.currentTimeMillis());
-            autoCaseRoi.setExecutionUser(executor);
-            autoCaseRoiSql.saveAutoCaseRoi(autoCaseRoi);
+            AutoCaseRoiEntity newAutoCaseRoi = new AutoCaseRoiEntity();
+            newAutoCaseRoi.setScenarioId(scenarioId);
+            newAutoCaseRoi.setScenarioName(scenario.scenarioName());
+            newAutoCaseRoi.setDevelopmentTime(scenario.developmentTime());
+            newAutoCaseRoi.setMaintenanceTime(scenario.maintenanceTime());
+            newAutoCaseRoi.setManualTestTime(scenario.manualTestTime());
+            newAutoCaseRoi.setAuthor(scenario.author());
+            // 只在新增用例的时候才写入创建人，默认写本次写入的用例负责人
+            newAutoCaseRoi.setCreator(scenario.author());
+            newAutoCaseRoi.setTimes(1);
+            newAutoCaseRoi.setAuthor(scenario.author());
+            newAutoCaseRoi.setSaveTime(Long.valueOf(scenario.manualTestTime()));
+            newAutoCaseRoi.setRoi(calculateRoi(newAutoCaseRoi));
+            newAutoCaseRoi.setCreateTime(System.currentTimeMillis());
+            newAutoCaseRoi.setUpdateTime(System.currentTimeMillis());
+            newAutoCaseRoi.setExecutionUser(executor);
+            newAutoCaseRoi.setPlatformType(PlatformTypeEnum.JAVA.getCode());
+            if (Objects.nonNull(autoCaseRoi)){
+                autoCaseRoiSql.updateAutoCaseRoi(newAutoCaseRoi);
+            }else {
+                autoCaseRoiSql.saveAutoCaseRoi(newAutoCaseRoi);
+            }
 //            log.info("autoCaseRoi: "+ autoCaseRoi);
+            autoCaseRoi = newAutoCaseRoi;
         }
 
         // 保存执行记录到测试框架执行记录表，用于记录日志，包含调试和测试记录。
@@ -261,6 +278,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 
     /**
      * 计算自动化测试用例的 ROI 值
+     *
      * @param autoCaseRoi
      * @return 自动化测试用例的 ROI 值
      */
@@ -288,7 +306,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
      * 自动化测试执行记录
      *
      * @param autoCaseRoiLog 执行记录
-     * @param executor 执行人
+     * @param executor       执行人
      * @return AutoExecutionRecordEntity
      */
     private AutoExecutionRecordEntity getAutoExecutionRecord(AutoCaseRoiLogEntity autoCaseRoiLog, String executor) {

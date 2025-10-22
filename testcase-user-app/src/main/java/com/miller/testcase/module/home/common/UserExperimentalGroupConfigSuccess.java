@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 
-@Scenario(scenarioID = "01JVKR6DPY3AY792BTB6AE5DDE",
+@Scenario(scenarioID = "01K828NR28WPDE4EVC3GX2QNG5",
         scenarioName = "实验分组信息返回成功",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/app/user/experimentalGroup/config")

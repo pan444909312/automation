@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-熊猫联盟频道店铺流-商卡(中文)-普通店铺配送商卡-熊猫联盟频道-辅助信息-月售-熊猫联盟频道-商卡二期：月售 - 月售展示开关禁用")
 public class ShopShouldHasNoMonthlySalesScenarioTests {
     //    测试店铺
-    private final Long shopId = 969518737L;
+    private final Long shopId = 820422420L;
 
     @BeforeAll
     void beforeAll() {
@@ -46,9 +46,9 @@ public class ShopShouldHasNoMonthlySalesScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){
-        //采用日照市进行测试
-        RequestUtils.getHeaders().put("latitude", "35.41646");
-        RequestUtils.getHeaders().put("longitude", "119.52719");
+        // 沈阳经纬度
+        RequestUtils.getHeaders().put("latitude", "41.80478");
+        RequestUtils.getHeaders().put("longitude", "123.43297");
 
         ShopListResponseDTO ShopListResponsedto = ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
         ShopIndexVO shopIndexVO  = ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().get();

@@ -97,7 +97,7 @@ public class ShopShouldActivitytSortMemberTests {
 
          //查找所有标签
          List<Integer> allTags = shopIndexVO.getShopPromoteList().stream().map(item -> item.getType()).collect(Collectors.toList());
-         assertThat( allTags).isEqualTo(new ArrayList<Integer>(List.of(32,42, 24, 25, 28, 29, 30, 31, 34) ));
+         assertThat( allTags).isEqualTo(new ArrayList<Integer>(List.of(32, 35, 42, 24, 43, 25, 28, 29, 30, 31, 34) ));
 
      }
 

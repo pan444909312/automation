@@ -63,14 +63,25 @@ public class UserRegTests {
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from user where user_id=" + user_id);
         //清除老邀新活动数据
         String device_id="cd58f63a82fb4f1f80a6cfd18c5f46c9";
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_invite_award_benefit_record where device_id =" + device_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_benefit_red_packet_record where device_id =" + device_id);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_new_red_packet_record where device_id =" + device_id);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_invite_award_benefit_record where device_id ='"+device_id+"'");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_benefit_red_packet_record where device_id ='"+device_id+"'");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_new_red_packet_record where device_id ='"+device_id+"'");
+        //增加等待时间30s
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     @AfterAll
     static void afterAll(){
         // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行后置的操作，比如: 销毁测试数据、还原数据库、清理环境等
+        //清除老邀新活动数据
+        String device_id="cd58f63a82fb4f1f80a6cfd18c5f46c9";
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_invite_award_benefit_record where device_id ='"+device_id+"'");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_benefit_red_packet_record where device_id ='"+device_id+"'");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_user_new_red_packet_record where device_id ='"+device_id+"'");
     }
 
     @DisplayName("正向流程")

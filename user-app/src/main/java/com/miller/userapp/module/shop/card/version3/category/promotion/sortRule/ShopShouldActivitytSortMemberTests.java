@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4BRVQNJX5EJCWWTSZSWAD57", scenarioName = "品类频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）",
+@Scenario(scenarioID = "01K82R8ZSFC8AVRWJJSGYNY40Y", scenarioName = "品类频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("品类频道-商卡二期-SKYX实验组：活动类型标签-优先级（会员默认排序）")
@@ -97,7 +97,7 @@ public class ShopShouldActivitytSortMemberTests {
 
          //查找所有标签
          List<Integer> allTags = shopIndexVO.getShopPromoteList().stream().map(item -> item.getType()).collect(Collectors.toList());
-         assertThat( allTags).isEqualTo(new ArrayList<Integer>(List.of(32,42, 24, 25, 28, 29, 30, 31, 34) ));
+         assertThat( allTags).isEqualTo(new ArrayList<Integer>(List.of(32, 35, 42, 24, 43, 25, 28, 29, 30, 31, 34 )));
 
      }
 
