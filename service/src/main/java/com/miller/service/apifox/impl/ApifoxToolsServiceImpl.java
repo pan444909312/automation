@@ -202,9 +202,13 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 JSONObject failureObj = (JSONObject) failure;
                 JSONObject sourceObj = failureObj.getJSONObject("source");
                 JSONObject metaInfo = sourceObj.getJSONObject("metaInfo");
+                JSONObject errorObj = failureObj.getJSONObject("error");
                 String relatedId = metaInfo.getString("relatedId");
                 ApifoxReportItemDTO apifoxReportItemDTO = reportItemDTOMap.get(relatedId);
                 apifoxReportItemDTO.setRunStatus(false);
+
+                String stepName =  metaInfo.getString("httpApiName");
+                apifoxReportItemDTO.addFailStep(null,stepName,errorObj);
                 reportItemDTOMap.put(relatedId, apifoxReportItemDTO);
             }
         }
@@ -217,19 +221,21 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
             ApifoxRunResultDTO runResultObj = personCaseDataMap.containsKey(personInCharge) ?
                     personCaseDataMap.get(personInCharge) : new ApifoxRunResultDTO();
-            Integer failCount = runResultObj.getFailCount();
-            Integer successCount = runResultObj.getSuccessCount();
+
+
             final String scenarioName = value.getScenarioName();
             runResultObj.setScenarioNameList(scenarioName);
-
+            runResultObj.plusStepTotal(value.getHttpApiIds().size());
             if (runStatus) {
-                successCount = successCount + 1;
-                runResultObj.setSuccessCount(successCount);
+                runResultObj.plusSuccessCount(1);
+                runResultObj.plusPassStepCount(value.getHttpApiIds().size() );
+                runResultObj.plusFailStepCount(0);
                 runResultObj.setSuccessList(scenarioName);
             } else {
-                failCount = failCount + 1;
-                runResultObj.setFailCount(failCount);
-                runResultObj.setFailList(scenarioName);
+                runResultObj.plusFailCount(1);
+                runResultObj.plusPassStepCount(value.getHttpApiIds().size() - value.getFailStepInfoList().size() );
+                runResultObj.plusFailStepCount(value.getFailStepInfoList().size());
+                runResultObj.setFailList(value);
             }
 
             personCaseDataMap.put(personInCharge, runResultObj);
@@ -245,13 +251,16 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
 
                 if (ObjectUtils.isNotEmpty(runResultObj.getFailList())) {
-                    runResultObj.getFailList().forEach((scenarioName) -> {
-                        if (ObjectUtils.isNotEmpty(scenarioName)) {
+                    runResultObj.getFailList().forEach((failItem) -> {
+                        if (ObjectUtils.isNotEmpty(failItem)) {
                             ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
                             apiFoxRunErrorSceneEntity.setReportId(id)
-                                    .setScenarioName(scenarioName)
+                                    .setScenarioName(failItem.getScenarioName())
                                     .setResponsiblePerson(name)
-                                    .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR);
+                                    .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR)
+                                    .setStepErrorInfo(JSONArray.toJSONString(failItem.getFailStepInfoList()))
+                            ;
+                            // TODO 调试完成后恢复
                             apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
                         }
 
@@ -299,6 +308,7 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
         log.info("Apifox每日运行报告推送钉钉: 成功");
         log.info(msg.toString());
+        // TODO 调试完成后恢复
         // 推送钉钉群消息
         DingTalkUtils.sendMarkdownMessage(
                 "各成员自动化执行结果通知:",

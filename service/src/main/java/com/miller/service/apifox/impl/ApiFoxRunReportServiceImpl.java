@@ -27,6 +27,9 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
                 .setResponsiblePerson(name)
                 .setSuccessRuns(dto.getSuccessCount())
                 .setFailureRuns(dto.getFailCount())
+                .setStepTotal(dto.getStepTotal())
+                .setFailStepCount(dto.getFailStepCount())
+                .setPassStepCount(dto.getPassStepCount())
                 .setTotalRuns(totalRuns)
                 .setSuccessRate((double) dto.getSuccessCount() / totalRuns)
                 .setFailureRate((double) dto.getFailCount() / totalRuns)
@@ -47,4 +50,10 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
         ApiFoxRunReportEntity queryResult = this.getOne(apiFoxRunReportEntityQueryWrapper);
         return queryResult.getId();
     }
+
+//    @Override
+//    public Long saveFindId(ApiFoxRunReportEntity entity) {
+//        //TODO 调试完成后恢复
+//        return System.currentTimeMillis();
+//    }
 }
