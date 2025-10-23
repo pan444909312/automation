@@ -19,12 +19,12 @@ import org.junit.jupiter.api.Test;
  * @version 2.0
  * @since 2025/07/10 20:40:17
  */
-@Scenario(
-        scenarioID = "01JZT5KMX0W6RQP1GQVHY0RD16", // 自动生成，不要修改
-        scenarioName = "pf融合开关：关闭&不在ab测&PFapp依旧返回达达店铺id",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
-@DisplayName("pf融合开关：关闭&不在ab测&PFapp依旧返回达达店铺id")
+//@Scenario(
+//        scenarioID = "01JZT5KMX0W6RQP1GQVHY0RD16", // 自动生成，不要修改
+//        scenarioName = "pf融合开关：关闭&不在ab测&PFapp依旧返回达达店铺id",
+//        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+//        developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
+//@DisplayName("pf融合开关：关闭&不在ab测&PFapp依旧返回达达店铺id")
 public class GetHpfConfigNotInABPF_Tests {
 
     @BeforeAll

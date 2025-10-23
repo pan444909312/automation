@@ -17,12 +17,12 @@ import org.junit.jupiter.api.Test;
  * @version 2.0
  * @since 2025/07/18 15:28:58
  */
-@Scenario(
-        scenarioID = "01K0E6ZB3Z1N0FXPJR0RVHKW43", // 自动生成，不要修改
-        scenarioName = "pf首页-商品瀑布流-猜你喜欢开关关闭",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("pf首页-商品瀑布流-猜你喜欢开关关闭")
+//@Scenario(
+//        scenarioID = "01K0E6ZB3Z1N0FXPJR0RVHKW43", // 自动生成，不要修改
+//        scenarioName = "pf首页-商品瀑布流-猜你喜欢开关关闭",
+//        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+//        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+//@DisplayName("pf首页-商品瀑布流-猜你喜欢开关关闭")
 public class GetIndexRecommendOff_Tests {
 
     @BeforeAll
