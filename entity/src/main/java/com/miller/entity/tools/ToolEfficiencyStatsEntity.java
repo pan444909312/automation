@@ -53,6 +53,7 @@ public class ToolEfficiencyStatsEntity {
     /** 工具描述或备注 */
     private String description;
 
-    private List<ToolExecutionStatisticsResultEntity> executionStatisticsResultList;
+
+    private transient List<ToolExecutionStatisticsResultEntity> executionStatisticsResultList;
     
 }

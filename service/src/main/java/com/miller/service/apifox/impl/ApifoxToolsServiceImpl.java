@@ -21,6 +21,7 @@ import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.platform.UserService;
 import com.miller.service.util.PatternUtils;
+import com.miller.service.util.SignGenerateUtil;
 import com.taobao.api.ApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
