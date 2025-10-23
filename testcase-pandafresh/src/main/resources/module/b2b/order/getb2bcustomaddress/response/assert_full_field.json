@@ -1,0 +1,14 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": [
+		{
+			"id": 107,
+			"consigneeName": "测试1",
+			"consigneeTel": "7846319703",
+			"callingCode": "44",
+			"consigneeAddress": "测试测试",
+			"consigneeZipCode": "EC1456"
+		}
+	]
+}
