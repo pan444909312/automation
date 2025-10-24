@@ -23,8 +23,8 @@ import java.util.Map;
         scenarioID = "01K87ZXZEXH7XJZ72PP3CYWYWD", // 自动生成，不要修改
         scenarioName = "b2b搜索:匹配商品标题",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("search")
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("b2b搜索:匹配商品标题")
 public class SearchForTitle_Tests {
 
     @BeforeAll
@@ -59,7 +59,7 @@ public class SearchForTitle_Tests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"keyword","健康");
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.keyword","健康");
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -77,12 +77,12 @@ public class SearchForTitle_Tests {
         java.util.Set<String> goodsNames = new java.util.HashSet<>();
         for (int i = 0; i < goodsList.size(); i++) {
             Map goods = (Map<String, Object>) goodsList.get(i);
-            String goodsName = (String) goods.get("goodsName");
+            String goodsName = (String) goods.get("goodsTitle");
             goodsNames.add(goodsName);
         }
 
         // 断言数组中包含指定的商品名称
-        boolean containsExpectedGoods = goodsNames.stream().anyMatch(name -> name.contains("桃"));
+        boolean containsExpectedGoods = goodsNames.stream().anyMatch(name -> name.contains("健康"));
 
         TestCaseHelpful.assertThat(containsExpectedGoods).isEqualTo(true);
 

@@ -70,5 +70,7 @@ public class GetB2bCustomAddress_Tests {
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
+        TestcaseConfig.b2bAddressId = TestCaseHelpful.extractValue(responseBody,"$.data.[0].id").toString();
+
     }
 } 

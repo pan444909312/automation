@@ -1,0 +1,38 @@
+{
+	"pm":"POST",
+	"ph":{
+		"content-type":"application/json",
+		"authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiMmJfMTc3MDAwMDQ0NDQ4ODg4ODgiLCJpYXQiOjE3NjEyNzM0MzIsImV4cCI6MjYzMjE4NTQzMn0.RUq5ygCOi8Rgny3Re3x315V3YpmaJoejSiiaxQGS0fdLeLbYpkV_uDw5CkwhmbjTpFmO8qiU9J4_MlKPwU8asQ",
+		"latitude":"",
+		"longitude":"",
+		"version":"4.24.0",
+		"platform":"H5",
+		"system":"none",
+		"portalId":74,
+		"cityId":755,
+		"language":"CN",
+		"regionId":3,
+		"userId":255354,
+		"appTypeId":21,
+		"marketChannel":"",
+		"service-route":"pandafresh"
+	},
+	"pd": {
+		"itemVOList": [{
+			"shopCartId": 2732,
+			"goodsPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1735624392727/17356243927271347286d.JPG",
+			"goodsId": 149862,
+			"goodsSkuId": 76236,
+			"goodsCount": 1,
+			"isTobacco": 0,
+			"isAlcohol": 0,
+			"goodsName": "B2B的桃",
+			"price": 123,
+			"originalPrice": 123
+		}]
+	},
+	"nv":"2",
+	"nt":"1761273711851",
+	"nn":"2kxfXtLqypKG90zyfOoorLrN3",
+	"nd":"41c2fe9571a3922"
+}

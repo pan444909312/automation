@@ -25,6 +25,8 @@ public class ApifoxReportItemDTO {
 
     private List<ApiFoxFailStepInfoDTO> failStepInfoList;
 
+    private String apifoxUrl;
+
     public void addFailStep(String id , String name , JSONObject failureObjStr ){
         if(ObjectUtils.isEmpty(failStepInfoList)){
             failStepInfoList =  new ArrayList<>();

@@ -1,0 +1,10 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"orderSn": "${json-unit.any-string}"
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP"
+}

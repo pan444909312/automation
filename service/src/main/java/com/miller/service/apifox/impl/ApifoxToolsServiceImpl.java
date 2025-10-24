@@ -19,6 +19,7 @@ import com.miller.mapper.apifox.ApiFoxRunReportMapper;
 import com.miller.service.apifox.ApiFoxRunErrorSceneService;
 import com.miller.service.apifox.ApiFoxRunReportService;
 import com.miller.service.apifox.ApifoxToolsService;
+import com.miller.service.apifox.enums.ApiFoxCommonEnum;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
@@ -149,11 +150,14 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
 
         // 一、 解析json文件 collection - item[0] - item（数组）遍历
-        JSONArray itemJsonArray = apifoxReportJson.getJSONObject("collection").getJSONArray("item");
-        JSONObject itemJson = itemJsonArray.getJSONObject(0);
+        JSONObject collectionList = apifoxReportJson.getJSONObject("collection");
+        if (ObjectUtils.isEmpty(collectionList)) {
+            throw new RuntimeException("json 格式异常，无法提取到 Key: collection");
+        }
+
+        JSONObject itemJson = collectionList.getJSONArray("item").getJSONObject(0);
         if (ObjectUtils.isEmpty(itemJson)) {
-            // TODO 后面做异常报错处理
-            return;
+            throw new RuntimeException("json 格式异常，无法提取到 Key: collection -> item");
         }
 
         JSONArray itemArray = itemJson.getJSONArray("item");
@@ -216,6 +220,8 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
                 String stepName =  metaInfo.getString("httpApiName");
                 apifoxReportItemDTO.addFailStep(null,stepName,errorObj);
+                final String apiFoxUrl = String.format("https://apifox.hungrypanda.it/link/project/%s/api-test/scenario-%s", ApiFoxCommonEnum.APIFOX_PROJECT_ID.getValue(), relatedId);
+                apifoxReportItemDTO.setApifoxUrl(apiFoxUrl);
                 reportItemDTOMap.put(relatedId, apifoxReportItemDTO);
             }
         }
@@ -244,7 +250,6 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 runResultObj.plusFailStepCount(value.getFailStepInfoList().size());
                 runResultObj.setFailList(value);
             }
-
             personCaseDataMap.put(personInCharge, runResultObj);
         });
 
@@ -266,8 +271,8 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                                     .setResponsiblePerson(name)
                                     .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR)
                                     .setStepErrorInfo(JSONArray.toJSONString(failItem.getFailStepInfoList()))
+                                    .setApifoxUrl(failItem.getApifoxUrl());
                             ;
-                            // TODO 调试完成后恢复
                             apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
                             // 更新执行记录表状态，更新该失败的用例最近的一条执行记录为失败
                             String scenarioId = failItem.getScenarioId();

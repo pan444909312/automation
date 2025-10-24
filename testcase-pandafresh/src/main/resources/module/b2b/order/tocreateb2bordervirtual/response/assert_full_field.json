@@ -1,0 +1,40 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"payWayType": "${json-unit.any-number}",
+		"billPeriodType": "${json-unit.any-number}",
+		"billPeriodDays": "${json-unit.any-number}",
+		"autoSendBill": "${json-unit.any-number}",
+		"payWayTypeStr": "${json-unit.any-string}",
+		"totalAmount": "${json-unit.any-number}",
+		"totalCustomTaxPrice": "${json-unit.any-number}",
+		"discountValue": "${json-unit.any-number}",
+		"totalItemCount": "${json-unit.any-number}",
+		"totalGoodsCount": "${json-unit.any-number}",
+		"payAmount": "${json-unit.any-number}",
+		"goodsList": [{
+			"shopCartId": "${json-unit.any-number}",
+			"goodsId": 149862,
+			"goodsSkuId": 76236,
+			"goodsSn": "b2btao001",
+			"goodsCount": "${json-unit.any-number}",
+			"beforeTaxPrice": "${json-unit.any-number}",
+			"afterTaxPrice": "${json-unit.any-number}",
+			"taxPrice": "${json-unit.any-number}",
+			"goodsPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1735624392727/17356243927271347286d.JPG",
+			"goodsName": "B2B的桃",
+			"customTax": "${json-unit.any-number}",
+			"boxSpec": "${json-unit.any-number}",
+			"boxPrice": "${json-unit.any-number}",
+			"itemCount": "${json-unit.any-number}",
+			"originalPrice": "${json-unit.any-number}",
+			"specValue": "默认",
+			"payAmount": "${json-unit.any-number}"
+		}],
+		"startSendMoney": "${json-unit.any-number}"
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP"
+}
