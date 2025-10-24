@@ -1,0 +1,63 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "memberShopPriceSum": "",
+    "shopPriceSum": "3",
+    "discountRate": "",
+    "currency": "¥",
+    "redPacketList": [
+      {
+        "redPacketId": 888895362,
+        "redPacketName": "减3（无门槛）",
+        "redPacketPrice": "3",
+        "redPacketTypeId": 4,
+        "shopId": 221864167,
+        "isCollected": 0,
+        "thresholdPriceContent": "无门槛",
+        "timeContent": "领取后10天内有效",
+        "discountRate": 0,
+        "discountLimit": 0,
+        "createTime": 1748485501783,
+        "countNumber": 222,
+        "thresholdPrice": 0,
+        "redPacketPricePenny": 300,
+        "thresholdPriceStr": "0",
+        "crowd": "1",
+        "useChannel": 0,
+        "packetBenefitType": 1,
+        "showLabel": null,
+        "showType": null,
+        "redPacketScopeType": null,
+        "activitySn": null,
+        "isExpand": null,
+        "maxRedPacketPrice": null,
+        "minDiscountRate": null,
+        "expireTimeContent": null,
+        "subsidyContent": null,
+        "isAllowAddPrice": 0,
+        "userCdKeyId": null,
+        "subsidyValue": null,
+        "grantQuantity": null
+      }
+    ],
+    "shopHomeRedPacketShowType": null,
+    "isMember": 0,
+    "memberRedPacketList": null,
+    "memberBenefitVO": null,
+    "memberDiscount": null,
+    "usableMaxRedPacketList": []
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": 1748487084952,
+  "queryList": {
+    "1": "hp_master: select * from shop where shop_id = 221864167",
+    "2": "hp_master: select mc.member_city_id, mc.city_id, mc.packet_num, mc.member_price, mc.save_price, mc.create_time, mc.update_time, mc.is_del, mc.derate_price, mc.title, mc.is_open_delivery_discount, mc.member_privilege_desc, mc.module_activity_id, mc.member_activity_name, mc.member_card_type, mc.member_discount_price, mc.bulletin, mc.popups_sts, mc.popups_main_title, mc.popups_sub_title, mc.member_benefit, mc.member_version, mc.delivery_use_num, mc.online_status, mc.delivery_range_limit,mc.checkout_sts,mc.auto_renew,mc.first_month_price,mc.renew_price,mc.version,mc.delivery_use_num_limit, mc.delivery_use_type,mc.delivery_use_version,mc.first_month_price_period,mc.first_pay_price,mc.first_renew_pay_price,mc.tag_id,mc.is_open_shop_packet, mc.order_price_threshold,mc.renew_info_type,mc.time_zone ,a.address_config_id, mcr.city_name from member_city mc, member_city_relation mcr,address_config a where mc.`member_city_id` = mcr.`member_city_id` AND mcr.city_name = a.`city_name` AND mc.is_del = 0 AND a.is_del = 0 AND mcr.`city_name` = '九江市' AND mc.online_status = 1 ORDER BY mc.`create_time` DESC",
+    "3": "hp_master: select a.shop_id as shopId, a.shop_name as shopName, a.shop_status as shopStatus, b.add_country as addCountry, b.add_location as addLocation, b.add_longitude as addLongitude, b.add_latitude as addLatitude, a.service_phone as servicePhone, b.country_code as countryCode, a.shop_logo as shopLogo, b.add_city as addCity, a.is_del as isDel, a.off_peak_time as offPeakTime, a.peak_time as peakTime, a.audit_status as auditStatus, a.address_id as addressId from shop as a,address as b where a.address_id = b.add_id and a.shop_id = 221864167",
+    "4": "hp_master: select mc.member_city_id, mc.city_id, mc.packet_num, mc.member_price, mc.save_price, mc.create_time, mc.update_time, mc.is_del, mc.derate_price, mc.title, mc.is_open_delivery_discount, mc.member_privilege_desc, mc.module_activity_id, mc.member_activity_name, mc.member_card_type, mc.member_discount_price, mc.bulletin, mc.popups_sts, mc.popups_main_title, mc.popups_sub_title, mc.member_benefit, mc.member_version, mc.delivery_use_num, mc.online_status, mc.delivery_range_limit,mc.checkout_sts,mc.auto_renew,mc.first_month_price,mc.renew_price,mc.version,mc.delivery_use_num_limit, mc.delivery_use_type,mc.delivery_use_version,mc.first_month_price_period,mc.first_pay_price,mc.first_renew_pay_price,mc.tag_id,mc.is_open_shop_packet, mc.order_price_threshold,mc.renew_info_type,mc.time_zone ,a.address_config_id, mcr.city_name from member_city mc, member_city_relation mcr,address_config a where mc.`member_city_id` = mcr.`member_city_id` AND mcr.city_name = a.`city_name` AND mc.is_del = 0 AND a.is_del = 0 AND mcr.`city_name` = '九江市' AND mc.online_status = 1 ORDER BY mc.`create_time` DESC",
+    "5": "hp_master: SELECT DISTINCT coupon_template_sn FROM hp_member_coupon_template_relation hmctr JOIN hp_member_shop_red_packet_configuration hmsrpc on hmctr.hp_member_shop_red_packet_configuration_id = hmsrpc.id WHERE hmctr.is_del = 0 AND hmctr.member_city_id = 1111378 AND hmsrpc.member_city_id = 1111378 AND hmsrpc.group_status = 0 AND hmsrpc.start_date <= '2025-05-29' AND hmsrpc.end_date >= '2025-05-29' AND hmsrpc.is_del = 0",
+    "6": "hp_master: SELECT id,city,show_module,show_filter,update_user_id,update_user_name,update_time,create_time,add_price_show_module,add_price_full_desc,add_price_discount_desc,red_packet_ids,home_view,home_view_times FROM activity_popup_red_packet_panda_league_config WHERE (city = '九江市') limit 1"
+  }
+}

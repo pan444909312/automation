@@ -34,8 +34,7 @@ public class NewUserPopupNologinTests {
                 "delete from `hp_user_new_red_packet_record` where   device_id='2365086D-71E6-4761-9C6B-75234AEEB0BF' ;\n" +
                 "delete FROM hp_invite_award_benefit_record WHERE device_id in ('2365086D-71E6-4761-9C6B-75234AEEB0BF');\n" +
                 "delete From hp_new_user_cdkey_record where user_id=1398717334;\n" +
-                "delete From user_cdkey where user_id=1398717334;");
-    }
+                "delete From user_cdkey where user_id=1398717334;\n"+"");}
     @AfterAll
     static void afterAll(){
         // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次

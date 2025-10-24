@@ -70,7 +70,7 @@ public class NormalTaskBroadcastTests {
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.title").isEqualTo("\"今天下3单，得{0}\"");
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.orderNum").isEqualTo("3");
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.taskSn").isEqualTo("611QZQFOM8");
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.taskSn").isEqualTo("7061AL94K4");
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.taskType").isEqualTo("1");
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.indexTaskVO.waitTask.param").isEqualTo("{\"{0}\":\"¥8红包\"}");
 

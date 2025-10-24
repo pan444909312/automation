@@ -1,0 +1,29 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "ruleList": [
+      {
+        "ruleType": 1,
+        "value": 3,
+        "reissueSns": [
+          "15273F9BE12F4BFEB0D04504074F547D"
+        ],
+        "reissueIds": [
+          189
+        ]
+      }
+    ],
+    "newUersRuleList": null
+  },
+  "currency": "¥",
+  "success": true,
+  "nowTime": 1748584828528,
+  "queryList": {
+    "1": "hp_master: select order_sn, order_status_new, delivery_type, account_balance_amount, account_balance_flow_amount, create_time, order_type, order_status, merchant_out_meal_time, final_price from `order` where is_online_pay = 0 and is_del = 0 and user_id = 1398716816 and create_time >= 1748534400000",
+    "2": "hp_master: select id from activity_popup_red_packet_group_red_packet_collect where user_id = 1398716816 and collect_time >= 1748534400000",
+    "3": "hp_master: SELECT rpr.id,title,start_date,reissue_sn, end_date,user_label_type,rule, red_packet_id,`state`,filter_received_user FROM activity_popup_red_packet_reissue rpr , activity_popup_red_packet_reissue_city rprc WHERE rpr.is_del = 0 and rprc.is_del =0 and rprc.business_id = rpr.id and rprc.business_type = 1 and rpr.state = 1 and ( rprc.city_name = '九江市' or rprc.city_name = '全部城市')",
+    "4": "hp_master: SELECT id,reissue_id,rule_sn,rule,rule_value,is_del,red_packet_id,prizes_type,create_time,update_time FROM activity_popup_red_packet_reissue_rule WHERE (reissue_id IN (189) AND is_del = 0)"
+  }
+}

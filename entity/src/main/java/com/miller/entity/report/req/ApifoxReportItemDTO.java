@@ -1,11 +1,11 @@
 package com.miller.entity.report.req;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.ObjectUtils;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Accessors(chain = true)
@@ -23,6 +23,15 @@ public class ApifoxReportItemDTO {
 
     private String personInCharge;
 
+    private List<ApiFoxFailStepInfoDTO> failStepInfoList;
+
+    public void addFailStep(String id , String name , JSONObject failureObjStr ){
+        if(ObjectUtils.isEmpty(failStepInfoList)){
+            failStepInfoList =  new ArrayList<>();
+        }
+        ApiFoxFailStepInfoDTO apiFoxFailStepInfoDTO = new ApiFoxFailStepInfoDTO(id,name,failureObjStr);
+        failStepInfoList.add(apiFoxFailStepInfoDTO);
+    }
 
     public void addApiId(String apiId) {
         if (ObjectUtils.isEmpty(this.httpApiIds)){

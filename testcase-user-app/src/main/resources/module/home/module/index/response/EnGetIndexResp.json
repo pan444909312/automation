@@ -75,7 +75,7 @@
       "addCity": "九江市",
       "addCountry": "中国",
       "addArea": "九江市浔阳区",
-      "addDeliveryArea": "九江市区可接单",
+      "addDeliveryArea": "${json-unit.any-string}",
       "addLatitude": "29.72005",
       "addLongitude": "115.99882",
       "addLocation": "",

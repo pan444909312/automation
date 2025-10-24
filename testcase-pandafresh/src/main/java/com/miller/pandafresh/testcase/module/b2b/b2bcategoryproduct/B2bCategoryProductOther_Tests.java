@@ -49,6 +49,13 @@ public class B2bCategoryProductOther_Tests {
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data").isNotNull();
-
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.b2bProductVOList.[0].goodsPic").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.b2bProductVOList.[0].goodsName").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.b2bProductVOList.[0].boxNum").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.b2bProductVOList.[0].goodsTitle").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.b2bProductVOList.[0].beforeTaxPrice").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.b2bProductVOList.[0].price").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.b2bProductVOList.[0].goodsId").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.b2bProductVOList.[0].goodsSkuId").isNotNull();
     }
 } 

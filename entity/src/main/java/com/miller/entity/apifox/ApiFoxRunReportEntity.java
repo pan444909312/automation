@@ -83,4 +83,21 @@ public class ApiFoxRunReportEntity implements Serializable {
      * 任务失败率（公式：failureRuns/totalRuns * 100%）
      */
     private double failureRate;
+
+    /**
+     * 执行步骤总数
+     */
+    private Integer stepTotal;
+
+    /**
+     * 执行失败步骤数量
+     */
+    private Integer failStepCount;
+
+    /**
+     * 执行成功步骤数量
+     */
+    private Integer passStepCount;
+
+
 }
