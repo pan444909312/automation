@@ -47,7 +47,7 @@ public class SpecialTaskCloseTests {
     void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("Authorization", TestCaseHelpful.login("17700000055", "123456"));
+        requestHeaders.put("Authorization", TestCaseHelpful.login("13769889616", "12345678"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         requestBody=TestCaseHelpful.updateJsonValue(requestBody,"userTaskSn",TestCaseHelpful.get("userTaskSn"));

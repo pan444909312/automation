@@ -56,9 +56,16 @@ public class ApiFoxRunErrorSceneEntity  implements Serializable {
     private Long createTime;
 
     /**
+     * 失败步骤明细，jsonArray 格式
+     */
+    private String stepErrorInfo = "[]";
+
+
+    /**
      * 运行结果枚举
      */
     public enum RunResult {
         ERROR, SUCCESS
     }
+
 }

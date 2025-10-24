@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.mapper.tool.ToolExecutionLogMapper">
+
+    <select id="getToolExecutionLogByToolId" >
+        select * from tool_execution_log where tool_id=#{id}
+    </select>
+
+    <select id="getToolEfficiencyStatsByToolId" >
+        select executor, count(1) as 'count', max(time_saved_per_execution) * count(1) as `time_to_improve_efficiency`
+        from tool_execution_log
+        where tool_id = #{id}
+        group by executor
+    </select>
+</mapper>

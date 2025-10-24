@@ -28,8 +28,8 @@ public class GetIndexRecommendOn_Tests {
     @BeforeAll
     static void beforeAll() throws InterruptedException {
         //开启猜你喜欢
-        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "hp-market-api.goods.recommend.enable", "是否开启商品推荐", true);
-        Thread.sleep(3000L);
+//        XXLConfUtils.updateConfig(XXLConfigEnvEnum.TEST.getEnv(), "hp-market-api.goods.recommend.enable", "是否开启商品推荐", true);
+//        Thread.sleep(3000L);
     }
     @AfterAll
     static void afterAll(){

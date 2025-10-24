@@ -38,14 +38,14 @@ public class SpecialTaskReceiveTests {
     @BeforeAll ()
     public static void beforeAll() {
         //清除用户任务数据
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from panda_test.hp_task_center_user where user_id=\"1398717289\" and task_id=\"2011\" order by create_time desc\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from panda_test.hp_task_center_user where user_id=\"1398720612\" and task_id=\"2011\" order by create_time desc\n");
     }
     @DisplayName("正向流程")
     @Test
     public  void shouldSuccess() {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        requestHeaders.put("Authorization", TestCaseHelpful.login("17700000055","123456"));
+        requestHeaders.put("Authorization", TestCaseHelpful.login("13769889616","12345678"));
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
