@@ -196,7 +196,7 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
     }
 
     @Override
-    public List<AutoCaseExecutionDailySummaryDTO> listDailyCaseExecutionResultSummary(String projectId, int executionType, int executionStatus, Date date) {
-        return autoExecutionRecordMapper.selectDailyCaseExecutionResultSummary(projectId, executionType, executionStatus, date);
+    public List<AutoCaseExecutionDailySummaryDTO> listDailyCaseExecutionResultSummary(String projectId, int executionType, List<Integer>  executionStatusList, Date date) {
+        return autoExecutionRecordMapper.selectDailyCaseExecutionResultSummary(projectId, executionType, executionStatusList, date);
     }
 }

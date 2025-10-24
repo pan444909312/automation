@@ -8,6 +8,7 @@ import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.report.req.ListDailyResultSummaryReqDTO;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailyDataDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.service.report.AutoExecutionRecordService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -96,19 +98,63 @@ public class AutoExecutionRecordController {
                 today
         );
 
+//        ArrayList<Integer> executionStatusList = new ArrayList<>();
+//        executionStatusList.add(ExecutionStatusEnum.FAIL.getCode());
+//        executionStatusList.add(ExecutionStatusEnum.PASS.getCode());
+//        executionStatusList.add(ExecutionStatusEnum.ERROR.getCode());
 
+        ArrayList<Integer> executionStatusSuccessList = new ArrayList<>();
+        executionStatusSuccessList.add(ExecutionStatusEnum.SUCCESS.getCode());
+
+
+        // 获取成功用例数
+        List<AutoCaseExecutionDailySummaryDTO> autoCaseExecutionDailyFailedSummaryDTOList = autoExecutionRecordService.listDailyCaseExecutionResultSummary(
+                projectId,
+                ExecutionTypeEnum.DAILY_CHECK.getCode(),
+                executionStatusSuccessList,
+                today
+        );
+
+        // 成功用例List转化map
+        Map<String, AutoCaseExecutionDailySummaryDTO> successSummaryMap = autoCaseExecutionDailyFailedSummaryDTOList.stream()
+                .collect(Collectors.toMap(
+                        AutoCaseExecutionDailySummaryDTO::getAuthor,
+                        dto -> dto
+                ));
+
+
+        // 获取所有用例数
         List<AutoCaseExecutionDailySummaryDTO> autoCaseExecutionDailySummaryDTOList = autoExecutionRecordService.listDailyCaseExecutionResultSummary(
                 projectId,
                 ExecutionTypeEnum.DAILY_CHECK.getCode(),
-                ExecutionStatusEnum.SUCCESS.getCode(),
+                null,
                 today
         );
+
+        List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOS = new ArrayList<>();
+        AutoCaseExecutionDailyDataDTO autoCaseExecutionDailyDataDTO;
+
+        for (AutoCaseExecutionDailySummaryDTO autoCaseExecutionDailySummaryDTO : autoCaseExecutionDailySummaryDTOList) {
+            int count = autoCaseExecutionDailySummaryDTO.getCount();
+            int successCount = successSummaryMap.get(autoCaseExecutionDailySummaryDTO.getAuthor()).getCount();
+            int failCount = count - successCount;
+            double passRate = (double) successCount / count;
+            autoCaseExecutionDailyDataDTO = new AutoCaseExecutionDailyDataDTO();
+            autoCaseExecutionDailyDataDTO.setAuthor(autoCaseExecutionDailySummaryDTO.getAuthor());
+            autoCaseExecutionDailyDataDTO.setCount(count);
+            autoCaseExecutionDailyDataDTO.setProjectId(autoCaseExecutionDailySummaryDTO.getProjectId());
+            autoCaseExecutionDailyDataDTO.setSuccessCount(successCount);
+            autoCaseExecutionDailyDataDTO.setFailCount(failCount);
+            autoCaseExecutionDailyDataDTO.setPassRate(passRate);
+
+            autoCaseExecutionDailyDataDTOS.add(autoCaseExecutionDailyDataDTO);
+        }
 
 
         Map<String, Object> result = new HashMap<>();
         result.put("total", autoCaseExecutionDailyDTOList.size());
         result.put("detail", autoCaseExecutionDailyDTOList);
-        result.put("summary", autoCaseExecutionDailySummaryDTOList);
+        result.put("summary", autoCaseExecutionDailyDataDTOS);
         return result;
 
     }

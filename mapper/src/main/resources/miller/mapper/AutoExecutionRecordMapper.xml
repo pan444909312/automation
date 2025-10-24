@@ -90,28 +90,29 @@
 
     </select>
 
-    <resultMap id="selectAutoExecutionRecordWithProjectIdMap" type="com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO">
-                <result property="id" column="id"/>
-                <result property="scenario_id" column="scenarioId"/>
-                <result property="execution_type" column="executionType"/>
-                <result property="execution_time" column="executionTime"/>
-                <result property="development_time" column="developmentTime"/>
-                <result property="maintenance_time" column="maintenanceTime"/>
-                <result property="manual_test_time" column="manualTestTime"/>
-                <result property="project_id" column="projectId"/>
+    <resultMap id="selectAutoExecutionRecordWithProjectIdMap"
+               type="com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO">
+        <result property="id" column="id"/>
+        <result property="scenario_id" column="scenarioId"/>
+        <result property="execution_type" column="executionType"/>
+        <result property="execution_time" column="executionTime"/>
+        <result property="development_time" column="developmentTime"/>
+        <result property="maintenance_time" column="maintenanceTime"/>
+        <result property="manual_test_time" column="manualTestTime"/>
+        <result property="project_id" column="projectId"/>
     </resultMap>
 
     <select id="selectAutoExecutionRecordWithProjectId"
             resultMap="selectAutoExecutionRecordWithProjectIdMap">
         SELECT DISTINCT e.id,
-               e.scenario_id,
-               e.execution_type,
-               e.execution_time,
-               e.development_time,
-               e.maintenance_time,
-               e.manual_test_time,
-               e.execution_status,
-               c.project_id
+                        e.scenario_id,
+                        e.execution_type,
+                        e.execution_time,
+                        e.development_time,
+                        e.maintenance_time,
+                        e.manual_test_time,
+                        e.execution_status,
+                        c.project_id
         from auto_execution_record e
                  LEFT JOIN auto_case_roi c on e.scenario_id = c.scenario_id
         WHERE e.is_deleted = 0
@@ -140,7 +141,7 @@
         LEFT JOIN auto_case_roi r on e.scenario_id = r.scenario_id
         INNER JOIN user u on r.author = u.email
         WHERE e.execution_time > UNIX_TIMESTAMP(#{date}) * 1000
-          and e.execution_time &lt; UNIX_TIMESTAMP(#{date}) * 1000 + 100*60*60*24
+        and e.execution_time &lt; UNIX_TIMESTAMP(#{date}) * 1000 + 1000*60*60*8
         and e.execution_status != #{executionStatus}
         <if test="projectId != null and projectId != ''">
             and r.project_id = #{projectId}
@@ -149,7 +150,8 @@
 
     </select>
 
-    <resultMap id="selectDailyCaseExecutionResultSummaryMap" type="com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO">
+    <resultMap id="selectDailyCaseExecutionResultSummaryMap"
+               type="com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO">
         <result property="author" column="name"/>
         <result property="count" column="case_count"/>
         <result property="projectId" column="project_id"/>
@@ -164,11 +166,17 @@
         auto_execution_record e ON a.scenario_id = e.scenario_id
         INNER JOIN
         user u on a.author = u.email
-        WHERE e.execution_status != #{executionStatus}
-        AND e.execution_time > UNIX_TIMESTAMP(#{date}) *1000
-        AND e.execution_time &lt; UNIX_TIMESTAMP(#{date}) *1000 + 100*60*60*24
+        WHERE
+        e.execution_time > UNIX_TIMESTAMP(#{date}) *1000
+        AND e.execution_time &lt; UNIX_TIMESTAMP(#{date}) *1000 + 1000*60*60*8
         <if test="projectId != null and projectId != ''">
             and a.project_id = #{projectId}
+        </if>
+        <if test="executionStatusList != null and executionStatusList.size() > 0">
+            and e.execution_status IN
+            <foreach collection="executionStatusList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
         </if>
         and e.execution_type = #{executionType}
         GROUP BY

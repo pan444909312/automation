@@ -34,6 +34,6 @@ public interface AutoExecutionRecordMapper extends BaseMapper<AutoExecutionRecor
 
     List<AutoCaseExecutionDailyDTO> selectDailyCaseExecutionResult(String projectId, int executionType, int executionStatus, Date date);
 
-    List<AutoCaseExecutionDailySummaryDTO> selectDailyCaseExecutionResultSummary(String projectId, int executionType, int executionStatus, Date date);
+    List<AutoCaseExecutionDailySummaryDTO> selectDailyCaseExecutionResultSummary(String projectId, int executionType, @Param("executionStatusList") List<Integer> executionStatusList, Date date);
 
 }

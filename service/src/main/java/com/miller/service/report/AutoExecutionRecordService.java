@@ -39,7 +39,23 @@ public interface AutoExecutionRecordService extends IService<AutoExecutionRecord
     List<AutoCaseExecutionRecordRespDTO> listAutoExecutionRecordWithProjectId(long startTime, long endTime, int executionType, String projectId);
 
 
+    /**
+     * 根据项目id、执行类型、执行状态、日期查询日执行结果
+     * @param projectId
+     * @param executionType
+     * @param executionStatus
+     * @param date
+     * @return
+     */
     List<AutoCaseExecutionDailyDTO> listDailyCaseExecutionResult(String projectId, int executionType, int executionStatus, Date date);
 
-    List<AutoCaseExecutionDailySummaryDTO> listDailyCaseExecutionResultSummary(String projectId, int executionType, int executionStatus, Date date);
+    /**
+     * 根据项目id、执行类型、执行状态、日期查询日执行结果汇总（人、失败数、项目归属）
+     * @param projectId
+     * @param executionType
+     * @param executionStatusList
+     * @param date
+     * @return
+     */
+    List<AutoCaseExecutionDailySummaryDTO> listDailyCaseExecutionResultSummary(String projectId, int executionType, List<Integer> executionStatusList, Date date);
 }
