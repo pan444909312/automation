@@ -2,6 +2,7 @@ package com.miller.service.apifox.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request;
@@ -9,7 +10,9 @@ import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.miller.common.util.ULIDUtils;
 import com.miller.entity.apifox.ApiFoxRunErrorSceneEntity;
 import com.miller.entity.apifox.ApiFoxRunReportEntity;
+import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.platform.User;
+import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.report.req.ApifoxReportItemDTO;
 import com.miller.entity.report.req.ApifoxRunResultDTO;
 import com.miller.mapper.apifox.ApiFoxRunReportMapper;
@@ -20,6 +23,7 @@ import com.miller.service.apifox.enums.AttributionGroupEnum;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.platform.UserService;
+import com.miller.service.report.AutoExecutionRecordService;
 import com.miller.service.util.PatternUtils;
 import com.miller.service.util.SignGenerateUtil;
 import com.taobao.api.ApiException;
@@ -52,6 +56,9 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
     @Autowired
     private ApiFoxRunErrorSceneService apiFoxRunErrorSceneService;
+
+    @Autowired
+    private AutoExecutionRecordService autoExecutionRecordService;
 
     /**
      * 一次性代码，apifox 钉钉通知二次包装，实现 @ 指定人
@@ -262,6 +269,16 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                             ;
                             // TODO 调试完成后恢复
                             apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
+                            // 更新执行记录表状态，更新该失败的用例最近的一条执行记录为失败
+                            String scenarioId = failItem.getScenarioId();
+                            UpdateWrapper<AutoExecutionRecordEntity> autoExecutionRecordEntityUpdateWrapper = new UpdateWrapper<>();
+                            if (ObjectUtils.isNotEmpty(scenarioId)){
+                                autoExecutionRecordEntityUpdateWrapper.eq("scenario_id", scenarioId);
+                                autoExecutionRecordEntityUpdateWrapper.orderByDesc("execution_time");
+                                autoExecutionRecordEntityUpdateWrapper.last("limit 1");
+                                autoExecutionRecordEntityUpdateWrapper.set("execution_status", ExecutionStatusEnum.FAIL.getCode());
+                            }
+                            autoExecutionRecordService.update(autoExecutionRecordEntityUpdateWrapper);
                         }
 
                     });
