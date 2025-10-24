@@ -18,6 +18,7 @@ import com.miller.userapp.module.shop.card.version3.userPack.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.userPack.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.userPack.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -42,9 +43,10 @@ public class ShopShouldRedPacketSortNotMemberTests {
     UserLoginRequestDTO userLoginRequestDTO;
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.sort.userId"));
     UserCdKeyEntity userCdKeyEntity;
-     @BeforeAll
+    private final String distinctId=new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.distinctId3");
+
+    @BeforeAll
     void beforeAll() {
-        String distinctId=new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.distinctId2");
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
         userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.sort.account"));
@@ -57,7 +59,7 @@ public class ShopShouldRedPacketSortNotMemberTests {
 //        更新数据库，将user_label表数据label_id设置为1,使其出新人首单标签35
          SqlSession sqlSession = DBUtils.getDBOfPandaTest();
          ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
-         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,2)
+         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
          );
          //清除设备对应的活动数据
          DeviceAutoRenewSql deviceAutoRenewSql = new DeviceAutoRenewSql();
@@ -79,7 +81,8 @@ public class ShopShouldRedPacketSortNotMemberTests {
     @ParameterizedTest
     @DisplayName("自取频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
-          ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+        RequestUtils.getHeaders().put("uniqueToken", distinctId);
+        ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
          

@@ -18,6 +18,7 @@ import com.miller.userapp.module.shop.card.version3.pandaLeague.flow.ShopListFlo
 import com.miller.userapp.module.shop.card.version3.pandaLeague.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.pandaLeague.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -42,9 +43,10 @@ public class ShopShouldRedPacketSortMemberTests {
     UserLoginRequestDTO userLoginRequestDTO;
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.sort.member.userId"));
     UserCdKeyEntity userCdKeyEntity;
-     @BeforeAll
+    private final String distinctId=new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.distinctId3");
+
+    @BeforeAll
     void beforeAll() {
-        String distinctId=new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.distinctId");
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
         userLoginRequestDTO.setAccount(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.sort.member.account"));
@@ -79,7 +81,8 @@ public class ShopShouldRedPacketSortMemberTests {
     @ParameterizedTest
     @DisplayName("熊猫联盟频道-商卡二期-SKYX实验组：红包类型标签-优先级（会员默认排序）")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
-          ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+         RequestUtils.getHeaders().put("uniqueToken", distinctId);
+         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
          
