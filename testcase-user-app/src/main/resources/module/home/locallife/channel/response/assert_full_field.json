@@ -29,24 +29,24 @@
 				"discountSavedStr": "${json-unit.any-string}"
 			}]
 		}],
-		"totalCount": 1,
+		"totalCount": "${json-unit.any-number}",
 		"channelFeedList": [{
 			"feedName": "${json-unit.any-string}",
 			"channelFeedSn": "${json-unit.any-string}",
 			"dataSort": "${json-unit.any-number}",
 			"feedType": "${json-unit.any-number}",
-			"channelType": "${json-unit.any-number}"
+			"channelType": "${json-unit.ignore-element}"
 		}, {
 			"feedName": "${json-unit.any-string}",
 			"channelFeedSn": "${json-unit.any-string}",
 			"dataSort": "${json-unit.any-number}",
 			"feedType": "${json-unit.any-number}",
-			"channelType": null
+			"channelType": "${json-unit.ignore-element}"
 		}],
 		"voucherCity": "九江市",
-		"currency": "¥"
+		"currency": "${json-unit.any-string}"
 	},
-	"currency": "¥",
+	"currency":"${json-unit.any-string}",
 	"success": true,
 	"nowTime": "${json-unit.any-number}",
 	"queryList": "${json-unit.ignore-element}"

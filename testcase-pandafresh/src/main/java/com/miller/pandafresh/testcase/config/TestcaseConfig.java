@@ -50,4 +50,11 @@ public class TestcaseConfig {
     public static String b2bCode = "0";
 
     public static String b2bMessageCode = "0";
+
+    public static String b2bAddressId = "0";
+    public static String b2bDeliveryTime = "0";
+    public static String b2bDeliveryDate = "0";
+
+    public static String b2bShopCartId = "0";
+
 }

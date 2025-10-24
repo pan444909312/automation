@@ -1,4 +1,4 @@
-package com.miller.pandafresh.testcase.module.b2b.order.getb2bcustomaddress;
+package com.miller.pandafresh.testcase.module.b2b.order.getb2bdeliverytime;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
@@ -11,19 +11,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * getB2bCustomAddress
+ * getB2bDeliveryTime
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/10/23 14:56:59
+ * @since 2025/10/24 10:43:47
  */
 @Scenario(
-        scenarioID = "01K87XPGS23MJDW1PEGAW18M99", // 自动生成，不要修改
-        scenarioName = "b2b获取用户地址",
+        scenarioID = "01K8A1KK0JX90N4RMZRYSE25BC", // 自动生成，不要修改
+        scenarioName = "b2b-获取配送时间",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("b2b获取用户地址")
-public class GetB2bCustomAddress_Tests {
+        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("b2b-获取配送时间")
+public class GetB2bDeliveryTime_Tests {
 
     @BeforeAll
     static void beforeAll(){
@@ -40,17 +40,17 @@ public class GetB2bCustomAddress_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.H5HOST + "/api/b2b/order/getB2bCustomAddress";
+        String uri = TestcaseConfig.H5HOST + "/api/b2b/order/getB2bDeliveryTime";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/b2b/order/getb2bcustomaddress/request/headers.json";
+        String headers = "module/b2b/order/getb2bdeliverytime/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/b2b/order/getb2bcustomaddress/request/body.json";
+        String body = "module/b2b/order/getb2bdeliverytime/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/b2b/order/getb2bcustomaddress/response/assert_full_field.json";
+        String assertFullField = "module/b2b/order/getb2bdeliverytime/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -68,9 +68,19 @@ public class GetB2bCustomAddress_Tests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
-        TestcaseConfig.b2bAddressId = TestCaseHelpful.extractValue(responseBody,"$.data.[0].id").toString();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.[0].yearDate").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.[0].monthDate").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.[0].week").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.[0].deliveryTime").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.[0].deliveryTime.[0].first").isNotNull();
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.[0].deliveryTime.[0].second").isNotNull();
 
+        TestcaseConfig.b2bDeliveryDate = TestCaseHelpful.extractValue(responseBody,"$.data.[0].yearDate").toString();
+        String first = TestCaseHelpful.extractValue(responseBody,"$.data.[0].deliveryTime.[0].first").toString();
+        String second = TestCaseHelpful.extractValue(responseBody,"$.data.[0].deliveryTime.[0].second").toString();
+        TestcaseConfig.b2bDeliveryTime =first+"-"+second;
     }
 } 

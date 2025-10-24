@@ -1,9 +1,11 @@
 package com.miller.pandafresh.testcase.module.b2b.add;
 
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
+import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.annotation.TestFramework;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +32,13 @@ public class AddGoods {
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
     String assert1 = "module/b2b/add/response/assert_full_field.json";
 
+    @BeforeAll
+    static void beforeAll(){
+        //清空购物车
+        String sql = "delete  FROM b2b_shop_cart where user_id=255354";
+        FreshTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
+    }
+
     @DisplayName("正向流程")
     @Test
     void shouldSuccess() {
@@ -48,6 +57,10 @@ public class AddGoods {
 
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.data").isEqualTo(true);
+
+        //查询购物车
+        String sql = "select * FROM b2b_shop_cart where user_id=255354 limit 1";
+        TestcaseConfig.b2bShopCartId = FreshTestDBHelpful.executeSelectOneSql(sql).get("shop_cart_id").toString();
 
     }
 } 

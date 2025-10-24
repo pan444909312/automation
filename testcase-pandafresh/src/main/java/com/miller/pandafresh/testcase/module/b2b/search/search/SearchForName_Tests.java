@@ -24,8 +24,8 @@ import java.util.Map;
         scenarioID = "01K87ZXZEXH7XJZ72PP3CYWYWC", // 自动生成，不要修改
         scenarioName = "b2b搜索:匹配商品名称",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("search")
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("b2b搜索:匹配商品名称")
 public class SearchForName_Tests {
 
     @BeforeAll

@@ -1,5 +1,6 @@
-package com.miller.pandafresh.testcase.module.b2b.order.getb2bcustomaddress;
+package com.miller.pandafresh.testcase.module.b2b.login.loginout;
 
+import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.PandaTestDBHelpful;
@@ -11,19 +12,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * getB2bCustomAddress
+ * loginOut
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/10/23 14:56:59
+ * @since 2025/10/23 20:27:10
  */
 @Scenario(
-        scenarioID = "01K87XPGS23MJDW1PEGAW18M99", // 自动生成，不要修改
-        scenarioName = "b2b获取用户地址",
+        scenarioID = "01K88GK3A56HY9H5H778M3C5NP", // 自动生成，不要修改
+        scenarioName = "b2b-loginOut",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("b2b获取用户地址")
-public class GetB2bCustomAddress_Tests {
+@DisplayName("b2b-loginOut")
+public class LoginOut_Tests {
 
     @BeforeAll
     static void beforeAll(){
@@ -40,22 +41,22 @@ public class GetB2bCustomAddress_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.H5HOST + "/api/b2b/order/getB2bCustomAddress";
+        String uri = TestcaseConfig.H5HOST + "/user/loginOut";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/b2b/order/getb2bcustomaddress/request/headers.json";
+        String headers = "module/b2b/login/loginout/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/b2b/order/getb2bcustomaddress/request/body.json";
+        String body = "module/b2b/login/loginout/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/b2b/order/getb2bcustomaddress/response/assert_full_field.json";
+        String assertFullField = "module/b2b/login/loginout/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         //登录用户
-        requestHeaders.put("authorization",TestCaseHelpful.loginB2B("17700004444","888888"));
+        requestHeaders.put("authorization", TestCaseHelpful.loginB2B("17700004444","888888"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
@@ -69,8 +70,6 @@ public class GetB2bCustomAddress_Tests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-
-        TestcaseConfig.b2bAddressId = TestCaseHelpful.extractValue(responseBody,"$.data.[0].id").toString();
 
     }
 } 
