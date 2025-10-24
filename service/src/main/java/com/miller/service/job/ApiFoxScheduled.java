@@ -1,11 +1,11 @@
 package com.miller.service.job;
 
+import com.miller.service.apifox.ApiFoxConfigService;
 import com.miller.service.apifox.ApifoxToolsService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -25,46 +25,36 @@ public class ApiFoxScheduled {
     @Autowired
     private ApifoxToolsService apifoxToolsService;
 
+    @Autowired
+    private ApiFoxConfigService apiFoxConfigService;
+
     @Scheduled(cron = "0 10 1 * * ?")
     public void scheduledTaskB() {
-       this.scheduledTask(AttributionGroupEnum.B);
+        this.scheduledTask(AttributionGroupEnum.B);
     }
-
-//    @Scheduled(cron = "0 10 2 * * ?")
-//    public void scheduledTaskC() {
-//        this.scheduledTask(AttributionGroupEnum.C);
-//    }
 
     @Scheduled(cron = "0 10 3 * * ?")
     public void scheduledTaskP() {
         this.scheduledTask(AttributionGroupEnum.P);
     }
 
+
     @Scheduled(cron = "0 10 4 * * ?")
     public void scheduledTaskD() {
         this.scheduledTask(AttributionGroupEnum.D);
     }
 
-    public void scheduledTask(AttributionGroupEnum  attributionGroupEnum) {
-        StringBuffer apiFoxRunUrl = new StringBuffer();
+    public void scheduledTask(AttributionGroupEnum attributionGroupEnum) {
+
+        // 获取当前时间并格式化输出
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
         String format = sdf.format(new Date());
-        apiFoxRunUrl.append("apifox run --access-token APS-QDxZGXzarR1Cb83bsIan0PCbaHvPuulM")
-                .append(" -t  ").append(attributionGroupEnum.getT())
-                .append(" -e 345508 ")
-                .append(" -n 1 ")
-//                .append(" -r html,cli,json")
-                .append(" -r json")
-                .append(" --out-dir ./apifox-reports")
-                .append(" --external-program-path /home/sa/automation/java-jar/tool-muster.jar ")
-                .append(" --out-file ").append(attributionGroupEnum).append("-apifox-report-").append(format)
-                .append(" --database-connection ./database-connections.json")
-                .append(" --api-base-url https://apifox.hungrypanda.it ")
-                .append(" --notification 300302 ")
-                .append(" --global-var auto_execution_record=1 ")
-                .append(" --global-var apifox_host=http://localhost:9080 ")
-                .append(" --upload-report");
-        int executeShell = JavaShellUtil.executeShell(apiFoxRunUrl.toString());
+
+        // 根据小组获取对应的执行命令配置
+        String groupConfig = apiFoxConfigService.getGroupConfig(attributionGroupEnum);
+        groupConfig = groupConfig.replace("{{date}}", format);
+
+        int executeShell = JavaShellUtil.executeShell(groupConfig);
 
         // 避免执行的时候，响应报告文件还没创建，导致报错。
         try {
