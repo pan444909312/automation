@@ -1,0 +1,22 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "ruleList": [
+      {
+        "ruleType": 1,
+        "value": 3,
+        "reissueSns": [
+          "15273F9BE12F4BFEB0D04504074F547D"
+        ],
+        "reissueIds": [
+          189
+        ]
+      }
+    ],
+    "newUersRuleList": null
+  },
+  "currency": "¥",
+  "success": true
+}
