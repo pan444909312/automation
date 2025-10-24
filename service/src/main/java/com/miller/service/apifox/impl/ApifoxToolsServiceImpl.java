@@ -260,7 +260,6 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                                     .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR)
                                     .setStepErrorInfo(JSONArray.toJSONString(failItem.getFailStepInfoList()))
                             ;
-                            // TODO 调试完成后恢复
                             apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
                         }
 

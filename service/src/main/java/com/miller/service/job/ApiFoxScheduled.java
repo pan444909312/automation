@@ -56,6 +56,7 @@ public class ApiFoxScheduled {
 //                .append(" -r html,cli,json")
                 .append(" -r json")
                 .append(" --out-dir ./apifox-reports")
+                .append(" --external-program-path /home/sa/automation/java-jar/tool-muster.jar ")
                 .append(" --out-file ").append(attributionGroupEnum).append("-apifox-report-").append(format)
                 .append(" --database-connection ./database-connections.json")
                 .append(" --api-base-url https://apifox.hungrypanda.it ")

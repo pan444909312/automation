@@ -58,7 +58,7 @@ public class ApiFoxRunErrorSceneEntity  implements Serializable {
     /**
      * 失败步骤明细，jsonArray 格式
      */
-    private String stepErrorInfo;
+    private String stepErrorInfo = "[]";
 
 
     /**
