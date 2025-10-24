@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
-   private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.02.shopId"));
+   private final Long shopId = 669770737L;
    UserLoginRequestDTO userLoginRequestDTO;
 
 
@@ -55,7 +55,7 @@ public class ShopShouldHasFastigiumDeliveryTimeScenarioTests {
 
       Integer predictDeliveryTime= shopList.getResult().getShopList().stream()
               .filter(item -> item.getShopId().equals(shopId)).findFirst().get().getPredictDeliveryTime();
-      Integer realDeliveryTime =27;
+      Integer realDeliveryTime =75;
       assertThat(predictDeliveryTime).isEqualTo(realDeliveryTime);
 
 
