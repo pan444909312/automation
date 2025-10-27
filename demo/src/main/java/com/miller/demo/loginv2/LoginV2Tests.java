@@ -31,7 +31,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestFramework
 @DisplayName("登录V2-使用JdbcTemplate")
 public class LoginV2Tests {
-    private static final String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306:3306/ct_test";
+    private static final String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/ct_test";
     private static final String userName = "automation";
     private static final String passWord = "20AR@UJsobwLBdih";
     private static DBUtils dbUtils;
