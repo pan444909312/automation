@@ -24,4 +24,11 @@ public class UserSql {
         User user = getUserSqlMapper().selectOne(userQueryWrapper);
         return user.getUserId();
     }
+
+    public User getUserByUserEmail(String email){
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("email",email);
+        User user = getUserSqlMapper().selectOne(userQueryWrapper);
+        return user;
+    }
 }
