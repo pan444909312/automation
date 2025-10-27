@@ -57,10 +57,12 @@ public class SearchForName_Tests {
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        //登录用户
+        requestHeaders.put("authorization",TestCaseHelpful.loginB2B("17700004444","888888"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"keyword","B2B");
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.keyword","B2B");
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 

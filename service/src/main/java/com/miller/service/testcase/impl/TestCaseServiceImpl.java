@@ -73,18 +73,8 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
             stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
             stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
-            DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
+            DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilder.toString());
 
-            if (testsSucceededCount > 0) {
-                stringBuilderSuccess.append("#### 自动化定时执行结果汇总").append(" \n ");
-                stringBuilderSuccess.append("- **共**: " + testsSucceededCount + "个").append(" \n ");
-                stringBuilderSuccess.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
-                stringBuilderSuccess.append("- **失败**: " + 0 + "个").append(" \n ");
-                stringBuilderSuccess.append("- **跳过**: " + 0 + "个").append(" \n ");
-                stringBuilderSuccess.append("- **通过率**: " + "100%").append(" \n ");
-                stringBuilderSuccess.append("- **花费时间**: " + costTime + "秒").append(" \n ");
-                DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilderSuccess.toString());
-            }
         }else{
             stringBuilder.append("#### 自动化手动执行结果汇总").append(" \n ");
             stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");

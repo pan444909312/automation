@@ -13,6 +13,7 @@ import com.miller.service.framework.annotation.Scenario;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.service.framework.exception.TestFrameworkException;
 import com.miller.service.framework.listenner.TestResultWatcher;
+import com.miller.service.framework.report.sql.UserSql;
 import com.miller.service.framework.util.*;
 import com.miller.service.framework.report.AutoDBUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +54,8 @@ import java.util.*;
 public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
     private SqlSession automationSession = AutoDBUtils.getDBOfAutomationTest();
     private AutoCaseRoiSql autoCaseRoiSql = new AutoCaseRoiSql(automationSession);
+
+    private UserSql userSql = new UserSql(automationSession);
     private AutoCaseRoiLogSql autoCaseRoiLogSql = new AutoCaseRoiLogSql(automationSession);
     private AutoExecutionRecordSql autoExecutionRecordSql = new AutoExecutionRecordSql(automationSession);
     private Set<Class<?>> autoTestClasses = new HashSet<>();
@@ -190,7 +193,10 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private void saveAutoCaseRoi(Class<?> cls) {
         Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
         if (Objects.isNull(scenario)) return;
-        String executor = TestCaseUtils.getExecutor(cls);
+//        String executor = TestCaseUtils.getExecutor(cls);
+        // 修改执行人逻辑，取user表的name
+        String author = scenario.author();
+        String executor = userSql.getUserByUserEmail(author).getName();
         autoTestClasses.add(cls);
         checkScenarioAnnotationValueAreCorrect(cls, scenario);
         String scenarioId = scenario.scenarioID();
@@ -235,13 +241,13 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             // 只在新增用例的时候才写入创建人，默认写本次写入的用例负责人
             newAutoCaseRoi.setCreator(scenario.author());
             newAutoCaseRoi.setTimes(1);
-            newAutoCaseRoi.setAuthor(scenario.author());
             newAutoCaseRoi.setSaveTime(Long.valueOf(scenario.manualTestTime()));
             newAutoCaseRoi.setRoi(calculateRoi(newAutoCaseRoi));
             newAutoCaseRoi.setCreateTime(System.currentTimeMillis());
             newAutoCaseRoi.setUpdateTime(System.currentTimeMillis());
             newAutoCaseRoi.setExecutionUser(executor);
             newAutoCaseRoi.setPlatformType(PlatformTypeEnum.JAVA.getCode());
+            // 处理通过平台新增的scenario_id场景
             if (Objects.nonNull(autoCaseRoi)){
                 autoCaseRoiSql.updateAutoCaseRoi(newAutoCaseRoi);
             }else {

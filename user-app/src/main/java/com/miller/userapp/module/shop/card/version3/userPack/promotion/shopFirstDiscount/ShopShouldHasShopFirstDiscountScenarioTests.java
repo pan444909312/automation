@@ -31,7 +31,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
  * @since 2024/7/31 14:00
  */
 @Scenario(scenarioID = "01K7EE2BWZ396C9P37PZ1TVP4G", scenarioName = "商卡(中文)_普通店铺自取商卡-SKYX01_优惠标签_门店新客_自取频道-商卡二期：门店新客24",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
+        author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasShopFirstDiscountScenarioTests {

@@ -10,6 +10,7 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
+import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
@@ -183,6 +184,32 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
 
         entity.setId(null);
         return this.saveOrUpdate(entity);
+    }
+
+    @Override
+    public boolean uiSaveOrUpdate(AutoCaseRoiEntity autoCaseRoiEntity, UiAutoCaseRoiReqDTO uiAutoCaseRoiReqDTO) {
+        Integer executionStatus = uiAutoCaseRoiReqDTO.getExecutionStatus();
+        Integer executionType = uiAutoCaseRoiReqDTO.getExecutionType();
+
+        if (executionStatus == null){
+            executionStatus = ExecutionStatusEnum.ERROR.getCode();
+        }
+        if (executionType == null){
+            executionType = ExecutionTypeEnum.DEFAULT_STRATEGY.getCode();
+        }
+
+        AutoExecutionRecordEntity autoExecutionRecordEntity = new AutoExecutionRecordEntity();
+        BeanUtils.copyProperties(autoCaseRoiEntity, autoExecutionRecordEntity);
+        autoExecutionRecordEntity.setId(null);
+
+        autoExecutionRecordEntity.setExecutionStatus(executionStatus);
+        autoExecutionRecordEntity.setExecutionType(executionType);
+
+        //  当前时间为：执行时间
+        long currentTimeMillis = System.currentTimeMillis();
+        autoExecutionRecordEntity.setExecutionTime(currentTimeMillis);
+
+        return this.saveOrUpdate(autoExecutionRecordEntity);
     }
 
     @Override

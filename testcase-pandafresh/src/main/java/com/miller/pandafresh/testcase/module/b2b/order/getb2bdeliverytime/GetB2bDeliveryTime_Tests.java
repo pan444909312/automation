@@ -82,5 +82,7 @@ public class GetB2bDeliveryTime_Tests {
         String first = TestCaseHelpful.extractValue(responseBody,"$.data.[0].deliveryTime.[0].first").toString();
         String second = TestCaseHelpful.extractValue(responseBody,"$.data.[0].deliveryTime.[0].second").toString();
         TestcaseConfig.b2bDeliveryTime =first+"-"+second;
+
+        System.out.println(TestcaseConfig.b2bDeliveryDate+TestcaseConfig.b2bDeliveryTime);
     }
 } 
