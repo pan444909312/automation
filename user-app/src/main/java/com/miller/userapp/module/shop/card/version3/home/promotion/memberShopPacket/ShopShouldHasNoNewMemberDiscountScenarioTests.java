@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01K0V43S32PBK4W1M3TE55CD4X",
         scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_新会员优惠标签_首页-商卡二期：新会员优惠标签37-不展示",
-        author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoNewMemberDiscountScenarioTests {
