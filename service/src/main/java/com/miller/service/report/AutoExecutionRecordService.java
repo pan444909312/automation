@@ -5,6 +5,7 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
+import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
@@ -36,11 +37,14 @@ public interface AutoExecutionRecordService extends IService<AutoExecutionRecord
 
     boolean apifoxSaveOrUpdate(AutoCaseRoiEntity caseRoiEntity, ApifoxAutoCaseRoiDto caseRoiDto);
 
+    boolean uiSaveOrUpdate(AutoCaseRoiEntity autoCaseRoiEntity, UiAutoCaseRoiReqDTO uiAutoCaseRoiReqDTO);
+
     List<AutoCaseExecutionRecordRespDTO> listAutoExecutionRecordWithProjectId(long startTime, long endTime, int executionType, String projectId);
 
 
     /**
      * 根据项目id、执行类型、执行状态、日期查询日执行结果
+     *
      * @param projectId
      * @param executionType
      * @param executionStatus
@@ -51,6 +55,7 @@ public interface AutoExecutionRecordService extends IService<AutoExecutionRecord
 
     /**
      * 根据项目id、执行类型、执行状态、日期查询日执行结果汇总（人、失败数、项目归属）
+     *
      * @param projectId
      * @param executionType
      * @param executionStatusList

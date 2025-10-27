@@ -3,6 +3,8 @@ package com.miller.service.report;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
+import com.miller.entity.report.req.AutoCaseRoiReqDTO;
+import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 
 import java.util.List;
 
@@ -16,9 +18,26 @@ import java.util.List;
  */
 public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
 
+    /**
+     * 根据场景ID获取自动化用例名称
+     * @param scenarioId
+     * @return
+     */
     String getAutoCaseNameByScenarioId(String scenarioId);
 
+
+    /**
+     * 批量更新projectId
+     * @return
+     */
     List<AutoCaseRoiEntity> selectAutoCaseRoiProjectId();
+
+    /**
+     * 保存或更新UI自动化用例数据
+     * @param autoCaseRoiReqDTO
+     * @return
+     */
+    boolean uiAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
 
 
     /**

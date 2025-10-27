@@ -3,16 +3,13 @@ package com.miller.controller.report;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miller.common.util.DateUtils;
-import com.miller.entity.platform.Project;
 import com.miller.entity.platform.User;
 import com.miller.entity.platform.UserBindProject;
-import com.miller.entity.report.req.RemoveAutoCaseRoiReqDTO;
+import com.miller.entity.report.req.*;
 import com.miller.entity.util.Response;
 import com.miller.common.util.ULIDUtils;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.constant.SortEnum;
-import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
-import com.miller.entity.report.req.PageAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseRoiRespDTO;
 import com.miller.mapper.platform.UserMapper;
 import com.miller.service.platform.ProjectService;
@@ -164,6 +161,37 @@ public class AutoCaseRoiController {
         autoCaseRoiService.save(autoCaseRoiEntity);
 
         return Response.success(autoCaseRoiEntity);
+    }
+
+    @Operation(description = "UI自动化执行保存自动化数据")
+    @PostMapping("/ui/saveData")
+    public Response<String> uiAddAutoCaseRoi(@RequestBody UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+
+        String author = autoCaseRoiReqDTO.getAuthor();
+
+        //  校验是否有此实现人
+        if (ObjectUtils.isEmpty(author)) {
+            return Response.fail("author 必填，不然Case 无法归属用户");
+        }
+        User user = userMapper.selectByEmail(author);
+        if (ObjectUtils.isEmpty(user)) {
+            return Response.fail("查不到该用户:" + autoCaseRoiReqDTO.getAuthor() + ",请联系开发添加");
+        }
+
+        // 查询成员归属的项目ID
+        UserBindProject userBindProject = userBindProjectService.selectByUserId(user.getUserId());
+        if (ObjectUtils.isEmpty(userBindProject)) {
+            return Response.fail("该用户没有归属项目:" + autoCaseRoiReqDTO.getAuthor() + ",请联系开发添加");
+        }
+        autoCaseRoiReqDTO.setProjectId(userBindProject.getProjectId());
+
+        try {
+            autoCaseRoiService.uiAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
+            return Response.success("保存成功");
+        }catch (Exception e){
+            return Response.fail(e.getMessage());
+        }
+
     }
 
     @PostMapping("/apifox/save")

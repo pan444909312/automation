@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2024/9/26 9:30
  */
 @Data
-public class AddAutoCaseRoiReqDTO {
+public class AutoCaseRoiReqDTO {
     @Schema(description = "ID 自增")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -49,5 +49,33 @@ public class AddAutoCaseRoiReqDTO {
     @Schema(description = "执行人员名称")
     @TableField("execution_user")
     private String executionUser;
+
+    @Schema(description = "用例负责人，邮箱地址")
+    @TableField("author")
+    private String author;
+
+    @Schema(description = "优先级")
+    @TableField("priority")
+    private Integer priority;
+
+    @Schema(description = "关联项目id")
+    @TableField("project_id")
+    private String projectId;
+
+    @Schema(description = "预期测试用例被执行的次数")
+    @TableField("expect_times")
+    private Integer expectTimes;
+
+    @Schema(description = "备注信息")
+    @TableField("remark")
+    private String remark;
+
+    @Schema(description = "用例创建人")
+    @TableField("creator")
+    private String creator;
+
+    @Schema(description = "用例归属平台类型（1：JAVA 2：APIFOX 3：JMETER 4：UI自动化）")
+    @TableField("platform_type")
+    private Integer platformType;
 
 }
