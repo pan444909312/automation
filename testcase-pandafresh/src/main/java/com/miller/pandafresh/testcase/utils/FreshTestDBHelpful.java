@@ -20,7 +20,7 @@ public class FreshTestDBHelpful {
     /**
      * 数据库配置
      */
-    protected static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/fresh_test";
+    protected static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/fresh_test";
     protected static String userName = "panda_test";
     protected static String passWord = "Pan$te19*";
     protected static DBUtils dbUtils;
