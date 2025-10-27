@@ -44,7 +44,7 @@ public class ActivityShopListTests {
 //        String expectedStr = TestCaseHelpful.getFileContent(assert2);
 //        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
         var shopIndexVO= TestCaseHelpful.extractValue(responseBody, "$.result");
-        var actualShopObj = findShopById(JSON.parseArray(shopIndexVO.toString()), 160288176);
+        var actualShopObj = findShopById(JSON.parseArray(shopIndexVO.toString()), 498708250);
         TestCaseHelpful.assertThat(actualShopObj).isNotNull();
     }
     /**
