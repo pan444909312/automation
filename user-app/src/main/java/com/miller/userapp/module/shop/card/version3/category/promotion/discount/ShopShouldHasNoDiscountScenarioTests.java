@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  */
 @Scenario(scenarioID = "01K671EM3GHG2897Z0XTR2EWVV",
         scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_商品折扣_品类频道-商卡二期:商品折扣28-不展示",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")

@@ -25,7 +25,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 @Scenario(scenarioID = "01K0V433PSNAFB4GT8FC1RXQ7J",
         scenarioName = "普通店铺配送商卡_优惠标签_会员权益_品类频道-商卡二期：会员权益41-会员神券",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+        author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")

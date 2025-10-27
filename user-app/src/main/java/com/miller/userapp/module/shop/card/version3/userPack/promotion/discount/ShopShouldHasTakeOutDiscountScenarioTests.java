@@ -32,7 +32,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
  */
 @Scenario(scenarioID = "01K7GB27W7VQS3VV94M4JQ4AEW",
         scenarioName = "商卡(中文)_普通店铺自取商卡_优惠标签_商品折扣_自取频道-商卡二期:商品折扣3-外卖可用",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
+        author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
 @EnvTag.Test
 @TestFramework
 @DisplayName("商卡(中文)")

@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/16 17:47
  */
 @Scenario(scenarioID = "01K7EE2BWY5839G3R05DV7HRXS", scenarioName = "商卡(中文)_普通店铺自取商卡-SKYX01_优惠标签_货到付款_自取频道-商卡二期：货到付款34-不展示",
-        author = "huyang@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
+        author = "yancancan@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldNotOfflinePaymentScenarioTests {
