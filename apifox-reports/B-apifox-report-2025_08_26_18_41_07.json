@@ -788,10 +788,10 @@
           },
           {
             "type": "any",
-            "value": "hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306",
+            "value": "hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com",
             "key": "mysql_url",
             "isBindInitial": true,
-            "initialValue": "hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306"
+            "initialValue": "hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com"
           },
           {
             "type": "any",
