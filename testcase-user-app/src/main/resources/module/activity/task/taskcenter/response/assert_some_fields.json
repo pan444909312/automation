@@ -6,7 +6,7 @@
     "url": "",
     "taskItemVOList": [
       {
-        "taskSn": "611QZQFOM8",
+        "taskSn": "7061AL94K4",
         "taskStatus": 3,
         "orderMinPrice": 1,
         "orderType": "[0,1,2]",
@@ -33,7 +33,7 @@
         "backgroundImg": "",
         "taskAward": {
           "subTaskId": 0,
-          "taskId": 2011,
+          "taskId": 2167,
           "benefitType": null,
           "awardType": 2,
           "awardText": "无门槛立减",
