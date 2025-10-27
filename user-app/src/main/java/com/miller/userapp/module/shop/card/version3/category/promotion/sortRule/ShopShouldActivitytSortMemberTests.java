@@ -43,7 +43,8 @@ public class ShopShouldActivitytSortMemberTests {
     UserLoginRequestDTO userLoginRequestDTO;
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.sort.member.userId.32"));
     UserCdKeyEntity userCdKeyEntity;
-     @BeforeAll
+    private final String distinctId=new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.distinctId3");
+    @BeforeAll
     void beforeAll() {
         String distinctId=new PropertiesUtils().getProperty(this.getClass(), "user.app.account.for.shop.card.version2.first.order.user.distinctId");
         //   用户登录
@@ -55,10 +56,10 @@ public class ShopShouldActivitytSortMemberTests {
         userLoginRequestDTO.setAreaCode(new PropertiesUtils().getProperty(this.getClass(), "user.app.account.of.user002.account.callingCode"));
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
 
-//        更新数据库，将user_label表数据label_id设置为2,使其出新人首单标签35
+//        更新数据库，将user_label表数据label_id设置为1,使其出新人首单标签35
          SqlSession sqlSession = DBUtils.getDBOfPandaTest();
          ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
-         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,2)
+         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).eq(UserLabelEntity::getUserId,userId).set(UserLabelEntity::getLabelId,1)
          );
          //清除设备对应的活动数据
          DeviceAutoRenewSql deviceAutoRenewSql = new DeviceAutoRenewSql();
@@ -83,7 +84,8 @@ public class ShopShouldActivitytSortMemberTests {
          //衢州测试（不是衢州市）
          RequestUtils.getHeaders().put("latitude", "28.93592");
          RequestUtils.getHeaders().put("longitude", "118.87419");
-          ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
+         RequestUtils.getHeaders().put("uniqueToken", distinctId);
+         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
          

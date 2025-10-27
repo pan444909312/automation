@@ -56,9 +56,9 @@ public class CreateOrderPayImmediate {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"deliveryDate",TestcaseConfig.b2bDeliveryDate);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"deliveryTime",TestcaseConfig.b2bDeliveryTime);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"addressId",TestcaseConfig.b2bAddressId);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.deliveryDate",TestcaseConfig.b2bDeliveryDate);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.deliveryTime",TestcaseConfig.b2bDeliveryTime);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.addressId",TestcaseConfig.b2bAddressId);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
