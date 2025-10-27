@@ -14,6 +14,6 @@ public class PayTestDBHelpful extends PandaTestDBHelpful {
     /**
      * 数据库配置
      */
-    private static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/pandapay_test";
+    private static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306:3306/pandapay_test";
 
 }
