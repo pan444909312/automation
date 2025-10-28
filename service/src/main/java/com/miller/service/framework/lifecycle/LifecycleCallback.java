@@ -193,10 +193,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private void saveAutoCaseRoi(Class<?> cls) {
         Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
         if (Objects.isNull(scenario)) return;
-//        String executor = TestCaseUtils.getExecutor(cls);
-        // 修改执行人逻辑，取user表的name
-        String author = scenario.author();
-        String executor = userSql.getUserByUserEmail(author).getName();
+        String executor = TestCaseUtils.getExecutor(cls);
+        if (!executor.equals(TestCaseUtils.executorOfDevOps)){
+            // 修改执行人逻辑，取user表的name
+            String author = scenario.author();
+            executor = userSql.getUserByUserEmail(author).getName();
+        }
         autoTestClasses.add(cls);
         checkScenarioAnnotationValueAreCorrect(cls, scenario);
         String scenarioId = scenario.scenarioID();
