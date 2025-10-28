@@ -22,27 +22,30 @@ public class PandaTestDBHelpful {
     /**
      * 数据库配置
      */
-    protected static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+    protected static String mySqlUrl;
     protected static String userName = "panda_test";
     protected static String passWord = "Pan$te19*";
-    protected static String mySqlUrl_test = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
-    protected static String userName_test = "panda_test";
-    protected static String passWord_test = "Pan$te19*";
     protected static DBUtils dbUtils;
 
     static {
-        String profilesActive = System.getProperty("spring.profiles.active");
-        if (Objects.equals(profilesActive, "test")) {
+        String profilesActive = System.getenv("ENV_VAR");
+        if (Objects.equals(profilesActive, "prod")) {
+            // 使用内网地址
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
 
-        }else {
+        } else {
+            // 使用外网地址
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
 
         }
+        log.info("当前环境是,{},使用mysql url,{}", profilesActive, mySqlUrl);
         dbUtils = new DBUtils(mySqlUrl, userName, passWord);
         log.info("DBUtils initialized successfully.");
     }
 
     /**
      * 执行 sql 语句，返回影响的记录行数。支持 单条sql、多条sql语句，多条sql语句时注意每条sql语句后的分号“；”不能少。
+     *
      * @param sql sql语句数组，每个元素可以包含多条用分号分隔的SQL语句
      * @return 影响的记录行
      */
@@ -65,6 +68,7 @@ public class PandaTestDBHelpful {
 
     /**
      * 将包含多条SQL语句的字符串按分号分割成单独的SQL语句列表
+     *
      * @param sqlStr 可能包含多条SQL语句的字符串
      * @return 分割后的SQL语句列表
      */
