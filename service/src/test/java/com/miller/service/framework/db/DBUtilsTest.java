@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.nullValue;
  */
 @Disabled
 public class DBUtilsTest {
-    private static final String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/ct_test";
+    private static final String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/ct_test";
     private static final String userName = "automation";
     private static final String passWord = "20AR@UJsobwLBdih";
     private static DBUtils dbUtils;

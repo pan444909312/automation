@@ -31,11 +31,11 @@ public class PandaTestDBHelpful {
         String profilesActive = System.getenv("ENV_VAR");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
-            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
 
         } else {
             // 使用外网地址
-            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
 
         }
         log.info("当前环境是,{},使用mysql url,{}", profilesActive, mySqlUrl);
