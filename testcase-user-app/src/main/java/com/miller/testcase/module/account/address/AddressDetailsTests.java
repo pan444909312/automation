@@ -2,6 +2,7 @@ package com.miller.testcase.module.account.address;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
+import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
@@ -31,10 +32,12 @@ public class AddressDetailsTests {
     @DisplayName("正向流程")
     @Test
     void shouldLoginSuccessfully() {
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update address set is_del = 0 WHERE add_id = 1398662853");
+
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         // 给请求头添加数据，例如这里添加token
-        requestHeaders.put("Authorization", TestCaseHelpful.login("19157824000", "123456a"));
+        requestHeaders.put("Authorization", TestCaseHelpful.login("19157821400", "123456a"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
