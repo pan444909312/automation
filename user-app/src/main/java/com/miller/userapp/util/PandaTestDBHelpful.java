@@ -35,7 +35,7 @@ public class PandaTestDBHelpful {
 
         } else {
             // 使用外网地址
-            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
 
         }
         log.info("当前环境是,{},使用mysql url,{}", profilesActive, mySqlUrl);
