@@ -21,7 +21,7 @@ public class DeliveryAddressTests {
     // 请求方式
     String method = "GET";
     // 请求头
-    String headers = "module/account/address/request/headers.json";
+    String headers = "module/account/address/request/headersIos.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
     String body = null;
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 paras 参数
@@ -32,12 +32,13 @@ public class DeliveryAddressTests {
     @DisplayName("正向流程")
     @Test
     void shouldLoginSuccessfully() {
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update address set is_del = 0 WHERE add_id = 1398681061");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update address set is_del = 0 WHERE add_id = 1398662853");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update address set is_del = 0 WHERE add_id = 1398662473");
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         // 给请求头添加数据，例如这里添加token
-        requestHeaders.put("Authorization", TestCaseHelpful.login("13999900008", "123456"));
+        requestHeaders.put("Authorization", TestCaseHelpful.login("19157821400", "123456a"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
