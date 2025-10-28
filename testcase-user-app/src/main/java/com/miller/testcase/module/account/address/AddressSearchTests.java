@@ -20,7 +20,7 @@ public class AddressSearchTests {
     // 请求方式
     String method = "GET";
     // 请求头
-    String headers = "module/account/address/request/headers.json";
+    String headers = "module/account/address/request/headersIos.json";
     // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
     String body = null;
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 paras 参数
