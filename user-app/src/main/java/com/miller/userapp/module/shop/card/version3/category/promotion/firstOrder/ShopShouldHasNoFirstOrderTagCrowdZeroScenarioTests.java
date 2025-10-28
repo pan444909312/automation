@@ -17,6 +17,7 @@ import com.miller.userapp.module.shop.card.version3.category.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.category.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.category.response.ShopListResponseDTO;
 import com.miller.userapp.util.DBUtils;
+import com.miller.userapp.util.RequestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -38,7 +39,8 @@ public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
     private final Integer type=35;
-
+    private static PropertiesUtils propertiesUtils=new PropertiesUtils();
+    private static final String distinctId=propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.distinctId4");
     @BeforeAll
     static void beforeAll() {
 //        人群1为登陆新人账号，且当前不可领取新人权益，用户登陆数据如下
@@ -47,7 +49,6 @@ public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
         String userName = propertiesUtils.getProperty(UserLoginFlow.class,"user.app.account.for.shop.card.version2.first.order.user.account1");
         String loginType = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.of.public.login.type");
         String callingCode = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.of.user002.account.callingCode");
-        String distinctId = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.distinctId");
         String userId = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.userId1");
         UserLoginRequestDTO user = new UserLoginRequestDTO();
         user.setAreaCode(callingCode);
@@ -66,6 +67,7 @@ public class ShopShouldHasNoFirstOrderTagCrowdZeroScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasNoFirstOrderTagCrowdZero(ShopListRequestDTO ShopListRequestdto){
+        RequestUtils.getHeaders().put("uniqueToken", distinctId);
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
         List<ShopPromoteVO> shopPromoteList =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();

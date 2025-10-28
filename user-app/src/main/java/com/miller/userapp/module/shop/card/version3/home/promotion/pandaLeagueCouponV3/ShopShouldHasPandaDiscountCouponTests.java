@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0RZWQFEZV1PDAMNT86PHH34", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：熊猫联盟券40 - 折扣红包 (不加码)",
+@Scenario(scenarioID = "01K8MAF5JTREX4ANGG1X3VPGBE", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_首页-商卡二期-SKYX实验组：熊猫联盟券40 - 折扣红包 (不加码)",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -66,10 +66,10 @@ public class ShopShouldHasPandaDiscountCouponTests {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-
       ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
               filter(item -> item.getType().equals(ShopPromoteEnum.PANDA_LEAGUE.getType())).findFirst().get();
       assertThat(shopPromoteVO.getShowContent()).isEqualTo("5折");
+
       assertThat(shopPromoteVO.getTagType()).isEqualTo(1);
 
 

@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("用户-自取频道店铺流-商卡(中文)-普通店铺自取商卡-SKYX01-优惠标签-新人首单标签-自取频道-商卡二期：新人首单标签35-新人人群2")
 public class ShopShouldHasFirstOrderTagCrowdSecondScenarioTests {
     //    测试数据：店铺04，营销标签类型：35
-    private final Long shopId = Long.parseLong("160288176");
+    private final Long shopId = Long.parseLong("768477723");
     private final Integer type=35;
 
     @BeforeAll

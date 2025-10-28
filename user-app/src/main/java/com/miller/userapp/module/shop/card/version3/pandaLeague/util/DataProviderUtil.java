@@ -21,3 +21,4 @@ public class DataProviderUtil {
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }
+

@@ -38,20 +38,19 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
 //    测试数据：店铺04，营销标签类型：35
     private final Long shopId = Long.parseLong("160288176");
     private final Integer type=35;
-
+    private static PropertiesUtils propertiesUtils=new PropertiesUtils();
+    private static final String distinctId=propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.distinctId4");
     @BeforeAll
     static void beforeAll() {
 //        人群3为未登录，无需登陆
         // 这里需要测试未登录的情况，所以 RequestUtils.setHeaders(header)
         var myheaders = new HashMap<String, Object>();
-        String deviceId="d88a89d4913c70bd";
         myheaders.put("Content-Type", "application/json");
-        myheaders.put("uniquetoken", deviceId);
+        myheaders.put("uniquetoken", distinctId);
         RequestUtils.setHeaders(myheaders);
 //        UserLoginFlow.loginByDefaultUser();
         //        测试数据预处理，将user_label表数据label_id设置为3
         PropertiesUtils propertiesUtils=new PropertiesUtils();
-        String distinctId = propertiesUtils.getProperty(UserLoginFlow.class, "user.app.account.for.shop.card.version2.first.order.user.distinctId");
         SqlSession sqlSession = DBUtils.getDBOfPandaTest();
         ShopNewUserLabelMapper shopNewUserLabelMapper = sqlSession.getMapper(ShopNewUserLabelMapper.class);
         shopNewUserLabelMapper.update(null, new LambdaUpdateWrapper<UserLabelEntity>().eq(UserLabelEntity::getDeviceId,distinctId).set(UserLabelEntity::getLabelId,3)
@@ -65,6 +64,7 @@ public class ShopShouldHasFirstOrderTagCrowdThirdScenarioTests {
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasFirstOrderTagCrowdThird(ShopListRequestDTO ShopListRequestdto){
+        RequestUtils.getHeaders().put("uniqueToken", distinctId);
         ShopListResponseDTO ShopListResponseDto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
         List<ShopPromoteVO> shopPromoteList =ShopListResponseDto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getShopPromoteList).orElseThrow();
         List <ShopPromoteVO> shopPromoteTypeList=shopPromoteList.stream().filter(item -> item.getType().equals(type)).toList();

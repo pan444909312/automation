@@ -66,7 +66,6 @@ public class ShopShouldHasPandaCouponTests {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-
       ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
               filter(item -> item.getType().equals(ShopPromoteEnum.PANDA_LEAGUE.getType())).findFirst().get();
       assertThat(shopPromoteVO.getShowContent()).isEqualTo("¥7");

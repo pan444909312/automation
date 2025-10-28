@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01K1WJRMFYQ48PGXHM6F4MP1AN", // 自动生成，不要修改
-        scenarioName = "normal task broadcast:普通任务曝光",
+        scenarioName = "普通任务曝光",
         author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("normal task broadcast:普通任务曝光")
+@DisplayName("普通任务曝光")
 public class NormalTaskBroadcastTests {
 
     @BeforeAll
@@ -31,6 +31,7 @@ public class NormalTaskBroadcastTests {
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
         //清除用户任务数据
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_user where user_id=\"1398720175\" order by create_time desc\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from hp_task_center_user_show where user_id=\"1398720175\" order by create_time desc\n");
     }
     @AfterAll
     static void afterAll(){

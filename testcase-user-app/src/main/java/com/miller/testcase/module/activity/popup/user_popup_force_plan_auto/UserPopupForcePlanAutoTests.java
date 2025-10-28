@@ -17,11 +17,11 @@ import org.junit.jupiter.api.Test;
  * @version 2.0
  * @since 2025/08/05 18:28:10
  */
-@Scenario(
-        scenarioID = "01K1WWCDMHC00G9YJCSW22G2ZK", // 自动生成，不要修改
-        scenarioName = "强推活动，直塞领取",
-        author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+//@Scenario(
+//        scenarioID = "01K1WWCDMHC00G9YJCSW22G2ZK", // 自动生成，不要修改
+//        scenarioName = "强推活动，直塞领取",
+//        author = "yancancan@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+//        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("强推活动，直塞领取")
 public class UserPopupForcePlanAutoTests {
 
