@@ -1,12 +1,14 @@
 package com.miller.userapp.util;
 
 import com.miller.service.framework.db.DBUtils;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 操作 panda_test 库
@@ -23,9 +25,18 @@ public class PandaTestDBHelpful {
     protected static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
     protected static String userName = "panda_test";
     protected static String passWord = "Pan$te19*";
+    protected static String mySqlUrl_test = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+    protected static String userName_test = "panda_test";
+    protected static String passWord_test = "Pan$te19*";
     protected static DBUtils dbUtils;
 
     static {
+        String profilesActive = System.getProperty("spring.profiles.active");
+        if (Objects.equals(profilesActive, "test")) {
+
+        }else {
+
+        }
         dbUtils = new DBUtils(mySqlUrl, userName, passWord);
         log.info("DBUtils initialized successfully.");
     }
