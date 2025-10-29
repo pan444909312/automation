@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
         scenarioID = "01JY448GD02VPAY0CDM40468GM", // 自动生成，不要修改
         scenarioName = "下单获取分享",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
+        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("下单获取分享")
 public class Ordershare_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
