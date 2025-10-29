@@ -294,7 +294,7 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
         // 结果数据，发送钉钉消息
         List<ApiFoxRunReportEntity> apiFoxRunReportEntities = apiFoxRunReportService.queryByRunId(runId);
-        this.sendDingDing(apiFoxRunReportEntities,attributionGroup);
+        this.sendDingDing(apiFoxRunReportEntities, attributionGroup);
     }
 
 
@@ -304,12 +304,17 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
         msg.append("## ").append(attributionGroup).append("组-各成员自动化执行结果通知：  \n\n  ");
         entityList.forEach((obj) -> {
 
+
+            final Double failureRate = obj.getFailureRate() > 0 ? obj.getFailureRate() * 100 : obj.getFailureRate();
+            final Double successRate = obj.getSuccessRate() > 0 ? obj.getSuccessRate() * 100 : obj.getSuccessRate();
+
+
             msg.append(" **[").append(obj.getResponsiblePerson()).append(":](http://47.242.73.37:2080/app/application/apifox-68db9beeb752566623a31601?reportId=").append(obj.getId()).append(")**  \n\n  ")
                     .append("-  **TotalCount:** ").append(obj.getTotalRuns()).append("  \n\n  ")
                     .append("-  **Fail: <font color=red>").append(obj.getFailureRuns()).append("</font>**   \n\n  ")
                     .append("-  Success: ").append(obj.getSuccessRuns()).append("  \n\n  ")
-                    .append("-  **FailRate: <font color=red>").append(obj.getFailureRate()).append("% </font>**    \n\n  ")
-                    .append("-  **SuccessRate: <font color=green>").append(obj.getSuccessRate()).append("% </font>** \n\n  ")
+                    .append("-  **FailRate: <font color=red>").append(failureRate).append("% </font>**    \n\n  ")
+                    .append("-  **SuccessRate: <font color=green>").append(successRate).append("% </font>** \n\n  ")
 
             ;
         });
