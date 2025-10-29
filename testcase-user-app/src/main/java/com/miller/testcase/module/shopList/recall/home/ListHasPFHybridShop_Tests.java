@@ -27,7 +27,7 @@ public class ListHasPFHybridShop_Tests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // XXL-CONFIG PF融合开关开启
-        XXLConfUtils.updateConfig("test","user-app-server.hpf.switch","PF融合开关",true);
+        //XXLConfUtils.updateConfig("test","user-app-server.hpf.switch","PF融合开关",true);
     }
     @AfterAll
     static void afterAll(){
