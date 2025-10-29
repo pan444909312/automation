@@ -1,4 +1,4 @@
-package com.miller.testcase.module.home.shop.shopinfo_mini;
+package com.miller.testcase.module.coverage.order.下单获取分享2;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
@@ -11,19 +11,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * shopinfo_mini
+ * 下单获取分享2
  *
  * @author yaoqianhu
  * @version 2.0
- * @since 2025/09/04 16:18:15
+ * @since 2025/10/29 10:45:38
  */
 @Scenario(
-        scenarioID = "01K49WW37F46Y237FBQ81PFD8R", // 自动生成，不要修改
-        scenarioName = "进入店铺获取店铺信息（小程序）",
+        scenarioID = "01K8PXPJM20GKPWBCEZ9TZYQW3", // 自动生成，不要修改
+        scenarioName = "下单获取分享2",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("进入店铺获取店铺信息（小程序）")
-public class Shopinfo_Mini_Tests {
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("下单获取分享2")
+public class 下单获取分享2_Tests {
 
     @BeforeAll
     static void beforeAll(){
@@ -40,20 +40,21 @@ public class Shopinfo_Mini_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HOST_APP + "/api/user/v1/shop/info";
+        String uri = TestcaseConfig.HOST_APP + "/api/app/user/order/share";
         // 接口请求方式。如： GET、POST、PUT、DELETE
-        String method = "POST";
+        String method = "GET";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/home/shop/shopinfo_mini/request/headers.json";
+        String headers = "module/coverage/order/下单获取分享2/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
-        String params = "module/home/shop/shopinfo_mini/request/params.json";
+        String params = "module/coverage/order/下单获取分享2/request/params.json";
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/home/shop/shopinfo_mini/request/body.json";
+        String body = null;
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/home/shop/response/getShopInfoResp.json";
+        String assertFullField = "module/coverage/order/下单获取分享2/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("Authorization", TestCaseHelpful.login("13711111111", "111111"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
@@ -66,7 +67,7 @@ public class Shopinfo_Mini_Tests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
     }
 } 
