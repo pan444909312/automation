@@ -7,6 +7,7 @@ import com.miller.service.framework.http.HttpUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * XXL Config Utils
@@ -18,16 +19,24 @@ import java.util.Map;
 public class XXLConfUtils {
 
 
-    // 外网地址
-    private static final String XXL_CONFIG_URL = "http://47.110.44.153:18800";
-
     // 内网地址
-//    private static final String XXL_CONFIG_URL = "http://172.31.236.24:18800";
+    private static final String XXL_CONFIG_URL;
 
     private static HashMap<String, Object> headers = new HashMap<>();
     private static HashMap<String, Object> responseCookies;
 
     static {
+        String profilesActive = System.getenv("ENV_VAR");
+        if (Objects.equals(profilesActive, "prod")) {
+            // 使用内网地址
+            XXL_CONFIG_URL = "http://172.31.236.24:18800";
+
+        } else {
+            // 使用外网地址
+            XXL_CONFIG_URL = "http://47.110.44.153:18800";
+
+        }
+
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         login();
     }
