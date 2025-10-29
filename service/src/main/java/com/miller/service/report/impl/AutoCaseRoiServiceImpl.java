@@ -1,18 +1,12 @@
 package com.miller.service.report.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.miller.entity.constant.PlatformTypeEnum;
 import com.miller.entity.platform.User;
 import com.miller.entity.report.AutoCaseRoiEntity;
-import com.miller.entity.report.AutoExecutionRecordEntity;
-import com.miller.entity.report.req.AutoCaseRoiReqDTO;
+import com.miller.entity.report.req.JmeterAutoCaseRoiReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
-import com.miller.mapper.platform.UserMapper;
 import com.miller.mapper.report.AutoCaseRoiMapper;
-import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.report.entity.AutoCaseRoiLogEntity;
-import com.miller.service.framework.util.TestCaseUtils;
 import com.miller.service.platform.UserService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -67,7 +61,22 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
 
     @Override
     public boolean uiAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+        return handleAutoCaeData(autoCaseRoiReqDTO,PlatformTypeEnum.UI.getCode());
+    }
 
+    @Override
+    public boolean jmeterAutoCaseSaveOrUpdate(JmeterAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+        return handleAutoCaeData(autoCaseRoiReqDTO,PlatformTypeEnum.JMETER.getCode());
+    }
+
+
+    /**
+     * 处理自动用例数据并落库
+     * @param autoCaseRoiReqDTO
+     * @param platformType
+     * @return
+     */
+    private boolean handleAutoCaeData(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO,Integer platformType) {
         String scenarioId = autoCaseRoiReqDTO.getScenarioId();
         String scenarioName = autoCaseRoiReqDTO.getScenarioName();
         Integer developmentTime = autoCaseRoiReqDTO.getDevelopmentTime();
@@ -118,7 +127,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
             autoCaseRoi.setAuthor(autoCaseRoiReqDTO.getAuthor());
 
             autoCaseRoi.setProjectId(projectId);
-            autoCaseRoi.setPlatformType(PlatformTypeEnum.UI.getCode());
+            autoCaseRoi.setPlatformType(platformType);
 
             autoCaseRoiMapper.updateById(autoCaseRoi);
 
@@ -140,7 +149,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
             newAutoCaseRoi.setCreator(author);
 
             newAutoCaseRoi.setProjectId(projectId);
-            newAutoCaseRoi.setPlatformType(PlatformTypeEnum.UI.getCode());
+            newAutoCaseRoi.setPlatformType(platformType);
 
             // 处理通过平台新增的scenario_id场景
             if (Objects.nonNull(autoCaseRoi)) {
@@ -152,9 +161,8 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
             autoCaseRoi = newAutoCaseRoi;
         }
 
-        // 保存到执行记录表
-        return autoExecutionRecordService.uiSaveOrUpdate(autoCaseRoi,autoCaseRoiReqDTO);
-
+        // 保存到执行记录表（ui和jmeter均使用该方法）
+        return autoExecutionRecordService.uiSaveOrUpdate(autoCaseRoi, autoCaseRoiReqDTO);
     }
 
     /**
