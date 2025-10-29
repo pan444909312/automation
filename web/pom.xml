@@ -188,6 +188,19 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*.yml</include>
+                    <include>*.properties</include>
+                    <include>*.xml</include>
+                    <include>static/error/*</include>
+                    <include>META-INF/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
         <finalName>automation-web</finalName>
         <plugins>
             <plugin>
