@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 操作 panda_test 库
@@ -19,14 +20,25 @@ public class 数据库助手 {
     /**
      * 数据库配置
      */
-    protected static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+    protected static String mySqlUrl ;
     protected static String userName = "panda_test";
     protected static String passWord = "Pan$te19*";
     protected static DBUtils dbUtils;
 
     static {
+        String profilesActive = System.getenv("ENV_VAR");
+        if (Objects.equals(profilesActive, "prod")) {
+            // 使用内网地址
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+
+        } else {
+            // 使用外网地址
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+
+        }
+        log.info("当前环境是,{},使用mysql url,{}", profilesActive, mySqlUrl);
         dbUtils = new DBUtils(mySqlUrl, userName, passWord);
-        log.info("DBUtils initialized successfully.");
+
     }
 
     /**
