@@ -7,8 +7,12 @@ import com.miller.entity.report.req.ApifoxRunResultDTO;
 import com.miller.mapper.apifox.ApiFoxRunReportMapper;
 import com.miller.service.apifox.ApiFoxRunReportService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMapper, ApiFoxRunReportEntity> implements ApiFoxRunReportService {
@@ -45,15 +49,24 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
          * 根据 runId 和 负责人 查询唯一组件ID
          */
         QueryWrapper<ApiFoxRunReportEntity> apiFoxRunReportEntityQueryWrapper = new QueryWrapper<>();
-        apiFoxRunReportEntityQueryWrapper.eq("run_id",entity.getRunId());
-        apiFoxRunReportEntityQueryWrapper.eq("responsible_person",entity.getResponsiblePerson());
+        apiFoxRunReportEntityQueryWrapper.eq("run_id", entity.getRunId());
+        apiFoxRunReportEntityQueryWrapper.eq("responsible_person", entity.getResponsiblePerson());
         ApiFoxRunReportEntity queryResult = this.getOne(apiFoxRunReportEntityQueryWrapper);
         return queryResult.getId();
+//        return 1232L;
     }
 
-//    @Override
-//    public Long saveFindId(ApiFoxRunReportEntity entity) {
-//        //TODO 调试完成后恢复
-//        return System.currentTimeMillis();
-//    }
+    @Override
+    public List<ApiFoxRunReportEntity> queryByRunId(String runId) {
+        QueryWrapper<ApiFoxRunReportEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("run_id", runId);
+        List<ApiFoxRunReportEntity> apiFoxRunReportEntities = this.baseMapper.selectList(queryWrapper);
+
+        if (ObjectUtils.isEmpty(apiFoxRunReportEntities)) {
+            apiFoxRunReportEntities = new ArrayList<ApiFoxRunReportEntity>();
+        }
+
+        return apiFoxRunReportEntities;
+    }
+
 }
