@@ -38,7 +38,7 @@ public class SpecialTaskReceiveTests {
     @BeforeAll ()
     public static void beforeAll() {
         //清除用户任务数据
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from panda_test.hp_task_center_user where user_id=\"1398720612\" and task_id=\"2011\" order by create_time desc\n");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete from panda_test.hp_task_center_user where user_id=\"1398720612\"  order by create_time desc\n");
     }
     @DisplayName("正向流程")
     @Test
