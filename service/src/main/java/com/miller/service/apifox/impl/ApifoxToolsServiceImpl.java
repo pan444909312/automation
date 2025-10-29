@@ -218,8 +218,8 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 ApifoxReportItemDTO apifoxReportItemDTO = reportItemDTOMap.get(relatedId);
                 apifoxReportItemDTO.setRunStatus(false);
 
-                String stepName =  metaInfo.getString("httpApiName");
-                apifoxReportItemDTO.addFailStep(null,stepName,errorObj);
+                String stepName = metaInfo.getString("httpApiName");
+                apifoxReportItemDTO.addFailStep(null, stepName, errorObj);
                 final String apiFoxUrl = String.format("https://apifox.hungrypanda.it/link/project/%s/api-test/scenario-%s", ApiFoxCommonEnum.APIFOX_PROJECT_ID.getValue(), relatedId);
                 apifoxReportItemDTO.setApifoxUrl(apiFoxUrl);
                 reportItemDTOMap.put(relatedId, apifoxReportItemDTO);
@@ -241,12 +241,12 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
             runResultObj.plusStepTotal(value.getHttpApiIds().size());
             if (runStatus) {
                 runResultObj.plusSuccessCount(1);
-                runResultObj.plusPassStepCount(value.getHttpApiIds().size() );
+                runResultObj.plusPassStepCount(value.getHttpApiIds().size());
                 runResultObj.plusFailStepCount(0);
                 runResultObj.setSuccessList(scenarioName);
             } else {
                 runResultObj.plusFailCount(1);
-                runResultObj.plusPassStepCount(value.getHttpApiIds().size() - value.getFailStepInfoList().size() );
+                runResultObj.plusPassStepCount(value.getHttpApiIds().size() - value.getFailStepInfoList().size());
                 runResultObj.plusFailStepCount(value.getFailStepInfoList().size());
                 runResultObj.setFailList(value);
             }
@@ -272,12 +272,13 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                                     .setRunResult(ApiFoxRunErrorSceneEntity.RunResult.ERROR)
                                     .setStepErrorInfo(JSONArray.toJSONString(failItem.getFailStepInfoList()))
                                     .setApifoxUrl(failItem.getApifoxUrl());
-                            ;
+
                             apiFoxRunErrorSceneService.save(apiFoxRunErrorSceneEntity);
+
                             // 更新执行记录表状态，更新该失败的用例最近的一条执行记录为失败
                             String scenarioId = failItem.getScenarioId();
                             UpdateWrapper<AutoExecutionRecordEntity> autoExecutionRecordEntityUpdateWrapper = new UpdateWrapper<>();
-                            if (ObjectUtils.isNotEmpty(scenarioId)){
+                            if (ObjectUtils.isNotEmpty(scenarioId)) {
                                 autoExecutionRecordEntityUpdateWrapper.eq("scenario_id", scenarioId);
                                 autoExecutionRecordEntityUpdateWrapper.orderByDesc("execution_time");
                                 autoExecutionRecordEntityUpdateWrapper.last("limit 1");
@@ -292,39 +293,27 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
         });
 
         // 结果数据，发送钉钉消息
+        List<ApiFoxRunReportEntity> apiFoxRunReportEntities = apiFoxRunReportService.queryByRunId(runId);
+        this.sendDingDing(apiFoxRunReportEntities,attributionGroup);
+    }
+
+
+    public void sendDingDing(List<ApiFoxRunReportEntity> entityList, AttributionGroupEnum attributionGroup) {
+        // 结果数据，发送钉钉消息
         StringBuffer msg = new StringBuffer();
         msg.append("## ").append(attributionGroup).append("组-各成员自动化执行结果通知：  \n\n  ");
-        personCaseDataMap.forEach((name, runResultDTO) -> {
+        entityList.forEach((obj) -> {
 
-            if (StringUtils.isNotEmpty(name) && !"".equals(name)) {
+            msg.append(" **[").append(obj.getResponsiblePerson()).append(":](http://47.242.73.37:2080/app/application/apifox-68db9beeb752566623a31601?reportId=").append(obj.getId()).append(")**  \n\n  ")
+                    .append("-  **TotalCount:** ").append(obj.getTotalRuns()).append("  \n\n  ")
+                    .append("-  **Fail: <font color=red>").append(obj.getFailureRuns()).append("</font>**   \n\n  ")
+                    .append("-  Success: ").append(obj.getSuccessRuns()).append("  \n\n  ")
+                    .append("-  **FailRate: <font color=red>").append(obj.getFailureRate()).append("% </font>**    \n\n  ")
+                    .append("-  **SuccessRate: <font color=green>").append(obj.getSuccessRate()).append("% </font>** \n\n  ")
 
-                Integer successCount = runResultDTO.getSuccessCount();
-                Integer failCount = runResultDTO.getFailCount();
-                Integer totalCount = successCount + failCount;
-                DecimalFormat df = new DecimalFormat("#.00");
-
-                String successRate = "0.00";
-                if (successCount > 0) {
-                    successRate = df.format((double) successCount / totalCount * 100);
-                }
-
-                String failRate = "0.00";
-                if (failCount > 0) {
-                    failRate = df.format((double) failCount / totalCount * 100);
-                }
-
-
-                msg.append(" **").append(name).append(":**  \n\n  ")
-                        .append("-  **TotalCount:** ").append(totalCount).append("  \n\n  ")
-                        .append("-   **Fail: <font color=red>").append(runResultDTO.getFailCount()).append("</font>**   \n\n  ")
-                        .append("-  Success: ").append(runResultDTO.getSuccessCount()).append("  \n\n  ")
-                        .append("-  **FailRate: <font color=red>").append(failRate).append("% </font>**    \n\n  ")
-                        .append("-  **SuccessRate: <font color=green>").append(successRate).append("% </font>** \n\n  ")
-
-                ;
-            }
+            ;
         });
-        msg.append("> **ApiFox_每日定时运行报告:[点击查看](http://47.242.73.37:2080/app/application/apifox-68db96e1b752566623a315fa)**  \n  ")
+        msg.append("> **ApiFox_每日定时运行汇总报告:[点击查看](http://47.242.73.37:2080/app/application/apifox-68db96e1b752566623a315fa)**  \n  ")
         ;
 
 
@@ -338,17 +327,7 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
                 "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
 
-
     }
-
-
-//    /**
-//     * 查询用例名称
-//     */
-//    public String queryCaseName(String caseId) {
-//        DBUtils dbUtils = new DBUtils().initApifoxDB();
-//        return dbUtils.queryOneObjectReturnObject("select name from api_test_cases  where id= ? ", String.class, caseId);
-//    };
 
 
     public static JSONObject readApifoxReport(String containsStr) {
