@@ -46,7 +46,7 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
         // 等待索引更新完成，首页缓存更新完成
-        Thread.sleep(60000);
+        Thread.sleep(120000);
 
     }
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")

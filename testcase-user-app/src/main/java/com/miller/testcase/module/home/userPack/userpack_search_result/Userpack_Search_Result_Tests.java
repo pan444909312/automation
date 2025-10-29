@@ -47,7 +47,7 @@ public class Userpack_Search_Result_Tests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/home/userPack/userpack_search_result/request/headers.json";
+        String headers = "module/home/userpack/userpack_search_result/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
