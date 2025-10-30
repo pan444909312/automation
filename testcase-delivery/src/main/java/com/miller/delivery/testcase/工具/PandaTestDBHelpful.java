@@ -1,12 +1,14 @@
 package com.miller.delivery.testcase.工具;
 
 import com.miller.service.framework.db.DBUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 
 /**
  * 操作 panda_test 库
@@ -16,7 +18,7 @@ import java.util.Objects;
  * @since 2025/05/27 23:03:44
  */
 @Slf4j
-public class 数据库助手 {
+public class PandaTestDBHelpful {
     /**
      * 数据库配置
      */
@@ -26,7 +28,8 @@ public class 数据库助手 {
     protected static DBUtils dbUtils;
 
     static {
-        String profilesActive = System.getenv("ENV_VAR");
+        Properties properties = PropertiesUtils.loadConfig(PandaTestDBHelpful.class, "application.properties");
+        String profilesActive = properties.getProperty("spring.profiles.active");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
             mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
