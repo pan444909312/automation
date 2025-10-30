@@ -6,12 +6,16 @@ import com.miller.entity.report.AutomationCoverageApiEntity;
 import com.miller.entity.report.req.ApifoxRunResultDTO;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 
+import java.util.List;
+
 
 public interface ApiFoxRunReportService extends IService<ApiFoxRunReportEntity> {
 
     ApiFoxRunReportEntity converToEntity( String runId, String scenarioName, AttributionGroupEnum group,ApifoxRunResultDTO dto);
 
     Long saveFindId(ApiFoxRunReportEntity entity);
+
+    List<ApiFoxRunReportEntity> queryByRunId(String runId);
 }
 
 

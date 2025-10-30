@@ -337,6 +337,33 @@
         </dependencies>
     </dependencyManagement>
 
+    <profiles>
+        <profile>
+            <id>beta</id>
+            <properties>
+                <activatedProperties>beta</activatedProperties>
+                <activatedModel>beta</activatedModel>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+                <activatedModel>prod</activatedModel>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <activatedProperties>test</activatedProperties>
+                <activatedModel>test</activatedModel>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <!-- Maven compiler plugin -->
@@ -382,6 +409,10 @@
                     <!-- 指定测试用例的目录 -->
                     <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
                     <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
+                    <!-- 设置系统属性 -->
+                    <systemPropertyVariables>
+                        <spring.profiles.active>${activatedProperties}</spring.profiles.active>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
