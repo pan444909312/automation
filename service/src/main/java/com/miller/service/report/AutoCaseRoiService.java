@@ -36,7 +36,11 @@ public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
      * @param autoCaseRoiReqDTO
      * @return
      */
-    boolean uiAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
+    boolean iosAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
+
+    boolean androidAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
+
+    boolean webAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
 
     /**
      * 保存或更新Jmeter自动化用例数据
