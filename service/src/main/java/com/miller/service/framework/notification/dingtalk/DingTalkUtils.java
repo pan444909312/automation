@@ -37,21 +37,21 @@ public class DingTalkUtils {
     /**
      * 机器人应用的 access_token 的值
      */
-    public static final String CUSTOM_ROBOT_TOKEN = "0de7c87ac7e3e8506c142d1929068a9c15feea710152aca9c2eeb1e9aa3202ff";
+    public static final String CUSTOM_ROBOT_TOKEN = "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1";
     /**
      * 测试token
      */
-    public static final String CUSTOM_ROBOT_TOKEN_TEST = "1a6a884b38ef34aa7442ca3390f58de71003e4518417a8c660e603110c03b80f";
+    public static final String CUSTOM_ROBOT_TOKEN_TEST = "0de7c87ac7e3e8506c142d1929068a9c15feea710152aca9c2eeb1e9aa3202ff";
 
 
     /**
      * 钉钉机器人管理中的 安全设置，加签密钥
      */
-    public static final String SECRET = "SECcc2d9a57ff038735ba738a2325e5623749e3016cbe931d930b8ce7253f265854";
+    public static final String SECRET = "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67";
     /**
      * 测试secret
      */
-    public static final String SECRET_TEST = "SECff0e8a7c6c0b81fba98b6c8c33ba4eb2721985c8ce31584e17ee84ab53b4a91c";
+    public static final String SECRET_TEST = "SECcc2d9a57ff038735ba738a2325e5623749e3016cbe931d930b8ce7253f265854";
 
 
     /**
