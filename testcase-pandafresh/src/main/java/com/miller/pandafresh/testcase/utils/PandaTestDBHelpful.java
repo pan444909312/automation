@@ -27,7 +27,8 @@ public class PandaTestDBHelpful {
     protected static DBUtils dbUtils;
 
     static {
-        String profilesActive = System.getenv("ENV_VAR");
+//        String profilesActive = System.getenv("ENV_VAR");
+        String profilesActive = System.getProperty("spring.profiles.active", "test");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
             mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
