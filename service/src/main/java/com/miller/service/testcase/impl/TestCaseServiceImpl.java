@@ -61,7 +61,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         double passRate = Math.round(((double) testsSucceededCount / testsFoundCount) * 100 * 100) / 100.0;
         if (isTask){
 
-            stringBuilder.append("#### 自动化定时执行结果汇总").append(" \n ");
+            stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
             stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
             stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
             stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
