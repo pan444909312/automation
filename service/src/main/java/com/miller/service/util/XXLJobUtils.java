@@ -33,7 +33,8 @@ public class XXLJobUtils {
     private static volatile boolean initialized = false;
 
     static {
-        String profilesActive = System.getenv("ENV_VAR");
+//        String profilesActive = System.getenv("ENV_VAR");
+        String profilesActive = System.getProperty("spring.profiles.active", "test");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
             XXL_JOB_ADMIN_URL = "http://172.31.236.14:8122/hp-job-admin";
