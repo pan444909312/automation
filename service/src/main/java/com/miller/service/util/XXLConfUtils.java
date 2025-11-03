@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONPath;
 import com.miller.service.dto.*;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 
 /**
  * XXL Config Utils
@@ -26,7 +28,8 @@ public class XXLConfUtils {
     private static HashMap<String, Object> responseCookies;
 
     static {
-        String profilesActive = System.getenv("ENV_VAR");
+        Properties properties = PropertiesUtils.loadConfig(XXLJobUtils.class, "application.properties");
+        String profilesActive = properties.getProperty("spring.profiles.active");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
             XXL_CONFIG_URL = "http://172.31.236.24:18800";
