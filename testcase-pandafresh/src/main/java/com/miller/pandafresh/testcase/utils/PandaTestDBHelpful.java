@@ -1,12 +1,11 @@
 package com.miller.pandafresh.testcase.utils;
 
 import com.miller.service.framework.db.DBUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 操作 panda_test 库
@@ -20,14 +19,25 @@ public class PandaTestDBHelpful {
     /**
      * 数据库配置
      */
-    protected static String mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+    protected static String mySqlUrl ;
     protected static String userName = "panda_test";
     protected static String passWord = "Pan$te19*";
     protected static DBUtils dbUtils;
 
     static {
+        Properties properties = PropertiesUtils.loadConfig(PandaTestDBHelpful.class, "application.properties");
+        String profilesActive = properties.getProperty("spring.profiles.active");
+        if (Objects.equals(profilesActive, "prod")) {
+            // 使用内网地址
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+
+        } else {
+            // 使用外网地址
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+
+        }
+        log.info("当前环境是,{},使用mysql url,{}", profilesActive, mySqlUrl);
         dbUtils = new DBUtils(mySqlUrl, userName, passWord);
-        log.info("DBUtils initialized successfully.");
     }
 
     /**

@@ -1,14 +1,12 @@
 package com.miller.userapp.util;
 
 import com.miller.service.framework.db.DBUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 操作 panda_test 库
@@ -28,10 +26,11 @@ public class PandaTestDBHelpful {
     protected static DBUtils dbUtils;
 
     static {
-        String profilesActive = System.getenv("ENV_VAR");
+        Properties properties = PropertiesUtils.loadConfig(PandaTestDBHelpful.class, "application.properties");
+        String profilesActive = properties.getProperty("spring.profiles.active");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
-            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master-pub.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
+            mySqlUrl = "jdbc:mysql://hp-polar-test-business-master.mysql.polardb.rds.aliyuncs.com:3306/panda_test";
 
         } else {
             // 使用外网地址
@@ -40,7 +39,6 @@ public class PandaTestDBHelpful {
         }
         log.info("当前环境是,{},使用mysql url,{}", profilesActive, mySqlUrl);
         dbUtils = new DBUtils(mySqlUrl, userName, passWord);
-        log.info("DBUtils initialized successfully.");
     }
 
     /**

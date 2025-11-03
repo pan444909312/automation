@@ -1,11 +1,16 @@
 package com.miller.service.util;
 
 import com.miller.service.dto.XXLResponseDTO;
+import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
+
 import com.miller.service.dto.XXLJobLogResponseDTO;
 
 /**
@@ -20,16 +25,29 @@ import com.miller.service.dto.XXLJobLogResponseDTO;
 public class XXLJobUtils {
 
     // 外网地址
-    private static final String XXL_JOB_ADMIN_URL = "http://8.210.167.35:8122/hp-job-admin";
+    private static final String XXL_JOB_ADMIN_URL ;
 
-    // 内网地址
-//    private static final String XXL_JOB_ADMIN_URL = "http://172.31.236.14:8122/hp-job-admin";
     private static HashMap<String, Object> headers = new HashMap<>();
     private static HashMap<String, Object> responseCookies;
 
 
 
     private static volatile boolean initialized = false;
+
+    static {
+        Properties properties = PropertiesUtils.loadConfig(XXLJobUtils.class, "application.properties");
+        String profilesActive = properties.getProperty("spring.profiles.active");
+        if (Objects.equals(profilesActive, "prod")) {
+            // 使用内网地址
+            XXL_JOB_ADMIN_URL = "http://172.31.236.14:8122/hp-job-admin";
+
+        } else {
+            // 使用外网地址
+            XXL_JOB_ADMIN_URL = "http://8.210.167.35:8122/hp-job-admin";
+
+
+        }
+    }
 
 
     public static synchronized void init() {

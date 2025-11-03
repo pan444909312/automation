@@ -37,6 +37,13 @@ public interface AutoExecutionRecordService extends IService<AutoExecutionRecord
 
     boolean apifoxSaveOrUpdate(AutoCaseRoiEntity caseRoiEntity, ApifoxAutoCaseRoiDto caseRoiDto);
 
+
+    /**
+     * UI自动化或jmeter自动化数据落库执行记录表
+     * @param autoCaseRoiEntity
+     * @param uiAutoCaseRoiReqDTO
+     * @return
+     */
     boolean uiSaveOrUpdate(AutoCaseRoiEntity autoCaseRoiEntity, UiAutoCaseRoiReqDTO uiAutoCaseRoiReqDTO);
 
     List<AutoCaseExecutionRecordRespDTO> listAutoExecutionRecordWithProjectId(long startTime, long endTime, int executionType, String projectId);

@@ -13,7 +13,9 @@ public enum PlatformTypeEnum {
 
     JMETER(3, "JMETER"),
 
-    UI(4, "UI自动化"),
+    UI_IOS(4, "UI自动化-IOS"),
+    UI_ANDROID(5, "UI自动化-ANDROID"),
+    UI_WEB(6, "UI自动化-WEB"),
 
     ;
 

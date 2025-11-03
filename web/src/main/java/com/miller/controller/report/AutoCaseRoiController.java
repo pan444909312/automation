@@ -163,36 +163,93 @@ public class AutoCaseRoiController {
         return Response.success(autoCaseRoiEntity);
     }
 
-    @Operation(description = "UI自动化执行保存自动化数据")
-    @PostMapping("/ui/saveData")
+    @Operation(description = "ui-ios自动化执行保存自动化数据")
+    @PostMapping("/saveData/ios")
     public Response<String> uiAddAutoCaseRoi(@RequestBody UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
 
-        String author = autoCaseRoiReqDTO.getAuthor();
-
-        //  校验是否有此实现人
-        if (ObjectUtils.isEmpty(author)) {
-            return Response.fail("author 必填，不然Case 无法归属用户");
-        }
-        User user = userMapper.selectByEmail(author);
-        if (ObjectUtils.isEmpty(user)) {
-            return Response.fail("查不到该用户:" + autoCaseRoiReqDTO.getAuthor() + ",请联系开发添加");
-        }
-
-        // 查询成员归属的项目ID
-        UserBindProject userBindProject = userBindProjectService.selectByUserId(user.getUserId());
-        if (ObjectUtils.isEmpty(userBindProject)) {
-            return Response.fail("该用户没有归属项目:" + autoCaseRoiReqDTO.getAuthor() + ",请联系开发添加");
-        }
-        autoCaseRoiReqDTO.setProjectId(userBindProject.getProjectId());
-
         try {
-            autoCaseRoiService.uiAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
-            return Response.success("保存成功");
+            checkBaseData(autoCaseRoiReqDTO);
+            boolean flag = autoCaseRoiService.iosAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
+            if (flag)
+                return Response.success("保存成功");
+            else
+                return Response.fail("保存失败");
         }catch (Exception e){
             return Response.fail(e.getMessage());
         }
 
     }
+
+    @Operation(description = "ui-android自动化执行保存自动化数据")
+    @PostMapping("/saveData/android")
+    public Response<String> androidAddAutoCaseRoi(@RequestBody UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+
+        try {
+            checkBaseData(autoCaseRoiReqDTO);
+            boolean flag = autoCaseRoiService.androidAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
+            if (flag)
+                return Response.success("保存成功");
+            else
+                return Response.fail("保存失败");
+        }catch (Exception e){
+            return Response.fail(e.getMessage());
+        }
+
+    }
+
+    @Operation(description = "ui-web自动化执行保存自动化数据")
+    @PostMapping("/saveData/web")
+    public Response<String> webAddAutoCaseRoi(@RequestBody UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+
+        try {
+            checkBaseData(autoCaseRoiReqDTO);
+            boolean flag = autoCaseRoiService.webAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
+            if (flag)
+                return Response.success("保存成功");
+            else
+                return Response.fail("保存失败");
+        }catch (Exception e){
+            return Response.fail(e.getMessage());
+        }
+
+    }
+
+    @Operation(description = "jmeter自动化执行保存自动化数据")
+    @PostMapping("/saveData/jmeter")
+    public Response<String> jmeterAddAutoCaseRoi(@RequestBody JmeterAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+
+        try {
+            checkBaseData(autoCaseRoiReqDTO);
+            boolean flag = autoCaseRoiService.jmeterAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
+            if (flag)
+                return Response.success("保存成功");
+            else
+                return Response.fail("保存失败");
+        }catch (Exception e){
+            return Response.fail(e.getMessage());
+        }
+    }
+
+    private void checkBaseData(AutoCaseRoiReqDTO autoCaseRoiReqDTO) throws Exception {
+        String author = autoCaseRoiReqDTO.getAuthor();
+
+        //  校验是否有此实现人
+        if (ObjectUtils.isEmpty(author)) {
+            throw new Exception("author 必填，不然Case 无法归属用户");
+        }
+        User user = userMapper.selectByEmail(author);
+        if (ObjectUtils.isEmpty(user)) {
+            throw new Exception("查不到该用户:" + autoCaseRoiReqDTO.getAuthor() + ",请联系开发添加");
+        }
+
+        // 查询成员归属的项目ID
+        UserBindProject userBindProject = userBindProjectService.selectByUserId(user.getUserId());
+        if (ObjectUtils.isEmpty(userBindProject)) {
+            throw new Exception("该用户没有归属项目:" + autoCaseRoiReqDTO.getAuthor() + ",请联系开发添加");
+        }
+        autoCaseRoiReqDTO.setProjectId(userBindProject.getProjectId());
+    }
+
 
     @PostMapping("/apifox/save")
     @Transactional

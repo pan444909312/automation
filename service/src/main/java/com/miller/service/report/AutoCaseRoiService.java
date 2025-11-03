@@ -2,8 +2,7 @@ package com.miller.service.report;
 
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
-import com.miller.entity.report.req.AutoCaseRoiReqDTO;
+import com.miller.entity.report.req.JmeterAutoCaseRoiReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 
 import java.util.List;
@@ -37,12 +36,24 @@ public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
      * @param autoCaseRoiReqDTO
      * @return
      */
-    boolean uiAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
+    boolean iosAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
 
+    boolean androidAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
+
+    boolean webAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO);
+
+    /**
+     * 保存或更新Jmeter自动化用例数据
+     * @param autoCaseRoiReqDTO
+     * @return
+     */
+    boolean jmeterAutoCaseSaveOrUpdate(JmeterAutoCaseRoiReqDTO autoCaseRoiReqDTO);
 
     /**
      *
      * @return 获取所有测试场景的总节省成本的总和
      */
     long getAllScenarioSaveTime();
+
+
 }

@@ -61,7 +61,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         double passRate = Math.round(((double) testsSucceededCount / testsFoundCount) * 100 * 100) / 100.0;
         if (isTask){
 
-            stringBuilder.append("#### 自动化定时执行结果汇总").append(" \n ");
+            stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
             stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
             stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
             stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
@@ -73,6 +73,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
             stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
             stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
+            // 如果是定时任务执行，发送钉钉通知到主群
             DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilder.toString());
 
         }else{
@@ -83,6 +84,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
             stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
             stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
+            // 发送钉钉通知到副群
             DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
         }
 

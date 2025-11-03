@@ -72,7 +72,7 @@ public class PropertiesUtils {
      * @param configFilePath 配置文件路径
      * @return {@link Properties}
      */
-    public Properties loadConfig(Class<?> clazz, String configFilePath) {
+    public static Properties loadConfig(Class<?> clazz, String configFilePath) {
         Properties properties = new Properties();
         // 传统的方式，默认加载的是当前类所在的包路径下的配置文件
 //        try (InputStream inputStream = Resources.getResourceAsStream(configFilePath); Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {

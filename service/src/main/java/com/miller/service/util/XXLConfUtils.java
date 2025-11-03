@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONPath;
 import com.miller.service.dto.*;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
 
 /**
  * XXL Config Utils
@@ -18,16 +21,25 @@ import java.util.Map;
 public class XXLConfUtils {
 
 
-    // 外网地址
-    private static final String XXL_CONFIG_URL = "http://47.110.44.153:18800";
-
     // 内网地址
-//    private static final String XXL_CONFIG_URL = "http://172.31.236.24:18800";
+    private static final String XXL_CONFIG_URL;
 
     private static HashMap<String, Object> headers = new HashMap<>();
     private static HashMap<String, Object> responseCookies;
 
     static {
+        Properties properties = PropertiesUtils.loadConfig(XXLJobUtils.class, "application.properties");
+        String profilesActive = properties.getProperty("spring.profiles.active");
+        if (Objects.equals(profilesActive, "prod")) {
+            // 使用内网地址
+            XXL_CONFIG_URL = "http://172.31.236.24:18800";
+
+        } else {
+            // 使用外网地址
+            XXL_CONFIG_URL = "http://47.110.44.153:18800";
+
+        }
+
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         login();
     }

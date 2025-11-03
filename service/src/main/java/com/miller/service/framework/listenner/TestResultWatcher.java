@@ -330,7 +330,8 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
      */
     private void sendExecuteNotification(ExtensionContext context, String testResult) {
 
-        DingTalkUtils.sendMarkdownMessage("自动化执行通知", notificationContentHandler(context, testResult));
+        // 单条消息都默认发送到副群
+        DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", notificationContentHandler(context, testResult));
     }
 
 
