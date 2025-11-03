@@ -1,5 +1,6 @@
 package com.miller.controller.testcase;
 
+import com.miller.common.util.StringToListUtils;
 import com.miller.entity.constant.RunTeatCaseTypeEnum;
 import com.miller.entity.platform.req.TestCaseRunScenarioReq;
 import com.miller.entity.report.ConfigEntity;
@@ -47,8 +48,10 @@ public class TestCaseController {
         }
         String runTestCaseULID;
         try {
+            List<String> newList = StringToListUtils.stringToList(req.getPackageNameList().get(0));
 
-            runTestCaseULID = testCaseService.runTestCase(packageNameList, RunTeatCaseTypeEnum.DEBUG);
+
+            runTestCaseULID = testCaseService.runTestCase(newList, RunTeatCaseTypeEnum.DEBUG);
         } catch (Exception e) {
             return Response.fail("runTestCase error:" + e.getMessage());
         }
@@ -64,8 +67,9 @@ public class TestCaseController {
         }
         String runTestCaseULID;
         try {
+            List<String> newList = StringToListUtils.stringToList(req.getPackageNameList().get(0));
 
-            runTestCaseULID = testCaseService.runTestCase(packageNameList, RunTeatCaseTypeEnum.PLATFORM);
+            runTestCaseULID = testCaseService.runTestCase(newList, RunTeatCaseTypeEnum.PLATFORM);
         } catch (Exception e) {
             return Response.fail("runTestCase error:" + e.getMessage());
         }
