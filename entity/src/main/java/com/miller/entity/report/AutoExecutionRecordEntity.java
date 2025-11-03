@@ -69,4 +69,9 @@ public class AutoExecutionRecordEntity implements Serializable {
     @Schema(description = "手工测试成本")
     @TableField("manual_test_time")
     private Integer manualTestTime;
+
+    @Schema(description = "执行记录备注")
+    @TableField("note")
+    private String note;
+
 }
