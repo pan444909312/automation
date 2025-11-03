@@ -25,7 +25,9 @@ public class FreshTestDBHelpful {
     protected static DBUtils dbUtils;
 
     static {
-        Properties properties = PropertiesUtils.loadConfig(PandaTestDBHelpful.class, "application.properties");
+//        String profilesActive = System.getenv("ENV_VAR");
+//        String profilesActive = System.getProperty("spring.profiles.active", "test");
+        Properties properties = PropertiesUtils.loadConfig(FreshTestDBHelpful.class, "application.properties");
         String profilesActive = properties.getProperty("spring.profiles.active");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
