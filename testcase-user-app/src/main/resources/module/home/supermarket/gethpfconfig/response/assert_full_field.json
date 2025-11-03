@@ -4,7 +4,7 @@
 	"reason": "成功",
 	"result": {
 		"portalId": "${json-unit.any-number}",
-		"portalName": "宁波",
+		"portalName": "${json-unit.any-string}",
 		"regionId": "${json-unit.any-number}",
 		"regionName": "${json-unit.any-string}",
 		"defaultShopId": "${json-unit.any-number}",
