@@ -41,8 +41,7 @@
 			}],
 			"manuallySort": "${json-unit.ignore-element}",
 			"sortPoints": "${json-unit.ignore-element}",
-			"scatterScore": "${json-unit.ignore-element}",
-			"voucherCanUse": "${json-unit.any-boolean}"
+			"scatterScore": "${json-unit.ignore-element}"
 		}],
 		"totalCount": "${json-unit.any-number}",
 		"currency":"${json-unit.any-string}"
