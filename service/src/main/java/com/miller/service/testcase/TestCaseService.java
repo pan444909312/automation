@@ -1,6 +1,7 @@
 package com.miller.service.testcase;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.miller.entity.constant.RunTeatCaseTypeEnum;
 import com.miller.entity.testcase.TestCaseEntity;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface TestCaseService extends IService<TestCaseEntity> {
      * @param packageNameList 包名
      * @return 测试用例数量
      */
-    String runTestCase(List<String> packageNameList, boolean isTask);
+    String runTestCase(List<String> packageNameList, RunTeatCaseTypeEnum type);
 }

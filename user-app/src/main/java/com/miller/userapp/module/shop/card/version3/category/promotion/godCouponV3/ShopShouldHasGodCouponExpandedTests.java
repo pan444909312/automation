@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0RPTG8B64ZZMCB5PZAS5KQH", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_品类频道-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺未加码",
+@Scenario(scenarioID = "01K9698K1QNZ1DYCKVJZTH2MVS", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_品类频道-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺未加码",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -35,7 +35,7 @@ public class ShopShouldHasGodCouponExpandedTests {
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.userId"));
     UserCdKeyEntity userCdKeyEntity;
      @BeforeAll
-    void beforeAll() {
+    void beforeAll() throws InterruptedException {
 
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
@@ -49,6 +49,8 @@ public class ShopShouldHasGodCouponExpandedTests {
          //神券信息修改:改为已膨胀10元
          UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
          userCdkeyInfoSql.updateRedPacketScopeTypeAndPrice(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId")),2,1000);
+
+         Thread.sleep(1000);
 
      }
      @AfterAll

@@ -36,7 +36,7 @@ public class ShopShouldHasGodCouponExpandedTests {
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.userId"));
     UserCdKeyEntity userCdKeyEntity;
      @BeforeAll
-    void beforeAll() {
+    void beforeAll() throws InterruptedException {
 
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
@@ -51,6 +51,7 @@ public class ShopShouldHasGodCouponExpandedTests {
          UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
          userCdkeyInfoSql.updateRedPacketScopeTypeAndPrice(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId")),2,1000);
 
+         Thread.sleep(1000);
      }
      @AfterAll
      void afterAll(){

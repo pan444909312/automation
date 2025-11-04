@@ -6,7 +6,7 @@
     "userPackConfig": "${json-unit.ignore}",
     "orderVirtualConfig": true,
     "shopTakeSelfTabConfig": true,
-    "startSendMoneyBaseOnOrg": false,
+    "startSendMoneyBaseOnOrg": "${json-unit.ignore}",
     "pfSuperMarketDeepLink": null,
     "localLifePayEntryShow": "${json-unit.ignore}"
   },

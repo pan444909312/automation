@@ -21,11 +21,11 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/07/23 13:50:49
  */
-@Scenario(
-        scenarioID = "01K0TXB7RCRV9HN9W668YYGTQB", // 自动生成，不要修改
-        scenarioName = "获取规格信息-单规格商品",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
+//@Scenario(
+//        scenarioID = "01K0TXB7RCRV9HN9W668YYGTQB", // 自动生成，不要修改
+//        scenarioName = "获取规格信息-单规格商品",
+//        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+//        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("获取规格信息-单规格商品")
 public class GetSkuNoSpecs_Tests {
 

@@ -2,6 +2,9 @@ package com.miller.service.report;
 
 import com.miller.entity.report.ConfigEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.miller.entity.report.resp.ConfigBasicRespDTO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +17,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ConfigService extends IService<ConfigEntity> {
 
     String getConfigByKey(String key);
+
+    List<ConfigBasicRespDTO> getExecutionCasePackageList();
 }

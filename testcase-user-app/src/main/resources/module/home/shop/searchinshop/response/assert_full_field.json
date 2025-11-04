@@ -13,7 +13,6 @@
 		"menuId":"${json-unit.any-number}",
 		"menuName":"${json-unit.any-string}",
 
-		"searchResultsNum": "${json-unit.any-number}",
 		"orgProductPrice":"${json-unit.any-number}",
 
 		"promoteRate": "${json-unit.any-number}"

@@ -6,7 +6,7 @@
     "lat": "${json-unit.any-string}",
     "lng": "${json-unit.any-string}",
     "country": "中国",
-    "address": "China, Jiangxi, 九江"
+    "address": "${json-unit.any-string}"
 },
   "currency": "${json-unit.any-string}",
   "success": true,

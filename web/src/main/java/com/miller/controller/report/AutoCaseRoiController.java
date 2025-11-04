@@ -98,8 +98,7 @@ public class AutoCaseRoiController {
             queryWrapper.eq("execution_user", executionUser);
         }
         if (!StringUtils.isEmpty(scenarioIdOrName)) {
-            System.out.println(scenarioIdOrName);
-            queryWrapper.like("scenario_id", scenarioIdOrName).or().like("scenario_name", scenarioIdOrName);
+            queryWrapper.and(item -> item.like("scenario_id", scenarioIdOrName).or().like("scenario_name", scenarioIdOrName));
         }
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());
@@ -163,13 +162,47 @@ public class AutoCaseRoiController {
         return Response.success(autoCaseRoiEntity);
     }
 
-    @Operation(description = "UI自动化执行保存自动化数据")
-    @PostMapping("/ui/saveData")
+    @Operation(description = "ui-ios自动化执行保存自动化数据")
+    @PostMapping("/saveData/ios")
     public Response<String> uiAddAutoCaseRoi(@RequestBody UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
 
         try {
             checkBaseData(autoCaseRoiReqDTO);
-            boolean flag = autoCaseRoiService.uiAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
+            boolean flag = autoCaseRoiService.iosAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
+            if (flag)
+                return Response.success("保存成功");
+            else
+                return Response.fail("保存失败");
+        }catch (Exception e){
+            return Response.fail(e.getMessage());
+        }
+
+    }
+
+    @Operation(description = "ui-android自动化执行保存自动化数据")
+    @PostMapping("/saveData/android")
+    public Response<String> androidAddAutoCaseRoi(@RequestBody UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+
+        try {
+            checkBaseData(autoCaseRoiReqDTO);
+            boolean flag = autoCaseRoiService.androidAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
+            if (flag)
+                return Response.success("保存成功");
+            else
+                return Response.fail("保存失败");
+        }catch (Exception e){
+            return Response.fail(e.getMessage());
+        }
+
+    }
+
+    @Operation(description = "ui-web自动化执行保存自动化数据")
+    @PostMapping("/saveData/web")
+    public Response<String> webAddAutoCaseRoi(@RequestBody UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+
+        try {
+            checkBaseData(autoCaseRoiReqDTO);
+            boolean flag = autoCaseRoiService.webAutoCaseSaveOrUpdate(autoCaseRoiReqDTO);
             if (flag)
                 return Response.success("保存成功");
             else
@@ -181,7 +214,7 @@ public class AutoCaseRoiController {
     }
 
     @Operation(description = "jmeter自动化执行保存自动化数据")
-    @PostMapping("/jmeter/saveData")
+    @PostMapping("/saveData/jmeter")
     public Response<String> jmeterAddAutoCaseRoi(@RequestBody JmeterAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
 
         try {

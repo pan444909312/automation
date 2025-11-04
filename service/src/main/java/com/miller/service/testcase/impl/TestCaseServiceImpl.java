@@ -1,6 +1,7 @@
 package com.miller.service.testcase.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.miller.entity.constant.RunTeatCaseTypeEnum;
 import com.miller.entity.testcase.TestCaseEntity;
 import com.miller.mapper.tesetcase.TestCaseMapper;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
@@ -46,7 +47,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
      * @return 测试执行计划ID，通过ID查询测试结果
      */
     @Override
-    public String runTestCase(List<String> packageNameList,boolean isTask) {
+    public String runTestCase(List<String> packageNameList, RunTeatCaseTypeEnum runTeatCaseType) {
         TestExecutionSummary summary = syncRunTestCase(packageNameList);
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -59,15 +60,15 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
 
 
         double passRate = Math.round(((double) testsSucceededCount / testsFoundCount) * 100 * 100) / 100.0;
-        if (isTask){
+        if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.TASK.getCode()) {
 
-            stringBuilder.append("#### 自动化定时执行结果汇总").append(" \n ");
+            stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
             stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
             stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
             stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
             if (testsFailedCount > 0) {
                 stringBuilder.append("[查看失败详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
-            }else{
+            } else {
                 stringBuilder.append(" \n ");
             }
             stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
@@ -76,20 +77,33 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             // 如果是定时任务执行，发送钉钉通知到主群
             DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilder.toString());
 
-        }else{
-            stringBuilder.append("#### 自动化手动执行结果汇总").append(" \n ");
+        }
+        if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.PLATFORM.getCode()) {
+
+            stringBuilder.append("#### C组-自动化平台手动执行结果汇总").append(" \n ");
             stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
             stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
             stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
             stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
             stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
             stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
-            // 发送钉钉通知到副群
+            // 如果是平台手动执行，发送钉钉通知到副群
             DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
         }
+        if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.DEBUG.getCode()) {
+            {
+                stringBuilder.append("#### C组-DEBUG手动执行结果汇总").append(" \n ");
+                stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
+                stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
+                stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
+                stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
+                stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
+                stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
+                // 如果是调试执行发送钉钉通知到副群
+                DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
+            }
 
-
-
+        }
         // todo 执行结果
         return stringBuilder.toString();
     }
@@ -109,6 +123,9 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
                 packageClass.addAll(classFindService.getPackageClass(item)
                         .stream().filter(clz -> clz.isAnnotationPresent(Scenario.class)).toList());
             });
+            if (packageClass.isEmpty()) {
+                throw new RuntimeException("该路径下没有需要执行的测试用例");
+            }
 
 
             List<DiscoverySelector> discoverySelectorList = packageClass

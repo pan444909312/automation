@@ -60,9 +60,17 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
     }
 
     @Override
-    public boolean uiAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
-        return handleAutoCaeData(autoCaseRoiReqDTO,PlatformTypeEnum.UI.getCode());
+    public boolean iosAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+        return handleAutoCaeData(autoCaseRoiReqDTO,PlatformTypeEnum.UI_IOS.getCode());
     }
+
+    @Override
+    public boolean androidAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+        return handleAutoCaeData(autoCaseRoiReqDTO,PlatformTypeEnum.UI_ANDROID.getCode());    }
+
+    @Override
+    public boolean webAutoCaseSaveOrUpdate(UiAutoCaseRoiReqDTO autoCaseRoiReqDTO) {
+        return handleAutoCaeData(autoCaseRoiReqDTO,PlatformTypeEnum.UI_WEB.getCode());    }
 
     @Override
     public boolean jmeterAutoCaseSaveOrUpdate(JmeterAutoCaseRoiReqDTO autoCaseRoiReqDTO) {

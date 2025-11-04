@@ -3,11 +3,13 @@ package com.miller.service.util;
 import com.miller.service.dto.XXLResponseDTO;
 import com.miller.service.framework.db.DBUtils;
 import com.miller.service.framework.http.HttpUtils;
+import com.miller.service.framework.util.PropertiesUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 
 import com.miller.service.dto.XXLJobLogResponseDTO;
 
@@ -33,7 +35,8 @@ public class XXLJobUtils {
     private static volatile boolean initialized = false;
 
     static {
-        String profilesActive = System.getenv("ENV_VAR");
+        Properties properties = PropertiesUtils.loadConfig(XXLJobUtils.class, "application.properties");
+        String profilesActive = properties.getProperty("spring.profiles.active");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
             XXL_JOB_ADMIN_URL = "http://172.31.236.14:8122/hp-job-admin";

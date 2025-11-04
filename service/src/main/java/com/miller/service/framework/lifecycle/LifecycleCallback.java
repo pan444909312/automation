@@ -193,6 +193,8 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
     private void saveAutoCaseRoi(Class<?> cls) {
         Scenario scenario = cls.getDeclaredAnnotation(Scenario.class);
         if (Objects.isNull(scenario)) return;
+        // todo 是否可以通过其他方式 让通过平台执行的用例执行人换成其他，免得被识别成定时执行
+        // 服务器执行用例作者会是DevOps
         String executor = TestCaseUtils.getExecutor(cls);
         if (!executor.equals(TestCaseUtils.executorOfDevOps)){
             // 修改执行人逻辑，取user表的name

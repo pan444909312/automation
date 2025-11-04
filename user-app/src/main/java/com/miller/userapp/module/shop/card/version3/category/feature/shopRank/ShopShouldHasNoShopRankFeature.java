@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 16:33
  */
-@Scenario(scenarioID = "01K4WCHR0TNCFEE6HVEJAQ84D1",
+@Scenario(scenarioID = "01K969MVFSRQQ5D04DCD4A988W",
         scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_品类榜单_品类频道页-商卡二期：榜单 - 无榜单数据",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
