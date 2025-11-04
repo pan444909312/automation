@@ -1,10 +1,17 @@
 package com.miller.controller.testcase;
 
+import com.miller.common.util.StringToListUtils;
+import com.miller.entity.constant.RunTeatCaseTypeEnum;
 import com.miller.entity.platform.req.TestCaseRunScenarioReq;
+import com.miller.entity.report.ConfigEntity;
+import com.miller.entity.report.resp.ConfigBasicRespDTO;
+import com.miller.entity.util.Response;
+import com.miller.service.report.ConfigService;
 import com.miller.service.testcase.TestCaseService;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +33,57 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
 @RestController
 @RequestMapping("/testCase")
 public class TestCaseController {
+
     @Autowired
     private TestCaseService testCaseService;
 
+    @Autowired
+    private ConfigService configService;
+
     @PostMapping("/runScenario")
-    public String runScenario(@RequestBody TestCaseRunScenarioReq req) {
+    public Response<String> runCaseDebug(@RequestBody TestCaseRunScenarioReq req) {
         List<String> packageNameList = req.getPackageNameList();
         if (null == packageNameList || packageNameList.isEmpty()) {
-            return "packageName is empty.";
+            return Response.fail("packageName is empty");
         }
-        String runTestCaseULID = testCaseService.runTestCase(packageNameList,false);
+        String runTestCaseULID;
+        try {
+            List<String> newList = StringToListUtils.stringToList(req.getPackageNameList().get(0));
 
-        return String.valueOf(runTestCaseULID);
+
+            runTestCaseULID = testCaseService.runTestCase(newList, RunTeatCaseTypeEnum.DEBUG);
+        } catch (Exception e) {
+            return Response.fail("runTestCase error:" + e.getMessage());
+        }
+
+        return Response.success(String.valueOf(runTestCaseULID));
     }
 
-    /**
-     * 测试非Spring环境下执行测试用例。
-     */
-    public static void main(String[] args) {
-        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-                .selectors(
-                        selectPackage("com.miller.userapp.module.pay.suite")
-                ).filters(
-//                        includeClassNamePatterns(".*Scenario[s]?Test[s]?")
-                        includeClassNamePatterns(".*Test[s]?")
-                ).build();
-        new TestCaseRunnerLauncher().executeRequest(request);
+    @PostMapping("/runCase")
+    public Response<String> runCase(@RequestBody TestCaseRunScenarioReq req) {
+        List<String> packageNameList = req.getPackageNameList();
+        if (null == packageNameList || packageNameList.isEmpty()) {
+            return Response.fail("packageName is empty");
+        }
+        String runTestCaseULID;
+        try {
+            List<String> newList = StringToListUtils.stringToList(req.getPackageNameList().get(0));
 
+            runTestCaseULID = testCaseService.runTestCase(newList, RunTeatCaseTypeEnum.PLATFORM);
+        } catch (Exception e) {
+            return Response.fail("runTestCase error:" + e.getMessage());
+        }
+
+        return Response.success(String.valueOf(runTestCaseULID));
     }
+
+    @GetMapping("/getCasePackageList")
+    public Response<List<?>> getCasePackageList() {
+
+        List<ConfigBasicRespDTO> packageList = configService.getExecutionCasePackageList();
+
+
+        return Response.success(packageList);
+    }
+
 }

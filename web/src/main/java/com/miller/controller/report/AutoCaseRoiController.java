@@ -98,8 +98,7 @@ public class AutoCaseRoiController {
             queryWrapper.eq("execution_user", executionUser);
         }
         if (!StringUtils.isEmpty(scenarioIdOrName)) {
-            System.out.println(scenarioIdOrName);
-            queryWrapper.like("scenario_id", scenarioIdOrName).or().like("scenario_name", scenarioIdOrName);
+            queryWrapper.and(item -> item.like("scenario_id", scenarioIdOrName).or().like("scenario_name", scenarioIdOrName));
         }
         if (createStartTime != null) {
             queryWrapper.ge("create_time", createStartTime.getTime());

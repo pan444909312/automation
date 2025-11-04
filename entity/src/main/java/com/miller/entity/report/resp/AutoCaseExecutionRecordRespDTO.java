@@ -52,4 +52,9 @@ public class AutoCaseExecutionRecordRespDTO {
 
     @Schema(description = "关联项目id")
     private Integer projectId;
+
+    @Schema(description = "执行记录备注")
+    @TableField("note")
+    private String note;
+
 }
