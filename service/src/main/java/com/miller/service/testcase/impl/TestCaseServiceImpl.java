@@ -87,9 +87,8 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
             stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
             stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
-            // 如果是平台手动执行，发送钉钉通知到主群
-            DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilder.toString());
-
+            // 如果是平台手动执行，发送钉钉通知到副群
+            DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
         }
         if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.DEBUG.getCode()) {
             {
