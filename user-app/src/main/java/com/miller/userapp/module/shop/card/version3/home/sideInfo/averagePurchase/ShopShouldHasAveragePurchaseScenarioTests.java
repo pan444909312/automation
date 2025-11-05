@@ -45,15 +45,39 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
-        Thread.sleep(120000);
+        Thread.sleep(140000);
     }
     @DisplayName("用户-首页店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-首页-商卡二期：人均")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){
         ShopListResponseDTO ShopListResponsedto= ShopListFlow.getShopListByShopId(ShopListRequestdto,shopId);
-        String averagePurchase =ShopListResponsedto.getResult().getShopList().stream().filter(item -> item.getShopId().equals(shopId)).findFirst().map( ShopIndexVO::getAveragePurchase).orElseThrow();
-        assertThat(averagePurchase).isEqualTo("人均¥55");
+        if (ShopListResponsedto.getResult().getShopList().isEmpty()) {
+            System.out.println("01K0NWTNTH9883XEDG5C5M94ZT，人均调试信息：没有店铺数据");
+            System.out.println("期望的店铺ID: " + shopId);
+        } else {
+            System.out.println("01K0NWTNTH9883XEDG5C5M94ZT，人均调试信息：获取到店铺列表");
+        }
+        
+        String averagePurchase = ShopListResponsedto.getResult().getShopList().stream()
+                .filter(item -> item.getShopId().equals(shopId))
+                .findFirst()
+                .map(ShopIndexVO::getAveragePurchase)
+                .orElse(null);
+                
+        if (averagePurchase == null) {
+            System.out.println("01K0NWTNTH9883XEDG5C5M94ZT，人均调试信息：未找到对应店铺的人均消费数据");
+            System.out.println("目标店铺ID: " + shopId);
+        } else if (averagePurchase.isEmpty()) {
+            System.out.println("01K0NWTNTH9883XEDG5C5M94ZT，人均调试信息：找到店铺但人均消费数据为空");
+            System.out.println("店铺ID: " + shopId + ", averagePurchase值: '" + averagePurchase + "'");
+        } else {
+            System.out.println("01K0NWTNTH9883XEDG5C5M94ZT，人均调试信息：成功获取人均消费数据");
+            System.out.println("店铺ID: " + shopId + ", averagePurchase值: '" + averagePurchase + "'");
+        }
+        
+        assertThat(averagePurchase).as("店铺人均消费信息校验失败").isNotNull().isNotEmpty();
+        assertThat(averagePurchase).as("店铺人均消费数值校验失败").isEqualTo("人均¥55");
 
     }
     //    DataProvider改为在测试用例文件里写,提供测试数据
