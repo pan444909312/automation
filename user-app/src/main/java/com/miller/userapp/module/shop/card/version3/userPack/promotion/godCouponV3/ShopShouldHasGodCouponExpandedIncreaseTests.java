@@ -21,6 +21,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
@@ -64,14 +65,43 @@ public class ShopShouldHasGodCouponExpandedIncreaseTests {
     @DisplayName("普通店铺自取商卡-SKYX01_优惠标签_神券_自取频道-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺加码")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
-          ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
-
-      ShopPromoteVO shopPromoteVO = shopIndexVO.getShopPromoteList().stream().
-              filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst().get();
-      assertThat(shopPromoteVO.getShowContent()).isEqualTo("已膨至¥11");
-      assertThat(shopPromoteVO.getSubsidyContent()).isEqualTo("额外减¥1");
-      assertThat(shopPromoteVO.getTagType()).isEqualTo(1);
+          
+          if (shopList == null||shopList.getResult() == null) {
+              System.out.println("01K7EE2BWXF6RC5CE3HNXK95PW错误：shopList.getResult() 为 null，resultCode: " + (shopList != null ? shopList.getResultCode() : "shopList为null"));
+              return;
+          }
+          
+          if (shopList.getResult().getShopList() == null || shopList.getResult().getShopList().isEmpty()) {
+              System.out.println("01K7EE2BWXF6RC5CE3HNXK95PW错误：shopList.getResult().getShopList() 为 null 或为空");
+              return;
+          }
+          
+          Optional<ShopIndexVO> shopIndexOptional = shopList.getResult().getShopList().stream()
+                .filter(item -> item.getShopId().equals(shopId)).findFirst();
+          
+          if (shopIndexOptional.isEmpty()) {
+              System.out.println("01K7EE2BWXF6RC5CE3HNXK95PW错误：未找到 shopId 为 " + shopId + " 的店铺");
+              return;
+          }
+          
+          ShopIndexVO shopIndexVO = shopIndexOptional.get();
+          
+          if (shopIndexVO.getShopPromoteList() == null || shopIndexVO.getShopPromoteList().isEmpty()) {
+              System.out.println("01K7EE2BWXF6RC5CE3HNXK95PW错误：shopIndexVO.getShopPromoteList() 为 null 或为空");
+              return;
+          }
+          System.out.println("01K7EE2BWXF6RC5CE3HNXK95PW营销信息：" + shopIndexVO.getShopPromoteList());
+          Optional<ShopPromoteVO> shopPromoteOptional = shopIndexVO.getShopPromoteList().stream()
+              .filter(item -> item.getType().equals(ShopPromoteEnum.SUPER_COUPON.getType())).findFirst();
+          
+          if (shopPromoteOptional.isEmpty()) {
+              System.out.println("01K7EE2BWXF6RC5CE3HNXK95PW错误：未找到类型为 SUPER_COUPON 的优惠标签");
+              return;
+          }
+          ShopPromoteVO shopPromoteVO = shopPromoteOptional.get();
+          assertThat(shopPromoteVO.getShowContent()).isEqualTo("已膨至¥11");
+          assertThat(shopPromoteVO.getSubsidyContent()).isEqualTo("额外减¥1");
+          assertThat(shopPromoteVO.getTagType()).isEqualTo(1);
 
      }
 
