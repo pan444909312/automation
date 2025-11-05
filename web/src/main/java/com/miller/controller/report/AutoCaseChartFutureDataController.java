@@ -1,5 +1,6 @@
 package com.miller.controller.report;
 
+import com.miller.service.job.AutoCaseExecutionTask;
 import com.miller.service.job.ChartDataTask;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,6 +28,9 @@ public class AutoCaseChartFutureDataController {
     @Autowired
     ChartDataTask chartDataTask;
 
+    @Autowired
+    AutoCaseExecutionTask autoCaseExecutionTask;
+
     @Operation(description = "定时任务测试")
     @PostMapping("/test")
     public Map<String, Object> jobTest() {
@@ -42,6 +46,15 @@ public class AutoCaseChartFutureDataController {
         HashMap<String, Object> result = new HashMap<>();
 //        chartDataTask.initChartData();
         chartDataTask.execute();
+
+        return result;
+    }
+
+    @Operation(description = "定时任务测试")
+    @PostMapping("/runcase-job")
+    public Map<String, Object> runcase() {
+        HashMap<String, Object> result = new HashMap<>();
+        autoCaseExecutionTask.execute();;
 
         return result;
     }
