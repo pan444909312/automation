@@ -18,10 +18,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01K99V405KWZ48NE2CJHERBGNB", // 自动生成，不要修改
-        scenarioName = "店铺流_召回_首页_店铺-召回-配送范围：配送最大距离<店铺距用户距离 - 不召回",
+        scenarioName = "店铺流_红包适用商家列表_店铺-召回-配送范围：配送最大距离<店铺距用户距离 - 不召回",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_召回_首页_店铺-召回-配送范围：配送最大距离<店铺距用户距离 - 不召回")
+@DisplayName("店铺流_红包适用商家列表_店铺-召回-配送范围：配送最大距离<店铺距用户距离 - 不召回")
 public class RedPacketOutOfDeliveryDistance_Tests {
 
     @BeforeAll
