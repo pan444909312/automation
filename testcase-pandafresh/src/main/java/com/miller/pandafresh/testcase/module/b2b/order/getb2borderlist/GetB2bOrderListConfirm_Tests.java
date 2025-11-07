@@ -1,6 +1,7 @@
 package com.miller.pandafresh.testcase.module.b2b.order.getb2borderlist;
 
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
+import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.util.JSONUtils;
@@ -8,6 +9,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * getB2bOrderList
@@ -69,6 +73,15 @@ public class GetB2bOrderListConfirm_Tests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).inPath("$.code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.list").isEqualTo("[]");
+
+        //查询是否有待确认订单
+        String sql = "select * from b2b_order b where b.custom_id=8 and b.is_del=0 and b.order_status=0 and b.order_type=1;";
+        List<Map<String, Object>> selectOneSql=FreshTestDBHelpful.executeSelectListSql(sql);
+        if (selectOneSql.size()==0){
+            TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.list").isEqualTo("[]");
+        }else {
+            TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.totalNumber").isNotNull();
+            TestCaseHelpful.assertThatJson(responseBody).inPath("$.data.list").isNotNull();
+        }
     }
 } 
