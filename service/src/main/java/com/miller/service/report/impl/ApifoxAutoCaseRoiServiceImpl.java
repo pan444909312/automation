@@ -35,6 +35,10 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
         long currentTimeMillis = System.currentTimeMillis();
 
         if (!ObjectUtils.isEmpty(autoCaseRoi)) {
+            // 如果用例的状态是非活跃的，执行后变更为活跃
+            if (autoCaseRoi.getStatus() != 0) {
+                autoCaseRoi.setStatus(0);
+            }
             // 更新
             autoCaseRoi.setDevelopmentTime(dto.getDevelopmentTime());
             autoCaseRoi.setManualTestTime(dto.getManualTestTime());

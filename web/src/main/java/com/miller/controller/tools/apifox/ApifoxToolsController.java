@@ -1,7 +1,9 @@
 package com.miller.controller.tools.apifox;
 
 import com.miller.entity.report.AutomationCoverageApiEntity;
+import com.miller.entity.util.Response;
 import com.miller.pos.date.flow.WorkingTimeFlow;
+import com.miller.service.apifox.ApiFoxConfigService;
 import com.miller.service.apifox.ApifoxToolsService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 import com.miller.service.job.ApiFoxScheduled;
@@ -28,6 +30,9 @@ public class ApifoxToolsController {
     @Autowired
     private  ApiFoxScheduled  apiFoxScheduled ;
 
+    @Autowired
+    private ApiFoxConfigService apiFoxConfigService;
+
     @GetMapping("/getWorkingCount")
     public int getWorkingCount(@RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime) {
         log.info("开始时间：{},结束时间：{}", startTime, endTime);
@@ -53,10 +58,22 @@ public class ApifoxToolsController {
         return true;
     }
 
+    /**
+     * 触发 apifox shell，执行APIFOX用例集
+     * @return
+     */
     @GetMapping("/execRemoteApifoxShell")
     public boolean execRemoteApifoxShell(@RequestParam AttributionGroupEnum  attributionGroupEnum){
         apiFoxScheduled.scheduledTask(attributionGroupEnum);
         return true;
+    }
+
+    @GetMapping("/getApifoxConfig")
+    public Response<String> getApifoxConfig(@RequestParam AttributionGroupEnum  attributionGroupEnum){
+
+        // todo
+
+        return Response.success(null);
     }
 
 

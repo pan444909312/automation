@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 @Scenario(scenarioID = "01K7JWZ6K5KT6A6ZF9DMT7D6Y6",
-        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_店前标签：百万补贴_自取频道：百万补贴 - 不返回",
+        scenarioName = "普通店铺配送商卡-自取频道-SKYX01_基础信息_店前标签：百万补贴_自取频道：百万补贴 - 店铺不在招商列表，不返回",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 10)
 
 @EnvTag.Test
@@ -54,7 +54,7 @@ public class ShopShouldHasNoSubsidyTag {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_店前标签：百万补贴_自取频道：百万补贴 - 不返回")
+    @DisplayName("普通店铺配送商卡-自取频道-SKYX01_基础信息_店前标签：百万补贴_自取频道：百万补贴 - 店铺不在招商列表，不返回")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
         RequestUtils.getHeaders().put("latitude","41.80478");

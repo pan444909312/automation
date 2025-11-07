@@ -231,6 +231,12 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
             autoCaseRoi.setSaveTime(saveTimes);
             autoCaseRoi.setRoi(calculateRoi(autoCaseRoi));
             autoCaseRoi.setExecutionUser(executor);
+
+            // 如果用例的状态是非活跃的，执行后变更为活跃
+            if (autoCaseRoi.getStatus() != 0) {
+                autoCaseRoi.setStatus(0);
+            }
+
             autoCaseRoiSql.updateAutoCaseRoi(autoCaseRoi);
 //            log.info("autoCaseRoi: "+ autoCaseRoi);
         } else {

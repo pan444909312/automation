@@ -2,8 +2,8 @@
 	"code": 1,
 	"resultCode": 0,
 	"data": {
-		"orderSn": "PFB2BB2508091711168137",
-		"submitTime": "2025-08-09 10:11:16",
+		"orderSn": "PFB2BB2508181039368848",
+		"submitTime": "2025-08-18 03:39:36",
 		"orderStatus": 1,
 		"orderStatusDesc": "已确认",
 		"needPay": true,
@@ -17,28 +17,31 @@
 		"consigneeAddress": "测试测试",
 		"consigneeTel": "447846319703",
 		"consigneeName": "测试1",
-		"deliveryDate": "2025-08-10",
+		"deliveryDate": "2025-08-19",
 		"deliveryTime": "11:00-20:00",
 		"customRemark": "",
-		"waitPayDate": "2025-08-09",
+		"waitPayDate": "2025-08-18",
 		"paymentPattern": "",
 		"billPeriod": "卖家确认后付款，付款后发货",
 		"payTime": "",
 		"floatingAmount": 0,
 		"payWayType": 1,
-		"orderDetailList": [{
-			"goodsName": "B2B-C-D的桃",
-			"goodsPrimaryPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1735624392727/17356243927271347286d.JPG",
-			"goodsPrice": 1.23,
-			"boxSpec": 1,
-			"needBoxNum": 1,
-			"needGoodsNum": 1,
-			"boxPrice": 1.23,
-			"goodsTax": 0.00,
-			"goodsTaxPrice": 0.00,
-			"payAmount": 1.23,
-			"specValue": "默认"
-		}]
+		"orderDetailList": [
+			{
+				"goodsName": "B2B-C-D的桃",
+				"goodsPrimaryPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1735624392727/17356243927271347286d.JPG",
+				"goodsPrice": 1.23,
+				"boxSpec": 1,
+				"needBoxNum": 1,
+				"needGoodsNum": 1,
+				"boxPrice": 1.23,
+				"goodsTax": 0.00,
+				"goodsTaxPrice": 0.00,
+				"payAmount": 1.23,
+				"specValue": "默认"
+			}
+		],
+		"orderVersion": 0
 	},
 	"message": "请求成功(1)",
 	"currency": "£",

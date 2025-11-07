@@ -2,25 +2,18 @@ package com.miller.controller.testcase;
 
 import com.miller.common.util.StringToListUtils;
 import com.miller.entity.constant.RunTeatCaseTypeEnum;
+import com.miller.entity.platform.req.RunJmeterCaseReq;
 import com.miller.entity.platform.req.TestCaseRunScenarioReq;
-import com.miller.entity.report.ConfigEntity;
 import com.miller.entity.report.resp.ConfigBasicRespDTO;
 import com.miller.entity.util.Response;
 import com.miller.service.report.ConfigService;
 import com.miller.service.testcase.TestCaseService;
-import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.formula.functions.T;
-import org.junit.platform.launcher.LauncherDiscoveryRequest;
-import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.junit.platform.engine.discovery.ClassNameFilter.includeClassNamePatterns;
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 
 /**
  * 测试用例管理接口
@@ -59,7 +52,12 @@ public class TestCaseController {
         return Response.success(String.valueOf(runTestCaseULID));
     }
 
-    @PostMapping("/runCase")
+    /**
+     * 执行java用例
+     * @param req
+     * @return
+     */
+    @PostMapping("/runJavaCase")
     public Response<String> runCase(@RequestBody TestCaseRunScenarioReq req) {
         List<String> packageNameList = req.getPackageNameList();
         if (null == packageNameList || packageNameList.isEmpty()) {
@@ -77,13 +75,29 @@ public class TestCaseController {
         return Response.success(String.valueOf(runTestCaseULID));
     }
 
-    @GetMapping("/getCasePackageList")
+    /**
+     * 获取java用例执行包列表
+     * @return
+     */
+    @GetMapping("/getJavaCasePackageList")
     public Response<List<?>> getCasePackageList() {
 
         List<ConfigBasicRespDTO> packageList = configService.getExecutionCasePackageList();
 
 
         return Response.success(packageList);
+    }
+
+
+    /**
+     * 调用jmeter执行用例
+     * @param runJmeterCaseReq
+     * @return
+     */
+    @PostMapping("/runJmeterCase")
+    public Response<String> runJmeterCase(@RequestBody RunJmeterCaseReq runJmeterCaseReq) {
+
+        return Response.success(runJmeterCaseReq.getCountry());
     }
 
 }

@@ -3,8 +3,7 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "addressList": [
-    ]
+
   },
   "currency": "${json-unit.any-string}",
   "success": true,

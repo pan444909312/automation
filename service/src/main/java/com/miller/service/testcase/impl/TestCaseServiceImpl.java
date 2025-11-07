@@ -136,6 +136,11 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
                     .filters(
                             // includeClassNamePatterns(".*Scenario[s]?Test[s]?")
                     ).build();
+
+            log.warn("看看扫出来的大小{}", packageClass.size());
+            log.warn("看看扫出来的大小{}", discoverySelectorList.size());
+
+
             SummaryGeneratingListener summaryGeneratingListener = testCaseRunnerLauncher.executeRequest(request);
             // 获取执行的测试用例数量
             long testsSkippedCount = summaryGeneratingListener.getSummary().getTestsSkippedCount();
@@ -147,6 +152,12 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             long totalFailureCount = summaryGeneratingListener.getSummary().getTotalFailureCount();
             long timeStarted = summaryGeneratingListener.getSummary().getTimeStarted();
             long timeFinished = summaryGeneratingListener.getSummary().getTimeFinished();
+            log.warn("测试用例执行结果,testsSkippedCount:{},testsAbortedCount:{}," +
+                            "testsStartedCount:{},testsSucceededCount:{}," +
+                    "testsFoundCount:{},testsFailedCount:{},totalFailureCount:{}",
+                    testsSkippedCount, testsAbortedCount,
+                    testsStartedCount, testsSucceededCount,
+                    testsFoundCount, testsFailedCount, totalFailureCount);
             return summaryGeneratingListener;
         };
 

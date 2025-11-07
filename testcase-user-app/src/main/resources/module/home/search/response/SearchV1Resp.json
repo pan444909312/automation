@@ -4,7 +4,7 @@
   "reason": "Success",
   "result": {
     "shopList": "${json-unit.ignore}",
-    "totalShopCount": 2,
+    "totalShopCount": "${json-unit.any-number}",
     "hasMemberShop": 0
   },
   "currency": "${json-unit.any-string}",

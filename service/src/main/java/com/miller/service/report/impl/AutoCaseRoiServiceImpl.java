@@ -115,6 +115,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
 
         AutoCaseRoiEntity autoCaseRoi = autoCaseRoiMapper.selectOne(new QueryWrapper<AutoCaseRoiEntity>().eq("scenario_id", scenarioId));
 
+
         // ID 不为空表示已经保存过，不需要再保存，则做更新
         if (Objects.nonNull(autoCaseRoi) && !StringUtils.isEmpty(executionUser)) {
             autoCaseRoi.setScenarioName(scenarioName);
@@ -136,6 +137,11 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
 
             autoCaseRoi.setProjectId(projectId);
             autoCaseRoi.setPlatformType(platformType);
+
+            // 如果用例的状态是非活跃的，执行后变更为活跃
+            if (autoCaseRoi.getStatus() != 0) {
+                autoCaseRoi.setStatus(0);
+            }
 
             autoCaseRoiMapper.updateById(autoCaseRoi);
 
@@ -169,6 +175,7 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
             autoCaseRoi = newAutoCaseRoi;
         }
 
+
         // 保存到执行记录表（ui和jmeter均使用该方法）
         return autoExecutionRecordService.uiSaveOrUpdate(autoCaseRoi, autoCaseRoiReqDTO);
     }
@@ -179,6 +186,12 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
     @Override
     public long getAllScenarioSaveTime() {
         return 0;
+    }
+
+    @Override
+    public Integer updateCaseActive() {
+
+        return autoCaseRoiMapper.updateCaseActive();
     }
 
     private String calculateRoi(AutoCaseRoiEntity autoCaseRoi) {

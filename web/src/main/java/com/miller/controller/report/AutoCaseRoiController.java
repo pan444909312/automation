@@ -326,5 +326,13 @@ public class AutoCaseRoiController {
         return result;
     }
 
+    @Operation(description = "手动触发检索更新用例的活跃状态")
+    @PostMapping("/updateCaseActive")
+    public Response<String> updateCaseActive() {
+        Integer i = autoCaseRoiService.updateCaseActive();
+
+        return Response.success("更新了" + i + "条数据");
+    }
+
 
 }

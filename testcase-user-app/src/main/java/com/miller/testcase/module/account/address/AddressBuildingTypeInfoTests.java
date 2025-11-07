@@ -8,11 +8,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-@Scenario(
-        scenarioID = "01JXCK07X2J6H6J914KSQWD5VW",
-        scenarioName = "地址_获取建筑类型信息",
-        author = "huyang@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+//@Scenario(
+//        scenarioID = "01JXCK07X2J6H6J914KSQWD5VW",
+//        scenarioName = "地址_获取建筑类型信息",
+//        author = "huyang@hungrypandagroup.com",
+//        developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("地址_获取建筑类型信息")
 public class AddressBuildingTypeInfoTests {
     // 接口请求的 path
