@@ -30,7 +30,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 @EnvTag.Test
 @DisplayName("商卡(中文)")
 public class ShopShouldHasNoVenueTagCauseVenueClose {
-    private final Long shopId = 884864627L;
+    private final Long shopId = 633077616L;
 
 
     @BeforeAll
