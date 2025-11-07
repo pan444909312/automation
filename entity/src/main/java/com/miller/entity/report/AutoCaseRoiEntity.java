@@ -103,5 +103,8 @@ public class AutoCaseRoiEntity implements Serializable {
     @TableField("platform_type")
     private Integer platformType;
 
+    @Schema(description = "用例状态 0活跃 1非活跃 2弃用 ")
+    @TableField("status")
+    private Integer status;
 
 }

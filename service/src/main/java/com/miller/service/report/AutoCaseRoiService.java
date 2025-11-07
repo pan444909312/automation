@@ -55,5 +55,6 @@ public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
      */
     long getAllScenarioSaveTime();
 
+    Integer updateCaseActive();
 
 }

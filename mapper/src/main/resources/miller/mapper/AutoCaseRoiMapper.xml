@@ -17,5 +17,19 @@
         WHERE acr.project_id = "" and acr.is_deleted = 0
     </select>
 
+    <update id="updateCaseActive">
+        UPDATE auto_case_roi AS roi
+        SET roi.status = 1
+        WHERE roi.status = 0
+          AND roi.is_deleted = 0
+          AND NOT EXISTS (
+            SELECT 1
+            FROM auto_execution_record AS rec
+            WHERE rec.scenario_id = roi.scenario_id
+              AND rec.is_deleted = 0
+              AND rec.execution_time >= UNIX_TIMESTAMP() * 1000 - 7 * 24 * 3600 * 1000
+        );
+    </update>
+
 
 </mapper>

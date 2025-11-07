@@ -96,8 +96,13 @@ public class ChartDataTask {
     @Scheduled(cron = "0 30 0 * * ?")
     public void execute() {
 
-        //更新auto_case_roi表 project_id数据
+        // 更新auto_case_roi表 project_id数据
         updateProjectId();
+
+        // 检查并更新用例是否活跃
+        autoCaseRoiService.updateCaseActive();
+
+
 
         // 统计昨日数据
         // 昨天0：00
