@@ -1,0 +1,31 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"voucherSn": "3738SFIFES",
+		"ruleItemList": [{
+			"itemTitle": "有效期",
+			"itemContent": "2025.06.10 00:00 至 2027.08.20 00:00"
+		}, {
+			"itemTitle": "使用时间",
+			"itemContent": "全天可用"
+		}, {
+			"itemTitle": "单次可用张数",
+			"itemContent": "无限制"
+		}, {
+			"itemTitle": "使用规则",
+			"itemContent": "· 不兑现、不找零\n                  · 无需预约，消费高峰期可能需要排队\n                  · 不可与商家其他优惠同享\n                  · 堂食外带均可，具体打包费详情请致电商家咨询\n                  · 发票问题请咨询商家"
+		}],
+		"startTime": 1749484800,
+		"startTimeStr": "2025.06.10 00:00",
+		"endTime": 1818691200,
+		"endTimeStr": "2027.08.20 00:00",
+		"validDays": 0
+
+	},
+	"currency":"${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}
