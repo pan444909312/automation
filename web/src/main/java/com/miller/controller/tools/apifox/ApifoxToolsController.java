@@ -1,9 +1,12 @@
 package com.miller.controller.tools.apifox;
 
+import com.miller.controller.tools.ResultVO;
+import com.miller.entity.apifox.ApiTestCaseCustomHttpRequestEntity;
 import com.miller.entity.report.AutomationCoverageApiEntity;
 import com.miller.entity.util.Response;
 import com.miller.pos.date.flow.WorkingTimeFlow;
 import com.miller.service.apifox.ApiFoxConfigService;
+import com.miller.service.apifox.ApiTestCaseCustomHttpRequestService;
 import com.miller.service.apifox.ApifoxToolsService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 import com.miller.service.job.ApiFoxScheduled;
@@ -13,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -32,6 +34,9 @@ public class ApifoxToolsController {
 
     @Autowired
     private ApiFoxConfigService apiFoxConfigService;
+
+    @Autowired
+    private ApiTestCaseCustomHttpRequestService apiTestCaseCustomHttpRequestService;
 
     @GetMapping("/getWorkingCount")
     public int getWorkingCount(@RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime) {
@@ -74,6 +79,12 @@ public class ApifoxToolsController {
         // todo
 
         return Response.success(null);
+    }
+
+    @GetMapping("/apifox/step/info")
+    public ResultVO<ApiTestCaseCustomHttpRequestEntity> queryById(@RequestParam String id){
+        ApiTestCaseCustomHttpRequestEntity apiTestCaseCustomHttpRequestEntity = apiTestCaseCustomHttpRequestService.queryById(id);
+        return ResultVO.success(apiTestCaseCustomHttpRequestEntity);
     }
 
 

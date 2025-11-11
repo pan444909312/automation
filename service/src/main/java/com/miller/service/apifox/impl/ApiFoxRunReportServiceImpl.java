@@ -3,7 +3,7 @@ package com.miller.service.apifox.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.entity.apifox.ApiFoxRunReportEntity;
-import com.miller.entity.report.req.ApifoxRunResultDTO;
+import com.miller.entity.apifox.DTO.ApifoxRunResultDTO;
 import com.miller.mapper.apifox.ApiFoxRunReportMapper;
 import com.miller.service.apifox.ApiFoxRunReportService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;

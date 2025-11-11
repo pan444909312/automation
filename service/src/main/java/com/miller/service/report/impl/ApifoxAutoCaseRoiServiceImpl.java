@@ -3,7 +3,7 @@ package com.miller.service.report.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.entity.constant.PlatformTypeEnum;
 import com.miller.entity.report.AutoCaseRoiEntity;
-import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
+import com.miller.entity.apifox.DTO.ApifoxAutoCaseRoiDto;
 import com.miller.mapper.report.AutoCaseRoiMapper;
 import com.miller.service.report.ApifoxAutoCaseRoiService;
 import com.miller.service.report.AutoExecutionRecordService;

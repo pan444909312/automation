@@ -1,6 +1,5 @@
-package com.miller.entity.report.req;
+package com.miller.entity.apifox.DTO;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

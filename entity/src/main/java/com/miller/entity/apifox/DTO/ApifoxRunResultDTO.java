@@ -1,4 +1,4 @@
-package com.miller.entity.report.req;
+package com.miller.entity.apifox.DTO;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -16,6 +16,7 @@ public class ApifoxRunResultDTO {
     private Integer failCount = 0;
 
     private Set<ApifoxReportItemDTO> failList = null;
+    private Set<ApifoxReportItemDTO> totalCaseList = null;
 
     private Set<String> successList = null;
 
@@ -67,5 +68,12 @@ public class ApifoxRunResultDTO {
             this.failList = new HashSet<>();
         }
         this.failList.add(itemDTO);
+    }
+
+    public void setTotalCaseList(ApifoxReportItemDTO caseInfoDTO) {
+        if (ObjectUtils.isEmpty(this.totalCaseList)) {
+            this.totalCaseList = new HashSet<>();
+        }
+        this.totalCaseList.add(caseInfoDTO);
     }
 }
