@@ -2,8 +2,7 @@ package com.miller.service.apifox;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.miller.entity.apifox.ApiFoxRunReportEntity;
-import com.miller.entity.report.AutomationCoverageApiEntity;
-import com.miller.entity.report.req.ApifoxRunResultDTO;
+import com.miller.entity.apifox.DTO.ApifoxRunResultDTO;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 
 import java.util.List;

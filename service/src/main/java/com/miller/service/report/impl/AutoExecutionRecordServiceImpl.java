@@ -8,7 +8,7 @@ import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
-import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
+import com.miller.entity.apifox.DTO.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
