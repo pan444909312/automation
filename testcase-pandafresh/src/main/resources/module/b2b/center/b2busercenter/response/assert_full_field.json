@@ -1,0 +1,10 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"creditAmount": "${json-unit.any-number}"
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP"
+}
