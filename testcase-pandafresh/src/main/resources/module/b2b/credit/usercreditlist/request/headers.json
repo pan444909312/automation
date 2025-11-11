@@ -1,0 +1,15 @@
+{
+	"Origin":"https://supply-mobile-test.hungrypanda.cn",
+	"Accept":"application/json, text/plain, */*",
+	"User-Agent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/29.0 Chrome/136.0.0.0 Mobile Safari/537.36",
+	"Referer":"https://supply-mobile-test.hungrypanda.cn/",
+	"Sec-Fetch-Site":"same-site",
+	"Sec-Fetch-Dest":"empty",
+	"Host":"api-cn-f2e-test.hungrypanda.cn",
+	"Sec-Fetch-Mode":"cors",
+	"sec-ch-ua":"",
+	"sec-ch-ua-mobile":"?1",
+	"sec-ch-ua-platform":"",
+	"Accept-Language":"zh-CN,zh-TW;q=0.9,zh-MO;q=0.8,zh-HK;q=0.7,zh;q=0.6,en-GB;q=0.5,en;q=0.4",
+	"Content-Type":"application/json;charset=UTF-8"
+}
