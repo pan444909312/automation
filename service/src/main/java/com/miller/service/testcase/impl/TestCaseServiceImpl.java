@@ -1,10 +1,16 @@
 package com.miller.service.testcase.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.miller.entity.constant.ExecutionStatusEnum;
+import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.constant.ProjectTypeEnum;
 import com.miller.entity.constant.RunTeatCaseTypeEnum;
+import com.miller.entity.report.resp.AutoCaseExecutionDailyDataDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.testcase.TestCaseEntity;
 import com.miller.mapper.tesetcase.TestCaseMapper;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
+import com.miller.service.report.AutoExecutionRecordService;
 import com.miller.service.testcase.TestCaseService;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.clz.ClassFindService;
@@ -19,8 +25,12 @@ import org.junit.platform.launcher.listeners.TestExecutionSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +50,9 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
     @Autowired
     private TestCaseRunnerLauncher testCaseRunnerLauncher;
 
+    @Autowired
+    private AutoExecutionRecordService autoExecutionRecordService;
+
     /**
      * 运行测试用例
      *
@@ -48,7 +61,15 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
      */
     @Override
     public String runTestCase(List<String> packageNameList, RunTeatCaseTypeEnum runTeatCaseType) {
+        // 执行用例
         TestExecutionSummary summary = syncRunTestCase(packageNameList);
+
+
+        LocalDate todayLocalDate = LocalDate.now();
+        Date today = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList = autoExecutionRecordService.getDailyCaseExecutionSummaryByPerson(ProjectTypeEnum.PROJECT_C.getProjectId(), today);
+
 
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder stringBuilderSuccess = new StringBuilder();
@@ -61,6 +82,9 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
 
         double passRate = Math.round(((double) testsSucceededCount / testsFoundCount) * 100 * 100) / 100.0;
         if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.TASK.getCode()) {
+
+
+            DingTalkUtils.sendMarkdownMessageDebug("自动化执行通知", messageHandler(autoCaseExecutionDailyDataDTOList));
 
             stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
             stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
@@ -188,6 +212,22 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
 
         // log.info("主线程获取到 Future 结果: {}", result);
 
+    }
+
+
+    private String messageHandler(List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList){
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (AutoCaseExecutionDailyDataDTO data : autoCaseExecutionDailyDataDTOList) {
+            stringBuilder.append("- **").append(data.getAuthor()).append("**:").append(" \n ");
+            stringBuilder.append("  - 共: ").append(data.getCount()).append("个").append(" \n ");
+            stringBuilder.append("  - 成功: ").append(data.getSuccessCount()).append("个").append(" \n ");
+            stringBuilder.append("  - 失败: ").append(data.getFailCount()).append("个").append(" \n ");
+            stringBuilder.append("  - 通过率: ").append(String.format("%.2f", data.getPassRate() * 100)).append("%").append(" \n ");
+        }
+
+        return stringBuilder.toString();
     }
 
 }
