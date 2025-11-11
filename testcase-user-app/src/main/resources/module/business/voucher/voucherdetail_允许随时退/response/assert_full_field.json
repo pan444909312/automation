@@ -1,0 +1,16 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"voucherSn": "3738SFIFES",
+		"voucherName": "${json-unit.any-string}",
+		"voucherShopName": "自动化测试·团购店铺·yqh【勿动】",
+		"shopId": 195420037,
+		"serviceNote": "随时退"
+	},
+	"currency":"${json-unit.any-string}",
+	"success": true,
+	"nowTime": "${json-unit.any-number}",
+	"queryList": "${json-unit.ignore-element}"
+}
