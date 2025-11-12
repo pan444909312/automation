@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K9RWTX9RFEF7QQF1SRSHBHTJ",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP592G",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_下次营业时间_搜索列表-商卡二期：下次营业时间-无数据",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @EnvTag.Test
@@ -70,6 +70,7 @@ public class ShopStatusShouldNoOrderStopTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("自动化测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

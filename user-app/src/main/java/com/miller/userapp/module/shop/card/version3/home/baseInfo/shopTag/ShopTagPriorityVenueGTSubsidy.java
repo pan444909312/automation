@@ -27,7 +27,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 @EnvTag.Test
 @DisplayName("商卡(中文)")
-public class ShopTagPriority {
+public class ShopTagPriorityVenueGTSubsidy {
     private final Long shopId = 880360312L;
 
 

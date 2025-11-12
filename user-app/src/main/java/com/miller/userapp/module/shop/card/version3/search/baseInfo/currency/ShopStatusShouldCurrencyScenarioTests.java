@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K0V4X9X204XR5AZZGWT7S15Z",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP592F",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_搜索列表-商卡二期：货币符号",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @EnvTag.Test
@@ -41,6 +41,7 @@ public class ShopStatusShouldCurrencyScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("自动化测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

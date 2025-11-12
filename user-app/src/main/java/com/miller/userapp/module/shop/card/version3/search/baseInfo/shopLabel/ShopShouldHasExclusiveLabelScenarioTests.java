@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K9RWTX9RFEF7QQF1SRSHBHTS",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP592Q",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_店铺角标_搜索列表-商卡二期:独家店铺开启独家角标,会展示独家角标",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
@@ -94,7 +94,8 @@ public class ShopShouldHasExclusiveLabelScenarioTests {
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡自动化"); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

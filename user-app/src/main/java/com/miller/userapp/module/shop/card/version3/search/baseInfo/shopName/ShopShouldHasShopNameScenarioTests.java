@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/07/28 12:17:39
  */
-@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5911",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5930",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_店铺名称_搜索列表-商卡二期:店铺名称",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 30)
 @EnvTag.Test
@@ -76,7 +76,8 @@ public class ShopShouldHasShopNameScenarioTests {
     static Stream<Arguments> shopNameDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("自动化测试"); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

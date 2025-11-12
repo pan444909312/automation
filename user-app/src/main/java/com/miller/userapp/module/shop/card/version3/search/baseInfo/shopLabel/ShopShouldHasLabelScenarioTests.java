@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/06/25 21:17:39
  */
-@Scenario(scenarioID = "01K9RWTX9RFEF7QQF1SRSHBHTT",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP592R",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_店铺角标_搜索列表-商卡二期:店铺角标-展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 4 * 60, maintenanceTime = 30, manualTestTime = 30)
 @EnvTag.Test
@@ -80,7 +80,8 @@ public class ShopShouldHasLabelScenarioTests {
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("自动化测试"); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
