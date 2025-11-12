@@ -266,7 +266,11 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
 
         for (AutoCaseExecutionDailySummaryDTO autoCaseExecutionDailySummaryDTO : autoCaseExecutionDailySummaryDTOList) {
             int count = autoCaseExecutionDailySummaryDTO.getCount();
-            int successCount = successSummaryMap.get(autoCaseExecutionDailySummaryDTO.getAuthor()).getCount();
+            int successCount = 0;
+            if(successSummaryMap.get(autoCaseExecutionDailySummaryDTO.getAuthor()) != null){
+
+                successCount = successSummaryMap.get(autoCaseExecutionDailySummaryDTO.getAuthor()).getCount();
+            }
             int failCount = count - successCount;
             double passRate = (double) successCount / count;
             autoCaseExecutionDailyDataDTO = new AutoCaseExecutionDailyDataDTO();
