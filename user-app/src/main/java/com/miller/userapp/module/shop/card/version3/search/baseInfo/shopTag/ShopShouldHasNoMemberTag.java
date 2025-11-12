@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5913",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5932",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_店前标签：VIP标签_搜索列表-商卡二期：VIP标签 - 不返回",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 10)
 
@@ -87,6 +87,7 @@ public class ShopShouldHasNoMemberTag {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("自动化测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5910",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP592Z",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_店铺logo_搜索列表-商卡二期:店铺logo-静图",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
@@ -87,7 +87,8 @@ public class ShopShouldHasStaticLogoScenarioTests {
     static Stream<Arguments> staticLogoDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码 Bug，没有对 null 进行判断，应该默认给 false
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("自动化测试"); // 开发代码 Bug，没有对 null 进行判断，应该默认给 false
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

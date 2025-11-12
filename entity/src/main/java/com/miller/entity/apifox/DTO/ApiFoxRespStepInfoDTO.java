@@ -75,8 +75,9 @@ public class ApiFoxRespStepInfoDTO {
         if (ObjectUtils.isNotEmpty(customHttpRequestEntity)) {
             stepInfoDTO.setPostProcessors(customHttpRequestEntity.getPostProcessors())
                     .setPreProcessors(customHttpRequestEntity.getPreProcessors())
-                    .setParams(customHttpRequestEntity.getParameters())
-                    .setReqBody(customHttpRequestEntity.getRequestBody());
+//                    .setParams(customHttpRequestEntity.getParameters())
+//                    .setReqBody(customHttpRequestEntity.getRequestBody())
+                    ;
         }
 
         return stepInfoDTO;

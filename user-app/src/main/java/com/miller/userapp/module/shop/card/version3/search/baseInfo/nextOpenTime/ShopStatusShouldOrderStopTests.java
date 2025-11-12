@@ -25,7 +25,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K9RWTX9RFEF7QQF1SRSHBHTK",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP592H",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_下次营业时间_搜索列表-商卡二期：下次营业时间-暂停接单不可预约",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
@@ -92,6 +92,7 @@ public class ShopStatusShouldOrderStopTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("自动化测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

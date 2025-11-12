@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5919",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5938",
         scenarioName = "搜索列表商卡-SKYX01_基础信息_店前标签：会场模版标签_搜索列表-商卡二期：会场模版标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
@@ -70,6 +70,7 @@ public class ShopShouldHasVenueTag {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("自动化测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

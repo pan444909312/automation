@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K9RWTX9RFEF7QQF1SRSHBHTR", scenarioName = "搜索列表商卡-SKYX01_基础信息_店铺可预约状态_搜索列表-商卡二期：店铺可预约状态 - 营业可预约"
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP592P", scenarioName = "搜索列表商卡-SKYX01_基础信息_店铺可预约状态_搜索列表-商卡二期：店铺可预约状态 - 营业可预约"
         , author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -69,7 +69,8 @@ public class ShopPreOrderSupportStatusOpenScenarioTests {
     static Stream<Arguments> shopStatusDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("营业可预约"); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
