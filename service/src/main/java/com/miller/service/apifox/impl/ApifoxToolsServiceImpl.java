@@ -220,7 +220,6 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 reportItem.addApiId(httpApiId);
 
 
-
                 // 配置跳转 ApiFox Case 地址
                 final String apiFoxUrl = String.format("https://apifox.hungrypanda.it/link/project/%s/api-test/scenario-%s", ApiFoxCommonEnum.APIFOX_PROJECT_ID.getValue(), reportItem.getCaseId());
                 reportItem.setApifoxUrl(apiFoxUrl);
@@ -331,7 +330,7 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                                         JSONArray postProcessors = step.getPostProcessors();
                                         List<Boolean> collect = postProcessors.stream()
                                                 .map(p -> ((JSONObject) p).getString("type").equals("assertion"))
-                                                .filter( res -> res.equals(true))
+                                                .filter(res -> res.equals(true))
                                                 .toList();
                                         return collect.size();
                                     }
@@ -344,14 +343,16 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
                             // 更新执行记录表状态，更新该失败的用例最近的一条执行记录为失败
                             String scenarioId = caseInfo.getScenarioId();
-                            UpdateWrapper<AutoExecutionRecordEntity> autoExecutionRecordEntityUpdateWrapper = new UpdateWrapper<>();
-                            if (ObjectUtils.isNotEmpty(scenarioId)) {
+                            if (ObjectUtils.isNotEmpty(scenarioId)  && !caseInfo.getRunStatus() ) {
+                                UpdateWrapper<AutoExecutionRecordEntity> autoExecutionRecordEntityUpdateWrapper = new UpdateWrapper<>();
                                 autoExecutionRecordEntityUpdateWrapper.eq("scenario_id", scenarioId);
                                 autoExecutionRecordEntityUpdateWrapper.orderByDesc("execution_time");
                                 autoExecutionRecordEntityUpdateWrapper.last("limit 1");
+
                                 autoExecutionRecordEntityUpdateWrapper.set("execution_status", ExecutionStatusEnum.FAIL.getCode());
+                                autoExecutionRecordService.update(autoExecutionRecordEntityUpdateWrapper);
+
                             }
-                            autoExecutionRecordService.update(autoExecutionRecordEntityUpdateWrapper);
                         }
 
                     });

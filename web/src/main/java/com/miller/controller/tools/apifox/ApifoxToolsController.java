@@ -38,24 +38,22 @@ public class ApifoxToolsController {
     @Autowired
     private ApiTestCaseCustomHttpRequestService apiTestCaseCustomHttpRequestService;
 
+    /**
+     * Grafana 报表使用：查询时间范围内的工作日天数
+     */
     @GetMapping("/getWorkingCount")
     public int getWorkingCount(@RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime) {
         log.info("开始时间：{},结束时间：{}", startTime, endTime);
         return WorkingTimeFlow.getDays(startTime, endTime);
     }
 
-    @PostMapping("/pushDingDing")
-    public void pushDingDing(@RequestParam String access_token,
-                             @RequestParam String timestamp,
-                             @RequestParam String sign,
-                             @RequestBody String body) {
-        apifoxToolsService.sendDingDing(access_token, timestamp, sign, body);
-    }
+
+
+
 
 
     /**
-     * 触发 apifox 报告，通知钉钉群
-     * @return
+     * 调试接口：触发 apifox 报告，通知钉钉群
      */
     @GetMapping("/parsingReport")
     public boolean parsingReport(@RequestParam AttributionGroupEnum groupEnum){
@@ -64,14 +62,14 @@ public class ApifoxToolsController {
     }
 
     /**
-     * 触发 apifox shell，执行APIFOX用例集
-     * @return
+     * 调试接口：触发远程 apifox cli 执行接口，执行 ApiFox 用例集
      */
     @GetMapping("/execRemoteApifoxShell")
     public boolean execRemoteApifoxShell(@RequestParam AttributionGroupEnum  attributionGroupEnum){
         apiFoxScheduled.scheduledTask(attributionGroupEnum);
         return true;
     }
+
 
     @GetMapping("/getApifoxConfig")
     public Response<String> getApifoxConfig(@RequestParam AttributionGroupEnum  attributionGroupEnum){
@@ -81,6 +79,9 @@ public class ApifoxToolsController {
         return Response.success(null);
     }
 
+    /**
+     * 查询apifox 原生库： 测试步骤详细
+     */
     @GetMapping("/apifox/step/info")
     public ResultVO<ApiTestCaseCustomHttpRequestEntity> queryById(@RequestParam String id){
         ApiTestCaseCustomHttpRequestEntity apiTestCaseCustomHttpRequestEntity = apiTestCaseCustomHttpRequestService.queryById(id);
