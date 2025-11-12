@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/9/25 19:39
  */
-@Scenario(scenarioID = "01K0P43MYA1TK7NV3M41EPCZPG",
+@Scenario(scenarioID = "01K9VH77WP0C58RKEXC7J548FF",
         scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_辅助信息_配送距离_搜索列表-商卡二期：配送距离 - 取缓存距离",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
@@ -94,6 +94,7 @@ public class ShopShouldHasShopCacheDeliveryDistanceScenarioTests {
       ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
       // 可以不用传参数
       shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+      shopListRequestDTO.setKeywords("商卡测试");
 
       return Stream.of(Arguments.of(shopListRequestDTO));
    }

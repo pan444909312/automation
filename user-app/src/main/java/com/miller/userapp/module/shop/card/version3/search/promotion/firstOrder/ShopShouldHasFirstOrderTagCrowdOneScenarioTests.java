@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnvTag.Test
 @TestFramework
-@Scenario(scenarioID = "01K0RBVKDDSN56ZRXPDD79BZ7V", scenarioName = "用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-优惠标签-新人首单标签-搜索列表-商卡二期：新人首单标签35-新人人群1"
+@Scenario(scenarioID = "01K9VH77WS3962V3FZBZ4V31ZQ", scenarioName = "用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-优惠标签-新人首单标签-搜索列表-商卡二期：新人首单标签35-新人人群1"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-优惠标签-新人首单标签-搜索列表-商卡二期：新人首单标签35-新人人群1")
 public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
@@ -83,6 +83,7 @@ public class ShopShouldHasFirstOrderTagCrowdOneScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/30 17:47
  */
-@Scenario(scenarioID = "01K0R3KGKM3055H0KV6N31F9J8", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_满减_搜索列表-商卡二期：满减29",
+@Scenario(scenarioID = "01K9VH77WQY47DMTPAXDEGW7FY", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_满减_搜索列表-商卡二期：满减29",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -107,6 +107,7 @@ public class ShopShouldHasFullSubScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

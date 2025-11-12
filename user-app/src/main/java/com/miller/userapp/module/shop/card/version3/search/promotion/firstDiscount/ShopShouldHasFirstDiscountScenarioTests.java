@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/7/31 14:54
  */
-@Scenario(scenarioID = "01K4YC1DN91JN4W1270B0X8Y2F", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_平台首单_搜索列表-商卡二期：平台首单23",
+@Scenario(scenarioID = "01K9VH77WT2YB4QV4JRSEWC8QM", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_平台首单_搜索列表-商卡二期：平台首单23",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @TestFramework
@@ -90,6 +90,7 @@ public class ShopShouldHasFirstDiscountScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

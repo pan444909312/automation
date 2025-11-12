@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 
-@Scenario(scenarioID = "01K0V433PSNAFB4GT8FC1RXQ7J",
+@Scenario(scenarioID = "01K9VH77WRQ9TZT8XD8AAK6N9T",
         scenarioName = "搜索列表商卡_优惠标签_会员权益_搜索列表-商卡二期：会员权益41-会员神券",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
@@ -74,6 +74,7 @@ public class ShopShouldHasMemberBenefitSuperCoupon {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

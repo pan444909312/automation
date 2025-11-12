@@ -30,7 +30,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
  * @author panjuxiang
  * @since 2024/7/31 14:00
  */
-@Scenario(scenarioID = "01K0RAKFGG39FMEZ9953SFD18S", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_门店新客_搜索列表-商卡二期：门店新客24",
+@Scenario(scenarioID = "01K9VH77WQY47DMTPAXDEGW7G4", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_门店新客_搜索列表-商卡二期：门店新客24",
         author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -79,6 +79,7 @@ public class ShopShouldHasShopFirstDiscountScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

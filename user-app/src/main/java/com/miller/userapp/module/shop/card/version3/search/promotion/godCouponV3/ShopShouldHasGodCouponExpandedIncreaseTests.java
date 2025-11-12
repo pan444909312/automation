@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0RRR6735XS5E5CBYZ9NWGW1", scenarioName = "搜索列表商卡-SKYX01_优惠标签_神券_搜索列表-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺加码",
+@Scenario(scenarioID = "01K9VH77WRQ9TZT8XD8AAK6NA1", scenarioName = "搜索列表商卡-SKYX01_优惠标签_神券_搜索列表-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺加码",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -81,6 +81,7 @@ public class ShopShouldHasGodCouponExpandedIncreaseTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 

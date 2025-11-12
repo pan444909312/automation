@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0P2A4YFXGCA08M8JT1EYX0W", scenarioName = "用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-辅助信息-配送价格-搜索列表-商卡二期：配送价格 - C配"
+@Scenario(scenarioID = "01K9VH77WP0C58RKEXC7J548F7", scenarioName = "用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-辅助信息-配送价格-搜索列表-商卡二期：配送价格 - C配"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-辅助信息-配送价格-搜索列表-商卡二期：配送价格 - C配")
 public class ShopShouldHasSendMoneyCDeliveryScenarioTests {
@@ -47,6 +47,7 @@ public class ShopShouldHasSendMoneyCDeliveryScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

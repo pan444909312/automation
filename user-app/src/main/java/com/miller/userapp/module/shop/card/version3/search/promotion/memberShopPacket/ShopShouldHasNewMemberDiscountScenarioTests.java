@@ -20,7 +20,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-@Scenario(scenarioID = "01K0V43SMFDB0TEB69YKF64RYS",
+@Scenario(scenarioID = "01K9VH77WRQ9TZT8XD8AAK6N9R",
         scenarioName = "搜索列表商卡-SKYX01_优惠标签_新会员优惠标签_搜索列表-商卡二期：新会员优惠标签37",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10 + 30, manualTestTime = 20)
 
@@ -68,6 +68,7 @@ public class ShopShouldHasNewMemberDiscountScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

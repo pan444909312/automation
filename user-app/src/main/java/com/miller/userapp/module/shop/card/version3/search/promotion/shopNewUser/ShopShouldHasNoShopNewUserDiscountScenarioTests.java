@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/30 13:43
  */
-@Scenario(scenarioID = "01K0RAZF3E6ZKH3VM06E88PVVF", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_新客爆品_搜索列表-商卡二期：新客爆品25-不展示",
+@Scenario(scenarioID = "01K9VH77WQY47DMTPAXDEGW7G3", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_新客爆品_搜索列表-商卡二期：新客爆品25-不展示",
         author = "yancancan@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -57,6 +57,7 @@ public class ShopShouldHasNoShopNewUserDiscountScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

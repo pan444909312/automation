@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0NWTNTH9883XEDG5C5M94ZT", scenarioName = "用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-辅助信息-人均-搜索列表-商卡二期：人均"
+@Scenario(scenarioID = "01K9VDRN7G073PR8K6K45NKE4H", scenarioName = "用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-辅助信息-人均-搜索列表-商卡二期：人均"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-辅助信息-人均-搜索列表-商卡二期：人均")
 public class ShopShouldHasAveragePurchaseScenarioTests {
@@ -84,7 +84,8 @@ public class ShopShouldHasAveragePurchaseScenarioTests {
     static Stream<Arguments> showLabelDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setFiltering(false);// 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

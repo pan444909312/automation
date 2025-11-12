@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01K0RBDM3GGCAS227BPG05KHGX", scenarioName = "用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-优惠标签-可自取-搜索列表-商卡二期：可自取33（已删除）"
+@Scenario(scenarioID = "01K9VH77WQY47DMTPAXDEGW7G0", scenarioName = "用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-优惠标签-可自取-搜索列表-商卡二期：可自取33（已删除）"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("用户-搜索列表店铺流-商卡(中文)-搜索列表商卡-SKYX01-优惠标签-可自取-搜索列表-商卡二期：可自取33（已删除）")
 public class ShopShouldHasSelfTakeTagScenarioTests {
@@ -50,6 +50,7 @@ public class ShopShouldHasSelfTakeTagScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }
