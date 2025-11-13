@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author huyang
  * @since 2024/8/16 17:47
  */
-@Scenario(scenarioID = "01K0R4D8H621MPTZ740HFPMGMR", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_货到付款_搜索列表-商卡二期：货到付款34",
+@Scenario(scenarioID = "01K9VH77WQY47DMTPAXDEGW7GF", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_货到付款_搜索列表-商卡二期：货到付款34",
         author = "yancancan@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -53,6 +53,7 @@ public class ShopShouldHasOfflinePaymentScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

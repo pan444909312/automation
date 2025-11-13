@@ -5,12 +5,14 @@ import com.miller.entity.apifox.ApiTestCaseCustomHttpRequestEntity;
 import com.miller.mapper.apifox.ApiTestCaseCustomHttpRequestMapper;
 import com.miller.service.apifox.ApiTestCaseCustomHttpRequestService;
 import com.miller.service.util.ApifoxDBUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class ApiTestCaseCustomHttpRequestServiceImpl
         implements ApiTestCaseCustomHttpRequestService {
@@ -28,10 +30,18 @@ public class ApiTestCaseCustomHttpRequestServiceImpl
 
     @Override
     public List<ApiTestCaseCustomHttpRequestEntity> queryByIdList(Set<String> ids) {
+        ApiTestCaseCustomHttpRequestMapper mapper = null;
         QueryWrapper<ApiTestCaseCustomHttpRequestEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.in("id",ids);
-        ApiTestCaseCustomHttpRequestMapper mapper = apifoxDBUtils.getMapper(ApiTestCaseCustomHttpRequestMapper.class);
-        return mapper.selectList(queryWrapper);
+        queryWrapper.in("id", ids);
+        try {
+            mapper = apifoxDBUtils.getMapper(ApiTestCaseCustomHttpRequestMapper.class);
+            return mapper.selectList(queryWrapper);
+
+        } catch (Exception e) {
+            log.error("DB apifox 连接空闲超时自动关闭：触发重新连接");
+            mapper = apifoxDBUtils.getDBOfApifox().getMapper(ApiTestCaseCustomHttpRequestMapper.class);
+            return mapper.selectList(queryWrapper);
+        }
     }
 
 

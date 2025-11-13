@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K0P3M5STNATNPH60FSN4KKDH",
+@Scenario(scenarioID = "01K9VH77WP0C58RKEXC7J548F5",
         scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_辅助信息_店铺评分_搜索列表-商卡二期：店铺评分-历史评分",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
@@ -62,6 +62,7 @@ public class ShopShouldHasShopScoreIsHistoryScoreTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 

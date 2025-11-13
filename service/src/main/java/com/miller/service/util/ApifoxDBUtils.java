@@ -16,13 +16,13 @@ public class ApifoxDBUtils {
 
 
     /**
-     * 获取数据库链接 “panda_test" 库
+     * 获取数据库链接 “apifox" 库
      *
      * @return SqlSession
      */
     @Bean
-    public synchronized SqlSession getDBOfApifox() {
-        if (sqlSessionOfApifox != null) return sqlSessionOfApifox;
+    public synchronized ApifoxDBUtils getDBOfApifox() {
+        if (sqlSessionOfApifox != null) return this;
         var mySqlUrl = new PropertiesUtils().getProperty(com.miller.service.util.ApifoxDBUtils.class, "datasource.url.apifox");
         var userName = new PropertiesUtils().getProperty(com.miller.service.util.ApifoxDBUtils.class, "datasource.username.apifox");
         var passWord = new PropertiesUtils().getProperty(com.miller.service.util.ApifoxDBUtils.class, "datasource.password.apifox");
@@ -32,7 +32,11 @@ public class ApifoxDBUtils {
 
         var myBatisPlusConfig = new MyBatisPlusConfig();
         sqlSessionOfApifox = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), com.miller.service.util.ApifoxDBUtils.class);
-        return sqlSessionOfApifox;
+        return this;
+    }
+
+    public ApifoxDBUtils openSession(){
+        return this.getDBOfApifox();
     }
 
     public <T> T getMapper(Class<T> type) {

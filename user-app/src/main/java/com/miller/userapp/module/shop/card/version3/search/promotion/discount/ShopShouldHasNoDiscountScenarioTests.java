@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:06
  */
-@Scenario(scenarioID = "01K0P91QTB7C7S1FCXRP9E1RSM",
+@Scenario(scenarioID = "01K9VH77WXZFYFKS4VMCY74DDJ",
         scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_商品折扣_搜索列表-商卡二期:商品折扣28-不展示",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
@@ -60,6 +60,7 @@ public class ShopShouldHasNoDiscountScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

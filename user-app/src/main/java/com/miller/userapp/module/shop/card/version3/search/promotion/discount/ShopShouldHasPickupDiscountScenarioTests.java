@@ -30,7 +30,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/25 15:03
  */
-@Scenario(scenarioID = "01K3N5N091WRQB3K1BZRDE1VTR",
+@Scenario(scenarioID = "01K9VH77WXZFYFKS4VMCY74DDH",
         scenarioName = "商卡(中文)_搜索列表商卡_优惠标签_商品折扣_搜索列表-商卡二期:商品折扣28-自取可用",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 15)
 @EnvTag.Test
@@ -95,6 +95,7 @@ public class ShopShouldHasPickupDiscountScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setKeywords("商卡测试");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

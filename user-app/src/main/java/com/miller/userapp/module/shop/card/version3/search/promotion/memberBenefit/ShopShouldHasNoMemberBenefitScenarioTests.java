@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V43220FZVP76VBFW5HNCF9",
+@Scenario(scenarioID = "01K9VH77WRQ9TZT8XD8AAK6N9S",
         scenarioName = "搜索列表商卡-SKYX01_优惠标签_会员权益_搜索列表-商卡二期：会员权益32-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 30, manualTestTime = 10)
 
@@ -98,6 +98,7 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

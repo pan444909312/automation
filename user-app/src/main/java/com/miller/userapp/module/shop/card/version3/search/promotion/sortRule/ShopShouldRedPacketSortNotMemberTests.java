@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4A1JR1R2CCWGVRDV3TXVK7N", scenarioName = "搜索列表-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）",
+@Scenario(scenarioID = "01K9VH77WQY47DMTPAXDEGW7G6", scenarioName = "搜索列表-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("搜索列表-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
@@ -103,6 +103,7 @@ public class ShopShouldRedPacketSortNotMemberTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡测试");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 

@@ -26,7 +26,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
  * author: yancancan
  * date: 2025/07/26
  */
-@Scenario(scenarioID = "01K0RHQEYSFCJTKQ3E79MNPB6E", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_店铺红包-搜索列表-商卡二期-SKYX实验组：店铺红包42｜店铺金额加码+门槛减码（折扣）",
+@Scenario(scenarioID = "01K9VH77WT2YB4QV4JRSEWC8QN", scenarioName = "商卡(中文)_搜索列表商卡-SKYX01_优惠标签_店铺红包-搜索列表-商卡二期-SKYX实验组：店铺红包42｜店铺金额加码+门槛减码（折扣）",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -64,6 +64,7 @@ public class ShopShouldHasShopIncreaseDiscountCouponScenarioTests {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false); // 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setKeywords("商卡测试");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

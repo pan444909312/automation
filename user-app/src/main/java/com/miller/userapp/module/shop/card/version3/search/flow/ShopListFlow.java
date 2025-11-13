@@ -7,7 +7,7 @@ import com.miller.userapp.module.shop.card.version3.search.response.ShopListResp
 import com.miller.userapp.util.RequestUtils;
 
 /**
- * 流程_首页店铺流
+ * 流程_搜索店铺流
  *
  * @author Miller Shan
  * @version 1.0
@@ -15,12 +15,12 @@ import com.miller.userapp.util.RequestUtils;
  */
 public class ShopListFlow {
     /**
-     * 接口_首页店铺流
+     * 接口_搜索店铺流
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/v2/search";
 
     /**
-     * 流程_获取首页店铺流
+     * 流程_获取搜索店铺流
      */
     public static ShopListResponseDTO getShopList(ShopListRequestDTO shopListRequestDTO) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
