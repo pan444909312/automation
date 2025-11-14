@@ -178,7 +178,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             long timeFinished = summaryGeneratingListener.getSummary().getTimeFinished();
             log.warn("测试用例执行结果,testsSkippedCount:{},testsAbortedCount:{}," +
                             "testsStartedCount:{},testsSucceededCount:{}," +
-                    "testsFoundCount:{},testsFailedCount:{},totalFailureCount:{}",
+                            "testsFoundCount:{},testsFailedCount:{},totalFailureCount:{}",
                     testsSkippedCount, testsAbortedCount,
                     testsStartedCount, testsSucceededCount,
                     testsFoundCount, testsFailedCount, totalFailureCount);
@@ -215,9 +215,11 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
     }
 
 
-    private String messageHandler(List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList){
+    private String messageHandler(List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList) {
 
         StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("## C组-自动化定时执行结果汇总").append(" \n ");
 
         for (AutoCaseExecutionDailyDataDTO data : autoCaseExecutionDailyDataDTOList) {
             stringBuilder.append("- **").append(data.getAuthor()).append("**:").append(" \n ");
@@ -226,6 +228,8 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             stringBuilder.append("  - 失败: ").append(data.getFailCount()).append("个").append(" \n ");
             stringBuilder.append("  - 通过率: ").append(String.format("%.2f", data.getPassRate() * 100)).append("%").append(" \n ");
         }
+        stringBuilder.append("[查看报告详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
+        stringBuilder.append(" \n ");
 
         return stringBuilder.toString();
     }
