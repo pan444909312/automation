@@ -1,6 +1,7 @@
 package com.miller.controller.tools.apifox;
 
 import com.miller.controller.tools.ResultVO;
+import com.miller.entity.apifox.ApiFoxConfigEntity;
 import com.miller.entity.apifox.ApiTestCaseCustomHttpRequestEntity;
 import com.miller.entity.report.AutomationCoverageApiEntity;
 import com.miller.entity.util.Response;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -64,19 +66,22 @@ public class ApifoxToolsController {
     /**
      * 调试接口：触发远程 apifox cli 执行接口，执行 ApiFox 用例集
      */
-    @GetMapping("/execRemoteApifoxShell")
-    public boolean execRemoteApifoxShell(@RequestParam AttributionGroupEnum  attributionGroupEnum){
-        apiFoxScheduled.scheduledTask(attributionGroupEnum);
+    @PostMapping("/execRemoteApifoxShell")
+    public boolean execRemoteApifoxShell(@RequestParam("groupCode") String groupCode){
+        AttributionGroupEnum groupEnum = AttributionGroupEnum.valueOf(groupCode);
+        log.warn("开始执行 apifox cli 命令,{},{}",groupEnum.getT(),groupCode);
+        apiFoxScheduled.scheduledTask(groupEnum);
         return true;
     }
 
 
     @GetMapping("/getApifoxConfig")
-    public Response<String> getApifoxConfig(@RequestParam AttributionGroupEnum  attributionGroupEnum){
+    public Response<List<ApiFoxConfigEntity>> getApifoxConfig(){
 
-        // todo
+        List<ApiFoxConfigEntity> list = apiFoxConfigService.list();
 
-        return Response.success(null);
+
+        return Response.success(list);
     }
 
     /**

@@ -22,4 +22,6 @@ public class ApiFoxConfigEntity {
 
     private String configValue;
 
+    private String configDesc;
+
 }
