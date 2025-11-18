@@ -146,6 +146,10 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
         return true;
     }
 
+
+    /**
+     * ApiFox 报告解析 & 落库
+     */
     @Override
     public void parsingReport(AttributionGroupEnum attributionGroup) {
         // 读取apifox-reports文件夹下的最新json文件
@@ -162,18 +166,22 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
         if (ObjectUtils.isEmpty(itemJson)) {
             throw new RuntimeException("json 格式异常，无法提取到 Key: collection -> item");
         }
+        JSONArray itemArray = itemJson.getJSONArray("item");
+
 
         // 获取失败步骤数据
         Map<String, Set<JSONObject>> failureStepMap = this.getFailMetaInfoMap(apifoxReportJson);
 
 
-        JSONArray itemArray = itemJson.getJSONArray("item");
+
+        // key：Apifox 用例ID，  value：用例明细，用例步骤明细
         Map<String, ApifoxReportItemDTO> reportItemDTOMap = new LinkedHashMap<>();
 
         // 临时集合，主要用于集合查询使用
         int forCount = (int) Math.ceil((double) itemArray.size() / 50); // 计算总批次数
         int index = 0;
         for (int i = 0; i < forCount; i++) {
+            // 原始数据：步骤信息
             List<JSONObject> temporaryItemList = new ArrayList<>();
             int count = 1;
             while (true) {
@@ -190,21 +198,22 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
             }
 
 
-            // 获取 Apifox step 表数据
+            // 获取 Apifox 原库 step 表数据
             Set<String> apifoxStepIds = temporaryItemList.stream().map(obj -> {
                 ApifoxRespMetaInfoDTO metaInfo = obj.getObject("metaInfo", ApifoxRespMetaInfoDTO.class);
                 return metaInfo.getHttpApiId();
             }).collect(Collectors.toSet());
+
             List<ApiTestCaseCustomHttpRequestEntity> apifoxStepList = apiTestCaseCustomHttpRequestService.queryByIdList(apifoxStepIds);
 
-
+            // 处理步骤归属用例，并组装到 reportItemDTOMap 中
             for (JSONObject itemObj : temporaryItemList) {
-                String type = itemObj.getString("type");
 
                 // 跳过不处理的步骤类型
+                String type = itemObj.getString("type");
                 if ("group".equals(type) || "delay".equals(type)) continue;
 
-
+                // 报告的步骤信息
                 ApifoxRespMetaInfoDTO metaInfoObj = itemObj.getObject("metaInfo", ApifoxRespMetaInfoDTO.class);
 
                 final String caseId = metaInfoObj.getRelatedId();
@@ -308,9 +317,11 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
             ApiFoxRunReportEntity apiFoxRunReportEntity = apiFoxRunReportService.converToEntity(runId, name, attributionGroup, runResultObj);
             if (ObjectUtils.isNotEmpty(name) && name.length() > 0) {
+                // 按成员落库执行结果数据，并返回ID
                 final Long id = apiFoxRunReportService.saveFindId(apiFoxRunReportEntity);
 
                 if (ObjectUtils.isNotEmpty(runResultObj.getTotalCaseList())) {
+                    // 处理用例数据，并落库用例明细
                     runResultObj.getTotalCaseList().forEach((caseInfo) -> {
                         if (ObjectUtils.isNotEmpty(caseInfo)) {
                             ApiFoxRunErrorSceneEntity apiFoxRunErrorSceneEntity = new ApiFoxRunErrorSceneEntity();
@@ -343,7 +354,7 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
                             // 更新执行记录表状态，更新该失败的用例最近的一条执行记录为失败
                             String scenarioId = caseInfo.getScenarioId();
-                            if (ObjectUtils.isNotEmpty(scenarioId)  && !caseInfo.getRunStatus() ) {
+                            if (ObjectUtils.isNotEmpty(scenarioId) && !caseInfo.getRunStatus()) {
                                 UpdateWrapper<AutoExecutionRecordEntity> autoExecutionRecordEntityUpdateWrapper = new UpdateWrapper<>();
                                 autoExecutionRecordEntityUpdateWrapper.eq("scenario_id", scenarioId);
                                 autoExecutionRecordEntityUpdateWrapper.orderByDesc("execution_time");
@@ -388,6 +399,9 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
     }
 
 
+    /**
+     * ApiFox 结果报告：钉钉通知
+     */
     public void sendDingDing(List<ApiFoxRunReportEntity> entityList, AttributionGroupEnum attributionGroup) {
         // 结果数据，发送钉钉消息
         StringBuffer msg = new StringBuffer();
@@ -425,6 +439,9 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
     }
 
 
+    /**
+     * 报告文件读取逻辑，默认取最新的一条json文件
+     */
     public static JSONObject readApifoxReport(String containsStr) {
         // 获取apifox-reports文件夹路径
         String reportsPath = "apifox-reports";

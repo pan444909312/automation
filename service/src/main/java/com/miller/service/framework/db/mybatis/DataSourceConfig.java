@@ -37,6 +37,7 @@ public class DataSourceConfig {
         config.setMaxLifetime(60000 * 10);
         config.setAllowPoolSuspension(true);
         config.setConnectionTestQuery("SELECT 1");
+        config.setKeepaliveTime(300000);  // 每5分钟进行一次心跳检查，避免空闲被断开的情况
         // 其他配置...
         return new HikariDataSource(config);
     }
