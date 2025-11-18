@@ -14,6 +14,7 @@ import com.miller.service.job.ApiFoxScheduled;
 import com.miller.service.platform.AutomationCoverageApiService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,6 +77,9 @@ public class ApifoxToolsController {
 
     @PostMapping("/execRemoteApifoxShell/debug")
     public ResultVO execRemoteDebugApifoxShell(@RequestParam("taskId") String taskId){
+        if (ObjectUtils.isEmpty(taskId) || taskId.isEmpty()){
+            return ResultVO.failed("触发失败，taskId 为空");
+        }
         apiFoxScheduled.scheduledTask(taskId);
         return ResultVO.success("触发成功，请关注群通知：自动化通知_Debug_调试");
     }
