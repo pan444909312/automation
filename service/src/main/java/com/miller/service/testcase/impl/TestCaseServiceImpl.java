@@ -84,22 +84,23 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.TASK.getCode()) {
 
 
-            DingTalkUtils.sendMarkdownMessageDebug("自动化执行通知", messageHandler(autoCaseExecutionDailyDataDTOList));
+            // 按人员维度发送钉钉通知报告
+            DingTalkUtils.sendMarkdownMessage("自动化执行通知", messageHandler(autoCaseExecutionDailyDataDTOList));
 
-            stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
-            stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
-            stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
-            stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
-            if (testsFailedCount > 0) {
-                stringBuilder.append("[查看失败详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
-            } else {
-                stringBuilder.append(" \n ");
-            }
-            stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
-            stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
-            stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
-            // 如果是定时任务执行，发送钉钉通知到主群
-            DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilder.toString());
+//            stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
+//            stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
+//            stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
+//            stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
+//            if (testsFailedCount > 0) {
+//                stringBuilder.append("[查看失败详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
+//            } else {
+//                stringBuilder.append(" \n ");
+//            }
+//            stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
+//            stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
+//            stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
+//            // 如果是定时任务执行，发送钉钉通知到主群
+//            DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilder.toString());
 
         }
         if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.PLATFORM.getCode()) {
