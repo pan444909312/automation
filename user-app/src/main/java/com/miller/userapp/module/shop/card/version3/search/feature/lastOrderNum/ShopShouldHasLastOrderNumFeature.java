@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKC4",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP593Z",
         scenarioName = "搜索列表商卡-SKYX01_营销标_下单人数标签_满足条件，返回下单人数标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
@@ -78,6 +78,7 @@ public class ShopShouldHasLastOrderNumFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡自动化");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

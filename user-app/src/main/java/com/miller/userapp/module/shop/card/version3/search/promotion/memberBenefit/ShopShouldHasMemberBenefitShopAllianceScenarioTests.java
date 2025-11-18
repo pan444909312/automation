@@ -52,6 +52,7 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
     @DisplayName("搜索列表商卡-SKYX01_优惠标签_会员权益_搜索列表-商卡二期：会员权益32-店铺联盟券")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
+        //沈阳经纬度
         RequestUtils.getHeaders().put("latitude", "41.80478");
         RequestUtils.getHeaders().put("longitude", "123.43297");
 

@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKC9",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5942",
         scenarioName = "搜索列表商卡-SKYX01_营销标_用户下单提醒_满足所有条件时，返回：用户XX刚刚下单了",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
@@ -73,6 +73,7 @@ public class ShopShouldHasOrderRemindFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡自动化");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

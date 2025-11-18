@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKC3",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP593Y",
         scenarioName = "搜索列表商卡-SKYX01_营销标_人气销量标签_不满足条件时，不返回：高月售人气门店",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
@@ -70,6 +70,7 @@ public class ShopShouldHasNoHighSaleFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡自动化");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

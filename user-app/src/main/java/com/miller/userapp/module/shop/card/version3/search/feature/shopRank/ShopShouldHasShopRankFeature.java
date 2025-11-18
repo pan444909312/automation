@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 16:33
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCE",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5947",
         scenarioName = "搜索列表商卡-SKYX01_营销标_品类榜单_搜索列表-商卡二期：榜单",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
@@ -71,6 +71,7 @@ public class ShopShouldHasShopRankFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡自动化");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKC1",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP593X",
         scenarioName = "搜索列表商卡-SKYX01_营销标_人气销量标签_不属于前10店铺，不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
@@ -76,6 +76,7 @@ public class ShopShouldHasNoHighSaleCauseNotInTopTenFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("温州测试");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

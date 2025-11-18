@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/23 9:24
  */
-@Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKCA",
+@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5943",
         scenarioName = "搜索列表商卡-SKYX01_营销标_回头客_搜索列表-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
@@ -94,6 +94,7 @@ public class ShopShouldHasNoReturnedVisitorFeature {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
         shopListRequestDTO.setFiltering(false);
+        shopListRequestDTO.setKeywords("商卡自动化");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }
