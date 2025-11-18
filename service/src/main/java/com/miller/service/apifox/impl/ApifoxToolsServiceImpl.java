@@ -347,6 +347,8 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                                     }
                             ).mapToInt(Integer::intValue).sum();
                             apiFoxRunErrorSceneEntity.setAssertCount(caseAssertCount);
+                            apiFoxRunErrorSceneEntity.setApifoxCaseId(caseInfo.getCaseId());
+
 
                             ApiFoxRunErrorSceneEntity.RunResult runResult = caseInfo.getRunStatus() ? ApiFoxRunErrorSceneEntity.RunResult.SUCCESS : ApiFoxRunErrorSceneEntity.RunResult.ERROR;
                             apiFoxRunErrorSceneEntity.setRunResult(runResult);

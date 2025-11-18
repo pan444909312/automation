@@ -74,6 +74,12 @@ public class ApifoxToolsController {
         return true;
     }
 
+    @PostMapping("/execRemoteApifoxShell/debug")
+    public ResultVO execRemoteDebugApifoxShell(@RequestParam("taskId") String taskId){
+        apiFoxScheduled.scheduledTask(taskId);
+        return ResultVO.success("触发成功，请关注群通知：自动化通知_Debug_调试");
+    }
+
 
     @GetMapping("/getApifoxConfig")
     public Response<List<ApiFoxConfigEntity>> getApifoxConfig(){
