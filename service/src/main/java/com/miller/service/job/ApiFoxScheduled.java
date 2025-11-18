@@ -65,6 +65,10 @@ public class ApiFoxScheduled {
         this.apifoxToolsService.parsingReport(attributionGroupEnum);
     }
 
+
+    /**
+     * ApiFox Cli shell 命令执行方法
+     */
     public static class JavaShellUtil {
         // 基本路径
         private static final String basePath = "./";
