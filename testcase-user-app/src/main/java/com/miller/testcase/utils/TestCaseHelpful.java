@@ -290,6 +290,8 @@ public class TestCaseHelpful {
         String sig = SignUtil.getSign(signAuthKey, requestJsonObject);
         headers.put("_sig", sig);
 
+        headers.put("enableSign", true);
+
 
         method = method.toUpperCase();
         if ("POST".equals(method)) {
