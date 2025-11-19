@@ -69,6 +69,8 @@ public class ApiFoxRunErrorSceneEntity  implements Serializable {
      */
     private String apifoxUrl;
 
+    private  String apifoxCaseId;
+
     /**
      * 运行结果枚举
      */

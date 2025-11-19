@@ -65,6 +65,13 @@ public class ApiFoxScheduled {
         this.apifoxToolsService.parsingReport(attributionGroupEnum);
     }
 
+    public void scheduledTask(String taskId){
+        // 根据小组获取对应的执行命令配置
+        String groupConfig = apiFoxConfigService.getGroupConfig(AttributionGroupEnum.DEBUG);
+        groupConfig = groupConfig.replace("{{taskId}}", taskId);
+         JavaShellUtil.executeShell(groupConfig);
+    }
+
 
     /**
      * ApiFox Cli shell 命令执行方法
