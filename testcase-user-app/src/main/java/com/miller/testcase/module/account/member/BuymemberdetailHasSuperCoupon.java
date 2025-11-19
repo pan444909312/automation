@@ -30,7 +30,7 @@ public class BuymemberdetailHasSuperCoupon {
     // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
     String params = null;
     // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-    String assertFullField = "module/account/member/buymemberdetail/response/assert_full_field.json";
+    String assertFullField = "module/account/member/buymemberdetail/response/assert_full_field02.json";
 
     @DisplayName("正向流程")
     @Test
