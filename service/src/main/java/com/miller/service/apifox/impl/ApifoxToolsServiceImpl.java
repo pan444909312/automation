@@ -423,7 +423,7 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                 groupRunFailureSum.divide(groupRunTotalSum, 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
 
 
-        msg.append(" **[").append("小组: ").append(":](http://47.242.73.37:2080/app/application/apifox-68db96e1b752566623a315fa)**  \n\n  ")
+        msg.append(" **[").append("小组").append(":](http://47.242.73.37:2080/app/application/apifox-68db96e1b752566623a315fa)**  \n\n  ")
                 .append("-  **TotalCount:** ").append(groupRunTotalSum).append("  \n\n  ")
                 .append("-  **Fail: <font color=red>").append(groupRunFailureSum).append("</font>**   \n\n  ")
                 .append("-  Success: ").append(groupRunSuccessSum).append("  \n\n  ")
