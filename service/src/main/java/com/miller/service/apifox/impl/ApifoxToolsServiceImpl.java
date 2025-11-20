@@ -36,11 +36,14 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -171,7 +174,6 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
         // 获取失败步骤数据
         Map<String, Set<JSONObject>> failureStepMap = this.getFailMetaInfoMap(apifoxReportJson);
-
 
 
         // key：Apifox 用例ID，  value：用例明细，用例步骤明细
@@ -408,6 +410,28 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
         // 结果数据，发送钉钉消息
         StringBuffer msg = new StringBuffer();
         msg.append("## ").append(attributionGroup).append("组-各成员自动化执行结果通知：  \n\n  ");
+
+        // 小组数据统计
+        final BigDecimal groupRunTotalSum = BigDecimal.valueOf(entityList.stream().map(ApiFoxRunReportEntity::getTotalRuns).reduce(0, Integer::sum));
+        final BigDecimal groupRunSuccessSum = BigDecimal.valueOf(entityList.stream().map(ApiFoxRunReportEntity::getSuccessRuns).reduce(0, Integer::sum));
+        final BigDecimal groupRunFailureSum = BigDecimal.valueOf(entityList.stream().map(ApiFoxRunReportEntity::getFailureRuns).reduce(0, Integer::sum));
+
+        final BigDecimal groupSuccessRate = groupRunTotalSum.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ZERO :
+                groupRunSuccessSum.divide(groupRunTotalSum, 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+
+        final BigDecimal groupFailureRate = groupRunTotalSum.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ZERO :
+                groupRunFailureSum.divide(groupRunTotalSum, 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+
+
+        msg.append(" **[").append("小组: ").append(":](http://47.242.73.37:2080/app/application/apifox-68db96e1b752566623a315fa)**  \n\n  ")
+                .append("-  **TotalCount:** ").append(groupRunTotalSum).append("  \n\n  ")
+                .append("-  **Fail: <font color=red>").append(groupRunFailureSum).append("</font>**   \n\n  ")
+                .append("-  Success: ").append(groupRunSuccessSum).append("  \n\n  ")
+                .append("-  **FailRate: <font color=red>").append(groupFailureRate).append("% </font>**    \n\n  ")
+                .append("-  **SuccessRate: <font color=green>").append(groupSuccessRate).append("% </font>** \n\n  ");
+
+
+        // 组员数据统计
         entityList.forEach((obj) -> {
 
 

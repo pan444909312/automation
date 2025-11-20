@@ -68,11 +68,11 @@ public class ApifoxToolsController {
      * 调试接口：触发远程 apifox cli 执行接口，执行 ApiFox 用例集
      */
     @PostMapping("/execRemoteApifoxShell")
-    public boolean execRemoteApifoxShell(@RequestParam("groupCode") String groupCode){
-        AttributionGroupEnum groupEnum = AttributionGroupEnum.valueOf(groupCode);
-        log.warn("开始执行 apifox cli 命令,{},{}",groupEnum.getT(),groupCode);
-        apiFoxScheduled.scheduledTask(groupEnum);
-        return true;
+    public ResultVO execRemoteApifoxShell(@RequestParam("attributionGroupEnum") AttributionGroupEnum attributionGroupEnum){
+//        AttributionGroupEnum groupEnum = AttributionGroupEnum.valueOf(groupCode);
+        log.warn("开始执行 apifox cli 命令,{},{}",attributionGroupEnum.getT(),attributionGroupEnum);
+        apiFoxScheduled.scheduledTaskAsync(attributionGroupEnum);
+        return ResultVO.success("执行成功,请关注（自动化通知_Release_巡检）群通知 ~");
     }
 
     @PostMapping("/execRemoteApifoxShell/debug")
@@ -80,6 +80,7 @@ public class ApifoxToolsController {
         if (ObjectUtils.isEmpty(taskId) || taskId.isEmpty()){
             return ResultVO.failed("触发失败，taskId 为空");
         }
+
         apiFoxScheduled.scheduledTask(taskId);
         return ResultVO.success("触发成功，请关注群通知：自动化通知_Debug_调试");
     }
