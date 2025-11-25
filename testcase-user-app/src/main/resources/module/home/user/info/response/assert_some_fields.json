@@ -3,9 +3,9 @@
   "error": "成功",
   "reason": "成功",
   "result": {
-    "userName": null,
+    "userName": "13752886130",
     "userNameMasked": "137****6130",
-    "userNick": "PanPan",
+    "userNick": "13****130",
     "userPic": null,
     "userTel": "13752886130",
     "userTelMasked": "137****6130",
@@ -16,6 +16,5 @@
     "huaweiId": null,
     "googleId": null,
     "facebookId": null
-  },
-  "success": true
+  }
 }

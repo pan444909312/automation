@@ -17,6 +17,7 @@ import java.util.Set;
 public class ApiTestCaseCustomHttpRequestServiceImpl
         implements ApiTestCaseCustomHttpRequestService {
 
+
     @Autowired
     private ApifoxDBUtils apifoxDBUtils;
 
@@ -24,7 +25,7 @@ public class ApiTestCaseCustomHttpRequestServiceImpl
     public ApiTestCaseCustomHttpRequestEntity queryById(String id) {
         QueryWrapper<ApiTestCaseCustomHttpRequestEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
-        ApiTestCaseCustomHttpRequestMapper mapper = apifoxDBUtils.getMapper(ApiTestCaseCustomHttpRequestMapper.class);
+        ApiTestCaseCustomHttpRequestMapper mapper = apifoxDBUtils.isValid().getMapper(ApiTestCaseCustomHttpRequestMapper.class);
         return mapper.selectOne(queryWrapper);
     }
 
@@ -34,12 +35,11 @@ public class ApiTestCaseCustomHttpRequestServiceImpl
         QueryWrapper<ApiTestCaseCustomHttpRequestEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.in("id", ids);
         try {
-            mapper = apifoxDBUtils.getMapper(ApiTestCaseCustomHttpRequestMapper.class);
+            mapper = apifoxDBUtils.isValid().getMapper(ApiTestCaseCustomHttpRequestMapper.class);
             return mapper.selectList(queryWrapper);
-
         } catch (Exception e) {
             log.error("DB apifox 连接空闲超时自动关闭：触发重新连接");
-            mapper = apifoxDBUtils.getDBOfApifox().getMapper(ApiTestCaseCustomHttpRequestMapper.class);
+            mapper = apifoxDBUtils.isValid().getMapper(ApiTestCaseCustomHttpRequestMapper.class);
             return mapper.selectList(queryWrapper);
         }
     }
