@@ -221,6 +221,22 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("## C组-自动化定时执行结果汇总").append(" \n ");
+        // 计算汇总数据
+        int sum = autoCaseExecutionDailyDataDTOList.stream()
+                .mapToInt(AutoCaseExecutionDailyDataDTO::getCount)
+                .sum();
+        int successSum = autoCaseExecutionDailyDataDTOList.stream()
+                .mapToInt(AutoCaseExecutionDailyDataDTO::getSuccessCount)
+                .sum();
+
+        // 添加小组汇总信息
+        stringBuilder.append("- **").append("小组").append("**:").append(" \n ");
+        stringBuilder.append("  - 共: ").append(sum).append("个").append(" \n ");
+        stringBuilder.append("  - 成功: ").append(successSum).append("个").append(" \n ");
+        stringBuilder.append("  - 失败: ").append(sum - successSum).append("个").append(" \n ");
+        double groupPassRate = sum > 0 ? (double) successSum / sum * 100 : 0;
+        stringBuilder.append("  - 通过率: ").append(String.format("%.2f", groupPassRate)).append("%").append(" \n ");
+
 
         for (AutoCaseExecutionDailyDataDTO data : autoCaseExecutionDailyDataDTOList) {
             stringBuilder.append("- **").append(data.getAuthor()).append("**:").append(" \n ");
@@ -229,6 +245,8 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             stringBuilder.append("  - 失败: ").append(data.getFailCount()).append("个").append(" \n ");
             stringBuilder.append("  - 通过率: ").append(String.format("%.2f", data.getPassRate() * 100)).append("%").append(" \n ");
         }
+
+
         stringBuilder.append("[查看报告详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
         stringBuilder.append(" \n ");
 
