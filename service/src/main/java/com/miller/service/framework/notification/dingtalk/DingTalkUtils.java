@@ -144,6 +144,16 @@ public class DingTalkUtils {
         }
     }
 
+
+
+    public static void sendMarkdownMessageOfApiFox(String title, String content) {
+            DingTalkUtils.sendMarkdownMessage(
+            title,
+            content,
+            "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
+            "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
+    }
+
     /**
      * 发送 Markdown 消息，Markdown 语法支持有限
      *
