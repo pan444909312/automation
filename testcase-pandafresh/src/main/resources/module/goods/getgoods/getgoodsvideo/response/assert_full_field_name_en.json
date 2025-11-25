@@ -5,7 +5,9 @@
 	"paymentCurrency": "GBP",
 	"error": "请求成功(1)",
 	"result": {
-		"resultType": 3,
-		"resultMessage": "加购成功"
+		"goodsId": 10564,
+		"goodsName": "99922待散葡萄酒3-en",
+		"goodsTitle": "这个是简介，不要动En",
+		"portalId": 24
 	}
 }

@@ -1,0 +1,13 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"goodsId": 10564,
+		"goodsName": "【接口测试商品-不要动】99922待散葡萄酒3",
+		"goodsTitle": "这个是简介，不要动",
+		"portalId": 24
+	}
+}

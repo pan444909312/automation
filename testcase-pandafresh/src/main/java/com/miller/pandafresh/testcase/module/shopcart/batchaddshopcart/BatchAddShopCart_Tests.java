@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
  */
 @Scenario(
         scenarioID = "01JY16T3RRYP6G06CCGWQ3CTJ7", // 自动生成，不要修改
-        scenarioName = "融合订单再来一单",
+        scenarioName = "融合订单再来一单:加购成功，编码存在",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("融合订单再来一单")
+@DisplayName("融合订单再来一单:加购成功，编码存在")
 public class BatchAddShopCart_Tests {
     // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
     String uri = TestcaseConfig.HpfHost + "/shopcart/batchAddShopcart";

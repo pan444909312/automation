@@ -5,7 +5,7 @@
 	"paymentCurrency": "GBP",
 	"error": "请求成功(1)",
 	"result": {
-		"resultType": 3,
-		"resultMessage": "加购成功"
+		"resultType": 5,
+		"resultMessage": "商品已售罄"
 	}
 }
