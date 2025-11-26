@@ -8,8 +8,8 @@ public enum AttributionGroupEnum {
     C("347946"),
     P("347947"),
     D("347945"),
-    DEBUG("DEBUG")
-
+    DEBUG("DEBUG"),
+    DEBUG_JX("348753")
     ;
     String t;
 
