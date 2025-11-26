@@ -1,0 +1,15 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"goodsId": 10564,
+		"goodsLabelGroup": {
+			"marketingLabelImage": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/_100x32/1626082310132_100x32.png",
+			"attributeLabelImage": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/_88x48/1626079707700_88x48.png"
+		},
+		"portalId": 24
+	}
+}

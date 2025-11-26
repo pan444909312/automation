@@ -1,0 +1,25 @@
+{
+	"pm":"POST",
+	"ph":{
+		"content-type":"application/json",
+		"authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiMmJfMTc3MDAwMDQ0NDQ4ODg4ODgiLCJpYXQiOjE3NjM3MDc2MjgsImV4cCI6MjYzNDYxOTYyOH0.FqHsZMfSK0-o0vLcE7jOVV682jV9htTAZpT0SEaDlUCXGutB5zdDNYWXE_s4E5xLCDVP02Bmtp-92e4RmyE2Fw",
+		"latitude":"",
+		"longitude":"",
+		"version":"4.24.0",
+		"platform":"H5",
+		"system":"none",
+		"portalId":74,
+		"cityId":755,
+		"language":"CN",
+		"regionId":3,
+		"userId":255354,
+		"appTypeId":21,
+		"marketChannel":"",
+		"service-route":"pandafresh"
+	},
+	"pd":{},
+	"nv":"2",
+	"nt":"1764055947319",
+	"nn":"Yy40E4woX5OBJMpGiHCCLxtSh",
+	"nd":"6e5972e9e80c1e1"
+}

@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -456,11 +457,8 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
         log.info(msg.toString());
         // TODO 调试完成后恢复
         // 推送钉钉群消息
-        DingTalkUtils.sendMarkdownMessage(
-                "各成员自动化执行结果通知:",
-                msg.toString(),
-                "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
-                "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
+
+        DingTalkUtils.sendMarkdownMessageOfApiFox("各成员自动化执行结果通知:", msg.toString());
 
     }
 
@@ -502,6 +500,16 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
         if (latestFile == null) {
             log.error("无法获取最新的json文件");
             return reportJson;
+        }
+
+        // 获取到最新的报告和当天日期不匹配则抛异常 和 群里通知
+        SimpleDateFormat  sdf = new SimpleDateFormat("yyyy_MM_dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        String currentDay = sdf.format(new Date());
+        if (!latestFile.getName().contains(currentDay)) {
+            final String errorMessage = String.format("%s组执行失败，最新报告文件为： %s", containsStr,latestFile.getName());
+            DingTalkUtils.sendMarkdownMessageOfApiFox("各成员自动化执行结果通知:",errorMessage);
+            throw new RuntimeException("ApiFox 报告文件获取异常，最新文件为：".concat(latestFile.getName()));
         }
 
         try {

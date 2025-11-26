@@ -1,0 +1,24 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"goodsId": 10564,
+		"primaryPic": ["https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/IMG_1989/IMG_1989.JPG", "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/IMG_1995/IMG_1995.JPG"],
+		"primaryPicList": [{
+			"primaryPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/file/1628231805439cacheVideoLocation_4645242947960840/1628231805439cacheVideoLocation_4645242947960840.MP4",
+			"type": 2
+		}, {
+			"primaryPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/IMG_1989/IMG_1989.JPG",
+			"type": 1
+		}, {
+			"primaryPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/IMG_1995/IMG_1995.JPG",
+			"type": 1
+		}],
+		"detailPic": ["https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/IMG_1978/IMG_1978.JPG", "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/IMG_1981/IMG_1981.JPG"],
+		"goodsDetailH5Url": "https://supermarket-h5-f2e-test.hungrypanda.cn/goods/productDetail?goodsId=10564",
+		"portalId": 24
+	}
+}

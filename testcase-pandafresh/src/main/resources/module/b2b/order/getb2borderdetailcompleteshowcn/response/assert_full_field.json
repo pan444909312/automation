@@ -1,0 +1,49 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"orderSn": "PFB2BB2511051536478409",
+		"submitTime": "2025-11-04 23:36:47",
+		"creditAmount": 18.19,
+		"consigneeAddress": "测试测试",
+		"consigneeTel": "447846319703",
+		"consigneeName": "测试1",
+		"deliveryDate": "2025-11-08",
+		"deliveryTime": "00:00-03:00",
+		"customRemark": "",
+		"waitPayDate": "2025-11-04",
+		"paymentPattern": "card",
+		"billPeriod": "卖家确认后付款，付款后发货",
+		"payTime": "2025-11-04 23:36:59",
+		"floatingAmount": 0.08,
+		"payWayType": 1,
+		"orderDetailList": [{
+			"goodsPrice": 1.23,
+			"boxSpec": 1,
+			"saleOutNum": 1,
+			"boxNum": 1.00,
+			"needBoxNum": 2,
+			"needGoodsNum": 2,
+			"boxPrice": 1.23,
+			"goodsTax": 0.00,
+			"goodsTaxPrice": 0.00,
+			"payAmount": 1.23
+		}, {
+			"goodsPrice": 3.89,
+			"boxSpec": 3,
+			"saleOutNum": 2,
+			"boxNum": 0.67,
+			"needBoxNum": 2,
+			"needGoodsNum": 6,
+			"boxPrice": 11.67,
+			"goodsTax": 1.00,
+			"goodsTaxPrice": 0.08,
+			"payAmount": 7.78
+		}],
+		"refundCreditAmount": 16.95,
+		"orderVersion": 1
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP"
+}
