@@ -75,7 +75,7 @@ public class ApifoxToolsController {
     public ResultVO execRemoteApifoxShellByGroup(@RequestParam("groupCode") String groupCode) {
         AttributionGroupEnum groupEnum = AttributionGroupEnum.valueOf(groupCode);
         log.warn("开始执行 apifox cli 命令,{},{}", groupEnum.getT(), groupCode);
-        apiFoxScheduled.scheduledTask(groupEnum);
+        apiFoxScheduled.scheduledTaskAsync(groupEnum);
         return ResultVO.success("执行成功,请关注（自动化通知_Release_巡检）群通知 ~");
     }
 
