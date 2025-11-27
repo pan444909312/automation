@@ -714,4 +714,106 @@ public class TestCaseHelpful {
         }
         return null;
     }
+    
+    /**
+     * @param shopId               店铺Id
+     * @param mobilePhone          手机号
+     * @param password             密码
+     * @param testgroup            测试组别，可为空
+     * @param longitude            经度，可为空
+     * @param latitude             纬度，可为空
+     * @param apptypeid            站点，可为空
+     * @param language             语言，可为空
+     * @param cityName             定位城市，可为空
+	 * @param filtering            过滤开关，可为空
+	 * @param filters              过滤条件数组JSON，可为空
+	 * @param isUse                是否使用标记，可为空
+	 * @param redPacketList        红包列表数组JSON，可为空
+	 * @param tabType              Tab类型，可为空
+     * @param zipcode              邮编，可为空
+     * @return 店铺在熊猫联盟频道商家店铺流的VO信息, 当商家店铺流不存在店铺时返回null
+     */
+	public static JSONObject pandaLeagueGetShopVOByShopId(String shopId, String mobilePhone, String password, String testgroup, String longitude, String latitude, String apptypeid, String language, String cityName, String filtering, String filters, String isUse, String redPacketList, String tabType, String zipcode) {
+        String uri = TestcaseConfig.HOST_APP + "/api/app/user/panda/league/channel";
+        String method = "POST";
+        String headers = "module/shopList/recall/pandaLeague.request/headers.json";
+        String body = "module/shopList/recall/pandaLeague.request/body.json";
+
+        // 设置请求头
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        requestHeaders.put("authorization", TestCaseHelpful.login(mobilePhone, password));
+
+        // 获取请求体基础模板
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+
+        int pageNo = 1;
+        int maxPage = 50; // 设置最大页数限制，避免无限循环
+
+        while (pageNo <= maxPage) {
+            try {
+                // 更新请求体中的页码
+                requestHeaders.put("pageno", String.valueOf(pageNo));
+                if (testgroup != null) {
+                    requestHeaders.put("testgroup", testgroup);
+                }
+                if (longitude != null && latitude != null) {
+                    requestHeaders.put("longitude", longitude);
+                    requestHeaders.put("latitude", latitude);
+                }
+                if (apptypeid != null) {
+                    requestHeaders.put("apptypeid", apptypeid);
+                }
+                if (language != null) {
+                    requestHeaders.put("language", language);
+                }
+                if (zipcode != null) {
+                    requestHeaders.put("zipcode", zipcode);
+                }
+                if (cityName != null) {
+                    requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.cityName", cityName);
+                }
+				// 新增：熊猫联盟筛选相关字段（直接按预期类型写入）
+				if (filtering != null) {
+					requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.filtering", Integer.parseInt(filtering));
+				}
+				if (filters != null) {
+					requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.filters", JSON.parseArray(filters));
+				}
+				if (isUse != null) {
+					requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.isUse", Integer.parseInt(isUse));
+				}
+				if (redPacketList != null) {
+					requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.redPacketList", JSON.parseArray(redPacketList));
+				}
+				if (tabType != null) {
+					requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.tabType", Integer.parseInt(tabType));
+				}
+                // 发起请求
+                var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
+                // 使用fastjson解析响应
+                JSONObject jsonResponse = JSON.parseObject(responseBody);
+                JSONObject result = jsonResponse.getJSONObject("result");
+                JSONArray shopList = result.getJSONArray("shopList");
+
+                // 如果shopList为空，说明已经到最后一页
+                if (shopList == null || shopList.isEmpty()) {
+                    break;
+                }
+
+                // 遍历当前页的商铺列表
+                for (int i = 0; i < shopList.size(); i++) {
+                    JSONObject shop = shopList.getJSONObject(i);
+                    if (shopId.equals(shop.getString("shopId"))) {
+                        return shop;
+                    }
+                }
+
+                pageNo++; // 继续查找下一页
+
+            } catch (Exception e) {
+                throw new RuntimeException("获取商铺列表失败: " + e.getMessage());
+            }
+        }
+        return null;
+    }
 }
