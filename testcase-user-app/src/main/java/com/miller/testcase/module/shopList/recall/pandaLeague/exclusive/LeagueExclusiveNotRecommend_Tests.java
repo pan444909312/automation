@@ -15,10 +15,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01K99V405MSKZGE9BQV79R6ENC", // 自动生成，不要修改
-        scenarioName = "店铺流_红包适用商家列表_店铺-召回：店铺未开启首页推荐",
+        scenarioName = "店铺流_熊猫联盟频道-膨胀专享商家_店铺-召回：店铺未开启首页推荐 - 不召回",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_红包适用商家列表_店铺-召回：店铺未开启首页推荐")
+@DisplayName("店铺流_熊猫联盟频道-膨胀专享商家_店铺-召回：店铺未开启首页推荐 - 不召回")
 public class LeagueExclusiveNotRecommend_Tests {
 
     @BeforeAll
@@ -41,17 +41,17 @@ public class LeagueExclusiveNotRecommend_Tests {
         String testGroupNew="I_R_TEST_GROUP,I_R_TEST_GROUP,SUPERMARKET_SCENES_TEST_GROUP,S_H_R_L_TEST_GROUP_6,18,23,29,30,31,32,NUMBER_MASKING_00,33,34,36,35,40,39,45,49,52,53,55,56,HPF,XGSPA01,SKYX01,XRQSD01,FASTD01,YSDCS02,IST02,HYBQ01,SKEQ01,XRJ01,TJBQ01,HYXBQ01,TJTCX01,YBXS02,CCPRO01,SKXRB01,ABT02,QYTCD01,SMSS02,XMLM01,RRREC02,ZFBMM01,SPSS01,MRBX01,PLCC01,SXAU01,PAYTO02,LXTZ01,JQSJ01,SYGB01,JSYXR01,GDJ02,ZTKP01,ZKTS02,RTR01,SYUI01,SWS01,DWC01,HHAB01,YHTX01,TCZT01,XTZA01,QDJS01,XGBSS01,SYSKA02,WLTC01,SPM02,XGBFU01,SDDAB01,TCSHW01,ZNYX01,JSYHA01,DPCDA01,DPHD01,YRSZT01,SKBQ01,TSRW02,LLQX01,XDRS01,RDMU01,YHMGD01,NTCZT01,DPCDB01,HHSQ03,CZHG01,WLTCN01,ESFI02,ABCS02,DPYGB01,HBCY01,GWCYC01,HYUI01,SKBD02,SKYS01,GGCLA01,MGDD01,YFYHA01,SKYH01,XRSY01,HDMR01,SYMK01,CMRT01,CPYHA01,VOOPT01,YHLL01,YJSDA01,LXCYH01,TCZKB01,HANLP01,JLYZR01,CDQC01,JGYH01,LLBD01,ZNYXJ01,HYXY01,SSZHY01,TOPBQ01,YRSL01";
         var responseShopBody = TestCaseHelpful.pandaLeagueGetShopVOByShopId("45367036", "19157826865", "123456a", testGroupNew, null, null, null, null, null, null, null, null, null, null, null);
         // 检查响应体不为空
-        assertThat(responseShopBody).isNotNull();
+//        assertThat(responseShopBody).isNotNull();
         // 检查响应体为空
-//        assertThat(responseShopBody).isNull();
+        assertThat(responseShopBody).isNull();
         // 获取并校验 deliveryAndStatus
-        Integer deliveryAndStatus = responseShopBody.getInteger("deliveryAndStatus");
-        Assertions.assertNotNull(deliveryAndStatus, "deliveryAndStatus 不应为空");
-        assertThat(deliveryAndStatus).isEqualTo(1);
+//        Integer deliveryAndStatus = responseShopBody.getInteger("deliveryAndStatus");
+//        Assertions.assertNotNull(deliveryAndStatus, "deliveryAndStatus 不应为空");
+//        assertThat(deliveryAndStatus).isEqualTo(4);
         // 获取并校验 shopType
-        Integer shopType = responseShopBody.getInteger("shopType");
-        Assertions.assertNotNull(shopType, "shopType 不应为空");
-        assertThat(shopType).isEqualTo(0);
+//       Integer shopType = responseShopBody.getInteger("shopType");
+//        Assertions.assertNotNull(shopType, "shopType 不应为空");
+//        assertThat(shopType).isEqualTo(0);
     }
 }
 

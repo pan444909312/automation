@@ -11,14 +11,14 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  *
  * @author HuYang
  * @version 2.0
- *  @since 2025/08/01 13:57:00
+ *  @since 2025/11/27 10:00:00
  */
 @Scenario(
         scenarioID = "01K99V405KWZ48NE2CJHERBGP5", // 自动生成，不要修改
-        scenarioName = "店铺流_红包适用商家列表_店铺-召回：店铺有效状态-语言版本-中文及英文",
+        scenarioName = "店铺流_熊猫联盟频道-膨胀专享商家_店铺-召回：店铺有效状态-语言版本-中文及英文",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_红包适用商家列表_店铺-召回：店铺有效状态-语言版本-中文及英文")
+@DisplayName("店铺流_熊猫联盟频道-膨胀专享商家_店铺-召回：店铺有效状态-语言版本-中文及英文")
 public class LeagueExclusiveCNAndENShop_Tests {
 
     @BeforeAll
