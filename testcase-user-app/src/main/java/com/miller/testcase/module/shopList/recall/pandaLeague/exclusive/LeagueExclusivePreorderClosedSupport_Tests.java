@@ -11,7 +11,7 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  *
  * @author HuYang
  * @version 2.0
- * @since 2025/08/01 11:40:00
+ * @since 2025/11/28 10:30:00
  */
 @Scenario(
         scenarioID = "01K99V405NB9E602E6CZG149BW", // 自动生成，不要修改
