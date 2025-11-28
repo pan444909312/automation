@@ -15,10 +15,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01KB4XKH2C2X1EQP71VJW0EMDQ", // 自动生成，不要修改
-        scenarioName = "店铺流_熊猫联盟频道-膨胀专享商家_店铺-召回-店铺在店铺限制数量范围内",
+        scenarioName = "店铺流_熊猫联盟频道-膨胀专享商家【去使用】_店铺-召回-店铺在店铺限制数量范围内",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_熊猫联盟频道-膨胀专享商家_店铺-召回-店铺在店铺限制数量范围内")
+@DisplayName("店铺流_熊猫联盟频道-膨胀专享商家【去使用】_店铺-召回-店铺在店铺限制数量范围内")
 public class LeagueExclusiveUseWithinMaxMapRadius_Tests {
 
     @BeforeAll
