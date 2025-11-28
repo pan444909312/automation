@@ -64,13 +64,6 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         // 执行用例
         TestExecutionSummary summary = syncRunTestCase(packageNameList);
 
-
-        LocalDate todayLocalDate = LocalDate.now();
-        Date today = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList = autoExecutionRecordService.getDailyCaseExecutionSummaryByPerson(ProjectTypeEnum.PROJECT_C.getProjectId(), today);
-
-
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder stringBuilderSuccess = new StringBuilder();
         long costTime = (summary.getTimeFinished() - summary.getTimeStarted()) / 1000;
@@ -79,13 +72,11 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         long testsFailedCount = summary.getTestsFailedCount();
         long testsSkippedCount = summary.getTestsSkippedCount() + summary.getTestsAbortedCount();
 
-
         double passRate = Math.round(((double) testsSucceededCount / testsFoundCount) * 100 * 100) / 100.0;
+
         if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.TASK.getCode()) {
-
-
             // 按人员维度发送钉钉通知报告
-            DingTalkUtils.sendMarkdownMessage("自动化执行通知", messageHandler(autoCaseExecutionDailyDataDTOList));
+            DingTalkUtils.sendMarkdownMessage("自动化执行通知", messageHandler());
 
 //            stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
 //            stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
@@ -216,7 +207,11 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
     }
 
 
-    private String messageHandler(List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList) {
+    private String messageHandler() {
+        LocalDate todayLocalDate = LocalDate.now();
+        Date today = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList = autoExecutionRecordService.getDailyCaseExecutionSummaryByPerson(ProjectTypeEnum.PROJECT_C.getProjectId(), today);
+
 
         StringBuilder stringBuilder = new StringBuilder();
 
