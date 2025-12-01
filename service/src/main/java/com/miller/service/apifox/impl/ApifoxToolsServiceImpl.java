@@ -214,7 +214,7 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
 
                 // 跳过不处理的步骤类型
                 String type = itemObj.getString("type");
-                if ("group".equals(type) || "delay".equals(type)) continue;
+                if ("group".equals(type) || "delay".equals(type) || "database".equals(type)) continue;
 
                 // 报告的步骤信息
                 ApifoxRespMetaInfoDTO metaInfoObj = itemObj.getObject("metaInfo", ApifoxRespMetaInfoDTO.class);
@@ -397,8 +397,9 @@ public class ApifoxToolsServiceImpl implements ApifoxToolsService {
                     map.get(stepId) :
                     new HashSet<>();
             errorList.add(errorObj);
-
-            map.put(metaInfo.getHttpApiId(), errorList);
+            if (ObjectUtils.isNotEmpty(stepId)){
+                map.put(stepId, errorList);
+            }
         });
         return map;
     }
