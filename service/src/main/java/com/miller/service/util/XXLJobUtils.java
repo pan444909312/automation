@@ -146,7 +146,7 @@ public class XXLJobUtils {
      * @return 轮询配置对象
      */
     private static PollingConfig createPollingConfig() {
-        long timeoutMillis = 1000 * 60 * 30;  // 30分钟超时
+        long timeoutMillis = 1000 * 60 * 5;  // 5分钟超时
         long pollIntervalMillis = 1000 * 10;  // 10秒轮询间隔
         return new PollingConfig(timeoutMillis, pollIntervalMillis);
     }

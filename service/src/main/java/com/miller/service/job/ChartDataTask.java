@@ -346,8 +346,8 @@ public class ChartDataTask {
         autoCaseExecutionChartEntity.setExecutionType(executionType);
         autoCaseExecutionChartEntity.setProjectId(projectId);
 
-        List<AutoCaseExecutionRecordRespDTO> autoExecutionRecordList = autoExecutionRecordService.listAutoExecutionRecordWithProjectId(startTime, endTime, executionType, projectId);
 
+        List<AutoCaseExecutionRecordRespDTO> autoExecutionRecordList = autoExecutionRecordService.listAutoExecutionRecordWithProjectId(startTime, endTime, executionType, projectId);
 
         if (autoExecutionRecordList.isEmpty()) {
             autoCaseExecutionChartEntity.setChartDate(TimestampUtils.timestampToDateStr(System.currentTimeMillis()));
