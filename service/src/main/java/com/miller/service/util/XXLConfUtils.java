@@ -49,7 +49,7 @@ public class XXLConfUtils {
 
     private static void login() {
         var params = new HashMap<String, Object>();
-        params.put("userName", "panjuxiang");
+        params.put("userName", "nianruifeng");
 //        params.put("userName", "autotest");
         params.put("password", "123456");
 //        params.put("password", "auto_test2025");
