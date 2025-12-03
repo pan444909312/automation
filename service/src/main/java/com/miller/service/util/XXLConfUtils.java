@@ -35,7 +35,8 @@ public class XXLConfUtils {
         String profilesActive = properties.getProperty("spring.profiles.active");
         if (Objects.equals(profilesActive, "prod")) {
             // 使用内网地址
-            XXL_CONFIG_URL = "http://172.31.236.24:18800";
+//            XXL_CONFIG_URL = "http://172.31.236.24:18800";
+            XXL_CONFIG_URL = "http://47.110.44.153:18800";
 
         } else {
             // 使用外网地址
