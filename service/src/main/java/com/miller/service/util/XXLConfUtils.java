@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONPath;
 import com.miller.service.dto.*;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.PropertiesUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class XXLConfUtils {
 
     // 内网地址
     private static final String XXL_CONFIG_URL;
+    private static final Logger log = LoggerFactory.getLogger(XXLConfUtils.class);
 
     private static HashMap<String, Object> headers = new HashMap<>();
     private static HashMap<String, Object> responseCookies;
@@ -53,6 +56,7 @@ public class XXLConfUtils {
         params.put("ifRemember", "on");
 
         Map<String, Object> stringObjectMap = HttpUtils.sendPostRequest(XXL_CONFIG_URL + "/login", null, headers, params, null);
+        log.info("登录结果：" + stringObjectMap);
         responseCookies = (HashMap<String, Object>) stringObjectMap.get("cookies");
     }
 
@@ -76,6 +80,7 @@ public class XXLConfUtils {
         xxlConfigRequestDTO.setKey(key);
         xxlConfigRequestDTO.setTitle(title);
         xxlConfigRequestDTO.setValue(value);
+        log.info("更新配置参数：" + xxlConfigRequestDTO);
         return updateConfig(xxlConfigRequestDTO);
     }
 
