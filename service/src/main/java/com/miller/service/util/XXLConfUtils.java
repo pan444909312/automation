@@ -46,8 +46,10 @@ public class XXLConfUtils {
 
     private static void login() {
         var params = new HashMap<String, Object>();
-        params.put("userName", "autotest");
-        params.put("password", "auto_test2025");
+        params.put("userName", "panjuxiang");
+//        params.put("userName", "autotest");
+        params.put("password", "123456");
+//        params.put("password", "auto_test2025");
         params.put("ifRemember", "on");
 
         Map<String, Object> stringObjectMap = HttpUtils.sendPostRequest(XXL_CONFIG_URL + "/login", null, headers, params, null);
