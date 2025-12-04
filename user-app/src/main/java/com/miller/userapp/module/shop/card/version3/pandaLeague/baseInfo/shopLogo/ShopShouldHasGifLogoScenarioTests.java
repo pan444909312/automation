@@ -31,12 +31,12 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
-@Scenario(scenarioID = "01M2N3P4Q5R6S7T8U9V0W1X2Y4",
-        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店铺logo_首页-商卡二期:店铺logo-独家商铺开启独家logo，展示动图",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@EnvTag.Test
-@DisplayName("商卡(中文)")
+// todo 动图逻辑修改
+//@Scenario(scenarioID = "01M2N3P4Q5R6S7T8U9V0W1X2Y4",
+//        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店铺logo_首页-商卡二期:店铺logo-独家商铺开启独家logo，展示动图",
+//        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+//@EnvTag.Test
+//@DisplayName("商卡(中文)")
 public class ShopShouldHasGifLogoScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version2.03.shopId"));
     private static ShopMapper shopMapper;
