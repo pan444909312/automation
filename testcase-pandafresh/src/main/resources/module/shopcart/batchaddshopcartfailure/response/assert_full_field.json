@@ -1,0 +1,11 @@
+{
+	"code": 1000,
+	"resultCode": 1000,
+	"currency": "£",
+	"paymentCurrency": "GBP",
+	"error": "请求成功(1)",
+	"result": {
+		"resultType": 5,
+		"resultMessage": "商品已售罄"
+	}
+}

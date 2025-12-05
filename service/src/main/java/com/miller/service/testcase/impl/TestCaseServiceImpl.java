@@ -1,10 +1,16 @@
 package com.miller.service.testcase.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.miller.entity.constant.ExecutionStatusEnum;
+import com.miller.entity.constant.ExecutionTypeEnum;
+import com.miller.entity.constant.ProjectTypeEnum;
 import com.miller.entity.constant.RunTeatCaseTypeEnum;
+import com.miller.entity.report.resp.AutoCaseExecutionDailyDataDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.testcase.TestCaseEntity;
 import com.miller.mapper.tesetcase.TestCaseMapper;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
+import com.miller.service.report.AutoExecutionRecordService;
 import com.miller.service.testcase.TestCaseService;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.clz.ClassFindService;
@@ -19,8 +25,12 @@ import org.junit.platform.launcher.listeners.TestExecutionSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +50,9 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
     @Autowired
     private TestCaseRunnerLauncher testCaseRunnerLauncher;
 
+    @Autowired
+    private AutoExecutionRecordService autoExecutionRecordService;
+
     /**
      * 运行测试用例
      *
@@ -48,6 +61,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
      */
     @Override
     public String runTestCase(List<String> packageNameList, RunTeatCaseTypeEnum runTeatCaseType) {
+        // 执行用例
         TestExecutionSummary summary = syncRunTestCase(packageNameList);
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -58,24 +72,26 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         long testsFailedCount = summary.getTestsFailedCount();
         long testsSkippedCount = summary.getTestsSkippedCount() + summary.getTestsAbortedCount();
 
-
         double passRate = Math.round(((double) testsSucceededCount / testsFoundCount) * 100 * 100) / 100.0;
-        if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.TASK.getCode()) {
 
-            stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
-            stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
-            stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
-            stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
-            if (testsFailedCount > 0) {
-                stringBuilder.append("[查看失败详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
-            } else {
-                stringBuilder.append(" \n ");
-            }
-            stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
-            stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
-            stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
-            // 如果是定时任务执行，发送钉钉通知到主群
-            DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilder.toString());
+        if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.TASK.getCode()) {
+            // 按人员维度发送钉钉通知报告
+            DingTalkUtils.sendMarkdownMessage("自动化执行通知", messageHandler());
+
+//            stringBuilder.append("#### C组-自动化定时执行结果汇总").append(" \n ");
+//            stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
+//            stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
+//            stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
+//            if (testsFailedCount > 0) {
+//                stringBuilder.append("[查看失败详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
+//            } else {
+//                stringBuilder.append(" \n ");
+//            }
+//            stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
+//            stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
+//            stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
+//            // 如果是定时任务执行，发送钉钉通知到主群
+//            DingTalkUtils.sendMarkdownMessage("自动化执行通知", stringBuilder.toString());
 
         }
         if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.PLATFORM.getCode()) {
@@ -154,7 +170,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             long timeFinished = summaryGeneratingListener.getSummary().getTimeFinished();
             log.warn("测试用例执行结果,testsSkippedCount:{},testsAbortedCount:{}," +
                             "testsStartedCount:{},testsSucceededCount:{}," +
-                    "testsFoundCount:{},testsFailedCount:{},totalFailureCount:{}",
+                            "testsFoundCount:{},testsFailedCount:{},totalFailureCount:{}",
                     testsSkippedCount, testsAbortedCount,
                     testsStartedCount, testsSucceededCount,
                     testsFoundCount, testsFailedCount, totalFailureCount);
@@ -188,6 +204,48 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
 
         // log.info("主线程获取到 Future 结果: {}", result);
 
+    }
+
+
+    private String messageHandler() {
+        LocalDate todayLocalDate = LocalDate.now();
+        Date today = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList = autoExecutionRecordService.getDailyCaseExecutionSummaryByPerson(ProjectTypeEnum.PROJECT_C.getProjectId(), today);
+
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("## C组-自动化定时执行结果汇总").append(" \n ");
+        // 计算汇总数据
+        int sum = autoCaseExecutionDailyDataDTOList.stream()
+                .mapToInt(AutoCaseExecutionDailyDataDTO::getCount)
+                .sum();
+        int successSum = autoCaseExecutionDailyDataDTOList.stream()
+                .mapToInt(AutoCaseExecutionDailyDataDTO::getSuccessCount)
+                .sum();
+
+        // 添加小组汇总信息
+        stringBuilder.append("- **").append("小组").append("**:").append(" \n ");
+        stringBuilder.append("  - 共: ").append(sum).append("个").append(" \n ");
+        stringBuilder.append("  - 成功: ").append(successSum).append("个").append(" \n ");
+        stringBuilder.append("  - 失败: ").append(sum - successSum).append("个").append(" \n ");
+        double groupPassRate = sum > 0 ? (double) successSum / sum * 100 : 0;
+        stringBuilder.append("  - 通过率: ").append(String.format("%.2f", groupPassRate)).append("%").append(" \n ");
+
+
+        for (AutoCaseExecutionDailyDataDTO data : autoCaseExecutionDailyDataDTOList) {
+            stringBuilder.append("- **").append(data.getAuthor()).append("**:").append(" \n ");
+            stringBuilder.append("  - 共: ").append(data.getCount()).append("个").append(" \n ");
+            stringBuilder.append("  - 成功: ").append(data.getSuccessCount()).append("个").append(" \n ");
+            stringBuilder.append("  - 失败: ").append(data.getFailCount()).append("个").append(" \n ");
+            stringBuilder.append("  - 通过率: ").append(String.format("%.2f", data.getPassRate() * 100)).append("%").append(" \n ");
+        }
+
+
+        stringBuilder.append("[查看报告详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
+        stringBuilder.append(" \n ");
+
+        return stringBuilder.toString();
     }
 
 }

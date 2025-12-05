@@ -15,6 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 public class DBUtils {
     private static SqlSession sqlSessionOfPandaTest;
 
+
     /**
      * 获取数据库链接 “panda_test" 库
      *
@@ -29,4 +30,6 @@ public class DBUtils {
         sqlSessionOfPandaTest = myBatisPlusConfig.getSqlSession(new DataSourceConfig(mySqlUrl, userName, passWord).getDataSource(), DBUtils.class);
         return sqlSessionOfPandaTest;
     }
+
+
 }

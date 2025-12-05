@@ -1,0 +1,15 @@
+{
+	"filtering": 0,
+	"filters": [],
+	"isUse": 0,
+	"redPacketList": [{
+		"redPacketId": 888896287,
+		"redPacketScopeType": 2,
+		"userCdKeyId": 1727087097493
+	}, {
+		"redPacketId": 888892768,
+		"redPacketScopeType": 0,
+		"userCdKeyId": 1727086996808
+	}],
+	"tabType": 2
+}

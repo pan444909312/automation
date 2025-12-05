@@ -3,7 +3,9 @@ package com.miller.service.job;
 import com.miller.service.apifox.ApiFoxConfigService;
 import com.miller.service.apifox.ApifoxToolsService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +46,15 @@ public class ApiFoxScheduled {
         this.scheduledTask(AttributionGroupEnum.D);
     }
 
+
+    /**
+     * 异步执行
+     */
+    @Async
+    public void scheduledTaskAsync(AttributionGroupEnum attributionGroupEnum) {
+        this.scheduledTask(attributionGroupEnum);
+    }
+
     public void scheduledTask(AttributionGroupEnum attributionGroupEnum) {
 
         // 获取当前时间并格式化输出
@@ -53,6 +64,10 @@ public class ApiFoxScheduled {
         // 根据小组获取对应的执行命令配置
         String groupConfig = apiFoxConfigService.getGroupConfig(attributionGroupEnum);
         groupConfig = groupConfig.replace("{{date}}", format);
+
+        if (ObjectUtils.isEmpty(groupConfig)){
+            throw new RuntimeException("无法查询到 ApiFox config 配置信息：".concat(attributionGroupEnum.toString()));
+        }
 
         int executeShell = JavaShellUtil.executeShell(groupConfig);
 
@@ -65,6 +80,18 @@ public class ApiFoxScheduled {
         this.apifoxToolsService.parsingReport(attributionGroupEnum);
     }
 
+    @Async
+    public void scheduledTask(String taskId){
+        // 根据小组获取对应的执行命令配置
+        String groupConfig = apiFoxConfigService.getGroupConfig(AttributionGroupEnum.DEBUG);
+        groupConfig = groupConfig.replace("{{taskId}}", taskId);
+         JavaShellUtil.executeShell(groupConfig);
+    }
+
+
+    /**
+     * ApiFox Cli shell 命令执行方法
+     */
     public static class JavaShellUtil {
         // 基本路径
         private static final String basePath = "./";

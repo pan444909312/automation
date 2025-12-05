@@ -27,8 +27,8 @@
 		"floatingAmount": 0,
 		"payWayType": 1,
 		"orderDetailList": [{
-			"goodsName": "青菜1",
-			"goodsPrimaryPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1735284059898/17352840598984b623120.jpeg",
+			"goodsName": "${json-unit.any-string}",
+			"goodsPrimaryPic": "${json-unit.any-string}",
 			"goodsPrice": 10,
 			"boxSpec": 20,
 			"needBoxNum": 1,

@@ -170,6 +170,11 @@
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>3.5.5</version>
             </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>3.5.2</version>
+            </dependency>
             <!-- 指定 mybatis-plus 对应的 mybatis 版本  -->
             <dependency>
                 <groupId>org.mybatis</groupId>
@@ -293,6 +298,7 @@
                 <!-- 版本号必需用3.1.4 -->
                 <version>3.1.4</version>
             </dependency>
+
             <!-- Spring Data Redis lettuce 连接池需要添加此依赖
                  fix start java.lang.ClassNotFoundException: io.lettuce.core.AbstractRedisClient -->
             <dependency>

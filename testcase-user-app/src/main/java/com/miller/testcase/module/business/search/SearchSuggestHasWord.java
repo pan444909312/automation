@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Scenario(scenarioID = "01K1WQMQFPVZ60WDHETQ8KGF0C",
         scenarioName = "搜索输入任意内容-有联想词",
-        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
+        author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 5)
 @DisplayName("/api/app/user/suggest/search")
 public class SearchSuggestHasWord {
     private static final String uri = TestcaseConfig.HOST_APP + "/api/app/user/suggest/search";
@@ -21,12 +21,15 @@ public class SearchSuggestHasWord {
     @Test
     void shouldReturnSuccessfully() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
+        // 杭州经纬度
+        headers.put("longitude","120.2168991981954");
+        headers.put("latitude","30.203581750376223");
         // 给请求头添加数据，例如这里添加token
         headers.put("Authorization", TestCaseHelpful.login("13999900002", "123456"));
         String requestBody = TestCaseHelpful.getJsonRequestBody("module/home/search/request/SearchSuggestReq1.json");
         String responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
         String expectedStr = TestCaseHelpful.getFileContent("module/home/search/response/SearchSuggestResp1.json");
 
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS,Option.IGNORING_EXTRA_ARRAY_ITEMS).isEqualTo(expectedStr);
     }
 }

@@ -60,10 +60,16 @@ public class ApiFoxRunErrorSceneEntity  implements Serializable {
      */
     private String stepErrorInfo = "[]";
 
+    private String stepInfoList = "[]";
+
+    private int assertCount ;
+
     /**
      * 外部链接：apifox 场景地址
      */
     private String apifoxUrl;
+
+    private  String apifoxCaseId;
 
     /**
      * 运行结果枚举

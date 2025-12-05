@@ -3,10 +3,11 @@ package com.miller.service.report;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
-import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
+import com.miller.entity.apifox.DTO.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailyDataDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
 
@@ -70,4 +71,14 @@ public interface AutoExecutionRecordService extends IService<AutoExecutionRecord
      * @return
      */
     List<AutoCaseExecutionDailySummaryDTO> listDailyCaseExecutionResultSummary(String projectId, int executionType, List<Integer> executionStatusList, Date date);
+
+
+    /**
+     * 根据项目id、日期查询日执行定时任务结果数据
+     *
+     * @param projectId
+     * @param date
+     * @return
+     */
+    List<AutoCaseExecutionDailyDataDTO> getDailyCaseExecutionSummaryByPerson(String projectId, Date date);
 }

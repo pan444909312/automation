@@ -24,13 +24,17 @@ public class HttpUtils {
 
     public static Map<String, Object> sendGetRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Map<String, Object> cookies) {
         AutoSignUtils.signHandler(headers,null);
-        headers.put("enableSign", true);
+        if (!headers.containsKey("enableSign")){
+            headers.put("enableSign", true);
+        }
         return abstractProtocol.sendGetRequest(uri, params, headers, cookies);
     }
 
     public static Map<String, Object> sendPostRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies) {
         AutoSignUtils.signHandler(headers,body);
-        headers.put("enableSign", true);
+        if (!headers.containsKey("enableSign")){
+            headers.put("enableSign", true);
+        }
         return abstractProtocol.sendPostRequest(uri, params, headers, body, cookies);
     }
 

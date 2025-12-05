@@ -64,6 +64,7 @@ public class MyBatisPlusConfig {
         configuration.setUseGeneratedKeys(true);
         // 配置日志实现
         configuration.setLogImpl(Slf4jImpl.class);
+
         // 构建mybatis-plus需要的 globalconfig
         globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);
         //此参数会自动生成实现baseMapper的基础方法映射

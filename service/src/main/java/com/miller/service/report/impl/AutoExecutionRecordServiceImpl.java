@@ -8,10 +8,11 @@ import com.miller.entity.constant.ExecutionStatusEnum;
 import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
-import com.miller.entity.report.req.ApifoxAutoCaseRoiDto;
+import com.miller.entity.apifox.DTO.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
+import com.miller.entity.report.resp.AutoCaseExecutionDailyDataDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
 import com.miller.mapper.report.AutoExecutionRecordMapper;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -225,5 +227,65 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
     @Override
     public List<AutoCaseExecutionDailySummaryDTO> listDailyCaseExecutionResultSummary(String projectId, int executionType, List<Integer>  executionStatusList, Date date) {
         return autoExecutionRecordMapper.selectDailyCaseExecutionResultSummary(projectId, executionType, executionStatusList, date);
+    }
+
+    @Override
+    public List<AutoCaseExecutionDailyDataDTO> getDailyCaseExecutionSummaryByPerson(String projectId, Date today) {
+
+        // 查询所有人的执行条数、成功条数、失败条数、通过率
+        ArrayList<Integer> executionStatusSuccessList = new ArrayList<>();
+        executionStatusSuccessList.add(ExecutionStatusEnum.SUCCESS.getCode());
+
+
+        // 获取成功用例数
+        List<AutoCaseExecutionDailySummaryDTO> autoCaseExecutionDailyFailedSummaryDTOList = this.listDailyCaseExecutionResultSummary(
+                projectId,
+                ExecutionTypeEnum.DAILY_CHECK.getCode(),
+                executionStatusSuccessList,
+                today
+        );
+
+        // 成功用例List转化map
+        Map<String, AutoCaseExecutionDailySummaryDTO> successSummaryMap = autoCaseExecutionDailyFailedSummaryDTOList.stream()
+                .collect(Collectors.toMap(
+                        AutoCaseExecutionDailySummaryDTO::getAuthor,
+                        dto -> dto
+                ));
+
+
+        // 获取所有用例数
+        List<AutoCaseExecutionDailySummaryDTO> autoCaseExecutionDailySummaryDTOList = this.listDailyCaseExecutionResultSummary(
+                projectId,
+                ExecutionTypeEnum.DAILY_CHECK.getCode(),
+                null,
+                today
+        );
+
+        List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOS = new ArrayList<>();
+        AutoCaseExecutionDailyDataDTO autoCaseExecutionDailyDataDTO;
+
+        for (AutoCaseExecutionDailySummaryDTO autoCaseExecutionDailySummaryDTO : autoCaseExecutionDailySummaryDTOList) {
+            int count = autoCaseExecutionDailySummaryDTO.getCount();
+            int successCount = 0;
+            if(successSummaryMap.get(autoCaseExecutionDailySummaryDTO.getAuthor()) != null){
+
+                successCount = successSummaryMap.get(autoCaseExecutionDailySummaryDTO.getAuthor()).getCount();
+            }
+            int failCount = count - successCount;
+            double passRate = (double) successCount / count;
+            autoCaseExecutionDailyDataDTO = new AutoCaseExecutionDailyDataDTO();
+            autoCaseExecutionDailyDataDTO.setAuthor(autoCaseExecutionDailySummaryDTO.getAuthor());
+            autoCaseExecutionDailyDataDTO.setCount(count);
+            autoCaseExecutionDailyDataDTO.setProjectId(autoCaseExecutionDailySummaryDTO.getProjectId());
+            autoCaseExecutionDailyDataDTO.setSuccessCount(successCount);
+            autoCaseExecutionDailyDataDTO.setFailCount(failCount);
+            autoCaseExecutionDailyDataDTO.setPassRate(passRate);
+
+            autoCaseExecutionDailyDataDTOS.add(autoCaseExecutionDailyDataDTO);
+        }
+
+
+
+        return autoCaseExecutionDailyDataDTOS;
     }
 }

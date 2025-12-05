@@ -54,6 +54,10 @@ public class DingTalkUtils {
     public static final String SECRET_TEST = "SECcc2d9a57ff038735ba738a2325e5623749e3016cbe931d930b8ce7253f265854";
 
 
+    public static final String CUSTOM_ROBOT_TOKEN_DEBUG = "4dca2c4d767b7e2aae74c79383d542728916002bd9fb2e4051fb33306d138a15";
+
+    public static final String SECRET_DEBUG = "SECd2f6f14f01915297b58f5b39ee0ecc09c68c677366d6058c9df8e039566d6a32";
+
     /**
      * 可选参数。内部群：可以填写用户的 UserId 实现 @ 能力
      */
@@ -77,6 +81,10 @@ public class DingTalkUtils {
 
     public static void sendMarkdownMessageTest(String title, String content) {
         sendMarkdownMessage(title, content, CUSTOM_ROBOT_TOKEN_TEST, SECRET_TEST);
+    }
+
+    public static void sendMarkdownMessageDebug(String title, String content) {
+        sendMarkdownMessage(title, content, CUSTOM_ROBOT_TOKEN_DEBUG, SECRET_DEBUG);
     }
 
 
@@ -134,6 +142,16 @@ public class DingTalkUtils {
             log.error("线程休眠错误", e);
             throw new RuntimeException(e);
         }
+    }
+
+
+
+    public static void sendMarkdownMessageOfApiFox(String title, String content) {
+            DingTalkUtils.sendMarkdownMessage(
+            title,
+            content,
+            "121a18c07ba54967e437533ea2492e8dd25b6af0448140e487b703412f6574b1",
+            "SEC59acb673a2582ff2546c73be8694083cce839cd2eb1293cd062b24f0a0a73a67");
     }
 
     /**

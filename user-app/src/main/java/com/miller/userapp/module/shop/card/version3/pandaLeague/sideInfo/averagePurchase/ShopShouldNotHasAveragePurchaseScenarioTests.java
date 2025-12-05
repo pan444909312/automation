@@ -46,7 +46,7 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
-        Thread.sleep(120000);
+        Thread.sleep(160000);
 
 
     }

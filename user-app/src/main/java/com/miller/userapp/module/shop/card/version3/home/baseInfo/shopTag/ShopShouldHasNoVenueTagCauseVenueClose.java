@@ -44,13 +44,13 @@ public class ShopShouldHasNoVenueTagCauseVenueClose {
         UserLoginFlow.loginAndPutToken(userLoginRequestDTO);
 
 
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_venue set venue_status = 0 where id = 408");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_venue set venue_status = 0 where id = 411");
 
     }
 
     @AfterAll
     void afterAll() {
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_venue set venue_status = 2 where id = 408");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update hp_venue set venue_status = 2 where id = 411");
     }
 
 

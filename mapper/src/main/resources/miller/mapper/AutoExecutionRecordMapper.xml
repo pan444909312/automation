@@ -124,6 +124,8 @@
         ORDER BY e.id desc
     </select>
 
+
+
     <resultMap id="selectDailyCaseExecutionResultMap" type="com.miller.entity.report.resp.AutoCaseExecutionDailyDTO">
         <result property="author" column="name"/>
     </resultMap>
