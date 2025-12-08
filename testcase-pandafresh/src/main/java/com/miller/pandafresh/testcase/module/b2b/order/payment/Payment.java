@@ -1,8 +1,11 @@
-package com.miller.pandafresh.testcase.module.goods.getgoods.getgoodsvideo;
+package com.miller.pandafresh.testcase.module.b2b.order.payment;
 
+import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
-import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.annotation.TestFramework;
+import com.miller.service.framework.util.JSONUtils;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,19 +13,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * getGoodsVideo
+ * payment
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/11/21 17:22:48
+ * @since 2025/12/08 15:00:28
  */
-@Scenario(
-        scenarioID = "01KAJVJBBKW498Y85DYZAPD5YP", // 自动生成，不要修改
-        scenarioName = "商品详情：商品名称&简介-英文",
-        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("商品详情：商品名称&简介-英文")
-public class GetGoodsNameEn_Tests {
+@TestFramework
+@DisplayName("步骤：B2B订单-支付成功")
+public class Payment {
 
     @BeforeAll
     static void beforeAll(){
@@ -39,25 +38,42 @@ public class GetGoodsNameEn_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HpfHost + "/goods/getGoods";
+        String uri = TestcaseConfig.H5HOST + "/api/user/pandaPay/biz/payment";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/goods/getgoods/getgoodsvideo/request/headers.json";
+        String headers = "module/b2b/order/payment/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/goods/getgoods/getgoodsvideo/request/body.json";
+        String body = "module/b2b/order/payment/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/goods/getgoods/getgoodsvideo/response/assert_full_field_name_en.json";
+        String assertFullField = "module/b2b/order/payment/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
-        //切换英文版
-        requestHeaders.replace("language","en");
+        //登录用户
+        requestHeaders.put("authorization", TestCaseHelpful.loginB2B("17700004444","888888"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+//        "sysType": 2,
+//                "countryCode": "CN",
+//                "orderSn": "PFB2BB2512080236175120",
+//                "routingPayChannel": "stripePay",
+//                "routingFloatingType": 0,
+//                "floatingAmount": 0,
+//                "routingFloatingRate": 1.01,
+//                "channelRecordId": "694362694935535616",
+//                "paymentMethodId": "pm_1SOBcdB2BLLEGTseiyIECo6F"
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.orderSn",TestcaseConfig.b2bpayNowOrderSn);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.routingPayChannel",TestcaseConfig.payChannel);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.routingFloatingType",TestcaseConfig.floatingType);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.floatingAmount",TestcaseConfig.floatingAmount);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.routingFloatingRate",TestcaseConfig.floatingRate);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.channelRecordId",TestcaseConfig.channelRecordId);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.paymentMethodId",TestcaseConfig.paymentMethodId);
+
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -68,6 +84,10 @@ public class GetGoodsNameEn_Tests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
+
+        TestcaseConfig.publishableApiKey = TestCaseHelpful.extractValue(responseBody,"$.data.stripePayData.publishableApiKey");
+        TestcaseConfig.paymentIntentId = TestCaseHelpful.extractValue(responseBody,"$.data.stripePayData.paymentIntentId");
+        TestcaseConfig.clientSecret = TestCaseHelpful.extractValue(responseBody,"$.data.stripePayData.clientSecret");
 
     }
 } 

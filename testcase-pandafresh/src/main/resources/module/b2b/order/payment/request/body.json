@@ -1,0 +1,36 @@
+{
+	"pm":"POST",
+	"ph":{
+		"content-type":"application/json",
+		"authorization":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiMmJfMTc3MDAwMDQ0NDQ4ODg4ODgiLCJpYXQiOjE3NjM3MDc2MjgsImV4cCI6MjYzNDYxOTYyOH0.FqHsZMfSK0-o0vLcE7jOVV682jV9htTAZpT0SEaDlUCXGutB5zdDNYWXE_s4E5xLCDVP02Bmtp-92e4RmyE2Fw",
+		"latitude":"",
+		"longitude":"",
+		"version":"4.24.0",
+		"platform":"H5",
+		"system":"none",
+		"portalId":74,
+		"cityId":755,
+		"language":"CN",
+		"regionId":3,
+		"userId":255354,
+		"appTypeId":21,
+		"marketChannel":"",
+		"channel":92,
+		"service-route":"pandafresh"
+	},
+	"pd":{
+		"sysType":2,
+		"countryCode":"CN",
+		"orderSn":"PFB2BB2512080236175120",
+		"routingPayChannel":"stripePay",
+		"routingFloatingType":0,
+		"floatingAmount":0,
+		"routingFloatingRate":1.01,
+		"channelRecordId":"694362694935535616",
+		"paymentMethodId":"pm_1SOBcdB2BLLEGTseiyIECo6F"
+	},
+	"nv":"2",
+	"nt":"1765177152064",
+	"nn":"63ri9WussyMhyLF9hQ0mRft05",
+	"nd":"9b6f307f11df931"
+}

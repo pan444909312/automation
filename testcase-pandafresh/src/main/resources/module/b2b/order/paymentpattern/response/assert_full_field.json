@@ -1,0 +1,38 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"orderSn": "${json-unit.any-string}",
+		"fixedPrice": "${json-unit.any-string}",
+		"patternDTOList": [{
+			"payWayName": "信用卡",
+			"payType": 92,
+			"floatingRate": "${json-unit.any-number}",
+			"floatingAmount": "${json-unit.any-number}",
+			"floatingType": "${json-unit.any-number}",
+			"unionpayDiscountLogo": "${json-unit.any-number}",
+			"payChannel": "stripePay",
+			"channelRecordId": "694362694935535616",
+			"paymentPattern": "card"
+		}, {
+			"payWayName": "PF支付宝",
+			"payType": 58,
+			"floatingRate": "${json-unit.any-number}",
+			"floatingAmount": "${json-unit.any-number}",
+			"floatingType": "${json-unit.any-number}",
+			"unionpayDiscountLogo": "${json-unit.any-number}",
+			"payChannel": "aliPayGlobal",
+			"channelRecordId": "694362341833859072",
+			"paymentPattern": "aliPay"
+		}],
+		"orderTime": "${json-unit.any-number}",
+		"currencyCode": "USA",
+		"paymentType": 2,
+		"orderType": 0,
+		"isPayRouter": false,
+		"residuePayTime": "${json-unit.any-number}"
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP"
+}

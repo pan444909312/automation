@@ -1,0 +1,16 @@
+{
+	"sec-fetch-mode":"cors",
+	"referer":"https://js.stripe.com/",
+	"sec-fetch-site":"same-site",
+	"accept-language":"zh-CN,zh-TW;q=0.9,zh-MO;q=0.8,zh-HK;q=0.7,zh;q=0.6,en-GB;q=0.5,en;q=0.4",
+	"origin":"https://js.stripe.com",
+	"Host":"api.stripe.com",
+	"priority":"u=1, i",
+	"accept":"application/json",
+	"sec-ch-ua":"",
+	"sec-ch-ua-mobile":"?1",
+	"sec-ch-ua-platform":"",
+	"content-type":"application/x-www-form-urlencoded",
+	"user-agent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/29.0 Chrome/136.0.0.0 Mobile Safari/537.36",
+	"sec-fetch-dest":"empty"
+}
