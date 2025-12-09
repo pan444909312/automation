@@ -43,7 +43,7 @@ public class GetGoodsByFirstCategory_Tests {
                  "LEFT JOIN goods g on gg.goods_id=g.goods_id " +
                  "LEFT JOIN goods_delivery_area a on g.goods_id=a.goods_id " +
                  "WHERE gg.groups_id="+categoryId+" and g.portal_id=3 and a.delivery_area_id=3" +
-                 " and g.goods_id="+exceptGoodsId+" and g.`status`=1 and g.is_del=0 LIMIT 1";
+                 " and g.`status`=1 and g.is_del=0 LIMIT 1";
         exceptGoodsId = FreshTestDBHelpful.executeSelectOneSql(sql1).get("goods_id").toString();
     }
     @AfterAll
