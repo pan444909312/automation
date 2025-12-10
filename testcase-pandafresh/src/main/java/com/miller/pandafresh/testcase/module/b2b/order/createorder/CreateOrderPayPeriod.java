@@ -25,7 +25,7 @@ public class CreateOrderPayPeriod {
     @BeforeAll
     static void beforeAll(){
         //用户改为账期支付
-        String sql = "update b2b_custom set pay_way_type=2 where id=8";
+        String sql = "update b2b_custom set pay_way_type=2 , period_pay_rule='{\"settleDay\": 33, \"periodType\": 1, \"settlePeriod\": 7, \"periodStartDay\": 2}' where id=8";
         FreshTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
     }
     @AfterAll
