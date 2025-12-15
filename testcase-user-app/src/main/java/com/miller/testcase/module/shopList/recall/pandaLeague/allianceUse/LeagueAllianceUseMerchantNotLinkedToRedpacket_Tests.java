@@ -14,7 +14,7 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  * @since 2025/11/28 16:30:00
  */
 @Scenario(
-        scenarioID = "01KB4XKH2C2X1EQP71VJW0EMEK", // 自动生成，不要修改
+        scenarioID = "01KCGT6FW69F9FH6RW8AGGQR50", // 自动生成，不要修改
         scenarioName = "店铺流_熊猫联盟频道-店铺-召回-关联商家标签：非账户内神券关联标签下熊猫联盟商家",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
