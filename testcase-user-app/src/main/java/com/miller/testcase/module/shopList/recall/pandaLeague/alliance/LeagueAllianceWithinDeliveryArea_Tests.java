@@ -15,10 +15,10 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
  */
 @Scenario(
         scenarioID = "01KB4XKH2ENAX4HYV600SQZ8TP", // 自动生成，不要修改
-        scenarioName = "店铺流_熊猫联盟频道-膨胀专享商家_店铺-召回-配送围栏：围栏优先-用户定位店铺配送围栏内",
+        scenarioName = "店铺流_熊猫联盟频道-膨胀通享商家_店铺-召回-配送围栏：围栏优先-用户定位店铺配送围栏内",
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("店铺流_熊猫联盟频道-膨胀专享商家_店铺-召回-配送围栏：围栏优先-用户定位店铺配送围栏内")
+@DisplayName("店铺流_熊猫联盟频道-膨胀通享商家_店铺-召回-配送围栏：围栏优先-用户定位店铺配送围栏内")
 public class LeagueAllianceWithinDeliveryArea_Tests {
 
     @BeforeAll
