@@ -1,10 +1,10 @@
 package com.miller.pandafresh.testcase.module.goods.getgoodsbyfirstcategory;
 
-import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.util.JSONUtils;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.util.JSONUtils;
 import net.javacrumbs.jsonunit.core.Option;
 import net.minidev.json.JSONArray;
 import org.junit.jupiter.api.AfterAll;
@@ -12,39 +12,29 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 /**
  * getGoodsByFirstCategory
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/07/24 17:13:46
+ * @since 2025/12/09 17:13:46
  */
 @Scenario(
-        scenarioID = "01K0XVBJ5H8Y8NAJT6KW435C39", // 自动生成，不要修改
-        scenarioName = "分类页-二级分类商品展示检查：召回当前分组下关联的商品",
+        scenarioID = "01K0XVBJ5H8Y8NAJT6KW435C42", // 自动生成，不要修改
+        scenarioName = "分类页-二级分类商品展示检查：副标题正确返回",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("分类页-二级分类商品展示检查：召回当前分组下关联的商品")
-public class GetGoodsByFirstCategory_Tests {
+@DisplayName("分类页-二级分类商品展示检查：副标题正确返回")
+public class GetGoodsByFirstCategoryGoodsTitle_Tests {
 
     //自动化测试一级分组id
     String firstCategoryId = "887";
     //兜底的二级分组id
     String categoryId = "890";
-
-    String exceptGoodsId = "149252";
     @BeforeAll
      void beforeAll(){
-        // 确保887分组下有启用的二级分组890
-        String sql = "SELECT * FROM front_groups f WHERE f.parent_id=887 and f.groups_id=890 and f.`status`=1 LIMIT 1";
-        String id = FreshTestDBHelpful.executeSelectOneSql(sql).get("groups_id").toString();
-        //查找当前配送区域，分组下的上架的商品
-        String sql1 = "SELECT g.* FROM goods_groups gg " +
-                 "LEFT JOIN goods g on gg.goods_id=g.goods_id " +
-                 "LEFT JOIN goods_delivery_area a on g.goods_id=a.goods_id " +
-                 "WHERE gg.groups_id="+categoryId+" and g.portal_id=3 and a.delivery_area_id=3" +
-                 " and g.`status`=1 and g.is_del=0 LIMIT 1";
-        exceptGoodsId = FreshTestDBHelpful.executeSelectOneSql(sql1).get("goods_id").toString();
     }
     @AfterAll
     static void afterAll(){
@@ -85,11 +75,22 @@ public class GetGoodsByFirstCategory_Tests {
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
 
-        JSONArray goodsList = TestCaseHelpful.extractValue(responseBody, "$.result.categoryList[?(@.secondCategoryId=='890')].goodsList");
-        Boolean actual = goodsList.toString().contains(exceptGoodsId);
-        //包含上架商品
-        TestCaseHelpful.assertThatJson(actual).isEqualTo(true);
-        //TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.categoryList[?(@.secondCategoryId=='890')].goodsList[?(@.goodsId=='149252')]").isNotNull();
-
+        JSONArray goodsList = TestCaseHelpful.extractValue(responseBody, "result.categoryList.[0].goodsList");
+        for (int i=0;i<goodsList.size();i++) {
+            Map goods = (Map<String, Object>) goodsList.get(0);
+            String name = (String) goods.get("goodsTitle");
+            String nameEn = (String) goods.get("goodsTitleEn");
+            String nameTC = (String) goods.get("goodsTitleTc");
+            int id = (int) goods.get("goodsId");
+            //查询商品名称信息
+            String sql = "SELECT * FROM goods fg WHERE fg.goods_id=" + id + "";
+            Map<String, Object> expect = FreshTestDBHelpful.executeSelectOneSql(sql);
+            String expectName = expect.get("title").toString();
+            String expectNameEn = expect.get("title_EN").toString();
+            String expectNameTC = expect.get("title_tc").toString();
+            TestCaseHelpful.assertThatJson(name.contains(expectName)).isEqualTo(true);
+            TestCaseHelpful.assertThatJson(nameEn.contains(expectNameEn)).isEqualTo(true);
+            TestCaseHelpful.assertThatJson(nameTC.contains(expectNameTC)).isEqualTo(true);
+        }
     }
 } 

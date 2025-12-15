@@ -3,7 +3,7 @@
 	"resultCode": 0,
 	"data": {
 		"orderSn": "PFB2BB2511051536478409",
-		"submitTime": "2025-11-04 23:36:47",
+		"submitTime": "${json-unit.any-string}",
 		"creditAmount": 18.19,
 		"consigneeAddress": "测试测试",
 		"consigneeTel": "447846319703",

@@ -1,50 +1,38 @@
-package com.miller.pandafresh.testcase.module.goods.getgoodsbyfirstcategory;
+package com.miller.pandafresh.testcase.module.b2b.order.paymentpattern;
 
-import com.miller.service.framework.annotation.Scenario;
-import com.miller.service.framework.util.JSONUtils;
-import com.miller.pandafresh.testcase.config.TestcaseConfig;
 import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
+import com.miller.pandafresh.testcase.config.TestcaseConfig;
+import com.miller.pandafresh.testcase.utils.PandaTestDBHelpful;
+import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.util.JSONUtils;
 import net.javacrumbs.jsonunit.core.Option;
-import net.minidev.json.JSONArray;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * getGoodsByFirstCategory
+ * paymentPattern
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/07/24 17:13:46
+ * @since 2025/12/08 14:38:49
  */
 @Scenario(
-        scenarioID = "01K0XVBJ5H8Y8NAJT6KW435C39", // 自动生成，不要修改
-        scenarioName = "分类页-二级分类商品展示检查：召回当前分组下关联的商品",
+        scenarioID = "01KBYAYA0M17EAXJKFTGFSX3MV", // 自动生成，不要修改
+        scenarioName = "B2B订单-支付方式获取",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("分类页-二级分类商品展示检查：召回当前分组下关联的商品")
-public class GetGoodsByFirstCategory_Tests {
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("B2B订单-支付方式获取")
+public class PaymentPattern_Tests {
 
-    //自动化测试一级分组id
-    String firstCategoryId = "887";
-    //兜底的二级分组id
-    String categoryId = "890";
-
-    String exceptGoodsId = "149252";
     @BeforeAll
-     void beforeAll(){
-        // 确保887分组下有启用的二级分组890
-        String sql = "SELECT * FROM front_groups f WHERE f.parent_id=887 and f.groups_id=890 and f.`status`=1 LIMIT 1";
-        String id = FreshTestDBHelpful.executeSelectOneSql(sql).get("groups_id").toString();
-        //查找当前配送区域，分组下的上架的商品
-        String sql1 = "SELECT g.* FROM goods_groups gg " +
-                 "LEFT JOIN goods g on gg.goods_id=g.goods_id " +
-                 "LEFT JOIN goods_delivery_area a on g.goods_id=a.goods_id " +
-                 "WHERE gg.groups_id="+categoryId+" and g.portal_id=3 and a.delivery_area_id=3" +
-                 " and g.`status`=1 and g.is_del=0 LIMIT 1";
-        exceptGoodsId = FreshTestDBHelpful.executeSelectOneSql(sql1).get("goods_id").toString();
+    static void beforeAll(){
+        //查询未支付订单
+        String sql = "SELECT * FROM b2b_order o WHERE o.order_version>=1 and o.pay_way_type=1 and o.pay_status=0 and o.order_status=1 and o.custom_id=8 limit 1;";
+        TestcaseConfig.b2bpayNowOrderSn = FreshTestDBHelpful.executeSelectOneSql(sql).get("order_sn").toString();
     }
     @AfterAll
     static void afterAll(){
@@ -56,24 +44,27 @@ public class GetGoodsByFirstCategory_Tests {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HpfHost + "/goods/getGoodsByFirstCategory";
+        String uri = TestcaseConfig.H5HOST + "/api/app/user/payment/v2/checkOut/paymentPattern";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/goods/getgoodsbyfirstcategory/request/headers.json";
+        String headers = "module/b2b/order/paymentpattern/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/goods/getgoodsbyfirstcategory/request/body.json";
+        String body = "module/b2b/order/paymentpattern/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/goods/getgoodsbyfirstcategory/response/assert_full_field.json";
+        String assertFullField = "module/b2b/order/paymentpattern/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
+        //登录用户
+        requestHeaders.put("authorization", TestCaseHelpful.loginB2B("17700004444","888888"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"categoryId",firstCategoryId);
+        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.orderSn",TestcaseConfig.b2bpayNowOrderSn);
+
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -84,12 +75,11 @@ public class GetGoodsByFirstCategory_Tests {
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-
-        JSONArray goodsList = TestCaseHelpful.extractValue(responseBody, "$.result.categoryList[?(@.secondCategoryId=='890')].goodsList");
-        Boolean actual = goodsList.toString().contains(exceptGoodsId);
-        //包含上架商品
-        TestCaseHelpful.assertThatJson(actual).isEqualTo(true);
-        //TestCaseHelpful.assertThatJson(responseBody).inPath("$.result.categoryList[?(@.secondCategoryId=='890')].goodsList[?(@.goodsId=='149252')]").isNotNull();
+        TestcaseConfig.floatingRate = TestCaseHelpful.extractValue(responseBody,"$.data.patternDTOList.[0].floatingRate");
+        TestcaseConfig.floatingAmount = TestCaseHelpful.extractValue(responseBody,"$.data.patternDTOList.[0].floatingAmount");
+        TestcaseConfig.floatingType = TestCaseHelpful.extractValue(responseBody,"$.data.patternDTOList.[0].floatingType");
+        TestcaseConfig.payChannel = TestCaseHelpful.extractValue(responseBody,"$.data.patternDTOList.[0].payChannel");
+        TestcaseConfig.channelRecordId = TestCaseHelpful.extractValue(responseBody,"$.data.patternDTOList.[0].channelRecordId");
 
     }
 } 

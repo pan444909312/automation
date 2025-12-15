@@ -1,0 +1,19 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"paymentMethodList": [{
+			"type": "card",
+			"last4": "4242",
+			"expYear":  "${json-unit.any-string}",
+			"expMonth":  "${json-unit.any-string}",
+			"brand": "visa",
+			"country": "US",
+			"paymentMethodId":  "${json-unit.any-string}",
+			"cardNoMd5":  "${json-unit.any-string}"
+		}]
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP"
+}

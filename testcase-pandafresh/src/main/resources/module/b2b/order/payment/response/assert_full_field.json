@@ -1,0 +1,19 @@
+{
+	"code": 1,
+	"resultCode": 0,
+	"data": {
+		"stripePayData": {
+			"publishableApiKey": "${json-unit.any-string}",
+			"paymentIntentId": "${json-unit.any-string}",
+			"clientSecret": "${json-unit.any-string}"
+		},
+		"payOrderNo": "${json-unit.any-string}",
+		"orderId": "${json-unit.any-number}",
+		"channel": "${json-unit.any-number}",
+		"orderSn": "${json-unit.any-string}",
+		"payResult": true
+	},
+	"message": "请求成功(1)",
+	"currency": "£",
+	"paymentCurrency": "GBP"
+}

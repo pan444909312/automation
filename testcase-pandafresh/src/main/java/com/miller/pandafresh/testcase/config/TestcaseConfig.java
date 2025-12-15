@@ -57,4 +57,41 @@ public class TestcaseConfig {
 
     public static String b2bShopCartId = "0";
 
+    /**
+     * b2b立即支付订单号
+     */
+    public static String b2bpayNowOrderSn = "PFB2BB2508181039368848";
+
+
+    /**
+     * 支付渠道浮动金额百分比
+     */
+    public static double floatingRate = 1.01;
+    /**
+     * 固定浮动金额 单位：分
+     */
+    public static double floatingAmount = 0.0;
+    /**
+     * 金额浮动类型 0按百分比浮动 1按固定金额浮动
+     */
+    public static  int floatingType = 0;
+
+    /**
+     * 支付渠道
+     */
+    public static String payChannel = "stripePay";
+
+    /**
+     * 支付渠道记录ID
+     */
+    public static String channelRecordId = "694362694935535616";
+
+    /**
+     * paymentMethodId
+     */
+    public static String paymentMethodId = "pm_1SOBcdB2BLLEGTseiyIECo6F";
+    public static String publishableApiKey = "pk_test_TmuvqLAXY1drvf9AC3i2JgTE";
+    public static String paymentIntentId = "pi_3SbzLNB2BLLEGTse102OsPsp";
+    public static String clientSecret = "pi_3SbzLNB2BLLEGTse102OsPsp_secret_nXck8vf1HTetQjYIhhlPMUk7u";
+
 }

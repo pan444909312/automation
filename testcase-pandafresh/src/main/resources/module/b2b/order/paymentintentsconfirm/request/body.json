@@ -1,0 +1,9 @@
+{
+	"payment_method":"pm_1SOBcdB2BLLEGTseiyIECo6F",
+	"expected_payment_method_type":"card",
+	"use_stripe_sdk":"true",
+	"key":"pk_test_TmuvqLAXY1drvf9AC3i2JgTE",
+	"client_attribution_metadata[client_session_id]":"ed69ede8-8580-4fd8-be46-a071dc3741a6",
+	"client_attribution_metadata[merchant_integration_source]":"l1",
+	"client_secret":"pi_3Sc05hB2BLLEGTse1rYtCdeJ_secret_CntXKFy03VfrUJUHmO2EBKGdv"
+}

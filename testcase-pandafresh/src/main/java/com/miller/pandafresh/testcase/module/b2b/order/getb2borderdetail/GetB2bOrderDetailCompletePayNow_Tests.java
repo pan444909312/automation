@@ -1,10 +1,9 @@
-package com.miller.pandafresh.testcase.module.b2b.order.createorder;
+package com.miller.pandafresh.testcase.module.b2b.order.getb2borderdetail;
 
+import com.miller.service.framework.annotation.Scenario;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
-import com.miller.pandafresh.testcase.utils.FreshTestDBHelpful;
+import com.miller.pandafresh.testcase.utils.PandaTestDBHelpful;
 import com.miller.pandafresh.testcase.utils.TestCaseHelpful;
-import com.miller.service.framework.annotation.TestFramework;
-import com.miller.service.framework.util.JSONUtils;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,54 +11,54 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * createOrder
+ * getB2bOrderDetailCompletePayNow
  *
  * @author zhangpei
  * @version 2.0
- * @since 2025/10/27 15:34:03
+ * @since 2025/12/09 14:56:07
  */
-@TestFramework
-@DisplayName("步骤：b2b创建订单：账期支付订单")
-public class CreateOrderPayPeriod {
+@Scenario(
+        scenarioID = "01KC0YAPTYBPK5VQ9CPYNF32JX", // 自动生成，不要修改
+        scenarioName = "b2b订单详情：已完成立即付款订单",
+        author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        developmentTime = 15, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("b2b订单详情：已完成立即付款订单")
+public class GetB2bOrderDetailCompletePayNow_Tests {
 
     @BeforeAll
     static void beforeAll(){
-        //用户改为账期支付
-        String sql = "update b2b_custom set pay_way_type=2 , period_pay_rule='{\"settleDay\": 33, \"periodType\": 1, \"settlePeriod\": 7, \"periodStartDay\": 2}' where id=8";
-        FreshTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
+        // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
+        // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
     }
     @AfterAll
     static void afterAll(){
-        //恢复为立即支付
-        String sql = "update b2b_custom set pay_way_type=1 where id=8";
-        FreshTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
+        // 所有 @Test 方法执行之后会执行  @@AfterAll 注解的方法, 这里的代码当前测试类期间只会执行一次
+        // 你可以在这里执行后置的操作，比如: 销毁测试数据、还原数据库、清理环境等
     }
+
     @DisplayName("正向流程")
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.H5HOST + "/api/b2b/order/createOrder";
+        String uri = TestcaseConfig.H5HOST + "/api/b2b/order/getB2bOrderDetail";
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/b2b/order/createorder/request/headers.json";
+        String headers = "module/b2b/order/getb2borderdetail/getb2borderdetailcompletepaynow/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/b2b/order/createorder/request/body.json";
+        String body = "module/b2b/order/getb2borderdetail/getb2borderdetailcompletepaynow/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/b2b/order/createorder/response/assert_full_field.json";
+        String assertFullField = "module/b2b/order/getb2borderdetail/getb2borderdetailcompletepaynow/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
         //登录用户
-        requestHeaders.put("authorization",TestCaseHelpful.loginB2B("17700004444","888888"));
+        requestHeaders.put("authorization", TestCaseHelpful.loginB2B("17700004444","888888"));
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.deliveryDate",TestcaseConfig.b2bDeliveryDate);
-        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.deliveryTime",TestcaseConfig.b2bDeliveryTime);
-        requestBody = JSONUtils.updateJsonValueByPath(requestBody,"$.pd.addressId",TestcaseConfig.b2bAddressId);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
