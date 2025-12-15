@@ -8,6 +8,5 @@
 		"shopType": 0
 	},
 	"currencySymbol": null,
-	"sql": null,
 	"queryList": "${json-unit.ignore-element}"
 }
