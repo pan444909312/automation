@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K0V43220FZVP76VBFW5HNCF9",
+@Scenario(scenarioID = "01KC5K300VV2ZTR6ZK3K00QQRN",
         scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_品类频道-商卡二期：会员权益32-不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 30, manualTestTime = 10)
 
