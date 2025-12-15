@@ -12,8 +12,5 @@
 			"cities": null,
 			"roleNames": null
 		}
-	},
-	"currencySymbol": null,
-	"sql": null,
-	"queryList": null
+	}
 }
