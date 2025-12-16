@@ -99,9 +99,9 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
             stringBuilder.append("#### C组-自动化平台手动执行结果汇总").append(" \n ");
             stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
             stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
-            stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
+            stringBuilder.append("- **失败**: <font color=red>" + testsFailedCount + "</font>个 ");
             stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
-            stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
+            stringBuilder.append("- **通过率**: <font color=green>" + passRate + "%</font>").append(" \n ");
             stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
             // 如果是平台手动执行，发送钉钉通知到副群
             DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
@@ -228,17 +228,17 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         stringBuilder.append("- **").append("小组").append("**:").append(" \n ");
         stringBuilder.append("  - 共: ").append(sum).append("个").append(" \n ");
         stringBuilder.append("  - 成功: ").append(successSum).append("个").append(" \n ");
-        stringBuilder.append("  - 失败: ").append(sum - successSum).append("个").append(" \n ");
+        stringBuilder.append("  - 失败: <font color=red>").append(sum - successSum).append("</font>个").append(" \n ");
         double groupPassRate = sum > 0 ? (double) successSum / sum * 100 : 0;
-        stringBuilder.append("  - 通过率: ").append(String.format("%.2f", groupPassRate)).append("%").append(" \n ");
+        stringBuilder.append("  - 通过率: <font color=green>").append(String.format("%.2f", groupPassRate)).append("%</font>").append(" \n ");
 
 
         for (AutoCaseExecutionDailyDataDTO data : autoCaseExecutionDailyDataDTOList) {
             stringBuilder.append("- **").append(data.getAuthor()).append("**:").append(" \n ");
             stringBuilder.append("  - 共: ").append(data.getCount()).append("个").append(" \n ");
             stringBuilder.append("  - 成功: ").append(data.getSuccessCount()).append("个").append(" \n ");
-            stringBuilder.append("  - 失败: ").append(data.getFailCount()).append("个").append(" \n ");
-            stringBuilder.append("  - 通过率: ").append(String.format("%.2f", data.getPassRate() * 100)).append("%").append(" \n ");
+            stringBuilder.append("  - 失败: <font color=red>").append(data.getFailCount()).append("</font>个").append(" \n ");
+            stringBuilder.append("  - 通过率: <font color=green>").append(String.format("%.2f", data.getPassRate() * 100)).append("%</font>").append(" \n ");
         }
 
 
