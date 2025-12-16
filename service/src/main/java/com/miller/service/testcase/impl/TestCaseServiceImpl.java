@@ -111,9 +111,9 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
                 stringBuilder.append("#### C组-DEBUG手动执行结果汇总").append(" \n ");
                 stringBuilder.append("- **共**: " + testsFoundCount + "个").append(" \n ");
                 stringBuilder.append("- **成功**: " + testsSucceededCount + "个").append(" \n ");
-                stringBuilder.append("- **失败**: " + testsFailedCount + "个 ");
+                stringBuilder.append("- **失败**: <font color=red> " + testsFailedCount + "</font>个 ");
                 stringBuilder.append("- **跳过**: " + testsSkippedCount + "个").append(" \n ");
-                stringBuilder.append("- **通过率**: " + passRate + "%").append(" \n ");
+                stringBuilder.append("- **通过率**: <font color=green>" + passRate + "% </font>").append(" \n ");
                 stringBuilder.append("- **花费时间**: " + costTime + "秒").append(" \n ");
                 // 如果是调试执行发送钉钉通知到副群
                 DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", stringBuilder.toString());
