@@ -1,4 +1,4 @@
-package com.miller.testcase.module.home.shop;
+package com.miller.testcase.moduleEn.home.shop;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
