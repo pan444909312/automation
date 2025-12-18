@@ -1,7 +1,7 @@
 {
 	"resultCode": 1000,
-	"error": "${json-unit.regex}成功|success|成功EN",
-	"reason": "${json-unit.regex}成功|success|成功EN",
+	"error": "${json-unit.regex}成功|Success|成功EN",
+	"reason": "${json-unit.regex}成功|Success|成功EN",
 	"result": {
 		"voucherSn": "373SJGBSQ9",
 		"voucherName": "${json-unit.any-string}",
