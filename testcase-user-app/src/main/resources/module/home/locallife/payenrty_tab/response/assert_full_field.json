@@ -26,7 +26,7 @@
 		}],
 
 			"totalCount": "${json-unit.any-number}",
-			"currency": "¥",
+			"currency": "${json-unit.any-string}",
 			"paymentShopDataBanner": {
 				"bannerContent": "${json-unit.any-string}",
 				"bannerTitle": "到店买单",
