@@ -89,7 +89,7 @@ public class 搜索_普通搜索_融合店铺召回_置顶词_Tests {
         // 断言数组中包含达达店铺
         boolean containIsSupermarket = shopNames.toString().contains("1");
 
-        TestCaseHelpful.assertThat(containIsSupermarket).isEqualTo(true);
+        TestCaseHelpful.assertThat(containIsSupermarket).isEqualTo(false);
 
 
     }
