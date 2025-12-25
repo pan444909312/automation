@@ -24,6 +24,8 @@ public class FileToolsServiceImpl implements FileToolsService {
      * @return 文件URL
      */
     public String generateAndUpload(long size, String unit, boolean fillRandom,String suffix) {
+
+
         try {
             // 转换大小为字节
             long sizeInBytes = convertToBytes(size, unit);
@@ -35,7 +37,7 @@ public class FileToolsServiceImpl implements FileToolsService {
             // 上传到OSS
             final String fileName = String.format("%s_%s.%s",size,unit,suffix);
             String fileUrl = new OssUtils().uploadToOSS(content,fileName);
-           log.info("文件上传OSS成功");
+            log.info("文件上传OSS成功");
             return fileUrl;
 
         } catch (Exception e) {

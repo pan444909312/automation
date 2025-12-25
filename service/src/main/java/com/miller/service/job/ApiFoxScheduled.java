@@ -1,8 +1,10 @@
 package com.miller.service.job;
 
 import com.miller.service.apifox.ApiFoxConfigService;
+import com.miller.service.apifox.ApiFoxRunReportService;
 import com.miller.service.apifox.ApifoxToolsService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
+import com.miller.service.enums.ApiFoxEnvEnum;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -29,6 +31,9 @@ public class ApiFoxScheduled {
 
     @Autowired
     private ApiFoxConfigService apiFoxConfigService;
+
+    @Autowired
+    private ApiFoxRunReportService runReportService;
 
     @Scheduled(cron = "0 10 1 * * ?")
     public void scheduledTaskB() {
@@ -85,6 +90,14 @@ public class ApiFoxScheduled {
         // 根据小组获取对应的执行命令配置
         String groupConfig = apiFoxConfigService.getGroupConfig(AttributionGroupEnum.DEBUG);
         groupConfig = groupConfig.replace("{{taskId}}", taskId);
+
+        final String belongingGroup = runReportService.queryBelongingGroup(Long.valueOf(taskId));
+        if (belongingGroup.equals("D")){
+            groupConfig = groupConfig.replace("{{envId}}", ApiFoxEnvEnum.D_ENV.getEnvId());
+        }else{
+            groupConfig = groupConfig.replace("{{envId}}", ApiFoxEnvEnum.TEST_ENV.getEnvId());
+        }
+
          JavaShellUtil.executeShell(groupConfig);
     }
 

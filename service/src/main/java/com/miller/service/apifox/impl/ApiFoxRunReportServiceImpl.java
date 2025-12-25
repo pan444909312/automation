@@ -2,13 +2,16 @@ package com.miller.service.apifox.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.miller.entity.apifox.ApiFoxRunErrorSceneEntity;
 import com.miller.entity.apifox.ApiFoxRunReportEntity;
 import com.miller.entity.apifox.DTO.ApifoxRunResultDTO;
 import com.miller.mapper.apifox.ApiFoxRunReportMapper;
+import com.miller.service.apifox.ApiFoxRunErrorSceneService;
 import com.miller.service.apifox.ApiFoxRunReportService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +19,9 @@ import java.util.List;
 
 @Service
 public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMapper, ApiFoxRunReportEntity> implements ApiFoxRunReportService {
+
+    @Autowired
+    private ApiFoxRunErrorSceneService  apiFoxRunErrorSceneService;
 
     @Override
     public ApiFoxRunReportEntity converToEntity(String runId, String name, AttributionGroupEnum group, ApifoxRunResultDTO dto) {
@@ -67,6 +73,20 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
         }
 
         return apiFoxRunReportEntities;
+    }
+
+    @Override
+    public String queryBelongingGroup(Long apiFoxCaseId){
+        ApiFoxRunErrorSceneEntity errorSceneEntity = apiFoxRunErrorSceneService.findByCaseId(apiFoxCaseId);
+        if (ObjectUtils.isEmpty(errorSceneEntity)) {
+            log.error(String.format("caseId is null: %s",  apiFoxCaseId));
+            return "B";
+        }
+        Long reportId = errorSceneEntity.getReportId();
+        ApiFoxRunReportEntity reportEntity = this.getById(reportId);
+
+        return  reportEntity.getBelongingGroup();
+
     }
 
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * apifox 运行失败结果明细
@@ -53,7 +54,7 @@ public class ApiFoxRunErrorSceneEntity  implements Serializable {
     /**
      * 创建时间
      */
-    private Long createTime;
+    private LocalDateTime createTime;
 
     /**
      * 失败步骤明细，jsonArray 格式
