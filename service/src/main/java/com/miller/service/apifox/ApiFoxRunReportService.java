@@ -21,6 +21,9 @@ public interface ApiFoxRunReportService extends IService<ApiFoxRunReportEntity> 
      * 通过 caseId 获取归属小组
      */
     String queryBelongingGroup(Long apiFoxCaseId);
+
+    void parsingReport(AttributionGroupEnum attributionGroup);
+
 }
 
 

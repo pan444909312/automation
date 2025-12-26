@@ -1,11 +1,21 @@
 package com.miller.service.apifox;
 
 
+import com.miller.entity.apifox.DTO.ApiFoxToolsExecDTO;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
+import org.springframework.scheduling.annotation.Async;
 
 public interface ApifoxToolsService {
 
-    boolean sendDingDing(String access_token, String timestamp, String sign, String body);
 
-    void parsingReport(AttributionGroupEnum attributionGroup);
+    @Async
+    void scheduledTaskAsync(AttributionGroupEnum attributionGroupEnum);
+
+    void execApifoxCli(AttributionGroupEnum attributionGroupEnum);
+
+    @Async
+    void execApifoxCli(String taskId);
+
+    @Async
+    void execApifoxCli(ApiFoxToolsExecDTO execDTO);
 }

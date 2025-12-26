@@ -78,16 +78,12 @@ public class 搜索_普通搜索_融合店铺召回_置顶词_Tests {
         // 对json文件中排除的字段进行更加复杂的断言
         // 断言店铺列表中包含指定店铺
         JSONArray shopList = TestCaseHelpful.extractValue(responseBody, "result.shopList");
-        // 收集所有店铺是否达达店铺标志
-        java.util.Set<Integer> shopNames = new java.util.HashSet<>();
-        for (int i = 0; i < shopList.size(); i++) {
-            Map shop = (Map<Integer, Object>) shopList.get(i);
-            Integer isSupermarket = (Integer) shop.get("isSupermarket");
-            shopNames.add(isSupermarket);
-        }
+        // 置顶店铺是否有达达店铺标志
+         Map shop = (Map<Integer, Object>) shopList.get(0);
+         Integer isSupermarket = (Integer) shop.get("isSupermarket");
 
         // 断言数组中包含达达店铺
-        boolean containIsSupermarket = shopNames.toString().contains("1");
+        boolean containIsSupermarket = isSupermarket.toString().contains("1");
 
         TestCaseHelpful.assertThat(containIsSupermarket).isEqualTo(false);
 

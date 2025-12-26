@@ -9,6 +9,7 @@ public enum AttributionGroupEnum {
     P("347947"),
     D("347945"),
     DEBUG("DEBUG"),
+    TOOLS("TOOLS"),
     DEBUG_JX("348753")
     ;
     String t;

@@ -24,4 +24,6 @@ public class ApiFoxConfigEntity {
 
     private String configDesc;
 
+    private Integer isEnable;
+
 }
