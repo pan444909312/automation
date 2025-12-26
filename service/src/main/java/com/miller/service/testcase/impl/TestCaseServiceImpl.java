@@ -242,7 +242,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
         }
 
 
-        stringBuilder.append("[查看报告详情](https://automation.hungrypanda.it:2096/#/auto-case/daily-case-summary)").append(" \n ");
+        stringBuilder.append("[查看报告详情](https://automation.hungrypanda.it/#/auto-case/daily-case-summary)").append(" \n ");
         stringBuilder.append(" \n ");
 
         return stringBuilder.toString();
