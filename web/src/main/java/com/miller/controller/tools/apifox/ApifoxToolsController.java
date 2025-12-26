@@ -1,5 +1,6 @@
 package com.miller.controller.tools.apifox;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.controller.tools.ResultVO;
 import com.miller.entity.apifox.ApiFoxConfigEntity;
 import com.miller.entity.apifox.ApiTestCaseCustomHttpRequestEntity;
@@ -93,7 +94,7 @@ public class ApifoxToolsController {
     @GetMapping("/getApifoxConfig")
     public Response<List<ApiFoxConfigEntity>> getApifoxConfig() {
 
-        List<ApiFoxConfigEntity> list = apiFoxConfigService.list();
+        List<ApiFoxConfigEntity> list = apiFoxConfigService.list(new QueryWrapper<ApiFoxConfigEntity>().eq("is_enable",1));
 
 
         return Response.success(list);
