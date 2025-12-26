@@ -31,7 +31,7 @@
 			"goodsPrimaryPic": "${json-unit.any-string}",
 			"goodsPrice": 10,
 			"boxSpec": 20,
-			"needBoxNum": 1,
+			"needBoxNum": 1.00,
 			"needGoodsNum": 20,
 			"boxPrice": 200,
 			"goodsTax": 0.00,
