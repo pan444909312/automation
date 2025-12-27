@@ -19,15 +19,15 @@ import java.util.Map;
  *
  * @author 张培
  * @version 2.0
- * @since 2025/10/28 14:53:23
+ * @since 2025/12/27 14:53:23
  */
 @Scenario(
-        scenarioID = "01JZQ67ERFWEM68JA3V20M9WMS", // 自动生成，不要修改
-        scenarioName = "搜索_普通搜索_融合店铺_置顶词_搜索置顶词”",
+        scenarioID = "01JZQ67ERFWEM68JA3V20M9WMU", // 自动生成，不要修改
+        scenarioName = "搜索_普通搜索_融合店铺_置顶词_搜索置顶词：SSZHJ01”",
         author = "zhangpei@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("搜索_普通搜索_融合店铺_置顶词_搜索置顶词")
-public class 搜索_普通搜索_融合店铺召回_置顶词_Tests {
+@DisplayName("搜索_普通搜索_融合店铺_置顶词_搜索置顶词：SSZHJ01")
+public class 搜索_普通搜索_融合店铺召回_置顶词召回_Tests {
     // 待搜索的词
     String searchWord = "置顶词";
     @BeforeAll
@@ -85,7 +85,7 @@ public class 搜索_普通搜索_融合店铺召回_置顶词_Tests {
         // 断言数组中包含达达店铺
         boolean containIsSupermarket = isSupermarket.toString().contains("1");
 
-        TestCaseHelpful.assertThat(containIsSupermarket).isEqualTo(false);
+        TestCaseHelpful.assertThat(containIsSupermarket).isEqualTo(true);
 
 
     }
