@@ -1,16 +1,18 @@
 package com.miller.controller.tools.apifox;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.controller.tools.ResultVO;
+import com.miller.entity.apifox.DTO.ApiFoxToolsExecDTO;
 import com.miller.entity.apifox.ApiFoxConfigEntity;
 import com.miller.entity.apifox.ApiTestCaseCustomHttpRequestEntity;
 import com.miller.entity.report.AutomationCoverageApiEntity;
 import com.miller.entity.util.Response;
 import com.miller.pos.date.flow.WorkingTimeFlow;
 import com.miller.service.apifox.ApiFoxConfigService;
+import com.miller.service.apifox.ApiFoxRunReportService;
 import com.miller.service.apifox.ApiTestCaseCustomHttpRequestService;
 import com.miller.service.apifox.ApifoxToolsService;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
-import com.miller.service.job.ApiFoxScheduled;
 import com.miller.service.platform.AutomationCoverageApiService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +29,13 @@ import java.util.Set;
 public class ApifoxToolsController {
 
     @Autowired
-    private ApifoxToolsService apifoxToolsService;
+    private ApiFoxRunReportService runReportService;
 
     @Autowired
     private AutomationCoverageApiService automationCoverageApiService;
 
     @Autowired
-    private ApiFoxScheduled apiFoxScheduled;
+    private ApifoxToolsService apifoxToolsService;
 
     @Autowired
     private ApiFoxConfigService apiFoxConfigService;
@@ -56,7 +58,7 @@ public class ApifoxToolsController {
      */
     @GetMapping("/parsingReport")
     public boolean parsingReport(@RequestParam AttributionGroupEnum groupEnum) {
-        apifoxToolsService.parsingReport(groupEnum);
+        runReportService.parsingReport(groupEnum);
         return true;
     }
 
@@ -67,7 +69,7 @@ public class ApifoxToolsController {
     public ResultVO execRemoteApifoxShell(@RequestParam("attributionGroupEnum") AttributionGroupEnum attributionGroupEnum){
 //        AttributionGroupEnum groupEnum = AttributionGroupEnum.valueOf(groupCode);
         log.warn("开始执行 apifox cli 命令,{},{}",attributionGroupEnum.getT(),attributionGroupEnum);
-        apiFoxScheduled.scheduledTaskAsync(attributionGroupEnum);
+        apifoxToolsService.scheduledTaskAsync(attributionGroupEnum);
         return ResultVO.success("执行成功,请关注（自动化通知_Release_巡检）群通知 ~");
     }
 
@@ -75,25 +77,46 @@ public class ApifoxToolsController {
     public ResultVO execRemoteApifoxShellByGroup(@RequestParam("groupCode") String groupCode) {
         AttributionGroupEnum groupEnum = AttributionGroupEnum.valueOf(groupCode);
         log.warn("开始执行 apifox cli 命令,{},{}", groupEnum.getT(), groupCode);
-        apiFoxScheduled.scheduledTaskAsync(groupEnum);
+        apifoxToolsService.scheduledTaskAsync(groupEnum);
         return ResultVO.success("执行成功,请关注（自动化通知_Release_巡检）群通知 ~");
     }
 
+   /**
+     * ApiFox cli 单用例 debug工具
+     * @param taskId 用例ID
+     */
     @PostMapping("/execRemoteApifoxShell/debug")
     public ResultVO execRemoteDebugApifoxShell(@RequestParam("taskId") String taskId) {
         if (ObjectUtils.isEmpty(taskId) || taskId.isEmpty()) {
             return ResultVO.failed("触发失败，taskId 为空");
         }
 
-        apiFoxScheduled.scheduledTask(taskId);
+        apifoxToolsService.execApifoxCli(taskId);
         return ResultVO.success("触发成功，请关注群通知：自动化通知_Debug_调试");
     }
+
+    /**
+     * ApiFox cli 单用例 debug工具
+     */
+    @PostMapping("/tools/exec")
+    public ResultVO execRemoteDebugApifoxShell(@RequestBody ApiFoxToolsExecDTO execDao) {
+        if (!execDao.fieldCheck()) {
+            return ResultVO.failed("请求参数错误,缺少必填参数~");
+        }
+
+        apifoxToolsService.execApifoxCli(execDao);
+
+        return ResultVO.success("触发成功，请关注群通知：自动化通知_Debug_调试");
+    }
+
+
+
 
 
     @GetMapping("/getApifoxConfig")
     public Response<List<ApiFoxConfigEntity>> getApifoxConfig() {
 
-        List<ApiFoxConfigEntity> list = apiFoxConfigService.list();
+        List<ApiFoxConfigEntity> list = apiFoxConfigService.list(new QueryWrapper<ApiFoxConfigEntity>().eq("is_enable",1));
 
 
         return Response.success(list);

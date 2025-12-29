@@ -33,7 +33,7 @@ public class UserPopupForcePlanTests {
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("UPDATE activity_popup_red_packet_send_rule_config\n" +
                 "SET one_day_exposure = 999,\n" +
                 "    need_collect = 1\n" +
-                "WHERE city = \"郑州市\" AND is_del = 0");
+                "WHERE city = \"衢州市\" AND is_del = 0");
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete("delete FROM activity_popup_red_packet_group_red_packet_collect where user_id='1398720570'\n");
 
     }
