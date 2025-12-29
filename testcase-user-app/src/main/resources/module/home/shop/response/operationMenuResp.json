@@ -9,7 +9,7 @@
           "menuInfo": {
             "menuId": "${json-unit.any-number}",
             "menuName": "${json-unit.any-string}",
-            "menuDesc": "${json-unit.any-string}",
+            "menuDesc":"${json-unit.ignore-element}",
             "menuType": "${json-unit.any-number}"
           }
         }]}]},

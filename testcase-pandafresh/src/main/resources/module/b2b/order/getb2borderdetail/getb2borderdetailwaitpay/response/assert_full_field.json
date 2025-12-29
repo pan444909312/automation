@@ -32,7 +32,7 @@
 				"goodsPrimaryPic": "https://panda-joint-meal-test-hk.oss-cn-hongkong.aliyuncs.com/images/1735624392727/17356243927271347286d.JPG",
 				"goodsPrice": 1.23,
 				"boxSpec": 1,
-				"needBoxNum": 1,
+				"needBoxNum": 1.00,
 				"needGoodsNum": 1,
 				"boxPrice": 1.23,
 				"goodsTax": 0.00,
