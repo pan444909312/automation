@@ -85,7 +85,7 @@ public class 搜索_普通搜索_融合店铺召回_置顶词召回SSZHJ01_Tests
         // 断言数组中包含达达店铺
         boolean containIsSupermarket = isSupermarket.toString().contains("1");
 
-        TestCaseHelpful.assertThat(containIsSupermarket).isEqualTo(false);
+        TestCaseHelpful.assertThat(containIsSupermarket).isEqualTo(true);
 
 
     }
