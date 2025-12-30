@@ -25,9 +25,9 @@ public class AutoCaseReportTask {
 
 
     /**
-     * 每日 20:30 执行
+     * 每日 13:30 执行
      */
-    @Scheduled(cron = "0 30 20 * * ?")
+    @Scheduled(cron = "0 30 13 * * ?")
     public void execute() {
 
         LocalDate todayLocalDate = LocalDate.now();
