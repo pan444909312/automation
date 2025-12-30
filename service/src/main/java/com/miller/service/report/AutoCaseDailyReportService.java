@@ -2,6 +2,7 @@ package com.miller.service.report;
 
 import com.miller.entity.report.AutoCaseDailyReport;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.miller.entity.report.req.ListDailyResultSummaryReqDTO;
 
 /**
  * <p>
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AutoCaseDailyReportService extends IService<AutoCaseDailyReport> {
 
+
+    boolean addAutoCaseDailyReportList(ListDailyResultSummaryReqDTO reqDTO);
 }

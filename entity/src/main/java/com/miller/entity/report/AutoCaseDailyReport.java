@@ -1,9 +1,7 @@
 package com.miller.entity.report;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -51,11 +49,11 @@ public class AutoCaseDailyReport implements Serializable {
 
     @Schema(description = "今日执行失败率")
     @TableField("fail_rate")
-    private String failRate;
+    private double failRate;
 
     @Schema(description = "今日执行通过率")
     @TableField("success_rate")
-    private String successRate;
+    private double successRate;
 
     @Schema(description = "关联项目id")
     @TableField("project_id")
@@ -63,18 +61,22 @@ public class AutoCaseDailyReport implements Serializable {
 
     @Schema(description = "用例归属平台类型（1：JAVA 2：APIFOX 3：JMETER 4：UI自动化）")
     @TableField("platform_type")
-    private Byte platformType;
+    private Integer platformType;
 
     @Schema(description = "报告统计标记")
     @TableField("report_tag")
     private Integer reportTag;
 
+    @Schema(description = "备注")
+    @TableField("remark")
+    private String remark;
+
     @Schema(description = "创建时间")
-    @TableField("create_time")
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
     private Long createTime;
 
     @Schema(description = "更新时间")
-    @TableField("update_time")
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Long updateTime;
 
     @Schema(description = "删除标记（0:可用 1:不可用）")
