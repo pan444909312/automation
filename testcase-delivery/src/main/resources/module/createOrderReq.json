@@ -1,0 +1,27 @@
+{
+  "deliveryTime": "尽快送达",
+  "deliverableAction": 11,
+  "tablewareCount": 1,
+  "userPhone": "86 13251016327",
+  "orderReqType": 1,
+  "deliveryType": 1,
+  "platform": 1,
+  "addressId": 1398681476,
+  "productCartList": [
+    {
+      "pickUpType": 0,
+      "productId": 82083874,
+      "secKillFlag": 0,
+      "skuId": 0,
+      "tagId": []
+    }
+  ],
+  "payType": 16,
+  "saType": 0,
+  "verify": 0,
+  "shopId": 116049906,
+  "superValueExchangeList": null,
+  "tipPrice": 4.39,
+  "needNumberMasking": false,
+  "isOnlinePay": true
+}
