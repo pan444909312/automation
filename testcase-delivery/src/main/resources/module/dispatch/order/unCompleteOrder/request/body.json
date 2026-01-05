@@ -1,0 +1,18 @@
+{
+  "groupMeal": true,
+  "farawayOrderOnly": true,
+  "onlyPandaDeliveryOrders": true,
+  "showSpecialDriverOrders": true,
+  "deliveryTagList": ["极速达", "当日达", "次日达", "2H达", "3H达"],
+  "cityName": "杭州市",
+  "cityLocation": {
+    "latitude": "30.2592444615",
+    "longitude": "120.219375416"
+  },
+  "startDate": "",
+  "endDate": "",
+  "timeType": 1,
+  "orderBusinessTypeList": [0, 1],
+  "orderSort": "0"
+}
+
