@@ -26,7 +26,7 @@
 				"tipInfo": "订单已关闭",
 				"lightMap": {}
 			},
-			"orderSubTitle": "预计 @@05-27 00:00-12:59@@ 送达",
+			"orderSubTitle": "${json-unit.any-string}",
 			"deliveryType": 1,
 			"deliveryTypeStr": "",
 			"payWayName": "礼品卡",
