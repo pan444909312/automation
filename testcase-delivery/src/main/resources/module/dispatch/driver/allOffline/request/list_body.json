@@ -1,0 +1,22 @@
+{
+  "groupMeal": true,
+  "farawayOrderOnly": true,
+  "onlyPandaDeliveryOrders": true,
+  "showSpecialDriverOrders": true,
+  "deliveryTagList": [],
+  "cityName": "杭州市",
+  "cityLocation": {
+    "latitude": "30.2592444615",
+    "longitude": "120.219375416"
+  },
+  "startDate": "",
+  "endDate": "",
+  "timeType": 1,
+  "orderBusinessTypeList": [],
+  "sortType": "2",
+  "driverBusinessTypeList": [],
+  "searchKey": "",
+  "pageNo": 1,
+  "pageSize": 20
+}
+
