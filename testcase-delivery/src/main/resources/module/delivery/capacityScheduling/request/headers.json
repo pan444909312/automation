@@ -1,0 +1,17 @@
+{
+  "host": "app-deliverytest.hungrypanda.cn",
+  "longitude": "120.2169226",
+  "latitude": "30.2036699",
+  "version": "5.56.1",
+  "platform": "ANDROID_DELIVERY",
+  "type": "3",
+  "user-agent": "5.56.1",
+  "locale": "zh-CN",
+  "operatingsystem": "1",
+  "uniquetoken": "201429405301e060",
+  "apptypeid": "2",
+  "countrycode": "CN",
+  "devicesafetoken": "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0",
+  "content-type": "application/json;charset=UTF-8",
+  "accept-encoding": "gzip"
+}

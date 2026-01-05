@@ -37,17 +37,17 @@ public class AutoCaseDailyReportController {
 
         ListDailyResultSummaryReqDTO listDailyResultSummaryReqDTO = new ListDailyResultSummaryReqDTO();
 
-        for (int day = 1; day <= 31; day++) {
-            String dateStr = String.format("2025-10-%02d", day);
-            listDailyResultSummaryReqDTO.setDate(dateStr);
-            autoCaseDailyReportService.addAutoCaseDailyReportList(listDailyResultSummaryReqDTO);
-        }
-
-        for (int day = 1; day <= 30; day++) {
-            String dateStr = String.format("2025-11-%02d", day);
-            listDailyResultSummaryReqDTO.setDate(dateStr);
-            autoCaseDailyReportService.addAutoCaseDailyReportList(listDailyResultSummaryReqDTO);
-        }
+//        for (int day = 1; day <= 31; day++) {
+//            String dateStr = String.format("2025-10-%02d", day);
+//            listDailyResultSummaryReqDTO.setDate(dateStr);
+//            autoCaseDailyReportService.addAutoCaseDailyReportList(listDailyResultSummaryReqDTO);
+//        }
+//
+//        for (int day = 1; day <= 30; day++) {
+//            String dateStr = String.format("2025-11-%02d", day);
+//            listDailyResultSummaryReqDTO.setDate(dateStr);
+//            autoCaseDailyReportService.addAutoCaseDailyReportList(listDailyResultSummaryReqDTO);
+//        }
 
         for (int day = 1; day <= 29; day++) {
             String dateStr = String.format("2025-12-%02d", day);

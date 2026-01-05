@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.工具;
+package com.miller.delivery.testcase.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
@@ -18,7 +18,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2025/5/27 14:56:18
  */
-public class JSON工具 {
+public class JsonUtils {
     /**
      * 读取 Json 文件内容并转换为 Map 对象
      *
@@ -64,7 +64,7 @@ public class JSON工具 {
      */
     static String getFileContent(String filePath) {
         try {
-            ClassLoader classLoader = JSON工具.class.getClassLoader();
+            ClassLoader classLoader = JsonUtils.class.getClassLoader();
             InputStream inputStream = classLoader.getResourceAsStream(filePath);
             if (inputStream == null) {
                 throw new IllegalArgumentException("找不到文件: " + filePath);
