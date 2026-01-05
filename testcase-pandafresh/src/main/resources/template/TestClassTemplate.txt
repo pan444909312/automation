@@ -1,8 +1,8 @@
 package com.miller.testcase.module.%s;
 
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

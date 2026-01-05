@@ -1,9 +1,8 @@
-package com.miller.testcase.module.%s;
+package com.miller.delivery.testcase.module.dispatch.order_create;
 
-import com.miller.service.framework.annotation.Scenario;
 import com.miller.delivery.testcase.config.TestcaseConfig;
-import com.miller.delivery.utils.PandaTestDBHelpful;
-import com.miller.delivery.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,19 +10,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * %s
+ * order-create
  *
- * @author %s
+ * @author panjuxiang
  * @version 2.0
- * @since %s
+ * @since 2026/01/05 16:36:16
  */
 @Scenario(
-        scenarioID = "%s", // 自动生成，不要修改
-        scenarioName = "%s",
-        author = "%s", // 配置本机 Git email 后可自动生成
+        scenarioID = "01KE6MSFC49Q7T63B7KY07X8RW", // 自动生成，不要修改
+        scenarioName = "order-create",
+        author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("%s")
-public class %s {
+@DisplayName("order-create")
+public class Order_Create_Tests {
 
     @BeforeAll
     static void beforeAll(){
@@ -40,17 +39,17 @@ public class %s {
     @Test
     void shouldSuccess() {
         // TestcaseConfig.HOST 是接口的请求域名。 后面的 + "是接口的请求路径"
-        String uri = TestcaseConfig.HOST_APP + "%s";
+        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/order/create";
         // 接口请求方式。如： GET、POST、PUT、DELETE
-        String method = "%s";
+        String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "%s";
+        String headers = "module/dispatch/order_create/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
-        String params = %s;
+        String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "%s";
+        String body = "module/dispatch/order_create/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "%s";
+        String assertFullField = "module/dispatch/order_create/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
