@@ -35,7 +35,7 @@ public class ShopShouldHasPandaDiscountCouponTests {
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.userId"));
     UserCdKeyEntity userCdKeyEntity;
      @BeforeAll
-    void beforeAll() {
+    void beforeAll() throws InterruptedException {
 
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
@@ -50,14 +50,17 @@ public class ShopShouldHasPandaDiscountCouponTests {
          UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
          userCdkeyInfoSql.updateRedPacketUsedStatusExclude(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId3")));
          userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId3")), (byte) 0);
+         //等待5s
+         Thread.sleep(5000);
      }
      @AfterAll
-     void afterAll(){
+     void afterAll() throws InterruptedException {
          //神券信息修改:恢复账户内神券红包
          UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
          userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId")), (byte) 0);
          userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId2")), (byte) 0);
-
+         //等待5s
+         Thread.sleep(5000);
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest

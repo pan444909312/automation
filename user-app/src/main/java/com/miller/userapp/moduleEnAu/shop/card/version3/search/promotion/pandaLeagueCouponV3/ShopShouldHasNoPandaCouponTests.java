@@ -36,7 +36,7 @@ public class ShopShouldHasNoPandaCouponTests {
     private final Long userId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.userId"));
     UserCdKeyEntity userCdKeyEntity;
      @BeforeAll
-    void beforeAll() {
+    void beforeAll() throws InterruptedException {
 
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
@@ -53,6 +53,7 @@ public class ShopShouldHasNoPandaCouponTests {
          userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId2")), (byte) 1);
          userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.redpacketId3")), (byte) 1);
 
+         Thread.sleep(5000);
 
      }
      @AfterAll

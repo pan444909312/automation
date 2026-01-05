@@ -61,6 +61,7 @@ public class CategoryShopShouldHasMemberBenefitDeliveryDsicountScenarioTests {
         //执行定时定时任务：店铺更新定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
 
+
     }
 
     @MethodSource("staticDataProvider")

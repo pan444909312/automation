@@ -45,6 +45,8 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
         );
 //        调用搜索索引定时任务
         XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.id"));
+        XXLJobUtils.triggerJob(new PropertiesUtils().getProperty(this.getClass(), "user.app.job.increment.shop.index.update.new.id"));
+        Thread.sleep(120000);
     }
     @DisplayName("商卡(中文)-普通店铺配送商卡-红包适用商家列表-辅助信息-人均-首页-商卡二期：人均 - 人均展示开关关闭")
     @MethodSource("showLabelDataProvider")
