@@ -27,10 +27,10 @@ public class ControlRuleLifecycleTests {
         String token = erpLogin();
 
         // 2) 新增管控规则，获取 controlNo
-        String controlNo = createControlRule(token);
+        createControlRule(token);
 
         // 3) 获取管控列表校验
-        fetchControlList(token);
+        String controlNo = fetchControlList(token);
 
         // 4) 查看管控详情
         viewControlDetail(token, controlNo);
@@ -45,7 +45,7 @@ public class ControlRuleLifecycleTests {
         deleteControl(token, "501483950317137056");
     }
 
-    private String createControlRule(String token) {
+    private void createControlRule(String token) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/control/saveControl";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
@@ -95,10 +95,9 @@ public class ControlRuleLifecycleTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
-        return TestCaseHelpful.extractValue(responseBody, "$.data.controlNo").toString();
     }
 
-    private void fetchControlList(String token) {
+    private String fetchControlList(String token) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/control/page";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
@@ -115,6 +114,7 @@ public class ControlRuleLifecycleTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        return TestCaseHelpful.extractValue(responseBody, "$.data.list[0].controlNo").toString();
     }
 
     private void viewControlDetail(String token, String controlNo) {
