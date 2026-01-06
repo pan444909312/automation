@@ -1,0 +1,20 @@
+{
+  "code": 1,
+  "message": "成功",
+  "data": {
+    "token": "${json-unit.any-string}",
+    "ssoToken": "${json-unit.any-string}",
+    "manager": {
+      "userId": 4055,
+      "userName": "auto_test",
+      "userNick": "自动化测试账号",
+      "userPic": "https://static-legacy.dingtalk.com/media/lADPDgQ9rFtdSJ7NA4TNA4Q_900_900.jpg",
+      "userTelphone": "13968896296",
+      "passwordUpdateTime": 1709691392483,
+      "cities": null,
+      "roleNames": null
+    }
+  },
+  "currencySymbol": null,
+  "queryList": null
+}
