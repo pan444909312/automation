@@ -19,6 +19,8 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.assertj.core.api.ObjectAssert;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -275,12 +277,51 @@ public class TestCaseHelpful {
                     headers.put("content-type", contentTypeStr);
                     log.info("自动添加 charset=UTF-8 到 Content-Type: {}", contentTypeStr);
                 }
-//                body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
-                // 将 JSON 转为 Map 并确保所有值为简单类型（String/Number）
-                Map<String, Object> rawMap = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
-                Map<String, String> formData = new HashMap<>();
-                rawMap.forEach((key, value) -> formData.put(key, value != null ? value.toString() : ""));
-                body = formData; // 传递简单键值对
+                // 如果 body 已经是 Map 类型，直接使用
+                if (body instanceof Map) {
+                    Map<String, String> formData = new HashMap<>();
+                    ((Map<?, ?>) body).forEach((key, value) -> formData.put(key != null ? key.toString() : "", value != null ? value.toString() : ""));
+                    body = formData;
+                } else if (body instanceof String) {
+                    String bodyStr = body.toString();
+                    // 先尝试判断是否是 JSON 格式
+                    boolean isJson = false;
+                    try {
+                        JSONUtils.parseObject(bodyStr);
+                        isJson = true;
+                    } catch (JSONException e) {
+                        // 不是 JSON 格式，可能是 URL 编码的字符串
+                        isJson = false;
+                    }
+                    
+                    if (isJson) {
+                        // 如果是 JSON，解析为 Map
+                        Map<String, Object> rawMap = JSONUtils.parseObject(bodyStr).toJavaObject(Map.class);
+                        Map<String, String> formData = new HashMap<>();
+                        rawMap.forEach((key, value) -> formData.put(key, value != null ? value.toString() : ""));
+                        body = formData;
+                    } else {
+                        // 如果不是 JSON，尝试解析为 URL 编码的字符串
+                        Map<String, String> formData = new HashMap<>();
+                        String[] pairs = bodyStr.split("&");
+                        for (String pair : pairs) {
+                            int idx = pair.indexOf("=");
+                            if (idx > 0) {
+                                String key = pair.substring(0, idx);
+                                String value = idx < pair.length() - 1 ? pair.substring(idx + 1) : "";
+                                try {
+                                    key = URLDecoder.decode(key, StandardCharsets.UTF_8);
+                                    value = URLDecoder.decode(value, StandardCharsets.UTF_8);
+                                } catch (Exception e) {
+                                    // 如果解码失败，使用原始值
+                                    log.warn("URL 解码失败，使用原始值: key={}, value={}", key, value);
+                                }
+                                formData.put(key, value);
+                            }
+                        }
+                        body = formData;
+                    }
+                }
             } else {
                 body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
             }
