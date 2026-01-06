@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.user.order;
+package com.miller.delivery.testcase.module.autoUtils.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.Map;
 
 /**
- * C侧下即时单-平台配送-杭州-滨江区（放在门口）
+ * C侧下即时单-平台配送-杭州-滨江区（放在门口且电话联系）
  *
  * @author auto-generated
  * @version 2.0
@@ -20,15 +20,15 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01JPPF8ZAFXN5PC1SMYMTPTJBY",
-        scenarioName = "C侧下即时单-平台配送-杭州-滨江区（放在门口）",
+        scenarioName = "C侧下即时单-平台配送-杭州-滨江区（放在门口且电话联系）",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("C侧下即时单-平台配送-杭州-滨江区（放在门口）")
-public class CreateInstantOrderLeaveAtDoorTests {
+@DisplayName("C侧下即时单-平台配送-杭州-滨江区（放在门口且电话联系）")
+public class CreateInstantOrderLeaveAtDoorWithCallTests {
 
-    @DisplayName("完整下单流程-放在门口")
+    @DisplayName("完整下单流程-放在门口且电话联系")
     @Test
-    void shouldCreateInstantOrderLeaveAtDoor() {
+    void shouldCreateInstantOrderLeaveAtDoorWithCall() {
         // 步骤1: C侧下单-用户登录
         String userAppAccessToken = userAppLogin();
         
@@ -41,7 +41,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         // 步骤4: C侧下单-创建虚拟单
         createVirtualOrder(userAppAccessToken, shopId, productId);
         
-        // 步骤5: C侧下单-创建即时单-平台配送 (deliverableAction=17 放在门口)
+        // 步骤5: C侧下单-创建即时单-平台配送 (deliverableAction=12 放在门口且电话联系)
         String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
         
         // 步骤6: C侧下单-余额支付
@@ -112,9 +112,9 @@ public class CreateInstantOrderLeaveAtDoorTests {
         headers.put("userid", "1398716700");
         headers.put("content-type", "application/x-www-form-urlencoded");
         
-        // deliverableAction=17 表示放在门口, addressId=1398683380, tipPrice=4.39
+        // deliverableAction=12 表示放在门口且电话联系, addressId=1398679388, tipPrice=4.39
         var requestBody = String.format(
-            "deliveryTime=尽快送达&deliverableAction=17&tablewareCount=1&userPhone=86 13251016327&orderReqType=1&deliveryType=1&platform=1&addressId=1398683380&productCartList=[{\\\"pickUpType\\\":0,\\\"productId\\\":%d,\\\"secKillFlag\\\":0,\\\"skuId\\\":0,\\\"tagId\\\":[]}]&payType=16&saType=0&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=4.39&needNumberMasking=false&isOnlinePay=true",
+            "deliveryTime=尽快送达&deliverableAction=12&tablewareCount=1&userPhone=86 13251016327&orderReqType=1&deliveryType=1&platform=1&addressId=1398679388&productCartList=[{\\\"pickUpType\\\":0,\\\"productId\\\":%d,\\\"secKillFlag\\\":0,\\\"skuId\\\":0,\\\"tagId\\\":[]}]&payType=16&saType=0&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=4.39&needNumberMasking=false&isOnlinePay=true",
             productId, shopId
         );
         

@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.im;
+package com.miller.delivery.testcase.module.autoUtils.im;
 
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;

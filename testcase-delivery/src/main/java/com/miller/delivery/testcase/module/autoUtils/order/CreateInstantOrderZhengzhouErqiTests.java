@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.user.order;
+package com.miller.delivery.testcase.module.autoUtils.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
