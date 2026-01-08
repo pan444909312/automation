@@ -12,8 +12,9 @@ import java.util.Objects;
  */
 public class AutoSignUtils {
     private static final String signAuthKey = "hP*L8pp65_#1flvjk342589fdgjl34m";
+    private static final String signAuthKeyDelivery = "ldkai_1ldal#nvhsl*afl3g2akgbvsa";
 
-    public static Map<String, Object> signHandler(Map<String, Object> headers, Object body){
+    public static Map<String, Object> signHandlerCommon(Map<String, Object> headers, Object body, String signAuthKey){
         Long timeStamp = System.currentTimeMillis();
         headers.put("_ts", timeStamp);
         JSONObject requestJsonObject = new JSONObject();
@@ -33,6 +34,14 @@ public class AutoSignUtils {
         String sig = SignUtil.getSign(signAuthKey, requestJsonObject);
         headers.put("_sig", sig);
         return headers;
+    }
+
+
+    public static Map<String, Object> signHandlerDelivery(Map<String, Object> headers, Object body){
+        return signHandlerCommon(headers, body, signAuthKeyDelivery);
+    }
+    public static Map<String, Object> signHandler(Map<String, Object> headers, Object body){
+        return signHandlerCommon(headers, body, signAuthKey);
     }
 
     protected static JSONObject convertBooleanToNumber(JSONObject jsonObject) {

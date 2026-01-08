@@ -12,6 +12,7 @@ import com.miller.service.framework.cache.remote.redis.RedisService;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
+import com.miller.service.util.AutoSignUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
@@ -328,12 +329,16 @@ public class TestCaseHelpful {
         }
         method = method.toUpperCase();
         if ("POST".equals(method)) {
+            AutoSignUtils.signHandlerDelivery(headers,body);
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);
         } else if ("GET".equals(method)) {
+            AutoSignUtils.signHandlerDelivery(headers,body);
             return HttpUtils.sendGetRequestReturnBody(uri, params, headers, null);
         } else if ("PUT".equals(method)) {
+            AutoSignUtils.signHandlerDelivery(headers,body);
             return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
         } else if ("DELETE".equals(method)) {
+            AutoSignUtils.signHandlerDelivery(headers,body);
             return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
         } else {
             log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
