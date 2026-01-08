@@ -55,6 +55,9 @@ public class MD5Util {
 
 
     public static void main(String[] args) {
+
+        System.out.println(string2MD5("mengfanxu@hungrypandagroup.com"+"123456"));
+
         String s = "011309428363457587";
         s = convertMD5(s);
         System.out.println(s);
