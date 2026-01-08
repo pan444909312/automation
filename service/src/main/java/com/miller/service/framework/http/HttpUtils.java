@@ -31,7 +31,11 @@ public class HttpUtils {
     }
 
     public static Map<String, Object> sendPostRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies) {
-//        AutoSignUtils.signHandler(headers,body);
+        if (uri.contains("app-deliverytest.hungrypanda.cn")){
+            AutoSignUtils.signHandlerDelivery(headers,body);
+        }else {
+            AutoSignUtils.signHandler(headers,body);
+        }
         if (!headers.containsKey("enableSign")){
             headers.put("enableSign", true);
         }

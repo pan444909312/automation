@@ -41,6 +41,7 @@ public class AutoSignUtils {
         return signHandlerCommon(headers, body, signAuthKeyDelivery);
     }
     public static Map<String, Object> signHandler(Map<String, Object> headers, Object body){
+
         return signHandlerCommon(headers, body, signAuthKey);
     }
 
