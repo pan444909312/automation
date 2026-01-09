@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.autoUtils.auth;
+package com.miller.delivery.testcase.module.deliveryUtils.auth;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;

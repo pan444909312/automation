@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.autoUtils.order;
+package com.miller.delivery.testcase.module.deliveryUtils.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.Map;
 
 /**
- * C侧下即时单-平台配送-郑州市-滨江区
+ * C侧下即时单-平台配送-杭州-热力图区
  *
  * @author auto-generated
  * @version 2.0
@@ -20,29 +20,29 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01JPPF8ZAFXN5PC1SMYMTPTJBY",
-        scenarioName = "C侧下即时单-平台配送-郑州市-滨江区",
+        scenarioName = "C侧下即时单-平台配送-杭州-热力图区",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("C侧下即时单-平台配送-郑州市-滨江区")
-public class CreateInstantOrderZhengzhouBinjiangTests {
+@DisplayName("C侧下即时单-平台配送-杭州-热力图区")
+public class CreateInstantOrderHeatMapAreaTests {
 
-    @DisplayName("完整下单流程-郑州市-滨江区")
+    @DisplayName("完整下单流程-热力图区")
     @Test
-    void shouldCreateInstantOrderZhengzhouBinjiang() {
+    void shouldCreateInstantOrderHeatMapArea() {
         // 步骤1: C侧下单-用户登录
         String userAppAccessToken = userAppLogin();
         
-        // 步骤2: C侧下单-获取店铺商品信息 (shopId=300522820)
+        // 步骤2: C侧下单-获取店铺商品信息 (shopId=31234832)
         Long productId = getShopProductInfo(userAppAccessToken);
         
         // 步骤3: C侧下单-加购商品
         Long shopId = addToCart(userAppAccessToken, productId);
         
         // 步骤4: C侧下单-创建虚拟单
-        String subTotalAmount = createVirtualOrder(userAppAccessToken, shopId, productId);
+        createVirtualOrder(userAppAccessToken, shopId, productId);
         
-        // 步骤5: C侧下单-创建即时单-平台配送 (deliverableAction=11, addressId=1398680297)
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId, subTotalAmount);
+        // 步骤5: C侧下单-创建即时单-平台配送 (deliverableAction=11, addressId=1398680631)
+        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
         
         // 步骤6: C侧下单-余额支付
         balancePay(userAppAccessToken, userAppOrderSn);
@@ -71,8 +71,8 @@ public class CreateInstantOrderZhengzhouBinjiangTests {
         headers.put("authorization", userAppAccessToken);
         headers.put("userid", "1398716700");
         
-        // shopId=300522820 (郑州市-滨江区)
-        var requestBody = "{\"deliveryType\":1,\"shopId\":300522820}";
+        // shopId=31234832 (热力图区)
+        var requestBody = "{\"deliveryType\":1,\"shopId\":31234832}";
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.menuList[0].subMenuList[0].productList[0].productId").toString());
@@ -86,29 +86,28 @@ public class CreateInstantOrderZhengzhouBinjiangTests {
         headers.put("userid", "1398716700");
         
         long nowTime = System.currentTimeMillis();
-        // shopId=300522820 (郑州市-滨江区)
-        var requestBody = String.format("{\"deliveryType\":1,\"shopId\":300522820,\"items\":[{\"productId\":%d,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}", productId, nowTime);
+        // shopId=31234832 (热力图区)
+        var requestBody = String.format("{\"deliveryType\":1,\"shopId\":31234832,\"items\":[{\"productId\":%d,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}", productId, nowTime);
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
     }
 
-    private String createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
+    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
         headers.put("authorization", userAppAccessToken);
         headers.put("userid", "1398716700");
         
-        // addressId=1398680297 (郑州市-滨江区)
-        var requestBody = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1,\"orderReqType\":0,\"deliveryType\":0,\"platform\":1,\"addressId\":1398680297,\"productCartList\":\"[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]\",\"payType\":0,\"verify\":0,\"shopId\":%d,\"stability\":0,\"requestSourceType\":0}", productId, shopId);
+        // addressId=1398680631 (热力图区)
+        var requestBody = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1,\"orderReqType\":0,\"deliveryType\":0,\"platform\":1,\"addressId\":1398680631,\"productCartList\":\"[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]\",\"payType\":0,\"verify\":0,\"shopId\":%d,\"stability\":0,\"requestSourceType\":0}", productId, shopId);
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.priceInfo.subTotalAmount").toString();
     }
 
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId, String subTotalAmount) {
+    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/order/create";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
@@ -116,10 +115,10 @@ public class CreateInstantOrderZhengzhouBinjiangTests {
         headers.put("userid", "1398716700");
         headers.put("content-type", "application/x-www-form-urlencoded");
         
-        // deliverableAction=11, addressId=1398680297, tipPrice=1.00 (郑州市-滨江区)
+        // deliverableAction=11, addressId=1398680631, tipPrice=1.00 (热力图区)
         var requestBody = String.format(
-            "deliveryTime=尽快送达&deliverableAction=11&tablewareCount=1&userPhone=86+13251016327&orderReqType=1&deliveryType=1&fixedPrice=%s&platform=1&addressId=1398680297&productCartList=[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]&payType=16&saType=0&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=1.00&needNumberMasking=false&isOnlinePay=true",
-            subTotalAmount, productId, shopId
+            "deliveryTime=尽快送达&deliverableAction=11&tablewareCount=1&userPhone=86+13251016327&orderReqType=1&deliveryType=1&platform=1&addressId=1398680631&productCartList=[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]&payType=16&saType=0&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=1.00&needNumberMasking=false&isOnlinePay=true",
+            productId, shopId
         );
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
