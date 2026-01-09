@@ -23,7 +23,11 @@ public class HttpUtils {
     private static AbstractHTTPUtils abstractProtocol = new HTTPUtilsByRestAssured();
 
     public static Map<String, Object> sendGetRequest(String uri, Map<String, Object> params, Map<String, Object> headers, Map<String, Object> cookies) {
-//        AutoSignUtils.signHandler(headers,null);
+        if (uri.contains("app-deliverytest.hungrypanda.cn")){
+            AutoSignUtils.signHandlerDelivery(headers,null);
+        }else {
+            AutoSignUtils.signHandler(headers,null);
+        }
         if (!headers.containsKey("enableSign")){
             headers.put("enableSign", true);
         }
