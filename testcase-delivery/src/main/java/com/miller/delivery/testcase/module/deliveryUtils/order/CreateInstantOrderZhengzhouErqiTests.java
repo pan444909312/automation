@@ -117,10 +117,7 @@ public class CreateInstantOrderZhengzhouErqiTests {
         headers.put("content-type", "application/x-www-form-urlencoded");
         
         // deliverableAction=11, addressId=1398680297, tipPrice=1.00 (郑州市-二七区)
-        var requestBody = String.format(
-            "deliveryTime=尽快送达&deliverableAction=11&tablewareCount=1&userPhone=86+13251016327&orderReqType=1&deliveryType=1&fixedPrice=%s&platform=1&addressId=1398680297&productCartList=[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]&payType=16&saType=0&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=1.00&needNumberMasking=false&isOnlinePay=true",
-            subTotalAmount, productId, shopId
-        );
+        var requestBody = "{\"deliveryTime\":\"尽快送达\",\"deliverableAction\":\"11\",\"tablewareCount\":\"1\",\"userPhone\":\"86+13251016327\",\"orderReqType\":\"1\",\"deliveryType\":\"1\",\"fixedPrice\":\"4335\",\"platform\":\"1\",\"addressId\":\"1398680297\",\"productCartList\":[{\"productId\":82334770,\"skuId\":0,\"stability\":0,\"tagId\":[]}],\"payType\":\"16\",\"saType\":\"0\",\"verify\":\"0\",\"shopId\":\"124702053\",\"superValueExchangeList\":null,\"tipPrice\":1.00,\"needNumberMasking\":false,\"isOnlinePay\":true}";
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);

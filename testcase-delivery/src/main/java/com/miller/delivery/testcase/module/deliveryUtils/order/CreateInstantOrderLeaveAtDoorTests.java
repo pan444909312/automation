@@ -113,10 +113,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         headers.put("content-type", "application/x-www-form-urlencoded");
         
         // deliverableAction=17 表示放在门口, addressId=1398683380, tipPrice=4.39
-        var requestBody = String.format(
-            "deliveryTime=尽快送达&deliverableAction=17&tablewareCount=1&userPhone=86 13251016327&orderReqType=1&deliveryType=1&platform=1&addressId=1398683380&productCartList=[{\\\"pickUpType\\\":0,\\\"productId\\\":%d,\\\"secKillFlag\\\":0,\\\"skuId\\\":0,\\\"tagId\\\":[]}]&payType=16&saType=0&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=4.39&needNumberMasking=false&isOnlinePay=true",
-            productId, shopId
-        );
+        var requestBody = "{\"deliveryTime\":\"尽快送达\",\"deliverableAction\":\"17\",\"tablewareCount\":\"1\",\"userPhone\":\"86 13251016327\",\"orderReqType\":\"1\",\"deliveryType\":\"1\",\"platform\":\"1\",\"addressId\":\"1398683380\",\"productCartList\":[{\"pickUpType\":0,\"productId\":81871322,\"secKillFlag\":0,\"skuId\":0,\"tagId\":[]}],\"payType\":\"16\",\"saType\":\"0\",\"verify\":\"0\",\"shopId\":\"892716498\",\"superValueExchangeList\":null,\"tipPrice\":4.39,\"needNumberMasking\":false,\"isOnlinePay\":true}";
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);

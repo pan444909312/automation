@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.delivery.driver;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +20,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * @since 2025/01/07
  */
 @Scenario(
-        scenarioID = "PLACEHOLDER_SCENARIO_ID",
+        scenarioID = "01K1TBDXXB3R2YWN2XGX946TCX",
         scenarioName = "骑手抢单-完单流程(放在门口送达）",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 240, maintenanceTime = 0, manualTestTime = 5)
@@ -30,13 +31,9 @@ public class GrabOrderCompleteDoorDeliveryTests {
     @Test
     void shouldCompleteGrabOrderDoorDeliveryFlow() {
         // ========== 第一部分：C侧下单流程 ==========
-        String userAppAccessToken = userAppLogin();
-        Long productId = getShopProductInfo(userAppAccessToken);
-        Long shopId = addToCart(userAppAccessToken, productId);
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        balancePay(userAppAccessToken, userAppOrderSn);
-        
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
+
         // ========== 第二部分：骑手操作流程 ==========
         String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
         driverOnline(driverAccessToken);
@@ -53,78 +50,6 @@ public class GrabOrderCompleteDoorDeliveryTests {
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1); // 到店
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2); // 取餐
         completeOrderDoorDelivery(driverAccessToken, userAppOrderSn); // 放在门口送达
-    }
-
-    private String userAppLogin() {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/combine/login";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        String body = "{\"areaCode\":\"86\",\"distinctId\":\"4dd9690f6a6b639c\"," +
-                "\"password\":\"2c9341ca4cf3d87b9e4eb905d6a3ec45\",\"channel\":0," +
-                "\"type\":\"2\",\"account\":\"13251016327\",\"stability\":0}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
-    }
-
-    private Long getShopProductInfo(String userAppAccessToken) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/v1/shop/menuList";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        String body = "{\"deliveryType\":1,\"shopId\":892716498}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, 
-                "$.result.menuList[0].subMenuList[0].productList[0].productId").toString());
-    }
-
-    private Long addToCart(String userAppAccessToken, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/order/v3/shoppingCart";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        long nowTime = System.currentTimeMillis();
-        String body = String.format("{\"deliveryType\":1,\"shopId\":892716498," +
-                "\"items\":[{\"productId\":%d,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}",
-                productId, nowTime);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
-    }
-
-    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        String body = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1," +
-                "\"shopId\":%d,\"deliveryType\":1}", shopId);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-    }
-
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/create";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        String body = String.format("{\"orderType\":1,\"shopId\":%d,\"deliveryType\":1," +
-                "\"payType\":1,\"items\":[{\"productId\":%d,\"skuId\":0,\"quantity\":1}]}", 
-                shopId, productId);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.orderSn").toString();
-    }
-
-    private void balancePay(String userAppAccessToken, String orderSn) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/pay";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        String body = String.format("{\"orderSn\":\"%s\",\"payType\":1}", orderSn);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
     }
 
     private void driverOnline(String driverAccessToken) {

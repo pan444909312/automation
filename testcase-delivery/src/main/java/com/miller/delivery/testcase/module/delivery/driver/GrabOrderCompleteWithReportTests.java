@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.delivery.driver;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -30,24 +31,9 @@ public class GrabOrderCompleteWithReportTests {
     @Test
     void shouldCompleteGrabOrderWithReportFlow() {
         // ========== 第一部分：C侧下单流程 ==========
-        // 步骤1: C侧下单-用户登录
-        String userAppAccessToken = userAppLogin();
-        
-        // 步骤2: C侧下单-获取店铺商品信息
-        Long productId = getShopProductInfo(userAppAccessToken);
-        
-        // 步骤3: C侧下单-加购商品
-        Long shopId = addToCart(userAppAccessToken, productId);
-        
-        // 步骤4: C侧下单-创建虚拟单
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤5: C侧下单-创建即时单-平台配送
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤6: C侧下单-余额支付
-        balancePay(userAppAccessToken, userAppOrderSn);
-        
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
+
         // ========== 第二部分：司管操作流程 ==========
         // 步骤7: 司管登录获取token
         String siGuanToken = erpLogin();
@@ -116,108 +102,6 @@ public class GrabOrderCompleteWithReportTests {
         
         // 步骤27: 司机下线操作
         driverOffline(driverAccessToken);
-    }
-
-    /**
-     * C侧下单-用户登录
-     */
-    private String userAppLogin() {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/combine/login";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        
-        String body = "{\"areaCode\":\"86\",\"distinctId\":\"4dd9690f6a6b639c\"," +
-                "\"password\":\"2c9341ca4cf3d87b9e4eb905d6a3ec45\",\"channel\":0," +
-                "\"type\":\"2\",\"account\":\"13251016327\",\"stability\":0}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
-    }
-
-    /**
-     * C侧下单-获取店铺商品信息
-     */
-    private Long getShopProductInfo(String userAppAccessToken) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/v1/shop/menuList";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        
-        String body = "{\"deliveryType\":1,\"shopId\":892716498}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, 
-                "$.result.menuList[0].subMenuList[0].productList[0].productId").toString());
-    }
-
-    /**
-     * C侧下单-加购商品
-     */
-    private Long addToCart(String userAppAccessToken, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/order/v3/shoppingCart";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        
-        long nowTime = System.currentTimeMillis();
-        String body = String.format("{\"deliveryType\":1,\"shopId\":892716498," +
-                "\"items\":[{\"productId\":%d,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}",
-                productId, nowTime);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
-    }
-
-    /**
-     * C侧下单-创建虚拟单
-     */
-    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        
-        String body = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1," +
-                "\"shopId\":%d,\"deliveryType\":1}", shopId);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-    }
-
-    /**
-     * C侧下单-创建即时单-平台配送
-     */
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/create";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        
-        String body = String.format("{\"orderType\":1,\"shopId\":%d,\"deliveryType\":1," +
-                "\"payType\":1,\"items\":[{\"productId\":%d,\"skuId\":0,\"quantity\":1}]}", 
-                shopId, productId);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.orderSn").toString();
-    }
-
-    /**
-     * C侧下单-余额支付
-     */
-    private void balancePay(String userAppAccessToken, String orderSn) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/pay";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        
-        String body = String.format("{\"orderSn\":\"%s\",\"payType\":1}", orderSn);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
     }
 
     /**

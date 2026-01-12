@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.delivery.driver;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
@@ -21,7 +22,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * @since 2025/01/07
  */
 @Scenario(
-        scenarioID = "PLACEHOLDER_SCENARIO_ID",
+        scenarioID = "01KEH3ZHF6PX08DCXM4FDNKCSW",
         scenarioName = "骑手抢单-完单流程(收餐码订单）",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 240, maintenanceTime = 0, manualTestTime = 5)
@@ -32,13 +33,9 @@ public class GrabOrderCompleteCodeOrderTests {
     @Test
     void shouldCompleteGrabOrderCodeOrderFlow() {
         // ========== 第一部分：C侧下单流程 ==========
-        String userAppAccessToken = userAppLogin();
-        Long productId = getShopProductInfo(userAppAccessToken);
-        Long shopId = addToCart(userAppAccessToken, productId);
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        balancePay(userAppAccessToken, userAppOrderSn);
-        
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
+
         // ========== 第二部分：前置操作 ==========
         // 从数据库查询正确的收餐码
         String correctFoodDeliveryCode = getFoodDeliveryCodeFromDatabase(userAppOrderSn);

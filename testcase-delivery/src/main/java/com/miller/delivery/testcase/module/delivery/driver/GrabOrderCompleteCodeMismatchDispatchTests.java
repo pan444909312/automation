@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.delivery.driver;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
@@ -31,12 +32,8 @@ public class GrabOrderCompleteCodeMismatchDispatchTests {
     @Test
     void shouldCompleteGrabOrderCodeMismatchDispatchFlow() {
         // ========== 第一部分：C侧下单流程 ==========
-        String userAppAccessToken = userAppLogin();
-        Long productId = getShopProductInfo(userAppAccessToken);
-        Long shopId = addToCart(userAppAccessToken, productId);
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        balancePay(userAppAccessToken, userAppOrderSn);
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
         
         // ========== 第二部分：前置操作 ==========
         updateFoodDeliveryCode(userAppOrderSn, "12345678");

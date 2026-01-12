@@ -158,10 +158,7 @@ public class CreateTwoInstantOrdersTests {
         headers.put("content-type", "application/x-www-form-urlencoded");
         
         // 构建表单数据，注意 deliverableAction=15
-        var requestBody = String.format(
-            "deliveryTime=尽快送达&deliverableAction=15&tablewareCount=1&userPhone=86+13251016327&orderReqType=1&deliveryType=1&fixedPrice=%s&platform=1&addressId=1398679388&productCartList=[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]&payType=16&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=0.24&needNumberMasking=false&isOnlinePay=true",
-            subTotalAmount, productId, shopId
-        );
+        var requestBody = "{\"deliveryTime\":\"尽快送达\",\"deliverableAction\":\"15\",\"tablewareCount\":\"1\",\"userPhone\":\"86+13251016327\",\"orderReqType\":\"1\",\"deliveryType\":\"1\",\"fixedPrice\":\"32114\",\"platform\":\"1\",\"addressId\":\"1398679388\",\"productCartList\":[{\"productId\":81865046,\"skuId\":0,\"stability\":0,\"tagId\":[]}],\"payType\":\"16\",\"verify\":\"0\",\"shopId\":\"892716498\",\"superValueExchangeList\":null,\"tipPrice\":0.24,\"needNumberMasking\":false,\"isOnlinePay\":true}";
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);

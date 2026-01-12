@@ -116,10 +116,7 @@ public class CreateInstantOrderHeatMapAreaTests {
         headers.put("content-type", "application/x-www-form-urlencoded");
         
         // deliverableAction=11, addressId=1398680631, tipPrice=1.00 (热力图区)
-        var requestBody = String.format(
-            "deliveryTime=尽快送达&deliverableAction=11&tablewareCount=1&userPhone=86+13251016327&orderReqType=1&deliveryType=1&platform=1&addressId=1398680631&productCartList=[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]&payType=16&saType=0&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=1.00&needNumberMasking=false&isOnlinePay=true",
-            productId, shopId
-        );
+        var requestBody = "{\"deliveryTime\":\"尽快送达\",\"deliverableAction\":\"11\",\"tablewareCount\":\"1\",\"userPhone\":\"86+13251016327\",\"orderReqType\":\"1\",\"deliveryType\":\"1\",\"platform\":\"1\",\"addressId\":\"1398680631\",\"productCartList\":[{\"productId\":82280606,\"skuId\":0,\"stability\":0,\"tagId\":[]}],\"payType\":\"16\",\"saType\":\"0\",\"verify\":\"0\",\"shopId\":\"31234832\",\"superValueExchangeList\":null,\"tipPrice\":1.00,\"needNumberMasking\":false,\"isOnlinePay\":true}";
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);

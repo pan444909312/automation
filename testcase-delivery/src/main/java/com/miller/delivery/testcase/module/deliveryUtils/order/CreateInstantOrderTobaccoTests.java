@@ -114,8 +114,7 @@ public class CreateInstantOrderTobaccoTests {
         headers.put("content-type", "application/x-www-form-urlencoded");
         
         // deliverableAction=15, productId=82494163 (烟订单)
-        var requestBody = "deliveryTime=尽快送达&deliverableAction=15&tablewareCount=1&userPhone=86+13251016327&orderReqType=1&deliveryType=1&platform=1&addressId=1398679388&productCartList=[{\"productId\":82494163,\"skuId\":0,\"stability\":0,\"tagId\":[]}]&payType=16&verify=0&shopId=" + shopId + "&superValueExchangeList=null&tipPrice=0.24&needNumberMasking=false&isOnlinePay=true";
-        
+        var requestBody = "{\"deliveryTime\":\"尽快送达\",\"deliverableAction\":\"15\",\"tablewareCount\":\"1\",\"userPhone\":\"86+13251016327\",\"orderReqType\":\"1\",\"deliveryType\":\"1\",\"platform\":\"1\",\"addressId\":\"1398679388\",\"productCartList\":[{\"productId\":82494163,\"skuId\":0,\"stability\":0,\"tagId\":[]}],\"payType\":\"16\",\"verify\":\"0\",\"shopId\":\"892716498\",\"superValueExchangeList\":null,\"tipPrice\":0.24,\"needNumberMasking\":false,\"isOnlinePay\":true}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         return TestCaseHelpful.extractValue(responseBody, "$.result.orderSn").toString();
