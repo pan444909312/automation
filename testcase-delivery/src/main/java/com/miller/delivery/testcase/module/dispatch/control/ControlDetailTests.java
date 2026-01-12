@@ -27,14 +27,13 @@ public class ControlDetailTests {
     @Test
     void shouldGetControlDetail() {
         // 步骤1: 先登录获取token
-        String token = erpLogin();
-        
+        String token = TestCaseHelpful.erpLogin();
+
         // 步骤2: 设置请求头
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/dispatch/control/controlDetail/request/headers.json");
         headers.put("token", token);
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
 
         // 步骤3: 设置请求体
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/control/controlDetail/request/body.json");
@@ -50,25 +49,6 @@ public class ControlDetailTests {
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
     }
 
-    /**
-     * 司管后台登录并返回token
-     *
-     * @return token
-     */
-    private String erpLogin() {
-        String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
-        String method = "POST";
-        Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
-        headers.put("Content-Type", "application/json");
 
-        var requestBody = TestCaseHelpful.getJsonRequestBody("module/erp/auth/request/body.json");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.password", "4f2142904392cbef6974ad0260caeb33");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.userName", "ding17058431144045523");
-
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
-        return TestCaseHelpful.extractValue(responseBody, "$.data.token").toString();
-    }
 }
 

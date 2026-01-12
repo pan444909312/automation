@@ -202,7 +202,7 @@ public class ImChatTests {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/auth/login";
         String method = "POST";
         Map<String, Object> headers = new HashMap<>();
-        headers.put("enableSign", "false");
+         
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         
@@ -267,7 +267,7 @@ public class ImChatTests {
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
-        headers.put("enableSign", "false");
+         
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
@@ -280,7 +280,7 @@ public class ImChatTests {
         Map<String, Object> headers = new HashMap<>();
         headers.put("platform", "ANDROID_DELIVERY");
         headers.put("apptypeid", "2");
-        headers.put("enableSign", "false");
+         
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         return headers;

@@ -307,7 +307,7 @@ public class DispatchAssignReceiveCompleteWithBankCardTests {
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("Authorization", driverAccessToken);
         headers.put("operatingsystem", "2");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         
         var requestBody = String.format("{\"orderPackageId\":\"%s\",\"type\":1}", packageId);
@@ -327,7 +327,7 @@ public class DispatchAssignReceiveCompleteWithBankCardTests {
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
         headers.put("operatingsystem", "2");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         
         var requestBody = String.format("{\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[],\"waitUserArrive\":0,\"operationType\":%d,\"orderSnList\":[\"%s\"],\"driverArriveType\":0}", 
@@ -347,7 +347,7 @@ public class DispatchAssignReceiveCompleteWithBankCardTests {
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
         headers.put("operatingsystem", "2");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         
         // 有银行卡场景：包含银行卡相关字段
@@ -379,7 +379,7 @@ public class DispatchAssignReceiveCompleteWithBankCardTests {
         headers.put("language", "CN");
         headers.put("countrycode", "CN");
         headers.put("uniquetoken", "4dd9690f6a6b639c");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -389,7 +389,7 @@ public class DispatchAssignReceiveCompleteWithBankCardTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/delivery/auth/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         return headers;
@@ -402,7 +402,7 @@ public class DispatchAssignReceiveCompleteWithBankCardTests {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/dispatch/order/orderAdjustmentPrice/request/headers.json");
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+
         return headers;
     }
 }

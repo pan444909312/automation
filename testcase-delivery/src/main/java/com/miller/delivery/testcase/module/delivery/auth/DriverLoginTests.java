@@ -37,7 +37,7 @@ public class DriverLoginTests {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/delivery/auth/request/headers.json");
         // 设置请求头参数
         headers.put("platform", "");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改

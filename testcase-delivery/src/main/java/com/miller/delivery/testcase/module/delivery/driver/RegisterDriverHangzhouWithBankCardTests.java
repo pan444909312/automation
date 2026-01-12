@@ -505,7 +505,7 @@ public class RegisterDriverHangzhouWithBankCardTests {
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
@@ -528,7 +528,7 @@ public class RegisterDriverHangzhouWithBankCardTests {
         headers.put("sec-fetch-mode", "cors");
         headers.put("sec-fetch-site", "same-site");
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }

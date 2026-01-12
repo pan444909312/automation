@@ -30,7 +30,7 @@ public class CustomerAreaWithCityTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/customerArea/withCity/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/customerArea/withCity/request/body.json");
@@ -51,7 +51,7 @@ public class CustomerAreaWithCityTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/customerArea/withCity/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/customerArea/withCity/request/body.json");
@@ -72,7 +72,7 @@ public class CustomerAreaWithCityTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/customerArea/withCity/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/customerArea/withCity/request/body.json");
@@ -93,7 +93,7 @@ public class CustomerAreaWithCityTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/customerArea/withCity/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/customerArea/withCity/request/body.json");

@@ -93,7 +93,7 @@ public class ControlReportPublishTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = new HashMap<>();
-        headers.put("enableSign", "false");
+         
         headers.put("Content-Type", "application/json");
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
 
@@ -111,7 +111,7 @@ public class ControlReportPublishTests {
         Map<String, Object> headers = new HashMap<>();
         headers.put("authorization", token);
         headers.put("priority", "u=1, i");
-        headers.put("enableSign", "false");
+         
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;

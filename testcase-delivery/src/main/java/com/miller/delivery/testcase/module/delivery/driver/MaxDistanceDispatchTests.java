@@ -69,7 +69,7 @@ public class MaxDistanceDispatchTests {
         headers.put("longitude", "120.217095");
         headers.put("latitude", "30.203565");
         headers.put("platform", "");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         return headers;

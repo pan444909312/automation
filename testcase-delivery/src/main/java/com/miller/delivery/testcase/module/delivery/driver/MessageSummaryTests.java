@@ -28,7 +28,7 @@ public class MessageSummaryTests {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/message/messageSummary";
         Map<String, Object> headers = new HashMap<>();
         headers.put("Authorization", token);
-        headers.put("enableSign", "false");
+         
 
         var response = TestCaseHelpful.sendRequest("POST", uri, null, headers, "{}");
 

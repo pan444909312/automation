@@ -305,7 +305,7 @@ public class DispatchAssignReceiveCompleteTests {
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("Authorization", driverAccessToken);
         headers.put("operatingsystem", "2");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json");
         
         var requestBody = String.format("{\"orderPackageId\":\"%s\",\"type\":1}", packageId);
@@ -325,7 +325,7 @@ public class DispatchAssignReceiveCompleteTests {
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
         headers.put("operatingsystem", "2");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json");
         
         var requestBody = String.format("{\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[],\"waitUserArrive\":0,\"operationType\":%d,\"orderSnList\":[\"%s\"],\"driverArriveType\":0}", 
@@ -345,7 +345,7 @@ public class DispatchAssignReceiveCompleteTests {
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
         headers.put("operatingsystem", "2");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json");
         
         var requestBody = String.format("{\"driverArriveType\":11,\"operationType\":6,\"arriveRemark\":\"留言备注内容-apifox自动化测试创建，图片默认写死资源地址，免去每次上传图片到oss\",\"waitUserArrive\":0,\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/170174606688616113ac9a0a74ab29cdadf98ad4cf090.jpg\"],\"orderSnList\":[\"%s\"]}", 
@@ -363,7 +363,7 @@ public class DispatchAssignReceiveCompleteTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
+         
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/erp/auth/request/body.json");
@@ -394,7 +394,7 @@ public class DispatchAssignReceiveCompleteTests {
         headers.put("language", "CN");
         headers.put("countrycode", "CN");
         headers.put("uniquetoken", "4dd9690f6a6b639c");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -404,7 +404,7 @@ public class DispatchAssignReceiveCompleteTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/delivery/auth/request/headers.json");
-        headers.put("enableSign", "false");
+         
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         return headers;
@@ -417,7 +417,7 @@ public class DispatchAssignReceiveCompleteTests {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/dispatch/order/orderAdjustmentPrice/request/headers.json");
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+         
         return headers;
     }
 }

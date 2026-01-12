@@ -90,7 +90,7 @@ public class PerformanceSummaryTests {
         headers.put("longitude", "120.216847");
         headers.put("devicesafetoken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
         headers.put("apptypeid", "2");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         return headers;
     }

@@ -28,7 +28,7 @@ public class StudyMessageNotificationTests {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/message/studyMsgList";
         Map<String, Object> headers = new HashMap<>();
         headers.put("Authorization", token);
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         String body = "{\"pageNo\":1,\"pageSize\":10}";

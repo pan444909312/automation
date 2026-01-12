@@ -30,7 +30,7 @@ public class ForbiddenAreaBatchTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/forbiddenArea/batch/request/headers.json");
-        headers.put("enableSign", "false");
+         
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/forbiddenArea/batch/request/batch_body.json");
@@ -48,7 +48,7 @@ public class ForbiddenAreaBatchTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/forbiddenArea/batch/request/headers.json");
-        headers.put("enableSign", "false");
+         
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/forbiddenArea/batch/request/batch_no_lon_body.json");
@@ -66,7 +66,7 @@ public class ForbiddenAreaBatchTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/forbiddenArea/batch/request/headers.json");
-        headers.put("enableSign", "false");
+         
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/forbiddenArea/batch/request/batch_no_lat_body.json");

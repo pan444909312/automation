@@ -54,7 +54,7 @@ public class MessageListTests {
     private Map<String, Object> createHeaders() {
         Map<String, Object> headers = new HashMap<>();
         headers.put("platform", "");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
         return headers;
     }

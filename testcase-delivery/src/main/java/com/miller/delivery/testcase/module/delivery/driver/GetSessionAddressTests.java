@@ -80,7 +80,7 @@ public class GetSessionAddressTests {
         headers.put("apptypeid", "2");
         headers.put("accept-language", "zh-Hans;q=1");
         headers.put("accept", "*/*");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         return headers;
     }

@@ -37,7 +37,7 @@ public class DriverMatchingTests {
         headers.put("token", siGuanToken);
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+
 
         // 步骤3: 设置请求体
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/driver/matching/request/body_without_orders.json");
@@ -83,7 +83,7 @@ public class DriverMatchingTests {
         headers.put("token", siGuanToken);
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+
 
         // 步骤3: 设置请求体
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/driver/matching/request/body_with_orders.json");
@@ -402,7 +402,7 @@ public class DriverMatchingTests {
         headers.put("token", siGuanToken);
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/driver/matching/request/body_with_orders.json");
         
@@ -466,7 +466,7 @@ public class DriverMatchingTests {
         headers.put("language", "CN");
         headers.put("countrycode", "CN");
         headers.put("uniquetoken", "4dd9690f6a6b639c");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -477,7 +477,7 @@ public class DriverMatchingTests {
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new java.util.HashMap<>();
         headers.put("platform", "");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         return headers;
@@ -493,7 +493,7 @@ public class DriverMatchingTests {
         headers.put("origin", "https://hp-dispatch-admin-f2e-test.hungrypanda.cn");
         headers.put("referer", "https://hp-dispatch-admin-f2e-test.hungrypanda.cn/");
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -507,7 +507,7 @@ public class DriverMatchingTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/erp/auth/request/body.json");

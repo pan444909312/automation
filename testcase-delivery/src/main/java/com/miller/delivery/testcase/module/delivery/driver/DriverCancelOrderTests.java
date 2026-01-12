@@ -173,7 +173,7 @@ public class DriverCancelOrderTests {
         headers.put("operatingsystem", "1");
         headers.put("longitude", "120.217095");
         headers.put("latitude", "30.203565");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         
@@ -264,7 +264,7 @@ public class DriverCancelOrderTests {
         headers.put("regionid", "3");
         headers.put("hpfcityname", "杭州市");
         headers.put("hpfcityid", "755");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -286,7 +286,7 @@ public class DriverCancelOrderTests {
         headers.put("longitude", "120.216994");
         headers.put("devicesafetoken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
         headers.put("apptypeid", "2");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json");
         return headers;

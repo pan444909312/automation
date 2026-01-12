@@ -55,7 +55,7 @@ public class AnnouncementMsgTests {
         Map<String, Object> headers = new HashMap<>();
         headers.put("platform", "ANDROID_DELIVERY");
         headers.put("apptypeid", "2");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
         return headers;
     }

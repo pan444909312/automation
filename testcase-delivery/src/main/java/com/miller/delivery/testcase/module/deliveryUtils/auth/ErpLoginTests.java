@@ -37,7 +37,7 @@ public class ErpLoginTests {
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
         // 设置请求头参数
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改

@@ -30,7 +30,7 @@ public class EtaDeliveryTimeDataTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/eta/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         headers.put("authorization", "a85292f0a18e8bf0551ea3fa81be995c");
 
@@ -51,7 +51,7 @@ public class EtaDeliveryTimeDataTests {
         String method = "POST";
         
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/eta/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         headers.put("authorization", "a85292f0a18e8bf0551ea3fa81be995c");
 

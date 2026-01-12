@@ -107,7 +107,7 @@ public class BatchScheduleBookingTests {
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
         headers.put("platform", "");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
         return headers;
     }

@@ -49,7 +49,7 @@ public class CancellationConfigUpdateTests {
         headers.put("authorization", token);
         headers.put("h5xxx", "1754374901864_request");
         headers.put("priority", "u=1, i");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;

@@ -190,7 +190,7 @@ public class DriverOnlineTests {
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         
         String body = "{\"continueDown\":0,\"isOnline\":0}";
@@ -210,7 +210,7 @@ public class DriverOnlineTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         return headers;
     }
@@ -234,7 +234,7 @@ public class DriverOnlineTests {
         headers.put("devicesafetoken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
         headers.put("apptypeid", "2");
         headers.put("accept", "*/*");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         return headers;
     }

@@ -81,7 +81,7 @@ public class ViewThisWeekScheduleTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         return headers;
     }

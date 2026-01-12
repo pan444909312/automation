@@ -276,7 +276,7 @@ public class GrabOrderCompleteCodeOrderTests {
         headers.put("countrycode", "CN");
         headers.put("uniquetoken", "4dd9690f6a6b639c");
         headers.put("device_safe_token", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -297,7 +297,7 @@ public class GrabOrderCompleteCodeOrderTests {
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json;charset=UTF-8");
         return headers;
     }

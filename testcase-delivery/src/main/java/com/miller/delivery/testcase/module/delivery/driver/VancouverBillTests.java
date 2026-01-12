@@ -80,7 +80,7 @@ public class VancouverBillTests {
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("accept-language", "zh-CN,zh-Hans;q=0.9");
         headers.put("content-type", "application/json");
-        headers.put("enableSign", "false");
+
         return headers;
     }
 }

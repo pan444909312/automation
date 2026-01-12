@@ -295,7 +295,7 @@ public class DispatchAssignRejectTests {
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("Authorization", driverAccessToken);
         headers.put("operatingsystem", "2");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json");
         
         var requestBody = String.format("{\"orderPackageId\":\"%s\",\"type\":2,\"rejectReason\":\"自动化测试-骑手拒单\"}", packageId);
@@ -313,7 +313,7 @@ public class DispatchAssignRejectTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
+         
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/erp/auth/request/body.json");
@@ -344,7 +344,7 @@ public class DispatchAssignRejectTests {
         headers.put("language", "CN");
         headers.put("countrycode", "CN");
         headers.put("uniquetoken", "4dd9690f6a6b639c");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -354,7 +354,7 @@ public class DispatchAssignRejectTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/delivery/auth/request/headers.json");
-        headers.put("enableSign", "false");
+         
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         return headers;
@@ -367,7 +367,7 @@ public class DispatchAssignRejectTests {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/dispatch/order/orderAdjustmentPrice/request/headers.json");
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+         
         return headers;
     }
 }

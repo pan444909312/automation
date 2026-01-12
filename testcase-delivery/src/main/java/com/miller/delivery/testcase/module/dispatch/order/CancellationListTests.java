@@ -33,7 +33,7 @@ public class CancellationListTests {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/dispatch/order/cancellationList/request/headers.json");
         headers.put("token", token);
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         // 步骤3: 设置请求体
@@ -59,7 +59,7 @@ public class CancellationListTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/erp/auth/request/body.json");

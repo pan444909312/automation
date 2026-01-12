@@ -41,7 +41,7 @@ public class DriverCompleteOrderTests {
         headers.put("token", token);
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+         
 
         // 步骤3: 设置请求体
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/order/driverCompleteOrder/request/body.json");
@@ -80,7 +80,7 @@ public class DriverCompleteOrderTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
+         
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/erp/auth/request/body.json");

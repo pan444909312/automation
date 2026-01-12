@@ -219,7 +219,7 @@ public class DriverApprovalWithoutBackgroundCheckTests {
      */
     private Map<String, Object> createErpHeaders() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;

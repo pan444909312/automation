@@ -219,7 +219,7 @@ public class OrderAdjustmentPriceAndSpecialOrderTests {
         headers.put("devicesafetoken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
         headers.put("apptypeid", "2");
         headers.put("accept", "*/*");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         
         var requestBody = String.format("{\"orderPackageId\":\"%s\",\"type\":1}", packageId);
@@ -253,7 +253,7 @@ public class OrderAdjustmentPriceAndSpecialOrderTests {
         headers.put("longitude", "120.216994");
         headers.put("devicesafetoken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
         headers.put("apptypeid", "2");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         
         JSONArray orderSnList = new JSONArray();
@@ -290,7 +290,7 @@ public class OrderAdjustmentPriceAndSpecialOrderTests {
         headers.put("longitude", "120.216994");
         headers.put("devicesafetoken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
         headers.put("apptypeid", "2");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         
         JSONArray orderSnList = new JSONArray();
@@ -330,7 +330,7 @@ public class OrderAdjustmentPriceAndSpecialOrderTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/erp/auth/request/body.json");
@@ -347,7 +347,7 @@ public class OrderAdjustmentPriceAndSpecialOrderTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/delivery/auth/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         return headers;
@@ -360,7 +360,7 @@ public class OrderAdjustmentPriceAndSpecialOrderTests {
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/dispatch/order/orderAdjustmentPrice/request/headers.json");
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+
         return headers;
     }
 }

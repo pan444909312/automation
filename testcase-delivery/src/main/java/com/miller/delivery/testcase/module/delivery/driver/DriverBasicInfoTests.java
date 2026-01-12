@@ -73,7 +73,7 @@ public class DriverBasicInfoTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", "1111"); // 无效token
-        headers.put("enableSign", "false");
+
         
         String body = "{}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);

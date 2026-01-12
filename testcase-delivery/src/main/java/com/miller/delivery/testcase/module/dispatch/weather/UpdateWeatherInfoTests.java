@@ -46,7 +46,7 @@ public class UpdateWeatherInfoTests {
         headers.put("token", token);
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+
 
         // 步骤3: 获取未来1分钟后的时间（格式：yyyy-MM-dd HH:mm:ss）
         LocalDateTime futureTime = LocalDateTime.now().plusDays(1);
@@ -84,7 +84,7 @@ public class UpdateWeatherInfoTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/erp/auth/request/headers.json");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
 
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/erp/auth/request/body.json");

@@ -50,7 +50,7 @@ public class StationDisableTests {
         Map<String, Object> headers = new HashMap<>();
         headers.put("authorization", token);
         headers.put("priority", "u=1, i");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;

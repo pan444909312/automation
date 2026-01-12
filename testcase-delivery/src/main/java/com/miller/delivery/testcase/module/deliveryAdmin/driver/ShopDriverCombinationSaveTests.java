@@ -61,7 +61,7 @@ public class ShopDriverCombinationSaveTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/erp/auth/login/v2";
         String method = "POST";
         Map<String, Object> headers = new HashMap<>();
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json");
         String body = "{\"password\":\"d9501f93554734ba83d19c9dc83ef4fb\",\"userName\":\"ding023660390221528503\"}";
 

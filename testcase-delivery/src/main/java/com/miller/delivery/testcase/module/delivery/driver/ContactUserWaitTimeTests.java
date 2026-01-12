@@ -100,7 +100,7 @@ public class ContactUserWaitTimeTests {
         headers.put("apptypeid", "2");
         headers.put("accept-language", "zh-Hans;q=1");
         headers.put("accept", "*/*");
-        headers.put("enableSign", "false");
+         
         headers.put("User-Agent", "PandaDelivery/5.64.0 (iPhone; iOS 18.3.1; Scale/2.00) OKPOS");
         headers.put("content-type", "application/json");
         return headers;

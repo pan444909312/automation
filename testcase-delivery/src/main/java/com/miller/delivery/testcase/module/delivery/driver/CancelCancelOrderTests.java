@@ -68,7 +68,7 @@ public class CancelCancelOrderTests {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/auth/login";
         String method = "POST";
         Map<String, Object> headers = new HashMap<>();
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         
@@ -209,7 +209,7 @@ public class CancelCancelOrderTests {
         headers.put("operatingsystem", "1");
         headers.put("longitude", "120.217095");
         headers.put("latitude", "30.203565");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("Content-Type", "application/json");
         
@@ -331,7 +331,7 @@ public class CancelCancelOrderTests {
         headers.put("regionid", "3");
         headers.put("hpfcityname", "杭州市");
         headers.put("hpfcityid", "755");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -355,7 +355,7 @@ public class CancelCancelOrderTests {
         headers.put("apptypeid", "2");
         headers.put("accept-language", "zh-Hans;q=1");
         headers.put("accept", "*/*");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "PandaDelivery/5.64.0 (iPhone; iOS 18.3.1; Scale/2.00) OKPOS");
         headers.put("content-type", "application/json");
         return headers;

@@ -95,7 +95,7 @@ public class PlatformSalaryAdjustmentTests {
         headers.put("sec-fetch-mode", "cors");
         headers.put("sec-fetch-site", "same-site");
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }

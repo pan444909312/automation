@@ -101,17 +101,6 @@ public class DriverOfflineTests {
     /**
      * C侧用户登录
      */
-    private String userAppLogin() {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/combine/login";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        
-        var requestBody = "{\"areaCode\":\"86\",\"distinctId\":\"4dd9690f6a6b639c\",\"password\":\"2c9341ca4cf3d87b9e4eb905d6a3ec45\",\"channel\":0,\"type\":\"2\",\"account\":\"13251016327\",\"stability\":0}";
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
-    }
 
     /**
      * 获取店铺商品信息
@@ -376,7 +365,7 @@ public class DriverOfflineTests {
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json;charset=UTF-8");
         
         var requestBody = "{\"continueDown\":0,\"isOnline\":0}";
@@ -500,7 +489,7 @@ public class DriverOfflineTests {
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json;charset=UTF-8");
         
         var requestBody = "{\"continueDown\":0,\"isOnline\":0}";
@@ -530,7 +519,7 @@ public class DriverOfflineTests {
         headers.put("language", "CN");
         headers.put("countrycode", "CN");
         headers.put("uniquetoken", "4dd9690f6a6b639c");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -540,7 +529,7 @@ public class DriverOfflineTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json");
         return headers;
     }
@@ -564,7 +553,7 @@ public class DriverOfflineTests {
         headers.put("apptypeid", "2");
         headers.put("accept-language", "zh-Hans-CN;q=1, en-CN;q=0.9, ja-CN;q=0.8, en-AU;q=0.7");
         headers.put("accept", "*/*");
-        headers.put("enableSign", "false");
+         
         headers.put("content-type", "application/json");
         return headers;
     }
@@ -577,7 +566,7 @@ public class DriverOfflineTests {
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("accept-language", "zh-CN,zh;q=0.9");
         headers.put("content-type", "application/json;charset=UTF-8");
-        headers.put("enableSign", "false");
+         
         return headers;
     }
 }

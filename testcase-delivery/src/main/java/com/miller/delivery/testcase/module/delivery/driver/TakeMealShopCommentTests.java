@@ -147,7 +147,7 @@ public class TakeMealShopCommentTests {
         headers.put("apptypeid", "2");
         headers.put("accept", "*/*");
         headers.put("Cookie", "sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%221398714164%22%2C%22first_id%22%3A%22196f136f4caa4b-07e7232fd42cab-37176e50-370944-196f136f4cbc89%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%2C%22identities%22%3A%22eyIkaWRlbnRpdHlfY29va2llX2lkIjoiMTk2ZjEzNmY0Y2FhNGItMDdlNzIzMmZkNDJjYWItMzcxNzZlNTAtMzcwOTQ0LTE5NmYxMzZmNGNiYzg5IiwiJGlkZW50aXR5X2xvZ2luX2lkIjoiMTM5ODcxNDE2NCJ9%22%2C%22history_login_id%22%3A%7B%22name%22%3A%22%24identity_login_id%22%2C%22value%22%3A%221398714164%22%7D%7D");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json");
         return headers;
     }

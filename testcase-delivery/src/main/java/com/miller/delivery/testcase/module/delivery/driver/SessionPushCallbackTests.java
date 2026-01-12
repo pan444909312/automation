@@ -75,7 +75,7 @@ public class SessionPushCallbackTests {
         headers.put("latitude", "30.203565");
         headers.put("operatingsystem", "1");
         headers.put("platform", "");
-        headers.put("enableSign", "false");
+         
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json");
         return headers;

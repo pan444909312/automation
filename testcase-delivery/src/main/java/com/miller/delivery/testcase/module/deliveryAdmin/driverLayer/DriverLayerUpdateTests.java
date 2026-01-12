@@ -136,7 +136,7 @@ public class DriverLayerUpdateTests {
         headers.put("sec-ch-ua", "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"");
         headers.put("sec-ch-ua-mobile", "?0");
         headers.put("sec-ch-ua-platform", "\"Windows\"");
-        headers.put("enableSign", "false");
+
         headers.put("Content-Type", "application/json;charset=UTF-8");
         return headers;
     }

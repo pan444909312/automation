@@ -265,7 +265,7 @@ public class FoodDeliveryCodeTests {
         headers.put("regionid", "3");
         headers.put("hpfcityname", "%E6%9D%AD%E5%B7%9E%E5%B8%82");
         headers.put("hpfcityid", "755");
-        headers.put("enableSign", "false");
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
@@ -287,7 +287,7 @@ public class FoodDeliveryCodeTests {
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
-        headers.put("enableSign", "false");
+
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
