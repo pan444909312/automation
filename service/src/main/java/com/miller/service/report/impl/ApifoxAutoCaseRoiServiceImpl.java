@@ -63,7 +63,6 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
             // 只在新增用例的时候才写入创建人，默认写本次写入的用例负责人
             autoCaseRoi.setCreator(dto.getEmail());
 
-            autoCaseRoi.setPlatformType(PlatformTypeEnum.APIFOX.getCode());
 
             //  初始化创建时间:  时间格式不对则当前创建时间
             String createTime = dto.getCreateTime();
@@ -104,6 +103,7 @@ public class ApifoxAutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper,
         final Integer expectTimes = ObjectUtils.isEmpty(dto.getExpectTimes()) ? 1 : dto.getExpectTimes();
         autoCaseRoi.setExpectTimes(expectTimes);
         autoCaseRoi.setRemark(dto.getRemark());
+        autoCaseRoi.setPlatformType(PlatformTypeEnum.APIFOX.getCode());
 
         // 写入数据
         this.saveOrUpdate(autoCaseRoi);
