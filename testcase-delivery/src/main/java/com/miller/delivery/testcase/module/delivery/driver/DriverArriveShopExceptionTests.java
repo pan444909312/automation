@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.delivery.driver;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -28,23 +29,8 @@ public class DriverArriveShopExceptionTests {
     @Test
     void shouldFailArriveShopWithoutReceivingOrder() {
         // ========== 第一部分：C侧下单流程 ==========
-        // 步骤1: C侧下单-用户登录
-        String userAppAccessToken = userAppLogin();
-        
-        // 步骤2: C侧下单-获取店铺商品信息
-        Long productId = getShopProductInfo(userAppAccessToken);
-        
-        // 步骤3: C侧下单-加购商品
-        Long shopId = addToCart(userAppAccessToken, productId);
-        
-        // 步骤4: C侧下单-创建虚拟单
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤5: C侧下单-创建即时单-平台配送
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤6: C侧下单-余额支付
-        balancePay(userAppAccessToken, userAppOrderSn);
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
         
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
