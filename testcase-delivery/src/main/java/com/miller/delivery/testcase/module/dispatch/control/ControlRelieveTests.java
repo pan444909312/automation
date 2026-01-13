@@ -1,8 +1,11 @@
 package com.miller.delivery.testcase.module.dispatch.control;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
+import com.miller.service.framework.db.DBUtils;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,11 +26,27 @@ import java.util.Map;
 @DisplayName("开启AUTO")
 public class ControlRelieveTests {
 
+
+
     @DisplayName("正向流程")
     @Test
     void shouldRelieveControl() {
         // 步骤1: 先登录获取token
         String token = erpLogin();
+        Map<String, Object> result = PandaTestDBHelpful.executeSelectOneSql("SELECT * from hp_delivery_driver_control_punish WHERE punish_action=5 and punish_status=1  and driver_id=1398714150");
+
+        System.out.println("管控结果：" + result);
+        if (result == null || result.isEmpty()) {
+            // 如果骑手无关闭auto的惩罚，则新建一个
+            ControlSaveTests controlSaveTests = new ControlSaveTests();
+            controlSaveTests.shouldSaveControl();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
         
         // 步骤2: 设置请求头
         Map<String, Object> headers = TestCaseHelpful.getHeaders("module/dispatch/control/controlRelieve/request/headers.json");
