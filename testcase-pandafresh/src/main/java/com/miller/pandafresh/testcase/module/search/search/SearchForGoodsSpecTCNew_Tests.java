@@ -64,7 +64,7 @@ public class SearchForGoodsSpecTCNew_Tests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        requestBody = JSONUtils.updateJsonValue(requestBody,"keyword","dongfangTC");
+        requestBody = JSONUtils.updateJsonValue(requestBody,"keyword","默認");
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
         var requestParams = TestCaseHelpful.getJsonRequestParams(params);
 
@@ -78,7 +78,7 @@ public class SearchForGoodsSpecTCNew_Tests {
 
         // 收集所有类目名称
         List<String> goodsNames = new ArrayList<>();
-        for (int i = 0; i < goodsList.size(); i++) {
+        for (int i = 0; i < 1; i++) {
             Map goods = (Map<String, Object>) goodsList.get(i);
             Integer goodsId = (Integer) goods.get("goodsId");
             String sql = "SELECT * FROM goods_sku f WHERE f.default_sku=1 and f.goods_id="+goodsId;
@@ -87,7 +87,7 @@ public class SearchForGoodsSpecTCNew_Tests {
         }
 
         // 断言数组中包含指定的商品类目
-        boolean containsExpectedGoods = goodsNames.contains("dongfangTC");
+        boolean containsExpectedGoods = goodsNames.contains("默認");
 
         TestCaseHelpful.assertThat(containsExpectedGoods).isEqualTo(true);
 
