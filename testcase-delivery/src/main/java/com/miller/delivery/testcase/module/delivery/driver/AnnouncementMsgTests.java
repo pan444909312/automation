@@ -29,7 +29,24 @@ public class AnnouncementMsgTests {
         Map<String, Object> headers = createHeaders();
         headers.put("authorization", token);
 
-        String body = "{\"pageNo\":1,\"pageSize\":20}";
+
+        headers.put("longitude", "120.216853");
+        headers.put("latitude", "30.203564");
+        headers.put("version", "5.80.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "2");
+        headers.put("brand", "iPhone 11");
+        headers.put("uniquetoken", "9A95A874-6493-4DFC-A5E1-BCE3C7C265D0");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("deviceSafeToken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("content-type", "application/json;charset=UTF-8");
+
+
+        String body = "{\n" +
+                "\t\"pageNo\": 1\n" +
+                "}";
         var response = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
         TestCaseHelpful.assertThatJson(response).node("resultCode").isEqualTo(1000);
@@ -42,7 +59,18 @@ public class AnnouncementMsgTests {
     void shouldRejectWithoutLogin() {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/message/announcementMsgList";
         Map<String, Object> headers = createHeaders();
-
+        headers.put("longitude", "120.216853");
+        headers.put("latitude", "30.203564");
+        headers.put("version", "5.80.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "2");
+        headers.put("brand", "iPhone 11");
+        headers.put("uniquetoken", "9A95A874-6493-4DFC-A5E1-BCE3C7C265D0");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("deviceSafeToken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("content-type", "application/json;charset=UTF-8");
         String body = "{\"pageNo\":1,\"pageSize\":20}";
         var response = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
@@ -55,6 +83,7 @@ public class AnnouncementMsgTests {
         Map<String, Object> headers = new HashMap<>();
         headers.put("platform", "ANDROID_DELIVERY");
         headers.put("apptypeid", "2");
+
 
         headers.put("Content-Type", "application/json");
         return headers;
