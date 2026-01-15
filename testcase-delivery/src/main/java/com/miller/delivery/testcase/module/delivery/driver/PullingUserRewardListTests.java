@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2025/01/06
  */
 @Scenario(
-        scenarioID = "01K18DGXZQ6TKVJ3RPEW7ZPN98",
+        scenarioID = "01KF07E0AXGAJDXP0N1YJGSDA9",
         scenarioName = "骑手app-骑手拉新用户奖励列表",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
