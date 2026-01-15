@@ -17,7 +17,7 @@ import java.util.Map;
  * @since 2025/01/06
  */
 @Scenario(
-        scenarioID = "01JZ01JD4P8D3P0BY46TQF5ADA",
+        scenarioID = "01KF06SEZ0PVJZ9NTZ0X7RMGJG",
         scenarioName = "骑手app-西雅图法案订单列表",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
