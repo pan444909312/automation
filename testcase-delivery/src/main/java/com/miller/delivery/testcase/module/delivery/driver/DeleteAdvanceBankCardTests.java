@@ -35,8 +35,8 @@ public class DeleteAdvanceBankCardTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        
-        String body = "";
+
+        String body = String.format("{\"areaCode\":\"86\"}");
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言
