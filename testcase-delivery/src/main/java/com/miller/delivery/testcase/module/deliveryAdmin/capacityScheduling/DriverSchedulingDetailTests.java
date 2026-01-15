@@ -31,6 +31,9 @@ public class DriverSchedulingDetailTests {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+        //先发布当天的排班
+        CapacitySchedulingManualReleaseTests capacitySchedulingManualReleaseTests = new CapacitySchedulingManualReleaseTests();
+        capacitySchedulingManualReleaseTests.shouldReleaseCurrentWeekPlan();
 
         // 3) 生成当天日期
         LocalDate today = LocalDate.now();
