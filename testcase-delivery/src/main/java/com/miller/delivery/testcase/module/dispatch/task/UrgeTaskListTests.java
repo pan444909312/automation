@@ -42,8 +42,7 @@ public class UrgeTaskListTests {
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pageSize", 10);
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.taskNewType", 0);
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.city", "杭州市");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.distance", null);
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.thirdType", null);
+
 
         // 步骤4: 发起请求
         String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/urge/taskList";
