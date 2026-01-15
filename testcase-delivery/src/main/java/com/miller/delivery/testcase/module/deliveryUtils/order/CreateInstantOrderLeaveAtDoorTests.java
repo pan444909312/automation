@@ -52,7 +52,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         assertFalse(userAppOrderSn.isEmpty());
     }
 
-    private String userAppLogin() {
+    public String userAppLogin() {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/combine/login";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
@@ -64,7 +64,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
     }
 
-    private Long getShopProductInfo(String userAppAccessToken) {
+    public Long getShopProductInfo(String userAppAccessToken) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/v1/shop/menuList";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
@@ -77,7 +77,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.menuList[0].subMenuList[0].productList[0].productId").toString());
     }
 
-    private Long addToCart(String userAppAccessToken, Long productId) {
+    public Long addToCart(String userAppAccessToken, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/order/v3/shoppingCart";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
@@ -91,7 +91,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
     }
 
-    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
+    public void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
@@ -104,7 +104,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
     }
 
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
+    public String createOrder(String userAppAccessToken, Long shopId, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/order/create";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
@@ -120,7 +120,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         return TestCaseHelpful.extractValue(responseBody, "$.result.orderSn").toString();
     }
 
-    private void balancePay(String userAppAccessToken, String userAppOrderSn) {
+    public void balancePay(String userAppAccessToken, String userAppOrderSn) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/pay/balance";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
@@ -134,7 +134,7 @@ public class CreateInstantOrderLeaveAtDoorTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
     }
 
-    private Map<String, Object> createUserAppHeaders() {
+    public Map<String, Object> createUserAppHeaders() {
         Map<String, Object> headers = new java.util.HashMap<>();
         headers.put("Host", "app-test.hungrypanda.cn");
         headers.put("longitude", "120.216727");

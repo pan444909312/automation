@@ -1,12 +1,16 @@
 package com.miller.delivery.testcase.module.dispatch.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderLeaveAtDoorTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * 挂起订单
@@ -38,10 +42,27 @@ public class PutOnDispatchOrderTests {
 
         // 步骤3: 设置请求体
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/order/putOnDispatchOrder/request/body.json");
-        // 生成动态orderSn
-        long timestamp = System.currentTimeMillis();
-        String orderSn = "APIFOXTEST" + timestamp;
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.orderSn", orderSn);
+
+        //创建C订单，获取userAppOrderSn
+        CreateInstantOrderLeaveAtDoorTests creaateOrderLeaveAtDoorTests = new CreateInstantOrderLeaveAtDoorTests();
+        // 步骤1: C侧下单-用户登录
+        String userAppAccessToken = creaateOrderLeaveAtDoorTests.userAppLogin();
+        // 步骤2: C侧下单-获取店铺商品信息
+        Long productId = creaateOrderLeaveAtDoorTests.getShopProductInfo(userAppAccessToken);
+        // 步骤3: C侧下单-加购商品
+        Long shopId = creaateOrderLeaveAtDoorTests.addToCart(userAppAccessToken, productId);
+        // 步骤4: C侧下单-创建虚拟单
+        creaateOrderLeaveAtDoorTests.createVirtualOrder(userAppAccessToken, shopId, productId);
+        // 步骤5: C侧下单-创建即时单-平台配送 (deliverableAction=17 放在门口)
+        String userAppOrderSn = creaateOrderLeaveAtDoorTests.createOrder(userAppAccessToken, shopId, productId);
+        // 步骤6: C侧下单-余额支付
+        creaateOrderLeaveAtDoorTests.balancePay(userAppAccessToken, userAppOrderSn);
+        // 断言订单创建成功
+        assertNotNull(userAppOrderSn);
+        assertFalse(userAppOrderSn.isEmpty());
+
+
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.orderSn", userAppOrderSn);
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.putOnTimeMinutes", "10");
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.putOnType", 0);
 
