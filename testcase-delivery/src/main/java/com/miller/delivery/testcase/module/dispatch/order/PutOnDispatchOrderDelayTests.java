@@ -34,11 +34,14 @@ public class PutOnDispatchOrderDelayTests {
         headers.put("token", token);
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
+        PutOnDispatchOrderTests putOnDispatchOrderTests = new PutOnDispatchOrderTests();
+        putOnDispatchOrderTests.shouldPutOnDispatchOrder();
+        String deliveryOrderSn = putOnDispatchOrderTests.deliveryOrderSn;
 
 
         // 步骤3: 设置请求体
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/order/putOnDispatchOrderDelay/request/body.json");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.orderSn", "APIFOXTEST1731053420615");
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.orderSn", deliveryOrderSn);
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.putOnTimeMinutes", "20");
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.putOnType", 2);
 

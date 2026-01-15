@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @DisplayName("挂起订单")
 public class PutOnDispatchOrderTests {
+    public   String deliveryOrderSn;
 
     @DisplayName("正向流程")
     @Test
@@ -57,6 +58,7 @@ public class PutOnDispatchOrderTests {
         String userAppOrderSn = creaateOrderLeaveAtDoorTests.createOrder(userAppAccessToken, shopId, productId);
         // 步骤6: C侧下单-余额支付
         creaateOrderLeaveAtDoorTests.balancePay(userAppAccessToken, userAppOrderSn);
+        deliveryOrderSn=userAppOrderSn;
         // 断言订单创建成功
         assertNotNull(userAppOrderSn);
         assertFalse(userAppOrderSn.isEmpty());
