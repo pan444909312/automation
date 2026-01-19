@@ -6,7 +6,6 @@
 		"newUserAmount": "${json-unit.any-number}",
 		"title": "${json-unit.any-string}",
 		"saleLabel":"${json-unit.any-string}",
-		"praiseAverage": "${json-unit.any-string}",
 		"promoteLabel": "${json-unit.any-string}",
 		"shareImgUrl":"${json-unit.ignore-element}"
 	},
