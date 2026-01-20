@@ -3,7 +3,6 @@
   "message": "成功",
   "data": {
     "token": "${json-unit.any-string}",
-    "ssoToken": "${json-unit.any-string}",
     "manager": {
       "userId": 4055,
       "userName": "auto_test",
