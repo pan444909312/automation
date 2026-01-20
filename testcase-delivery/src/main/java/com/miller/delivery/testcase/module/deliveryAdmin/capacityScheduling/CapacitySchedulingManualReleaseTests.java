@@ -35,6 +35,13 @@ public class CapacitySchedulingManualReleaseTests {
         String mondayStr = monday.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String sundayStr = sunday.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+        // 获取当天日期
+        LocalDate today = LocalDate.now();
+
+        // 格式化为指定格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = today.format(formatter);
+
         // 3) 操作台发布当周计划
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/capacityScheduling/manualRelease";
         String method = "POST";
@@ -68,7 +75,7 @@ public class CapacitySchedulingManualReleaseTests {
                 "        }\r\n" +
                 "    ],\r\n" +
                 "    \"city\": \"杭州市\"\r\n" +
-                "}", mondayStr, sundayStr, sundayStr);
+                "}", mondayStr, sundayStr, formattedDate);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 4) 断言

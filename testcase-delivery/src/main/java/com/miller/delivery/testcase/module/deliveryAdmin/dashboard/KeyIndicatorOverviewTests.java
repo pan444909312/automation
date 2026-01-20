@@ -22,6 +22,10 @@ public class KeyIndicatorOverviewTests {
     @DisplayName("获取关键指标概览")
     @Test
     void shouldGetKeyIndicatorOverview() {
+        // 1) 司管登录获取 token
+        String token = erpLogin();
+
+
         // 1) 生成当天日期
         LocalDate today = LocalDate.now();
         String todayDate = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -29,7 +33,7 @@ public class KeyIndicatorOverviewTests {
         // 2) 获取关键指标概览
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/performanceKanban/querySummary";
         String method = "POST";
-        Map<String, Object> headers = createHeaders();
+        Map<String, Object> headers = createHeaders(token);
         String body = String.format("{\"cityList\":[\"杭州市\"],\"startDate\":\"%s\",\"endDate\":\"%s\",\"date\":\"\"}",
                 todayDate, todayDate);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
@@ -41,12 +45,13 @@ public class KeyIndicatorOverviewTests {
                 .node("message").isEqualTo("成功");
     }
 
-    private Map<String, Object> createHeaders() {
+    private Map<String, Object> createHeaders(String token) {
         Map<String, Object> headers = new HashMap<>();
         headers.put("accept", "*/*");
         headers.put("accept-language", "zh-CN,zh;q=0.9");
         headers.put("origin", "https://hp-delivery-admin-f2e-test.hungrypanda.cn");
         headers.put("priority", "u=1, i");
+        headers.put("authorization", token);
         headers.put("referer", "https://hp-delivery-admin-f2e-test.hungrypanda.cn/");
         headers.put("sec-ch-ua", "\"Not(A:Brand\";v=\"99\", \"Google Chrome\";v=\"133\", \"Chromium\";v=\"133\"");
         headers.put("sec-ch-ua-mobile", "?0");
@@ -58,6 +63,9 @@ public class KeyIndicatorOverviewTests {
 
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
+    }
+    private String erpLogin() {
+        return TestCaseHelpful.erpLogin();
     }
 }
 

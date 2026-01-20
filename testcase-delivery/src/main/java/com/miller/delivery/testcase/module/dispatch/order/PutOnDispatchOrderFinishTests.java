@@ -34,11 +34,13 @@ public class PutOnDispatchOrderFinishTests {
         headers.put("token", token);
         headers.put("accept", "application/json, text/plain, */*");
         headers.put("content-type", "application/json;charset=UTF-8");
-
+        PutOnDispatchOrderTests putOnDispatchOrderTests = new PutOnDispatchOrderTests();
+        putOnDispatchOrderTests.shouldPutOnDispatchOrder();
+        String deliveryOrderSn = putOnDispatchOrderTests.deliveryOrderSn;
 
         // 步骤3: 设置请求体
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/order/putOnDispatchOrderFinish/request/body.json");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.orderSn", "APIFOXTEST1731053420615");
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.orderSn", deliveryOrderSn);
 
         // 步骤4: 发起请求
         String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/order/putOnDispatchOrderFinish";

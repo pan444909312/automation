@@ -28,7 +28,7 @@ public class DriverInvoiceQueryTests {
     @Test
     void shouldGetDriverInvoiceQuery() {
         // 1) 骑手登录获取 token
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010254", "Test1234");
 
         // 2) 骑手账单日期查询
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driverSalary/driverInvoiceQuery";
@@ -37,7 +37,7 @@ public class DriverInvoiceQueryTests {
         headers.put("authorization", driverAccessToken);
         
         // 使用JSON中的日期范围
-        String body = "{\"endDate\":\"2025-07-01\",\"startDate\":\"2021-01-20\"}";
+        String body = "{\"endDate\":\"2026-01-15\",\"startDate\":\"2025-01-20\"}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言

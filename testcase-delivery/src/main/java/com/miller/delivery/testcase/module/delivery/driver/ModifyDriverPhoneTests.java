@@ -26,14 +26,14 @@ import java.util.Map;
 public class ModifyDriverPhoneTests {
 
     // 注意：需要在实际使用时替换为真实的新手机号
-    private static final String NEW_PHONE = "13251210001"; // 请从质量平台或实际业务中获取
-    private static final String OLD_PHONE = "19539027924"; // 请从质量平台或实际业务中获取
+    private static final String NEW_PHONE = "13200000001"; // 请从质量平台或实际业务中获取
+    private static final String OLD_PHONE = "13300010682"; // 请从质量平台或实际业务中获取
 
     @DisplayName("修改手机号完整流程")
     @Test
     void shouldModifyDriverPhone() {
         // 1) 骑手登录获取 token
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010682", "Test1234");
 
         // 2) 插入验证码到数据库（用于修改手机号）
         insertVerificationCode(NEW_PHONE);

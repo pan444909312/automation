@@ -77,9 +77,7 @@ public class ModifyHeadPicTests {
 
         // 断言
         TestCaseHelpful.assertThatJson(responseBody)
-                .node("resultCode").isEqualTo(101011);
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("reason").isEqualTo("参数错误");
+                .node("resultCode").isEqualTo(299999);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(false);
     }

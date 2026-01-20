@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.driverGroup;
+package com.miller.delivery.testcase.module.deliveryAdmin.urgeMeal;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -17,7 +17,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("修改骑手群组")
-public class DriverGroupUpdateTests {
+public class UrgeMealDriverGroupUpdateTests {
 
     @DisplayName("修改骑手群组")
     @Test
@@ -29,10 +29,10 @@ public class DriverGroupUpdateTests {
         String uri1 = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/urgeMeal/driverGroupInfo";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String body1 = "{\"configNo\":\"472586939537845376\"}";
+        String body1 = "{\"configNo\":\"490969254394568672\"}";
         var responseBody1 = TestCaseHelpful.sendRequest(method, uri1, null, headers, body1);
         TestCaseHelpful.assertThatJson(responseBody1)
-                .node("message").isEqualTo("收到请求");
+                .node("message").isEqualTo("成功");
 
         // 3) 获取所有群组列表
         String uri2 = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/driverGroup/getDriverGroupAllList";
