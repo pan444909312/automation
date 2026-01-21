@@ -28,4 +28,7 @@ public class AutoCaseExecutionDailyDataDTO {
 
     @Schema(description = "项目Id")
     private int projectId;
+
+    @Schema(description = "用例归属平台类型（1：JAVA 2：APIFOX 3：JMETER 4：UI自动化")
+    private int platformType;
 }

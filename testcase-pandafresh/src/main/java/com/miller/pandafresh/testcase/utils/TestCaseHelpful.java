@@ -10,6 +10,7 @@ import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
 import com.miller.pandafresh.testcase.config.TestcaseConfig;
+import com.miller.service.util.AutoSignUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;

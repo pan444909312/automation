@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 
-@Scenario(scenarioID = "01KBHCCYTWQED9A2CK6T826E67",
+@Scenario(scenarioID = "01KEDR1EA72NXNSWDJGXHJK2QM",
         scenarioName = "搜索品牌词_搜索词仅匹配品牌词部分_不能命中品牌词",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("/api/user/v2/search")

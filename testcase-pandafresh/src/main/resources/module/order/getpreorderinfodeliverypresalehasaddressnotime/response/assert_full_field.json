@@ -42,7 +42,7 @@
 			"oldDeliveryFee": "${json-unit.any-string}",
 			"orderAmount": "${json-unit.any-number}",
 			"differenceValue": "${json-unit.any-string}",
-			"preventAmount": "4.99",
+			"preventAmount": "${json-unit.any-string}",
 			"deliveryFeeHint": "${json-unit.any-string}",
 			"taxRate": "${json-unit.any-number}",
 			"totalBuyCount": 1,
@@ -187,7 +187,7 @@
 			"geoLatitude": "30.20384",
 			"geoLocationType": 4
 		},
-		"preSaleSendDate": "2025-12-31",
+		"preSaleSendDate": "2026-12-31",
 		"isPreSaleOrder": 1
 	}
 }

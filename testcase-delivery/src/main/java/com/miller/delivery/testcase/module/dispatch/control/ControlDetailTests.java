@@ -1,0 +1,54 @@
+package com.miller.delivery.testcase.module.dispatch.control;
+
+import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.service.framework.annotation.Scenario;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+/**
+ * 获取管控详情
+ *
+ * @author auto-generated
+ * @version 2.0
+ * @since 2025/01/01 00:00:00
+ */
+@Scenario(
+        scenarioID = "01JPPMA58S5M8V6GAKMDBHBM13",
+        scenarioName = "调度系统-骑手管控-获取管控详情",
+        author = "chenchunxia@hungrypandagroup.com",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+@DisplayName("获取管控详情")
+public class ControlDetailTests {
+
+    @DisplayName("正向流程")
+    @Test
+    void shouldGetControlDetail() {
+        // 步骤1: 先登录获取token
+        String token = TestCaseHelpful.erpLogin();
+
+        // 步骤2: 设置请求头
+        Map<String, Object> headers = TestCaseHelpful.getHeaders("module/dispatch/control/controlDetail/request/headers.json");
+        headers.put("token", token);
+        headers.put("accept", "application/json, text/plain, */*");
+        headers.put("content-type", "application/json;charset=UTF-8");
+
+        // 步骤3: 设置请求体
+        var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/control/controlDetail/request/body.json");
+        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.driverId", 1398714150);
+
+        // 步骤4: 发起请求
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/control/detail";
+        String method = "POST";
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+        // 步骤5: 断言响应结果
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+    }
+
+
+}
+

@@ -1,9 +1,9 @@
 package com.miller.testcase.module.%s;
 
 import com.miller.service.framework.annotation.Scenario;
-import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.utils.PandaTestDBHelpful;
-import com.miller.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.utils.PandaTestDBHelpful;
+import com.miller.delivery.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

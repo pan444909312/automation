@@ -10,6 +10,7 @@ import com.miller.service.framework.cache.remote.redis.RedisService;
 import com.miller.service.framework.http.HttpUtils;
 import com.miller.service.framework.util.JSONUtils;
 import com.miller.service.framework.util.JsonUnitUtils;
+import com.miller.service.util.AutoSignUtils;
 import com.miller.testcase.config.TestcaseConfig;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.jsonunit.assertj.JsonAssert;
@@ -18,6 +19,8 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.assertj.core.api.ObjectAssert;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -241,6 +244,13 @@ public class TestCaseHelpful {
                         host = host.substring(8);
                     }
                     headers.put("host", host);
+                    // 确保 Content-Type 包含 charset=UTF-8，以支持中文字符
+                    String h5ContentTypeStr = h5ContentType.toString();
+                    if (h5ContentTypeStr.contains("application/x-www-form-urlencoded") && !h5ContentTypeStr.contains("charset=")) {
+                        h5ContentTypeStr = h5ContentTypeStr + "; charset=UTF-8";
+                        h5ContentType = h5ContentTypeStr;
+                        log.info("自动添加 charset=UTF-8 到 Content-Type: {}", h5ContentTypeStr);
+                    }
                     headers.put("content-type", h5ContentType);
                     if (h5ContentType.toString().contains("application/x-www-form-urlencoded")) {
                         body = JSONUtils.parseObject(body.toString()).getJSONObject("pd")
@@ -261,38 +271,64 @@ public class TestCaseHelpful {
         }
         // 处理content-type 为 application/x-www-form-urlencoded 类型
         if (!Objects.isNull(body)) {
-            if (headers.get("content-type").toString().contains("application/x-www-form-urlencoded")) {
-//                body = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
-                // 将 JSON 转为 Map 并确保所有值为简单类型（String/Number）
-                Map<String, Object> rawMap = JSONUtils.parseObject(body.toString()).toJavaObject(Map.class);
-                Map<String, String> formData = new HashMap<>();
-                rawMap.forEach((key, value) -> formData.put(key, value != null ? value.toString() : ""));
-                body = formData; // 传递简单键值对
+            Object contentType = headers.get("content-type");
+            if (contentType != null && contentType.toString().contains("application/x-www-form-urlencoded")) {
+                // 确保 Content-Type 包含 charset=UTF-8，以支持中文字符
+                String contentTypeStr = contentType.toString();
+                if (!contentTypeStr.contains("charset=")) {
+                    contentTypeStr = contentTypeStr + "; charset=UTF-8";
+                    headers.put("content-type", contentTypeStr);
+                    log.info("自动添加 charset=UTF-8 到 Content-Type: {}", contentTypeStr);
+                }
+                // 如果 body 已经是 Map 类型，直接使用
+                if (body instanceof Map) {
+                    Map<String, String> formData = new HashMap<>();
+                    ((Map<?, ?>) body).forEach((key, value) -> formData.put(key != null ? key.toString() : "", value != null ? value.toString() : ""));
+                    body = formData;
+                } else if (body instanceof String) {
+                    String bodyStr = body.toString();
+                    // 先尝试判断是否是 JSON 格式
+                    boolean isJson = false;
+                    try {
+                        JSONUtils.parseObject(bodyStr);
+                        isJson = true;
+                    } catch (JSONException e) {
+                        // 不是 JSON 格式，可能是 URL 编码的字符串
+                        isJson = false;
+                    }
+
+                    if (isJson) {
+                        // 如果是 JSON，解析为 Map
+                        Map<String, Object> rawMap = JSONUtils.parseObject(bodyStr).toJavaObject(Map.class);
+                        Map<String, String> formData = new HashMap<>();
+                        rawMap.forEach((key, value) -> formData.put(key, value != null ? value.toString() : ""));
+                        body = formData;
+                    } else {
+                        // 如果不是 JSON，尝试解析为 URL 编码的字符串
+                        Map<String, String> formData = new HashMap<>();
+                        String[] pairs = bodyStr.split("&");
+                        for (String pair : pairs) {
+                            int idx = pair.indexOf("=");
+                            if (idx > 0) {
+                                String key = pair.substring(0, idx);
+                                String value = idx < pair.length() - 1 ? pair.substring(idx + 1) : "";
+                                try {
+                                    key = URLDecoder.decode(key, StandardCharsets.UTF_8);
+                                    value = URLDecoder.decode(value, StandardCharsets.UTF_8);
+                                } catch (Exception e) {
+                                    // 如果解码失败，使用原始值
+                                    log.warn("URL 解码失败，使用原始值: key={}, value={}", key, value);
+                                }
+                                formData.put(key, value);
+                            }
+                        }
+                        body = formData;
+                    }
+                }
             } else {
                 body = JSONUtils.toJSONString(JSONUtils.parseObject(body.toString()).toJavaObject(Map.class));
             }
         }
-//        // 处理验签
-//        headers.put("_ts", timeStamp);
-//        JSONObject requestJsonObject = new JSONObject();
-//        if (!Objects.isNull(body) && body instanceof String) {
-//            requestJsonObject = JSONObject.parseObject((String) body);
-//        }
-//        requestJsonObject.put("_ts", timeStamp);
-//
-//        requestJsonObject.put("authorization", headers.get("authorization") == null ? "" : headers.get("authorization"));
-//        // 老签名处理
-//        String sign = SignGenerateUtil.getSign(requestJsonObject, signAuthKey);
-//        headers.put("_sign", sign);
-//
-//        // 新签名处理（老签名使用新的加密方法，且需要比老前面多传一个platform进行加密）
-//        requestJsonObject.put("platform", headers.get("platform"));
-//        String sig = SignUtil.getSign(signAuthKey, requestJsonObject);
-//        headers.put("_sig", sig);
-//
-//        headers.put("enableSign", true);
-
-
         method = method.toUpperCase();
         if ("POST".equals(method)) {
             return HttpUtils.sendPostRequestReturnBody(uri, params, headers, body, null);

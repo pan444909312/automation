@@ -1,0 +1,20 @@
+{
+	"deliveryTime":"尽快送达",
+	"deliverableAction":"2",
+	"tablewareCount":"1",
+	"userPhone":"86 13968896296",
+	"orderReqType":"1",
+	"deliveryType":"1",
+	"fixedPrice":"8860",
+	"platform":"1",
+	"addressId":"1398682161",
+	"productCartList":"[{\"pickUpType\":0,\"productId\":82083874,\"secKillFlag\":0,\"skuId\":0,\"tagId\":[]},{\"pickUpType\":0,\"productId\":82083874,\"secKillFlag\":0,\"skuId\":0,\"tagId\":[]}]",
+	"payType":"16",
+	"saType":"0",
+	"verify":"0",
+	"shopId":"116049906",
+	"superValueExchangeList":"null",
+	"tipPrice":"0",
+	"needNumberMasking":"false",
+	"isOnlinePay":"true"
+}
