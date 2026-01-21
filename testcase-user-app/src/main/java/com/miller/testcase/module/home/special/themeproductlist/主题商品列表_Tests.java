@@ -2,7 +2,6 @@ package com.miller.testcase.module.home.special.themeproductlist;
 
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
-import com.miller.testcase.utils.PandaTestDBHelpful;
 import com.miller.testcase.utils.TestCaseHelpful;
 import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
@@ -11,19 +10,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * themeproductlist
+ * 主题商品列表
  *
  * @author yaoqianhu
  * @version 2.0
- * @since 2025/09/30 14:34:40
+ * @since 2026/01/21 10:53:46
  */
 @Scenario(
-        scenarioID = "01K6CN93ZWMTWJV4VK8BX2MDF7", // 自动生成，不要修改
-        scenarioName = "天天特价：主题下的商品列表",
+        scenarioID = "01KFF7HVAG235CYPZX8HY5TW19", // 自动生成，不要修改
+        scenarioName = "主题商品列表",
         author = "yaoqianhu@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("天天特价：主题下的商品列表")
-public class Themeproductlist_Tests {
+        developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
+@DisplayName("主题商品列表")
+public class 主题商品列表_Tests {
 
     @BeforeAll
     static void beforeAll(){
@@ -44,11 +43,11 @@ public class Themeproductlist_Tests {
         // 接口请求方式。如： GET、POST、PUT、DELETE
         String method = "POST";
         // 请求头。默认从 resources 目录下读取文件。
-        String headers = "module/home/special/themeproductlist/request/headers.json";
+        String headers = "module/business/home/special/主题商品列表/request/headers.json";
         // 请求参数。如果没有传 null 即可（params = null）。比如 POST 请求通常没有 params 参数
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
-        String body = "module/home/special/themeproductlist/request/body.json";
+        String body = "module/business/home/special/主题商品列表/request/body.json";
         // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
         String assertFullField = "module/home/special/themeproductlist/response/assert_full_field.json";
 
