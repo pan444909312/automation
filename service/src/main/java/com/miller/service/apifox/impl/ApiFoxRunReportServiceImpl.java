@@ -143,7 +143,7 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
     @Override
     public void delReport(Long reportId, String remark, String optUser) {
 
-        if (ObjectUtils.isEmpty(remark)) {
+        if (ObjectUtils.isEmpty(remark) || remark.trim().isEmpty()) {
             throw new RuntimeException("请填写备注信息");
         }
 
