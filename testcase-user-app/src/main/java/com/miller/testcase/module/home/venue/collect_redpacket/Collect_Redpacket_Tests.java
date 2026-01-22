@@ -29,7 +29,7 @@ public class Collect_Redpacket_Tests {
     static void beforeAll(){
         // 所有 @Test 方法执行之前会执行  @BeforeAll 注解的方法, 这里的代码当前测试类期间只会执行一次
         // 你可以在这里执行前置的操作，比如: SQL 初始化用例的前置条件
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update user_cdkey set is_del=-1 where user_id=1398716670 and red_packet_id in (888895547,888895548)");
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete("update user_cdkey set is_del=-1 where user_id=1398716670 and red_packet_id=888896438");
 
     }
     @AfterAll
