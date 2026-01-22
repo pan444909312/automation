@@ -4,11 +4,25 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 日期工具类
  */
 public class DateUtils {
+
+    static String DATA_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    public static String getCurrentDate(String format) {
+        if (ObjectUtils.isEmpty(format)) {
+            format = DATA_FORMAT;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date date = new Date(System.currentTimeMillis());
+        return sdf.format(date);
+    }
+
+
 
     /**
      * 校验日期格式是否与预期一致，默认："yyyy-MM-dd"

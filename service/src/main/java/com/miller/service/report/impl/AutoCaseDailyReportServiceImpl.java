@@ -1,5 +1,7 @@
 package com.miller.service.report.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.miller.entity.constant.ProjectTypeEnum;
 import com.miller.entity.report.AutoCaseDailyReport;
 import com.miller.entity.report.req.ListDailyResultSummaryReqDTO;
@@ -8,6 +10,7 @@ import com.miller.mapper.report.AutoCaseDailyReportMapper;
 import com.miller.service.report.AutoCaseDailyReportService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.service.report.AutoExecutionRecordService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,4 +91,28 @@ public class AutoCaseDailyReportServiceImpl extends ServiceImpl<AutoCaseDailyRep
 
         return false;
     }
+
+
+    @Override
+    public void updateReportTag(AutoCaseDailyReport dailyReport) {
+        if (ObjectUtils.isEmpty(dailyReport)) {
+            throw new RuntimeException("AutoCaseDailyReport 不能为空");
+        }
+        if (ObjectUtils.isEmpty(dailyReport.getAuthor())) {
+            throw new RuntimeException("Author 不能为空");
+        }
+        if (ObjectUtils.isEmpty(dailyReport.getRunDate())) {
+            throw new RuntimeException("RunDate 不能为空");
+        }
+
+        LambdaUpdateWrapper<AutoCaseDailyReport> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(AutoCaseDailyReport::getRunDate, dailyReport.getRunDate())
+                .eq(AutoCaseDailyReport::getAuthor, dailyReport.getAuthor())
+                .eq(AutoCaseDailyReport::getIsDeleted, 0)
+                .set(AutoCaseDailyReport::getReportTag, dailyReport.getReportTag())
+                .set(AutoCaseDailyReport::getRemark, dailyReport.getRemark())
+        ;
+        this.update(updateWrapper);
+    }
+
 }

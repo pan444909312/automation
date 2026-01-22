@@ -68,13 +68,12 @@
 			"hpfPickUpCode": null,
 			"isSupermarket": 1,
 			"inventoryType": {
-				"adPic": null,
-				"adLinkUrl": null,
-				"type": null,
-				"adId": null,
-				"adType": null,
-				"adSense": 2,
-				"googleAdUnitId": "ca-app-pub-5066204861113818/3593362708"
+				"adPic": "${json-unit.any-string}",
+				"adLinkUrl": "${json-unit.any-string}",
+				"type": "${json-unit.any-number}",
+				"adId": "${json-unit.any-number}",
+				"adType": "${json-unit.any-number}",
+				"adSense": "${json-unit.any-number}"
 			},
 			"adSense": 1,
 			"adUnitId": "ca-app-pub-5066204861113818/3593362708"
@@ -202,7 +201,7 @@
 		"refundInfo": {
 			"refundList": [{
 				"refundType": 1,
-				"refundAmountStr": "¥29.6",
+				"refundAmountStr": "${json-unit.any-string}",
 				"refundStatus": 3,
 				"refundStatusStr": "已退款",
 				"targetId": "1456"

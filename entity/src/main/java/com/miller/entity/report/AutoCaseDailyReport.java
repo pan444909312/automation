@@ -6,6 +6,7 @@ import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("auto_case_daily_report")
+@Accessors(chain = true)
 @Schema(name = "AutoCaseDailyReport", description = "自动化用例每日执行报告表")
 public class AutoCaseDailyReport implements Serializable {
 
