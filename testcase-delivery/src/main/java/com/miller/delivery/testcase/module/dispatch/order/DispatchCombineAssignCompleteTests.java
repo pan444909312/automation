@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.dispatch.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -16,8 +17,8 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01K8W6VF3MR0E3297NZWPGNWYG",
-        scenarioName = "调度系统-调度合单分配订单-完单",
+        scenarioID = "01JPPM04WMXW6H6T0HDAWPY44H",
+        scenarioName = "【主干用例】调度系统-分配订单-合并分单到完单",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 180, maintenanceTime = 0, manualTestTime = 90)
 @DisplayName("调度合单分配订单-完单")
@@ -27,23 +28,10 @@ public class DispatchCombineAssignCompleteTests {
     @Test
     void shouldCompleteCombineAssignAndCompleteFlow() {
         // ========== 第一部分：C侧下单流程（创建多个订单用于合单） ==========
-        // 步骤1: C侧下单-用户登录
-        String userAppAccessToken = userAppLogin();
-        
-        // 步骤2: C侧下单-获取店铺商品信息
-        Long productId = getShopProductInfo(userAppAccessToken);
-        
-        // 步骤3: C侧下单-加购商品
-        Long shopId = addToCart(userAppAccessToken, productId);
-        
-        // 步骤4: C侧下单-创建虚拟单
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤5: C侧下单-创建第一个即时单-平台配送
-        String userAppOrderSn1 = createOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤6: C侧下单-余额支付第一个订单
-        balancePay(userAppAccessToken, userAppOrderSn1);
+
+
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn1 = createInstantOrderWithHandoverTests.orderFlow();
         
         // 延迟1秒
         try {
@@ -51,13 +39,14 @@ public class DispatchCombineAssignCompleteTests {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        
+
+
+
         // 步骤7: C侧下单-创建第二个即时单-平台配送（用于合单）
-        String userAppOrderSn2 = createOrder(userAppAccessToken, shopId, productId);
-        
         // 步骤8: C侧下单-余额支付第二个订单
-        balancePay(userAppAccessToken, userAppOrderSn2);
-        
+        String userAppOrderSn2 = createInstantOrderWithHandoverTests.orderFlow();
+
+
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤9: 骑手app-骑手登录
         Map<String, String> driverLoginInfo = driverLogin();
@@ -271,7 +260,7 @@ public class DispatchCombineAssignCompleteTests {
      * 调度-合单分配（将多个订单合并分配给骑手）
      */
     private void combineAssignOrders(String siGuanToken, String orderSn1, String orderSn2) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/combineAssign";
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/mergeAssign";
         String method = "POST";
         Map<String, Object> headers = createErpHeaders();
         headers.put("token", siGuanToken);

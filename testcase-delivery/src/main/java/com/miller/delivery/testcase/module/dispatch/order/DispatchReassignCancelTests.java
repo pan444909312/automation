@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.dispatch.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -16,35 +17,61 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01K8W6VF3MR0E3297NZWPGNWYG",
-        scenarioName = "调度系统-调度改派 &取消配送",
+        scenarioID = "01JPPM1JGR0AW4DJ31GEMTTN4H",
+        scenarioName = "【主干用例】调度系统-分配订单-调度取消配送",
         author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 120, maintenanceTime = 0, manualTestTime = 60)
+        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @DisplayName("调度改派 &取消配送")
 public class DispatchReassignCancelTests {
+
+    @DisplayName("改派骑手-多case：已取消的订单不可改派")
+    @Test
+    void shouldFailReassignWhenOrderCanceled() {
+        // 1) 司管登录获取token
+        String siGuanToken = erpLogin();
+
+        // 2) 取一个可用骑手ID（复用登录逻辑拿到userId）
+        Map<String, String> driverLoginInfo = driverLogin();
+        Long anyDriverId = Long.parseLong(driverLoginInfo.get("userId"));
+
+        // 3) 改派：已取消订单
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/reassign";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("token", siGuanToken);
+
+        String requestBody = String.format("{\"deliveryId\":%d,\"orderSn\":\"072166894475070198843\",\"rejectAble\":0}", anyDriverId);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(17);
+        // message 可能包含换行，按包含断言
+        TestCaseHelpful.assertThat(responseBody).asString().contains("无法指派");
+    }
+
+    @DisplayName("调度取消配送-多case：已完成的订单不可取消配送")
+    @Test
+    void shouldFailCancelDispatchWhenOrderCompleted() {
+        String siGuanToken = erpLogin();
+
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/cancelDispatch";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("token", siGuanToken);
+
+        String requestBody = "{\"orderSn\":\"2701360924750707361437\"}";
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("订单2701360924750707361437已完成,不能操作");
+    }
 
     @DisplayName("完整端到端流程-调度改派 &取消配送")
     @Test
     void shouldCompleteReassignAndCancelFlow() {
         // ========== 第一部分：C侧下单流程 ==========
-        // 步骤1: C侧下单-用户登录
-        String userAppAccessToken = userAppLogin();
-        
-        // 步骤2: C侧下单-获取店铺商品信息
-        Long productId = getShopProductInfo(userAppAccessToken);
-        
-        // 步骤3: C侧下单-加购商品
-        Long shopId = addToCart(userAppAccessToken, productId);
-        
-        // 步骤4: C侧下单-创建虚拟单
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤5: C侧下单-创建即时单-平台配送
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤6: C侧下单-余额支付
-        balancePay(userAppAccessToken, userAppOrderSn);
-        
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
+
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
         Map<String, String> driverLoginInfo = driverLogin();

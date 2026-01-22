@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.dispatch.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -16,34 +17,60 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01K8W6VF3MR0E3297NZWPGNWYG",
-        scenarioName = "调度系统-调度分单-骑手接单-完单",
+        scenarioID = "01JPPFP66G3CTQ065G223KY07P",
+        scenarioName = "【主干用例】调度系统-分配订单-调度分单骑手完单",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 180, maintenanceTime = 0, manualTestTime = 90)
 @DisplayName("调度分单-骑手接单-完单")
 public class DispatchAssignReceiveCompleteTests {
 
+    @DisplayName("骑手app-骑手接单-多case：包裹不存在")
+    @Test
+    void shouldFailReceiveWhenPackageNotBelongToDriver() {
+        // 1) 登录获取token
+        Map<String, String> driverLoginInfo = driverLogin();
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+
+        // 2) 接单：包裹不存在/不属于当前司机
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/receiveOrReject";
+        String method = "POST";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("Authorization", driverAccessToken);
+        headers.put("operatingsystem", "2");
+        headers.put("content-type", "application/json");
+
+        String requestBody = "{\"orderPackageId\":\"11111\",\"type\":1}";
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(130060);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("包裹不是当前司机");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+    }
+
+    @DisplayName("骑手app-骑手拒单-多case：未登录拒单")
+    @Test
+    void shouldFailRejectWhenNotLoggedIn() {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/receiveOrReject";
+        String method = "POST";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("operatingsystem", "2");
+        headers.put("content-type", "application/json");
+
+        // 不传 Authorization
+        String requestBody = "{\"orderPackageId\":\"11111\",\"type\":2,\"rejectReason\":\"订单不顺路\"}";
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+    }
+
     @DisplayName("完整端到端流程-调度分单-骑手接单-完单")
     @Test
     void shouldCompleteAssignReceiveAndCompleteFlow() {
         // ========== 第一部分：C侧下单流程 ==========
-        // 步骤1: C侧下单-用户登录
-        String userAppAccessToken = userAppLogin();
-        
-        // 步骤2: C侧下单-获取店铺商品信息
-        Long productId = getShopProductInfo(userAppAccessToken);
-        
-        // 步骤3: C侧下单-加购商品
-        Long shopId = addToCart(userAppAccessToken, productId);
-        
-        // 步骤4: C侧下单-创建虚拟单
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤5: C侧下单-创建即时单-平台配送
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤6: C侧下单-余额支付
-        balancePay(userAppAccessToken, userAppOrderSn);
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
         
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
