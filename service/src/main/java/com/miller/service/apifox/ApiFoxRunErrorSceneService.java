@@ -7,4 +7,5 @@ public interface ApiFoxRunErrorSceneService extends IService<ApiFoxRunErrorScene
 
     ApiFoxRunErrorSceneEntity findByCaseId(Long apiFoxCaseId);
 
+    boolean updateToDel(Long id);
 }

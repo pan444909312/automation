@@ -20,5 +20,10 @@ public class ApiFoxRunErrorSceneServiceImpl extends ServiceImpl<ApiFoxRunErrorSc
         return this.getOne(queryWrapper);
     }
 
+    @Override
+    public boolean updateToDel(Long id) {
+        return this.baseMapper.updateToDel(id);
+    }
+
 
 }

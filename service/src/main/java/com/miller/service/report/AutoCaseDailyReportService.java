@@ -16,4 +16,6 @@ public interface AutoCaseDailyReportService extends IService<AutoCaseDailyReport
 
 
     boolean addAutoCaseDailyReportList(ListDailyResultSummaryReqDTO reqDTO);
+
+    void updateReportTag(AutoCaseDailyReport dailyReport);
 }
