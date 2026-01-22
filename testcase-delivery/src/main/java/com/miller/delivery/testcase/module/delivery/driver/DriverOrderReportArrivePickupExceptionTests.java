@@ -11,34 +11,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 主干流程-获取配送中列表
+ * 骑手app-异常到店取餐报告
  *
- * Apifox: docs/d-apifox/todo/骑手配送中列表.apifox-cli.json
+ * Apifox: docs/d-apifox/checked/异常到店取餐报告.apifox-cli.json
  */
 @Scenario(
-        scenarioID = "01K4BZGNXNC2A0YJVAGY31V8HB",
-        scenarioName = "主干流程-获取配送中列表",
+        scenarioID = "01JZ553DXAJXAA3MRNZM5ZME6M",
+        scenarioName = "骑手app-异常到店取餐报告",
         author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
-@DisplayName("骑手配送中列表")
-public class DriverDeliveringListTests {
+        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
+@DisplayName("异常到店取餐报告")
+public class DriverOrderReportArrivePickupExceptionTests {
 
-    @DisplayName("获取骑手配送中订单列表（第一页&第二页）")
+    @DisplayName("异常到店取餐报告（driverOrderReport）")
     @Test
-    void shouldGetWaitDeliveringList() {
+    void shouldReportArrivePickupException() {
         CreateInstantOrderWithHandoverTests create = new CreateInstantOrderWithHandoverTests();
         String userAppOrderSn = create.orderFlow();
 
         String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
         driverOnOffline(driverAccessToken, 1);
-
         grabOrder(driverAccessToken, userAppOrderSn);
-        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
-        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2);
-        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 3);
 
-        waitDeliveringList(driverAccessToken, 1);
-        waitDeliveringList(driverAccessToken, 2);
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/driverOrderReport";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+
+        String body = String.format("{\"operationType\":1,\"orderSn\":\"%s\",\"type\":0,\"url\":\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/17514304833184096498241e2464cab344eb72e884692.jpg\"}",
+                userAppOrderSn);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
     private void driverOnOffline(String driverAccessToken, int isOnline) {
@@ -59,31 +63,6 @@ public class DriverDeliveringListTests {
         headers.put("authorization", driverAccessToken);
 
         String body = String.format("{\"orderSn\":\"%s\",\"confirmDiscount\":0}", userAppOrderSn);
-        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
-        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
-    }
-
-    private void modifyDeliveryStatus(String driverAccessToken, String userAppOrderSn, int operationType) {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/modifyDeliveryStatus";
-        Map<String, Object> headers = createDriverAppHeaders();
-        headers.put("authorization", driverAccessToken);
-
-        String body = String.format("{\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[],\"waitUserArrive\":0,\"operationType\":%d,\"orderSnList\":[\"%s\"],\"driverArriveType\":0}",
-                userAppOrderSn, operationType, userAppOrderSn);
-        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
-        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
-    }
-
-    private void waitDeliveringList(String driverAccessToken, int pageNo) {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/waitDeliveringList";
-        Map<String, Object> headers = createDriverAppHeaders();
-        headers.put("authorization", driverAccessToken);
-
-        String body = String.format("{\"pageNo\":%d,\"sortType\":0}", pageNo);
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
