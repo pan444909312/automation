@@ -1,9 +1,9 @@
 {
 	"sec-fetch-mode":"cors",
-	"referer":"https://mobile-test.pandasupply.co/",
+	"referer":"https://supply-mobile-test.hungrypanda.cn/",
 	"sec-fetch-site":"cross-site",
 	"accept-language":"zh-CN,zh-TW;q=0.9,zh-MO;q=0.8,zh-HK;q=0.7,zh;q=0.6,en-GB;q=0.5,en;q=0.4",
-	"origin":"https://mobile-test.pandasupply.co",
+	"origin":"https://supply-mobile-test.hungrypanda.cn/",
 	"Host":"api-cn-f2e-test.hungrypanda.cn",
 	"priority":"u=2, i",
 	"accept":"application/json, text/plain, */*",
