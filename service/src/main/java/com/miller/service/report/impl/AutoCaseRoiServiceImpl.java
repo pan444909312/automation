@@ -1,5 +1,6 @@
 package com.miller.service.report.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.miller.entity.constant.PlatformTypeEnum;
 import com.miller.entity.platform.User;
@@ -7,13 +8,16 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.req.JmeterAutoCaseRoiReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.mapper.report.AutoCaseRoiMapper;
+import com.miller.service.dto.DashboardReqDTO;
 import com.miller.service.platform.UserService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miller.service.report.AutoExecutionRecordService;
+import com.miller.service.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -41,6 +45,36 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
 
     @Autowired
     UserService userService;
+
+
+    @Override
+    public List<AutoCaseRoiEntity> findByAll(DashboardReqDTO dashboardReqDTO) {
+        LambdaQueryWrapper<AutoCaseRoiEntity> queryWrapper = new LambdaQueryWrapper<>();
+
+        queryWrapper
+                .eq(AutoCaseRoiEntity::getIsDeleted,0)
+                .between(AutoCaseRoiEntity::getCreateTime,
+                        DateUtils.toMillisecondTimestamp(dashboardReqDTO.getStartTime()),
+                        DateUtils.toMillisecondTimestamp(dashboardReqDTO.getEndTime())
+                );
+
+        if (!ObjectUtils.isEmpty(dashboardReqDTO.getProjectIds())){
+            queryWrapper.in(AutoCaseRoiEntity::getProjectId,dashboardReqDTO.getProjectIds());
+        }
+
+        if (!ObjectUtils.isEmpty(dashboardReqDTO.getEmails())){
+            queryWrapper.in(AutoCaseRoiEntity::getAuthor,dashboardReqDTO.getEmails());
+        }
+
+        if (!ObjectUtils.isEmpty(dashboardReqDTO.getPlatforms())){
+            queryWrapper.in(AutoCaseRoiEntity::getPlatformType,dashboardReqDTO.getPlatforms());
+        }
+
+
+
+        return this.list(queryWrapper);
+    }
+
 
     @Override
     public String getAutoCaseNameByScenarioId(String scenarioId) {
