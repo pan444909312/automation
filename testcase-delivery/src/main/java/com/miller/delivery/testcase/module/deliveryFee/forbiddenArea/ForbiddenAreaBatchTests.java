@@ -55,8 +55,8 @@ public class ForbiddenAreaBatchTests {
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
 
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
-        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("GPS信息为空");
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(400);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("Parameter error");
     }
 
     @DisplayName("酒水-无城市-批量-不传维度")
@@ -73,8 +73,8 @@ public class ForbiddenAreaBatchTests {
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
 
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
-        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("GPS信息为空");
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(400);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("Parameter error");
     }
 }
 
