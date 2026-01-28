@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01JPPF8ZAFXN5PC1SMYMTPTJBY",
+        scenarioID = "01KG1DVXWW7B9FDBN73ZCPCF07",
         scenarioName = "C侧下即时单-平台配送-郑州市-二七区",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
@@ -39,10 +39,10 @@ public class CreateInstantOrderZhengzhouErqiTests {
         Long shopId = addToCart(userAppAccessToken, productId);
         
         // 步骤4: C侧下单-创建虚拟单
-        String subTotalAmount = createVirtualOrder(userAppAccessToken, shopId, productId);
+         createVirtualOrder(userAppAccessToken, shopId, productId);
         
         // 步骤5: C侧下单-创建即时单-平台配送 (deliverableAction=11, addressId=1398680297)
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId, subTotalAmount);
+        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
         
         // 步骤6: C侧下单-余额支付
         balancePay(userAppAccessToken, userAppOrderSn);
@@ -93,7 +93,7 @@ public class CreateInstantOrderZhengzhouErqiTests {
         return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
     }
 
-    private String createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
+    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
@@ -105,10 +105,9 @@ public class CreateInstantOrderZhengzhouErqiTests {
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.priceInfo.subTotalAmount").toString();
     }
 
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId, String subTotalAmount) {
+    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/order/create";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();

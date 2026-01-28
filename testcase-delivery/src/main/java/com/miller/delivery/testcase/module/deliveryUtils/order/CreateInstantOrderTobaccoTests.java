@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01JPPF8ZAFXN5PC1SMYMTPTJBY",
+        scenarioID = "01KG1DR11Y6XV8N4RDWWV1VAC0",
         scenarioName = "C侧下即时单-平台配送-杭州-滨江区-烟",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
@@ -33,16 +33,16 @@ public class CreateInstantOrderTobaccoTests {
         String userAppAccessToken = userAppLogin();
         
         // 步骤2: C侧下单-获取店铺商品信息
-        Long shopId = getShopProductInfo(userAppAccessToken);
+        Long productId = getShopProductInfo(userAppAccessToken);
         
         // 步骤3: C侧下单-加购商品 (使用硬编码的productId=82494163)
-        addToCart(userAppAccessToken, shopId);
+        addToCart(userAppAccessToken, productId);
         
         // 步骤4: C侧下单-创建虚拟单
-        createVirtualOrder(userAppAccessToken, shopId);
+        createVirtualOrder(userAppAccessToken, productId);
         
         // 步骤5: C侧下单-创建即时单-平台配送 (deliverableAction=15)
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId);
+        String userAppOrderSn = createOrder(userAppAccessToken, productId);
         
         // 步骤6: C侧下单-余额支付
         balancePay(userAppAccessToken, userAppOrderSn);
@@ -74,7 +74,8 @@ public class CreateInstantOrderTobaccoTests {
         var requestBody = "{\"deliveryType\":1,\"shopId\":892716498}";
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
+        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.menuList[0].subMenuList[0].productList[1].productId").toString());
+
     }
 
     private void addToCart(String userAppAccessToken, Long shopId) {
@@ -86,7 +87,7 @@ public class CreateInstantOrderTobaccoTests {
         
         long nowTime = System.currentTimeMillis();
         // 使用硬编码的productId=82494163 (烟订单)
-        var requestBody = String.format("{\"deliveryType\":1,\"shopId\":%d,\"items\":[{\"productId\":82494163,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}", shopId, nowTime);
+        var requestBody = String.format("{\"deliveryType\":1,\"shopId\":892716498,\"items\":[{\"productId\":82494163,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}", nowTime);
         
         TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
     }
@@ -99,7 +100,7 @@ public class CreateInstantOrderTobaccoTests {
         headers.put("userid", "1398716700");
         
         // 使用硬编码的productId=82494163 (烟订单)
-        var requestBody = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1,\"orderReqType\":0,\"deliveryType\":0,\"platform\":1,\"addressId\":1398679458,\"productCartList\":\"[{\\\"productId\\\":82494163,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]\",\"payType\":0,\"verify\":0,\"shopId\":%d,\"stability\":0,\"requestSourceType\":0}", shopId);
+        var requestBody = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1,\"orderReqType\":0,\"deliveryType\":0,\"platform\":1,\"addressId\":1398679458,\"productCartList\":\"[{\\\"productId\\\":82494163,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]\",\"payType\":0,\"verify\":0,\"shopId\":892716498,\"stability\":0,\"requestSourceType\":0}");
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
