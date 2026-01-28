@@ -26,20 +26,20 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 @DisplayName("删除-老的配送时长")
 public class OldDeliveryTimeConfigDeleteTests {
 
-    // 注意：需要在实际使用时替换为真实的 delivery_time_config_id
-    private static final Long DELIVERY_TIME_CONFIG_ID = 1L; // 请从质量平台或数据库中获取实际的 delivery_time_config_id
 
     @DisplayName("删除老的配送时长配置")
     @Test
     void shouldDeleteOldDeliveryTimeConfig() {
         // 1) 司管登录获取 token
         String token = erpLogin();
-
+        OldDeliveryTimeConfigAddTests oldDeliveryTimeConfigAddTests = new OldDeliveryTimeConfigAddTests();
+        oldDeliveryTimeConfigAddTests.shouldAddOldDeliveryTimeConfig();
+        Long oldconfigId = oldDeliveryTimeConfigAddTests.oldconfigId;
         // 2) 删除老的配送时长配置
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/delivery/time/config/statusUpdate";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String body = String.format("{\"configId\":%d,\"status\":2}", DELIVERY_TIME_CONFIG_ID);
+        String body = String.format("{\"configId\":%d,\"status\":2}", oldconfigId);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言
