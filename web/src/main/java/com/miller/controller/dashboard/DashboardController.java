@@ -27,9 +27,8 @@ public class DashboardController {
      * @return 仪表盘统计数据
      */
     @PostMapping("/statistics")
-    public ResultVO<DashboardVO> getDashboardStatistics(@RequestBody DashboardReqDTO dashboardReqDTO){
-        JSONObject dashboardVO = dashboardService.getDashboardStatistics(dashboardReqDTO);
-        return ResultVO.success(dashboardVO);
+    public JSONObject getDashboardStatistics(@RequestBody DashboardReqDTO dashboardReqDTO){
+        return dashboardService.getDashboardStatistics(dashboardReqDTO);
     }
 
 }
