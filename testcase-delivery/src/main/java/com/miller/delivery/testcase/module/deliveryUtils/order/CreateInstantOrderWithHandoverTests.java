@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01JPPF8ZAFXN5PC1SMYMTPTJBY", // 自动生成，不要修改
+        scenarioID = "01KG1DSW9M06F2Z8MGWV5P7YMV", // 自动生成，不要修改
         scenarioName = "C侧下即时单-平台配送-杭州-滨江区（见面交付）",
         author = "chenchunxia@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)

@@ -99,5 +99,14 @@ public class ApiFoxRunReportEntity implements Serializable {
      */
     private Integer passStepCount;
 
+    /**
+     * 是否删除 0，-1
+     */
+    private Integer isDel;
+
+    /**
+     * 备注
+     */
+    private String remark;
 
 }

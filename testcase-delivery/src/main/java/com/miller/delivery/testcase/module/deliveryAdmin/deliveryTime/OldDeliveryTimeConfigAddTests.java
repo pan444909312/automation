@@ -27,6 +27,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @DisplayName("新增老的配送时长方案")
 public class OldDeliveryTimeConfigAddTests {
+    public   Long oldconfigId;
 
     @DisplayName("新增老的配送时长方案")
     @Test
@@ -62,7 +63,12 @@ public class OldDeliveryTimeConfigAddTests {
         
         Map<String, Object> configRecord = configRecords.get(0);
         Long configId = ((Number) configRecord.get("id")).longValue();
+        oldconfigId=configId;
         assert configId != null && configId > 0 : "配置ID无效";
+        // 5) 从数据库删除
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "update panda_test.hp_delivery_time_config set is_del=1 where id=" + oldconfigId + "" );
+
     }
 
     private Map<String, Object> createHeaders(String token) {

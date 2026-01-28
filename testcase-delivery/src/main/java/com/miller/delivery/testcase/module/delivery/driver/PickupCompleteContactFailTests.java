@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.delivery.driver;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -9,285 +10,277 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
-
 /**
- * 骑手取餐-完单流程 (联系不到用户送达)
+ * 主干流程-骑手抢单-联系不到用户送达】
  *
- * @author TestingConsultant@hungrypandagroup.com
- * @version 2.0
- * @since 2025/01/07
+ * Apifox: docs/d-apifox/todo/骑手取餐-完单流程 (联系不到用户送达).apifox-cli.json
  */
 @Scenario(
-        scenarioID = "PLACEHOLDER_SCENARIO_ID",
-        scenarioName = "骑手取餐-完单流程 (联系不到用户送达)",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 240, maintenanceTime = 0, manualTestTime = 5)
+        scenarioID = "01K1TA1HZGVY90CMMGZBN979CH",
+        scenarioName = "主干流程-骑手抢单-联系不到用户送达】",
+        author = "penglulu@hungrypandagroup.com",
+        developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
 @DisplayName("骑手取餐-完单流程 (联系不到用户送达)")
 public class PickupCompleteContactFailTests {
 
-    @DisplayName("骑手取餐-完单流程 (联系不到用户送达) 完整流程")
+    @DisplayName("主干流程-联系不到用户送达（按Apifox步骤）")
     @Test
-    void shouldCompletePickupContactFailFlow() {
-        // ========== 第一部分：C侧下单流程 ==========
-        String userAppAccessToken = userAppLogin();
-        Long productId = getShopProductInfo(userAppAccessToken);
-        Long shopId = addToCart(userAppAccessToken, productId);
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        balancePay(userAppAccessToken, userAppOrderSn);
-        
-        // ========== 第二部分：骑手操作流程 ==========
+    void shouldCompleteContactFailDeliverFlow() {
+        // 1) C侧下单
+        CreateInstantOrderWithHandoverTests create = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = create.orderFlow();
+
+        // 2) 骑手登录 & 上线
         String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        driverOnline(driverAccessToken);
-        syncGps(driverAccessToken);
-        
-        // ========== 第三部分：调度分配流程 ==========
-        String siGuanToken = erpLogin();
-        Long assignDriverID = getAvailableDrivers(siGuanToken, userAppOrderSn);
-        assignOrderToDriver(siGuanToken, userAppOrderSn, assignDriverID);
-        String packageId = getOrderPackage(driverAccessToken);
-        receiveOrder(driverAccessToken, packageId);
-        
-        // ========== 第四部分：完单流程（联系不到用户送达） ==========
-        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1); // 到店
-        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2); // 取餐
-        
-        // 联系不到用户
-        contactUserFail(driverAccessToken, userAppOrderSn);
-        
-        // 订单完成送达
-        completeOrderContactFail(driverAccessToken, userAppOrderSn);
+        onOffline(driverAccessToken, true);
+
+        // 3) 新订单列表
+        newOrderList(driverAccessToken);
+
+        // 4) 抢单
+        grabOrder(driverAccessToken, userAppOrderSn);
+
+        // 5) 待取餐列表（正常）
+        waitPickUpList(driverAccessToken, 0);
+
+        // 6) 待取餐列表（异常case：未登录）
+        waitPickUpListNotLoggedIn(26);
+
+        // 7) 商家地址指引
+        merchantAddressInfo(driverAccessToken, userAppOrderSn);
+
+        // 8) 获取商品信息
+        productInfo(driverAccessToken, userAppOrderSn);
+
+        // 9) 到店 -> 未出餐
+        modifyDeliveryStatusSimple(driverAccessToken, userAppOrderSn, 1);
+        modifyDeliveryStatusSimple(driverAccessToken, userAppOrderSn, 2);
+
+        // 10) 订单已取消不可取餐（多case）
+        modifyDeliveryStatusOrderCanceledCase(driverAccessToken);
+
+        // 11) 已取餐
+        modifyDeliveryStatusPickedUp(driverAccessToken, userAppOrderSn);
+
+        // 12) 配送中列表
+        waitDeliveringList(driverAccessToken);
+
+        // 13) 获取用户手机号
+        customerPhone(driverAccessToken, userAppOrderSn);
+
+        // 14) 获取离线地图
+        offlineMap(driverAccessToken);
+
+        // 15) 拨打用户电话（联系不到用户）
+        orderWaitUser(driverAccessToken, userAppOrderSn);
+
+        // 16) 联系不到用户完成送达
+        completeContactFailDeliver(driverAccessToken, userAppOrderSn);
+
+        // 17) 下线
+        onOffline(driverAccessToken, false);
     }
 
-    private String userAppLogin() {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/combine/login";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        String body = "{\"areaCode\":\"86\",\"distinctId\":\"4dd9690f6a6b639c\"," +
-                "\"password\":\"2c9341ca4cf3d87b9e4eb905d6a3ec45\",\"channel\":0," +
-                "\"type\":\"2\",\"account\":\"13251016327\",\"stability\":0}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
-    }
-
-    private Long getShopProductInfo(String userAppAccessToken) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/v1/shop/menuList";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        String body = "{\"deliveryType\":1,\"shopId\":892716498}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, 
-                "$.result.menuList[0].subMenuList[0].productList[0].productId").toString());
-    }
-
-    private Long addToCart(String userAppAccessToken, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/order/v3/shoppingCart";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        long nowTime = System.currentTimeMillis();
-        String body = String.format("{\"deliveryType\":1,\"shopId\":892716498," +
-                "\"items\":[{\"productId\":%d,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}",
-                productId, nowTime);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
-    }
-
-    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        String body = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1," +
-                "\"shopId\":%d,\"deliveryType\":1}", shopId);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-    }
-
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/create";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        String body = String.format("{\"orderType\":1,\"shopId\":%d,\"deliveryType\":1," +
-                "\"payType\":1,\"items\":[{\"productId\":%d,\"skuId\":0,\"quantity\":1}]}", 
-                shopId, productId);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.orderSn").toString();
-    }
-
-    private void balancePay(String userAppAccessToken, String orderSn) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/pay";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        String body = String.format("{\"orderSn\":\"%s\",\"payType\":1}", orderSn);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-    }
-
-    private void driverOnline(String driverAccessToken) {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/onOffline";
-        String method = "POST";
+    private void newOrderList(String driverAccessToken) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/newOrderList";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        String body = "{\"isOnline\":1}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+
+        String body = "{\"pageNo\":1,\"pageSize\":10}";
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
-    private void syncGps(String driverAccessToken) {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/syncGps";
-        String method = "POST";
+    private void grabOrder(String driverAccessToken, String orderSn) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/grabOrder";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        String body = "{\"longitude\":120.216727,\"latitude\":30.203499}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+
+        String body = String.format("{\"orderSn\":\"%s\",\"confirmDiscount\":0}", orderSn);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
-    private Long getAvailableDrivers(String siGuanToken, String orderSn) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/driver/allList";
-        String method = "POST";
-        Map<String, Object> headers = createErpHeaders();
-        headers.put("token", siGuanToken);
+    private void waitPickUpList(String driverAccessToken, int sortType) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/waitPickUpList";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+
+        String body = String.format("{\"pageNo\":1,\"sortType\":%d}", sortType);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
+
+    private void waitPickUpListNotLoggedIn(int sortType) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/waitPickUpList";
+        Map<String, Object> headers = createDriverAppHeaders();
+        // 不带 authorization
+
+        String body = String.format("{\"pageNo\":1,\"sortType\":%d}", sortType);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+    }
+
+    private void merchantAddressInfo(String driverAccessToken, String orderSn) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderHelp/merchantAddressInfo";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+
+        String body = String.format("{\"shopId\":892716498,\"orderSn\":\"%s\"}", orderSn);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
+
+    private void productInfo(String driverAccessToken, String orderSn) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/productInfo";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+
         String body = String.format("{\"orderSn\":\"%s\"}", orderSn);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.data[0].userId").toString());
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
-    private void assignOrderToDriver(String siGuanToken, String orderSn, Long assignDriverID) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/assign";
-        String method = "POST";
-        Map<String, Object> headers = createErpHeaders();
-        headers.put("token", siGuanToken);
-        String body = String.format("{\"deliveryId\":%d,\"orderSn\":\"%s\",\"rejectAble\":0}", 
-                assignDriverID, orderSn);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
-    }
-
-    private String getOrderPackage(String driverAccessToken) {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/list";
-        String method = "POST";
+    private void modifyDeliveryStatusSimple(String driverAccessToken, String orderSn, int operationType) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/modifyDeliveryStatus";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        String body = "{}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.dataList[0].packageId").toString();
-    }
+        headers.put("content-type", "application/json");
 
-    private void receiveOrder(String driverAccessToken, String packageId) {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/receiveOrReject";
-        String method = "POST";
-        Map<String, Object> headers = createIOSDriverAppHeaders();
-        headers.put("authorization", driverAccessToken);
-        String body = String.format("{\"orderPackageId\":\"%s\",\"type\":1}", packageId);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+        String body = String.format("{\"operationType\":%d,\"orderSnList\":[\"%s\"]}", operationType, orderSn);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-    }
-
-    private void modifyDeliveryStatus(String driverAccessToken, String orderSn, int operationType) {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/modifyDeliveryStatus";
-        String method = "POST";
-        Map<String, Object> headers = createIOSDriverAppHeaders();
-        headers.put("authorization", driverAccessToken);
-        String body = String.format("{\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[],\"waitUserArrive\":0," +
-                "\"operationType\":%d,\"orderSnList\":[\"%s\"],\"driverArriveType\":0}", 
-                orderSn, operationType, orderSn);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
-    /**
-     * 联系不到用户
-     */
-    private void contactUserFail(String driverAccessToken, String orderSn) {
+    private void modifyDeliveryStatusOrderCanceledCase(String driverAccessToken) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/modifyDeliveryStatus";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+        headers.put("content-type", "application/json");
+
+        String body = "{\"orderSn\":\"5731667404750703651018\",\"orderCompleteImageUrlList\":[],\"waitUserArrive\":0,\"operationType\":3,\"orderSnList\":[\"5731667404750703651018\"],\"driverArriveType\":0}";
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(5107);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("订单已取消");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+    }
+
+    private void modifyDeliveryStatusPickedUp(String driverAccessToken, String orderSn) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/modifyDeliveryStatus";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+        headers.put("content-type", "application/json");
+
+        String body = String.format("{\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[],\"waitUserArrive\":0,\"operationType\":3,\"orderSnList\":[\"%s\"],\"driverArriveType\":0}", orderSn, orderSn);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
+
+    private void waitDeliveringList(String driverAccessToken) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/waitDeliveringList";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+
+        String body = "{\"pageNo\":1,\"sortType\":0}";
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
+
+    private void customerPhone(String driverAccessToken, String orderSn) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/customerInfo/customerPhone";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+
+        String body = String.format("{\"orderSn\":\"%s\"}", orderSn);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
+
+    private void offlineMap(String driverAccessToken) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/map/route/plan";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+
+        String body = "{\"point\":[{\"type\":1,\"toPoint\":{\"lat\":30.1965002066,\"lon\":120.2165139689},\"fromPoint\":{\"lat\":30.203602097957489,\"lon\":120.21675840570194}},{\"fromPoint\":{\"lat\":30.1965002066,\"lon\":120.2165139689},\"toPoint\":{\"lon\":120.244367,\"lat\":30.183143999999999},\"type\":1}]}";
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
+
+    private void orderWaitUser(String driverAccessToken, String orderSn) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/orderWaitUser";
-        String method = "POST";
-        Map<String, Object> headers = createIOSDriverAppHeaders();
+        Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        String body = String.format("{\"orderSn\":\"%s\",\"recordType\":1}", orderSn);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+
+        String body = String.format("{\"orderSn\":\"%s\",\"recordType\":0}", orderSn);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        // apifox未给明确断言，做基础校验
+        TestCaseHelpful.assertThat(responseBody).isNotNull();
     }
 
-    /**
-     * 联系不到用户送达
-     */
-    private void completeOrderContactFail(String driverAccessToken, String orderSn) {
+    private void completeContactFailDeliver(String driverAccessToken, String orderSn) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/modifyDeliveryStatus";
-        String method = "POST";
-        Map<String, Object> headers = createIOSDriverAppHeaders();
+        Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        String body = String.format("{\"driverArriveType\":1,\"operationType\":6,\"orderCompleteImageUrlList\":[]," +
-                "\"arriveRemark\":\"联系不到用户\",\"orderSnList\":[\"%s\"]}", orderSn);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+        headers.put("content-type", "application/json");
+
+        String body = String.format("{\"waitUserArrive\":1,\"driverArriveType\":110,\"operationType\":6,\"orderCompleteImageUrlList\":[\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/1758540236253860df498ab604628af1ab5f09d6fd2a9.jpg\"],\"arriveRemark\":\"beuzhu\",\"orderSn\":\"%s\",\"orderSnList\":[\"%s\"]}", orderSn, orderSn);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
-    private Map<String, Object> createUserAppHeaders() {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("Host", "app-test.hungrypanda.cn");
-        headers.put("longitude", "120.216727");
-        headers.put("latitude", "30.203499");
-        headers.put("reallatitude", "30.203499");
-        headers.put("reallongitude", "120.216727");
-        headers.put("ismocklocation", "0");
-        headers.put("version", "8.59.0");
-        headers.put("platform", "ANDROID_USER");
-        headers.put("type", "1");
-        headers.put("apptypeid", "1");
-        headers.put("user-agent", "8.59.0&OKPOS");
-        headers.put("language", "CN");
-        headers.put("countrycode", "CN");
-        headers.put("uniquetoken", "4dd9690f6a6b639c");
-        headers.put("device_safe_token", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
+    private void onOffline(String driverAccessToken, boolean online) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/onOffline";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
 
-        headers.put("Content-Type", "application/json;charset=UTF-8");
-        return headers;
+        String body = online ? "{\"isOnline\":1}" : "{\"isOnline\":0}";
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("Host", "app-deliverytest.hungrypanda.cn");
-        headers.put("longitude", "120.216787");
-        headers.put("latitude", "30.203426");
-        headers.put("version", "5.66.0");
-        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("longitude", "120.216758");
+        headers.put("latitude", "30.203602");
+        headers.put("version", "5.64.0");
+        headers.put("platform", "IOS");
         headers.put("type", "3");
-        headers.put("user-agent", "5.59.0");
         headers.put("locale", "zh-CN");
-        headers.put("operatingsystem", "1");
-        headers.put("brand", "HUAWEI");
-        headers.put("uniquetoken", "dd9959880e28753f");
+        headers.put("operatingsystem", "2");
+        headers.put("brand", "iPhone 11");
+        headers.put("uniquetoken", "9A95A874-6493-4DFC-A5E1-BCE3C7C265D0");
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
-        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
-
-        headers.put("Content-Type", "application/json;charset=UTF-8");
-        return headers;
-    }
-
-    private Map<String, Object> createIOSDriverAppHeaders() {
-        Map<String, Object> headers = createDriverAppHeaders();
-        headers.put("platform", "IOS_DELIVERY");
-        return headers;
-    }
-
-    private Map<String, Object> createErpHeaders() {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json");
+        headers.put("devicesafetoken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json");
         return headers;
     }
 }
+

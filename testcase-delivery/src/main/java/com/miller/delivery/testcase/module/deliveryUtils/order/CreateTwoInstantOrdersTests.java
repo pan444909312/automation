@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01JPPF8ZAFXN5PC1SMYMTPTJBY", // 自动生成，不要修改
+        scenarioID = "01KG1DWYQM517C2F626SQD9R5D", // 自动生成，不要修改
         scenarioName = "C侧下即时单-平台配送-杭州-滨江区 -两个订单",
         author = "chenchunxia@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
@@ -42,10 +42,10 @@ public class CreateTwoInstantOrdersTests {
         Long shopId = addToCart(userAppAccessToken, productId);
         
         // 步骤4: C侧下单-创建虚拟单
-        String subTotalAmount = createVirtualOrder(userAppAccessToken, shopId, productId, 1398679458L);
+        createVirtualOrder(userAppAccessToken, shopId, productId);
         
         // 步骤5: C侧下单-创建即时单-平台配送
-        String userAppOrderSn1 = createOrder(userAppAccessToken, shopId, productId, subTotalAmount);
+        String userAppOrderSn1 = createOrder(userAppAccessToken, shopId, productId);
         
         // 步骤6: C侧下单-余额支付
         balancePay(userAppAccessToken, userAppOrderSn1);
@@ -65,10 +65,10 @@ public class CreateTwoInstantOrdersTests {
         shopId = addToCart(userAppAccessToken, productId);
         
         // 步骤9: C侧下单-创建虚拟单（重复）
-        subTotalAmount = createVirtualOrder(userAppAccessToken, shopId, productId, 1398679458L);
+        createVirtualOrder(userAppAccessToken, shopId, productId);
         
         // 步骤10: C侧下单-创建即时单-平台配送（重复）
-        String userAppOrderSn2 = createOrder(userAppAccessToken, shopId, productId, subTotalAmount);
+        String userAppOrderSn2 = createOrder(userAppAccessToken, shopId, productId);
         
         // 步骤11: C侧下单-余额支付（重复）
         balancePay(userAppAccessToken, userAppOrderSn2);
@@ -131,25 +131,25 @@ public class CreateTwoInstantOrdersTests {
     /**
      * 创建虚拟单
      */
-    private String createVirtualOrder(String userAppAccessToken, Long shopId, Long productId, Long addressId) {
+    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();
         headers.put("authorization", userAppAccessToken);
         headers.put("userid", "1398716700");
-        
-        var requestBody = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1,\"orderReqType\":0,\"deliveryType\":0,\"platform\":1,\"addressId\":%d,\"productCartList\":\"[{productId:%d,skuId:0,stability:0,tagId:[]}]\",\"payType\":0,\"verify\":0,\"shopId\":%d,\"stability\":0,\"requestSourceType\":0}", addressId, productId, shopId);
-        
+
+        var requestBody = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1,\"orderReqType\":0,\"deliveryType\":0,\"platform\":1,\"addressId\":1398679458,\"productCartList\":\"[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]\",\"payType\":0,\"verify\":0,\"shopId\":%d,\"stability\":0,\"requestSourceType\":0}", productId, shopId);
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.priceInfo.subTotalAmount").toString();
+
     }
 
     /**
      * 创建即时单-平台配送
      * 注意：deliverableAction=15
      */
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId, String subTotalAmount) {
+    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/order/create";
         String method = "POST";
         Map<String, Object> headers = createUserAppHeaders();

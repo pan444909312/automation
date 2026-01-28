@@ -13,4 +13,5 @@ import com.miller.entity.report.AutoCaseDailyReport;
  */
 public interface AutoCaseDailyReportMapper extends BaseMapper<AutoCaseDailyReport> {
 
+
 }

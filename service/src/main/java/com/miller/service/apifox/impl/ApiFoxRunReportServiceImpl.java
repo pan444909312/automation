@@ -14,6 +14,7 @@ import com.miller.entity.apifox.DTO.ApifoxReportItemDTO;
 import com.miller.entity.apifox.DTO.ApifoxRespMetaInfoDTO;
 import com.miller.entity.apifox.DTO.ApifoxRunResultDTO;
 import com.miller.entity.constant.ExecutionStatusEnum;
+import com.miller.entity.report.AutoCaseDailyReport;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.mapper.apifox.ApiFoxRunReportMapper;
 import com.miller.service.apifox.ApiFoxRunErrorSceneService;
@@ -23,13 +24,17 @@ import com.miller.service.apifox.enums.ApiFoxCommonEnum;
 import com.miller.service.apifox.enums.AttributionGroupEnum;
 import com.miller.service.framework.notification.dingtalk.DingTalkUtils;
 import com.miller.service.platform.UserService;
+import com.miller.service.report.AutoCaseDailyReportService;
 import com.miller.service.report.AutoExecutionRecordService;
+import com.miller.service.util.DateUtils;
 import com.miller.service.util.PatternUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,8 +52,7 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
     private String WEBHOOK_URL = "https://oapi.dingtalk.com/robot/send";
 
     @Autowired
-    private ApiFoxRunErrorSceneService  apiFoxRunErrorSceneService;
-
+    private ApiFoxRunErrorSceneService apiFoxRunErrorSceneService;
 
 
     @Autowired
@@ -60,6 +64,9 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
     @Autowired
     private ApiTestCaseCustomHttpRequestService apiTestCaseCustomHttpRequestService;
 
+    @Autowired
+    @Lazy
+    private AutoCaseDailyReportService dailyReportService;
 
 
     @Override
@@ -115,19 +122,61 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
     }
 
     @Override
-    public String queryBelongingGroup(Long apiFoxCaseId){
+    public String queryBelongingGroup(Long apiFoxCaseId) {
         ApiFoxRunErrorSceneEntity errorSceneEntity = apiFoxRunErrorSceneService.findByCaseId(apiFoxCaseId);
         if (ObjectUtils.isEmpty(errorSceneEntity)) {
-            log.error(String.format("caseId is null: %s",  apiFoxCaseId));
+            log.error(String.format("caseId is null: %s", apiFoxCaseId));
             return "B";
         }
         Long reportId = errorSceneEntity.getReportId();
         ApiFoxRunReportEntity reportEntity = this.getById(reportId);
 
-        return  reportEntity.getBelongingGroup();
+        return reportEntity.getBelongingGroup();
 
     }
 
+
+    /**
+     * 删除数据
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void delReport(Long reportId, String remark, String optUser) {
+
+        if (ObjectUtils.isEmpty(remark) || remark.trim().isEmpty()) {
+            throw new RuntimeException("请填写备注信息");
+        }
+
+        ApiFoxRunReportEntity reportEntity = this.getById(reportId);
+        if (ObjectUtils.isEmpty(reportEntity)) {
+            throw new RuntimeException(String.format("reportId is null: %s", reportId));
+        }
+
+        final String currentDate = DateUtils.getCurrentDate("yyyy-MM-dd");
+
+        String finalRemarks = String.format("""
+                %s \n
+                操作人：%s \n
+                操作时间：%s
+                """, remark, optUser, currentDate);
+        reportEntity.setRemark(finalRemarks);
+        reportEntity.setIsDel(-1);
+        this.saveOrUpdate(reportEntity);
+
+        // 将当前报告下的所有步骤删除
+        apiFoxRunErrorSceneService.updateToDel(reportId);
+
+        AutoCaseDailyReport autoCaseDailyReport = new AutoCaseDailyReport()
+                .setReportTag(1)
+                .setRunDate(currentDate)
+                .setAuthor(reportEntity.getResponsiblePerson())
+                .setRemark(finalRemarks)
+                ;
+
+        dailyReportService.updateReportTag(autoCaseDailyReport);
+
+
+    }
 
 
     /**
@@ -379,7 +428,7 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
                     map.get(stepId) :
                     new HashSet<>();
             errorList.add(errorObj);
-            if (ObjectUtils.isNotEmpty(stepId)){
+            if (ObjectUtils.isNotEmpty(stepId)) {
                 map.put(stepId, errorList);
             }
         });
@@ -489,8 +538,8 @@ public class ApiFoxRunReportServiceImpl extends ServiceImpl<ApiFoxRunReportMappe
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         String currentDay = sdf.format(new Date());
         if (!latestFile.getName().contains(currentDay)) {
-            final String errorMessage = String.format("%s组执行失败，最新报告文件为： %s", containsStr,latestFile.getName());
-            DingTalkUtils.sendMarkdownMessageOfApiFox("各成员自动化执行结果通知:",errorMessage);
+            final String errorMessage = String.format("%s组执行失败，最新报告文件为： %s", containsStr, latestFile.getName());
+            DingTalkUtils.sendMarkdownMessageOfApiFox("各成员自动化执行结果通知:", errorMessage);
             throw new RuntimeException("ApiFox 报告文件获取异常，最新文件为：".concat(latestFile.getName()));
         }
 

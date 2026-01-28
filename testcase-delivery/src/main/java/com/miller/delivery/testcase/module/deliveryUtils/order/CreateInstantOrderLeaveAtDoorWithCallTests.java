@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01JPPF8ZAFXN5PC1SMYMTPTJBY",
+        scenarioID = "01KG1DPZNZRSMMB5F97KN4MXX7",
         scenarioName = "C侧下即时单-平台配送-杭州-滨江区（放在门口且电话联系）",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)

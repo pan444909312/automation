@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.dispatch.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -16,8 +17,8 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01K8W6VF3MR0E3297NZWPGNWYG",
-        scenarioName = "调度系统-调度合单分配订单-完单",
+        scenarioID = "01JPPM04WMXW6H6T0HDAWPY44H",
+        scenarioName = "【主干用例】调度系统-分配订单-合并分单到完单",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 180, maintenanceTime = 0, manualTestTime = 90)
 @DisplayName("调度合单分配订单-完单")
@@ -27,23 +28,10 @@ public class DispatchCombineAssignCompleteTests {
     @Test
     void shouldCompleteCombineAssignAndCompleteFlow() {
         // ========== 第一部分：C侧下单流程（创建多个订单用于合单） ==========
-        // 步骤1: C侧下单-用户登录
-        String userAppAccessToken = userAppLogin();
-        
-        // 步骤2: C侧下单-获取店铺商品信息
-        Long productId = getShopProductInfo(userAppAccessToken);
-        
-        // 步骤3: C侧下单-加购商品
-        Long shopId = addToCart(userAppAccessToken, productId);
-        
-        // 步骤4: C侧下单-创建虚拟单
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤5: C侧下单-创建第一个即时单-平台配送
-        String userAppOrderSn1 = createOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤6: C侧下单-余额支付第一个订单
-        balancePay(userAppAccessToken, userAppOrderSn1);
+
+
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn1 = createInstantOrderWithHandoverTests.orderFlow();
         
         // 延迟1秒
         try {
@@ -51,13 +39,14 @@ public class DispatchCombineAssignCompleteTests {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        
+
+
+
         // 步骤7: C侧下单-创建第二个即时单-平台配送（用于合单）
-        String userAppOrderSn2 = createOrder(userAppAccessToken, shopId, productId);
-        
         // 步骤8: C侧下单-余额支付第二个订单
-        balancePay(userAppAccessToken, userAppOrderSn2);
-        
+        String userAppOrderSn2 = createInstantOrderWithHandoverTests.orderFlow();
+
+
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤9: 骑手app-骑手登录
         Map<String, String> driverLoginInfo = driverLogin();
@@ -106,109 +95,6 @@ public class DispatchCombineAssignCompleteTests {
         
         // 步骤23: 骑手app-修改订单配送状态-签收（第二个订单）
         completeOrder(driverAccessToken, userAppOrderSn2);
-    }
-
-    /**
-     * C侧用户登录
-     */
-    private String userAppLogin() {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/combine/login";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        
-        var requestBody = "{\"areaCode\":\"86\",\"distinctId\":\"4dd9690f6a6b639c\",\"password\":\"2c9341ca4cf3d87b9e4eb905d6a3ec45\",\"channel\":0,\"type\":\"2\",\"account\":\"13251016327\",\"stability\":0}";
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
-    }
-
-    /**
-     * 获取店铺商品信息
-     */
-    private Long getShopProductInfo(String userAppAccessToken) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/v1/shop/menuList";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        
-        var requestBody = "{\"deliveryType\":1,\"shopId\":892716498}";
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.menuList[0].subMenuList[0].productList[0].productId").toString());
-    }
-
-    /**
-     * 加购商品
-     */
-    private Long addToCart(String userAppAccessToken, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/order/v3/shoppingCart";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        
-        long nowTime = System.currentTimeMillis();
-        var requestBody = String.format("{\"deliveryType\":1,\"shopId\":892716498,\"items\":[{\"productId\":%d,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}", productId, nowTime);
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
-    }
-
-    /**
-     * 创建虚拟单
-     */
-    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        
-        var requestBody = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1,\"orderReqType\":0,\"deliveryType\":0,\"platform\":1,\"addressId\":1398679458,\"productCartList\":\"[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]\",\"payType\":0,\"verify\":0,\"shopId\":%d,\"stability\":0,\"requestSourceType\":0}", productId, shopId);
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-    }
-
-    /**
-     * 创建即时单-平台配送
-     */
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/order/create";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        headers.put("content-type", "application/x-www-form-urlencoded");
-
-        // deliverableAction=15 表示平台配送
-        var requestBody = String.format(
-            "deliveryTime=尽快送达&deliverableAction=15&tablewareCount=1&userPhone=86+13251016327&orderReqType=1&deliveryType=1&platform=1&addressId=1398679458&productCartList=[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]&payType=16&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=0.24&needNumberMasking=false&isOnlinePay=true",
-            productId, shopId
-        );
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.orderSn").toString();
-    }
-
-    /**
-     * 余额支付
-     */
-    private void balancePay(String userAppAccessToken, String userAppOrderSn) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/pay/balance";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        headers.put("content-type", "application/x-www-form-urlencoded");
-        
-        var requestBody = String.format("orderSn=%s&password=016327&paymentType=2", userAppOrderSn);
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
     }
 
     /**
@@ -271,7 +157,7 @@ public class DispatchCombineAssignCompleteTests {
      * 调度-合单分配（将多个订单合并分配给骑手）
      */
     private void combineAssignOrders(String siGuanToken, String orderSn1, String orderSn2) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/combineAssign";
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/mergeAssign";
         String method = "POST";
         Map<String, Object> headers = createErpHeaders();
         headers.put("token", siGuanToken);
@@ -398,30 +284,6 @@ public class DispatchCombineAssignCompleteTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
         return TestCaseHelpful.extractValue(responseBody, "$.data.token").toString();
-    }
-
-    /**
-     * 创建C侧app请求头
-     */
-    private Map<String, Object> createUserAppHeaders() {
-        Map<String, Object> headers = new java.util.HashMap<>();
-        headers.put("Host", "app-test.hungrypanda.cn");
-        headers.put("longitude", "120.216727");
-        headers.put("latitude", "30.203499");
-        headers.put("reallatitude", "30.203499");
-        headers.put("reallongitude", "120.216727");
-        headers.put("ismocklocation", "0");
-        headers.put("version", "8.59.0");
-        headers.put("platform", "ANDROID_USER");
-        headers.put("type", "1");
-        headers.put("apptypeid", "1");
-        headers.put("user-agent", "8.59.0&OKPOS");
-        headers.put("language", "CN");
-        headers.put("countrycode", "CN");
-        headers.put("uniquetoken", "4dd9690f6a6b639c");
-         
-        headers.put("content-type", "application/json;charset=UTF-8");
-        return headers;
     }
 
     /**

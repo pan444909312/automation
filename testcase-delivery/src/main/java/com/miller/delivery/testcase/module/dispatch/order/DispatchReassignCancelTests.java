@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.dispatch.order;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -16,35 +17,61 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01K8W6VF3MR0E3297NZWPGNWYG",
-        scenarioName = "调度系统-调度改派 &取消配送",
+        scenarioID = "01JPPM1JGR0AW4DJ31GEMTTN4H",
+        scenarioName = "【主干用例】调度系统-分配订单-调度取消配送",
         author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 120, maintenanceTime = 0, manualTestTime = 60)
+        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @DisplayName("调度改派 &取消配送")
 public class DispatchReassignCancelTests {
+
+    @DisplayName("改派骑手-多case：已取消的订单不可改派")
+    @Test
+    void shouldFailReassignWhenOrderCanceled() {
+        // 1) 司管登录获取token
+        String siGuanToken = erpLogin();
+
+        // 2) 取一个可用骑手ID（复用登录逻辑拿到userId）
+        Map<String, String> driverLoginInfo = driverLogin();
+        Long anyDriverId = Long.parseLong(driverLoginInfo.get("userId"));
+
+        // 3) 改派：已取消订单
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/reassign";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("token", siGuanToken);
+
+        String requestBody = String.format("{\"deliveryId\":%d,\"orderSn\":\"072166894475070198843\",\"rejectAble\":0}", anyDriverId);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(17);
+        // message 可能包含换行，按包含断言
+        TestCaseHelpful.assertThat(responseBody).asString().contains("无法指派");
+    }
+
+    @DisplayName("调度取消配送-多case：已完成的订单不可取消配送")
+    @Test
+    void shouldFailCancelDispatchWhenOrderCompleted() {
+        String siGuanToken = erpLogin();
+
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/cancelDispatch";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("token", siGuanToken);
+
+        String requestBody = "{\"orderSn\":\"2701360924750707361437\"}";
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("订单2701360924750707361437已完成,不能操作");
+    }
 
     @DisplayName("完整端到端流程-调度改派 &取消配送")
     @Test
     void shouldCompleteReassignAndCancelFlow() {
         // ========== 第一部分：C侧下单流程 ==========
-        // 步骤1: C侧下单-用户登录
-        String userAppAccessToken = userAppLogin();
-        
-        // 步骤2: C侧下单-获取店铺商品信息
-        Long productId = getShopProductInfo(userAppAccessToken);
-        
-        // 步骤3: C侧下单-加购商品
-        Long shopId = addToCart(userAppAccessToken, productId);
-        
-        // 步骤4: C侧下单-创建虚拟单
-        createVirtualOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤5: C侧下单-创建即时单-平台配送
-        String userAppOrderSn = createOrder(userAppAccessToken, shopId, productId);
-        
-        // 步骤6: C侧下单-余额支付
-        balancePay(userAppAccessToken, userAppOrderSn);
-        
+        CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
+        String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
+
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
         Map<String, String> driverLoginInfo = driverLogin();
@@ -82,109 +109,6 @@ public class DispatchReassignCancelTests {
         // ========== 第五部分：取消配送流程 ==========
         // 步骤17: 调度-取消配送
         cancelDispatch(siGuanToken, userAppOrderSn);
-    }
-
-    /**
-     * C侧用户登录
-     */
-    private String userAppLogin() {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/combine/login";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        
-        var requestBody = "{\"areaCode\":\"86\",\"distinctId\":\"4dd9690f6a6b639c\",\"password\":\"2c9341ca4cf3d87b9e4eb905d6a3ec45\",\"channel\":0,\"type\":\"2\",\"account\":\"13251016327\",\"stability\":0}";
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
-    }
-
-    /**
-     * 获取店铺商品信息
-     */
-    private Long getShopProductInfo(String userAppAccessToken) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/v1/shop/menuList";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        
-        var requestBody = "{\"deliveryType\":1,\"shopId\":892716498}";
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.menuList[0].subMenuList[0].productList[0].productId").toString());
-    }
-
-    /**
-     * 加购商品
-     */
-    private Long addToCart(String userAppAccessToken, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/app/user/order/v3/shoppingCart";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        
-        long nowTime = System.currentTimeMillis();
-        var requestBody = String.format("{\"deliveryType\":1,\"shopId\":892716498,\"items\":[{\"productId\":%d,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}", productId, nowTime);
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
-    }
-
-    /**
-     * 创建虚拟单
-     */
-    private void createVirtualOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/v1/order/toCreateVirtual";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        
-        var requestBody = String.format("{\"orderType\":1,\"openRedPacket\":0,\"autoUseRedPacketStatus\":1,\"orderReqType\":0,\"deliveryType\":0,\"platform\":1,\"addressId\":1398679458,\"productCartList\":\"[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]\",\"payType\":0,\"verify\":0,\"shopId\":%d,\"stability\":0,\"requestSourceType\":0}", productId, shopId);
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-    }
-
-    /**
-     * 创建即时单-平台配送
-     */
-    private String createOrder(String userAppAccessToken, Long shopId, Long productId) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/order/create";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        headers.put("content-type", "application/x-www-form-urlencoded");
-
-        // deliverableAction=15 表示平台配送
-        var requestBody = String.format(
-            "deliveryTime=尽快送达&deliverableAction=15&tablewareCount=1&userPhone=86+13251016327&orderReqType=1&deliveryType=1&platform=1&addressId=1398679458&productCartList=[{\\\"productId\\\":%d,\\\"skuId\\\":0,\\\"stability\\\":0,\\\"tagId\\\":[]}]&payType=16&verify=0&shopId=%d&superValueExchangeList=null&tipPrice=0.24&needNumberMasking=false&isOnlinePay=true",
-            productId, shopId
-        );
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        return TestCaseHelpful.extractValue(responseBody, "$.result.orderSn").toString();
-    }
-
-    /**
-     * 余额支付
-     */
-    private void balancePay(String userAppAccessToken, String userAppOrderSn) {
-        String uri = TestcaseConfig.HOST_USER_APP + "/api/user/pay/balance";
-        String method = "POST";
-        Map<String, Object> headers = createUserAppHeaders();
-        headers.put("authorization", userAppAccessToken);
-        headers.put("userid", "1398716700");
-        headers.put("content-type", "application/x-www-form-urlencoded");
-        
-        var requestBody = String.format("orderSn=%s&password=016327&paymentType=2", userAppOrderSn);
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
     }
 
     /**
@@ -363,30 +287,6 @@ public class DispatchReassignCancelTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
         return TestCaseHelpful.extractValue(responseBody, "$.data.token").toString();
-    }
-
-    /**
-     * 创建C侧app请求头
-     */
-    private Map<String, Object> createUserAppHeaders() {
-        Map<String, Object> headers = new java.util.HashMap<>();
-        headers.put("Host", "app-test.hungrypanda.cn");
-        headers.put("longitude", "120.216727");
-        headers.put("latitude", "30.203499");
-        headers.put("reallatitude", "30.203499");
-        headers.put("reallongitude", "120.216727");
-        headers.put("ismocklocation", "0");
-        headers.put("version", "8.59.0");
-        headers.put("platform", "ANDROID_USER");
-        headers.put("type", "1");
-        headers.put("apptypeid", "1");
-        headers.put("user-agent", "8.59.0&OKPOS");
-        headers.put("language", "CN");
-        headers.put("countrycode", "CN");
-        headers.put("uniquetoken", "4dd9690f6a6b639c");
-
-        headers.put("content-type", "application/json;charset=UTF-8");
-        return headers;
     }
 
     /**

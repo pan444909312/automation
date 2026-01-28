@@ -80,7 +80,7 @@ public class SearchForGoodsTitle_Tests {
 
         // 断言数组中包含指定的商品副标题
         boolean containsExpectedGoods = goodsNames.stream().anyMatch(name -> name.contains("副标题"));
-        TestCaseHelpful.assertThat(containsExpectedGoods).isEqualTo(false);
+        TestCaseHelpful.assertThat(containsExpectedGoods).isEqualTo(true);
 
     }
 } 

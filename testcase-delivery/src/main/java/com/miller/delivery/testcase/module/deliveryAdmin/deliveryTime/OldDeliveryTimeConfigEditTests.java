@@ -1,12 +1,14 @@
 package com.miller.delivery.testcase.module.deliveryAdmin.deliveryTime;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
@@ -26,8 +28,11 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 @DisplayName("编辑-老的配送时长")
 public class OldDeliveryTimeConfigEditTests {
 
-    // 注意：需要在实际使用时替换为真实的 configId
-    private static final Long CONFIG_ID = 1L; // 请从质量平台或数据库中获取实际的 delivery_time_config_id
+
+
+
+
+
 
     @DisplayName("编辑老的配送时长方案")
     @Test
@@ -39,13 +44,18 @@ public class OldDeliveryTimeConfigEditTests {
         long nowTime = System.currentTimeMillis();
         String configName = "自动化测试配送方案老的" + nowTime;
 
+        OldDeliveryTimeConfigAddTests oldDeliveryTimeConfigAddTests = new OldDeliveryTimeConfigAddTests();
+        oldDeliveryTimeConfigAddTests.shouldAddOldDeliveryTimeConfig();
+        Long oldconfigId = oldDeliveryTimeConfigAddTests.oldconfigId;
+
+
         // 3) 编辑配送时长方案
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/delivery/time/config/add";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
         String body = String.format(
                 "{\"configName\":\"%s\",\"configId\":%d,\"scope\":0,\"scopeDesc\":\"全城\",\"isDefault\":0,\"detail\":[{\"distanceStart\":0,\"distanceEnd\":1,\"timeList\":[{\"isDefault\":1,\"max\":\"30\",\"min\":\"20\",\"timeStart\":\"00:00:00\",\"timeEnd\":\"23:59:59\"}]}],\"areaList\":null,\"name\":\"%s\",\"city\":\"杭州市\"}",
-                configName, CONFIG_ID, configName);
+                configName, oldconfigId, configName);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 4) 断言
@@ -53,6 +63,13 @@ public class OldDeliveryTimeConfigEditTests {
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
+
+        // 5) 从数据库删除
+
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "update panda_test.hp_delivery_time_config set is_del=1 where id=" + oldconfigId + "" );
+
+
     }
 
     private Map<String, Object> createHeaders(String token) {
