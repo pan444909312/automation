@@ -7,6 +7,8 @@ import com.miller.service.platform.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 项目表 服务实现类
@@ -25,4 +27,10 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     public Project findByName(String name) {
         return projectMapper.findByName(name);
     }
+
+    @Override
+    public List<Project> getAll() {
+        return super.list();
+    }
+
 }

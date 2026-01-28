@@ -3,6 +3,8 @@ package com.miller.service.platform;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.miller.entity.platform.Project;
 
+import java.util.List;
+
 /**
  * <p>
  * 项目表 服务类
@@ -15,4 +17,5 @@ public interface ProjectService extends IService<Project> {
 
     Project findByName(String name);
 
+    List<Project> getAll();
 }

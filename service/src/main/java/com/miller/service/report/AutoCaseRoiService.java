@@ -4,6 +4,7 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.miller.entity.report.req.JmeterAutoCaseRoiReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
+import com.miller.service.dto.DashboardReqDTO;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
  * @since 2024-09-19
  */
 public interface AutoCaseRoiService extends IService<AutoCaseRoiEntity> {
+
+    List<AutoCaseRoiEntity> findByAll(DashboardReqDTO dashboardReqDTO);
 
     /**
      * 根据场景ID获取自动化用例名称

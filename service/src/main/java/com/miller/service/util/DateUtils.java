@@ -4,6 +4,8 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -23,6 +25,13 @@ public class DateUtils {
     }
 
 
+    public static Long toMillisecondTimestamp(String dateStr) {
+        LocalDate localDate = LocalDate.parse(dateStr);
+        //  转换为毫秒级时间戳
+        return localDate.atStartOfDay(ZoneId.of("Asia/Shanghai"))
+                .toInstant()
+                .toEpochMilli();
+    }
 
     /**
      * 校验日期格式是否与预期一致，默认："yyyy-MM-dd"
