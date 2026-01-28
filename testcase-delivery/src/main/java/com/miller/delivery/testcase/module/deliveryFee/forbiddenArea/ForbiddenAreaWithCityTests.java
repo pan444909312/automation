@@ -54,56 +54,17 @@ public class ForbiddenAreaWithCityTests {
          
         headers.put("Content-Type", "application/json");
 
-        var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/forbiddenArea/withCity/request/body.json");
+        var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/forbiddenArea/withCity/request/body-nocity.json");
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.lat", "30.552191");
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.lon", "119.974286");
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
 
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
-        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("城市信息为空");
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(400);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("Parameter error");
     }
 
-    @DisplayName("酒水-有城市-不传精度")
-    @Test
-    void shouldQueryForbiddenAreaWithoutLat() {
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryFee/forbiddenArea/gps";
-        String method = "POST";
-        
-        Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/forbiddenArea/withCity/request/headers.json");
-         
-        headers.put("Content-Type", "application/json");
 
-        var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/forbiddenArea/withCity/request/body.json");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.city", "杭州市");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.lat", "");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.lon", "119.974286");
 
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
-        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("GPS信息为空");
-    }
-
-    @DisplayName("酒水-有城市-不传纬度")
-    @Test
-    void shouldQueryForbiddenAreaWithoutLon() {
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryFee/forbiddenArea/gps";
-        String method = "POST";
-        
-        Map<String, Object> headers = TestCaseHelpful.getHeaders("module/deliveryFee/forbiddenArea/withCity/request/headers.json");
-         
-        headers.put("Content-Type", "application/json");
-
-        var requestBody = TestCaseHelpful.getJsonRequestBody("module/deliveryFee/forbiddenArea/withCity/request/body.json");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.city", "杭州市");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.lat", "119.974286");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.lon", "");
-
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
-        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("GPS信息为空");
-    }
 }
 

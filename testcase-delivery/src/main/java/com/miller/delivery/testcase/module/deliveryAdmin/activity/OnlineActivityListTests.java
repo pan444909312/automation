@@ -119,7 +119,7 @@ public class OnlineActivityListTests {
         // 9) 验证数据库中有新增的活动
         String sql = String.format("select count(0) as count from panda_test.hp_delivery_activity where `name`='自动化上线活动%s' order by id desc ;", todayDate);
         Map<String, Object> dbResult = PandaTestDBHelpful.executeSelectOneSql(sql);
-        Integer onlineCount = (Integer) dbResult.get("count");
+        Long onlineCount = (Long) dbResult.get("count");
         assert onlineCount != null && onlineCount > 0 : "数据库中没有找到新增的活动";
 
         // 10) ROI-上线活动列表-传日期查询
