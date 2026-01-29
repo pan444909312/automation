@@ -242,4 +242,11 @@ public class HttpUtils {
         }
         return null;
     }
+
+    public static String sendPatchRequestReturnBody(String uri, Map<String, Object> params, Map<String, Object> headers, Object body, Map<String, Object> cookies) {
+        Map<String, Object> stringObjectMap = sendOtherMethodRequest(uri, params, headers, body, cookies,"PATCH");
+        HashMap<String, Object> responseBodyMap = (HashMap<String, Object>) stringObjectMap.get("body");
+        return String.valueOf(responseBodyMap.get("body"));
+
+    }
 }
