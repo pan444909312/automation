@@ -24,30 +24,30 @@ import java.util.Map;
 @DisplayName("会话推送回调")
 public class SessionPushCallbackTests {
 
-//    @DisplayName("会话推送回调")
-//    @Test
-//    void shouldHandleSessionPushCallback() {
-//        // 1) 骑手登录获取 token
-//        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-//
-//        // 2) 会话推送回调
-//        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/uDesk/callBackPush";
-//        String method = "POST";
-//        Map<String, Object> headers = createDriverAppHeaders();
-//        headers.put("authorization", driverAccessToken);
-//
-//        String body = "{\"web_token\":\"DRIVER-UDESK-UKGB2711221619\"," +
-//                "\"messages\":[{\"type\":\"message\",\"message_id\":\"udesk_8561762919969593\"," +
-//                "\"agent_id\":421,\"agent_name\":\"Northern Dispatcher\",\"im_sub_session_id\":7416021," +
-//                "\"message_created_at\":\"2025-11-12 11:59:29\"," +
-//                "\"data\":{\"content\":\"会话结束，祝您愉快！The session is over, have a nice day! \"," +
-//                "\"msg_close\":true}}]}";
-//        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-//
-//        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-//        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
-//        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
-//    }
+    @DisplayName("会话推送回调")
+    @Test
+    void shouldHandleSessionPushCallback() {
+        // 1) 骑手登录获取 token
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+
+        // 2) 会话推送回调
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/uDesk/callBackPush";
+        String method = "POST";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+
+        String body = "{\"web_token\":\"DRIVER-UDESK-UKGB2711221619\"," +
+                "\"messages\":[{\"type\":\"message\",\"message_id\":\"udesk_8561762919969593\"," +
+                "\"agent_id\":421,\"agent_name\":\"Northern Dispatcher\",\"im_sub_session_id\":7416021," +
+                "\"message_created_at\":\"2025-11-12 11:59:29\"," +
+                "\"data\":{\"content\":\"会话结束，祝您愉快！The session is over, have a nice day! \"," +
+                "\"msg_close\":true}}]}";
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
 
     @DisplayName("未登录-会话推送回调")
     @Test
