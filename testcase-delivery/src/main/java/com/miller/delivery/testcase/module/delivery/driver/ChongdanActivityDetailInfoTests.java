@@ -17,7 +17,7 @@ import java.util.Map;
  * @since 2025/01/06
  */
 @Scenario(
-        scenarioID = "01JYRF5WV5ZSTF9BPM9P2NNFZ1",
+        scenarioID = "01KG4FJNG5JHWVN50RFH0CTYG9",
         scenarioName = "骑手app-新人专区",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
@@ -25,13 +25,13 @@ import java.util.Map;
 public class ChongdanActivityDetailInfoTests {
 
     // 注意：需要在实际使用时替换为真实的 activityDetailId
-    private static final String ACTIVITY_DETAIL_ID = "8925"; // 请从质量平台或实际业务中获取
+    private static final String ACTIVITY_DETAIL_ID = "11458"; // 请从质量平台或实际业务中获取
 
     @DisplayName("冲单奖单单奖详情")
     @Test
     void shouldGetChongdanActivityDetailInfo() {
         // 1) 骑手登录获取 token
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010526", "Test1234");
 
         // 2) 冲单奖单单奖详情（H5验签）
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/activity/activityDetailInfo";
