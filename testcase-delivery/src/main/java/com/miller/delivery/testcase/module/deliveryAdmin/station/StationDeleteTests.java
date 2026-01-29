@@ -12,12 +12,12 @@ import java.util.Map;
 /**
  * 司管后台-骑手列表-删除骑手驿站
  */
-@Scenario(
-        scenarioID = "01KDSTGAWPJ2TSY83R4D7WJSCK",
-        scenarioName = "骑手列表-删除骑手驿站",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("删除骑手驿站")
+//@Scenario(
+//        scenarioID = "01KG4KA0XGPF86Z4B75BE5JAQP",
+//        scenarioName = "骑手列表-删除骑手驿站",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
+//@DisplayName("删除骑手驿站")
 public class StationDeleteTests {
 
     private static final String CONFIG_NO = "123456"; // 假设一个configNo
