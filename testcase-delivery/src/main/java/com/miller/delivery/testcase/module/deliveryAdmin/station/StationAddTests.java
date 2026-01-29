@@ -30,7 +30,7 @@ public class StationAddTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/station/add";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String body = "{\"serviceTypeList\":[10],\"city\":\"奥克兰\",\"stationNameCn\":\"测试自动化\",\"stationAddress\":\"滨江区域-自动化测试地址\"}";
+        String body = "{\"serviceTypeList\":[10],\"city\":\"奥克兰\",\"stationNameCn\":\"测试自动化\",\"stationAddress\":\"奥克兰主城区-自动化测试地址\"}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言新增成功
