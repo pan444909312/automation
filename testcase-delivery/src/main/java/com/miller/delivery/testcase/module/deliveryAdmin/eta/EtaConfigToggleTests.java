@@ -29,7 +29,13 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 public class EtaConfigToggleTests {
 
     // 注意：需要在实际使用时替换为真实的 eta_time_config_id
-    private static final Long ETA_CONFIG_ID = 1L; // 请从质量平台或数据库中获取实际的 eta_time_config_id
+    //private static final Long ETA_CONFIG_ID = 1L; // 请从质量平台或数据库中获取实际的 eta_time_config_id
+    private static final Long ETA_CONFIG_ID;
+
+    static{
+        String ETA_CONFIG_ID_Str = getCloseEtaIdFromDatabase();
+        ETA_CONFIG_ID = Long.parseLong(ETA_CONFIG_ID_Str);
+    }
 
     @DisplayName("开启ETA配置")
     @Test
@@ -89,6 +95,21 @@ public class EtaConfigToggleTests {
         Map<String, Object> configRecord = configRecords.get(0);
         Integer openStatus = ((Number) configRecord.get("open_status")).intValue();
         assert openStatus == 0 : "配置状态应为关闭(0)，实际为: " + openStatus;
+    }
+
+    /**
+     * 从数据库查询杭州市，未删除+未开启的ETA_id
+     * author：江彪
+     * time：2026.1.29 新增
+     */
+    private static String getCloseEtaIdFromDatabase() {
+        String sql = String.format("select id from hp_delivery_eta_time_config where is_del=0 AND city_id=1 and open_status = 0 order by id limit 1;");
+        List<Map<String, Object>> resultList = PandaTestDBHelpful.executeSelectListSql(sql);
+        if (resultList != null && !resultList.isEmpty()) {
+            Object etaID = resultList.get(0).get("id");
+            return etaID != null ? etaID.toString() : "121";
+        }
+        return "121";
     }
 
     private Map<String, Object> createHeaders(String token) {
