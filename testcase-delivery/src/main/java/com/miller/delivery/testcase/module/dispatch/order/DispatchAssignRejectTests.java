@@ -16,12 +16,12 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/01/01 00:00:00
  */
-//@Scenario(
-//        scenarioID = "01K8W6VF3MR0E3297NZWPGNWYG",
-//        scenarioName = "调度系统-调度分单-骑手拒单",
-//        author = "chenchunxia@hungrypandagroup.com",
-//        developmentTime = 120, maintenanceTime = 0, manualTestTime = 60)
-//@DisplayName("调度分单-骑手拒单")
+@Scenario(
+        scenarioID = "01K8W6VF3MR0E3297NZWPGNWYG",
+        scenarioName = "调度系统-调度分单-骑手拒单",
+        author = "chenchunxia@hungrypandagroup.com",
+        developmentTime = 120, maintenanceTime = 0, manualTestTime = 60)
+@DisplayName("调度分单-骑手拒单")
 public class DispatchAssignRejectTests {
 
     @DisplayName("完整端到端流程-调度分单-骑手拒单")
