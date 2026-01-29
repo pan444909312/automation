@@ -40,7 +40,10 @@ public class DriverMatchingTests {
 
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010676", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
         driverOffline driverOffline = new driverOffline();
         driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
 
@@ -55,7 +58,7 @@ public class DriverMatchingTests {
         Long assignDriverID = getAvailableDrivers(siGuanToken, userAppOrderSn);
 
         // 步骤11: 调度-分配订单给骑手（强制分配）
-        assignOrderToDriver(siGuanToken, userAppOrderSn, assignDriverID);
+        assignOrderToDriver(siGuanToken, userAppOrderSn, driverId);
 
         // 步骤12: 派单页面 - 获取packageId
         String packageId = getOrderPackage(driverAccessToken);
@@ -65,7 +68,7 @@ public class DriverMatchingTests {
 
 
 
-        getMatchingWithOrders(siGuanToken,1398722550L);
+        getMatchingWithOrders(siGuanToken,driverId);
 
         // ========== 第五部分：后置操作 ==========
         // 步骤15: 调度取消配送

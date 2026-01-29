@@ -48,11 +48,15 @@ public class DispatchAssignRejectTests {
         
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        Map<String, String> driverLoginInfo = driverLogin();
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
 
         driverOffline driverOffline = new driverOffline();
         driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+
+
+
 
         
         // 步骤8: 骑手app-司机上线操作
@@ -69,7 +73,7 @@ public class DispatchAssignRejectTests {
         Long assignDriverID = getAvailableDrivers(siGuanToken, userAppOrderSn);
         
         // 步骤12: 调度-分配订单给骑手（允许拒单）
-        assignOrderToDriver(siGuanToken, userAppOrderSn, assignDriverID, true);
+        assignOrderToDriver(siGuanToken, userAppOrderSn, driverId, true);
         
         // 步骤13: 派单页面 - 获取packageId
         String packageId = getOrderPackage(driverAccessToken);

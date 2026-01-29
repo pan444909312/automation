@@ -418,6 +418,39 @@ public class TestCaseHelpful {
         return TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
     }
 
+    public static Map<String, String> deliveryLoginReturndriverId(String mobilePhone, String password) {
+        password = MD5Util.string2MD5(password);
+
+        // 接口请求的 path
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/auth/login";
+        // 请求方式
+        String method = "POST";
+        // 请求头
+        String headers = "module/headers.json";
+        // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求
+        String body = "module/delivery/auth/request/body.json";
+
+        // 步骤1: 设置请求头。基本固定写法，不需要修改
+        var requestHeaders = TestCaseHelpful.getHeaders(headers);
+
+        // 步骤2: 设置请求体。基本固定写法，不需要修改
+        var requestBody = TestCaseHelpful.getJsonRequestBody(body);
+        // 修改手机号和密码为动态传递过来的值
+        var updateAccountValue = JSONUtils.updateJsonValue(requestBody, "account", mobilePhone);
+        requestBody = JSONUtils.updateJsonValue(updateAccountValue, "password", password);
+
+        // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, requestHeaders, requestBody);
+
+        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
+
+        String accessToken = TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
+        String userId = TestCaseHelpful.extractValue(responseBody, "$.result.userId").toString();
+
+        return Map.of("accessToken", accessToken, "userId", userId);
+
+    }
+
     /**
      * @param tel 输入手机号
      * @return 手机号验证码

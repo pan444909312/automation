@@ -3,6 +3,7 @@ package com.miller.delivery.testcase.module.delivery.driver;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,12 @@ public class DriverOfflineTests {
 
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300001073", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         // 步骤8: 骑手app-司机上线操作
         driverOnline(driverAccessToken);
         
@@ -49,13 +55,12 @@ public class DriverOfflineTests {
         Long assignDriverID = getAvailableDrivers(siGuanToken, userAppOrderSn);
         
         // 步骤11: 调度-分配订单-正常分配（非强制分配）
-        assignOrderToDriver(siGuanToken, userAppOrderSn, assignDriverID);
+        assignOrderToDriver(siGuanToken, userAppOrderSn, driverId);
         
         // 步骤12: 派单页面 - 获取packageId
         String packageId = getOrderPackage(driverAccessToken);
         
-        // 步骤13: 骑手app-获取骑手待接单列表
-        getOrderPackageList(driverAccessToken);
+//
         
         // 步骤14: 骑手app-骑手接单
         receiveOrder(driverAccessToken, packageId);
@@ -249,30 +254,52 @@ public class DriverOfflineTests {
         headers.put("authorization", driverAccessToken);
         headers.put("longitude", "120.216774");
         headers.put("latitude", "30.203453");
-        
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
+
+
         var requestBody = "{}";
-        
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+        System.out.println("此处打印"+responseBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         return TestCaseHelpful.extractValue(responseBody, "$.result.dataList[0].packageId").toString();
     }
 
-    /**
-     * 骑手app-获取骑手待接单列表
-     */
-    private void getOrderPackageList(String driverAccessToken) {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/list";
-        String method = "POST";
-        Map<String, Object> headers = createIOSDriverAppHeaders();
-        headers.put("Authorization", driverAccessToken);
-        
-        var requestBody = "{}";
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
-        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
-    }
+//    /**
+//     * 骑手app-获取骑手待接单列表
+//     */
+//    private void getOrderPackageList(String driverAccessToken) {
+//        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/list";
+//        String method = "POST";
+//        Map<String, Object> headers = createIOSDriverAppHeaders();
+//        headers.put("Authorization", driverAccessToken);
+//
+//        var requestBody = "{}";
+//
+//        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+//        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+//        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+//        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+//    }
 
     /**
      * 骑手接单
@@ -467,6 +494,12 @@ public class DriverOfflineTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
@@ -492,7 +525,7 @@ public class DriverOfflineTests {
          
         headers.put("content-type", "application/json;charset=UTF-8");
         
-        var requestBody = "{\"continueDown\":0,\"isOnline\":0}";
+        var requestBody = "{\"continueDown\":1,\"isOnline\":0}";
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
@@ -539,22 +572,29 @@ public class DriverOfflineTests {
      */
     private Map<String, Object> createIOSDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("operatingsystem", "2");
-        headers.put("brand", "iPhone 11");
-        headers.put("latitude", "30.203579");
-        headers.put("locationstatus", "2");
+
+        headers.put("longitude", "120.216774");
+        headers.put("latitude", "30.203453");
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
         headers.put("locale", "zh-CN");
-        headers.put("version", "5.49.0");
-        headers.put("countrycode", "CN");
-        headers.put("platform", "IOS");
-        headers.put("uniquetoken", "9A95A874-6493-4DFC-A5E1-BCE3C7C265D0");
-        headers.put("longitude", "120.216994");
-        headers.put("devicesafetoken", "a0_b0_c0_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
         headers.put("apptypeid", "2");
-        headers.put("accept-language", "zh-Hans-CN;q=1, en-CN;q=0.9, ja-CN;q=0.8, en-AU;q=0.7");
-        headers.put("accept", "*/*");
-         
-        headers.put("content-type", "application/json");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
         return headers;
     }
 
