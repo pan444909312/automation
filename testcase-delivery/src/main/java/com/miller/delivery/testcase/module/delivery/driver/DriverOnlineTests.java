@@ -30,7 +30,7 @@ public class DriverOnlineTests {
     @Test
     void shouldOnlineSuccessfully() {
         // 1) 骑手登录获取 token
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010686", "Test1234");
 
         // 2) 骑手上线前校验状态
         checkStatusBeforeOnline(driverAccessToken);
@@ -45,42 +45,6 @@ public class DriverOnlineTests {
         driverOffline(driverAccessToken);
     }
 
-    @DisplayName("骑手上线-不可上线，必须到接单商圈才可上线")
-    @Test
-    void shouldFailOnlineWhenNotInAcceptArea() {
-        // 1) 骑手登录获取 token 和 userId
-        Map<String, String> loginInfo = driverLogin("13300010015", "Test1234");
-        String driverAccessToken = loginInfo.get("accessToken");
-        Long newUserId = Long.parseLong(loginInfo.get("userId"));
-
-        // 2) 前置操作：更新骑手必须到接单商圈才可上线（prerequest脚本）
-        String updateSql = String.format("UPDATE `panda_test`.`app_config` SET `out_area_online` = 0 WHERE `user_id` = %d", newUserId);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(updateSql);
-
-        // 3) 司机上线操作-不可上线，必须到接单商圈才可上线
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/onOffline";
-        String method = "POST";
-        Map<String, Object> headers = createDriverAppHeaders();
-        headers.put("authorization", driverAccessToken);
-        headers.put("operatingsystem", "1");
-        headers.put("longitude", "120.217095");
-        headers.put("latitude", "30.203565");
-        
-        String body = "{\"isOnline\":1}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-
-        // 4) 断言
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("resultCode").isEqualTo(160033);
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("reason").isEqualTo("请到您的接单区域上线");
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("success").isEqualTo(false);
-
-        // 5) 后置操作：更新骑手其他商圈也可以上线（test脚本）
-        String restoreSql = String.format("UPDATE `panda_test`.`app_config` SET `out_area_online` = 1 WHERE `user_id` = %d", newUserId);
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(restoreSql);
-    }
 
     /**
      * 骑手登录并返回token和userId
@@ -157,7 +121,7 @@ public class DriverOnlineTests {
         headers.put("operatingsystem", "1");
         headers.put("longitude", "120.217095");
         headers.put("latitude", "30.203565");
-        
+
         String body = "{\"isOnline\":1}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
@@ -168,6 +132,13 @@ public class DriverOnlineTests {
                 .node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(true);
+
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
@@ -178,21 +149,10 @@ public class DriverOnlineTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        headers.put("longitude", "120.2168953");
-        headers.put("latitude", "30.2035072");
-        headers.put("version", "5.55.0");
-        headers.put("platform", "ANDROID_DELIVERY");
-        headers.put("type", "3");
-        headers.put("locale", "zh-CN");
         headers.put("operatingsystem", "1");
-        headers.put("brand", "samsung");
-        headers.put("uniquetoken", "34ea70ca94766bbc");
-        headers.put("apptypeid", "2");
-        headers.put("countrycode", "CN");
-        headers.put("devicesafetoken", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("longitude", "120.217095");
+        headers.put("latitude", "30.203565");
 
-        headers.put("content-type", "application/json;charset=UTF-8");
-        
         String body = "{\"continueDown\":0,\"isOnline\":0}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 

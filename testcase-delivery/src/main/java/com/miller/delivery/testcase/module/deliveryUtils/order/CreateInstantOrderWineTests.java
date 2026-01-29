@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01JPPF8ZAFXN5PC1SMYMTPTJBY",
+        scenarioID = "01KG1DRSCE88TRW751GJW4G5FC",
         scenarioName = "C侧下即时单-平台配送-杭州-滨江区-酒订单",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
@@ -74,7 +74,7 @@ public class CreateInstantOrderWineTests {
         var requestBody = "{\"deliveryType\":1,\"shopId\":892716498}";
         
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.cart.shopId").toString());
+        return Long.parseLong(TestCaseHelpful.extractValue(responseBody, "$.result.menuList[0].subMenuList[0].productList[0].shopId").toString());
     }
 
     private void addToCart(String userAppAccessToken, Long shopId) {

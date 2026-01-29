@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.deliveryAdmin.deliveryTime;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +28,6 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 public class OldDeliveryTimeConfigDetailTests {
 
     // 注意：需要在实际使用时替换为真实的 configId
-    private static final String CONFIG_ID = "1"; // 请从质量平台或数据库中获取实际的 delivery_time_config_id
 
     @DisplayName("查看老的配送时长方案详情")
     @Test
@@ -39,7 +39,11 @@ public class OldDeliveryTimeConfigDetailTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/delivery/time/config/detail";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String body = String.format("{\"configId\":\"%s\"}", CONFIG_ID);
+        OldDeliveryTimeConfigAddTests oldDeliveryTimeConfigAddTests = new OldDeliveryTimeConfigAddTests();
+        oldDeliveryTimeConfigAddTests.shouldAddOldDeliveryTimeConfig();
+        Long oldconfigId = oldDeliveryTimeConfigAddTests.oldconfigId;
+
+        String body = String.format("{\"configId\":\"%s\"}", oldconfigId);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言
@@ -47,6 +51,12 @@ public class OldDeliveryTimeConfigDetailTests {
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
+
+        // 5) 从数据库删除
+
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "update panda_test.hp_delivery_time_config set is_del=1 where id=" + oldconfigId + "" );
+
     }
 
     private Map<String, Object> createHeaders(String token) {

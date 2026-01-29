@@ -23,4 +23,6 @@ public interface AutoCaseRoiMapper extends BaseMapper<AutoCaseRoiEntity> {
     List<AutoCaseRoiEntity> selectAutoCaseRoiProjectId();
 
     int updateCaseActive();
+
+
 }
