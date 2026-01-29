@@ -29,7 +29,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 public class SendSmsPhoneNumberTests {
 
 
-    @DisplayName("翻译完整流程")
+    @DisplayName("发送短信电话号码")
     @Test
     void shouldCompleteTranslateFlow() {
         // ========== 第一部分：C侧下单流程 ==========

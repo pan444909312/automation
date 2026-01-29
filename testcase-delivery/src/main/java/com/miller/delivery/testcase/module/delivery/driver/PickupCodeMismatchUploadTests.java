@@ -49,7 +49,9 @@ public class PickupCodeMismatchUploadTests {
         
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
         
         // 步骤8: 前置操作：更新订单的取餐码
         updateFoodDeliveryCode(userAppOrderSn);
@@ -58,7 +60,7 @@ public class PickupCodeMismatchUploadTests {
         uploadPickupCodeMismatchInfo(driverAccessToken, userAppOrderSn);
         
         // 步骤10: 收餐码异常反馈记录
-        getPickupCodeAbnormalDetail(driverAccessToken, userAppOrderSn);
+        getPickupCodeAbnormalDetail(driverAccessToken, userAppOrderSn,driverId);
     }
 
     /**
@@ -205,14 +207,14 @@ public class PickupCodeMismatchUploadTests {
     /**
      * 收餐码异常反馈记录
      */
-    private void getPickupCodeAbnormalDetail(String driverAccessToken, String userAppOrderSn) {
+    private void getPickupCodeAbnormalDetail(String driverAccessToken, String userAppOrderSn,Long driverId) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/foodDeliveryCodeAbnormalDetail";
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
         
         // 从登录响应中获取 driverId，这里使用占位符
-        Long driverId = 1398717294L; // 占位符，实际使用时需要从登录响应中提取
+
         String body = String.format("{\"driverId\":%d,\"orderSn\":\"%s\"}", driverId, userAppOrderSn);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         
