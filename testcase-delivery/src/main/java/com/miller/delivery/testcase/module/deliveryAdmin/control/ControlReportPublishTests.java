@@ -81,9 +81,9 @@ public class ControlReportPublishTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         // 响应可能返回重复或成功，按 Apifox 用例容忍两种
         TestCaseHelpful.assertThatJson(responseBody).node("message")
-                .isIn("报备日期重复，请检查", "成功");
+                .isEqualTo("报备日期重复，请检查");
         TestCaseHelpful.assertThatJson(responseBody).node("code")
-                .isIn(9999, 1);
+                .isEqualTo(9999);
     }
 
     /**
