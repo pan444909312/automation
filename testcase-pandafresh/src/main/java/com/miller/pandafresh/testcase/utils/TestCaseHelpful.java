@@ -69,7 +69,6 @@ public class TestCaseHelpful {
      * 获取测试用例资源文件内容作为请求Params参数，一般是 GET 请求，参数在url上，以 ?key=value&key2=value2的形式
      *
      * @param filePath 文件路径,文件内容为 json
-     *
      * @return 请求的 Params 参数，也叫 QueryParams
      */
     public static Map<String, Object> getJsonRequestParams(String filePath) {
@@ -117,16 +116,18 @@ public class TestCaseHelpful {
 
     /**
      * 将一个值放入到缓存中，默认8小时有效期
-     * @param key 唯一值，建议使用测试用例 ID 值（scenarioID），默认会拼上前缀 Automation_，如果直连 Redis 查询，请自行拼接。
-     * @param value  值
+     *
+     * @param key   唯一值，建议使用测试用例 ID 值（scenarioID），默认会拼上前缀 Automation_，如果直连 Redis 查询，请自行拼接。
+     * @param value 值
      */
     public static void set(String key, Object value) {
         RedisUtils.getRedisInstance().set("Automation_" + key, value, 60 * 60 * 8L);
     }
 
     /**
-     *  获取缓存中的值
-     * @param key  唯一值，建议使用测试用例 ID 值（scenarioID）
+     * 获取缓存中的值
+     *
+     * @param key 唯一值，建议使用测试用例 ID 值（scenarioID）
      * @return 缓存中的值
      */
     public static Object get(String key) {
@@ -147,11 +148,11 @@ public class TestCaseHelpful {
     /**
      * 使用 JSONPath 更新 JSON 字符串中指定 key 的值为新的值
      *
-     * @param jsonStr 原始JSON字符串
+     * @param jsonStr  原始JSON字符串
      * @param jsonPath JSONPath表达式，例如 "$.store.book[0].title"
      * @param newValue 需要更新的新的值
      * @return 更新后的JSON字符串
-     * @throws JSONException 当输入的字符串不是有效的JSON格式时抛出
+     * @throws JSONException         当输入的字符串不是有效的JSON格式时抛出
      * @throws PathNotFoundException 当指定的JSONPath不存在时抛出
      */
     public static String updateJsonValue(String jsonStr, String jsonPath, Object newValue) {
@@ -278,7 +279,7 @@ public class TestCaseHelpful {
             headers.put("_ts", System.currentTimeMillis() + "");
             headers.put("authorization", headers.get("authorization"));
             //ab测包含autotest可绕过验签
-            headers.replace("testgroup",headers.get("testgroup")+",autotest");
+            headers.replace("testgroup", headers.get("testgroup") + ",autotest");
 
         }
         if ("POST".equals(method)) {
@@ -289,6 +290,8 @@ public class TestCaseHelpful {
             return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
         } else if ("DELETE".equals(method)) {
             return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
+        } else if ("PATCH".equals(method)) {
+            return HttpUtils.sendPatchRequestReturnBody(uri, params, headers, body, null);
         } else {
             log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
             throw new RuntimeException("不支持的请求方法" + method);
@@ -309,7 +312,7 @@ public class TestCaseHelpful {
      * @return 响应体字符串
      */
     public static String sendHpRequest(String method, String uri, Map<String, Object> params, Map<String, Object> headers,
-                                     Object body) {
+                                       Object body) {
         // 将headers中的key全部转成小写
         Map<String, Object> lowerCaseHeaders = new HashMap<>();
         if (headers != null) {
@@ -437,11 +440,11 @@ public class TestCaseHelpful {
     }
 
 
-
     /**
      * 登录并返回token
+     *
      * @param mobilePhone 手机号 areaCode 默认 86
-     * @param password  登录密码
+     * @param password    登录密码
      * @return token
      */
     public static String login(String mobilePhone, String password) {
@@ -474,7 +477,9 @@ public class TestCaseHelpful {
     }
 
 
-    /**PF登录获取token**/
+    /**
+     * PF登录获取token
+     **/
     public static String loginPF(String mobilePhone, String code) {
 
         // 接口请求的 path
@@ -504,7 +509,9 @@ public class TestCaseHelpful {
     }
 
 
-    /**b2b登录获取token**/
+    /**
+     * b2b登录获取token
+     **/
     public static String loginB2B(String mobilePhone, String code) {
 
         // 接口请求的 path

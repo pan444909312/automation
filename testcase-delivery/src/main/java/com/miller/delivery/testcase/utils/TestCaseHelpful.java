@@ -336,7 +336,10 @@ public class TestCaseHelpful {
             return HttpUtils.sendPutRequestReturnBody(uri, params, headers, body, null);
         } else if ("DELETE".equals(method)) {
             return HttpUtils.sendDeleteRequestReturnBody(uri, params, headers, body, null);
-        } else {
+        } else if ("PATCH".equals(method)) {
+            return HttpUtils.sendPatchRequestReturnBody(uri, params, headers, body, null);
+        }
+        else {
             log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", method, uri);
             throw new RuntimeException("不支持的请求方法" + method);
         }
