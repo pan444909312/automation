@@ -20,12 +20,12 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * @version 2.0
  * @since 2025/01/06
  */
-//@Scenario(
-//        scenarioID = "01JNQ7H5TWKQ0EDYVWWMX0J0PQ",
-//        scenarioName = "【主干场景】骑手app-首页弹窗",
-//        author = "chenchunxia@hungrypandagroup.com",
-//        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-//@DisplayName("【主干场景】骑手app-首页弹窗")
+@Scenario(
+        scenarioID = "01JNQ7H5TWKQ0EDYVWWMX0J0PQ",
+        scenarioName = "【主干场景】骑手app-首页弹窗",
+        author = "chenchunxia@hungrypandagroup.com",
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+@DisplayName("【主干场景】骑手app-首页弹窗")
 public class popupHomeTests {
 
 
