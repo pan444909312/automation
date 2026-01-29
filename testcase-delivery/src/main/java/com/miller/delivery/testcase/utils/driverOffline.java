@@ -103,6 +103,12 @@ public class driverOffline {
         } else {
             System.out.println("骑手身上无单，不需要取消配送");
         }
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         driverOffline(driverAccessToken);
     }
 //
@@ -144,8 +150,9 @@ public class driverOffline {
         headers.put("longitude", "120.217095");
         headers.put("latitude", "30.203565");
 
-        String body = "{\"continueDown\":0,\"isOnline\":0}";
+        String body = "{\"continueDown\":1,\"isOnline\":0}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+        System.out.println("下线接口返回："+responseBody);
 
         // 等待2秒
         try {
