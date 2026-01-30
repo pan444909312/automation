@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.dashboard;
+package com.miller.delivery.testcase.module.deliveryAdmin.dashboard.tail;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -12,24 +12,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 司管后台-订单管理-实时看板-尾单率-时段报表
+ * 司管后台-订单管理-实时看板-载具报表
  */
 @Scenario(
-        scenarioID = "01JPPPFN2AEPGTTBR9N0DCMZDC",
-        scenarioName = "司管后台-订单管理-实时看板-尾单率-时段报表",
+        scenarioID = "01JPPPJBK129KM3809B5AQ5JKK",
+        scenarioName = "司管后台-订单管理-实时看板-载具报表",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("3mile内时段报表")
-public class ThreeMilePeriodReportTests {
+@DisplayName("3mile内载具报表")
+public class ThreeMileVehicleReportTests {
 
-    @DisplayName("获取当天时段报表")
+    @DisplayName("载具报表")
     @Test
-    void shouldGetPeriodReport() {
+    void shouldGetVehicleReport() {
         // 1) 司管登录获取 token
         String token = erpLogin();
 
-        // 2) 获取当天时段报表
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/period";
+        // 2) 获取载具报表
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/vehicle";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
         String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -39,13 +39,13 @@ public class ThreeMilePeriodReportTests {
                 "    ],\n" +
                 "    \"deliveryAreaIdList\": [],\n" +
                 "    \"runTypeList\": [],\n" +
-                "    \"excludeShop\": 0,\n" +
+                "  \"distance\": 3,\n" +
                 "    \"excludeWeather\": 0,\n" +
                 "    \"excludeDuty\": 0,\n" +
                 "    \"startDate\": \"" + todayDate + "\",\n" +
                 "    \"endDate\": \"" + todayDate + "\",\n" +
                 "    \"date\": \"\",\n" +
-                "    \"distanceType\": 0\n" +
+                "    \"distanceType\": 1\n" +
                 "}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 

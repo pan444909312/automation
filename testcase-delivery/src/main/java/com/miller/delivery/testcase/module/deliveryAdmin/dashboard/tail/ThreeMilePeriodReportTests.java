@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.dashboard;
+package com.miller.delivery.testcase.module.deliveryAdmin.dashboard.tail;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -12,24 +12,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 司管后台-订单管理-实时看板-商圈报表
+ * 司管后台-订单管理-实时看板-尾单率-时段报表
  */
 @Scenario(
-        scenarioID = "01JPPPY2P8RC7JZKPXPS100ZW6",
-        scenarioName = "司管后台-订单管理-实时看板-商圈报表",
+        scenarioID = "01JPPPFN2AEPGTTBR9N0DCMZDC",
+        scenarioName = "司管后台-订单管理-实时看板-尾单率-时段报表",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("3mile内商圈报表")
-public class ThreeMileBusinessAreaReportTests {
+@DisplayName("3mile内时段报表")
+public class ThreeMilePeriodReportTests {
 
-    @DisplayName("商圈报表")
+    @DisplayName("获取当天时段报表")
     @Test
-    void shouldGetBusinessAreaReport() {
+    void shouldGetPeriodReport() {
         // 1) 司管登录获取 token
         String token = erpLogin();
 
-        // 2) 获取商圈报表
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/orderArea";
+        // 2) 获取当天时段报表
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/period";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
         String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -39,13 +39,13 @@ public class ThreeMileBusinessAreaReportTests {
                 "    ],\n" +
                 "    \"deliveryAreaIdList\": [],\n" +
                 "    \"runTypeList\": [],\n" +
-                "    \"excludeShop\": 0,\n" +
+                "  \"distance\": 3,\n" +
                 "    \"excludeWeather\": 0,\n" +
                 "    \"excludeDuty\": 0,\n" +
                 "    \"startDate\": \"" + todayDate + "\",\n" +
                 "    \"endDate\": \"" + todayDate + "\",\n" +
                 "    \"date\": \"\",\n" +
-                "    \"distanceType\": 0\n" +
+                "    \"distanceType\": 1\n" +
                 "}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
@@ -75,7 +75,7 @@ public class ThreeMileBusinessAreaReportTests {
         headers.put("sec-fetch-mode", "cors");
         headers.put("sec-fetch-site", "same-site");
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36");
-         
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }

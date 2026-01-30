@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.dashboard;
+package com.miller.delivery.testcase.module.deliveryAdmin.dashboard.tail;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -6,51 +6,50 @@ import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 司管后台-订单管理-实时看板-远距离尾单-载具报表（全距离）
- *
- * Apifox: docs/d-apifox/toCheck/全距离-载具报表.apifox-cli.json
+ * 司管后台-订单管理-实时看板-新老骑手
  */
 @Scenario(
-        scenarioID = "01JPPQ8V2XZ8CYH86ZSC4NXD80",
-        scenarioName = "司管后台-订单管理-实时看板-远距离尾单-载具报表",
+        scenarioID = "01JPPPHMPY9T02Y1ZSD541JZSV",
+        scenarioName = "司管后台-订单管理-实时看板-新老骑手",
         author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("全距离载具报表")
-public class AllDistanceVehicleReportTests {
+        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+@DisplayName("3mile内新老骑手报表")
+public class ThreeMileNewOldDriverReportTests {
 
-    @DisplayName("载具报表（全距离）")
+    @DisplayName("新老骑手报表")
     @Test
-    void shouldGetVehicleReportForAllDistance() {
+    void shouldGetNewOldDriverReport() {
         // 1) 司管登录获取 token
         String token = erpLogin();
 
-        // 2) 获取载具报表
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/vehicle";
+        // 2) 获取新老骑手报表
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/newDriver";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-
-        // 3) 请求体来自 apifox-cli：distanceType = 1（全距离）
+        String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String body = "{\n" +
-                "  \"cityList\": [\n" +
-                "    \"杭州市\"\n" +
-                "  ],\n" +
-                "  \"runTypeList\": [],\n" +
-                "  \"deliveryAreaIdList\": [],\n" +
-                "  \"pageNo\": 1,\n" +
-                "  \"pageSize\": 10,\n" +
-                "  \"excludeDuty\": 0,\n" +
-                "  \"excludeShop\": 0,\n" +
-                "  \"excludeWeather\": 0,\n" +
-                "  \"distanceType\": 1\n" +
+                "    \"cityList\": [\n" +
+                "        \"杭州市\"\n" +
+                "    ],\n" +
+                "    \"deliveryAreaIdList\": [],\n" +
+                "    \"runTypeList\": [],\n" +
+                "  \"distance\": 3,\n" +
+                "    \"excludeWeather\": 0,\n" +
+                "    \"excludeDuty\": 0,\n" +
+                "    \"startDate\": \"" + todayDate + "\",\n" +
+                "    \"endDate\": \"" + todayDate + "\",\n" +
+                "    \"date\": \"\",\n" +
+                "    \"distanceType\": 1\n" +
                 "}";
-
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
-        // 4) 断言获取成功
+        // 3) 断言获取成功
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)

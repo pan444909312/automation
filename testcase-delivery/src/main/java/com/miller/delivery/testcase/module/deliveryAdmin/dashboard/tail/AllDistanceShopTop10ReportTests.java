@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.dashboard;
+package com.miller.delivery.testcase.module.deliveryAdmin.dashboard.tail;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -10,26 +10,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 司管后台-订单管理-实时看板-远距离尾单-骑手top30（全距离）
+ * 司管后台-订单管理-实时看板-远距离尾单-商家top10（全距离）
  *
- * Apifox: docs/d-apifox/toCheck/全距离-骑手top30报表.apifox-cli.json
+ * Apifox: docs/d-apifox/toCheck/全距离-商家top10.apifox-cli.json
  */
 @Scenario(
-        scenarioID = "01JPPQBM8XQKWBQN9W49X6AC96",
-        scenarioName = "司管后台-订单管理-实时看板-远距离尾单-骑手top30",
+        scenarioID = "01JPPQCFG3FE2SSRNKAQXCSZ2E",
+        scenarioName = "司管后台-订单管理-实时看板-远距离尾单-商家top10",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("全距离骑手top30报表")
-public class AllDistanceDriverTop30ReportTests {
+@DisplayName("全距离商家top10报表")
+public class AllDistanceShopTop10ReportTests {
 
-    @DisplayName("骑手top30（全距离）")
+    @DisplayName("商家top10（全距离）")
     @Test
-    void shouldGetDriverTop30ReportForAllDistance() {
+    void shouldGetShopTop10ReportForAllDistance() {
         // 1) 司管登录获取 token
         String token = erpLogin();
 
-        // 2) 获取骑手top30报表
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/driverData";
+        // 2) 获取商家top10报表
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/shopData";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
 
@@ -43,7 +43,7 @@ public class AllDistanceDriverTop30ReportTests {
                 "  \"pageNo\": 1,\n" +
                 "  \"pageSize\": 10,\n" +
                 "  \"excludeDuty\": 0,\n" +
-                "  \"excludeShop\": 0,\n" +
+                "  \"distance\": 4,\n" +
                 "  \"excludeWeather\": 0,\n" +
                 "  \"distanceType\": 1\n" +
                 "}";

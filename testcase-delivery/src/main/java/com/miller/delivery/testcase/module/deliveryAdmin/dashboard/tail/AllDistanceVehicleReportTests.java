@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.dashboard;
+package com.miller.delivery.testcase.module.deliveryAdmin.dashboard.tail;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -10,26 +10,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 司管后台-订单管理-实时看板-远距离尾单-距离报表（全距离）
+ * 司管后台-订单管理-实时看板-远距离尾单-载具报表（全距离）
  *
- * Apifox: docs/d-apifox/toCheck/全距离-距离报表.apifox-cli.json
+ * Apifox: docs/d-apifox/toCheck/全距离-载具报表.apifox-cli.json
  */
 @Scenario(
-        scenarioID = "01JPPQ64XD7CKGR4AKW2MBHS7A",
-        scenarioName = "司管后台-订单管理-实时看板-远距离尾单-距离报表",
+        scenarioID = "01JPPQ8V2XZ8CYH86ZSC4NXD80",
+        scenarioName = "司管后台-订单管理-实时看板-远距离尾单-载具报表",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("全距离距离报表")
-public class AllDistanceDistanceReportTests {
+@DisplayName("全距离载具报表")
+public class AllDistanceVehicleReportTests {
 
-    @DisplayName("距离报表（全距离）")
+    @DisplayName("载具报表（全距离）")
     @Test
-    void shouldGetDistanceReportForAllDistance() {
+    void shouldGetVehicleReportForAllDistance() {
         // 1) 司管登录获取 token
         String token = erpLogin();
 
-        // 2) 获取距离报表
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/distance";
+        // 2) 获取载具报表
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/vehicle";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
 
@@ -43,7 +43,7 @@ public class AllDistanceDistanceReportTests {
                 "  \"pageNo\": 1,\n" +
                 "  \"pageSize\": 10,\n" +
                 "  \"excludeDuty\": 0,\n" +
-                "  \"excludeShop\": 0,\n" +
+                "  \"distance\": 4,\n" +
                 "  \"excludeWeather\": 0,\n" +
                 "  \"distanceType\": 1\n" +
                 "}";

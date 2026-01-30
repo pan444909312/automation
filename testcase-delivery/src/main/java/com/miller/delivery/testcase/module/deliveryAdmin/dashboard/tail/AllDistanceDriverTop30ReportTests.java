@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.dashboard;
+package com.miller.delivery.testcase.module.deliveryAdmin.dashboard.tail;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -6,25 +6,25 @@ import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 司管后台-订单管理-实时看板-骑手top30报表
+ * 司管后台-订单管理-实时看板-远距离尾单-骑手top30（全距离）
+ *
+ * Apifox: docs/d-apifox/toCheck/全距离-骑手top30报表.apifox-cli.json
  */
 @Scenario(
-        scenarioID = "01JPPPZMKXNXTW3ACMW0YNP4RD",
-        scenarioName = "司管后台-订单管理-实时看板-骑手top30报表",
+        scenarioID = "01JPPQBM8XQKWBQN9W49X6AC96",
+        scenarioName = "司管后台-订单管理-实时看板-远距离尾单-骑手top30",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("3mile内骑手top30报表")
-public class ThreeMileDriverTop30ReportTests {
+@DisplayName("全距离骑手top30报表")
+public class AllDistanceDriverTop30ReportTests {
 
-    @DisplayName("骑手top30")
+    @DisplayName("骑手top30（全距离）")
     @Test
-    void shouldGetDriverTop30Report() {
+    void shouldGetDriverTop30ReportForAllDistance() {
         // 1) 司管登录获取 token
         String token = erpLogin();
 
@@ -32,24 +32,25 @@ public class ThreeMileDriverTop30ReportTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/tailOrder/dashBoard/driverData";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        // 3) 请求体来自 apifox-cli：distanceType = 1（全距离）
         String body = "{\n" +
-                "    \"cityList\": [\n" +
-                "        \"杭州市\"\n" +
-                "    ],\n" +
-                "    \"deliveryAreaIdList\": [],\n" +
-                "    \"runTypeList\": [],\n" +
-                "    \"excludeShop\": 0,\n" +
-                "    \"excludeWeather\": 0,\n" +
-                "    \"excludeDuty\": 0,\n" +
-                "    \"startDate\": \"" + todayDate + "\",\n" +
-                "    \"endDate\": \"" + todayDate + "\",\n" +
-                "    \"date\": \"\",\n" +
-                "    \"distanceType\": 0\n" +
+                "  \"cityList\": [\n" +
+                "    \"杭州市\"\n" +
+                "  ],\n" +
+                "  \"runTypeList\": [],\n" +
+                "  \"deliveryAreaIdList\": [],\n" +
+                "  \"pageNo\": 1,\n" +
+                "  \"pageSize\": 10,\n" +
+                "  \"excludeDuty\": 0,\n" +
+                "  \"distance\": 4,\n" +
+                "  \"excludeWeather\": 0,\n" +
+                "  \"distanceType\": 1\n" +
                 "}";
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
-        // 3) 断言获取成功
+        // 4) 断言获取成功
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
@@ -75,7 +76,7 @@ public class ThreeMileDriverTop30ReportTests {
         headers.put("sec-fetch-mode", "cors");
         headers.put("sec-fetch-site", "same-site");
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36");
-         
+
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }

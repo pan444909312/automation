@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.dashboard;
+package com.miller.delivery.testcase.module.deliveryAdmin.dashboard.tail;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -43,7 +43,7 @@ public class AllDistanceBusinessAreaReportTests {
                 "  \"pageNo\": 1,\n" +
                 "  \"pageSize\": 10,\n" +
                 "  \"excludeDuty\": 0,\n" +
-                "  \"excludeShop\": 0,\n" +
+                "  \"distance\": 4,\n" +
                 "  \"excludeWeather\": 0,\n" +
                 "  \"distanceType\": 1\n" +
                 "}";
