@@ -33,10 +33,9 @@ public class DriverInvoiceListTests {
         String token = erpLogin();
         Map<String, Object> headers = createHeaders(token);
 
-        DateRange lastWeek = getLastWeekRange();
+
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/driver/invoice/driverInvoice";
-        String body = String.format("{\"city\":null,\"startDate\":\"%s\",\"endDate\":\"%s\",\"status\":null,\"type\":null,\"pageNo\":1,\"pageSize\":10}",
-                lastWeek.start, lastWeek.end);
+        String body = String.format("{\"city\":null,\"startDate\":\"2025-12-01\",\"endDate\":\"2025-12-30\",\"status\":null,\"type\":null,\"pageNo\":1,\"pageSize\":10}");
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
@@ -54,10 +53,9 @@ public class DriverInvoiceListTests {
         String token = erpLogin();
         Map<String, Object> headers = createHeaders(token);
 
-        DateRange lastWeek = getLastWeekRange();
+
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/driver/invoice/driverInvoice";
-        String body = String.format("{\"city\":\"杭州市\",\"startDate\":\"%s\",\"endDate\":\"%s\",\"status\":2,\"type\":0,\"pageNo\":1,\"pageSize\":10}",
-                lastWeek.start, lastWeek.end);
+        String body = String.format("{\"city\":\"杭州市\",\"startDate\":\"2025-12-01\",\"endDate\":\"2025-12-30\",\"status\":2,\"type\":0,\"pageNo\":1,\"pageSize\":10}");
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
