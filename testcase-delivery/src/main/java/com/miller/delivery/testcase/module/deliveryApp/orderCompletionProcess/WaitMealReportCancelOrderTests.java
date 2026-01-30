@@ -4,6 +4,7 @@ import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.common.util.MD5Util;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01JWGQQ5HBW4QC9NF2BG2JT8JF",
-        scenarioName = "【主干用例】骑手等餐报备-撤单",
+        scenarioName = "【主干用例】等餐报备-撤单完整流程",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 15)
 @DisplayName("等餐报备-撤单")
@@ -35,9 +36,14 @@ public class WaitMealReportCancelOrderTests {
         String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录（按 apifox 同时获取 userId/accessToken）
-        Map<String, String> driverLoginResult = driverLogin();
-        String driverAccessToken = driverLoginResult.get("accessToken");
-        String driverUserId = driverLoginResult.get("userId");
+        // ========== 第二部分：骑手操作流程 ==========
+        // 步骤7: 骑手app-骑手登录
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
 
         // 步骤8: 司机上线操作（apifox: /api/delivery/app/driver/onOffline）
         driverOnOffline(driverAccessToken);
@@ -50,7 +56,7 @@ public class WaitMealReportCancelOrderTests {
         modifyDeliveryStatusArriveShop(driverAccessToken, userAppOrderSn);
 
         // 步骤11: 等餐报备-撤单（apifox: /api/delivery/app/report/checkReportWindow）
-        checkReportWindow(driverAccessToken, userAppOrderSn, driverUserId);
+        checkReportWindow(driverAccessToken, userAppOrderSn, driverId);
 
         // 步骤12: 骑手配送状态-未出餐（operationType=2）
         modifyDeliveryStatusNotReady(driverAccessToken, userAppOrderSn);
@@ -65,28 +71,7 @@ public class WaitMealReportCancelOrderTests {
         signOrder(driverAccessToken, userAppOrderSn);
     }
 
-    /**
-     * 骑手登录并返回 accessToken + userId（按 apifox: /api/delivery/app/auth/login）
-     */
-    private Map<String, String> driverLogin() {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/auth/login";
-        String method = "POST";
-        Map<String, Object> headers = TestCaseHelpful.getHeaders("module/headers.json");
-        // apifox: enableSign=false
-        headers.put("enableSign", "false");
-        String passwordMd5 = MD5Util.string2MD5("Test1234");
-        String body = String.format("{\"areaCode\":\"86\",\"password\":\"%s\",\"account\":\"13300010015\"}", passwordMd5);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
-        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
-
-        Map<String, String> result = new HashMap<>();
-        result.put("accessToken", TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString());
-        result.put("userId", TestCaseHelpful.extractValue(responseBody, "$.result.userId").toString());
-        return result;
-    }
 
     /**
      * 司机上线操作（apifox: /api/delivery/app/driver/onOffline）
@@ -143,7 +128,7 @@ public class WaitMealReportCancelOrderTests {
     /**
      * 等餐报备-撤单（apifox: /api/delivery/app/report/checkReportWindow）
      */
-    private void checkReportWindow(String driverAccessToken, String userAppOrderSn, String driverUserId) {
+    private void checkReportWindow(String driverAccessToken, String userAppOrderSn, Long driverUserId) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/report/checkReportWindow";
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
