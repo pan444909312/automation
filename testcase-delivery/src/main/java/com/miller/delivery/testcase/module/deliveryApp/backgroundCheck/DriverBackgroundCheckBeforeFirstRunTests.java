@@ -91,7 +91,7 @@ public class DriverBackgroundCheckBeforeFirstRunTests {
 
     private void preparePhoneNumber() {
         Map<String, Object> result = PandaTestDBHelpful.executeSelectOneSql(
-                "select * from `panda_test`.`hp_delivery_user` where user_telphone like '%9901%' order by user_id desc limit 1");
+                "select * from `panda_test`.`hp_delivery_user` where user_telphone like '133000%' order by user_id desc limit 1");
         if (result != null && result.get("user_telphone") != null) {
             String oldTel = result.get("user_telphone").toString();
             long oldTelNum = Long.parseLong(oldTel);
@@ -271,7 +271,7 @@ public class DriverBackgroundCheckBeforeFirstRunTests {
                 "    \"content-type\": \"application/json\"\n" +
                 "  },\n" +
                 "  \"pd\": {\n" +
-                "    \"phone\": \"13300001104\",\n" +
+                "    \"phone\":  " + newTel + ",\n" +
                 "    \"email\": \"ghk66yk@163.com\",\n" +
                 "    \"firstName\": \"iik\",\n" +
                 "    \"middleName\": \"\",\n" +
@@ -288,7 +288,7 @@ public class DriverBackgroundCheckBeforeFirstRunTests {
                 "    \"city\": \"日照市\",\n" +
                 "    \"country\": \"中国\",\n" +
                 "    \"copyRequested\": 1,\n" +
-                "    \"driverId\": 1398722971,\n" +
+                "    \"driverId\": " + newUserId + ",\n" +
                 "    \"ssn\": \"\",\n" +
                 "    \"postalAddressName\": \"\",\n" +
                 "    \"postalAddressStreet\": \"\",\n" +

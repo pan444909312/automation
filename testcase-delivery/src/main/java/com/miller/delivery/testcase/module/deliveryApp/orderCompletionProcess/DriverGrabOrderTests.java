@@ -3,6 +3,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01JZ556ZZTHS2RVBPKYZP3YHTW",
-        scenarioName = "主干流程-骑手抢单-完单【C侧下单】",
+        scenarioName = "主干流程-骑手抢单【C侧下单】",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
 @DisplayName("骑手抢单-抢单场景")
@@ -29,8 +30,10 @@ public class DriverGrabOrderTests {
         CreateInstantOrderWithHandoverTests create = new CreateInstantOrderWithHandoverTests();
         String userAppOrderSn = create.orderFlow();
 
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        driverOnOffline(driverAccessToken, 0, 0);
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010676", "Test1234");
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+//        driverOnOffline(driverAccessToken, 0, 0);
 
         var responseBody = grabOrderRaw(driverAccessToken, userAppOrderSn);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(100026);
@@ -41,7 +44,10 @@ public class DriverGrabOrderTests {
     @DisplayName("订单不存在不可抢单")
     @Test
     void shouldFailGrabOrderWhenOrderNotExist() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010676", "Test1234");
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+
         driverOnOffline(driverAccessToken, 1, null);
 
         var responseBody = grabOrderRaw(driverAccessToken, "11111111");
@@ -53,7 +59,9 @@ public class DriverGrabOrderTests {
     @DisplayName("订单号为空不可抢单")
     @Test
     void shouldFailGrabOrderWhenOrderSnEmpty() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010676", "Test1234");
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnOffline(driverAccessToken, 1, null);
 
         var responseBody = grabOrderRaw(driverAccessToken, "");
@@ -68,13 +76,18 @@ public class DriverGrabOrderTests {
         CreateInstantOrderWithHandoverTests create = new CreateInstantOrderWithHandoverTests();
         String userAppOrderSn = create.orderFlow();
 
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010676", "Test1234");
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+
         driverOnOffline(driverAccessToken, 1, null);
 
         var responseBody = grabOrderRaw(driverAccessToken, userAppOrderSn);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+
     }
 
     private void driverOnOffline(String driverAccessToken, int isOnline, Integer continueDown) {
