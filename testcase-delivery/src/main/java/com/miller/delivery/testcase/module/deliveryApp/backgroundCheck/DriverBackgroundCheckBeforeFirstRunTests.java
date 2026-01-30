@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * 骑手app-首跑前完成背调
- *
+ * <p>
  * Apifox: docs/d-apifox/背调场景.apifox-cli.json
  */
 @Scenario(
@@ -245,11 +245,70 @@ public class DriverBackgroundCheckBeforeFirstRunTests {
 
     private void submitBackgroundCheck() {
         String uri = "https://api-cn-f2e-test.hungrypanda.cn/api/delivery/app/auth/auth/background";
-        Map<String, Object> headers = createDriverAppHeaders();
+        Map<String, Object> headers = createBackgroundHeaders();
         headers.put("authorization", accessToken);
 
         long commitTime = System.currentTimeMillis();
-        String body = String.format("{\"phone\":\"%s\",\"email\":\"ghk66yk@163.com\",\"firstName\":\"iik\",\"middleName\":\"\",\"lastName\":\"hj\",\"driverLicenseState\":\"WI\",\"driverLicenseNumber\":\"\",\"confirmDriverLicenseNumber\":\"\",\"driverLicenseExpirationDate\":\"\",\"socialSecurityNumber\":\"1234\",\"confirmSocialSecurityNumber\":\"1234\",\"zipCode\":\"88888\",\"birthday\":\"1992-09-26\",\"runType\":2,\"city\":\"日照市\",\"country\":\"中国\",\"copyRequested\":1,\"driverId\":%d,\"ssn\":\"\",\"postalAddressName\":\"\",\"postalAddressStreet\":\"\",\"postalAddressStreet2\":\"\",\"postalAddressCity\":\"\",\"postalAddressState\":\"\",\"commitTime\":%d,\"backgroundStatus\":0,\"authStatus\":-1,\"authTime\":0,\"authOperator\":\"\",\"candidatesId\":\"\",\"reportsId\":\"\",\"reportsResult\":\"\"}", newTel, newUserId, commitTime);
+        String body = "{\n" +
+                "  \"pm\": \"POST\",\n" +
+                "  \"ph\": {\n" +
+                "    \"authorization\": \" a8542f55a01596d8b4b995ae6bdd7154\",\n" +
+                "    \"apptypeid\": \" 2\",\n" +
+                "    \"language\": \" CN\",\n" +
+                "    \"version\": \" 5.73.2\",\n" +
+                "    \"countrycode\": [\n" +
+                "      \" CN\",\n" +
+                "      \" CN\"\n" +
+                "    ],\n" +
+                "    \"deviceversion\": \" 10\",\n" +
+                "    \"platform\": \" WEB_ANDROID\",\n" +
+                "    \"device\": \" 2\",\n" +
+                "    \"appversion\": \" 5.73.2\",\n" +
+                "    \"locale\": \" zh-CN\",\n" +
+                "    \"deviceid\": \" 4d3bfdf0b6cdcc44\",\n" +
+                "    \"enablesign\": \"false\",\n" +
+                "    \"user-agent\": \"Apifox/1.0.0 (https://apifox.com)\",\n" +
+                "    \"content-type\": \"application/json\"\n" +
+                "  },\n" +
+                "  \"pd\": {\n" +
+                "    \"phone\": \"13300001104\",\n" +
+                "    \"email\": \"ghk66yk@163.com\",\n" +
+                "    \"firstName\": \"iik\",\n" +
+                "    \"middleName\": \"\",\n" +
+                "    \"lastName\": \"hj\",\n" +
+                "    \"driverLicenseState\": \"WI\",\n" +
+                "    \"driverLicenseNumber\": \"\",\n" +
+                "    \"confirmDriverLicenseNumber\": \"\",\n" +
+                "    \"driverLicenseExpirationDate\": \"\",\n" +
+                "    \"socialSecurityNumber\": \"1234\",\n" +
+                "    \"confirmSocialSecurityNumber\": \"1234\",\n" +
+                "    \"zipCode\": \"88888\",\n" +
+                "    \"birthday\": \"1992-09-26\",\n" +
+                "    \"runType\": 2,\n" +
+                "    \"city\": \"日照市\",\n" +
+                "    \"country\": \"中国\",\n" +
+                "    \"copyRequested\": 1,\n" +
+                "    \"driverId\": 1398722971,\n" +
+                "    \"ssn\": \"\",\n" +
+                "    \"postalAddressName\": \"\",\n" +
+                "    \"postalAddressStreet\": \"\",\n" +
+                "    \"postalAddressStreet2\": \"\",\n" +
+                "    \"postalAddressCity\": \"\",\n" +
+                "    \"postalAddressState\": \"\",\n" +
+                "    \"commitTime\": 1758868125202,\n" +
+                "    \"backgroundStatus\": 0,\n" +
+                "    \"authStatus\": -1,\n" +
+                "    \"authTime\": 0,\n" +
+                "    \"authOperator\": \"\",\n" +
+                "    \"candidatesId\": \"\",\n" +
+                "    \"reportsId\": \"\",\n" +
+                "    \"reportsResult\": \"\"\n" +
+                "  },\n" +
+                "  \"nv\": \"2\",\n" +
+                "  \"nt\": \"1769767140317\",\n" +
+                "  \"nn\": \"mobT7se7qNQAiMWSpm8Ebm0bX\",\n" +
+                "  \"nd\": \"e8fc9a07d1edad5\"\n" +
+                "}";
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
@@ -302,6 +361,13 @@ public class DriverBackgroundCheckBeforeFirstRunTests {
         headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
         headers.put("enableSign", "false");
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        return headers;
+    }
+
+    private Map<String, Object> createBackgroundHeaders() {
+        Map<String, Object> headers = new HashMap<>();
+//        headers.put("Host", "api-cn-f2e-test.hungrypanda.cn");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }

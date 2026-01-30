@@ -221,7 +221,7 @@ public class TestCaseHelpful {
                         path = uri;
                     }
 
-                    uri = TestcaseConfig.HOST_USER_APP + path;
+                    uri = TestcaseConfig.HOST_DELIVERY_APP + path;
                     method = JSONUtils.parseObject(body.toString()).getString("pm");
                     Map webBodyHeaders = JSONUtils.parseObject(body.toString()).getJSONObject("ph")
                             .toJavaObject(Map.class);
@@ -237,7 +237,7 @@ public class TestCaseHelpful {
                     webBodyHeaders.putAll(headers);
                     headers.putAll(webBodyHeaders);
                     headers.put("content-type", h5ContentType);
-                    String host = TestcaseConfig.HOST_USER_APP;
+                    String host = TestcaseConfig.HOST_DELIVERY_APP;
                     if (host.startsWith("https://")) {
                         host = host.substring(8);
                     }
