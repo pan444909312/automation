@@ -30,7 +30,7 @@ public class PersonalCenterIncomeTests {
     @Test
     void shouldGetPersonalCenterIncome() {
         // 1) 骑手登录获取 token（注意：JSON中使用的是19539027924账号，但根据项目规范使用13300010015）
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("19519500667", "Test1234");
 
         // 2) 骑手每日收入详情
         getDriverDailyIncomeDetail(driverAccessToken);
@@ -55,7 +55,7 @@ public class PersonalCenterIncomeTests {
         headers.put("authorization", driverAccessToken);
         
         // 使用当前日期
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String date = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String body = String.format("{\"date\":\"%s\",\"pageNo\":1,\"pageSize\":10}", date);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
