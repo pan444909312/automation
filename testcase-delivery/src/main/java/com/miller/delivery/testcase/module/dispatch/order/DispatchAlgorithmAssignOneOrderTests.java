@@ -3,10 +3,12 @@ package com.miller.delivery.testcase.module.dispatch.order;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,16 +32,22 @@ public class DispatchAlgorithmAssignOneOrderTests {
         String userAppOrderSn = create.orderFlow();
 
         // 2) 骑手登录 & 上线
-        Map<String, String> driverLoginInfo = driverLogin();
+        // ========== 第二部分：骑手操作流程 ==========
+        // 步骤7: 骑手app-骑手登录
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
-        String driverUserId = driverLoginInfo.get("userId");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+
         driverOnOffline(driverAccessToken, 1);
 
         // 3) 司管登录
         String siGuanToken = TestCaseHelpful.erpLogin();
 
         // 4) 算法下派（新）算法派一单
-        algorithmAssignOneOrder(siGuanToken, userAppOrderSn, driverUserId);
+        algorithmAssignOneOrder(siGuanToken, userAppOrderSn, driverId);
 
         // 5) 派单页面获取packageId -> 骑手接单
         String packageId = getOrderPackage(driverAccessToken);
@@ -106,13 +114,13 @@ public class DispatchAlgorithmAssignOneOrderTests {
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
-    private void algorithmAssignOneOrder(String siGuanToken, String orderSn, String driverUserId) {
+    private void algorithmAssignOneOrder(String siGuanToken, String orderSn, Long driverUserId) {
         String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/receipt/order/xly";
         Map<String, Object> headers = createErpHeaders();
         headers.put("token", siGuanToken);
 
-        String body = String.format("[{\"score\":\"-9535912969.9295\",\"runId\":\"cmo8h3cg7sm0ok64dg50\",\"combinedOrderStatus\":0,\"detailDto\":[{\"orderNo\":\"%s\"},{\"orderNo\":\"\"},{\"orderNo\":\"\"},{\"orderNo\":\"\"}],\"driverId\":\"%s\",\"statics\":{\"newOrderDistance\":1.65,\"newOrderExtraDistance\":-0.42249,\"sameRouteRatio\":283.83393,\"sameRouteRatioMileage\":1.30078,\"totalDistance\":1.22751,\"totalPrice\":5846.25533}}]", orderSn, driverUserId);
-        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        var requestBody = String.format("[{\"score\":\"-9535912969.9295\",\"runId\":\"cmo8h3cg7sm0ok64dg50\",\"combinedOrderStatus\":0,\"detailDto\":[{\"orderNo\":\"%s\"},{\"orderNo\":\"\"},{\"orderNo\":\"\"},{\"orderNo\":\"\"}],\"driverId\":\"%s\",\"statics\":{\"newOrderDistance\":1.65,\"newOrderExtraDistance\":-0.42249,\"sameRouteRatio\":283.83393,\"sameRouteRatioMileage\":1.30078,\"totalDistance\":1.22751,\"totalPrice\":5846.25533}}]", orderSn, driverUserId);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, requestBody);
 
         // Apifox未给出明确断言，这里仅做基础非空校验（防止500等异常）
         TestCaseHelpful.assertThat(responseBody).isNotNull();
@@ -120,31 +128,83 @@ public class DispatchAlgorithmAssignOneOrderTests {
 
     private String getOrderPackage(String driverAccessToken) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/list";
+        String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        headers.put("longitude", "120.2168986");
-        headers.put("latitude", "30.2035028");
+        headers.put("longitude", "120.216774");
+        headers.put("latitude", "30.203453");
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
 
-        String body = "{\"pageNo\":1,\"pageSize\":10}";
-        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
+        var requestBody = "{}";
+
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+        System.out.println("此处打印"+responseBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         return TestCaseHelpful.extractValue(responseBody, "$.result.dataList[0].packageId").toString();
     }
 
     private void receiveOrder(String driverAccessToken, String packageId) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/receiveOrReject";
-        Map<String, Object> headers = createDriverAppHeaders();
+        String method = "POST";
+        Map<String, Object> headers = createIOSDriverAppHeaders();
         headers.put("Authorization", driverAccessToken);
-        headers.put("operatingsystem", "2");
-        headers.put("content-type", "application/json");
 
-        String body = String.format("{\"orderPackageId\":\"%s\",\"type\":1}", packageId);
-        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        var requestBody = String.format("{\"orderPackageId\":\"%s\",\"type\":1}", packageId);
 
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
+    /**
+     * 创建骑手app请求头（iOS）
+     */
+    private Map<String, Object> createIOSDriverAppHeaders() {
+        Map<String, Object> headers = new HashMap<>();
+
+        headers.put("longitude", "120.216774");
+        headers.put("latitude", "30.203453");
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
+        return headers;
     }
 
     private void waitPickUpList(String driverAccessToken) {
