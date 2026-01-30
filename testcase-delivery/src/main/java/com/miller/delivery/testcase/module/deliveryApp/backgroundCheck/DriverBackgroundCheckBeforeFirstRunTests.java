@@ -295,7 +295,7 @@ public class DriverBackgroundCheckBeforeFirstRunTests {
                 "    \"postalAddressStreet2\": \"\",\n" +
                 "    \"postalAddressCity\": \"\",\n" +
                 "    \"postalAddressState\": \"\",\n" +
-                "    \"commitTime\": 1758868125202,\n" +
+                "    \"commitTime\": " + commitTime + ",\n" +
                 "    \"backgroundStatus\": 0,\n" +
                 "    \"authStatus\": -1,\n" +
                 "    \"authTime\": 0,\n" +
