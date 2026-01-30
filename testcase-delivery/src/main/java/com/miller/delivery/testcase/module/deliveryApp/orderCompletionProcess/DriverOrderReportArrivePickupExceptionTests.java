@@ -46,6 +46,7 @@ public class DriverOrderReportArrivePickupExceptionTests {
 
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
     }
 
     private void driverOnOffline(String driverAccessToken, int isOnline) {
