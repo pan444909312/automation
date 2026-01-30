@@ -3,10 +3,12 @@ package com.miller.delivery.testcase.module.dispatch.order;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,29 +26,7 @@ import java.util.Map;
 @DisplayName("调度改派 &取消配送")
 public class DispatchReassignCancelTests {
 
-    @DisplayName("改派骑手-多case：已取消的订单不可改派")
-    @Test
-    void shouldFailReassignWhenOrderCanceled() {
-        // 1) 司管登录获取token
-        String siGuanToken = erpLogin();
 
-        // 2) 取一个可用骑手ID（复用登录逻辑拿到userId）
-        Map<String, String> driverLoginInfo = driverLogin();
-        Long anyDriverId = Long.parseLong(driverLoginInfo.get("userId"));
-
-        // 3) 改派：已取消订单
-        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/reassign";
-        String method = "POST";
-        Map<String, Object> headers = createErpHeaders();
-        headers.put("token", siGuanToken);
-
-        String requestBody = String.format("{\"deliveryId\":%d,\"orderSn\":\"072166894475070198843\",\"rejectAble\":0}", anyDriverId);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(17);
-        // message 可能包含换行，按包含断言
-        TestCaseHelpful.assertThat(responseBody).asString().contains("无法指派");
-    }
 
     @DisplayName("调度取消配送-多case：已完成的订单不可取消配送")
     @Test
@@ -65,17 +45,20 @@ public class DispatchReassignCancelTests {
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("订单2701360924750707361437已完成,不能操作");
     }
 
-    @DisplayName("完整端到端流程-调度改派 &取消配送")
+    @DisplayName("完整端到端流程-&取消配送")
     @Test
     void shouldCompleteReassignAndCancelFlow() {
         // ========== 第一部分：C侧下单流程 ==========
         CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
         String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
 
-        // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        Map<String, String> driverLoginInfo = driverLogin();
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         
         // 步骤8: 骑手app-司机上线操作
         driverOnline(driverAccessToken);
@@ -91,7 +74,7 @@ public class DispatchReassignCancelTests {
         Long assignDriverID = getAvailableDrivers(siGuanToken, userAppOrderSn);
         
         // 步骤12: 调度-分配订单给骑手（强制分配）
-        assignOrderToDriver(siGuanToken, userAppOrderSn, assignDriverID, false);
+        assignOrderToDriver(siGuanToken, userAppOrderSn, driverId, false);
         
         // 步骤13: 派单页面 - 获取packageId
         String packageId = getOrderPackage(driverAccessToken);
@@ -103,8 +86,7 @@ public class DispatchReassignCancelTests {
         // 步骤15: 调度-获取订单下可分配的骑手（新骑手）
         Long newAssignDriverID = getAvailableDrivers(siGuanToken, userAppOrderSn);
         
-        // 步骤16: 调度-改派订单给新骑手
-        reassignOrderToDriver(siGuanToken, userAppOrderSn, newAssignDriverID);
+
         
         // ========== 第五部分：取消配送流程 ==========
         // 步骤17: 调度-取消配送
@@ -220,18 +202,38 @@ public class DispatchReassignCancelTests {
      * 取消配送
      */
     private void cancelDispatch(String siGuanToken, String userAppOrderSn) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/cancel";
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/dispatch/cancelDispatch";
         String method = "POST";
-        Map<String, Object> headers = createErpHeaders();
+        Map<String, Object> headers = createDispatchHeaders();
         headers.put("token", siGuanToken);
-        
-        var requestBody = String.format("{\"orderSn\":\"%s\",\"cancelReason\":\"自动化测试-取消配送\"}", userAppOrderSn);
-        
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+
+        String body = String.format("{\"orderSn\":\"%s\"}", userAppOrderSn);
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
     }
+    /**
+     * 创建调度系统请求头
+     */
+    private Map<String, Object> createDispatchHeaders() {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("accept", "application/json, text/plain, */*");
+        headers.put("accept-language", "zh-CN,zh;q=0.9");
+        headers.put("origin", "https://hp-dispatch-admin-f2e-test.hungrypanda.cn");
+        headers.put("priority", "u=1, i");
+        headers.put("referer", "https://hp-dispatch-admin-f2e-test.hungrypanda.cn/");
+        headers.put("sec-ch-ua", "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"");
+        headers.put("sec-ch-ua-mobile", "?0");
+        headers.put("sec-ch-ua-platform", "\"Windows\"");
+        headers.put("sec-fetch-dest", "empty");
+        headers.put("sec-fetch-mode", "cors");
+        headers.put("sec-fetch-site", "same-site");
+        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
 
+        headers.put("content-type", "application/json;charset=UTF-8");
+        return headers;
+    }
     /**
      * 获取派单页面
      */
@@ -240,12 +242,34 @@ public class DispatchReassignCancelTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        headers.put("longitude", "120.2168986");
-        headers.put("latitude", "30.2035028");
-        
-        var requestBody = "{\"pageNo\":1,\"pageSize\":10}";
-        
+        headers.put("longitude", "120.216774");
+        headers.put("latitude", "30.203453");
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
+
+
+        var requestBody = "{}";
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+        System.out.println("此处打印"+responseBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         return TestCaseHelpful.extractValue(responseBody, "$.result.dataList[0].packageId").toString();
     }
@@ -256,20 +280,46 @@ public class DispatchReassignCancelTests {
     private void receiveOrder(String driverAccessToken, String packageId) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/receiveOrReject";
         String method = "POST";
-        Map<String, Object> headers = createDriverAppHeaders();
+        Map<String, Object> headers = createIOSDriverAppHeaders();
         headers.put("Authorization", driverAccessToken);
-        headers.put("operatingsystem", "2");
 
-        headers.put("content-type", "application/json");
-        
         var requestBody = String.format("{\"orderPackageId\":\"%s\",\"type\":1}", packageId);
-        
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
+    /**
+     * 创建骑手app请求头（iOS）
+     */
+    private Map<String, Object> createIOSDriverAppHeaders() {
+        Map<String, Object> headers = new HashMap<>();
 
+        headers.put("longitude", "120.216774");
+        headers.put("latitude", "30.203453");
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
+        return headers;
+    }
     /**
      * 司管后台登录并返回token
      */

@@ -3,10 +3,12 @@ package com.miller.delivery.testcase.module.dispatch.order;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,9 +29,13 @@ public class DispatchAssignReceiveCompleteTests {
     @DisplayName("骑手app-骑手接单-多case：包裹不存在")
     @Test
     void shouldFailReceiveWhenPackageNotBelongToDriver() {
-        // 1) 登录获取token
-        Map<String, String> driverLoginInfo = driverLogin();
+        // 步骤7: 骑手app-骑手登录
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
 
         // 2) 接单：包裹不存在/不属于当前司机
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/receiveOrReject";
@@ -74,8 +80,12 @@ public class DispatchAssignReceiveCompleteTests {
         
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        Map<String, String> driverLoginInfo = driverLogin();
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         
         // 步骤8: 骑手app-司机上线操作
         driverOnline(driverAccessToken);
@@ -91,7 +101,7 @@ public class DispatchAssignReceiveCompleteTests {
         Long assignDriverID = getAvailableDrivers(siGuanToken, userAppOrderSn);
         
         // 步骤12: 调度-分配订单给骑手（强制分配）
-        assignOrderToDriver(siGuanToken, userAppOrderSn, assignDriverID, false);
+        assignOrderToDriver(siGuanToken, userAppOrderSn, driverId, false);
         
         // 步骤13: 派单页面 - 获取packageId
         String packageId = getOrderPackage(driverAccessToken);
@@ -111,28 +121,41 @@ public class DispatchAssignReceiveCompleteTests {
         
         // 步骤18: 骑手app-修改订单配送状态-签收
         completeOrder(driverAccessToken, userAppOrderSn);
+        // 步骤26: 完单后-司机下线操作
+        driverOffline(driverAccessToken);
     }
-
     /**
-     * 骑手登录
+     * 完单后-司机下线操作
      */
-    private Map<String, String> driverLogin() {
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/auth/login";
+    private void driverOffline(String driverAccessToken) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/onOffline";
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
-        
-        var requestBody = "{\"areaCode\":\"86\",\"password\":\"2c9341ca4cf3d87b9e4eb905d6a3ec45\",\"account\":\"13300010563\"}";
-        
+        headers.put("authorization", driverAccessToken);
+        headers.put("longitude", "120.2168953");
+        headers.put("latitude", "30.2035072");
+        headers.put("version", "5.55.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "samsung");
+        headers.put("uniquetoken", "34ea70ca94766bbc");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
+
+        headers.put("content-type", "application/json;charset=UTF-8");
+
+        var requestBody = "{\"continueDown\":1,\"isOnline\":0}";
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
-        
-        String accessToken = TestCaseHelpful.extractValue(responseBody, "$.result.accessToken").toString();
-        String userId = TestCaseHelpful.extractValue(responseBody, "$.result.userId").toString();
-        
-        return Map.of("accessToken", accessToken, "userId", userId);
     }
+
+
 
     /**
      * 司机上线操作
@@ -210,12 +233,34 @@ public class DispatchAssignReceiveCompleteTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        headers.put("longitude", "120.2168986");
-        headers.put("latitude", "30.2035028");
-        
-        var requestBody = "{\"pageNo\":1,\"pageSize\":10}";
-        
+        headers.put("longitude", "120.216774");
+        headers.put("latitude", "30.203453");
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
+
+
+        var requestBody = "{}";
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+        System.out.println("此处打印"+responseBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         return TestCaseHelpful.extractValue(responseBody, "$.result.dataList[0].packageId").toString();
     }
@@ -226,18 +271,45 @@ public class DispatchAssignReceiveCompleteTests {
     private void receiveOrder(String driverAccessToken, String packageId) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/orderPackage/receiveOrReject";
         String method = "POST";
-        Map<String, Object> headers = createDriverAppHeaders();
+        Map<String, Object> headers = createIOSDriverAppHeaders();
         headers.put("Authorization", driverAccessToken);
-        headers.put("operatingsystem", "2");
-         
-        headers.put("content-type", "application/json");
-        
+
         var requestBody = String.format("{\"orderPackageId\":\"%s\",\"type\":1}", packageId);
-        
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+    }
+    /**
+     * 创建骑手app请求头（iOS）
+     */
+    private Map<String, Object> createIOSDriverAppHeaders() {
+        Map<String, Object> headers = new HashMap<>();
+
+        headers.put("longitude", "120.216774");
+        headers.put("latitude", "30.203453");
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
+        return headers;
     }
 
     /**
@@ -246,18 +318,20 @@ public class DispatchAssignReceiveCompleteTests {
     private void modifyDeliveryStatus(String driverAccessToken, String orderSn, int operationType) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/modifyDeliveryStatus";
         String method = "POST";
-        Map<String, Object> headers = createDriverAppHeaders();
+        Map<String, Object> headers = createIOSDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        headers.put("operatingsystem", "2");
-         
-        headers.put("content-type", "application/json");
-        
-        var requestBody = String.format("{\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[],\"waitUserArrive\":0,\"operationType\":%d,\"orderSnList\":[\"%s\"],\"driverArriveType\":0}", 
+
+        var requestBody = String.format("{\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[],\"waitUserArrive\":0,\"operationType\":%d,\"orderSnList\":[\"%s\"],\"driverArriveType\":0}",
                 orderSn, operationType, orderSn);
-        
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        if (operationType == 1) {
+            // 到店时，断言estimateOutMealMsg不为空
+            Object estimateOutMealMsg = TestCaseHelpful.extractValue(responseBody, "$.result.driverMerchantEstimateOutMealResp.estimateOutMealMsg");
+            assert estimateOutMealMsg != null : "estimateOutMealMsg不应为空";
+        }
     }
 
     /**
@@ -266,18 +340,21 @@ public class DispatchAssignReceiveCompleteTests {
     private void completeOrder(String driverAccessToken, String orderSn) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/modifyDeliveryStatus";
         String method = "POST";
-        Map<String, Object> headers = createDriverAppHeaders();
+        Map<String, Object> headers = createIOSDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        headers.put("operatingsystem", "2");
-         
-        headers.put("content-type", "application/json");
-        
-        var requestBody = String.format("{\"driverArriveType\":11,\"operationType\":6,\"arriveRemark\":\"留言备注内容-apifox自动化测试创建，图片默认写死资源地址，免去每次上传图片到oss\",\"waitUserArrive\":0,\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/170174606688616113ac9a0a74ab29cdadf98ad4cf090.jpg\"],\"orderSnList\":[\"%s\"]}", 
+
+        var requestBody = String.format("{\"driverArriveType\":11,\"operationType\":6,\"arriveRemark\":\"留言备注内容-apifox自动化测试创建，图片默认写死资源地址，免去每次上传图片到oss\",\"waitUserArrive\":0,\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/170174606688616113ac9a0a74ab29cdadf98ad4cf090.jpg\"],\"orderSnList\":[\"%s\"]}",
                 orderSn, orderSn);
-        
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
