@@ -3,7 +3,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
-import com.miller.delivery.testcase.utils.driverOffline;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ public class WaitMealReportTests {
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
 
-        driverOffline driverOffline = new driverOffline();
+        DriverOffline driverOffline = new DriverOffline();
         driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
 
         // 3) 司机上线

@@ -3,8 +3,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
-import com.miller.common.util.MD5Util;
-import com.miller.delivery.testcase.utils.driverOffline;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,7 @@ public class WaitMealReportCancelOrderTests {
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
 
-        driverOffline driverOffline = new driverOffline();
+        DriverOffline driverOffline = new DriverOffline();
         driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
 
         // 步骤8: 司机上线操作（apifox: /api/delivery/app/driver/onOffline）

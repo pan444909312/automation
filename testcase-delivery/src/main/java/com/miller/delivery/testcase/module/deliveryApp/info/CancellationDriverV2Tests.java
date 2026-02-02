@@ -6,7 +6,7 @@ import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import com.miller.delivery.testcase.utils.driverOffline;
+import com.miller.delivery.testcase.utils.DriverOffline;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +38,7 @@ public class CancellationDriverV2Tests {
         String driverAccessToken = TestCaseHelpful.deliveryLogin(DRIVER_ACCOUNT, "Test1234");
 
         // 2）清空最近30天订单
-        driverOffline driverOffline = new driverOffline();
+        DriverOffline driverOffline = new DriverOffline();
         driverOffline.cancelDispatchAndOffline(DRIVER_ACCOUNT,driverAccessToken);
 
         // 3) 插入验证码到数据库（用于注销账号）

@@ -3,7 +3,7 @@ package com.miller.delivery.testcase.module.dispatch.order;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
-import com.miller.delivery.testcase.utils.driverOffline;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class DispatchAssignReceiveCompleteTests {
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
 
-        driverOffline driverOffline = new driverOffline();
+        DriverOffline driverOffline = new DriverOffline();
         driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
 
         // 2) 接单：包裹不存在/不属于当前司机
@@ -84,7 +84,7 @@ public class DispatchAssignReceiveCompleteTests {
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
 
-        driverOffline driverOffline = new driverOffline();
+        DriverOffline driverOffline = new DriverOffline();
         driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         
         // 步骤8: 骑手app-司机上线操作
