@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWineTests;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
@@ -29,11 +30,14 @@ public class GrabOrderCompleteAlcoholMismatchTests {
     @Test
     void shouldCompleteGrabOrderAlcoholMismatchFlow() {
         // 1) C侧下单
-        CreateInstantOrderWithHandoverTests create = new CreateInstantOrderWithHandoverTests();
+        CreateInstantOrderWineTests create = new CreateInstantOrderWineTests();
         String userAppOrderSn = create.orderFlow();
 
         // 2) 骑手登录 & 上线
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
         onOffline(driverAccessToken, true);
 
         // 3) 司管登录

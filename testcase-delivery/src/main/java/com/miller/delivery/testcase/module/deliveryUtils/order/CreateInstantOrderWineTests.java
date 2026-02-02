@@ -28,7 +28,7 @@ public class CreateInstantOrderWineTests {
 
     @DisplayName("完整下单流程-酒订单")
     @Test
-    void shouldCreateInstantOrderWine() {
+    public String orderFlow() {
         // 步骤1: C侧下单-用户登录
         String userAppAccessToken = userAppLogin();
         
@@ -50,6 +50,7 @@ public class CreateInstantOrderWineTests {
         // 断言订单创建成功
         assertNotNull(userAppOrderSn);
         assertFalse(userAppOrderSn.isEmpty());
+        return userAppOrderSn;
     }
 
     private String userAppLogin() {
