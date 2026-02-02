@@ -1,5 +1,7 @@
 package com.miller.delivery.testcase.utils;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -121,6 +123,15 @@ public class driverOffline {
         var requestBody = String.format("{\"orderSn\":\"%s\"}", userAppOrderSn);
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+        JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+        String message = jsonObject.get("message").getAsString();
+        System.out.println("Message: " + message);
+
+        if(message.contains("请先处理取餐码异常记录")){
+            System.out.println("有个收餐码异常的订单: " + message);
+            dispatchFoodDeliveryCodeCompleteMethod(siGuanToken,userAppOrderSn);
+
+        }
         // 等待2秒
         try {
             Thread.sleep(2000);
@@ -128,6 +139,21 @@ public class driverOffline {
             Thread.currentThread().interrupt();
         }
 
+    }
+
+    private void dispatchFoodDeliveryCodeCompleteMethod(String siGuanToken, String orderSn) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/order/foodDeliveryCodecompleteMethod";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("token", siGuanToken);
+
+        String body = String.format("{\"orderSn\":\"%s\",\"handleType\":%d}", orderSn, 1);
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
     private Map<String, Object> createErpHeaders() {
         Map<String, Object> headers = new java.util.HashMap<>();
