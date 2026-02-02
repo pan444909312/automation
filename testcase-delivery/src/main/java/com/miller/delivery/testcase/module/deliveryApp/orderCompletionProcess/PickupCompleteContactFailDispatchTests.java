@@ -21,7 +21,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 @Scenario(
         scenarioID = "01K1TA522NZFDCP6QGC01482ZW",
         scenarioName = "主干流程-骑手抢单完单-调度送达",
-        author = "penglulu@hungrypandagroup.com",
+        author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
 @DisplayName("骑手取餐-完单流程 (联系不到用户送达调度送达）")
 public class PickupCompleteContactFailDispatchTests {
@@ -213,6 +213,12 @@ public class PickupCompleteContactFailDispatchTests {
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void onOffline(String driverAccessToken, boolean online) {
