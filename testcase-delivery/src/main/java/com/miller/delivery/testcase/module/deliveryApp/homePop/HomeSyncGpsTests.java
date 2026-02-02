@@ -29,6 +29,13 @@ public class HomeSyncGpsTests {
 
         // 有经纬度：headers带经纬度
         syncGps(driverAccessToken, true, 1000, "成功", true);
+        // 4) 等待2秒
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         // 无经纬度：headers不带经纬度（模拟apifox用例）
         syncGps(driverAccessToken, false, 116005, "配送员实时经纬度获取失败", false);
@@ -38,9 +45,11 @@ public class HomeSyncGpsTests {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/home/syncGps";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", token);
-        if (!withLngLat) {
-            headers.remove("longitude");
-            headers.remove("latitude");
+        if (withLngLat) {
+            headers.put("longitude", "120.21674955924935");
+            headers.put("latitude", "30.20344076263413");
+
+
         }
 
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, "{}");
@@ -51,8 +60,8 @@ public class HomeSyncGpsTests {
 
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("longitude", "120.21674955924935");
-        headers.put("latitude", "30.20344076263413");
+//        headers.put("longitude", "120.21674955924935");
+//        headers.put("latitude", "30.20344076263413");
         headers.put("version", "5.56.1");
         headers.put("platform", "ANDROID_DELIVERY");
         headers.put("type", "3");

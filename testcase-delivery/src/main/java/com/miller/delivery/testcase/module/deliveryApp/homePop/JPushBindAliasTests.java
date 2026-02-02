@@ -36,6 +36,7 @@ public class JPushBindAliasTests {
         bindAliasRaw(driverAccessToken, "{\"registrationId\":\"160a3797c931bc4ada7\",\"alias\":\"fd72c4097be9e36661dac3180eca91a0\",\"type\":2}",
                 1000, "成功", true);
 
+
         // registrationId为空
         bindAliasRaw(driverAccessToken, "{\"registrationId\":\"\",\"alias\":\"fd72c4097be9e36661dac3180eca91a0\",\"type\":2}",
                 101011, "参数错误", false);
@@ -61,6 +62,12 @@ public class JPushBindAliasTests {
         TestCaseHelpful.assertThatJson(responseBody1).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody1).node("success").isEqualTo(true);
 
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         // registrationId empty
         String body2 = "{\"registrationId\":\"\"}";
         var responseBody2 = TestCaseHelpful.sendRequest("POST", uri, null, headers, body2);
@@ -77,9 +84,16 @@ public class JPushBindAliasTests {
         }
 
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(resultCode);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo(reason);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(success);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private Map<String, Object> createDriverAppHeaders() {
