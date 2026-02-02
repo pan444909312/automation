@@ -36,7 +36,14 @@ public class PunishBatchRelieveTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/control/punish/relieve";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
+        createAutoClosePunish(token);
 
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         // 生成日期范围（最近一周）
         LocalDate endDate = LocalDate.now();
         LocalDate startDate = endDate.minusDays(7);
@@ -62,6 +69,36 @@ public class PunishBatchRelieveTests {
         headers.put("priority", "u=1, i");
         headers.put("Content-Type", "application/json;charset=UTF-8");
         return headers;
+    }
+    private String createAutoClosePunish(String token) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/control/punish/save";
+        String method = "POST";
+        Map<String, Object> headers = createHeaders(token);
+        String body = "{"
+                + "\"controlReason\":6,"
+                + "\"driverIdList\":[1398714150],"
+                + "\"punishRemark\":\"测试\","
+                + "\"punishTime\":0.1,"
+                + "\"punishType\":1,"
+                + "\"rulePunishList\":[{"
+                + "\"punish\":{"
+                + "\"code\":6,"
+                + "\"type\":3,"
+                + "\"desc\":\"关闭自动接单\","
+                + "\"realControlType\":0,"
+                + "\"thanType\":0"
+                + "},"
+                + "\"punishAction\":6,"
+                + "\"punishValue\":null,"
+                + "\"warningCnTip\":\"\","
+                + "\"warningRegionTip\":\"\""
+                + "}]"
+                + "}";
+
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        return null; // 这个接口可能不返回punishNo
     }
 }
 
