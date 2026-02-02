@@ -15,7 +15,7 @@ import java.util.Map;
  * Apifox: docs/d-apifox/个人中心-骑手装备.apifox-cli.json
  */
 @Scenario(
-        scenarioID = "01JWBJW1ZV4W2328R0WGK12B69",
+        scenarioID = "01KGEK54NMRMD6GA2Z26ZAMTGT",
         scenarioName = "个人中心-骑手装备",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 240, maintenanceTime = 0, manualTestTime = 5)
