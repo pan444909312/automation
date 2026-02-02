@@ -140,7 +140,7 @@ public class RegisterFlowTests {
 
     private String preparePhoneNumber() {
         Map<String, Object> result = PandaTestDBHelpful.executeSelectOneSql(
-                "select * from `panda_test`.`hp_delivery_user` where user_telphone like '%9901%' order by user_id desc limit 1");
+                "select * from `panda_test`.`hp_delivery_user` where user_telphone like '133000%' order by user_id desc limit 1");
         if (result != null && result.get("user_telphone") != null) {
             String oldTel = result.get("user_telphone").toString();
             long oldTelNum = Long.parseLong(oldTel);
@@ -198,6 +198,12 @@ public class RegisterFlowTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(expectedResultCode);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo(expectedReason);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(expectedSuccess);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void loadGlobalConfig(String accessToken, int expectedResultCode, String expectedReason, boolean expectedSuccess) {
@@ -222,6 +228,12 @@ public class RegisterFlowTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(expectedResultCode);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo(expectedReason);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(expectedSuccess);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void newDriverBannerList(String accessToken, int expectedResultCode, String expectedReason, boolean expectedSuccess) {
@@ -235,6 +247,12 @@ public class RegisterFlowTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(expectedResultCode);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo(expectedReason);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(expectedSuccess);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void checkRegisterDriverStatus(String accessToken) {
@@ -279,6 +297,12 @@ public class RegisterFlowTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(expectedResultCode);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo(expectedReason);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(expectedSuccess);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     // 为避免超大 patch，这里复用项目中可用的 raw body 模板（关键字段与 apifox 一致：lastName 空/非空）
@@ -295,7 +319,7 @@ public class RegisterFlowTests {
         Map<String, Object> headers = new HashMap<>();
         headers.put("longitude", "120.21674955924935");
         headers.put("latitude", "30.20344076263413");
-        headers.put("version", "5.56.1");
+        headers.put("version", "5.80.1");
         headers.put("platform", "ANDROID_DELIVERY");
         headers.put("type", "3");
         headers.put("locale", "zh-CN");
