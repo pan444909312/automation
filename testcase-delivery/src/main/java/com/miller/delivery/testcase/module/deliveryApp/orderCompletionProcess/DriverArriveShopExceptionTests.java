@@ -2,6 +2,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +35,11 @@ public class DriverArriveShopExceptionTests {
         
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         
         // 步骤8: 骑手app-司机上线操作
         driverOnline(driverAccessToken);
@@ -55,7 +60,11 @@ public class DriverArriveShopExceptionTests {
         balancePay(userAppAccessToken, userAppOrderSn);
         
         // ========== 第二部分：骑手操作流程 ==========
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnline(driverAccessToken);
         
         // 步骤: 骑手抢单
@@ -77,7 +86,11 @@ public class DriverArriveShopExceptionTests {
         balancePay(userAppAccessToken, userAppOrderSn);
         
         // ========== 第二部分：骑手操作流程 ==========
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnline(driverAccessToken);
         
         // 步骤: 骑手抢单
@@ -91,7 +104,11 @@ public class DriverArriveShopExceptionTests {
     @Test
     void shouldFailArriveShopWithEmptyOrderSn() {
         // ========== 第一部分：骑手操作流程 ==========
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnline(driverAccessToken);
         
         // 步骤: 异常case:修改骑手配送状态-订单号为空
@@ -102,7 +119,11 @@ public class DriverArriveShopExceptionTests {
     @Test
     void shouldFailArriveShopWithCancelledOrder() {
         // ========== 第一部分：骑手操作流程 ==========
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnline(driverAccessToken);
         
         // 步骤: 异常case:修改骑手配送状态-订单已被取消（使用已取消的订单号）
@@ -121,7 +142,11 @@ public class DriverArriveShopExceptionTests {
         balancePay(userAppAccessToken, userAppOrderSn);
         
         // ========== 第二部分：骑手操作流程 ==========
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnline(driverAccessToken);
         
         // 步骤: 骑手抢单
@@ -143,7 +168,11 @@ public class DriverArriveShopExceptionTests {
         balancePay(userAppAccessToken, userAppOrderSn);
         
         // ========== 第二部分：骑手操作流程 ==========
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnline(driverAccessToken);
         
         // 步骤: 骑手抢单
@@ -168,7 +197,11 @@ public class DriverArriveShopExceptionTests {
         balancePay(userAppAccessToken, userAppOrderSn);
         
         // ========== 第二部分：骑手操作流程 ==========
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnline(driverAccessToken);
         
         // 步骤: 骑手抢单
