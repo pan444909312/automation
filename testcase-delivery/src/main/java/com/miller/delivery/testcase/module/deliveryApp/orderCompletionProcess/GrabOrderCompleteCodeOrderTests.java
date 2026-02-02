@@ -2,6 +2,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
@@ -32,29 +33,42 @@ public class GrabOrderCompleteCodeOrderTests {
     @DisplayName("骑手抢单-完单流程(收餐码订单）完整流程")
     @Test
     void shouldCompleteGrabOrderCodeOrderFlow() {
+
         // ========== 第一部分：C侧下单流程 ==========
         CreateInstantOrderWithHandoverTests createInstantOrderWithHandoverTests = new CreateInstantOrderWithHandoverTests();
         String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
-
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        String siGuanToken = erpLogin();
+        switchMealCollectionCode(siGuanToken, 1,"city_function_meal_collection_code_switch");
         // ========== 第二部分：前置操作 ==========
         // 从数据库查询正确的收餐码
         String correctFoodDeliveryCode = getFoodDeliveryCodeFromDatabase(userAppOrderSn);
         
         // ========== 第三部分：骑手操作流程 ==========
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         driverOnline(driverAccessToken);
-        syncGps(driverAccessToken);
+//        syncGps(driverAccessToken);
         
         // ========== 第四部分：调度分配流程 ==========
-        String siGuanToken = erpLogin();
+
         Long assignDriverID = getAvailableDrivers(siGuanToken, userAppOrderSn);
-        assignOrderToDriver(siGuanToken, userAppOrderSn, assignDriverID);
+        assignOrderToDriver(siGuanToken, userAppOrderSn, driverId);
         String packageId = getOrderPackage(driverAccessToken);
         receiveOrder(driverAccessToken, packageId);
         
         // ========== 第五部分：完单流程（收餐码订单） ==========
-        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1); // 到店
-        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2); // 取餐
+        // 6) 到店 -> 未出餐 -> 已取餐
+        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
+        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2);
+        modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 3);
         
         // 校验收餐码（正确）
         checkFoodDeliveryCode(driverAccessToken, userAppOrderSn, correctFoodDeliveryCode, 1000, 
@@ -62,8 +76,21 @@ public class GrabOrderCompleteCodeOrderTests {
         
         // 订单完成送达
         completeOrder(driverAccessToken, userAppOrderSn);
+        switchMealCollectionCode(siGuanToken, 0,"city_function_meal_collection_code_switch");
     }
 
+    private void switchMealCollectionCode(String siGuanToken, int switchType,String switchCode) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization", siGuanToken);
+
+        String body = String.format("{\"city\":\"杭州市\",\"functionKey\":\"%s\",\"switchType\":%d}", switchCode,switchType);
+
+
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        // apifox未给明确code断言，这里按通用message=成功
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+    }
     private String userAppLogin() {
         String uri = TestcaseConfig.HOST_USER_APP + "/api/user/combine/login";
         String method = "POST";
@@ -140,12 +167,26 @@ public class GrabOrderCompleteCodeOrderTests {
      * 从数据库查询收餐码
      */
     private String getFoodDeliveryCodeFromDatabase(String orderSn) {
-        String sql = String.format("select food_delivery_code from panda_test.`hp_delivery_order_extra_info` " +
-                "where order_sn = '%s'", orderSn);
-        List<Map<String, Object>> resultList = PandaTestDBHelpful.executeSelectListSql(sql);
+//        String sql = String.format("select food_delivery_code from panda_test.`hp_delivery_order_extra_info` " +
+//                "where order_sn = '%s'", orderSn);
+        // 等待2秒
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        List<Map<String, Object>> resultList = PandaTestDBHelpful.executeSelectListSql(
+                "select * from panda_test.`hp_delivery_order_extra_info` " +
+                        "where order_sn = ?", orderSn);
         if (resultList != null && !resultList.isEmpty()) {
             Object foodDeliveryCode = resultList.get(0).get("food_delivery_code");
-            return foodDeliveryCode != null ? foodDeliveryCode.toString() : "5678";
+
+
+            String str = String.valueOf(foodDeliveryCode);
+            String last4 = str.substring(str.length() - 4);
+
+            return foodDeliveryCode != null ? last4 : "5678";
         }
         return "5678";
     }
@@ -197,8 +238,34 @@ public class GrabOrderCompleteCodeOrderTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        String body = "{}";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+        headers.put("longitude", "120.216774");
+        headers.put("latitude", "30.203453");
+        headers.put("version", "5.71.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "HUAWEI");
+        headers.put("uniquetoken", "7b0169d78de40e6e");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
+        headers.put("enableSign", "false");
+        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.put("content-type", "application/json;charset=UTF-8");
+        headers.put("_sig", "a6887b8bb369138b43b5ea61b65c24ef1321a1bd");
+        headers.put("_sign", "94d5b19105c1cf32c750d1b63c30ab99");
+        headers.put("_ts", "1769682765876");
+        headers.put("Accept", "*/*");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Host", "app-deliverytest.hungrypanda.cn");
+        headers.put("Connection", "keep-alive");
+
+
+        var requestBody = "{}";
+
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+        System.out.println("此处打印"+responseBody);
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         return TestCaseHelpful.extractValue(responseBody, "$.result.dataList[0].packageId").toString();
     }
