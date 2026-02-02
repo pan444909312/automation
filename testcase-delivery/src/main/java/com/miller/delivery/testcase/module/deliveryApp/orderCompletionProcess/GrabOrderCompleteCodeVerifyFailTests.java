@@ -3,6 +3,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 @Scenario(
         scenarioID = "01K1WRMNG66MARX84MRWF6X36Z",
         scenarioName = "主干流程-骑手抢单-完单【用户无法校验收餐码调度送达】",
-        author = "penglulu@hungrypandagroup.com",
+        author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
 @DisplayName("骑手抢单-完单流程(用户无法校验收餐码调度送达）")
 public class GrabOrderCompleteCodeVerifyFailTests {
@@ -34,10 +35,14 @@ public class GrabOrderCompleteCodeVerifyFailTests {
 
         // 2) 司管登录 & 开启收餐码开关
         String siGuanToken = erpLogin();
-        switchMealCollectionCode(siGuanToken, 1);
-
+        switchMealCollectionCode(siGuanToken, 1,"city_function_meal_collection_code_switch");
         // 3) 骑手登录 & 上线
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         onOffline(driverAccessToken, true);
 
         // 4) 新订单列表 -> 抢单
@@ -50,6 +55,7 @@ public class GrabOrderCompleteCodeVerifyFailTests {
         productInfo(driverAccessToken, userAppOrderSn);
 
         // 6) 到店 -> 未出餐 -> 已取餐
+        switchMealCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2);
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 3);
@@ -66,18 +72,20 @@ public class GrabOrderCompleteCodeVerifyFailTests {
         dispatchFoodDeliveryCodeCompleteMethod(siGuanToken, userAppOrderSn);
 
         // 10) 关闭收餐码开关
-        switchMealCollectionCode(siGuanToken, 0);
+        switchMealCollectionCode(siGuanToken, 0,"city_function_meal_collection_code_switch");
 
         // 11) 下线
         onOffline(driverAccessToken, false);
     }
 
-    private void switchMealCollectionCode(String siGuanToken, int switchType) {
+    private void switchMealCollectionCode(String siGuanToken, int switchType,String switchCode) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
         Map<String, Object> headers = createErpHeaders();
-        headers.put("token", siGuanToken);
+        headers.put("authorization", siGuanToken);
 
-        String body = String.format("{\"city\":\"杭州市\",\"functionKey\":\"city_function_meal_collection_code_switch\",\"switchType\":%d}", switchType);
+        String body = String.format("{\"city\":\"杭州市\",\"functionKey\":\"%s\",\"switchType\":%d}", switchCode,switchType);
+
+
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         // apifox未给明确code断言，这里按通用message=成功
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");

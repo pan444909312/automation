@@ -3,6 +3,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import java.util.Map;
 @Scenario(
         scenarioID = "01K1TBCF36FQZF8C79GV24RBG2",
         scenarioName = "主干流程-骑手抢单-完单【见面交付】",
-        author = "penglulu@hungrypandagroup.com",
+        author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
 @DisplayName("骑手抢单-完单流程(见面交付）")
 public class GrabOrderCompleteMeetDeliveryTests {
@@ -31,7 +32,11 @@ public class GrabOrderCompleteMeetDeliveryTests {
         String userAppOrderSn = create.orderFlow();
 
         // 2) 骑手登录 & 上线
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         onOffline(driverAccessToken, true);
 
         // 3) 新订单列表 -> 抢单
