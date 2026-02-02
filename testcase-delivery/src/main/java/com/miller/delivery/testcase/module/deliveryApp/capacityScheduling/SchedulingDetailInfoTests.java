@@ -37,8 +37,7 @@ public class SchedulingDetailInfoTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        headers.put("platform", "ANDROID_DELIVERY");
-        headers.put("apptypeid", "2");
+
         
         // 前置操作：计算当天日期（JSON中的prerequest脚本）
         String nowDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-M-d"));
@@ -52,6 +51,13 @@ public class SchedulingDetailInfoTests {
                 .node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
     }
 
     @DisplayName("预约排班-详情--参数为空")
@@ -65,8 +71,7 @@ public class SchedulingDetailInfoTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        headers.put("platform", "ANDROID_DELIVERY");
-        headers.put("apptypeid", "2");
+
         
         String nowDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-M-d"));
         String body = String.format("{\"schedulingType\":3,\"areaId\":51,\"schedulingDate\":\"%s\",\"startTime\":\"\",\"endTime\":\"\"}", nowDate);
@@ -79,6 +84,13 @@ public class SchedulingDetailInfoTests {
                 .node("reason").isEqualTo("参数错误");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
     }
 
     @DisplayName("未登录-预约排班-详情")
@@ -90,8 +102,7 @@ public class SchedulingDetailInfoTests {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/capacityScheduling/schedulingDetailInfo";
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
-        headers.put("platform", "ANDROID_DELIVERY");
-        headers.put("apptypeid", "2");
+
         // 不设置authorization
         
         String nowDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-M-d"));
@@ -112,8 +123,22 @@ public class SchedulingDetailInfoTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
-         
-        headers.put("content-type", "application/json");
+
+        headers.put("longitude", "120.2168953");
+        headers.put("latitude", "30.2035072");
+        headers.put("version", "5.55.0");
+        headers.put("platform", "ANDROID_DELIVERY");
+        headers.put("type", "3");
+        headers.put("locale", "zh-CN");
+        headers.put("operatingsystem", "1");
+        headers.put("brand", "samsung");
+        headers.put("uniquetoken", "34ea70ca94766bbc");
+        headers.put("apptypeid", "2");
+        headers.put("countrycode", "CN");
+        headers.put("devicesafetoken", "a0_b1_c0_h0_i0_j0_m0_n0_p0_s0");
+
+        headers.put("content-type", "application/json;charset=UTF-8");
+
         return headers;
     }
 }
