@@ -6,6 +6,7 @@ import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import com.miller.delivery.testcase.utils.driverOffline;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,19 +37,23 @@ public class CancellationDriverV2Tests {
         // 1) 骑手登录获取 token
         String driverAccessToken = TestCaseHelpful.deliveryLogin(DRIVER_ACCOUNT, "Test1234");
 
-        // 2) 插入验证码到数据库（用于注销账号）
+        // 2）清空最近30天订单
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline(DRIVER_ACCOUNT,driverAccessToken);
+
+        // 3) 插入验证码到数据库（用于注销账号）
         insertVerificationCode(DRIVER_ACCOUNT);
 
-        // 3) 注销账号
+        // 4) 注销账号
         cancelDriverAccount(driverAccessToken);
 
-        // 4) 司管后台登录
+        // 5) 司管后台登录
         String siGuanToken = erpLogin();
 
-        // 5) 配送回收站列表
+        // 6) 配送回收站列表
         Long userId = getRecycleDriverList(siGuanToken);
 
-        // 6) 恢复骑手账号
+        // 7) 恢复骑手账号
         if (userId != null) {
             restoreDriverAccount(siGuanToken, userId);
         }
