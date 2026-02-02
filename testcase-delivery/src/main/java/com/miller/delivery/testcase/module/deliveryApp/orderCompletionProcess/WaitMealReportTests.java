@@ -3,6 +3,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
+import com.miller.delivery.testcase.utils.driverOffline;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,10 +33,12 @@ public class WaitMealReportTests {
         CreateInstantOrderWithHandoverTests create = new CreateInstantOrderWithHandoverTests();
         String userAppOrderSn = create.orderFlow();
 
-        // 2) 骑手登录（apifox: account=15156678765, password=md5(Test1234)=2c934...）
-        Map<String, String> loginResult = driverLogin();
-        String driverAccessToken = loginResult.get("accessToken");
-        String driverUserId = loginResult.get("userId");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+
+        driverOffline driverOffline = new driverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
 
         // 3) 司机上线
         onOffline(driverAccessToken, true);
@@ -45,20 +48,21 @@ public class WaitMealReportTests {
         grabOrder(driverAccessToken, userAppOrderSn);
 
         // 5) 等餐报备（成功）
-        checkReportWindow(driverAccessToken, userAppOrderSn, driverUserId, 1000, "成功", true);
+        checkReportWindow(driverAccessToken, userAppOrderSn, driverId, 1000, "成功", true);
 
         // 6) 等餐报备--订单号为空（异常）
-        checkReportWindow(driverAccessToken, "", "1398720903", 101011, "参数错误", false);
+        checkReportWindow(driverAccessToken, "", driverId, 101011, "参数错误", false);
 
         // 7) 等餐报备--骑手不存在（异常：apifox给的body里 orderSn 也为空，这里保持一致）
-        checkReportWindow(driverAccessToken, "", "111991", 101011, "参数错误", false);
+        checkReportWindow(driverAccessToken, "", 111991L, 101011, "参数错误", false);
 
         // 8) 等餐报备--未登录
-        checkReportWindowWithoutLogin(userAppOrderSn, driverUserId);
+        checkReportWindowWithoutLogin(userAppOrderSn, driverId);
 
         // 9) 司管登录 & 关闭到店/送达距离限制
         String siGuanToken = erpLogin();
         switchCityConfig(siGuanToken, "city_function_on_shop_take_meal_distance", 0);
+
         switchCityConfig(siGuanToken, "city_function_deliver_distance", 0);
 
         // 10) 修改骑手配送状态-到店 -> 未出餐 -> 已取餐
@@ -128,7 +132,7 @@ public class WaitMealReportTests {
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
     }
 
-    private void checkReportWindow(String driverAccessToken, String orderSn, String driverId,
+    private void checkReportWindow(String driverAccessToken, String orderSn, Long driverId,
                                    int expectedResultCode, String expectedReason, boolean expectedSuccess) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/report/checkReportWindow";
         Map<String, Object> headers = createDriverAppHeaders();
@@ -139,9 +143,15 @@ public class WaitMealReportTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(expectedResultCode);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo(expectedReason);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(expectedSuccess);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
-    private void checkReportWindowWithoutLogin(String orderSn, String driverId) {
+    private void checkReportWindowWithoutLogin(String orderSn, Long driverId) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/report/checkReportWindow";
         Map<String, Object> headers = createDriverAppHeaders();
         String body = String.format("{\"driverId\":%s,\"orderSn\":\"%s\"}", driverId, orderSn);
@@ -150,16 +160,28 @@ public class WaitMealReportTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void switchCityConfig(String siGuanToken, String functionKey, int switchType) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
         Map<String, Object> headers = createErpHeaders();
-        headers.put("token", siGuanToken);
+        headers.put("authorization", siGuanToken);
 
         String body = String.format("{\"city\":\"杭州市\",\"functionKey\":\"%s\",\"switchType\":%d}", functionKey, switchType);
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void modifyDeliveryStatus(String driverAccessToken, String orderSn, int operationType, int driverArriveType, String imageUrl) {
