@@ -28,7 +28,7 @@ public class CreateInstantOrderTobaccoTests {
 
     @DisplayName("完整下单流程-烟订单")
     @Test
-    void shouldCreateInstantOrderTobacco() {
+    public String orderFlow() {
         // 步骤1: C侧下单-用户登录
         String userAppAccessToken = userAppLogin();
         
@@ -50,6 +50,7 @@ public class CreateInstantOrderTobaccoTests {
         // 断言订单创建成功
         assertNotNull(userAppOrderSn);
         assertFalse(userAppOrderSn.isEmpty());
+        return userAppOrderSn;
     }
 
     private String userAppLogin() {
