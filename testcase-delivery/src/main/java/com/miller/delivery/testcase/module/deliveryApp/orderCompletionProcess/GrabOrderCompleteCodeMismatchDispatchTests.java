@@ -37,7 +37,10 @@ public class GrabOrderCompleteCodeMismatchDispatchTests {
         switchMealCollectionCode(siGuanToken, 1);
 
         // 3) 骑手登录 & 上线
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
         onOffline(driverAccessToken, true);
 
         // 4) 新订单列表 -> 抢单
@@ -75,7 +78,7 @@ public class GrabOrderCompleteCodeMismatchDispatchTests {
     private void switchMealCollectionCode(String siGuanToken, int switchType) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
         Map<String, Object> headers = createErpHeaders();
-        headers.put("token", siGuanToken);
+        headers.put("authorization", siGuanToken);
 
         String body = String.format("{\"city\":\"杭州市\",\"functionKey\":\"city_function_meal_collection_code_switch\",\"switchType\":%d}", switchType);
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
