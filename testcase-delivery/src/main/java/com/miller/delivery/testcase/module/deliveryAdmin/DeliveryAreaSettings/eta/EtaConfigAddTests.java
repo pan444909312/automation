@@ -58,7 +58,11 @@ public class EtaConfigAddTests {
     @DisplayName("新增eta配置-成功")
     @Test
     void shouldAddEtaConfig() {
-        // 1) 司管登录获取 token
+        configId();
+
+    }
+
+    public int configId(){  // 1) 司管登录获取 token
         String token = erpLogin();
 
         // 2) 生成当前时间戳用于配置名称
@@ -81,17 +85,15 @@ public class EtaConfigAddTests {
                 .node("message").isEqualTo("成功");
 
         // 5) 从数据库查询新增的配置
-        List<Map<String, Object>> configRecords = PandaTestDBHelpful.executeSelectListSql(
-                "select * from panda_test.hp_delivery_eta_time_config where name=? order by id desc",
+        Map<String, Object> configRecords = PandaTestDBHelpful.executeSelectOneSql(
+                "select * from panda_test.hp_delivery_eta_time_config where name=? order by id desc limit 1",
                 configName);
-        
         assert configRecords != null && !configRecords.isEmpty() : "数据库中没有找到新增的配置";
-        
-        Map<String, Object> configRecord = configRecords.get(0);
-        Long configId = ((Number) configRecord.get("id")).longValue();
-        assert configId != null && configId > 0 : "配置ID无效";
-    }
 
+
+        int configId = Integer.parseInt((configRecords.get("id")).toString());
+        return configId;
+    }
     private Map<String, Object> createHeaders(String token) {
         Map<String, Object> headers = new HashMap<>();
         headers.put("authorization", token);

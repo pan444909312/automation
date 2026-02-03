@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
@@ -26,20 +27,21 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 @DisplayName("编辑eta配置")
 public class EtaConfigEditTests {
 
-    // 注意：需要在实际使用时替换为真实的 eta_time_config_id
-    private static final Long ETA_CONFIG_ID = 1L; // 请从质量平台或数据库中获取实际的 eta_time_config_id
     private static final Long AREA_ID = 902L;
     private static final String CITY_ID = "729";
+    private static final String ETA_CONFIG_ID = "118";
 
     @DisplayName("编辑ETA配置")
     @Test
     void shouldEditEtaConfig() {
         // 1) 司管登录获取 token
         String token = erpLogin();
-
-        // 2) 生成当前时间戳用于配置名称
         long nowTime = System.currentTimeMillis();
         String configName = "自动化新增ETA配送方案" + nowTime;
+
+
+        EtaConfigAddTests eta= new EtaConfigAddTests();
+        int configId = eta.configId();
 
         // 3) 编辑ETA配置
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/eta/delivery/time/config/update";
@@ -47,7 +49,7 @@ public class EtaConfigEditTests {
         Map<String, Object> headers = createHeaders(token);
         String body = String.format(
                 "{\"name\":\"%s\",\"scope\":1,\"minDiff\":1,\"maxDiff\":3,\"specialTimeList\":[],\"shopList\":null,\"areaList\":[{\"configId\":%d,\"areaId\":%d,\"areaName\":\"青岛-商圈3\"}],\"areaIdList\":[%d],\"shopIdList\":null,\"id\":%d,\"openStatus\":0,\"cityId\":\"%s\",\"isDefault\":0,\"createTime\":1758856303014,\"updateTime\":0,\"lastUpdateUserId\":2182,\"lastUpdateUserName\":\"ding17058431144045523\"}",
-                configName, ETA_CONFIG_ID, AREA_ID, AREA_ID, ETA_CONFIG_ID, CITY_ID);
+                configName, configId, AREA_ID, AREA_ID, configId, CITY_ID);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 4) 断言
@@ -62,16 +64,22 @@ public class EtaConfigEditTests {
     void shouldNotEditEtaConfigWithoutAuth() {
         // 1) 使用无效token测试未授权场景
         String invalidToken = "33333";
+        long nowTime = System.currentTimeMillis();
+        String configName = "自动化新增ETA配送方案" + nowTime;
+
+
+        EtaConfigAddTests eta= new EtaConfigAddTests();
+        int configId = eta.configId();
 
         // 2) 尝试编辑ETA配置
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/eta/delivery/time/config/update";
         String method = "POST";
         Map<String, Object> headers = createHeaders(invalidToken);
-        long nowTime = System.currentTimeMillis();
-        String configName = "自动化新增ETA配送方案" + nowTime;
+
+
         String body = String.format(
                 "{\"name\":\"%s\",\"scope\":1,\"minDiff\":1,\"maxDiff\":3,\"specialTimeList\":[],\"shopList\":null,\"areaList\":[{\"configId\":%d,\"areaId\":%d,\"areaName\":\"青岛-商圈3\"}],\"areaIdList\":[%d],\"shopIdList\":null,\"id\":%d,\"openStatus\":0,\"cityId\":\"%s\",\"isDefault\":0,\"createTime\":1758856303014,\"updateTime\":0,\"lastUpdateUserId\":2182,\"lastUpdateUserName\":\"ding17058431144045523\"}",
-                configName, ETA_CONFIG_ID, AREA_ID, AREA_ID, ETA_CONFIG_ID, CITY_ID);
+                configName, configId, AREA_ID, AREA_ID, configId, CITY_ID);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言未授权错误
