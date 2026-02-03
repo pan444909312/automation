@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Scenario(
-        scenarioID = "01JPSC0BSQY7TXFK7PRS8ZD938",
+        scenarioID = "01KGHPQ3V6DH091W31RRWCDWEH",
         scenarioName = "司管后台-订单管理-撤单配置-修改撤单配置",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
