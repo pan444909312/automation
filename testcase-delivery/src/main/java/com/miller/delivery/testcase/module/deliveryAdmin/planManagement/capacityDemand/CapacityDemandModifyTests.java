@@ -23,6 +23,9 @@ public class CapacityDemandModifyTests {
     @DisplayName("修改运力需求数量")
     @Test
     void shouldModifyCapacityDemandNum() {
+
+        CapacityDemandSyncTests capacityDemandSyncTests = new CapacityDemandSyncTests();
+        capacityDemandSyncTests.sync();
         // 1) 司管登录获取 token
         String token = erpLogin();
 
@@ -30,9 +33,11 @@ public class CapacityDemandModifyTests {
         LocalDate today = LocalDate.now();
         String todayDate = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+
+
         // 3) 从数据库提取当天一条运力
         Map<String, Object> demandRecord = PandaTestDBHelpful.executeSelectOneSql(
-                "select * from panda_test.hp_delivery_capacity_demand where demand_date=? order by id desc limit 1",
+                "select * from panda_test.hp_delivery_capacity_demand where demand_date=? and demand_time='23:00' order by id desc limit 1",
                 todayDate);
         Long demandId = ((Number) demandRecord.get("id")).longValue();
 

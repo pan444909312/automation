@@ -23,6 +23,9 @@ public class CapacityDemandSyncTests {
     @DisplayName("同步本周运力")
     @Test
     void shouldSyncCapacityDemand() {
+        sync();
+    }
+    public void sync(){
         // 1) 司管登录获取 token
         String token = erpLogin();
 
