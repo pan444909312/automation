@@ -57,6 +57,8 @@ public class EtaConfigEditTests {
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
+        EtaConfigDeleteTests etaD= new EtaConfigDeleteTests();
+        etaD.deleteETA(configId);
     }
 
     @DisplayName("编辑配置-未登记不可编辑")

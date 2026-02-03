@@ -58,7 +58,9 @@ public class EtaConfigAddTests {
     @DisplayName("新增eta配置-成功")
     @Test
     void shouldAddEtaConfig() {
-        configId();
+        int configId = configId();
+        EtaConfigDeleteTests etaD= new EtaConfigDeleteTests();
+        etaD.deleteETA(configId);
 
     }
 

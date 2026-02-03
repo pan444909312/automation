@@ -30,16 +30,21 @@ public class EtaConfigToggleTests {
 
     // 注意：需要在实际使用时替换为真实的 eta_time_config_id
     //private static final Long ETA_CONFIG_ID = 1L; // 请从质量平台或数据库中获取实际的 eta_time_config_id
-    private static final Long ETA_CONFIG_ID;
 
-    static{
-        String ETA_CONFIG_ID_Str = getCloseEtaIdFromDatabase();
-        ETA_CONFIG_ID = Long.parseLong(ETA_CONFIG_ID_Str);
-    }
 
     @DisplayName("开启ETA配置")
     @Test
     void shouldEnableEtaConfig() {
+
+        EtaConfigAddTests eta= new EtaConfigAddTests();
+        int configId = eta.configId();
+        toggle(configId,1);
+        toggle(configId,0);
+        EtaConfigDeleteTests etaD= new EtaConfigDeleteTests();
+        etaD.deleteETA(configId);
+    }
+
+    private void toggle(int configId,int status){
         // 1) 司管登录获取 token
         String token = erpLogin();
 
@@ -47,7 +52,13 @@ public class EtaConfigToggleTests {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/eta/delivery/time/config/changeStatus";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String body = String.format("{\"id\":%d,\"openStatus\":1,\"isAutoClose\":0}", ETA_CONFIG_ID);
+        String body="";
+
+        if (status==1){
+             body = String.format("{\"id\":%d,\"openStatus\":%d,\"isAutoClose\":0}", configId,status);
+        }else {
+             body = String.format("{\"id\":%d,\"openStatus\":%d}", configId,status);
+        }
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言
@@ -59,58 +70,15 @@ public class EtaConfigToggleTests {
         // 4) 从数据库验证配置已开启
         List<Map<String, Object>> configRecords = PandaTestDBHelpful.executeSelectListSql(
                 "select * from panda_test.hp_delivery_eta_time_config where id=?",
-                ETA_CONFIG_ID);
-        
+                configId);
+
         assert configRecords != null && !configRecords.isEmpty() : "数据库中没有找到配置";
         Map<String, Object> configRecord = configRecords.get(0);
         Integer openStatus = ((Number) configRecord.get("open_status")).intValue();
-        assert openStatus == 1 : "配置状态应为开启(1)，实际为: " + openStatus;
+        assert openStatus == status : "配置状态应为开启(1)，实际为: " + openStatus;
     }
 
-    @DisplayName("关闭ETA配置")
-    @Test
-    void shouldDisableEtaConfig() {
-        // 1) 司管登录获取 token
-        String token = erpLogin();
 
-        // 2) 关闭ETA配置
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/eta/delivery/time/config/changeStatus";
-        String method = "POST";
-        Map<String, Object> headers = createHeaders(token);
-        String body = String.format("{\"id\":%d,\"openStatus\":0,\"isAutoClose\":0}", ETA_CONFIG_ID);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-
-        // 3) 断言
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("message").isEqualTo("成功");
-
-        // 4) 从数据库验证配置已关闭
-        List<Map<String, Object>> configRecords = PandaTestDBHelpful.executeSelectListSql(
-                "select * from panda_test.hp_delivery_eta_time_config where id=?",
-                ETA_CONFIG_ID);
-        
-        assert configRecords != null && !configRecords.isEmpty() : "数据库中没有找到配置";
-        Map<String, Object> configRecord = configRecords.get(0);
-        Integer openStatus = ((Number) configRecord.get("open_status")).intValue();
-        assert openStatus == 0 : "配置状态应为关闭(0)，实际为: " + openStatus;
-    }
-
-    /**
-     * 从数据库查询杭州市，未删除+未开启的ETA_id
-     * author：江彪
-     * time：2026.1.29 新增
-     */
-    private static String getCloseEtaIdFromDatabase() {
-        String sql = String.format("select id from hp_delivery_eta_time_config where is_del=0 AND city_id=1 and open_status = 0 order by id limit 1;");
-        List<Map<String, Object>> resultList = PandaTestDBHelpful.executeSelectListSql(sql);
-        if (resultList != null && !resultList.isEmpty()) {
-            Object etaID = resultList.get(0).get("id");
-            return etaID != null ? etaID.toString() : "121";
-        }
-        return "121";
-    }
 
     private Map<String, Object> createHeaders(String token) {
         Map<String, Object> headers = new HashMap<>();

@@ -34,14 +34,21 @@ public class EtaConfigDeleteTests {
     @DisplayName("删除eta配置")
     @Test
     void shouldDeleteEtaConfig() {
+        EtaConfigAddTests eta= new EtaConfigAddTests();
+        int configId = eta.configId();
+        deleteETA(configId);
+    }
+
+    public void deleteETA( int configId) {
         // 1) 司管登录获取 token
         String token = erpLogin();
+
 
         // 2) 删除eta配置
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/eta/delivery/time/config/del";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String body = String.format("{\"id\":%d}", ETA_TIME_CONFIG_ID);
+        String body = String.format("{\"id\":%d}", configId);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言
@@ -53,8 +60,8 @@ public class EtaConfigDeleteTests {
         // 4) 从数据库验证配置已删除（is_del=1）
         List<Map<String, Object>> configRecords = PandaTestDBHelpful.executeSelectListSql(
                 "select * from panda_test.hp_delivery_eta_time_config where id=?",
-                ETA_TIME_CONFIG_ID);
-        
+                configId);
+
         if (configRecords != null && !configRecords.isEmpty()) {
             Map<String, Object> configRecord = configRecords.get(0);
             Integer isDel = ((Number) configRecord.get("is_del")).intValue();
