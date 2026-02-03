@@ -77,7 +77,9 @@ public class DriverOfflineTests {
         
         // 步骤18: 司机下线操作-身上有订单不可下线
         tryOfflineWithOrder(driverAccessToken);
-        
+        // 步骤8: 开启到店距离限制和送达距离限制
+        switchMealCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchMealCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
         // 步骤19: 修改骑手配送状态-到店
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
         
@@ -102,7 +104,18 @@ public class DriverOfflineTests {
         // 步骤26: 完单后-司机下线操作
         driverOffline(driverAccessToken);
     }
+    private void switchMealCollectionCode(String siGuanToken, int switchType,String switchCode) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization", siGuanToken);
 
+        String body = String.format("{\"city\":\"杭州市\",\"functionKey\":\"%s\",\"switchType\":%d}", switchCode,switchType);
+
+
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        // apifox未给明确code断言，这里按通用message=成功
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+    }
     /**
      * C侧用户登录
      */
@@ -487,10 +500,10 @@ public class DriverOfflineTests {
         String method = "POST";
         Map<String, Object> headers = createIOSDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        
-        var requestBody = String.format("{\"driverArriveType\":11,\"operationType\":6,\"arriveRemark\":\"留言备注内容-apifox自动化测试创建，图片默认写死资源地址，免去每次上传图片到oss\",\"waitUserArrive\":0,\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/170174606688616113ac9a0a74ab29cdadf98ad4cf090.jpg\"],\"orderSnList\":[\"%s\"]}", 
+
+        var requestBody = String.format("{\"driverArriveType\":11,\"operationType\":6,\"arriveRemark\":\"留言备注内容-apifox自动化测试创建，图片默认写死资源地址，免去每次上传图片到oss\",\"waitUserArrive\":0,\"orderSn\":\"%s\",\"orderCompleteImageUrlList\":[\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/170174606688616113ac9a0a74ab29cdadf98ad4cf090.jpg\"],\"orderSnList\":[\"%s\"]}",
                 userAppOrderSn, userAppOrderSn);
-        
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
