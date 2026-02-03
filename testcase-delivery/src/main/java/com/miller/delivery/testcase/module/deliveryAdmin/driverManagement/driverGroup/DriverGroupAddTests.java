@@ -13,7 +13,7 @@ import java.util.Map;
  * 司管后台-新增群组
  */
 @Scenario(
-        scenarioID = "01KDQP1PFH8X4QH5NJK9XWY4A7",
+        scenarioID = "01KGHPM1T8Q0MAAY2FMB6K7EGB",
         scenarioName = "获取骑手群组列表",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
