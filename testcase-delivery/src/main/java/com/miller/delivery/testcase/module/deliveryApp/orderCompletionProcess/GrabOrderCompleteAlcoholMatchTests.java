@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
+
 /**
  * 主干流程-骑手抢单-完单【烟酒订单核验一致完成送达】
  *
@@ -45,7 +47,11 @@ public class GrabOrderCompleteAlcoholMatchTests {
         waitPickUpList(driverAccessToken);
         merchantAddressInfo(driverAccessToken, userAppOrderSn);
         productInfo(driverAccessToken, userAppOrderSn);
-
+        // 步骤8: 开启到店距离限制和送达距离限制
+        // 步骤9: 司管登录获取token
+        String siGuanToken = erpLogin();
+        switchMealCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchMealCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
         // 5) 到店 -> 未出餐 -> 已取餐
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2);
@@ -65,7 +71,29 @@ public class GrabOrderCompleteAlcoholMatchTests {
         // 9) 下线
         onOffline(driverAccessToken, false);
     }
+    private void switchMealCollectionCode(String siGuanToken, int switchType,String switchCode) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization", siGuanToken);
 
+        String body = String.format("{\"city\":\"杭州市\",\"functionKey\":\"%s\",\"switchType\":%d}", switchCode,switchType);
+
+
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        // apifox未给明确code断言，这里按通用message=成功
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+    }
+    /**
+     * 创建ERP请求头
+     */
+    private Map<String, Object> createErpHeaders() {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("accept", "application/json, text/plain, */*");
+        headers.put("accept-language", "zh-CN,zh;q=0.9");
+        headers.put("content-type", "application/json;charset=UTF-8");
+
+        return headers;
+    }
     private void newOrderList(String driverAccessToken) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/newOrderList";
         Map<String, Object> headers = createDriverAppHeaders();

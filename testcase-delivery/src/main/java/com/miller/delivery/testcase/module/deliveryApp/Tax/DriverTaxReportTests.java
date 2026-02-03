@@ -17,7 +17,7 @@ import java.util.Map;
  * @since 2025/01/07
  */
 @Scenario(
-        scenarioID = "01JXJ0C8XAXJF5DBX9BNW3W32M",
+        scenarioID = "01KGH2QP3CZPYRY4FFMJ8Z6YH2",
         scenarioName = "获取骑手报税详情",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 2)

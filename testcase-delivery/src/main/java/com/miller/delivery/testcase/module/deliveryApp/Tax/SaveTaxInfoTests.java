@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01JXJ0C8XAXJF5DBX9BNW3W32M",
-        scenarioName = "获取骑手报税详情",
+        scenarioName = "保存税务信息",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 2)
 @DisplayName("保存税务信息（未完成，有报错）")
