@@ -21,7 +21,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * @since 2025/01/06
  */
 @Scenario(
-        scenarioID = "01KDQPTAF4RSWD3M2MDBSJTZFT",
+        scenarioID = "01KGGPQA658JSMYH8PF012S7WF",
         scenarioName = "平台薪资调整-导出",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 30)
