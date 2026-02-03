@@ -13,7 +13,7 @@ import java.util.Map;
  * 司管后台-骑手处罚列表-骑手管控-惩罚类型
  */
 @Scenario(
-        scenarioID = "01KDQMHG8YNV9S1CR2E46JBBN6",
+        scenarioID = "01KGHPFZY2ANBSTKBATZ9YD4KW",
         scenarioName = "骑手处罚列表-骑手管控-惩罚类型",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 10)
