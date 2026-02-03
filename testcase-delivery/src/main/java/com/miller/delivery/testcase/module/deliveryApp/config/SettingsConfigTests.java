@@ -18,13 +18,13 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01JXJ001M8T3MQXTX49NB5D3KW",
-        scenarioName = "设置-最远接单距离获取",
+        scenarioName = "设置-订单提醒",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 2)
-@DisplayName("设置-最远接单距离获取")
+@DisplayName("设置-订单提醒")
 public class SettingsConfigTests {
 
-    @DisplayName("设置-最远接单距离获取和更新")
+    @DisplayName("设置-订单提醒")
     @Test
     void shouldGetAndUpdateDispatchConfig() {
         // 1) 骑手登录获取 token
@@ -76,9 +76,9 @@ public class SettingsConfigTests {
      */
     private Map<String, Object> createDriverAppHeaders() {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("longitude", "120.216806");
-        headers.put("latitude", "30.203427");
-        headers.put("version", "5.64.0");
+        headers.put("longitude", "120.21683");
+        headers.put("latitude", "30.203555");
+        headers.put("version", "5.56.1");
         headers.put("platform", "ANDROID_DELIVERY");
         headers.put("type", "3");
         headers.put("locale", "zh-CN");
@@ -89,7 +89,6 @@ public class SettingsConfigTests {
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
 
-        headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;
     }
