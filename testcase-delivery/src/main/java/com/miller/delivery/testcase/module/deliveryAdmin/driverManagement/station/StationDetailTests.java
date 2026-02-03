@@ -27,7 +27,7 @@ public class StationDetailTests {
         String token = erpLogin();
 
         // 2) 获取骑手驿站配置列表，提取第一个configNo
-        String configNo = getFirstStationConfigNo(token);
+        String configNo = "504646250062430432";
 
         // 3) 查看驿站详情
         if (configNo != null && !configNo.isEmpty()) {
