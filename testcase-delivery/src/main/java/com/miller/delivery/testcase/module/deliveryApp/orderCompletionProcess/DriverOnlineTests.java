@@ -2,6 +2,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 
 import com.miller.common.util.MD5Util;
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +31,8 @@ public class DriverOnlineTests {
     void shouldOnlineSuccessfully() {
         // 1) 骑手登录获取 token
         String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010686", "Test1234");
-
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         // 2) 骑手上线前校验状态
         checkStatusBeforeOnline(driverAccessToken);
 
