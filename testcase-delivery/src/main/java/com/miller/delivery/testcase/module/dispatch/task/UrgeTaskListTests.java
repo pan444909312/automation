@@ -67,19 +67,20 @@ public class UrgeTaskListTests {
         headers.put("content-type", "application/json;charset=UTF-8");
          
 
-        // 步骤3: 设置请求体
-        var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/task/urgeTaskList/request/body.json");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pageNo", 1);
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pageSize", 10);
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.taskNewType", 1);
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.city", "杭州市");
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.distance", null);
-        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.thirdType", null);
+//        // 步骤3: 设置请求体
+//        var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/task/urgeTaskList/request/body.json");
+//        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pageNo", 1);
+//        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pageSize", 10);
+//        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.taskNewType", 1);
+//        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.city", "杭州市");
+//        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.distance", null);
+//        requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.thirdType", null);
 
         // 步骤4: 发起请求
         String uri = TestcaseConfig.HOST_ERP + "/api/dispatch/urge/taskList";
         String method = "POST";
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+        String body="{\"pageNo\":1,\"pageSize\":10,\"taskNewType\":1,\"city\":\"杭州市\",\"distance\":null,\"thirdType\":null}";
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 步骤5: 断言响应结果
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);

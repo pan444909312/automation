@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.deliveryApp.signUp;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -28,8 +29,11 @@ public class DriverCertificationInfoTests {
     @Test
     void shouldGetDriverCertificationInfo() {
         // 1) 骑手登录获取 token
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        String driverAccessToken = driverLoginInfo.get("accessToken");
+        Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         // 2) 认证信息-获取骑手认证信息
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/certificationInfo";
         String method = "POST";
