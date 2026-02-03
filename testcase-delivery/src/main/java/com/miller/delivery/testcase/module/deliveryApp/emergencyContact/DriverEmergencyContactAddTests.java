@@ -25,7 +25,7 @@ public class DriverEmergencyContactAddTests {
     @DisplayName("新增紧急联系人")
     @Test
     void shouldAddEmergencyContact() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010676", "Test1234");
 
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/addDriverEmergencyContact";
         Map<String, Object> headers = createDriverAppHeaders();
