@@ -3,6 +3,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWineTests;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +38,8 @@ public class GrabOrderCompleteAlcoholMismatchTests {
         Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
-
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         onOffline(driverAccessToken, true);
 
         // 3) 司管登录
@@ -51,7 +53,9 @@ public class GrabOrderCompleteAlcoholMismatchTests {
         waitPickUpList(driverAccessToken);
         merchantAddressInfo(driverAccessToken, userAppOrderSn);
         productInfo(driverAccessToken, userAppOrderSn);
-
+        // 步骤8: 开启到店距离限制和送达距离限制
+        switchMealCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchMealCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
         // 6) 到店 -> 未出餐 -> 已取餐
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2);
@@ -74,7 +78,18 @@ public class GrabOrderCompleteAlcoholMismatchTests {
         // 11) 下线
         onOffline(driverAccessToken, false);
     }
+    private void switchMealCollectionCode(String siGuanToken, int switchType,String switchCode) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization", siGuanToken);
 
+        String body = String.format("{\"city\":\"杭州市\",\"functionKey\":\"%s\",\"switchType\":%d}", switchCode,switchType);
+
+
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+        // apifox未给明确code断言，这里按通用message=成功
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+    }
     private void newOrderList(String driverAccessToken) {
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/order/newOrderList";
         Map<String, Object> headers = createDriverAppHeaders();
@@ -221,6 +236,12 @@ public class GrabOrderCompleteAlcoholMismatchTests {
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void onOffline(String driverAccessToken, boolean online) {
