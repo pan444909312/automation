@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -28,8 +29,9 @@ public class DriverLoginLogoutTests {
     @Test
     void shouldLoginAndLogout() {
         // 1) 骑手登录获取 token
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010676", "Test1234");
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
         // 2) 骑手退出
         String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/auth/logout";
         String method = "POST";
