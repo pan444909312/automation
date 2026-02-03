@@ -25,14 +25,12 @@ public class DriverLayerUpdateTests {
     void shouldUpdateDriverLayer() {
         // 1) 司管登录获取 token
         String token = erpLogin();
+        DriverLayerAddTests driverLayerAddTests = new DriverLayerAddTests();
+        Integer id = driverLayerAddTests.addLayer();
 
-        // 2) 获取分层列表，提取第一个配置ID
-        Integer layerConfigId = getFirstLayerConfigId(token);
-
-        // 3) 编辑分层
-        if (layerConfigId != null) {
-            updateDriverLayer(token, layerConfigId);
-        }
+        updateDriverLayer(token,id);
+        DriverLayerDeleteTests driverLayerDeleteTests = new DriverLayerDeleteTests();
+        driverLayerDeleteTests.delete(id);
     }
 
     @DisplayName("编辑分层-工作类型为空（错误场景）")

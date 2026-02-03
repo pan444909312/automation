@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.driverLayer;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +24,12 @@ public class DriverLayerAddTests {
     @DisplayName("新增分层-成功")
     @Test
     void shouldAddDriverLayer() {
+        Integer id = addLayer();
+        DriverLayerDeleteTests driverLayerDeleteTests = new DriverLayerDeleteTests();
+        driverLayerDeleteTests.delete(id);
+
+    }
+    public Integer addLayer(){
         // 1) 司管登录获取 token
         String token = erpLogin();
 
@@ -60,6 +67,15 @@ public class DriverLayerAddTests {
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
+
+        // 5) 从数据库查询新增的配置
+        Map<String, Object> configRecords = PandaTestDBHelpful.executeSelectOneSql(
+                "select * from panda_test.hp_delivery_driver_layer_config where city='日照市' order by id desc limit 1");
+        assert configRecords != null && !configRecords.isEmpty() : "数据库中没有找到新增的配置";
+
+
+        int configId = Integer.parseInt((configRecords.get("id")).toString());
+        return configId;
     }
 
     @DisplayName("新增分层-工作类型为空")

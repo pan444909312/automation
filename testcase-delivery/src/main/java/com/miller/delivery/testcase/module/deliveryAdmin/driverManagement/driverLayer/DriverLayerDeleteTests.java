@@ -25,11 +25,17 @@ public class DriverLayerDeleteTests {
     @DisplayName("删除分层")
     @Test
     void shouldDeleteDriverLayer() {
+        DriverLayerAddTests driverLayerAddTests = new DriverLayerAddTests();
+        Integer layer = driverLayerAddTests.addLayer();
+        delete(layer);
+
+    }
+    public void delete(int id){
         // 1) 司管登录获取 token
         String token = erpLogin();
 
         // 2) 删除分层
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/driverLayer/delete/" + LAYER_CONFIG_ID;
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/driverLayer/delete/" + id;
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, null);
