@@ -16,7 +16,7 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01K8W5KYBWSN837YMCWZFHHGXP",
+        scenarioID = "01KGHQ9C5ZTSKXEAP8JGXJMEMR",
         scenarioName = "对外接口-酒水-批量",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 60)

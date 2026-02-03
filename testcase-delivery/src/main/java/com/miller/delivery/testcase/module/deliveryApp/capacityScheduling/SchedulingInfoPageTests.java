@@ -17,7 +17,7 @@ import java.util.Map;
  * @since 2025/01/07
  */
 @Scenario(
-        scenarioID = "01JW8PF8Q59ETPXXQRCKZ7PHVZ",
+        scenarioID = "01KGHQ22M921R60XKS55H29MB3",
         scenarioName = "骑手app-排班通知",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)

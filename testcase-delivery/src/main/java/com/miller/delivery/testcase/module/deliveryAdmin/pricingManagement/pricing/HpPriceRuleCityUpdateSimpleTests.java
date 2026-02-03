@@ -14,7 +14,7 @@ import java.util.Map;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 @Scenario(
-        scenarioID = "01KDQBS749SQYBF5S0PBTV5QCE",
+        scenarioID = "01KGHPXCECPYE4GWKFSTFG3YZP",
         scenarioName = "司管_HP基础定价_修改全城HP定价_不区分载具+时段+群组",
         author = "jiangbiao@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)

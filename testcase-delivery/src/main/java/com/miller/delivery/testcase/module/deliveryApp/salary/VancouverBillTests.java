@@ -16,7 +16,7 @@ import java.util.Map;
  * @since 2025/01/06
  */
 @Scenario(
-        scenarioID = "01K9Y1F9QKD2CHKSDY776NE3WX", // Placeholder, update with actual ID
+        scenarioID = "01KGHQ4QNA0R3CF51XSMD7NSB5", // Placeholder, update with actual ID
         scenarioName = "骑手app-温哥华法案",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 20)

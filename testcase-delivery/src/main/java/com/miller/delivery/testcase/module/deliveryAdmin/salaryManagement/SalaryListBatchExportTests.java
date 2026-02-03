@@ -15,7 +15,7 @@ import java.util.Map;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 @Scenario(
-        scenarioID = "01KDQMMRKSV4SJQXT261BZ7FB7",
+        scenarioID = "01KGHPZS0AJQW19SCVPRGS4VF7",
         scenarioName = "薪资列表-全部导出",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 180, maintenanceTime = 0, manualTestTime = 30)
