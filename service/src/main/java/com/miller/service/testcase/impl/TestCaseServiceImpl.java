@@ -80,7 +80,7 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
 
         if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.TASK.getCode()) {
             // 按人员维度发送钉钉通知报告
-            DingTalkUtils.sendMarkdownMessageDebug("自动化执行通知", messageHandler(projectName));
+            DingTalkUtils.sendMarkdownMessage("自动化执行通知", messageHandler(projectName));
         }
         if (runTeatCaseType.getCode() == RunTeatCaseTypeEnum.PLATFORM.getCode()) {
 
