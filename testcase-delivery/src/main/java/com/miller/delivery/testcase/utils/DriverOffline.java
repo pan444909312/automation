@@ -1,10 +1,7 @@
 package com.miller.delivery.testcase.utils;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.miller.delivery.testcase.config.TestcaseConfig;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -20,8 +17,8 @@ public class DriverOffline {
         return headers;
     }
 
-    @DisplayName("获取列表数据")
-    @Test
+//    @DisplayName("获取列表数据")
+//    @Test
     public void cancelDispatchAndOffline(String driverPhone,String driverAccessToken) {
         // 1) 司管登录获取 token
         String token = erpLogin();
@@ -120,8 +117,7 @@ public class DriverOffline {
         var requestBody = String.format("{\"orderSn\":\"%s\"}", userAppOrderSn);
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
-        JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
-        String message = jsonObject.get("message").getAsString();
+        String message = TestCaseHelpful.extractValue(responseBody, "$.message");
         System.out.println("Message: " + message);
 
         if(message.contains("请先处理取餐码异常记录")){
