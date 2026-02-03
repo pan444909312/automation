@@ -22,7 +22,7 @@ import java.util.Map;
 @DisplayName("删除排班")
 public class DeleteSchedulingTests {
 
-    @DisplayName("删除时段-正常")
+    @DisplayName("删除时段-已过去的时段不可删除")
     @Test
     void shouldDeleteScheduling() {
         String token = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
@@ -31,14 +31,14 @@ public class DeleteSchedulingTests {
         Map<String, Object> headers = createHeaders();
         headers.put("authorization", token);
 
-        String nowDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-M-d"));
+        String nowDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String body = String.format("{\"areaId\":51,\"schedulingDateList\":[\"%s\"],\"startTime\":\"23:30\",\"endTime\":\"24:00\"}", nowDate);
 
         var response = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
-        TestCaseHelpful.assertThatJson(response).node("resultCode").isEqualTo(1000);
-        TestCaseHelpful.assertThatJson(response).node("reason").isEqualTo("成功");
-        TestCaseHelpful.assertThatJson(response).node("success").isEqualTo(true);
+        TestCaseHelpful.assertThatJson(response).node("resultCode").isEqualTo(100095);
+        TestCaseHelpful.assertThatJson(response).node("reason").isEqualTo("该时段已经过去了~ 获取最新可预约时段后重试");
+        TestCaseHelpful.assertThatJson(response).node("success").isEqualTo(false);
     }
 
     private Map<String, Object> createHeaders() {
