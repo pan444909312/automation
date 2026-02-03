@@ -20,4 +20,9 @@ public interface TestCaseService extends IService<TestCaseEntity> {
      * @return 测试用例数量
      */
     String runTestCase(List<String> packageNameList, RunTeatCaseTypeEnum type);
+
+    String runTestCaseC(List<String> packageNameList, RunTeatCaseTypeEnum type);
+
+    String runTestCaseD(List<String> packageNameList, RunTeatCaseTypeEnum type);
+
 }

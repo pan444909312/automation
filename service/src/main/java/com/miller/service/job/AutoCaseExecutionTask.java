@@ -31,7 +31,7 @@ public class AutoCaseExecutionTask {
     @Scheduled(cron = "0 30 0 * * ?")
     //每5分钟执行一次
 //    @Scheduled(cron = "0 0/5 * * * ?")
-    public void execute() {
+    public void executeCaseC() {
         String executionCaseUrl = configService.getConfigByKey("EXECUTION_CASE_TASK");
         List<String> strings = StringToListUtils.stringToList(executionCaseUrl);
 
@@ -39,6 +39,17 @@ public class AutoCaseExecutionTask {
 //        strings.add("com.miller.testcase.module.account.promote_confirm");
 //        strings.add("com.miller.testcase.module.account.redpacket");
 //        strings.add("com.miller.testcase.module.account.member");
-        testCaseService.runTestCase(strings, RunTeatCaseTypeEnum.TASK);
+        testCaseService.runTestCaseC(strings, RunTeatCaseTypeEnum.TASK);
+    }
+
+    /**
+     * 每日4:30分执行一次
+     */
+//    @Scheduled(cron = "0 30 4 * * ?")
+    public void executeCaseD() {
+        String executionCaseUrl = configService.getConfigByKey("EXECUTION_CASE_TASK_D");
+        List<String> strings = StringToListUtils.stringToList(executionCaseUrl);
+
+        testCaseService.runTestCaseD(strings, RunTeatCaseTypeEnum.TASK);
     }
 }

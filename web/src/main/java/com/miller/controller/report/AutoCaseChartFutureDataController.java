@@ -54,7 +54,7 @@ public class AutoCaseChartFutureDataController {
     @PostMapping("/runcase-job")
     public Map<String, Object> runcase() {
         HashMap<String, Object> result = new HashMap<>();
-        autoCaseExecutionTask.execute();;
+        autoCaseExecutionTask.executeCaseD();;
 
         return result;
     }
