@@ -63,7 +63,12 @@ public class PutOnDispatchOrderTests {
         assertNotNull(userAppOrderSn);
         assertFalse(userAppOrderSn.isEmpty());
 
-
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.orderSn", userAppOrderSn);
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.putOnTimeMinutes", "10");
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.putOnType", 0);

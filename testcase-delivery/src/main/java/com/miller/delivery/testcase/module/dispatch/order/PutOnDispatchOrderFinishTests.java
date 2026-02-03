@@ -37,6 +37,12 @@ public class PutOnDispatchOrderFinishTests {
         PutOnDispatchOrderTests putOnDispatchOrderTests = new PutOnDispatchOrderTests();
         putOnDispatchOrderTests.shouldPutOnDispatchOrder();
         String deliveryOrderSn = putOnDispatchOrderTests.deliveryOrderSn;
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         // 步骤3: 设置请求体
         var requestBody = TestCaseHelpful.getJsonRequestBody("module/dispatch/order/putOnDispatchOrderFinish/request/body.json");

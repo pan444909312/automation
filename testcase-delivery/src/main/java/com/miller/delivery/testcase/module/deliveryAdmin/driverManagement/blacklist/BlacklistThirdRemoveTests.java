@@ -1,9 +1,9 @@
 package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.blacklist;
 
-import com.miller.service.framework.annotation.Scenario;
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
-import net.javacrumbs.jsonunit.core.Option;
+import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,12 +18,12 @@ import java.util.Map;
  * @since 2026/01/28 21:09:50
  */
 @Scenario(
-        scenarioID = "01KG2BJTFJGGG0THE73SKPHDG6", // 自动生成，不要修改
-        scenarioName = "三方拉黑-列表",
+        scenarioID = "01KGHR0EM1SSVSXY5RM2AAKGGB", // 自动生成，不要修改
+        scenarioName = "三方拉黑-解除",
         author = "chenchunxia@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
-@DisplayName("blacklist thirdList")
-public class BlacklistThirdlistTests {
+@DisplayName("解除三方拉黑")
+public class BlacklistThirdRemoveTests {
 
     // 1) 司管登录获取 token
 
@@ -33,15 +33,21 @@ public class BlacklistThirdlistTests {
     @Test
     void shouldSuccess() {
 
+        remove();
 
+    }
 
+    public void remove(){
 
         // 1) 司管登录获取 token
         String token = erpLogin();
+        BlacklistThirdAddTests addTests = new BlacklistThirdAddTests();
+        String recordNo = addTests.add();
 
         // 2) 新增拉黑关系失败
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/blacklist/thirdList";
-        String body = "{\"pageNo\": 1,\"pageSize\": 10}";
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/blacklist/thirdRemove";
+        String body = String.format("{\"recordNoList\":[\"%s\"]}", recordNo);
+
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
@@ -51,7 +57,6 @@ public class BlacklistThirdlistTests {
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
-
 
 
     }

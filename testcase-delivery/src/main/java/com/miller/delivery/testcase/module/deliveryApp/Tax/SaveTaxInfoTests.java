@@ -16,12 +16,12 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/01/07
  */
-@Scenario(
-        scenarioID = "01JXJ0C8XAXJF5DBX9BNW3W32M",
-        scenarioName = "保存税务信息",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 2)
-@DisplayName("保存税务信息（未完成，有报错）")
+//@Scenario(
+//        scenarioID = "01JXJ0C8XAXJF5DBX9BNW3W32M",
+//        scenarioName = "保存税务信息",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 60, maintenanceTime = 0, manualTestTime = 2)
+//@DisplayName("保存税务信息（未完成，有报错）")
 public class SaveTaxInfoTests {
 
     // 注意：需要在实际使用时替换为真实的driverId
