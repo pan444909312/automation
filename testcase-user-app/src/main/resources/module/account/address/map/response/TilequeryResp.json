@@ -1,0 +1,30 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "dataList": [
+      {
+        "address": "${json-unit.ignore-element}",
+        "addressDetail": "${json-unit.ignore-element}",
+        "buildingName": "${json-unit.ignore-element}",
+        "postcode": "${json-unit.ignore-element}",
+        "houseNum": "${json-unit.ignore-element}",
+        "buildingNumber": "${json-unit.ignore-element}",
+        "street": "${json-unit.ignore-element}",
+        "city": "伦敦",
+        "province": "${json-unit.ignore-element}",
+        "longitude": "${json-unit.ignore-element}",
+        "latitude": "${json-unit.ignore-element}",
+        "country": "英国",
+        "countryCode": "${json-unit.ignore-element}",
+        "distance": "${json-unit.ignore-element}",
+        "distanceMeters": "${json-unit.ignore-element}"
+      }
+    ],
+    "needLocationEncode": 0
+  },
+  "currency": "${json-unit.ignore-element}",
+  "success": true,
+  "nowTime": "${json-unit.ignore-element}"
+}

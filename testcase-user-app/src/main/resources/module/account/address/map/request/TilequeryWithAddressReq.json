@@ -1,0 +1,20 @@
+{
+  "locationLatitude": "35.8794084",
+  "locationLongitude": "-84.0575106",
+  "mapSearchChooseAddress": {
+    "country": "美国",
+    "address": "Wembley Hills Road, Knoxville, TN, USA",
+    "city": "Knoxville",
+    "superResultCode": 0,
+    "latitude": "35.8794084",
+    "postcode": "37922",
+    "buildingName": "Wembley Hills Road",
+    "province": "Tennessee",
+    "street": "Wembley Hills Road",
+    "superNowTime": 0,
+    "currency": "$",
+    "logicOk": false,
+    "selected": false,
+    "longitude": "-84.0575106"
+  }
+}

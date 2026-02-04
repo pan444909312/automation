@@ -1,0 +1,10 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "dataList": [],
+    "needLocationEncode": 0
+  },
+  "success": true
+}

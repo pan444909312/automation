@@ -1,0 +1,30 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "dataList": [
+      {
+        "address": "Costco Wholesale, Pine Plaza Drive, Apex, NC, USA",
+        "addressDetail": null,
+        "buildingName": "Costco Wholesale",
+        "postcode": "27523",
+        "houseNum": null,
+        "buildingNumber": "1206d",
+        "street": "Pine Plaza Drive1021",
+        "city": "Apex",
+        "province": "North Carolina",
+        "longitude": "-78.82729239999999",
+        "latitude": "35.7468039",
+        "country": "美国",
+        "countryCode": null,
+        "distance": "${json-unit.ignore-element}",
+        "distanceMeters": "${json-unit.ignore-element}"
+      }
+    ],
+    "needLocationEncode": 0
+  },
+  "currency": "${json-unit.ignore-element}",
+  "success": true,
+  "nowTime": "${json-unit.ignore-element}"
+}
