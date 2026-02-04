@@ -17,12 +17,12 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/01/07
  */
-@Scenario(
-        scenarioID = "01JWG1VHMW2Y9GKMY8P0YXVHB2",
-        scenarioName = "骑手APP-骑手注册提交认证材料",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 600, maintenanceTime = 0, manualTestTime = 20)
-@DisplayName("【常用】随机手机号注册 -非澳大利亚国家")
+//@Scenario(
+//        scenarioID = "01JWG1VHMW2Y9GKMY8P0YXVHB2",
+//        scenarioName = "骑手APP-骑手注册提交认证材料",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 600, maintenanceTime = 0, manualTestTime = 20)
+//@DisplayName("【常用】随机手机号注册 -非澳大利亚国家")
 public class RandomPhoneRegisterNonAustraliaTests {
 
     private String newTel;

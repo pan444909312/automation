@@ -15,12 +15,12 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/01/01 00:00:00
  */
-@Scenario(
-        scenarioID = "01K08JKVV71F7RYPTCMTQ3JZS0",
-        scenarioName = "招新代办-各个环节骑手审批通过",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 180, maintenanceTime = 0, manualTestTime = 90)
-@DisplayName("正向审批-含背调环节")
+//@Scenario(
+//        scenarioID = "01K08JKVV71F7RYPTCMTQ3JZS0",
+//        scenarioName = "招新代办-各个环节骑手审批通过",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 180, maintenanceTime = 0, manualTestTime = 90)
+//@DisplayName("正向审批-含背调环节")
 public class DriverApprovalWithBackgroundCheckTests {
 
     @DisplayName("完整端到端流程-正向审批流程（含背调环节）")

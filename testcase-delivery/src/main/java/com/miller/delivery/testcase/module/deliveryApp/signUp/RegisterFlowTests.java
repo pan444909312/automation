@@ -15,12 +15,12 @@ import java.util.Map;
  *
  * Apifox: docs/d-apifox/checked/注册流程多case.apifox-cli.json
  */
-@Scenario(
-        scenarioID = "01K3N6W55KM5N4F37SSPNB2VYX",
-        scenarioName = "骑手注册多Case",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("注册流程多case")
+//@Scenario(
+//        scenarioID = "01K3N6W55KM5N4F37SSPNB2VYX",
+//        scenarioName = "骑手注册多Case",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+//@DisplayName("注册流程多case")
 public class RegisterFlowTests {
 
     @DisplayName("异常case: 手机号为空")
