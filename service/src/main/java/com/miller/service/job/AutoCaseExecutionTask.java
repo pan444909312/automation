@@ -32,7 +32,7 @@ public class AutoCaseExecutionTask {
     //每5分钟执行一次
 //    @Scheduled(cron = "0 0/5 * * * ?")
     public void executeCaseC() {
-        String executionCaseUrl = configService.getConfigByKey("EXECUTION_CASE_TASK");
+        String executionCaseUrl = configService.getConfigByKey("EXECUTION_CASE_TASK_C");
         List<String> strings = StringToListUtils.stringToList(executionCaseUrl);
 
 //        ArrayList<String> strings = new ArrayList<>();
@@ -43,9 +43,9 @@ public class AutoCaseExecutionTask {
     }
 
     /**
-     * 每日4:30分执行一次
+     * 每日4:10分执行一次
      */
-//    @Scheduled(cron = "0 30 4 * * ?")
+    @Scheduled(cron = "0 10 4 * * ?")
     public void executeCaseD() {
         String executionCaseUrl = configService.getConfigByKey("EXECUTION_CASE_TASK_D");
         List<String> strings = StringToListUtils.stringToList(executionCaseUrl);

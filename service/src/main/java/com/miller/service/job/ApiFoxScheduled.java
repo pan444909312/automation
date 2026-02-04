@@ -30,10 +30,10 @@ public class ApiFoxScheduled {
     }
 
 
-    @Scheduled(cron = "0 10 4 * * ?")
-    public void scheduledTaskD() {
-        this.apifoxToolsService.execApifoxCli(AttributionGroupEnum.D);
-    }
+//    @Scheduled(cron = "0 10 4 * * ?")
+//    public void scheduledTaskD() {
+//        this.apifoxToolsService.execApifoxCli(AttributionGroupEnum.D);
+//    }
 
 
 }
