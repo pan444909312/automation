@@ -211,7 +211,14 @@ public class TestCaseServiceImpl extends ServiceImpl<TestCaseMapper, TestCaseEnt
     private String messageHandler(String projectName) {
         LocalDate todayLocalDate = LocalDate.now();
         Date today = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList = autoExecutionRecordService.getDailyCaseExecutionSummaryByPerson(ProjectTypeEnum.PROJECT_C.getProjectId(), today);
+        List<AutoCaseExecutionDailyDataDTO> autoCaseExecutionDailyDataDTOList ;
+
+        if(projectName.equals("D组")){
+            autoCaseExecutionDailyDataDTOList = autoExecutionRecordService.getDailyCaseExecutionSummaryByPerson(ProjectTypeEnum.PROJECT_D.getProjectId(), today);
+
+        }else{
+            autoCaseExecutionDailyDataDTOList = autoExecutionRecordService.getDailyCaseExecutionSummaryByPerson(ProjectTypeEnum.PROJECT_C.getProjectId(), today);
+        }
 
 
         StringBuilder stringBuilder = new StringBuilder();

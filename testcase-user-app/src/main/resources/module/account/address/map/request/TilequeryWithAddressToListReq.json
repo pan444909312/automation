@@ -1,0 +1,21 @@
+{
+  "locationLatitude": "35.7468039",
+  "locationLongitude": "-78.8272924",
+  "mapSearchChooseAddress": {
+    "country": "美国",
+    "address": "Costco Wholesale, Pine Plaza Drive, Apex, NC, USA",
+    "city": "Apex",
+    "superResultCode": 0,
+    "latitude": "35.7468039",
+    "postcode": "27523",
+    "buildingName": "Costco Wholesale",
+    "province": "North Carolina",
+    "street": "Pine Plaza Drive1021",
+    "superNowTime": 0,
+    "buildingNumber": "1206d",
+    "currency": "$",
+    "logicOk": false,
+    "selected": false,
+    "longitude": "-78.82729239999999"
+  }
+}

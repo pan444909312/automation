@@ -1,0 +1,30 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "dataList": [
+      {
+        "address": "Wembley Hills Road, Knoxville, TN, USA",
+        "addressDetail": null,
+        "buildingName": "Wembley Hills Road",
+        "postcode": "37922",
+        "houseNum": null,
+        "buildingNumber": null,
+        "street": "Wembley Hills Road",
+        "city": "Knoxville",
+        "province": "Tennessee",
+        "longitude": "-84.0575106",
+        "latitude": "35.8794084",
+        "country": "美国",
+        "countryCode": null,
+        "distance": "0km",
+        "distanceMeters": 0
+      }
+    ],
+    "needLocationEncode": 0
+  },
+  "currency": "${json-unit.ignore-element}",
+  "success": true,
+  "nowTime": "${json-unit.ignore-element}"
+}
