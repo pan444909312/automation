@@ -16,12 +16,12 @@ import java.util.Map;
  *
  * Apifox: docs/d-apifox/算法下派-一单下派-无需人工确认.apifox-cli.json
  */
-@Scenario(
-        scenarioID = "01JPPN9K4H5ZYA8VFBKA03HZPW",
-        scenarioName = "调度系统-算法下派",
-        author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("算法下派-一单下派-无需人工确认")
+//@Scenario(
+//        scenarioID = "01JPPN9K4H5ZYA8VFBKA03HZPW",
+//        scenarioName = "调度系统-算法下派",
+//        author = "chenchunxia@hungrypandagroup.com",
+//        developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
+//@DisplayName("算法下派-一单下派-无需人工确认")
 public class DispatchAlgorithmAssignOneOrderTests {
 
     @DisplayName("调度系统-算法下派（xly）-> 骑手接单 -> 配送并签收")
