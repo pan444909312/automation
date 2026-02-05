@@ -29,20 +29,20 @@ public class BlacklistThirdRemoveTests {
 
 
 
-    @DisplayName("获取三方拉黑列表数据")
+    @DisplayName("解除三方拉黑")
     @Test
     void shouldSuccess() {
-
-        remove();
+        BlacklistThirdAddTests addTests = new BlacklistThirdAddTests();
+        String recordNo = addTests.add();
+        remove(recordNo);
 
     }
 
-    public void remove(){
+    public void remove(String recordNo){
 
         // 1) 司管登录获取 token
         String token = erpLogin();
-        BlacklistThirdAddTests addTests = new BlacklistThirdAddTests();
-        String recordNo = addTests.add();
+
 
         // 2) 新增拉黑关系失败
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/blacklist/thirdRemove";

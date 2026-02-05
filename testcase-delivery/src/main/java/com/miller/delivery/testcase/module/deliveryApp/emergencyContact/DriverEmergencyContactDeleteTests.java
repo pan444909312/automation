@@ -16,46 +16,40 @@ import java.util.Map;
  * Apifox: docs/d-apifox/新增紧急联系人.apifox-cli.json
  */
 @Scenario(
-        scenarioID = "01JZ4YF5ZS4T2PBJSQ85X51G76",
-        scenarioName = "骑手app-新增紧急联系人",
+        scenarioID = "01KGPZ3E552JA10PC9EYD6JZJM",
+        scenarioName = "骑手app-删除紧急联系人",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("新增紧急联系人")
-public class DriverEmergencyContactAddTests {
+@DisplayName("删除紧急联系人")
+public class DriverEmergencyContactDeleteTests {
 
-    @DisplayName("新增紧急联系人")
+    @DisplayName("删除紧急联系人")
     @Test
     void shouldAddEmergencyContact() {
+        DriverEmergencyContactAddTests contactAddTests = new DriverEmergencyContactAddTests();
 
-        int add = add();
-        DriverEmergencyContactDeleteTests deleteContact = new DriverEmergencyContactDeleteTests();
-        deleteContact.delete(add);
+        delete(contactAddTests.add());
     }
-    public int add(){
+    public void delete(int id){
         Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
 
 
-        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/addDriverEmergencyContact";
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/driver/deleteDriverEmergencyContact";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
 
-        String body = "{\"areaCode\":\"86\",\"relationshipType\":5,\"contactName\":\"AUTOtest\",\"telephone\":\"13251016327\"}";
+
+        String body = String.format("{\"contactId\":%d}", id);
+
         var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
 
-        // 5) 从数据库查询新增的配置
-        Map<String, Object> configRecords = PandaTestDBHelpful.executeSelectOneSql(
-                "select * from panda_test.hp_delivery_driver_emergency_contact where full_name='AUTOtest'and driver_id=? order by id desc limit 1",driverId);
-        assert configRecords != null && !configRecords.isEmpty() : "数据库中没有找到新增的配置";
 
-
-        int configId = Integer.parseInt((configRecords.get("id")).toString());
-        return configId;
     }
 
     private Map<String, Object> createDriverAppHeaders() {

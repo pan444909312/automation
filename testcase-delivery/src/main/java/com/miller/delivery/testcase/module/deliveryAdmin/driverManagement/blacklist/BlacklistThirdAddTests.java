@@ -18,7 +18,7 @@ import java.util.Map;
  * @since 2026/01/28 21:09:50
  */
 @Scenario(
-        scenarioID = "01KGHR0EM1SSVSXY5RM2AAKGGB", // 自动生成，不要修改
+        scenarioID = "01KGPYZPZ7JM47GCHWBBBQ5YJT", // 自动生成，不要修改
         scenarioName = "三方拉黑-新增",
         author = "chenchunxia@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 3)
@@ -29,11 +29,13 @@ public class BlacklistThirdAddTests {
 
 
 
-    @DisplayName("获取三方拉黑列表数据")
+    @DisplayName("新增三方拉黑")
     @Test
     void shouldSuccess() {
 
-        add();
+        String add = add();
+        BlacklistThirdRemoveTests removeTests = new BlacklistThirdRemoveTests();
+        removeTests.remove(add);
 
     }
 
