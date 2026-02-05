@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.driver;
+package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.driver.punishAppeal;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
