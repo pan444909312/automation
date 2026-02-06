@@ -15,7 +15,7 @@ import java.util.Map;
 @Scenario(
         scenarioID = "01KGQ0JVYZZ2QD18KPWMP538ES",
         scenarioName = "获取申诉详情页",
-        author = "TestingConsultant@hungrypandagroup.com",
+        author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 180, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("获取申诉详情页")
 public class DriverPunishAppealDetailTests {
