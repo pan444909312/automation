@@ -3,6 +3,7 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWineTests;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
+import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -39,6 +40,14 @@ public class GrabOrderCompleteAlcoholMatchTests {
         Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
+        DriverOffline driverOffline = new DriverOffline();
+        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+        String siGuanToken = erpLogin();
+        //到店和送达开关关闭
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //报税开关，0关闭，1开启
+        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
         onOffline(driverAccessToken, true);
 
         // 3) 新订单列表 -> 抢单
@@ -51,12 +60,7 @@ public class GrabOrderCompleteAlcoholMatchTests {
         productInfo(driverAccessToken, userAppOrderSn);
         // 步骤8: 开启到店距离限制和送达距离限制
         // 步骤9: 司管登录获取token
-        String siGuanToken = erpLogin();
-        //到店和送达开关关闭
-        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
-        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
-        //报税开关，0关闭，1开启
-        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
+
         // 5) 到店 -> 未出餐 -> 已取餐
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2);
