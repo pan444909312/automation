@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.complaint;
+package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.dashboard.complaint;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;

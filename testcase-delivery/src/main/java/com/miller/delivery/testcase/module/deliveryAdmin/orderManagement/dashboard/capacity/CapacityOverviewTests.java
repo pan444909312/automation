@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.planManagement.capacityMonitor;
+package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.dashboard.capacity;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;

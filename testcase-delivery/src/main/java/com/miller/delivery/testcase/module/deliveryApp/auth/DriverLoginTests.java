@@ -17,7 +17,7 @@ import java.util.Map;
 @Scenario(
         scenarioID = "01KE5YBY6PRQZSH4KX5120HYRG", // 自动生成，不要修改
         scenarioName = "骑手登录",
-        author = "panjuxiang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
+        author = "jiangbiao@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("骑手登录")
 public class DriverLoginTests {
