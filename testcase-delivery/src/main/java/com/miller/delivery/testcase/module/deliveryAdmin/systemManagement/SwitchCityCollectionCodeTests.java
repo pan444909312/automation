@@ -1,8 +1,6 @@
 package com.miller.delivery.testcase.module.deliveryAdmin.systemManagement;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
-import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
-import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.utils.DeliveryTestCaseUtils.createErpHeaders;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
@@ -26,7 +25,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @DisplayName("关闭/开启城市级别的配置）")
-public class SwitchCollectionCodeTests {
+public class SwitchCityCollectionCodeTests {
 
     @DisplayName("关闭/开启城市级别的配置")
     @Test
@@ -39,15 +38,15 @@ public class SwitchCollectionCodeTests {
 
 
         // 步骤8: 开启到店距离限制
-        switchCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
 //        送达距离开关，0关闭，1开启
-        switchCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
         //收餐码开关，0关闭，1开启
-        switchCollectionCode(siGuanToken, 0,"city_function_meal_collection_code_switch");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_meal_collection_code_switch");
 
 
     }
-    public void switchCollectionCode(String siGuanToken, int switchType,String switchCode) {
+    public static void switchCityCollectionCode(String siGuanToken, int switchType,String switchCode) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
         Map<String, Object> headers = createErpHeaders();
         headers.put("authorization", siGuanToken);
@@ -61,13 +60,6 @@ public class SwitchCollectionCodeTests {
     }
 
 
-    private Map<String, Object> createErpHeaders() {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("accept", "application/json, text/plain, */*");
-        headers.put("accept-language", "zh-CN,zh;q=0.9");
-        headers.put("content-type", "application/json;charset=UTF-8");
-         
-        return headers;
-    }
+
 }
 
