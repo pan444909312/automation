@@ -53,10 +53,16 @@ public class PersonalCenterIncomeTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
+
+        // 1. 获取前天日期
+        LocalDate dayBeforeYesterday = LocalDate.now().minusDays(2);
+
+        // 2. 格式化为指定字符串
+        String formattedDate = dayBeforeYesterday.format(DateTimeFormatter.ISO_LOCAL_DATE); // 直接使
         
         // 使用当前日期
         String date = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String body = String.format("{\"date\":\"%s\",\"pageNo\":1,\"pageSize\":10}", date);
+        String body = String.format("{\"date\":\"%s\",\"pageNo\":1,\"pageSize\":10}", formattedDate);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 断言

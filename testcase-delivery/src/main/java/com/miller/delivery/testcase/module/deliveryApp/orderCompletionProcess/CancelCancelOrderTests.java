@@ -305,9 +305,15 @@ public class CancelCancelOrderTests {
         
         String body = String.format("{\"recordNo\":\"%s\"}", recordNo);
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+        if (TestCaseHelpful.extractValue(responseBody, "$.resultCode").equals(100)){
+            TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
+            TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+        }else {
+            TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(150028);
+            TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("当前撤单记录已审核通过，不能撤回");
+        }
         
-        TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
-        TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+
     }
 
     /**

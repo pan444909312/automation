@@ -11,6 +11,10 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCityCollectionCodeTests.switchCityCollectionCode;
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCountryCollectionCodeTests.switchCountryCollectionCode;
+import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
+
 /**
  * 等餐报备-撤单
  *
@@ -46,6 +50,12 @@ public class WaitMealReportCancelOrderTests {
 
         // 步骤8: 司机上线操作（apifox: /api/delivery/app/driver/onOffline）
         driverOnOffline(driverAccessToken);
+        String siGuanToken = erpLogin();
+        //到店和送达开关关闭
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //报税开关，0关闭，1开启
+        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
 
         // 步骤9: 骑手抢单（apifox: /api/delivery/app/order/grabOrder）
         grabOrder(driverAccessToken, userAppOrderSn);

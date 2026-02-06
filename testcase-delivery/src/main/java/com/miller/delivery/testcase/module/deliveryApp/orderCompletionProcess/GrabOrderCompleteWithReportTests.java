@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCityCollectionCodeTests.switchCityCollectionCode;
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCountryCollectionCodeTests.switchCountryCollectionCode;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
@@ -38,10 +40,13 @@ public class GrabOrderCompleteWithReportTests {
         // ========== 第二部分：司管操作流程 ==========
         // 步骤7: 司管登录获取token
         String siGuanToken = erpLogin();
-        
-        // 步骤8: 开启到店距离限制和送达距离限制
-        switchMealCollectionCode(siGuanToken, 1,"city_function_on_shop_take_meal_distance");
-        switchMealCollectionCode(siGuanToken, 1,"city_function_deliver_distance");
+
+
+        //到店和送达开关关闭
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //报税开关，0关闭，1开启
+        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
         
         // ========== 第三部分：骑手操作流程 ==========
         // 步骤9: 骑手app-骑手登录

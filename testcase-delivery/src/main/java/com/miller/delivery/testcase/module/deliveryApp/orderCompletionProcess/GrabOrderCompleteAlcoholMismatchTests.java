@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCityCollectionCodeTests.switchCityCollectionCode;
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCountryCollectionCodeTests.switchCountryCollectionCode;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
@@ -54,8 +56,11 @@ public class GrabOrderCompleteAlcoholMismatchTests {
         merchantAddressInfo(driverAccessToken, userAppOrderSn);
         productInfo(driverAccessToken, userAppOrderSn);
         // 步骤8: 开启到店距离限制和送达距离限制
-        switchMealCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
-        switchMealCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //到店和送达开关关闭
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //报税开关，0关闭，1开启
+        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
         // 6) 到店 -> 未出餐 -> 已取餐
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 2);

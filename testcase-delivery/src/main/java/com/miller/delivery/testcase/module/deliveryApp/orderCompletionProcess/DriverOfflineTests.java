@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCityCollectionCodeTests.switchCityCollectionCode;
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCountryCollectionCodeTests.switchCountryCollectionCode;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
@@ -77,9 +79,11 @@ public class DriverOfflineTests {
         
         // 步骤18: 司机下线操作-身上有订单不可下线
         tryOfflineWithOrder(driverAccessToken);
-        // 步骤8: 开启到店距离限制和送达距离限制
-        switchMealCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
-        switchMealCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //到店和送达开关关闭
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //报税开关，0关闭，1开启
+        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
         // 步骤19: 修改骑手配送状态-到店
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn, 1);
         

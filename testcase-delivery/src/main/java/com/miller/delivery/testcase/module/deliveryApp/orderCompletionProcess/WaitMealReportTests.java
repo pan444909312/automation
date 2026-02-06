@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCityCollectionCodeTests.switchCityCollectionCode;
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCountryCollectionCodeTests.switchCountryCollectionCode;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
@@ -39,6 +41,13 @@ public class WaitMealReportTests {
 
         DriverOffline driverOffline = new DriverOffline();
         driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+        String siGuanToken = erpLogin();
+
+        //到店和送达开关关闭
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //报税开关，0关闭，1开启
+        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
 
         // 3) 司机上线
         onOffline(driverAccessToken, true);
@@ -60,7 +69,6 @@ public class WaitMealReportTests {
         checkReportWindowWithoutLogin(userAppOrderSn, driverId);
 
         // 9) 司管登录 & 关闭到店/送达距离限制
-        String siGuanToken = erpLogin();
         switchCityConfig(siGuanToken, "city_function_on_shop_take_meal_distance", 0);
 
         switchCityConfig(siGuanToken, "city_function_deliver_distance", 0);

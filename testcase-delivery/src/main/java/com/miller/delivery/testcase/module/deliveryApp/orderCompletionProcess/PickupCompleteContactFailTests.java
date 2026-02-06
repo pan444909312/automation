@@ -11,6 +11,10 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCityCollectionCodeTests.switchCityCollectionCode;
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCountryCollectionCodeTests.switchCountryCollectionCode;
+import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
+
 /**
  * 主干流程-骑手抢单-联系不到用户送达】
  *
@@ -37,7 +41,15 @@ public class PickupCompleteContactFailTests {
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
         DriverOffline driverOffline = new DriverOffline();
         driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+        String siGuanToken = erpLogin();
+
+        //到店和送达开关关闭
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //报税开关，0关闭，1开启
+        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
         onOffline(driverAccessToken, true);
+
 
         // 3) 新订单列表
         newOrderList(driverAccessToken);
