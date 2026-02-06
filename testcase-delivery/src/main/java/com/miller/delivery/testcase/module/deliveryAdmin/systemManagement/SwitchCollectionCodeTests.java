@@ -47,7 +47,7 @@ public class SwitchCollectionCodeTests {
 
 
     }
-    private void switchCollectionCode(String siGuanToken, int switchType,String switchCode) {
+    public void switchCollectionCode(String siGuanToken, int switchType,String switchCode) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
         Map<String, Object> headers = createErpHeaders();
         headers.put("authorization", siGuanToken);
