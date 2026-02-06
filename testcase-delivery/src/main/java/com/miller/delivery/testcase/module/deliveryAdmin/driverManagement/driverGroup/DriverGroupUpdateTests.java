@@ -1,72 +1,58 @@
 package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.driverGroup;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
-import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.miller.delivery.testcase.utils.DeliveryTestCaseUtils.createErpHeaders;
+import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
  * 司管后台-新增群组
  */
 @Scenario(
-        scenarioID = "01KGHPM1T8Q0MAAY2FMB6K7EGB",
-        scenarioName = "获取骑手群组列表",
-        author = "TestingConsultant@hungrypandagroup.com",
+        scenarioID = "01KGRXG708RTDPAC9NAHDPNE5F",
+        scenarioName = "编辑群组",
+        author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("新增群组")
-public class DriverGroupAddTests {
+@DisplayName("编辑群组")
+public class DriverGroupUpdateTests {
 
     private static final Long DRIVER_ID = 1398714012L; // 假设一个driverId
 
-    @DisplayName("新增群组")
+    @DisplayName("编辑群组")
     @Test
     void shouldAddDriverGroup() {
         // 1) 司管登录获取 token
         String token = erpLogin();
-        int id = add(token);
+        DriverGroupAddTests driverGroupAddTests = new DriverGroupAddTests();
+        int groupId = driverGroupAddTests.add(token);
+        update(token, groupId);
         DriverGroupdeleteTests driverGroupdeleteTests = new DriverGroupdeleteTests();
-        driverGroupdeleteTests.delete(token,id);
-
-
+        driverGroupdeleteTests.delete(token,groupId);
     }
-    public  int add(String token){
-        // 2) 新增群组
+
+    public void update(String token, int groupId) {
+
+
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/driverGroup/saveDriverGroup";
         String method = "POST";
         Map<String, Object> headers = createErpHeaders();
         headers.put("authorization", token);
-        String body = "{\"cityName\":\"奥克兰\",\"driverIdList\":[" + DRIVER_ID + "],\"groupId\":null,\"groupName\":\"自动化群组\",\"updateType\":0}";
+        String body = "{\"cityName\":\"奥克兰\",\"driverIdList\":[1398714012],\"groupId\":\""+groupId+"\",\"groupName\":\"自动化群组\",\"updateType\":0}";
+
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
-        // 3) 断言新增成功
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
 
 
-        // 5) 从数据库查询新增的配置
-        Map<String, Object> configRecords = PandaTestDBHelpful.executeSelectOneSql(
-                "select * from panda_test.hp_delivery_driver_group where city='奥克兰'  and group_name='自动化群组' order by id desc limit 1\n");
-        assert configRecords != null && !configRecords.isEmpty() : "数据库中没有找到新增的配置";
-
-
-        int configId = Integer.parseInt((configRecords.get("id")).toString());
-        return configId;
-
     }
-
-    private String erpLogin() {
-        return TestCaseHelpful.erpLogin();
-    }
-
-
 }
 

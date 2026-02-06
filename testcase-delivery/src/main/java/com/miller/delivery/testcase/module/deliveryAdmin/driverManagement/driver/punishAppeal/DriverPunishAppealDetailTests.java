@@ -13,7 +13,7 @@ import java.util.Map;
  * 司管后台-获取骑手申诉列表
  */
 @Scenario(
-        scenarioID = "01KGQ0JVYZZ2QD18KPWMP538ES",
+        scenarioID = "01KGRWKHG7SMR8KQVG5FVAS1ZV",
         scenarioName = "获取申诉详情页",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 180, maintenanceTime = 0, manualTestTime = 5)
