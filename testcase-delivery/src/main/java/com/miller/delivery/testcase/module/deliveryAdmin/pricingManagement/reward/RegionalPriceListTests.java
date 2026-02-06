@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.pricingManagement.pricing;
+package com.miller.delivery.testcase.module.deliveryAdmin.pricingManagement.reward;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
