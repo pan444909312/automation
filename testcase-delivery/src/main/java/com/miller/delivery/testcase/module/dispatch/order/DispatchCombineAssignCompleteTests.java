@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCityCollectionCodeTests.switchCityCollectionCode;
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCountryCollectionCodeTests.switchCountryCollectionCode;
+
 /**
  * 调度合单分配订单-完单
  *
@@ -77,7 +80,11 @@ public class DispatchCombineAssignCompleteTests {
         
         // 步骤15: 骑手app-骑手接单（接合单）
         receiveOrder(driverAccessToken, packageId);
-        
+        //到店和送达开关关闭
+        switchCityCollectionCode(siGuanToken, 0,"city_function_on_shop_take_meal_distance");
+        switchCityCollectionCode(siGuanToken, 0,"city_function_deliver_distance");
+        //报税开关，0关闭，1开启
+        switchCountryCollectionCode(siGuanToken, "hp-delivery-server.us.uk.tax.config",0);
         // ========== 第四部分：骑手配送流程 ==========
         // 步骤16: 骑手app-修改骑手配送状态-到店
         modifyDeliveryStatus(driverAccessToken, userAppOrderSn1, 1);
@@ -103,6 +110,7 @@ public class DispatchCombineAssignCompleteTests {
         // 步骤23: 骑手app-修改订单配送状态-签收（第二个订单）
         completeOrder(driverAccessToken, userAppOrderSn2);
     }
+
 
     /**
      * 骑手登录

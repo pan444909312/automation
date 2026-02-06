@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.deliveryAdmin.systemManagement;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -42,21 +43,38 @@ public class SwitchCountryCollectionCodeTests {
 
 
     }
-    public void switchCountryCollectionCode(String siGuanToken, String switchCode,int switchStatus) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysConfig/switchStatus";
-        Map<String, Object> headers = createErpHeaders();
-        headers.put("authorization", siGuanToken);
+    public static  void switchCountryCollectionCode(String siGuanToken, String switchCode,int switchStatus) {
 
-        String body = String.format("{\"configKey\":\"%s\",\"configStatus\":%d}", switchCode,switchStatus);
+        Map<String, Object> configRecords = PandaTestDBHelpful.executeSelectOneSql(
+                "select * from hp_delivery_sys_config where config_key='hp-delivery-server.us.uk.tax.config'");
+        assert configRecords != null && !configRecords.isEmpty() : "数据库中没有找到配置";
+
+        int configvalue = Integer.parseInt((configRecords.get("config_value")).toString());
+        if (configvalue!=switchStatus){
+
+            String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysConfig/switchStatus";
+            Map<String, Object> headers = createErpHeaders();
+            headers.put("authorization", siGuanToken);
+
+            String body = String.format("{\"configKey\":\"%s\",\"configStatus\":%d}", switchCode,switchStatus);
 
 
-        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
-        // apifox未给明确code断言，这里按通用message=成功
-        if (TestCaseHelpful.extractValue(responseBody, "$.code").equals(1)){
-        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
-    }else {
-            TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("请在一分钟后操作");
+            var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
+            // apifox未给明确code断言，这里按通用message=成功
+
+            if (TestCaseHelpful.extractValue(responseBody, "$.code").equals(1)){
+                TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+            }else {
+                TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("请在一分钟后操作");
+                try {
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
         }
+
+
     }
 
 

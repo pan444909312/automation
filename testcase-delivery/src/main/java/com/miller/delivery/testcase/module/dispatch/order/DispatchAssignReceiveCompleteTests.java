@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCityCollectionCodeTests.switchCityCollectionCode;
+import static com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.SwitchCountryCollectionCodeTests.switchCountryCollectionCode;
 
 /**
  * 调度分单-骑手接单-完单
@@ -131,8 +132,7 @@ public class DispatchAssignReceiveCompleteTests {
         driverOffline(driverAccessToken);
     }
 
-    private void switchCountryCollectionCode(String siGuanToken, String s, int i) {
-    }
+
 
     private void switchMealCollectionCode(String siGuanToken, int switchType,String switchCode) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/sysCityConfig/switch";
