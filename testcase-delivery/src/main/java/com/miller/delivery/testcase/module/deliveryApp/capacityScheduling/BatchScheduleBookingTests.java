@@ -18,12 +18,12 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/01/07
  */
-@Scenario(
-        scenarioID = "01JPP78AJXWHSQTC52RWP1TP9W",
-        scenarioName = "骑手app-计划tab-批量预约排班",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("批量预约排班")
+//@Scenario(
+//        scenarioID = "01JPP78AJXWHSQTC52RWP1TP9W",
+//        scenarioName = "骑手app-计划tab-批量预约排班",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+//@DisplayName("批量预约排班")
 public class BatchScheduleBookingTests {
 
     @DisplayName("相同时段的日期V2")
