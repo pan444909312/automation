@@ -66,54 +66,15 @@ public class CapacityPlanManualReleaseTests {
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
-    @DisplayName("下周")
-    @Test
-    void shouldReleaseNextWeek() {
-        // 1) 司管登录获取 token
-        String token = erpLogin();
 
-        // 2) 计算下周周一、周二和周日
-        LocalDate now = LocalDate.now();
-        DayOfWeek dayOfWeek = now.getDayOfWeek();
-        int dayOffset = dayOfWeek == DayOfWeek.SUNDAY ? -6 : 1 - dayOfWeek.getValue();
-        LocalDate monday = now.plusDays(dayOffset);
-        LocalDate nextMonday = monday.plusDays(7);
-        LocalDate nextTuesday = monday.plusDays(8);
-        LocalDate nextSunday = monday.plusDays(13);
-        String nextMondayStr = nextMonday.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String nextTuesdayStr = nextTuesday.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String nextSundayStr = nextSunday.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-        // 3) 自行发布下周
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/capacityPlan/manualRelease";
-        String method = "POST";
-        Map<String, Object> headers = createHeaders(token);
-        String body = String.format("{\r\n" +
-                "    \"deadLineDate\": \"%s\",\r\n" +
-                "    \"deadLineTime\": \"23:00\",\r\n" +
-                "    \"endDate\": \"%s\",\r\n" +
-                "    \"recId\": %d,\r\n" +
-                "    \"releaseType\": 0,\r\n" +
-                "    \"schedulingStatusList\": [\r\n" +
-                "        99,\r\n" +
-                "        2,\r\n" +
-                "        1,\r\n" +
-                "        0,\r\n" +
-                "        10\r\n" +
-                "    ],\r\n" +
-                "    \"week\": \"%s\",\r\n" +
-                "    \"startDate\": \"%s\"\r\n" +
-                "}\r\n\r\n\r\n", nextSundayStr, nextSundayStr, PLAN_ID, nextTuesdayStr, nextMondayStr);
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-
-        // 4) 断言
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("message").isEqualTo("成功");
-    }
 
     private String erpLogin() {
         return TestCaseHelpful.erpLogin();

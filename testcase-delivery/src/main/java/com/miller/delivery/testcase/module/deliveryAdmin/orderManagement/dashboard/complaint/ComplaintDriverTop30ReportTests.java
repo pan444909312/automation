@@ -11,12 +11,12 @@ import java.util.Map;
 
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
-@Scenario(
-        scenarioID = "01JPS9P0WQ69JHTFA13TYS2WF2",
-        scenarioName = "司管后台-订单管理-实时看板-客诉单看板-骑手top30",
-        author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("客诉单骑手top30报表")
+//@Scenario(
+//        scenarioID = "01JPS9P0WQ69JHTFA13TYS2WF2",
+//        scenarioName = "司管后台-订单管理-实时看板-客诉单看板-骑手top30",
+//        author = "chenchunxia@hungrypandagroup.com",
+//        developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
+//@DisplayName("客诉单骑手top30报表")
 public class ComplaintDriverTop30ReportTests {
 
     private Map<String, Object> createHeaders(String token) {

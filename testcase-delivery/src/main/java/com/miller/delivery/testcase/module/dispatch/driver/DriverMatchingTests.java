@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.utils.DeliveryTestCaseUtils.syncGps;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
@@ -50,6 +51,7 @@ public class DriverMatchingTests {
         // 步骤8: 骑手app-司机上线操作
         driverOnline(driverAccessToken);
 
+        syncGps(driverAccessToken);
         // ========== 第三部分：调度分配流程 ==========
         // 步骤9: 司管登录获取token
         String siGuanToken = erpLogin();

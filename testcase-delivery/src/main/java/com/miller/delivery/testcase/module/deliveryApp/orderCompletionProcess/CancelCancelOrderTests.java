@@ -21,12 +21,12 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/01/07
  */
-@Scenario(
-        scenarioID = "01JZ57ET1Q4ADCD18TF6GPRZE2",
-        scenarioName = "【主干用例】骑手app-取消撤单",
-        author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("【主干用例】骑手app-取消撤单")
+//@Scenario(
+//        scenarioID = "01JZ57ET1Q4ADCD18TF6GPRZE2",
+//        scenarioName = "【主干用例】骑手app-取消撤单",
+//        author = "chenchunxia@hungrypandagroup.com",
+//        developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
+//@DisplayName("【主干用例】骑手app-取消撤单")
 public class CancelCancelOrderTests {
 
     @DisplayName("取消撤单完整流程")

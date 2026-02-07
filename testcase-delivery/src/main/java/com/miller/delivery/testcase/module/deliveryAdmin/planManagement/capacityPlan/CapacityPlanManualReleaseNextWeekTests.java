@@ -66,6 +66,12 @@ public class CapacityPlanManualReleaseNextWeekTests {
         // 5) 断言
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void checkGroupStatus(String token, Map<String, Object> headers) {

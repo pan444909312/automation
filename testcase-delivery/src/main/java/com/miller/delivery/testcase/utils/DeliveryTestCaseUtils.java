@@ -43,4 +43,28 @@ public class DeliveryTestCaseUtils {
         return headers;
     }
 
+    /**
+     * 上传骑手经纬度
+     */
+    public static void syncGps(String driverAccessToken) {
+        String uri = TestcaseConfig.HOST_DELIVERY_APP + "/api/delivery/app/home/syncGps";
+        String method = "POST";
+        Map<String, Object> headers = createDriverAppHeaders();
+        headers.put("authorization", driverAccessToken);
+        headers.put("operatingsystem", "2");
+        headers.put("longitude", "120.207891");
+        headers.put("latitude", "30.197069");
+
+
+
+        var requestBody = "{}";
+
+        TestCaseHelpful.sendRequest(method, uri, null, headers, requestBody);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }
