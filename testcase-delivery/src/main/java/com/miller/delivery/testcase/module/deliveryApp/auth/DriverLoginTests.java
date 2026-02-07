@@ -15,7 +15,7 @@ import java.util.Map;
  * @since 2025/01/01 00:00:00
  */
 @Scenario(
-        scenarioID = "01KE5YBY6PRQZSH4KX5120HYRG", // 自动生成，不要修改
+        scenarioID = "01KGW44A7QQZ802HBEYBF0EC43", // 自动生成，不要修改
         scenarioName = "骑手登录",
         author = "jiangbiao@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 10, maintenanceTime = 0, manualTestTime = 5)
