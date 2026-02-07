@@ -50,6 +50,12 @@ public class BatchScheduleBookingTests {
                 .node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("相同时段的日期V2--参数为空")
@@ -75,6 +81,12 @@ public class BatchScheduleBookingTests {
                 .node("reason").isEqualTo("参数错误");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("相同时段的日期V2--未登录")
@@ -99,6 +111,12 @@ public class BatchScheduleBookingTests {
                 .node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**

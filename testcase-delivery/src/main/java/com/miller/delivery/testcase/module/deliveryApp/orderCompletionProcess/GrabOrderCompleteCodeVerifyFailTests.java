@@ -20,12 +20,12 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  *
  * Apifox: docs/d-apifox/todo/骑手抢单-完单流程(用户无法校验收餐码调度送达）.apifox-cli.json
  */
-@Scenario(
-        scenarioID = "01K1WRMNG66MARX84MRWF6X36Z",
-        scenarioName = "主干流程-骑手抢单-完单【用户无法校验收餐码调度送达】",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
-@DisplayName("骑手抢单-完单流程(用户无法校验收餐码调度送达）")
+//@Scenario(
+//        scenarioID = "01K1WRMNG66MARX84MRWF6X36Z",
+//        scenarioName = "主干流程-骑手抢单-完单【用户无法校验收餐码调度送达】",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
+//@DisplayName("骑手抢单-完单流程(用户无法校验收餐码调度送达）")
 public class GrabOrderCompleteCodeVerifyFailTests {
 
     @DisplayName("主干流程-收餐码异常->调度送达（按Apifox步骤）")

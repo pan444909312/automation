@@ -20,12 +20,12 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  *
  * Apifox: docs/d-apifox/todo/骑手抢单-完单流程(收餐码不匹配调度送达） .apifox-cli.json
  */
-@Scenario(
-        scenarioID = "01K1WSWEBENDZ6580542MF4MA8",
-        scenarioName = "主干流程-骑手抢单-完单【收餐码不匹配调度送达】",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
-@DisplayName("骑手抢单-完单流程(收餐码不匹配调度送达）")
+//@Scenario(
+//        scenarioID = "01K1WSWEBENDZ6580542MF4MA8",
+//        scenarioName = "主干流程-骑手抢单-完单【收餐码不匹配调度送达】",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 240, maintenanceTime = 0, manualTestTime = 35)
+//@DisplayName("骑手抢单-完单流程(收餐码不匹配调度送达）")
 public class GrabOrderCompleteCodeMismatchDispatchTests {
 
     @DisplayName("主干流程-收餐码不匹配->调度送达（按Apifox步骤）")

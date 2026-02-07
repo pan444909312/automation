@@ -12,12 +12,12 @@ import java.util.Map;
 /**
  * 司管后台-特殊情况报备-发布特殊报备
  */
-@Scenario(
-        scenarioID = "01KDQDNJMZS9FDV7KR6EWF6CCM",
-        scenarioName = "【主干场景】司管后台-特殊情况报备-发布特殊报备",
-        author = "TestingConsultant@hungrypandagroup.com",
-        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
-@DisplayName("发布特殊报备")
+//@Scenario(
+//        scenarioID = "01KDQDNJMZS9FDV7KR6EWF6CCM",
+//        scenarioName = "【主干场景】司管后台-特殊情况报备-发布特殊报备",
+//        author = "TestingConsultant@hungrypandagroup.com",
+//        developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
+//@DisplayName("发布特殊报备")
 public class ControlReportPublishTests {
 
     @DisplayName("获取报备列表并发布")

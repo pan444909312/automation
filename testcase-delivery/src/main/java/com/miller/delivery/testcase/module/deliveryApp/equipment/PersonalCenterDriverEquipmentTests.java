@@ -29,18 +29,68 @@ public class PersonalCenterDriverEquipmentTests {
 
         // 1) 装备管理-申请类型页面
         equipmentList(driverAccessToken);
+        // 等待2秒
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         // 2) 广告装备：equipmentInfo -> submit -> claimInfo -> cancel
         String adConfigNo = equipmentInfo(driverAccessToken, 1);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         submit(driverAccessToken, adConfigNo, 810);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         String adClaimNo = claimInfo(driverAccessToken, 1);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         cancel(driverAccessToken, adClaimNo);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         // 3) 周边装备：equipmentInfo -> submit -> claimInfo -> cancel
         String peripheralConfigNo = equipmentInfo(driverAccessToken, 0);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         submit(driverAccessToken, peripheralConfigNo, 808);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         String peripheralClaimNo = claimInfo(driverAccessToken, 0);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         cancel(driverAccessToken, peripheralClaimNo);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void equipmentList(String driverAccessToken) {
