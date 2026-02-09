@@ -76,6 +76,12 @@ public class PerformanceSummaryTests {
                 .node("reason").isEqualTo("参数错误");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
@@ -89,7 +95,7 @@ public class PerformanceSummaryTests {
         headers.put("latitude", "30.203552");
         headers.put("locationstatus", "2");
         headers.put("locale", "zh-CN");
-        headers.put("version", "5.54.1");
+        headers.put("version", "5.80.1");
         headers.put("countrycode", "CN");
         headers.put("platform", "IOS");
         headers.put("uniquetoken", "BFEC8953-4F04-4AAC-9C06-7EB2C8CA1411");
