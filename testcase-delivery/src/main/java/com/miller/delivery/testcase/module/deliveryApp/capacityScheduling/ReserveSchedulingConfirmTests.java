@@ -49,6 +49,12 @@ public class ReserveSchedulingConfirmTests {
         TestCaseHelpful.assertThatJson(response).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(response).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(response).node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("预约排班-参数为空")
@@ -68,6 +74,12 @@ public class ReserveSchedulingConfirmTests {
         TestCaseHelpful.assertThatJson(response).node("resultCode").isEqualTo(101011);
         TestCaseHelpful.assertThatJson(response).node("reason").isEqualTo("参数错误");
         TestCaseHelpful.assertThatJson(response).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("预约排班-未登录")
@@ -84,6 +96,12 @@ public class ReserveSchedulingConfirmTests {
         TestCaseHelpful.assertThatJson(response).node("resultCode").isEqualTo(2015);
         TestCaseHelpful.assertThatJson(response).node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(response).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private Map<String, Object> createHeaders() {
