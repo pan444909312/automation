@@ -101,6 +101,12 @@ public class OrderDetailPageTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(105002);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("订单号非法");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("异常：订单号为空")
@@ -115,6 +121,12 @@ public class OrderDetailPageTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(101011);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("参数错误");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void driverOnOffline(String driverAccessToken, int isOnline) {
