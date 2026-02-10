@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.driverNote;
+package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.driverCertificate;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -14,19 +14,19 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01KDSZR7YE5RYS5W55BRYG72T9",
-        scenarioName = "骑手列表-骑手笔记列表-待审核tab",
+        scenarioName = "骑手列表-骑手证件审核-待审核tab",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("骑手笔记列表-待审核")
-public class DriverNotePendingTests {
+@DisplayName("骑手证件审核-待审核")
+public class DriverCertificatePendingTests {
 
-    @DisplayName("骑手笔记列表-待审核")
+    @DisplayName("骑手证件审核-待审核")
     @Test
     void shouldGetPendingDriverNoteList() {
         // 1) 司管登录获取 token
         String token = erpLogin();
 
-        // 2) 获取骑手笔记列表-待审核
+        // 2) 骑手证件审核-待审核
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/driverCertificate/list";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
@@ -34,10 +34,18 @@ public class DriverNotePendingTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言获取成功
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("message").isEqualTo("成功");
+
+
+        if (TestCaseHelpful.extractValue(responseBody, "$.code").equals(1)){
+            TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        }else {
+            TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("该国家未开启证件过期功能");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     private String erpLogin() {

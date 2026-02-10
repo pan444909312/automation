@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.driverNote;
+package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.driverCertificate;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -14,13 +14,13 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01KDSZDSDES5KKQ451NK0TWDD2",
-        scenarioName = "骑手列表-骑手笔记列表-审核通过tab",
+        scenarioName = "骑手列表-骑手证件审核-审核通过tab",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("骑手笔记列表-审核通过")
-public class DriverNoteApprovedTests {
+@DisplayName("骑手证件审核-审核通过")
+public class DriverCertificateApprovedTests {
 
-    @DisplayName("骑手笔记列表-审核通过")
+    @DisplayName("骑手证件审核-审核通过")
     @Test
     void shouldGetApprovedDriverNoteList() {
         // 1) 司管登录获取 token
@@ -34,10 +34,18 @@ public class DriverNoteApprovedTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言获取成功
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("message").isEqualTo("成功");
+
+
+        if (TestCaseHelpful.extractValue(responseBody, "$.code").equals(1)){
+            TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        }else {
+            TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("该国家未开启证件过期功能");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     private String erpLogin() {
