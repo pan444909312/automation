@@ -50,6 +50,12 @@ public class PathPlanningTests {
         // JSON中还有一个断言：Body matches string "系统智能已计算出最佳配送路线"
         String responseText = responseBody.toString();
         assert responseText.contains("系统智能已计算出最佳配送路线");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("路径规划-未登录")
@@ -73,6 +79,12 @@ public class PathPlanningTests {
                 .node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("路径规划意见反馈")
@@ -97,6 +109,12 @@ public class PathPlanningTests {
                 .node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**

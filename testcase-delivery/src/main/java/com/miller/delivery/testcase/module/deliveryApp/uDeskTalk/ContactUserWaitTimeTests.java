@@ -42,6 +42,12 @@ public class ContactUserWaitTimeTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("未登录-联系用户等待时间")
@@ -59,6 +65,12 @@ public class ContactUserWaitTimeTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("订单号为空-联系用户等待时间")
@@ -79,6 +91,12 @@ public class ContactUserWaitTimeTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(101011);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("参数错误");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**

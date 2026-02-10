@@ -46,6 +46,12 @@ public class NavigationGuideInfoTests {
                 .node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("路径规划引导-未登录")

@@ -46,6 +46,12 @@ public class MultiplierMapTests {
                 .node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("异常case:倍率地图（骑手区域信息，及区域加价信息）")
@@ -69,6 +75,12 @@ public class MultiplierMapTests {
                 .node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("热力图")
@@ -93,6 +105,12 @@ public class MultiplierMapTests {
                 .node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**

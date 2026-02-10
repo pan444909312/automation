@@ -64,6 +64,12 @@ public class MaxDistanceDispatchTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**

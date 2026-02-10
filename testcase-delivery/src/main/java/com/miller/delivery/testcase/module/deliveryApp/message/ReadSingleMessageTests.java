@@ -35,6 +35,12 @@ public class ReadSingleMessageTests {
         TestCaseHelpful.assertThatJson(response).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(response).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(response).node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private Map<String, Object> createIosHeaders() {

@@ -181,6 +181,12 @@ public class ImChatTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("获取环信token--骑手未登录")
@@ -197,6 +203,12 @@ public class ImChatTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("获取环信token--无订单返回成功")
@@ -216,6 +228,12 @@ public class ImChatTests {
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
         TestCaseHelpful.assertThatJson(responseBody).node("result.isClose").isEqualTo(0);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("查询通用聊天提示和快捷回复")
@@ -235,6 +253,12 @@ public class ImChatTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("未登录 - 查询通用聊天提示和快捷回复")
@@ -252,6 +276,12 @@ public class ImChatTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**

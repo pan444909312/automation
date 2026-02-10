@@ -41,6 +41,12 @@ public class CustomerAreaNoCityTests {
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("查询用户商圈-无城市-不传精度")
@@ -61,6 +67,12 @@ public class CustomerAreaNoCityTests {
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("GPS信息为空");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("查询用户商圈-无城市-不传纬度")
@@ -81,6 +93,12 @@ public class CustomerAreaNoCityTests {
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(9999);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("GPS信息为空");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
 

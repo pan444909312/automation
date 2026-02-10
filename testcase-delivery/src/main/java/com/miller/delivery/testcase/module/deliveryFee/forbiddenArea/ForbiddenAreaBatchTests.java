@@ -39,6 +39,12 @@ public class ForbiddenAreaBatchTests {
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("酒水-无城市-批量-不传精度")
@@ -57,6 +63,12 @@ public class ForbiddenAreaBatchTests {
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(400);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("Parameter error");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("酒水-无城市-批量-不传维度")
@@ -75,6 +87,12 @@ public class ForbiddenAreaBatchTests {
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(400);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("Parameter error");
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
 
