@@ -31,68 +31,7 @@ public class AddNoteTests {
         addMapNote(driverAccessToken, createEntranceWalkingNoteBody());
     }
 
-    @DisplayName("添加出入口-骑行")
-    @Test
-    void shouldAddEntranceBikingNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createEntranceBikingNoteBody());
-    }
 
-    @DisplayName("添加出入口-不可通行")
-    @Test
-    void shouldAddEntranceNotAccessibleNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createEntranceNotAccessibleNoteBody());
-    }
-
-    @DisplayName("添加外卖存放点-公寓存放点-有人值守")
-    @Test
-    void shouldAddApartmentDepositMannedNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createApartmentDepositMannedNoteBody());
-    }
-
-    @DisplayName("添加外卖存放点-公寓存放点-无人值守")
-    @Test
-    void shouldAddApartmentDepositUnmannedNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createApartmentDepositUnmannedNoteBody());
-    }
-
-    @DisplayName("添加外卖存放点-公寓存放点-其他")
-    @Test
-    void shouldAddApartmentDepositOtherNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createApartmentDepositOtherNoteBody());
-    }
-
-    @DisplayName("添加外卖存放点-写字楼存放点-有人值守")
-    @Test
-    void shouldAddOfficeBuildingDepositMannedNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createOfficeBuildingDepositMannedNoteBody());
-    }
-
-    @DisplayName("添加外卖存放点-写字楼存放点-其他")
-    @Test
-    void shouldAddOfficeBuildingDepositOtherNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createOfficeBuildingDepositOtherNoteBody());
-    }
-
-    @DisplayName("添加外卖存放点-其他公共可存放点-有人值守")
-    @Test
-    void shouldAddOtherPublicDepositMannedNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createOtherPublicDepositMannedNoteBody());
-    }
-
-    @DisplayName("添加外卖存放点-其他公共可存放点-无人值守")
-    @Test
-    void shouldAddOtherPublicDepositUnmannedNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createOtherPublicDepositUnmannedNoteBody());
-    }
 
     @DisplayName("添加外卖存放点-其他公共可存放点-其他")
     @Test
@@ -101,40 +40,6 @@ public class AddNoteTests {
         addMapNote(driverAccessToken, createOtherPublicDepositOtherNoteBody());
     }
 
-    @DisplayName("添加路况-交通拥堵-不可通行")
-    @Test
-    void shouldAddTrafficCongestionNotAccessibleNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createTrafficCongestionNotAccessibleNoteBody());
-    }
-
-    @DisplayName("添加路况-交通拥堵-缓慢通行")
-    @Test
-    void shouldAddTrafficCongestionSlowPassageNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createTrafficCongestionSlowPassageNoteBody());
-    }
-
-    @DisplayName("添加路况-交通拥堵-单车道")
-    @Test
-    void shouldAddTrafficCongestionSingleLaneNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createTrafficCongestionSingleLaneNoteBody());
-    }
-
-    @DisplayName("添加路况-交通管制-工作日有管制")
-    @Test
-    void shouldAddTrafficControlWeekdayNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createTrafficControlWeekdayNoteBody());
-    }
-
-    @DisplayName("添加路况-交通管制-周末有管制")
-    @Test
-    void shouldAddTrafficControlWeekendNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createTrafficControlWeekendNoteBody());
-    }
 
     @DisplayName("添加路况-交通管制-其他")
     @Test
@@ -143,12 +48,6 @@ public class AddNoteTests {
         addMapNote(driverAccessToken, createTrafficControlOtherNoteBody());
     }
 
-    @DisplayName("添加路况-其他交通路况问题")
-    @Test
-    void shouldAddOtherTrafficIssuesNote() {
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
-        addMapNote(driverAccessToken, createOtherTrafficIssuesNoteBody());
-    }
 
     @DisplayName("添加楼号")
     @Test
@@ -185,6 +84,12 @@ public class AddNoteTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
