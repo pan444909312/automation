@@ -16,12 +16,12 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/01/07
  */
-//@Scenario(
-//        scenarioID = "01JXJ001M8T3MQXTX49NB5D3KW",
-//        scenarioName = "设置-订单提醒",
-//        author = "TestingConsultant@hungrypandagroup.com",
-//        developmentTime = 60, maintenanceTime = 0, manualTestTime = 2)
-//@DisplayName("设置-订单提醒")
+@Scenario(
+        scenarioID = "01JXJ001M8T3MQXTX49NB5D3KW",
+        scenarioName = "设置-订单提醒",
+        author = "TestingConsultant@hungrypandagroup.com",
+        developmentTime = 60, maintenanceTime = 0, manualTestTime = 2)
+@DisplayName("设置-订单提醒")
 public class SettingsConfigTests {
 
     @DisplayName("设置-订单提醒")
@@ -52,6 +52,12 @@ public class SettingsConfigTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
