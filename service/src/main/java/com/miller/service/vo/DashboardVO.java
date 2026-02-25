@@ -30,12 +30,12 @@ public class DashboardVO {
     /**
      * 通过率
      */
-    private Long successRate;
+    private Double successRate;
 
     /**
      * 失败率
      */
-    private Long failureRate;
+    private Double failureRate;
 
     /**
      * 开发成本

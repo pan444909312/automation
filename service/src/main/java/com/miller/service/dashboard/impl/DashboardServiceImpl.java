@@ -15,6 +15,7 @@ import com.miller.service.platform.UserService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.service.vo.DashboardFilterOptionVO;
 import com.miller.service.vo.DashboardVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
@@ -167,6 +169,28 @@ public class DashboardServiceImpl implements DashboardService {
                 .mapToInt(obj -> obj.getRangeTimeExecCount() != null ? obj.getRangeTimeExecCount() : 0)
                 .sum();
         dashboardVO.setExecCount(execCount);
+        log.info("总执行数量：{}",execCount);
+
+
+        // 通过率
+        final Integer successCount = list.stream()
+                .mapToInt(obj -> obj.getSuccessCount() != null ? obj.getSuccessCount() : 0)
+                .sum();
+        log.info("成功数量：{}",successCount);
+        final Double successRate =  BigDecimal.valueOf(successCount * 1.00 / execCount * 100L)
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+        dashboardVO.setSuccessRate(successRate);
+
+        // 失败率
+        final Integer failureCount = list.stream()
+                .mapToInt(obj -> obj.getFailureCount() != null ? obj.getFailureCount() : 0)
+                .sum();
+        log.info("失败数量：{}",failureCount);
+        final Double failureRate =  BigDecimal.valueOf(failureCount * 1.00 / execCount * 100L)
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+        dashboardVO.setFailureRate(failureRate);
 
         // 开发成本（总和）
         double developmentCost = list.stream()
@@ -190,7 +214,7 @@ public class DashboardServiceImpl implements DashboardService {
         double totalCost = developmentCost + maintenanceCost;
         double roi = 0.0;
         if (totalCost > 0) {
-            roi = BigDecimal.valueOf(cumulativeSavedCost / totalCost * 100)
+            roi = BigDecimal.valueOf(cumulativeSavedCost * 1.00 / totalCost * 100)
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
         }
@@ -211,10 +235,7 @@ public class DashboardServiceImpl implements DashboardService {
         // 新增用例数（在查询时间范围内创建的用例）
         dashboardVO.setNewCaseCount(list.size());
 
-        // 通过率和失败率（这里需要根据实际业务逻辑计算，暂时设置为0）
-        // 如果有执行结果数据，可以根据成功/失败次数计算
-        dashboardVO.setSuccessRate(0L);
-        dashboardVO.setFailureRate(0L);
+
 
         return dashboardVO;
     }

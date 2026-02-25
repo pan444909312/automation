@@ -31,7 +31,7 @@
         from  auto_case_roi acr
         where
             acr.is_deleted=0 and
-            acr.create_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(#{endTime}) * 1000
+            acr.create_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(concat(#{endTime},' 23:59:59')) * 1000
 
             <include refid="commonFilter">
                 <property name="projectIds" value="projectIds"/>
@@ -45,13 +45,16 @@
     <select id="getAll" resultType="com.miller.entity.dashboard.DashBoardEntity"
             parameterType="dto.DashboardReqDTO"
     >
-        select acr.*,count(1) as `range_time_exec_count`
-        from auto_case_roi acr
-            left join auto_execution_record aer on acr.scenario_id = aer.scenario_id
+        select acr.*,
+               count(1) as `range_time_exec_count`,
+              count(if(aer.execution_status =1,1,null))  as `success_count`,
+             count(if(aer.execution_status !=1,1,null))  as `failure_count`
+        from  auto_case_roi acr
+            left join  auto_execution_record aer on acr.scenario_id = aer.scenario_id
             where
                 acr.is_deleted = 0 and
                 aer.is_deleted=0 and
-                aer.execution_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(#{endTime}) * 1000
+                aer.execution_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(concat(#{endTime},' 23:59:59')) * 1000
 
                 <include refid="commonFilter">
                     <property name="projectIds" value="projectIds"/>

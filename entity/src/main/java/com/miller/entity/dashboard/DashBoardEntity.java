@@ -8,4 +8,8 @@ public class DashBoardEntity extends AutoCaseRoiEntity {
 
     private Integer rangeTimeExecCount;
 
+    private Integer successCount;
+
+    private Integer failureCount;
+
 }
