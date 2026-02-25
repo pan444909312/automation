@@ -8,7 +8,7 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.req.JmeterAutoCaseRoiReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.mapper.report.AutoCaseRoiMapper;
-import com.miller.service.dto.DashboardReqDTO;
+import dto.DashboardReqDTO;
 import com.miller.service.platform.UserService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -69,8 +69,6 @@ public class AutoCaseRoiServiceImpl extends ServiceImpl<AutoCaseRoiMapper, AutoC
         if (!ObjectUtils.isEmpty(dashboardReqDTO.getPlatforms())){
             queryWrapper.in(AutoCaseRoiEntity::getPlatformType,dashboardReqDTO.getPlatforms());
         }
-
-
 
         return this.list(queryWrapper);
     }

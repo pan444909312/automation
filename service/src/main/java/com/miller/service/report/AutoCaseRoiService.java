@@ -4,7 +4,7 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.miller.entity.report.req.JmeterAutoCaseRoiReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
-import com.miller.service.dto.DashboardReqDTO;
+import dto.DashboardReqDTO;
 
 import java.util.List;
 

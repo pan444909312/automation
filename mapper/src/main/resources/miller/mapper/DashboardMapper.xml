@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.mapper.report.DashboardMapper">
+
+    <sql id="commonFilter">
+        <if test="projectIds != null and projectIds.size() > 0 ">
+            AND acr.project_id in
+            <foreach collection="projectIds" item="projectId" open="(" close=")" separator=",">
+                #{projectId}
+            </foreach>
+        </if>
+
+        <if test="emails != null and emails.size() > 0 ">
+            AND acr.author in
+            <foreach collection="emails" item="email" open="(" close=")" separator=",">
+                #{email}
+            </foreach>
+        </if>
+
+        <if test="platforms != null and platforms.size() > 0 ">
+            AND acr.platform_type in
+            <foreach collection="platforms" item="platform" open="(" close=")" separator=",">
+                #{platform}
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="selectCreateCountByRangeTime"
+            parameterType="dto.DashboardReqDTO">
+        select count(1) as 'create_count'
+        from  auto_case_roi acr
+        where
+            acr.is_deleted=0 and
+            acr.create_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(#{endTime}) * 1000
+
+            <include refid="commonFilter">
+                <property name="projectIds" value="projectIds"/>
+                <property name="emails" value="emails"/>
+                <property name="platforms" value="platforms"/>
+            </include>
+
+    </select>
+
+
+    <select id="getAll" resultType="com.miller.entity.dashboard.DashBoardEntity"
+            parameterType="dto.DashboardReqDTO"
+    >
+        select acr.*,count(1) as `range_time_exec_count`
+        from auto_case_roi acr
+            left join auto_execution_record aer on acr.scenario_id = aer.scenario_id
+            where
+                acr.is_deleted = 0 and
+                aer.is_deleted=0 and
+                aer.execution_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(#{endTime}) * 1000
+
+                <include refid="commonFilter">
+                    <property name="projectIds" value="projectIds"/>
+                    <property name="emails" value="emails"/>
+                    <property name="platforms" value="platforms"/>
+                </include>
+
+                group by acr.scenario_id
+                ;
+
+    </select>
+
+
+</mapper>

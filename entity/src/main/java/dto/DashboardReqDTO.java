@@ -1,7 +1,8 @@
-package com.miller.service.dto;
+package dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.beans.BeanUtils;
 
 import java.util.List;
 
@@ -19,4 +20,9 @@ public class DashboardReqDTO {
 
     private List<String> emails;
 
+    public static DashboardReqDTO init(DashboardReqDTO  dashboardReqDTO) {
+        DashboardReqDTO reqDTO = new DashboardReqDTO();
+        BeanUtils.copyProperties(dashboardReqDTO, reqDTO);
+        return reqDTO;
+    }
 }
