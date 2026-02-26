@@ -28,7 +28,7 @@ public class DriverTrainingExamTests {
     @Test
     void shouldGetTrainingExamDetail() {
         // 1) 骑手登录获取 token
-        String driverAccessToken = TestCaseHelpful.deliveryLogin("13300010015", "Test1234");
+        String driverAccessToken = TestCaseHelpful.deliveryLogin("18100334477", "AA2010aa");
 
         // 2) 获取培训考试资料列表
         String cultivateCode = getTrainingExamList(driverAccessToken);
