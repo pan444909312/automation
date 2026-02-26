@@ -10,6 +10,7 @@ import java.util.Map;
 
 import static com.miller.delivery.testcase.utils.DeliveryTestCaseUtils.createErpHeaders;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
+import static org.jsoup.select.Selector.select;
 
 /**
  * 司管后台-新增骑手禁止上线配置
@@ -27,12 +28,24 @@ public class AppealConfigDeleteTests {
     void shouldAddDriverGroup() {
         // 1) 司管登录获取 token
         String token = erpLogin();
+        AppealConfigAddNewTests appealConfigAddNewTests = new AppealConfigAddNewTests();
+        String select = appealConfigAddNewTests.select();
+        if (select!=null){
+            AppealConfigDeleteTests punishAppealConfigDeleteTests = new AppealConfigDeleteTests();
+            punishAppealConfigDeleteTests.delete(token,select,"成功",1);
+        }
         AppealConfigAddNewTests PunishAppealConfigAddNewTests = new AppealConfigAddNewTests();
         String configNo = PunishAppealConfigAddNewTests.add(token);
-        delete(token, configNo);
+        //case1：删除不存在的配置
+        delete(token, "abctest","数据不存在",10022);
+        //case2：配置ID为空
+        delete(token, "","Parameter error",4000);
+        //case3：正常删除
+        delete(token, configNo,"成功",1);
+
     }
 
-    public void delete(String token, String configNo) {
+    public void delete(String token, String configNo,String response,Integer code) {
 
 
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/punishAppealContentConfig/delete";
@@ -43,11 +56,17 @@ public class AppealConfigDeleteTests {
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("message").isEqualTo("成功");
 
+
+        Integer codeActual = Integer.valueOf(TestCaseHelpful.extractValue(responseBody, "$.code").toString());
+        assert codeActual.equals(code);
+        String message = TestCaseHelpful.extractValue(responseBody, "$.message").toString();
+        assert message.equals(response);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
     }
 
