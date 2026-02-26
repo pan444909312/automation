@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Scenario(
         scenarioID = "01KDQN7QFSYBVRMA82VZ12H1WM",
-        scenarioName = "新增骑手禁止上线配置",
+        scenarioName = "新增骑手禁止上线配置-验证城市下已存在的规则，不可再添加",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("新增骑手禁止上线配置")
