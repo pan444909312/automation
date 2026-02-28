@@ -16,7 +16,7 @@ import static org.jsoup.select.Selector.select;
  * 司管后台-新增骑手禁止上线配置
  */
 @Scenario(
-        scenarioID = "01KJD2QSQ42JVSHM37TWVCKN4H",
+        scenarioID = "01KJHF000384ZTQPGQ1P2QA494",
         scenarioName = "删除骑手禁止上线配置",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
