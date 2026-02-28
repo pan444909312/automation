@@ -20,13 +20,13 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  */
 @Scenario(
         scenarioID = "01KJFK1GP2HEP8NYR455MRZ7ZA",
-        scenarioName = "骑手入驻配置列表",
+        scenarioName = "骑手入驻配置-列表-默认查询",
         author = "jiangbiao@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("骑手入驻配置-列表")
+@DisplayName("骑手入驻配置-列表-默认查询")
 public class riderOnboardingConfigListTests {
 
-    @DisplayName("骑手入驻配置-列表-默认搜索")
+    @DisplayName("骑手入驻配置-列表-默认查询")
     @Test
     void shouldGetRiderOnboardingConfigListDefaultSearch() {
         // 1) 司管登录获取 token
