@@ -15,7 +15,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * 司管后台-骑手管理-人脸检测记录-导出人脸检测记录
  */
 @Scenario(
-        scenarioID = "01KJF44C29GQVZ8D3Q7KZ4QEEE",
+        scenarioID = "01KJHZMZRAAERTB1VWQB1HH4FK",
         scenarioName = "导出人脸检测记录",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 5)

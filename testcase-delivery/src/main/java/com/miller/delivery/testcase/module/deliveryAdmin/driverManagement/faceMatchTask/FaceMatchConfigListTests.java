@@ -38,7 +38,6 @@ public class FaceMatchConfigListTests {
         headers.put("authorization", token);
         String body = "{\n" +
                 "    \"cityName\": \"杭州市\",\n" +
-                "    \"enable\": 0,\n" +
                 "    \"pageNo\": 1,\n" +
                 "    \"pageSize\": 10\n" +
                 "}";

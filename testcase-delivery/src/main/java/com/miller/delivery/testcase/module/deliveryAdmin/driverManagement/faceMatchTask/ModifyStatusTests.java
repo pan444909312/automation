@@ -12,10 +12,10 @@ import static com.miller.delivery.testcase.utils.DeliveryTestCaseUtils.createErp
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
- * 司管后台-骑手管理-人脸检测记录-启用禁用人脸检测配置
+ * 司管后台-骑手管理-人脸检测记录-先启用后禁用人脸检测配置
  */
 @Scenario(
-        scenarioID = "01KJF44C29GQVZ8D3Q7KZ4QEEE",
+        scenarioID = "01KJHZKV2BK8A4HF2DWGPE5HFY",
         scenarioName = "启用禁用人脸检测配置",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 5)
