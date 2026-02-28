@@ -10,7 +10,7 @@ import static com.miller.delivery.testcase.utils.DeliveryTestCaseUtils.createErp
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
- * 司管后台-骑手管理-人脸检测记录
+ * 司管后台-骑手管理-人脸检测记录列表
  */
 @Scenario(
         scenarioID = "01KJEM2CCXMA1F9AAV18KV9W11",
