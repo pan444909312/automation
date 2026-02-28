@@ -1,7 +1,10 @@
 package com.miller.service.vo;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * 仪表盘数据 VO
@@ -66,5 +69,9 @@ public class DashboardVO {
      * 沉寂用例数
      */
     private Long inactiveCaseCount;
+
+    private List<JSONObject> timeRangeExecResult;
+
+
 
 }
