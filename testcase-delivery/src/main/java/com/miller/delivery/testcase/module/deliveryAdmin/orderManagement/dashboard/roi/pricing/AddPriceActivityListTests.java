@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.dashboard.roi;
+package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.dashboard.roi.pricing;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
