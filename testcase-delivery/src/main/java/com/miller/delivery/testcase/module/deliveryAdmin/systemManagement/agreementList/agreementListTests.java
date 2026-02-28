@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.riderOnboardingConfig;
+package com.miller.delivery.testcase.module.deliveryAdmin.systemManagement.agreementList;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -12,31 +12,31 @@ import java.util.Map;
 import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 /**
- * 骑手入驻配置-开启关闭配置
+ * 协议管理-列表
  *
  * @author 江彪
  * @version 2.0
- * @since 2026/02/28
+ * @since 2026/02/27
  */
 @Scenario(
-        scenarioID = "01KJHR1705D3KMNRS3PTSBXHET",
-        scenarioName = "骑手入驻配置-开启关闭配置",
+        scenarioID = "01KJHTPGRXAX3AG5XGWR51SN9Z",
+        scenarioName = "协议管理-列表-默认查询",
         author = "jiangbiao@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 30)
-@DisplayName("骑手入驻配置-开启关闭配置")
-public class riderOnboardingConfigOpenAndCloseTests {
+@DisplayName("协议管理-列表-默认查询")
+public class agreementListTests {
 
-    @DisplayName("骑手入驻配置-开启关闭配置")
+    @DisplayName("协议管理-列表-默认查询")
     @Test
-    void riderOnboardingConfigOpenAndClose() {
+    void shouldGetAgreementListTestsDefaultSearch() {
         // 1) 司管登录获取 token
         String token = erpLogin();
 
-        // 2) 开启杭州市推送配置
+        // 2) 获取推送管理列表（默认搜索）
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/system/agreement/agreementList";
         String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/driver/defaultConfig/openConfig";
-        String body = "{\"open\":1,\"city\":\"杭州市\"}";
+        String body = "{\"pageNo\":1,\"pageSize\":10}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 3) 断言
@@ -45,22 +45,9 @@ public class riderOnboardingConfigOpenAndCloseTests {
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        // 4) 关闭杭州市推送配置
-        String closeBody = "{\"open\":0,\"city\":\"杭州市\"}";
-        var closeResponseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, closeBody);
-
-        // 5) 断言
-        TestCaseHelpful.assertThatJson(closeResponseBody)
-                .node("code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody)
-                .node("message").isEqualTo("成功");
-
+        // 验证响应中包含"中国"
+        String responseText = responseBody.toString();
+        assert responseText.contains("中国") : "响应中未包含全城";
     }
 
 
