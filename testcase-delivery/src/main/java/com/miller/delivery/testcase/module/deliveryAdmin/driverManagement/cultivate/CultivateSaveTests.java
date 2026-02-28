@@ -1,6 +1,7 @@
 package com.miller.delivery.testcase.module.deliveryAdmin.driverManagement.cultivate;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
+import com.miller.delivery.testcase.utils.PandaTestDBHelpful;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
@@ -27,12 +28,15 @@ public class CultivateSaveTests {
         String token = erpLogin();
 
         // 2) 新增培训内容
-        saveCultivate(token);
+         saveCultivate(token);
+        // 3）获取新增的 Cultivatecode
     }
-
-    private void saveCultivate(String token) {
+    // 新增培训内容
+    public   String saveCultivate(String token) {
         String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/cultivate/saveCultivate";
         String method = "POST";
+        long timestamp = System.currentTimeMillis();
+        String cultivateName ="自动化"+timestamp;
         Map<String, Object> headers = createHeaders(token);
         String body = "{"
                 + "\"detailPageList\":[{"
@@ -44,13 +48,13 @@ public class CultivateSaveTests {
                 + "\"detailPageInfoList\":[{"
                 + "\"contentModality\":2,"
                 + "\"sort\":1,"
-                + "\"fileContent\":\"测试自动化\","
+                + "\"fileContent\":\""+cultivateName+"\","
                 + "\"fileContentList\":[]"
                 + "}]"
                 + "}],"
-                + "\"cultivateName\":\"自动化内容-培训内容\","
+                + "\"cultivateName\":\""+cultivateName+"\","
                 + "\"applyLanguageType\":0,"
-                + "\"cityNameList\":[\"奥克兰\"],"
+                + "\"cityNameList\":[\"杭州市\"],"
                 + "\"driverExam\":1,"
                 + "\"cultivateTime\":\"10\","
                 + "\"vehicleTypeList\":[0],"
@@ -69,6 +73,20 @@ public class CultivateSaveTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+
+        // 5) 从数据库查询新增的配置 获取cultivate_code
+        Map<String, Object> configRecords = PandaTestDBHelpful.executeSelectOneSql(
+                "select * from panda_test.hp_delivery_cultivate where   is_del=0   and cultivate_name like '自动化%'   order by rec_id desc limit 1\n\n");
+        assert configRecords != null && !configRecords.isEmpty() : "数据库中没有找到新增的配置";
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        String cultivate_code = (configRecords.get("cultivate_code")).toString();
+        System.out.println("打印cultivate_code"+cultivate_code);
+        return cultivate_code;
+
     }
 
     private String erpLogin() {

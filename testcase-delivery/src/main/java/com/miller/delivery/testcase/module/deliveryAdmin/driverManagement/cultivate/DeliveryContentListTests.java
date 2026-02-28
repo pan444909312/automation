@@ -39,7 +39,7 @@ public class DeliveryContentListTests {
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
-        // 可以提取cultivateCode用于后续操作: TestCaseHelpful.extractValue(responseBody, "$.data.list.[0].cultivateCode")
+        // 可以提取cultivateCode用于后续操作:TestCaseHelpful.extractValue(responseBody, "$.data.list.[0].cultivateCode");
     }
 
     private String erpLogin() {

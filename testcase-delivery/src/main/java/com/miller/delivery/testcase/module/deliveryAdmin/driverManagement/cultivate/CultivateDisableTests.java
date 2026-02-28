@@ -46,7 +46,7 @@ public class CultivateDisableTests {
         return cultivateCodeObj != null ? cultivateCodeObj.toString() : null;
     }
 
-    private void disableCultivate(String token, String cultivateCode) {
+    public void disableCultivate(String token, String cultivateCode) {
         if (cultivateCode == null || cultivateCode.isEmpty()) {
             throw new RuntimeException("无法获取cultivateCode，无法执行禁用操作");
         }
