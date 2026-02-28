@@ -46,7 +46,7 @@ public class OnlineOpenAppOnlineDriversTests {
         headers.put("authorization", token);
         String body = "{\n" +
                 "    \"id\": "+ROIid+",\n" +
-                "    \"activityType\": 2,\n" +
+                "    \"activityType\": 3,\n" +
                 "    \"pageNo\": 1,\n" +
                 "    \"pageSize\": 10\n" +
                 "}";
