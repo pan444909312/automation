@@ -16,7 +16,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * 司管后台-新增骑手禁止上线配置
  */
 @Scenario(
-        scenarioID = "01KJHKZV2M7NCC1QVHZAVH0XPF",
+        scenarioID = "01KJHQME9G5SMYC8TGSY1XDKGX",
         scenarioName = "司管后台-roi-冲单-打开APP上线司机数",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
