@@ -13,7 +13,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 
 @Scenario(
         scenarioID = "01JPS9PVZ3QNHJV92D6BVTY8Z2",
-        scenarioName = "司管后台-订单管理-实时看板-客诉单看板-运力概览",
+        scenarioName = "司管后台-订单管理-实时看板-运力概览-运力概览",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @DisplayName("获取运力概览数据")

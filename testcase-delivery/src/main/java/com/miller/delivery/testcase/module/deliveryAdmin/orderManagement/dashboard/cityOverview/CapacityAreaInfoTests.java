@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.dashboard.capacity;
+package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.dashboard.cityOverview;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -18,14 +18,14 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * 司管后台-新增骑手禁止上线配置
  */
 @Scenario(
-        scenarioID = "01KJHGQWS1TZ0NKBFQ9EVT9RJE",
-        scenarioName = "司管后台-城市概览-平均出餐时间/超时",
+        scenarioID = "01KJHG3YYCCTJW2GZFV3RFV3BN",
+        scenarioName = "司管后台-城市概览-获取运力",
         author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 60, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("司管后台-城市概览-平均出餐时间/超时")
-public class QueryOutMealTimeShopTests {
+        developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
+@DisplayName("司管后台-城市概览-获取运力")
+public class CapacityAreaInfoTests {
 
-    @DisplayName("司管后台-城市概览-平均出餐时间/超时")
+    @DisplayName("司管后台-城市概览-获取运力")
     @Test
     void shouldAddDriverGroup() {
         // 1) 司管登录获取 token
@@ -38,7 +38,7 @@ public class QueryOutMealTimeShopTests {
     public void capacityAreaInfo(String token) {
 
 
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/performanceKanban/queryOutMealTimeShop";
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/performanceKanban/capacityAreaInfo";
         String method = "POST";
         Map<String, Object> headers = createErpHeaders();
         Calendar calendar = Calendar.getInstance();

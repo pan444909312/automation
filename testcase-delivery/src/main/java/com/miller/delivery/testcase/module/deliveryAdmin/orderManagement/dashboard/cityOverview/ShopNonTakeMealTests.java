@@ -1,4 +1,4 @@
-package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.dashboard.capacity;
+package com.miller.delivery.testcase.module.deliveryAdmin.orderManagement.dashboard.cityOverview;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
@@ -18,14 +18,14 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * 司管后台-新增骑手禁止上线配置
  */
 @Scenario(
-        scenarioID = "01KJHH2DB5XDPH1XHK92XHXNH4",
-        scenarioName = "司管后台-城市概览-待商家接单-导出",
+        scenarioID = "01KJHGHVBWS4QMZQ7E0QGY9PVB",
+        scenarioName = "司管后台-城市概览-待商家接单",
         author = "chenchunxia@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("司管后台-城市概览-待商家接单-导出")
-public class ShopNonTakeMealImportTests {
+@DisplayName("司管后台-城市概览-待商家接单")
+public class ShopNonTakeMealTests {
 
-    @DisplayName("司管后台-城市概览-待商家接单-导出")
+    @DisplayName("司管后台-城市概览-待商家接单")
     @Test
     void shouldAddDriverGroup() {
         // 1) 司管登录获取 token
@@ -38,7 +38,7 @@ public class ShopNonTakeMealImportTests {
     public void capacityAreaInfo(String token) {
 
 
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/performanceKanban/shopNonTakeMealDownLoad";
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/performanceKanban/shopNonTakeMeal";
         String method = "POST";
         Map<String, Object> headers = createErpHeaders();
         Calendar calendar = Calendar.getInstance();
@@ -56,18 +56,17 @@ public class ShopNonTakeMealImportTests {
                 "        \"杭州市\"\n" +
                 "    ],\n" +
                 "    \"startDate\": \""+todayStr+"\",\n" +
-                "    \"endDate\": \""+todayStr+"\"\n" +
+                "    \"endDate\": \""+todayStr+"\",\n" +
+                "    \"date\": \"\",\n" +
+                "    \"areaIdList\": []\n" +
                 "}";
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
 
 
-        // 3) 断言可能成功或已存在配置
-        Integer code = Integer.valueOf(TestCaseHelpful.extractValue(responseBody, "$.code").toString());
-        assert code == 1 || code == 17 : "code应该是1或17";
-        String message = TestCaseHelpful.extractValue(responseBody, "$.message").toString();
-        assert message.equals("成功") || message.contains("没有任何数据") : "message应该是成功或没有任何数据";
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
 
 
     }
