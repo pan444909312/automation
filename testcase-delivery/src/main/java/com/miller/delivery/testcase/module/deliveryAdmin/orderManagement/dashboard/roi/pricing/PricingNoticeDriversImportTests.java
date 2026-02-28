@@ -7,9 +7,6 @@ import com.miller.service.framework.annotation.Scenario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 import static com.miller.delivery.testcase.utils.DeliveryTestCaseUtils.createErpHeaders;
@@ -19,14 +16,14 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * 司管后台-新增骑手禁止上线配置
  */
 @Scenario(
-        scenarioID = "01KJHK2YKNXRBADST28D3C3PME",
-        scenarioName = "司管后台-roi-加价活动-活动触达发送司机数",
+        scenarioID = "01KJHKFWC0FVZZKX7NF891FR48",
+        scenarioName = "司管后台-roi-加价活动-活动触达发送司机数-导出",
         author = "chenchunxia@hungrypandagroup.com",
-        developmentTime = 120, maintenanceTime = 0, manualTestTime = 5)
-@DisplayName("司管后台-roi-加价活动-活动触达发送司机数")
-public class PricingnoticeDriversTests {
+        developmentTime = 60, maintenanceTime = 0, manualTestTime = 5)
+@DisplayName("司管后台-roi-加价活动-活动触达发送司机数-导出")
+public class PricingNoticeDriversImportTests {
 
-    @DisplayName("司管后台-roi-加价活动-活动触达发送司机数")
+    @DisplayName("司管后台-roi-加价活动-活动触达发送司机数-导出")
     @Test
     void shouldAddDriverGroup() {
         // 1) 司管登录获取 token
@@ -39,7 +36,7 @@ public class PricingnoticeDriversTests {
     public void capacityAreaInfo(String token) {
 
 
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/activity/roi/noticeDrivers";
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryDashboard/activity/roi/noticeDrivers/export";
         String method = "POST";
         Map<String, Object> headers = createErpHeaders();
         //数据库中查询
@@ -47,12 +44,7 @@ public class PricingnoticeDriversTests {
                 String.format("select * from panda_delivery_dashboard_test.hp_delivery_activity_roi where activity_type=1 and city='杭州市' order by id desc limit 1"));
         String ROIid = String.valueOf(roiResult.get("id"));
         headers.put("authorization", token);
-        String body = "{\n" +
-                "    \"id\": "+ROIid+",\n" +
-                "    \"activityType\": 1,\n" +
-                "    \"pageNo\": 1,\n" +
-                "    \"pageSize\": 10\n" +
-                "}";
+        String body = "{\"id\":"+ROIid+",\"activityType\":1}";
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
