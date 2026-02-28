@@ -20,6 +20,9 @@ public class DashboardReqDTO {
 
     private List<String> emails;
 
+
+
+
     public static DashboardReqDTO init(DashboardReqDTO  dashboardReqDTO) {
         DashboardReqDTO reqDTO = new DashboardReqDTO();
         BeanUtils.copyProperties(dashboardReqDTO, reqDTO);

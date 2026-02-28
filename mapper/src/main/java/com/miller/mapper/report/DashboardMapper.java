@@ -13,6 +13,9 @@ public interface DashboardMapper extends BaseMapper<DashBoardEntity> {
 
     List<DashBoardEntity> getAll(DashboardReqDTO reqDTO);
 
+    List<DashBoardEntity> getExecutionStatusList(DashboardReqDTO reqDTO);
+
+
     int selectCreateCountByRangeTime(DashboardReqDTO reqDTO);
 
 }

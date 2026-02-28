@@ -12,4 +12,9 @@ public class DashBoardEntity extends AutoCaseRoiEntity {
 
     private Integer failureCount;
 
+    private Integer otherErrorCount;
+
+    private String execTimeDay;
+
+
 }
