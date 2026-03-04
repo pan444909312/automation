@@ -218,9 +218,15 @@ public class DashboardServiceImpl implements DashboardService {
                 .mapToInt(obj -> obj.getSuccessCount() != null ? obj.getSuccessCount() : 0)
                 .sum();
         log.info("成功数量：{}", successCount);
-        final Double successRate = BigDecimal.valueOf(successCount * 1.00 / execCount * 100L)
-                .setScale(2, RoundingMode.HALF_UP)
-                .doubleValue();
+        final double successRate;
+        if (successCount == 0 || execCount == 0) {
+            successRate = 0.00;
+        } else {
+            successRate = BigDecimal.valueOf(successCount * 1.00 / execCount * 100L)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
+        }
+
         dashboardVO.setSuccessRate(successRate);
 
         // 失败率
@@ -228,9 +234,14 @@ public class DashboardServiceImpl implements DashboardService {
                 .mapToInt(obj -> obj.getFailureCount() != null ? obj.getFailureCount() : 0)
                 .sum();
         log.info("失败数量：{}", failureCount);
-        final Double failureRate = BigDecimal.valueOf(failureCount * 1.00 / execCount * 100L)
-                .setScale(2, RoundingMode.HALF_UP)
-                .doubleValue();
+        final double failureRate ;
+        if (failureCount == 0 || execCount == 0) {
+            failureRate = 0.00;
+        } else {
+            failureRate = BigDecimal.valueOf(failureCount * 1.00 / execCount * 100L)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
+        }
         dashboardVO.setFailureRate(failureRate);
 
         // 开发成本（总和）
