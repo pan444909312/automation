@@ -72,6 +72,7 @@ public class DashboardVO {
 
     private List<JSONObject> timeRangeExecResult;
 
+    private List<JSONObject> timeRangeExecNumResult;
 
 
 }

@@ -84,9 +84,15 @@ public class DashboardServiceImpl implements DashboardService {
         totalData.setNewCaseCount(totalCreateCount);
         totalData.setAttributionObject("total");
 
-        // 处理时间范围内的执行结果
+        // 处理时间范围内的执行结果 - rate
         List<JSONObject> execResultList = this.getExecutionStatusList(DashboardReqDTO.init(dashboardReqDTO));
         totalData.setTimeRangeExecResult(execResultList);
+
+        // 处理时间范围内的执行结果 - num
+        List<JSONObject> execResultNumList = this.getExecutionStatusNumList(DashboardReqDTO.init(dashboardReqDTO));
+        totalData.setTimeRangeExecNumResult(execResultNumList);
+        log.info("执行结果数据：\n{}",JSONObject.toJSONString(execResultNumList));
+
         jsonObject.put("totalData", totalData);
 
         // 渠道维度数据
@@ -105,9 +111,13 @@ public class DashboardServiceImpl implements DashboardService {
             final int platformCreateCount = dashboardMapper.selectCreateCountByRangeTime(reqDTO);
             dashboardVO.setNewCaseCount(platformCreateCount);
 
-            // 处理时间范围内的执行结果
+            // 处理时间范围内的执行结果 - rate
             List<JSONObject> platformsExecResultList = this.getExecutionStatusList(reqDTO);
             dashboardVO.setTimeRangeExecResult(platformsExecResultList);
+
+            // 处理时间范围内的执行结果 - num
+            List<JSONObject> platformsExecResultNumList = this.getExecutionStatusNumList(reqDTO);
+            dashboardVO.setTimeRangeExecNumResult(platformsExecResultNumList);
 
             dashboardVO.setAttributionObject(PlatformTypeEnum.getValueByKey(platformType));
             platformList.add(dashboardVO);
@@ -178,15 +188,38 @@ public class DashboardServiceImpl implements DashboardService {
                             .doubleValue();
                     jsonObject.put("successRate", successRate);
 
-                    final Double failureRate = BigDecimal.valueOf(obj.getFailureCount() * 1.00 / obj.getRangeTimeExecCount() * 100L)
-                            .setScale(2, RoundingMode.HALF_UP)
-                            .doubleValue();
-                    jsonObject.put("failureRate", failureRate);
+//                    final Double failureRate = BigDecimal.valueOf(obj.getFailureCount() * 1.00 / obj.getRangeTimeExecCount() * 100L)
+//                            .setScale(2, RoundingMode.HALF_UP)
+//                            .doubleValue();
+//                    jsonObject.put("failureRate", failureRate);
+//
+//                    final Double otherErrorRate = BigDecimal.valueOf(obj.getOtherErrorCount() * 1.00 / obj.getRangeTimeExecCount() * 100L)
+//                            .setScale(2, RoundingMode.HALF_UP)
+//                            .doubleValue();
+//                    jsonObject.put("otherErrorRate", otherErrorRate);
+                    return jsonObject;
+                }
+        ).toList();
+    }
 
-                    final Double otherErrorRate = BigDecimal.valueOf(obj.getOtherErrorCount() * 1.00 / obj.getRangeTimeExecCount() * 100L)
-                            .setScale(2, RoundingMode.HALF_UP)
-                            .doubleValue();
-                    jsonObject.put("otherErrorRate", otherErrorRate);
+    /**
+     * 获取时间范围内的通过率信息
+     */
+    public List<JSONObject> getExecutionStatusNumList(DashboardReqDTO reqDTO) {
+        List<DashBoardEntity> execTimeDashboardList = dashboardMapper.getExecutionStatusList(reqDTO);
+
+        return execTimeDashboardList.stream().map(
+                obj -> {
+
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("execTime", obj.getExecTimeDay());
+
+                    jsonObject.put("successNum", obj.getSuccessCount());
+
+                    jsonObject.put("failureNum", obj.getFailureCount());
+
+                    jsonObject.put("otherErrorNum", obj.getOtherErrorCount());
+
                     return jsonObject;
                 }
         ).toList();
