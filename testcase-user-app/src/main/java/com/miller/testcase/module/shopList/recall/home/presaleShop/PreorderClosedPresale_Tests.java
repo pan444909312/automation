@@ -19,7 +19,7 @@ import static com.miller.testcase.utils.TestCaseHelpful.assertThat;
         author = "huyang@hungrypandagroup.com", // 配置本机 Git email 后可自动生成
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 3)
 @DisplayName("店铺流_首页_预售店铺_店铺-召回-普通店铺-预售店铺状态：预售店铺未开启预约单")
-public class NoReservationOrderPresale_Tests {
+public class PreorderClosedPresale_Tests {
 
     @BeforeAll
     static void beforeAll(){
