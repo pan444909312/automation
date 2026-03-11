@@ -3,6 +3,7 @@ package com.miller.controller.tools;
 import com.alibaba.fastjson.JSON;
 import com.miller.controller.tools.conversion.StringConversionDto;
 import com.miller.controller.tools.product.service.StringConversionService;
+import com.miller.delivery.testcase.module.deliveryApp.signUp.RandomPhoneRegisterNonAustraliaTests;
 import com.miller.entity.constant.CouponScopeEnum;
 import com.miller.entity.tools.CodeInfo;
 import com.miller.entity.tools.req.AutoCreateCouponReqDTO;
@@ -24,13 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @Author: panjuxiang
+ * @author: panjuxiang
  * @Since: 2025/6/17
  */
 
@@ -69,6 +68,22 @@ public class ToolsController {
         }
 
     }
+
+    /**
+     * 一键创建骑手
+     *
+     */
+    @Operation(description = "一键创建骑手")
+    @PostMapping("/autoCreateRider")
+        public Map<String, String> autoCreateRider() {
+            RandomPhoneRegisterNonAustraliaTests test = new RandomPhoneRegisterNonAustraliaTests();
+            test.shouldRegisterDriverWithRandomPhone();
+            Map<String, String> result = new HashMap<>();
+            result.put("phone", test.getRegisteredPhone());
+            result.put("password", "AA2010aa");
+            return  result;
+        }
+
 
     @Operation(description = "一键创建商家")
     @PostMapping("/autoCreateMerchant")
