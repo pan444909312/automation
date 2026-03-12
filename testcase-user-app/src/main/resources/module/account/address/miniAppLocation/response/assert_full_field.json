@@ -3,8 +3,8 @@
 	"error": "成功",
 	"reason": "成功",
 	"result": {
-		"currentPosition": "MX63+6J Lianxi, Jiujiang, Jiangxi, China",
-		"currentPositionCity": "Jiujiang",
+		"currentPosition": "${json-unit.any-string}",
+		"currentPositionCity":"${json-unit.any-string}",
 		"latitude": "${json-unit.any-string}",
 		"longitude": "${json-unit.any-string}",
 		"country": "中国",
@@ -13,7 +13,7 @@
         "houseNum": "",
         "buildingNumber": "",
         "street": "",
-        "province": "Jiangxi"
+        "province": "${json-unit.any-string}"
 	},
 	"currency": "${json-unit.any-string}",
 	"success": true,
