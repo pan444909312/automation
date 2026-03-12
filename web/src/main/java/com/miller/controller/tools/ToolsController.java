@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.miller.controller.tools.conversion.StringConversionDto;
 import com.miller.controller.tools.product.service.StringConversionService;
 import com.miller.delivery.testcase.module.deliveryApp.signUp.RandomPhoneRegisterNonAustraliaTests;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderTests;
 import com.miller.entity.constant.CouponScopeEnum;
 import com.miller.entity.tools.CodeInfo;
 import com.miller.entity.tools.req.AutoCreateCouponReqDTO;
@@ -83,6 +84,27 @@ public class ToolsController {
             result.put("password", "AA2010aa");
             return  result;
         }
+
+    /**
+     * 一键创建订单
+     *
+     */
+    @Operation(description = "一键创建订单")
+    @PostMapping("/autoCreateOrder")
+    public Response<Map<String, String>> autoCreateOrder(@RequestBody Map<String, Integer> body) {
+        int productType = body.get("productType");
+        int num = body.get("orderNum");
+
+        CreateInstantOrderTests createInstantOrderTests = new CreateInstantOrderTests();
+        Map<String, String> orders = createInstantOrderTests.createOrder(productType, num);
+
+        return  Response.success(orders);
+
+
+
+        }
+
+
 
 
     @Operation(description = "一键创建商家")
