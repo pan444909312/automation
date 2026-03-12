@@ -3,6 +3,8 @@ package com.miller.controller.tools;
 import com.alibaba.fastjson.JSON;
 import com.miller.controller.tools.conversion.StringConversionDto;
 import com.miller.controller.tools.product.service.StringConversionService;
+import com.miller.delivery.testcase.module.deliveryUtils.thridOrder.UberTests;
+import com.miller.delivery.testcase.module.deliveryUtils.thridOrder.MeshkoreaTests;
 import com.miller.delivery.testcase.module.deliveryApp.signUp.RandomPhoneRegisterNonAustraliaTests;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderTests;
 import com.miller.entity.constant.CouponScopeEnum;
@@ -100,11 +102,31 @@ public class ToolsController {
 
         return  Response.success(orders);
 
-
-
         }
 
 
+    /**
+     * 创建三方订单
+     *
+     */
+    @Operation(description = "创建三方订单")
+    @PostMapping("/autoThirdOrder")
+    public Response<Map<String, String>> autoCreateThirdOrder(@RequestBody Map<String, Integer> body) {
+        int thirdType = body.get("ThirdType");
+        String orderSn;
+
+        if (thirdType == 1) {
+            orderSn = new UberTests().createOrder();
+        } else if (thirdType == 2) {
+            orderSn = new MeshkoreaTests().createOrder();
+        } else {
+            return Response.fail("ThirdType 参数错误，1=Uber，2=Meshkorea");
+        }
+
+        Map<String, String> result = new HashMap<>();
+        result.put("orderSn", orderSn);
+        return Response.success(result);
+    }
 
 
     @Operation(description = "一键创建商家")
