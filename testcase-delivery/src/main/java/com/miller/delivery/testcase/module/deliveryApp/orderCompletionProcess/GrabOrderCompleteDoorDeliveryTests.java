@@ -38,11 +38,11 @@ public class GrabOrderCompleteDoorDeliveryTests {
         String userAppOrderSn = createInstantOrderWithHandoverTests.orderFlow();
 
         // ========== 第二部分：骑手操作流程 ==========
-        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("15199010389", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
         DriverOffline driverOffline = new DriverOffline();
-        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+        driverOffline.cancelDispatchAndOffline("15199010389",driverAccessToken);
         String siGuanToken = erpLogin();
 
         //到店和送达开关关闭
