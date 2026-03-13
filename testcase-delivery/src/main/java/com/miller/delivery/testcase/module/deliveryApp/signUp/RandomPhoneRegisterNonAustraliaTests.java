@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.miller.delivery.testcase.utils.DeliveryTestCaseUtils.createErpHeaders;
+import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
+
 /**
  * 【常用】随机手机号注册 -非澳大利亚国家
  *
@@ -17,12 +20,12 @@ import java.util.Map;
  * @version 2.0
  * @since 2025/01/07
  */
-//@Scenario(
-//        scenarioID = "01JWG1VHMW2Y9GKMY8P0YXVHB2",
-//        scenarioName = "骑手APP-骑手注册提交认证材料",
-//        author = "TestingConsultant@hungrypandagroup.com",
-//        developmentTime = 600, maintenanceTime = 0, manualTestTime = 20)
-//@DisplayName("【常用】随机手机号注册 -非澳大利亚国家")
+@Scenario(
+       scenarioID = "01JWG1VHMW2Y9GKMY8P0YXVHB2",
+       scenarioName = "骑手APP-骑手注册提交认证材料",
+       author = "TestingConsultant@hungrypandagroup.com",
+        developmentTime = 600, maintenanceTime = 0, manualTestTime = 20)
+@DisplayName("【常用】随机手机号注册 -非澳大利亚国家")
 public class RandomPhoneRegisterNonAustraliaTests {
 
     private String newTel;
@@ -31,10 +34,9 @@ public class RandomPhoneRegisterNonAustraliaTests {
 
     @DisplayName("随机手机号注册完整流程")
     @Test
-    void shouldRegisterDriverWithRandomPhone() {
+    public void shouldRegisterDriverWithRandomPhone() {
         // 0) 前置操作：从数据库获取最大手机号并+1
         preparePhoneNumber();
-
         // 1) 前置操作：插入验证码到数据库
         insertVerificationCode();
 
@@ -64,12 +66,35 @@ public class RandomPhoneRegisterNonAustraliaTests {
 
         // 10) 骑手认证信息填写完成提交审核
         saveCertificationInfo();
+        // 获取erp登录token
+        String token = erpLogin();
+
+        // 11) 司管-招待待办-待审核tab，拿到最新提交的骑手userid，并审批通过
+        String userid = getUserId();
+        newDriverAuthOperation(userid,token);
+        System.out.println("待审核tab通过"+userid);
+
+        // 12) 司管-招待待办-待背景调查tab，拿最新的骑手userid ,背调通过
+        newDriverAuthOperationBackGround(userid,token);
+        System.out.println("待背景调查tab通过"+userid);
+
+        //13）司管-招待待办-模拟培训tab，拿最新的骑手userid ,模拟培训通过
+        newDriverAuthOperationTraining(userid,token);
+        System.out.println("模拟培训tab通过"+userid);
+
+        //13）司管-招待待办-培训考试tab，拿最新的骑手userid ,培训考试通过
+        newDriverAuthOperationExam(userid,token);
+        System.out.println("培训考试tab通过"+userid);
+
+        //13）司管-招待待办-待确认tab，拿最新的骑手userid ,通过平台确认
+        newDriverAuthOperationAwaitingConfirmation(userid,token);
+        System.out.println("待确认tab通过-入驻成功"+userid);
     }
 
     /**
      * 从数据库获取最大手机号并+1（查询user_telphone like '%9901%'）
      */
-    private void preparePhoneNumber() {
+    public String preparePhoneNumber() {
         Map<String, Object> result = PandaTestDBHelpful.executeSelectOneSql(
                 "select * from `panda_test`.`hp_delivery_user` where user_telphone like '%9901%' order by user_id desc limit 1");
         if (result != null && result.get("user_telphone") != null) {
@@ -80,7 +105,25 @@ public class RandomPhoneRegisterNonAustraliaTests {
             // 如果没有找到，使用默认值
             newTel = "13300099010";
         }
+        return newTel;
     }
+    /**
+     * 从数据库获取最新注册的手机号
+     */
+    public String getRegisteredPhone() {
+        return newTel;
+    }
+
+    /**
+     * 从数据库获取最新注册的骑手ID（
+     */
+    public String getUserId() {
+        Map<String, Object> result = PandaTestDBHelpful.executeSelectOneSql(
+                "select user_id from `panda_test`.`hp_delivery_user` where  is_del =0  order by create_time desc limit 1");
+            String userID = result.get("user_id").toString();
+            return userID;
+    }
+
 
     /**
      * 插入验证码到数据库
@@ -222,7 +265,6 @@ public class RandomPhoneRegisterNonAustraliaTests {
         
         String body = "{}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(1000);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("成功");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(true);
@@ -310,6 +352,117 @@ public class RandomPhoneRegisterNonAustraliaTests {
     }
 
     /**
+     * 司管-招新代办-认证审核通过
+     */
+    private void newDriverAuthOperation(String userid,String token) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/new/driver/newDriverAuthOperation";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization", token);
+        String body = "{\n" +
+                "    \"operation\": 2,\n" +
+                "    \"status\": 1,\n" +
+                "    \"userId\": " + userid + "\n" +
+                "}";
+
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 后置操作：查询骑手认证状态为待背调
+        verifyInfoStatus(29);
+    }
+
+    /**
+     * 司管-招新代办-背调通过
+     */
+    private void newDriverAuthOperationBackGround(String userid,String token) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/new/driver/newDriverAuthOperation";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization", token);
+
+        String body = "{\n" +
+                "    \"operation\": 3,\n" +
+                "    \"status\": 1,\n" +
+                "    \"userId\": " + userid + "\n" +
+                "}";
+
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 后置操作：查询骑手认证状态为模拟培训中
+        verifyInfoStatus(57);
+    }
+
+    /**
+     * 司管-招新代办-模拟培训通过
+     */
+    private void newDriverAuthOperationTraining(String userid,String token) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/authDriver/testOrderComplete";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization", token);
+        String body = "{\n" +
+                "    \"driverId\": "+ userid +",\n" +
+                "    \"reason\": \"通过模拟培训\"\n" +
+                "}";
+
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 后置操作：查询骑手认证状态为培训考试中
+        verifyInfoStatus(55);
+    }
+
+    /**
+     * 司管-招新代办-培训考试通过
+     */
+    private void newDriverAuthOperationExam(String userid,String token) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/new/driver/newDriverAuthOperation";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization",token);
+        String body = "{\n" +
+                "    \"operation\": 8,\n" +
+                "    \"status\": 1,\n" +
+                "    \"userId\": "+ userid +",\n" +
+                "    \"trainCompleteReason\": \"考试通过\"\n" +
+                "}";
+
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+        System.out.println("responseBody打印结果==="+responseBody);
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 后置操作：查询骑手认证状态为待确认
+        verifyInfoStatus(56);
+    }
+
+    /**
+     * 司管-招新代办-待确认通过
+     */
+    private void newDriverAuthOperationAwaitingConfirmation(String userid,String token) {
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/new/driver/newDriverAuthOperation";
+        String method = "POST";
+        Map<String, Object> headers = createErpHeaders();
+        headers.put("authorization", token);
+        String body = "{\n" +
+                "    \"userId\": "+ userid +",\n" +
+                "    \"operation\": 9,\n" +
+                "    \"status\": 1\n" +
+                "}";
+
+        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
+
+        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
+        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
+        // 后置操作：查询骑手认证状态入驻通过状态
+        verifyInfoStatus(60);
+    }
+
+    /**
      * 创建骑手app请求头
      */
     private Map<String, Object> createDriverAppHeaders() {
@@ -326,7 +479,6 @@ public class RandomPhoneRegisterNonAustraliaTests {
         headers.put("apptypeid", "2");
         headers.put("countrycode", "CN");
         headers.put("devicesafetoken", "a0_b1_c1_h0_i0_j0_m0_n0_p0_s0");
-
         headers.put("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.put("content-type", "application/json;charset=UTF-8");
         return headers;

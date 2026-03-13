@@ -3,13 +3,17 @@
 	"error": "成功",
 	"reason": "成功",
 	"result": {
-		"currentPosition": "China, Jiangxi, 九江市",
-		"currentPositionCity": "Jiujiang",
+		"currentPosition": "${json-unit.any-string}",
+		"currentPositionCity":"${json-unit.any-string}",
 		"latitude": "${json-unit.any-string}",
 		"longitude": "${json-unit.any-string}",
 		"country": "中国",
 		"addressList": null,
-		"currentCity": "九江市"
+		"currentCity": "九江市",
+        "houseNum": "",
+        "buildingNumber": "",
+        "street": "",
+        "province": "${json-unit.any-string}"
 	},
 	"currency": "${json-unit.any-string}",
 	"success": true,
