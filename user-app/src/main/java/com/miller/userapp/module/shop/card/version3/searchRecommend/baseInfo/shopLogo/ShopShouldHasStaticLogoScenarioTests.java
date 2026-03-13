@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01KJ6V2PCXY737WX6NNT2JKS61",
+@Scenario(scenarioID = "01KKJG3XG1H5TBKQ50GSB2Z0Q1",
         scenarioName = "搜索推荐列表商卡-SKYX01_基础信息_店铺logo_搜索列表-商卡二期:店铺logo-静图",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test

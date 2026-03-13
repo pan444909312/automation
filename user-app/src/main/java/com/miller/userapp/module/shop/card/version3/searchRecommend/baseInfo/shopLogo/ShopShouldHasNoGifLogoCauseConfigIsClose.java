@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP592X",
+@Scenario(scenarioID = "01KKJG2W71WWTHG93TCE7N4FWV",
         scenarioName = "搜索推荐列表商卡-SKYX01_基础信息_店铺logo_搜索列表-商卡二期:独家店铺未勾选开启独家logo，该店铺设置了主图动图，不会展示动图",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
