@@ -62,7 +62,7 @@
 			},
 			"supportReview": 0,
 			"selfServiceInfo": {
-				"rushOrderUrl": "hptakeout://module=deeplink&action=openPage&params=eyJ1cmwiOiJocHRha2VvdXQ6Ly93ZWJWaWV3P3VybD1odHRwcyUzQSUyRiUyRmYyZS1wa2ctbGVhZmxldC10ZXN0Lmh1bmdyeXBhbmRhLmNuJTJGZGlhbG9nJTJGdXJnZU9yZGVyJTNGaW1tZXJzZSUzRDElMjZsb2FkaW5nJTNEMSUyNm1vZGUlM0QxJTI2cnVzaFNvdXJjZSUzRDElMjZvcmRlclNuJTNEUEZaQzI0MDgxNzE1MzIzNDk1NzcifQ**&callback=CALLBACK_NAME&code=0c378efb4eed09f"
+				"rushOrderUrl": "${json-unit.any-string}"
 			},
 			"firstOrderShowVO": {
 				"firstOrder": 0,
