@@ -10,22 +10,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * C侧下即时单-自动化平台页面一键创建Meshkorea订单，需要参数构造
+ * C侧下即时单-自动化平台页面一键创建DoorDash订单，需要参数构造
  *
  * @author auto-generated
  * @version 2.0
  * @since 2026/01/01 00:00:00
  */
 
-public class MeshkoreaTests {
+public class DoorDashTests {
 
-    private static final long PRODUCT_ID = 80546667;
-    private static final long SHOP_ID = 6067;
-    private static final long ADDRESS_ID = 1398662936;
+    private static final long PRODUCT_ID = 82572704;
+    private static final long SHOP_ID = 827411424;
+    private static final long ADDRESS_ID = 1398683868;
 
-    @DisplayName("Meshkorea下单")
+    @DisplayName("DoorDash下单")
     @Test
-    public String  createOrder() {
+    public void  createOrder() {
 
         Map<String, String> result = new HashMap<>();
         // 步骤1: C侧下单-用户登录
@@ -40,11 +40,10 @@ public class MeshkoreaTests {
                 String userAppOrderSn = createOrder(userAppAccessToken, shopId);
                 // 步骤6: C侧下单-余额支付
                 balancePay(userAppAccessToken, userAppOrderSn);
-                System.out.println("Mesh单号===="+userAppOrderSn);
+                System.out.println("DoorDash单号===="+userAppOrderSn);
                 // 更新订单构造参数
                 updateOrder(userAppOrderSn);
                 System.out.println("构造参数化成功！"+userAppOrderSn);
-                 return userAppOrderSn;
 
     }
     /**
@@ -91,7 +90,6 @@ public class MeshkoreaTests {
         Map<String, Object> headers = createUserAppHeaders();
         headers.put("authorization", userAppAccessToken);
         headers.put("userid", "1398720920");
-        
         long nowTime = System.currentTimeMillis();
         var requestBody = String.format("{\"deliveryType\":1,\"shopId\":%d,\"items\":[{\"productId\":%d,\"purchaseTime\":%d,\"skuId\":0,\"stability\":0}]}", SHOP_ID, PRODUCT_ID, nowTime);
         
@@ -161,12 +159,10 @@ public class MeshkoreaTests {
      */
     public void updateOrder(String orderSn) {
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
-                "update `panda_test`.hp_delivery_order set customer_location = '경기도 수원시 영통구 청명로59번길 55'," +
+                "update `panda_test`.hp_delivery_order set customer_location = '483 Bay Street, 多伦多, 安大略省  加拿大'," +
                         "customer_latitude = '37.250408630650924'," +
-                        "customer_longitude = '127.07978592686521'," +
-                        "shop_address = '경기도 수원시 영통구 청명로59번길 50'" +
+                        "customer_longitude = '127.07978592686521'" +
                         " where order_sn = '" + orderSn + "'");
-
     }
 
     public Map<String, Object> createUserAppHeaders() {
