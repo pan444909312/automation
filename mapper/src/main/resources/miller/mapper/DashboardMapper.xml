@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miller.mapper.report.DashboardMapper">
+
+    <sql id="commonFilter">
+        <if test="projectIds != null and projectIds.size() > 0 ">
+            AND acr.project_id in
+            <foreach collection="projectIds" item="projectId" open="(" close=")" separator=",">
+                #{projectId}
+            </foreach>
+        </if>
+
+        <if test="emails != null and emails.size() > 0 ">
+            AND acr.author in
+            <foreach collection="emails" item="email" open="(" close=")" separator=",">
+                #{email}
+            </foreach>
+        </if>
+
+        <if test="platforms != null and platforms.size() > 0 ">
+            AND acr.platform_type in
+            <foreach collection="platforms" item="platform" open="(" close=")" separator=",">
+                #{platform}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--  查询时间范围内新增用例数量   -->
+    <select id="selectCreateCountByRangeTime" parameterType="dto.DashboardReqDTO">
+        select count(1) as 'create_count'
+        from  auto_case_roi acr
+        where
+            acr.is_deleted=0 and
+            acr.create_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(concat(#{endTime},' 23:59:59')) * 1000
+
+            <include refid="commonFilter">
+                <property name="projectIds" value="projectIds"/>
+                <property name="emails" value="emails"/>
+                <property name="platforms" value="platforms"/>
+            </include>
+    </select>
+
+    <!-- 时间周期 - 成功率   -->
+    <select id="getExecutionStatusList" resultType="com.miller.entity.dashboard.DashBoardEntity" parameterType="dto.DashboardReqDTO">
+        select
+            count(1)  as `rangeTimeExecCount`,
+            count(if(aer.execution_status = 1, 1, null))  as `success_count`,
+            count(if(aer.execution_status = 2, 1, null))  as `failure_count`,
+            count(if(aer.execution_status = -1, 1, null))  as `other_error_count`,
+            date_format(FROM_UNIXTIME(aer.execution_time/1000),'%Y-%m-%d') as `exec_time_day`
+        from  auto_execution_record aer
+        left join   auto_case_roi acr on acr.scenario_id = aer.scenario_id
+        where
+            aer.execution_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(concat(#{endTime},' 23:59:59')) * 1000 and
+            aer.is_deleted=0 and
+            acr.is_deleted = 0
+
+
+        <include refid="commonFilter">
+            <property name="projectIds" value="projectIds"/>
+            <property name="emails" value="emails"/>
+            <property name="platforms" value="platforms"/>
+        </include>
+
+        group by date_format(FROM_UNIXTIME( aer.execution_time / 1000 ),'%Y-%m-%d')
+        ;
+    </select>
+
+
+
+    <select id="getAll" resultType="com.miller.entity.dashboard.DashBoardEntity" parameterType="dto.DashboardReqDTO">
+        select acr.*,
+              count(1) as `range_time_exec_count`,
+              count(if(aer.execution_status =1,1,null))  as `success_count`,
+              count(if(aer.execution_status !=1,1,null))  as `failure_count`,
+              date_format(FROM_UNIXTIME(aer.execution_time/1000),'%Y-%m-%d') as `exec_time_day`
+        from  auto_case_roi acr
+            left join  auto_execution_record aer on acr.scenario_id = aer.scenario_id
+            where
+                aer.execution_time between UNIX_TIMESTAMP(#{startTime}) * 1000 and UNIX_TIMESTAMP(concat(#{endTime},' 23:59:59')) * 1000 and
+                acr.is_deleted = 0 and
+                aer.is_deleted=0
+
+                <include refid="commonFilter">
+                    <property name="projectIds" value="projectIds"/>
+                    <property name="emails" value="emails"/>
+                    <property name="platforms" value="platforms"/>
+                </include>
+
+                group by  acr.scenario_id
+                ;
+    </select>
+
+
+</mapper>

@@ -25,28 +25,12 @@ public class CultivateDisableTests {
     void shouldDisableCultivate() {
         // 1) 司管登录获取 token
         String token = erpLogin();
-
-        // 2) 获取培训内容列表，提取 cultivateCode
-        String cultivateCode = getCultivateCode(token);
-
         // 3) 禁用培训内容
-        disableCultivate(token, cultivateCode);
+        disableCultivate(token, "506869902378663744");
     }
 
-    private String getCultivateCode(String token) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/cultivate/cultivatePage";
-        String method = "POST";
-        Map<String, Object> headers = createHeaders(token);
-        String body = "{\"pageNo\":1,\"pageSize\":10,\"cityNameList\":[],\"cultivateName\":\"\",\"isEnable\":\"\",\"applyLanguageType\":\"\",\"vehicleTypeList\":[]}";
 
-        var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
-        TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
-        TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
-        Object cultivateCodeObj = TestCaseHelpful.extractValue(responseBody, "$.data.list.[0].cultivateCode");
-        return cultivateCodeObj != null ? cultivateCodeObj.toString() : null;
-    }
-
-    private void disableCultivate(String token, String cultivateCode) {
+    public void disableCultivate(String token, String cultivateCode) {
         if (cultivateCode == null || cultivateCode.isEmpty()) {
             throw new RuntimeException("无法获取cultivateCode，无法执行禁用操作");
         }

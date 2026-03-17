@@ -1,7 +1,10 @@
 package com.miller.service.vo;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * 仪表盘数据 VO
@@ -30,12 +33,12 @@ public class DashboardVO {
     /**
      * 通过率
      */
-    private Long successRate;
+    private Double successRate;
 
     /**
      * 失败率
      */
-    private Long failureRate;
+    private Double failureRate;
 
     /**
      * 开发成本
@@ -66,5 +69,10 @@ public class DashboardVO {
      * 沉寂用例数
      */
     private Long inactiveCaseCount;
+
+    private List<JSONObject> timeRangeExecResult;
+
+    private List<JSONObject> timeRangeExecNumResult;
+
 
 }

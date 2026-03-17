@@ -6,7 +6,7 @@ package com.miller.entity.constant;
  */
 public enum PlatformTypeEnum {
 
-
+    OTHER(0, "OTHER"),
     JAVA(1, "JAVA"),
 
     APIFOX(2, "APIFOX"),

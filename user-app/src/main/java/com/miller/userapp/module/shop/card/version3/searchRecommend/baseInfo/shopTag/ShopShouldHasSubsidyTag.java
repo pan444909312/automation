@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP5937",
+@Scenario(scenarioID = "01KKJGEXGATQTQ8BNMP9G9CJD3",
         scenarioName = "搜索推荐列表商卡-SKYX01_基础信息_店前标签：百万补贴_搜索列表-商卡二期：百万补贴",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 

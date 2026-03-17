@@ -54,6 +54,11 @@ public class DispatchAssignReceiveCompleteTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(130060);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("包裹不是当前司机");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("骑手app-骑手拒单-多case：未登录拒单")
@@ -72,6 +77,11 @@ public class DispatchAssignReceiveCompleteTests {
         TestCaseHelpful.assertThatJson(responseBody).node("resultCode").isEqualTo(2015);
         TestCaseHelpful.assertThatJson(responseBody).node("reason").isEqualTo("未登录,请登录后操作");
         TestCaseHelpful.assertThatJson(responseBody).node("success").isEqualTo(false);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @DisplayName("完整端到端流程-调度分单-骑手接单-完单")
@@ -83,12 +93,12 @@ public class DispatchAssignReceiveCompleteTests {
         
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010869", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
 
         DriverOffline driverOffline = new DriverOffline();
-        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+        driverOffline.cancelDispatchAndOffline("13300010869",driverAccessToken);
         
         // 步骤8: 骑手app-司机上线操作
         driverOnline(driverAccessToken);

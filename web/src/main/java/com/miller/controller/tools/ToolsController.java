@@ -3,6 +3,10 @@ package com.miller.controller.tools;
 import com.alibaba.fastjson.JSON;
 import com.miller.controller.tools.conversion.StringConversionDto;
 import com.miller.controller.tools.product.service.StringConversionService;
+import com.miller.delivery.testcase.module.deliveryUtils.thridOrder.UberTests;
+import com.miller.delivery.testcase.module.deliveryUtils.thridOrder.MeshkoreaTests;
+import com.miller.delivery.testcase.module.deliveryApp.signUp.RandomPhoneRegisterNonAustraliaTests;
+import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderTests;
 import com.miller.entity.constant.CouponScopeEnum;
 import com.miller.entity.tools.CodeInfo;
 import com.miller.entity.tools.req.AutoCreateCouponReqDTO;
@@ -24,13 +28,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @Author: panjuxiang
+ * @author: panjuxiang
  * @Since: 2025/6/17
  */
 
@@ -69,6 +71,63 @@ public class ToolsController {
         }
 
     }
+
+    /**
+     * 一键创建骑手
+     *
+     */
+    @Operation(description = "一键创建骑手")
+    @PostMapping("/autoCreateRider")
+        public Map<String, String> autoCreateRider() {
+            RandomPhoneRegisterNonAustraliaTests test = new RandomPhoneRegisterNonAustraliaTests();
+            test.shouldRegisterDriverWithRandomPhone();
+            Map<String, String> result = new HashMap<>();
+            result.put("phone", test.getRegisteredPhone());
+            result.put("password", "AA2010aa");
+            return  result;
+        }
+
+    /**
+     * 一键创建订单
+     *
+     */
+    @Operation(description = "一键创建订单")
+    @PostMapping("/autoCreateOrder")
+    public Response<Map<String, String>> autoCreateOrder(@RequestBody Map<String, Integer> body) {
+        int productType = body.get("productType");
+        int num = body.get("orderNum");
+
+        CreateInstantOrderTests createInstantOrderTests = new CreateInstantOrderTests();
+        Map<String, String> orders = createInstantOrderTests.createOrder(productType, num);
+
+        return  Response.success(orders);
+
+        }
+
+
+    /**
+     * 创建三方订单
+     *
+     */
+    @Operation(description = "创建三方订单")
+    @PostMapping("/autoThirdOrder")
+    public Response<Map<String, String>> autoCreateThirdOrder(@RequestBody Map<String, Integer> body) {
+        int thirdType = body.get("ThirdType");
+        String orderSn;
+
+        if (thirdType == 1) {
+            orderSn = new UberTests().createOrder();
+        } else if (thirdType == 2) {
+            orderSn = new MeshkoreaTests().createOrder();
+        } else {
+            return Response.fail("ThirdType 参数错误，1=Uber，2=Meshkorea");
+        }
+
+        Map<String, String> result = new HashMap<>();
+        result.put("orderSn", orderSn);
+        return Response.success(result);
+    }
+
 
     @Operation(description = "一键创建商家")
     @PostMapping("/autoCreateMerchant")

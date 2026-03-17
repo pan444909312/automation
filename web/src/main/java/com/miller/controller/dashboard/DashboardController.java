@@ -3,9 +3,7 @@ package com.miller.controller.dashboard;
 import com.alibaba.fastjson.JSONObject;
 import com.miller.controller.tools.ResultVO;
 import com.miller.service.dashboard.DashboardService;
-import com.miller.service.dto.DashboardReqDTO;
-import com.miller.service.vo.DashboardFilterOptionVO;
-import com.miller.service.vo.DashboardVO;
+import dto.DashboardReqDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -2,16 +2,19 @@ package com.miller.service.dashboard.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.miller.entity.constant.PlatformTypeEnum;
+import com.miller.entity.dashboard.DashBoardEntity;
 import com.miller.entity.platform.Project;
 import com.miller.entity.platform.User;
 import com.miller.entity.report.AutoCaseRoiEntity;
+import com.miller.mapper.report.DashboardMapper;
 import com.miller.service.dashboard.DashboardService;
-import com.miller.service.dto.DashboardReqDTO;
+import dto.DashboardReqDTO;
 import com.miller.service.platform.ProjectService;
 import com.miller.service.platform.UserService;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.service.vo.DashboardFilterOptionVO;
 import com.miller.service.vo.DashboardVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +24,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+@Slf4j
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
@@ -36,6 +38,9 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Autowired
     private AutoCaseRoiService autoCaseRoiService;
+
+    @Autowired
+    private DashboardMapper dashboardMapper;
 
     @Override
     public DashboardFilterOptionVO getFilterOption() {
@@ -69,20 +74,51 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public JSONObject getDashboardStatistics(DashboardReqDTO dashboardReqDTO) {
 
-        List<AutoCaseRoiEntity> caseRoiEntityList = autoCaseRoiService.findByAll(dashboardReqDTO);
+        List<DashBoardEntity> dashBoardEntityList = dashboardMapper.getAll(dashboardReqDTO);
+
+
         JSONObject jsonObject = new JSONObject();
         // 统计总数据
-        DashboardVO totalData = this.statisticsDashboardData(caseRoiEntityList);
+        DashboardVO totalData = this.statisticsDashboardData(dashBoardEntityList);
+        final int totalCreateCount = dashboardMapper.selectCreateCountByRangeTime(dashboardReqDTO);
+        totalData.setNewCaseCount(totalCreateCount);
+        totalData.setAttributionObject("total");
+
+        // 处理时间范围内的执行结果 - rate
+        List<JSONObject> execResultList = this.getExecutionStatusList(DashboardReqDTO.init(dashboardReqDTO));
+        totalData.setTimeRangeExecResult(execResultList);
+
+        // 处理时间范围内的执行结果 - num
+        List<JSONObject> execResultNumList = this.getExecutionStatusNumList(DashboardReqDTO.init(dashboardReqDTO));
+        totalData.setTimeRangeExecNumResult(execResultNumList);
+        log.info("执行结果数据：\n{}",JSONObject.toJSONString(execResultNumList));
+
         jsonObject.put("totalData", totalData);
 
         // 渠道维度数据
-        Set<Integer> platformTypeList = caseRoiEntityList.stream().map(AutoCaseRoiEntity::getPlatformType).collect(Collectors.toSet());
+        Set<Integer> platformTypeList = dashBoardEntityList.stream().map(AutoCaseRoiEntity::getPlatformType).collect(Collectors.toSet());
         List<DashboardVO> platformList = new LinkedList<>();
         platformTypeList.forEach(platformType -> {
-            List<AutoCaseRoiEntity> entityList = caseRoiEntityList.stream()
+            List<DashBoardEntity> entityList = dashBoardEntityList.stream()
                     .filter(autoCaseRoiEntity -> autoCaseRoiEntity.getPlatformType().equals(platformType))
                     .toList();
             DashboardVO dashboardVO = this.statisticsDashboardData(entityList);
+
+            DashboardReqDTO reqDTO = DashboardReqDTO.init(dashboardReqDTO);
+
+            // 时间范围内的新增用例数量
+            reqDTO.setPlatforms(List.of(Long.valueOf(platformType)));
+            final int platformCreateCount = dashboardMapper.selectCreateCountByRangeTime(reqDTO);
+            dashboardVO.setNewCaseCount(platformCreateCount);
+
+            // 处理时间范围内的执行结果 - rate
+            List<JSONObject> platformsExecResultList = this.getExecutionStatusList(reqDTO);
+            dashboardVO.setTimeRangeExecResult(platformsExecResultList);
+
+            // 处理时间范围内的执行结果 - num
+            List<JSONObject> platformsExecResultNumList = this.getExecutionStatusNumList(reqDTO);
+            dashboardVO.setTimeRangeExecNumResult(platformsExecResultNumList);
+
             dashboardVO.setAttributionObject(PlatformTypeEnum.getValueByKey(platformType));
             platformList.add(dashboardVO);
         });
@@ -90,14 +126,20 @@ public class DashboardServiceImpl implements DashboardService {
 
 
         // 小组维度数据
-
-        Set<String> projectIdList = caseRoiEntityList.stream().map(AutoCaseRoiEntity::getProjectId).collect(Collectors.toSet());
+        Set<String> projectIdList = dashBoardEntityList.stream().map(AutoCaseRoiEntity::getProjectId).collect(Collectors.toSet());
         List<DashboardVO> groupDashBoardList = new LinkedList<>();
         projectIdList.forEach(projectId -> {
-            List<AutoCaseRoiEntity> entityList = caseRoiEntityList.stream()
+            List<DashBoardEntity> entityList = dashBoardEntityList.stream()
                     .filter(autoCaseRoiEntity -> autoCaseRoiEntity.getProjectId().equals(projectId))
                     .toList();
             DashboardVO dashboardVO = this.statisticsDashboardData(entityList);
+
+            DashboardReqDTO reqDTO = DashboardReqDTO.init(dashboardReqDTO);
+            reqDTO.setProjectIds(List.of(Long.valueOf(projectId)));
+            final int platformCreateCount = dashboardMapper.selectCreateCountByRangeTime(reqDTO);
+            dashboardVO.setNewCaseCount(platformCreateCount);
+
+
             Project project = projectService.getById(projectId);
             dashboardVO.setAttributionObject(project.getName());
             groupDashBoardList.add(dashboardVO);
@@ -105,13 +147,20 @@ public class DashboardServiceImpl implements DashboardService {
         jsonObject.put("groups", groupDashBoardList);
 
         // 成员维度数据
-        Set<String> authorList = caseRoiEntityList.stream().map(AutoCaseRoiEntity::getAuthor).collect(Collectors.toSet());
+        Set<String> authorList = dashBoardEntityList.stream().map(AutoCaseRoiEntity::getAuthor).collect(Collectors.toSet());
         List<DashboardVO> userList = new LinkedList<>();
         authorList.forEach(author -> {
-            List<AutoCaseRoiEntity> entityList = caseRoiEntityList.stream()
-                    .filter(autoCaseRoiEntity -> autoCaseRoiEntity.getAuthor() .equals(author))
+            List<DashBoardEntity> entityList = dashBoardEntityList.stream()
+                    .filter(autoCaseRoiEntity -> autoCaseRoiEntity.getAuthor().equals(author))
                     .toList();
             DashboardVO dashboardVO = this.statisticsDashboardData(entityList);
+
+            DashboardReqDTO reqDTO = DashboardReqDTO.init(dashboardReqDTO);
+            reqDTO.setEmails(List.of(author));
+            final int platformCreateCount = dashboardMapper.selectCreateCountByRangeTime(reqDTO);
+            dashboardVO.setNewCaseCount(platformCreateCount);
+
+
             dashboardVO.setAttributionObject(author);
             userList.add(dashboardVO);
         });
@@ -122,6 +171,59 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
 
+    /**
+     * 获取时间范围内的通过率信息
+     */
+    public List<JSONObject> getExecutionStatusList(DashboardReqDTO reqDTO) {
+        List<DashBoardEntity> execTimeDashboardList = dashboardMapper.getExecutionStatusList(reqDTO);
+
+        return execTimeDashboardList.stream().map(
+                obj -> {
+
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("execTime", obj.getExecTimeDay());
+
+                    final Double successRate = BigDecimal.valueOf(obj.getSuccessCount() * 1.00 / obj.getRangeTimeExecCount() * 100L)
+                            .setScale(2, RoundingMode.HALF_UP)
+                            .doubleValue();
+                    jsonObject.put("successRate", successRate);
+
+//                    final Double failureRate = BigDecimal.valueOf(obj.getFailureCount() * 1.00 / obj.getRangeTimeExecCount() * 100L)
+//                            .setScale(2, RoundingMode.HALF_UP)
+//                            .doubleValue();
+//                    jsonObject.put("failureRate", failureRate);
+//
+//                    final Double otherErrorRate = BigDecimal.valueOf(obj.getOtherErrorCount() * 1.00 / obj.getRangeTimeExecCount() * 100L)
+//                            .setScale(2, RoundingMode.HALF_UP)
+//                            .doubleValue();
+//                    jsonObject.put("otherErrorRate", otherErrorRate);
+                    return jsonObject;
+                }
+        ).toList();
+    }
+
+    /**
+     * 获取时间范围内的通过率信息
+     */
+    public List<JSONObject> getExecutionStatusNumList(DashboardReqDTO reqDTO) {
+        List<DashBoardEntity> execTimeDashboardList = dashboardMapper.getExecutionStatusList(reqDTO);
+
+        return execTimeDashboardList.stream().map(
+                obj -> {
+
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("execTime", obj.getExecTimeDay());
+
+                    jsonObject.put("successNum", obj.getSuccessCount());
+
+                    jsonObject.put("failureNum", obj.getFailureCount());
+
+                    jsonObject.put("otherErrorNum", obj.getOtherErrorCount());
+
+                    return jsonObject;
+                }
+        ).toList();
+    }
 
 
     /**
@@ -130,7 +232,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @param list
      * @return
      */
-    public DashboardVO statisticsDashboardData(List<AutoCaseRoiEntity> list) {
+    public DashboardVO statisticsDashboardData(List<DashBoardEntity> list) {
         DashboardVO dashboardVO = new DashboardVO();
 
         // 用例总数
@@ -138,9 +240,42 @@ public class DashboardServiceImpl implements DashboardService {
 
         // 执行次数（总和）
         Integer execCount = list.stream()
-                .mapToInt(obj -> obj.getTimes() != null ? obj.getTimes() : 0)
+                .mapToInt(obj -> obj.getRangeTimeExecCount() != null ? obj.getRangeTimeExecCount() : 0)
                 .sum();
         dashboardVO.setExecCount(execCount);
+        log.info("总执行数量：{}", execCount);
+
+
+        // 通过率
+        final Integer successCount = list.stream()
+                .mapToInt(obj -> obj.getSuccessCount() != null ? obj.getSuccessCount() : 0)
+                .sum();
+        log.info("成功数量：{}", successCount);
+        final double successRate;
+        if (successCount == 0 || execCount == 0) {
+            successRate = 0.00;
+        } else {
+            successRate = BigDecimal.valueOf(successCount * 1.00 / execCount * 100L)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
+        }
+
+        dashboardVO.setSuccessRate(successRate);
+
+        // 失败率
+        final Integer failureCount = list.stream()
+                .mapToInt(obj -> obj.getFailureCount() != null ? obj.getFailureCount() : 0)
+                .sum();
+        log.info("失败数量：{}", failureCount);
+        final double failureRate ;
+        if (failureCount == 0 || execCount == 0) {
+            failureRate = 0.00;
+        } else {
+            failureRate = BigDecimal.valueOf(failureCount * 1.00 / execCount * 100L)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
+        }
+        dashboardVO.setFailureRate(failureRate);
 
         // 开发成本（总和）
         double developmentCost = list.stream()
@@ -156,7 +291,7 @@ public class DashboardServiceImpl implements DashboardService {
 
         // 累计节省成本（总和）
         double cumulativeSavedCost = list.stream()
-                .mapToDouble(entity -> entity.getSaveTime() != null ? entity.getSaveTime() : 0)
+                .mapToDouble(entity -> entity.getManualTestTime() != null ? entity.getManualTestTime() * entity.getRangeTimeExecCount() : 0)
                 .sum();
         dashboardVO.setCumulativeSavedCost(cumulativeSavedCost);
 
@@ -164,7 +299,7 @@ public class DashboardServiceImpl implements DashboardService {
         double totalCost = developmentCost + maintenanceCost;
         double roi = 0.0;
         if (totalCost > 0) {
-            roi = BigDecimal.valueOf((cumulativeSavedCost - totalCost) / totalCost * 100)
+            roi = BigDecimal.valueOf(cumulativeSavedCost * 1.00 / totalCost * 100)
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
         }
@@ -185,10 +320,6 @@ public class DashboardServiceImpl implements DashboardService {
         // 新增用例数（在查询时间范围内创建的用例）
         dashboardVO.setNewCaseCount(list.size());
 
-        // 通过率和失败率（这里需要根据实际业务逻辑计算，暂时设置为0）
-        // 如果有执行结果数据，可以根据成功/失败次数计算
-        dashboardVO.setSuccessRate(0L);
-        dashboardVO.setFailureRate(0L);
 
         return dashboardVO;
     }

@@ -26,7 +26,7 @@ public class SameRoadConfigUpdateTests {
 
         // 2) 从数据库获取顺路度配置ID
         Map<String, Object> configRecord = PandaTestDBHelpful.executeSelectOneSql(
-                "select * from panda_test.hp_delivery_same_road_config where city='杭州市' and is_del=0 order by id desc limit 1");
+                "select * from panda_test.hp_delivery_same_road_config where city='杭州市' and config_status=0 and is_del=0 order by id desc limit 1");
         Long sameRoadConfigId = ((Number) configRecord.get("id")).longValue();
 
         // 3) 修改顺路度设置

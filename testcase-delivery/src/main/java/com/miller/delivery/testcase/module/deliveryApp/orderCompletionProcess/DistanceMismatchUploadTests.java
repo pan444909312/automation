@@ -42,11 +42,11 @@ public class DistanceMismatchUploadTests {
 
         // ========== 第二部分：骑手操作流程 ==========
         // 步骤7: 骑手app-骑手登录
-        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010870", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
         DriverOffline driverOffline = new DriverOffline();
-        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+        driverOffline.cancelDispatchAndOffline("13300010870",driverAccessToken);
 
         // 步骤8: 骑手app-司机上线操作
         driverOnline(driverAccessToken);
