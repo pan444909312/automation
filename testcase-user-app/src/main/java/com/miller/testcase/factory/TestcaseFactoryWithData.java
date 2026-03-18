@@ -1,45 +1,24 @@
 package com.miller.testcase.factory;
 
+import com.miller.testcase.utils.TestCaseGenerator;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
-import com.miller.testcase.utils.TestCaseGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * 测试用例工厂
  *
- * @author Miller Shan
- * @version 1.0
- * @since 2025/5/30 11:46:53
  */
-@Scenario(scenarioID = "01JYARQ94GF7EZ2H12TQ839ZYR", scenarioName = "测试用例工厂_一键自动创建用例",
-        author = "shandongdong@hungrypandagroup.com",
+@Scenario(scenarioID = "01KEGYNHVG4R5N4MAGFBVZASDI", scenarioName = "C测试用例工厂_一键自动创建用例待参数",
+        author = "zhangpei@hungrypandagroup.com",
         developmentTime = 8 * 60, maintenanceTime = 2 * 60, manualTestTime = 10)
 @DisplayName("测试用例工厂")
-public class TestcaseFactory {
+public class TestcaseFactoryWithData {
     // 用户可自定义的子目录（如 "account/address"），默认为空字符串，则默认在 module 目录下
-    public static String CUSTOM_SUB_PATH = "user/shop";
-
-    // 自动创建测试用例入口
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("请输入测试用例名称，支持空格或-分割名称，建议英文空格分割（例如：user create address 或 用户-创建地址):");
-        String testCaseName = scanner.nextLine();
-        System.out.println("请粘贴从 Charles 拷贝过来的 cURL 命令：");
-        String curlCommand = scanner.nextLine();
-        try {
-            createTestCase(testCaseName, curlCommand);
-            System.out.println("测试用例生成成功！");
-            new TestCaseRunnerLauncher().runTestMethod(TestcaseFactory.class, "reportedData");
-        } catch (IOException e) {
-            System.err.println("生成测试用例失败：" + e.getMessage());
-        }
-    }
-
+    public static String CUSTOM_PATH = "user/shop";
     // 测试用例模版文件
     public static final String TEMPLATE_FILE = "TestClassTemplate.txt";
 
@@ -56,12 +35,32 @@ public class TestcaseFactory {
     public static final String JAVA_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/java/com/miller/testcase/module";
     public static final String RESOURCES_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/resources/module";
 
+    public static void main(String[] args) {
+        // 检查参数个数
+        if (args.length < 2) {
+            System.err.println("用法: java " + TestcaseFactory.class.getName() + " <测试用例名称> <cURL命令>");
+            System.err.println("示例: java " + TestcaseFactory.class.getName() + " \"user create address\" \"curl -X POST ...\"");
+            System.exit(1);
+        }
+
+        String testCaseName = args[0];
+        String curlCommand = args[1];
+
+        try {
+            createTestCase(testCaseName, curlCommand);
+            System.out.println("测试用例生成成功！");
+            new TestCaseRunnerLauncher().runTestMethod(TestcaseFactory.class, "reportedData");
+        } catch (IOException e) {
+            System.err.println("生成测试用例失败：" + e.getMessage());
+            System.exit(1);
+        }
+    }
     /**
      * 统一对外方法，自动创建测试用例
      */
     public static void createTestCase(String testCaseName, String curlCommand) throws IOException {
-        String javaPath = JAVA_BASE_PATH + (CUSTOM_SUB_PATH.isEmpty() ? "" : "/" + CUSTOM_SUB_PATH);
-        String resourcesPath = RESOURCES_BASE_PATH + (CUSTOM_SUB_PATH.isEmpty() ? "" : "/" + CUSTOM_SUB_PATH);
+        String javaPath = JAVA_BASE_PATH + (CUSTOM_PATH.isEmpty() ? "" : "/" + CUSTOM_PATH);
+        String resourcesPath = RESOURCES_BASE_PATH + (CUSTOM_PATH.isEmpty() ? "" : "/" + CUSTOM_PATH);
         TestCaseGenerator.generateTestCase(
                 testCaseName,
                 curlCommand,

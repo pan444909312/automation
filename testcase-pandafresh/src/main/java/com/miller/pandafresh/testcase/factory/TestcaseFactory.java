@@ -1,8 +1,8 @@
-package com.miller.testcase.factory;
+package com.miller.pandafresh.testcase.factory;
 
+import com.miller.pandafresh.testcase.utils.TestCaseGenerator;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.service.framework.launcher.TestCaseRunnerLauncher;
-import com.miller.testcase.utils.TestCaseGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +16,8 @@ import java.util.Scanner;
  * @version 1.0
  * @since 2025/5/30 11:46:53
  */
-@Scenario(scenarioID = "01JYARQ94GF7EZ2H12TQ839ZYR", scenarioName = "测试用例工厂_一键自动创建用例",
-        author = "shandongdong@hungrypandagroup.com",
+@Scenario(scenarioID = "01KEGYNHVG4R5N4MAGFBVZASDF", scenarioName = "D测试用例工厂_一键自动创建用例",
+        author = "zhangpei@hungrypandagroup.com",
         developmentTime = 8 * 60, maintenanceTime = 2 * 60, manualTestTime = 10)
 @DisplayName("测试用例工厂")
 public class TestcaseFactory {
@@ -50,10 +50,10 @@ public class TestcaseFactory {
      * D端：testcase-delivery
      * PF：testcase-pandafresh
      */
-    public static final String MODULE_NAME = "testcase-user-app";
+    public static final String MODULE_NAME = "testcase-pandafresh";
 
     // 默认测试用例生成路径，不建议修改
-    public static final String JAVA_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/java/com/miller/testcase/module";
+    public static final String JAVA_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/java/com/miller/pandafresh/testcase/module";
     public static final String RESOURCES_BASE_PATH = System.getProperty("user.dir") + "/" + MODULE_NAME + "/src/main/resources/module";
 
     /**
