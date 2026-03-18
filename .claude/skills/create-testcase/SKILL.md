@@ -45,6 +45,6 @@ description: 根据 curl 和接口响应生成自动化用例
 
 ### 第四步：修改响应结果
 询问用户是否需要修改响应结果参数
-- 需要修改，则使用edit response skill 修改响应
+- 需要修改，则使用edit response.md中的规则修改响应
 - 无需修改，则结束任务
 
