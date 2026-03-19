@@ -106,6 +106,7 @@
             resultMap="selectAutoExecutionRecordWithProjectIdMap">
         SELECT DISTINCT e.id,
                         e.scenario_id,
+                        c.scenario_name,
                         e.execution_type,
                         e.execution_time,
                         e.development_time,
@@ -185,6 +186,60 @@
         a.author
         ORDER BY
         case_count DESC;
+    </select>
+
+    <resultMap id="selectRecentExecutionRecordsMap"
+               type="com.miller.entity.report.resp.RecentExecutionRecordRespDTO">
+        <result property="scenarioId" column="scenario_id"/>
+        <result property="author" column="author"/>
+        <result property="executionStatus" column="execution_status"/>
+        <result property="developmentTime" column="development_time"/>
+        <result property="maintenanceTime" column="maintenance_time"/>
+        <result property="saveTime" column="save_time"/>
+        <result property="platformType" column="platform_type"/>
+        <result property="projectId" column="project_id"/>
+    </resultMap>
+
+    <select id="selectRecentExecutionRecords" resultMap="selectRecentExecutionRecordsMap">
+        SELECT e.scenario_id,
+               r.scenario_name,
+               r.author,
+               e.execution_status,
+               r.development_time,
+               r.maintenance_time,
+               r.save_time,
+               r.platform_type,
+               r.project_id
+        FROM auto_execution_record e
+        LEFT JOIN auto_case_roi r ON e.scenario_id = r.scenario_id
+        WHERE e.is_deleted = 0
+          AND r.is_deleted = 0
+        <if test="req.platformTypeList != null and req.platformTypeList.size() > 0">
+            AND r.platform_type IN
+            <foreach collection="req.platformTypeList" item="platformType" open="(" separator="," close=")">
+                #{platformType}
+            </foreach>
+        </if>
+        <if test="req.projectIdList != null and req.projectIdList.size() > 0">
+            AND r.project_id IN
+            <foreach collection="req.projectIdList" item="projectId" open="(" separator="," close=")">
+                #{projectId}
+            </foreach>
+        </if>
+        <if test="req.startTime != null and req.startTime != ''">
+            AND e.execution_time >= UNIX_TIMESTAMP(#{req.startTime}) * 1000
+        </if>
+        <if test="req.endTime != null and req.endTime != ''">
+            AND e.execution_time &lt;= UNIX_TIMESTAMP(#{req.endTime}) * 1000 + 1000 * 60 * 60 * 24
+        </if>
+        <if test="req.authorList != null and req.authorList.size() > 0">
+            AND r.author IN
+            <foreach collection="req.authorList" item="author" open="(" separator="," close=")">
+                #{author}
+            </foreach>
+        </if>
+        ORDER BY e.execution_time DESC
+        LIMIT 20
     </select>
 
 </mapper>
