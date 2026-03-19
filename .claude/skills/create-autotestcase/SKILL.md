@@ -1,5 +1,5 @@
 ---
-## name：create-testcase
+## name：create-autotestcase
 description: 根据 curl 和接口响应生成自动化用例
 
 ---
