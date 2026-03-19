@@ -25,7 +25,7 @@ public class MeshkoreaTests {
 
     @DisplayName("Meshkorea下单")
     @Test
-    public String createOrder() {
+    public String  createOrder() {
 
         Map<String, String> result = new HashMap<>();
         // 步骤1: C侧下单-用户登录
@@ -40,11 +40,11 @@ public class MeshkoreaTests {
                 String userAppOrderSn = createOrder(userAppAccessToken, shopId);
                 // 步骤6: C侧下单-余额支付
                 balancePay(userAppAccessToken, userAppOrderSn);
-                System.out.println("uber单号===="+userAppOrderSn);
+                System.out.println("Mesh单号===="+userAppOrderSn);
                 // 更新订单构造参数
                 updateOrder(userAppOrderSn);
                 System.out.println("构造参数化成功！"+userAppOrderSn);
-                return userAppOrderSn;
+                 return userAppOrderSn;
 
     }
     /**
@@ -160,11 +160,13 @@ public class MeshkoreaTests {
      *
      */
     public void updateOrder(String orderSn) {
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
-                "update `panda_test`.hp_delivery_order set customer_location = '경기도 수원시 영통구 청명로59번길 55'," +
-                        "customer_latitude = '37.250408630650924'," +
-                        "customer_longitude = '127.07978592686521'" +
-                        " where order_sn = '" + orderSn + "'");
+        String sql = "update `panda_test`.hp_delivery_order set customer_location = '경기도 수원시 영통구 청명로59번길 55'," +
+                "customer_latitude = '37.250408630650924'," +
+                "customer_longitude = '127.07978592686521'," +
+                "shop_address = '경기도 수원시 영통구 청명로59번길 50'" +
+                " where order_sn = '" + orderSn + "'";
+        System.out.println("执行SQL: " + sql);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
     }
 
     public Map<String, Object> createUserAppHeaders() {

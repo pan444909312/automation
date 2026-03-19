@@ -2,7 +2,6 @@ package com.miller.delivery.testcase.module.deliveryApp.orderCompletionProcess;
 
 import com.miller.delivery.testcase.config.TestcaseConfig;
 import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWineTests;
-import com.miller.delivery.testcase.module.deliveryUtils.order.CreateInstantOrderWithHandoverTests;
 import com.miller.delivery.testcase.utils.DriverOffline;
 import com.miller.delivery.testcase.utils.TestCaseHelpful;
 import com.miller.service.framework.annotation.Scenario;
@@ -37,12 +36,17 @@ public class GrabOrderCompleteAlcoholMismatchTests {
         String userAppOrderSn = create.orderFlow();
 
         // 2) 骑手登录 & 上线
-        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("15199010387", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
         DriverOffline driverOffline = new DriverOffline();
-        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
+        driverOffline.cancelDispatchAndOffline("15199010387",driverAccessToken);
         onOffline(driverAccessToken, true);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         // 3) 司管登录
         String siGuanToken = erpLogin();

@@ -32,7 +32,7 @@ public class ShopShouldHasPandaCouponTests {
     private static UserLoginRequestDTO userLoginRequestDTO;
     private static final Long userId = Long.parseLong(new PropertiesUtils().getProperty(ShopShouldHasPandaCouponTests.class, "user.app.for.test.shop.card.version3.userId"));
      @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() throws InterruptedException {
 
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
@@ -47,7 +47,7 @@ public class ShopShouldHasPandaCouponTests {
          UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
          userCdkeyInfoSql.updateRedPacketUsedStatusExclude(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(ShopShouldHasPandaCouponTests.class, "user.app.for.test.shop.card.version3.redpacketId2")));
          userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(ShopShouldHasPandaCouponTests.class, "user.app.for.test.shop.card.version3.redpacketId2")), (byte) 0);
-
+         Thread.sleep(5000);
      }
      @AfterAll
      static void afterAll(){

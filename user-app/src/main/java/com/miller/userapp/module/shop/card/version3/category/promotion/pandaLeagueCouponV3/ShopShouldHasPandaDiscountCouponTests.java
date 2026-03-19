@@ -12,6 +12,7 @@ import com.miller.userapp.module.home.login.request.UserLoginRequestDTO;
 import com.miller.userapp.module.shop.card.version3.category.flow.ShopListFlow;
 import com.miller.userapp.module.shop.card.version3.category.request.ShopListRequestDTO;
 import com.miller.userapp.module.shop.card.version3.category.response.ShopListResponseDTO;
+import org.bouncycastle.asn1.cms.OtherRecipientInfo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +33,7 @@ public class ShopShouldHasPandaDiscountCouponTests {
     private static UserLoginRequestDTO userLoginRequestDTO;
     private static final Long userId = Long.parseLong(new PropertiesUtils().getProperty(ShopShouldHasPandaDiscountCouponTests.class, "user.app.for.test.shop.card.version3.userId"));
      @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() throws InterruptedException {
 
         //   用户登录
         userLoginRequestDTO = new UserLoginRequestDTO();
@@ -47,6 +48,7 @@ public class ShopShouldHasPandaDiscountCouponTests {
          UserCdkeyInfoSql userCdkeyInfoSql = new UserCdkeyInfoSql();
          userCdkeyInfoSql.updateRedPacketUsedStatusExclude(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(ShopShouldHasPandaDiscountCouponTests.class, "user.app.for.test.shop.card.version3.redpacketId3")));
          userCdkeyInfoSql.updateRedPacketUsedStatus(String.valueOf(userId),Long.parseLong(new PropertiesUtils().getProperty(ShopShouldHasPandaDiscountCouponTests.class, "user.app.for.test.shop.card.version3.redpacketId3")), (byte) 0);
+         Thread.sleep(5000); // Wait for 5 seconds
      }
      @AfterAll
      static void afterAll(){
