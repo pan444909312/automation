@@ -10,11 +10,13 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.apifox.DTO.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
+import com.miller.entity.report.req.ListRecentExecutionRecordReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDataDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
+import com.miller.entity.report.resp.RecentExecutionRecordRespDTO;
 import com.miller.mapper.report.AutoExecutionRecordMapper;
 import com.miller.service.report.AutoCaseRoiService;
 import com.miller.service.report.AutoExecutionRecordService;
@@ -287,5 +289,14 @@ public class AutoExecutionRecordServiceImpl extends ServiceImpl<AutoExecutionRec
 
 
         return autoCaseExecutionDailyDataDTOS;
+    }
+
+    @Override
+    public Map<String, Object> listRecentExecutionRecords(ListRecentExecutionRecordReqDTO req) {
+        List<RecentExecutionRecordRespDTO> list = autoExecutionRecordMapper.selectRecentExecutionRecords(req);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("total", list.size());
+        result.put("list", list);
+        return result;
     }
 }

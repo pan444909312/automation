@@ -15,8 +15,8 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
  * 新调度- 骑手管控详情
  */
 @Scenario(
-        scenarioID = "01KK18E4V352CDQ8WV1K4NMH55",
-        scenarioName = "新调度-骑手数量统计",
+        scenarioID = "01KKD7SJ70E0DP982KW003Y7KX",
+        scenarioName = "新调度-骑手管控详情",
         author = "TestingConsultant@hungrypandagroup.com",
         developmentTime = 60, maintenanceTime = 0, manualTestTime = 5)
 @DisplayName("新调度- 骑手管控详情")

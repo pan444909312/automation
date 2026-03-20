@@ -1,0 +1,52 @@
+{
+  "eval_id": 2,
+  "expectations": [
+    {
+      "text": "生成了markdown文件",
+      "passed": true,
+      "evidence": "文件存在: True"
+    },
+    {
+      "text": "包含功能测试和接口测试两类",
+      "passed": true,
+      "evidence": "包含两类测试: True"
+    },
+    {
+      "text": "包含至少8个测试用例",
+      "passed": true,
+      "evidence": "找到 18 个测试用例"
+    },
+    {
+      "text": "接口测试用例包含请求参数",
+      "passed": true,
+      "evidence": "包含API请求参数: True"
+    },
+    {
+      "text": "接口测试用例包含响应验证",
+      "passed": true,
+      "evidence": "包含响应验证: True"
+    },
+    {
+      "text": "覆盖了搜索词长度边界",
+      "passed": true,
+      "evidence": "包含长度边界测试: True"
+    },
+    {
+      "text": "覆盖了排序功能",
+      "passed": true,
+      "evidence": "包含排序测试: True"
+    },
+    {
+      "text": "覆盖了无结果场景",
+      "passed": true,
+      "evidence": "包含无结果场景: True"
+    },
+    {
+      "text": "覆盖了搜索历史功能",
+      "passed": true,
+      "evidence": "包含搜索历史测试: True"
+    }
+  ],
+  "pass_count": 9,
+  "total_count": 9
+}

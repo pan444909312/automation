@@ -1,0 +1,52 @@
+{
+  "eval_id": 3,
+  "expectations": [
+    {
+      "text": "生成了markdown文件",
+      "passed": true,
+      "evidence": "文件存在: True"
+    },
+    {
+      "text": "包含功能测试和UI测试",
+      "passed": true,
+      "evidence": "包含功能和UI测试: True"
+    },
+    {
+      "text": "包含至少10个测试用例",
+      "passed": true,
+      "evidence": "找到 20 个测试用例"
+    },
+    {
+      "text": "覆盖了加购和数量累加",
+      "passed": true,
+      "evidence": "包含加购累加测试: True"
+    },
+    {
+      "text": "覆盖了数量上限",
+      "passed": true,
+      "evidence": "包含数量上限测试: True"
+    },
+    {
+      "text": "覆盖了下架商品状态",
+      "passed": true,
+      "evidence": "包含下架商品测试: True"
+    },
+    {
+      "text": "覆盖了批量操作",
+      "passed": true,
+      "evidence": "包含批量操作测试: True"
+    },
+    {
+      "text": "UI测试包含角标验证",
+      "passed": true,
+      "evidence": "包含角标验证: True"
+    },
+    {
+      "text": "测试步骤具体可执行",
+      "passed": true,
+      "evidence": "包含具体操作步骤: True"
+    }
+  ],
+  "pass_count": 9,
+  "total_count": 9
+}

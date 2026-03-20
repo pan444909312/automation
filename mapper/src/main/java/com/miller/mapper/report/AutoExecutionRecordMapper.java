@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
+import com.miller.entity.report.req.ListRecentExecutionRecordReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
+import com.miller.entity.report.resp.RecentExecutionRecordRespDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -65,5 +67,12 @@ public interface AutoExecutionRecordMapper extends BaseMapper<AutoExecutionRecor
      * @return
      */
     List<AutoCaseExecutionDailySummaryDTO> selectDailyCaseExecutionResultSummary(String projectId, int executionType, @Param("executionStatusList") List<Integer> executionStatusList, Date date);
+
+    /**
+     * 根据条件查询最近20条执行记录
+     * @param req
+     * @return
+     */
+    List<RecentExecutionRecordRespDTO> selectRecentExecutionRecords(@Param("req") ListRecentExecutionRecordReqDTO req);
 
 }

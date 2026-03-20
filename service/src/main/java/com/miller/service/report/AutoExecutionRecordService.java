@@ -5,11 +5,13 @@ import com.miller.entity.report.AutoCaseRoiEntity;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.apifox.DTO.ApifoxAutoCaseRoiDto;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
+import com.miller.entity.report.req.ListRecentExecutionRecordReqDTO;
 import com.miller.entity.report.req.UiAutoCaseRoiReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDataDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailySummaryDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionRecordRespDTO;
+import com.miller.entity.report.resp.RecentExecutionRecordRespDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -81,4 +83,12 @@ public interface AutoExecutionRecordService extends IService<AutoExecutionRecord
      * @return
      */
     List<AutoCaseExecutionDailyDataDTO> getDailyCaseExecutionSummaryByPerson(String projectId, Date date);
+
+    /**
+     * 根据条件查询最近20条执行记录
+     *
+     * @param req 查询条件（platformType、projectId、startTime、endTime、author）
+     * @return
+     */
+    Map<String, Object> listRecentExecutionRecords(ListRecentExecutionRecordReqDTO req);
 }

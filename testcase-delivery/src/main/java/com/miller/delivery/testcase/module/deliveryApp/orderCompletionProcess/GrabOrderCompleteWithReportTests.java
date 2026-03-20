@@ -50,16 +50,13 @@ public class GrabOrderCompleteWithReportTests {
         
         // ========== 第三部分：骑手操作流程 ==========
         // 步骤9: 骑手app-骑手登录
-        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("13300010676", "Test1234");
+        Map<String, String> driverLoginInfo = TestCaseHelpful.deliveryLoginReturndriverId("15199010388", "Test1234");
         String driverAccessToken = driverLoginInfo.get("accessToken");
         Long driverId = Long.valueOf(driverLoginInfo.get("userId"));
         DriverOffline driverOffline = new DriverOffline();
-        driverOffline.cancelDispatchAndOffline("13300010676",driverAccessToken);
-        
+        driverOffline.cancelDispatchAndOffline("15199010388",driverAccessToken);
         // 步骤10: 骑手app-司机上线操作
         driverOnline(driverAccessToken);
-        
-
         
         // ========== 第四部分：调度分配流程 ==========
         // 步骤12: 调度-获取订单下可分配的骑手
@@ -151,7 +148,6 @@ public class GrabOrderCompleteWithReportTests {
         String method = "POST";
         Map<String, Object> headers = createDriverAppHeaders();
         headers.put("authorization", driverAccessToken);
-        
         String body = "{\"isOnline\":1}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         

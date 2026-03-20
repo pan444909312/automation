@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author panjuxiang
  * @since 2024/8/24 16:34
  */
-@Scenario(scenarioID = "01K9RWTX9S9QKGYT6AKTVP593H",
+@Scenario(scenarioID = "01KKJGKRR4FD19D9BDRTJDVD7K",
         scenarioName = "搜索推荐列表商卡-SKYX01_营销标_买过的店_店铺星级不符合买过的店标签时，不返回标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test

@@ -1,0 +1,57 @@
+{
+  "eval_id": 1,
+  "expectations": [
+    {
+      "text": "生成了markdown文件",
+      "passed": true,
+      "evidence": "文件存在: True"
+    },
+    {
+      "text": "包含至少5个测试用例",
+      "passed": true,
+      "evidence": "找到 18 个测试用例"
+    },
+    {
+      "text": "每个用例都有用例ID",
+      "passed": true,
+      "evidence": "用例ID格式正确: True"
+    },
+    {
+      "text": "每个用例都有优先级",
+      "passed": true,
+      "evidence": "找到 20 个优先级标记"
+    },
+    {
+      "text": "每个用例都有前置条件",
+      "passed": true,
+      "evidence": "找到 20 个前置条件"
+    },
+    {
+      "text": "每个用例都有测试步骤",
+      "passed": true,
+      "evidence": "找到 20 个测试步骤"
+    },
+    {
+      "text": "每个用例都有预期结果",
+      "passed": true,
+      "evidence": "找到 20 个预期结果"
+    },
+    {
+      "text": "覆盖了正向流程",
+      "passed": true,
+      "evidence": "包含正向P0用例: True"
+    },
+    {
+      "text": "覆盖了异常场景",
+      "passed": true,
+      "evidence": "包含异常场景: True"
+    },
+    {
+      "text": "覆盖了边界值",
+      "passed": true,
+      "evidence": "包含边界值测试: True"
+    }
+  ],
+  "pass_count": 10,
+  "total_count": 10
+}

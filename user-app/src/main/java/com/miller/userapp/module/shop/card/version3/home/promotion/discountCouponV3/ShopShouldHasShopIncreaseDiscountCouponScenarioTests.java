@@ -34,9 +34,10 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 public class ShopShouldHasShopIncreaseDiscountCouponScenarioTests {
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.increase.discount.shopId"));
     @BeforeAll
-    public void beforeAll() {
+    public void beforeAll() throws InterruptedException {
         //登陆任意账号
         UserLoginFlow.loginByDefaultUser();
+        Thread.sleep(5000);
     }
     @MethodSource("couponDataProvider")
     @ParameterizedTest
