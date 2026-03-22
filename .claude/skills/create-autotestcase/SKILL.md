@@ -31,9 +31,9 @@ description: 根据 curl 和接口响应生成自动化用例
 
 #### 1. 执行 TestcaseFactoryWithData.main() 方法
 使用 Java 命令执行对应模块的 TestcaseFactoryWithData.main() 方法：
-- C端（testcase-user-app）：执行[c端用例生成](.claude/skills/create-testcase/reference/c_test_factory.md)
-- D端（testcase-delivery）：执行[d端用例生成](.claude/skills/create-testcase/reference/d_test_factory.md)
-- PF端（testcase-pandafresh）：执行[pf用例生成](.claude/skills/create-testcase/reference/pf_test_factory.md)
+- C端（testcase-user-app）：执行[c端用例生成](/reference/c_test_factory.md)
+- D端（testcase-delivery）：执行[d端用例生成](/reference/d_test_factory.md)
+- PF端（testcase-pandafresh）：执行[pf用例生成](/reference/pf_test_factory.md)
 
 #### 2. 登录处理
 需要登录： 在用例的请求头后添加代码：requestHeaders.put("authorization",TestCaseHelpful.login(登录手机号,登录密码));
