@@ -6,6 +6,7 @@ import com.miller.entity.constant.ExecutionTypeEnum;
 import com.miller.entity.constant.ProjectTypeEnum;
 import com.miller.entity.report.AutoExecutionRecordEntity;
 import com.miller.entity.report.req.ListDailyResultSummaryReqDTO;
+import com.miller.entity.report.req.ListRecentExecutionRecordReqDTO;
 import com.miller.entity.report.req.PageAutoCaseExecutionRecordReqDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDTO;
 import com.miller.entity.report.resp.AutoCaseExecutionDailyDataDTO;
@@ -114,5 +115,10 @@ public class AutoExecutionRecordController {
 
     }
 
+    @Operation(description = "根据条件查询最近20条执行记录")
+    @PostMapping("/listRecentRecords")
+    public Map<String, Object> listRecentExecutionRecords(@RequestBody ListRecentExecutionRecordReqDTO listRecentExecutionRecordReqDTO) {
+        return autoExecutionRecordService.listRecentExecutionRecords(listRecentExecutionRecordReqDTO);
+    }
 
 }

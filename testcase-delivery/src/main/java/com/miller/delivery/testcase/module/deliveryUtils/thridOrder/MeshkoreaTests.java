@@ -160,13 +160,13 @@ public class MeshkoreaTests {
      *
      */
     public void updateOrder(String orderSn) {
-        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
-                "update `panda_test`.hp_delivery_order set customer_location = '경기도 수원시 영통구 청명로59번길 55'," +
-                        "customer_latitude = '37.250408630650924'," +
-                        "customer_longitude = '127.07978592686521'," +
-                        "shop_address = '경기도 수원시 영통구 청명로59번길 50'" +
-                        " where order_sn = '" + orderSn + "'");
-
+        String sql = "update `panda_test`.hp_delivery_order set customer_location = '경기도 수원시 영통구 청명로59번길 55'," +
+                "customer_latitude = '37.250408630650924'," +
+                "customer_longitude = '127.07978592686521'," +
+                "shop_address = '경기도 수원시 영통구 청명로59번길 50'" +
+                " where order_sn = '" + orderSn + "'";
+        System.out.println("执行SQL: " + sql);
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(sql);
     }
 
     public Map<String, Object> createUserAppHeaders() {
