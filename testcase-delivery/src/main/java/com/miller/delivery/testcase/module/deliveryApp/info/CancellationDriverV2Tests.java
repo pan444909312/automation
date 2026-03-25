@@ -29,7 +29,7 @@ import static com.miller.delivery.testcase.utils.TestCaseHelpful.erpLogin;
 @DisplayName("注销账号")
 public class CancellationDriverV2Tests {
 
-    private static final String DRIVER_ACCOUNT = "13300010015";
+    private static final String DRIVER_ACCOUNT = "13300010016";
 
     @DisplayName("注销账号完整流程")
     @Test
@@ -117,12 +117,15 @@ public class CancellationDriverV2Tests {
      * 恢复骑手账号
      */
     private void restoreDriverAccount(String siGuanToken, Long userId) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/deliveryman/" + userId;
-        String method = "PATCH";
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/new/driver/unDelDriver";
+        String method = "POST";
         Map<String, Object> headers = createErpHeaders();
         headers.put("authorization", siGuanToken);
         
-        String body = "{\"op\":\"undelete\"}";
+        String body = "{\n" +
+                "    \"driverId\": "+userId+",\n" +
+                "    \"op\": \"undelete\"\n" +
+                "}";
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
 
         // 断言
