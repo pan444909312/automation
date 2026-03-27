@@ -52,6 +52,12 @@ public class OrderDetailPageTests {
         // ========== 第五部分：后置操作 ==========
         // 步骤15: 调度取消配送
         cancelDispatch(siGuanToken, userAppOrderSn);
+        // 等待2秒
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
     /**
      * 调度取消配送

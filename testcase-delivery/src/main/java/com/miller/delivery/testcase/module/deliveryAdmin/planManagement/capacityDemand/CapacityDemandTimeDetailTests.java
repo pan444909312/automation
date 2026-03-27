@@ -32,7 +32,7 @@ public class CapacityDemandTimeDetailTests {
 
         // 3) 从数据库获取当天其中一条运力
         Map<String, Object> demandRecord = PandaTestDBHelpful.executeSelectOneSql(
-                "select * from panda_test.hp_delivery_capacity_demand where demand_date=? order by id desc limit 1",
+                "select * from panda_test.hp_delivery_capacity_demand where demand_date=? and city='杭州市' order by id desc limit 1",
                 todayDate);
         Long demandId = ((Number) demandRecord.get("id")).longValue();
 

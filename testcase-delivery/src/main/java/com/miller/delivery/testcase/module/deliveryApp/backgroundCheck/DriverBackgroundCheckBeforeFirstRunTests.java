@@ -335,11 +335,11 @@ public class DriverBackgroundCheckBeforeFirstRunTests {
     }
 
     private void modifyDriverPassword(String erpToken) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/deliveryman/" + newUserId;
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/new/driver/modifyPwd";
         Map<String, Object> headers = createErpHeaders(erpToken);
 
-        String body = "{\"op\":\"pwd_modify\",\"newPassword\":\"Test1234\"}";
-        var responseBody = TestCaseHelpful.sendRequest("PATCH", uri, null, headers, body);
+        String body = "{\"driverId\":"+newUserId+",\"op\":\"pwd_modify\",\"newPassword\":\"Test1234\"}";
+        var responseBody = TestCaseHelpful.sendRequest("POST", uri, null, headers, body);
 
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");
