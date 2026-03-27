@@ -47,10 +47,13 @@ public class DriverRecycleRestoreTests {
     }
 
     private void restoreDriver(String token, String userId) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/deliveryman/" + userId;
-        String method = "PATCH";
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/new/driver/unDelDriver";
+        String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String body = "{\"op\":\"undelete\"}";
+        String body = "{\n" +
+                "    \"driverId\": "+userId+",\n" +
+                "    \"op\": \"undelete\"\n" +
+                "}";
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("message").isEqualTo("成功");

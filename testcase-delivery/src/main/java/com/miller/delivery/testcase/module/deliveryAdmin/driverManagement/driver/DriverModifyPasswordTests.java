@@ -31,10 +31,10 @@ public class DriverModifyPasswordTests {
     }
 
     private void modifyPassword(String token) {
-        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/deliveryman/1398715578";
-        String method = "PATCH";
+        String uri = TestcaseConfig.HOST_ERP + "/api/deliveryAdmin/new/driver/modifyPwd";
+        String method = "POST";
         Map<String, Object> headers = createHeaders(token);
-        String body = "{\"op\":\"pwd_modify\",\"newPassword\":\"AA2010aa\"}";
+        String body = "{\"driverId\":1398720945,\"op\":\"pwd_modify\",\"newPassword\":\"Test1234\"}";
 
         var responseBody = TestCaseHelpful.sendRequest(method, uri, null, headers, body);
         TestCaseHelpful.assertThatJson(responseBody).node("code").isEqualTo(1);

@@ -81,7 +81,7 @@ public class UserCreditConsumeList_Tests {
         JSONArray creditList = TestCaseHelpful.extractValue(responseBody, "data.list");
 
         //数据库查询
-        String sql = "SELECT id,order_sn,amount/100 as amount FROM b2b_custom_credit_record c WHERE c.custom_id=8 and c.business_type=3 ORDER BY c.id DESC;";
+        String sql = "SELECT id,order_sn,amount/100 as amount FROM b2b_custom_credit_record c WHERE c.custom_id=8 and c.business_type in (3,4) ORDER BY c.id DESC;";
         List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
 
         // 判断credit返回是否正确

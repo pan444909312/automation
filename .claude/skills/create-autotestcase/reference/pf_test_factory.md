@@ -18,22 +18,22 @@ cd "$PROJECT_ROOT"
 
 # 编译
 echo "开始 Maven 编译..."
-if ! mvn package -pl testcase-delivery -am; then
+if ! mvn package -pl testcase-pandafresh -am; then
     echo "Maven 编译失败" >&2
     exit 1
 fi
 
 # 获取精确 classpath
 echo "构建 classpath..."
-CP=$(mvn -pl testcase-delivery dependency:build-classpath -DincludeScope=compile -Dmdep.outputFile=/dev/stdout | tail -1)
-CP="testcase-delivery/target/classes:service/target/classes:$CP"
+CP=$(mvn -pl testcase-pandafresh dependency:build-classpath -DincludeScope=compile -Dmdep.outputFile=/dev/stdout | tail -1)
+CP="testcase-pandafresh/target/classes:service/target/classes:$CP"
 
 # 可选：对 cURL 命令进行 base64 编码
-CURL_B64=$(echo -n "$CURL_COMMAND" | base64)
+#CURL_B64=$(echo -n "$CURL_COMMAND" | base64)
 
 # 执行 Java 程序
 echo "执行 Java 程序..."
-java -cp "$CP" com.miller.delivery.testcase.factory.TestcaseFactoryWithData "$TESTCASE_NAME" "$CURL_B64"
+java -cp "$CP" com.miller.pandafresh.testcase.factory.TestcaseFactoryWithData "$TESTCASE_NAME" "$CURL_B64"
 
 exit $?
 ```

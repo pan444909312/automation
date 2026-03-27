@@ -29,7 +29,7 @@ CP=$(mvn -pl testcase-user-app dependency:build-classpath -DincludeScope=compile
 CP="testcase-user-app/target/classes:service/target/classes:$CP"
 
 # 可选：对 cURL 命令进行 base64 编码
-CURL_B64=$(echo -n "$CURL_COMMAND" | base64)
+#CURL_B64=$(echo -n "$CURL_COMMAND" | base64)
 
 # 执行 Java 程序
 echo "执行 Java 程序..."

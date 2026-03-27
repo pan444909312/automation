@@ -82,7 +82,7 @@ public class UserCreditGetList_Tests {
 
         //数据库查询
         String sql = "SELECT c.id,c.order_sn,c.amount/100 as amount FROM b2b_custom_credit_record c " +
-                "LEFT JOIN b2b_credit t on t.credit_no=c.credit_no  WHERE c.custom_id=8 and c.business_type!=3 and t.credit_status=0  ORDER BY c.id DESC;";
+                "LEFT JOIN b2b_credit t on t.credit_no=c.credit_no  WHERE c.custom_id=8 and c.business_type in (0,1,2,5) ORDER BY c.id DESC;";
         List<Map<String, Object>> selectListSql = FreshTestDBHelpful.executeSelectListSql(sql);
 
         // 判断credit返回是否正确
