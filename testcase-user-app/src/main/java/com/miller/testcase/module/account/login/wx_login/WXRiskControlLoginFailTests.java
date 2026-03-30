@@ -36,6 +36,9 @@ public class WXRiskControlLoginFailTests {
                         "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
         );
         PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "update risk_test.risk_control_rule set rule_status=\"DISABLE\" where rule_code=\"risk_device_limit_rule\"\n"
+        );
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
                 "delete from risk_test.risk_control_device_log where user_id=250543;");
     }
     @AfterAll

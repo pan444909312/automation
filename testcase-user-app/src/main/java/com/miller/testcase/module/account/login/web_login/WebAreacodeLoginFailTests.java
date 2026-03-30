@@ -41,6 +41,9 @@ public class WebAreacodeLoginFailTests {
                         "     `rule_status` = 'DISABLE'  \n" +
                         "WHERE rule_code=\"device_sign_in_account_limit_rule\";"
         );
+        PandaTestDBHelpful.executeInsertOrUpdateOrDelete(
+                "update risk_test.risk_control_rule set rule_status=\"DISABLE\" where rule_code=\"risk_device_limit_rule\"\n"
+        );
     }
     @AfterAll
     static void afterAll(){
