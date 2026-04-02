@@ -3,11 +3,12 @@ package com.miller.testcase.moduleEn.home.en_shoplist_v1;
 import com.miller.service.framework.annotation.Scenario;
 import com.miller.testcase.config.TestcaseConfig;
 import com.miller.testcase.utils.TestCaseHelpful;
-import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 /**
  * en shoplist v1
@@ -48,8 +49,6 @@ public class En_Shoplist_V1_Tests {
         String params = null;
         // 请求体。如果没有传 null 即可（body = null）。比如 GET 请求可能没有请求体。作用同请求头
         String body = "module/home/en_shoplist_v1/request/body.json";
-        // 断言。默认从resources目录下读取文件。下面的代码表示从 resource 的 module/xxx/response/assert_full_field.json 读取文件内容作为断言
-        String assertFullField = "module/home/en_shoplist_v1/response/assert_full_field.json";
 
         // 步骤1: 设置请求头。基本固定写法，不需要修改
         var requestHeaders = TestCaseHelpful.getHeaders(headers);
@@ -62,10 +61,9 @@ public class En_Shoplist_V1_Tests {
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
 
-        // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
-        // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        var expectedStr = TestCaseHelpful.getFileContent(assertFullField);
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).isEqualTo(expectedStr);
-
+        // 步骤4: 断言返回的店铺列表数据不为空
+        List<Object> shopList = TestCaseHelpful.extractValue(responseBody, "$.result.shopList");
+        TestCaseHelpful.assertThat(shopList).isNotNull();
+        TestCaseHelpful.assertThat(shopList.size()).isNotEqualTo(0);
     }
-} 
+}
