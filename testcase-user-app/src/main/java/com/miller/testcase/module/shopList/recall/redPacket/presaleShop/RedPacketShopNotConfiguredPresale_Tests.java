@@ -54,7 +54,7 @@ public class RedPacketShopNotConfiguredPresale_Tests {
         assertThat(shopType).isEqualTo(0);
         // 获取并校验 presale
         Integer presale = responseShopBody.getInteger("presale");
-//        assertThat(presale).isNull();
+        assertThat(presale).isNull();
         assertThat(presale).isNotEqualTo(1);
     }
 } 

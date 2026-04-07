@@ -6,7 +6,7 @@
 	"language":"CN",
 	"type":"1",
 	"_sign":"9d3c7ef33fa28125552a17155250a5c2",
-	"version":"8.64.0",
+	"version":"8.80.0",
 	"apptypeid":"1",
 	"platform":"ANDROID_USER",
 	"zipcode":"",
@@ -21,6 +21,6 @@
 	"device_safe_token":"a0_b0_c1_h0_i0_j0_m0_n0_p0_s0",
 	"_sig":"5d51e853b3a918b8328db23e360a0b3f90be0838",
 	"longitude":"115.9541",
-	"user-agent":"8.64.0",
+	"user-agent":"8.80.0",
 	"_ts":"1753779695621"
 }

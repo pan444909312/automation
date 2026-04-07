@@ -54,7 +54,7 @@ public class TimeEndedPresale_Tests {
         assertThat(shopType).isEqualTo(0);
         // 获取并校验 presale
         Integer presale = responseShopBody.getInteger("presale");
-//        assertThat(presale).isNull();
-        assertThat(presale).isNotEqualTo(1);
+        Assertions.assertNotNull(presale, "presale 不应为空");
+        assertThat(presale).isEqualTo(1);
     }
 } 
