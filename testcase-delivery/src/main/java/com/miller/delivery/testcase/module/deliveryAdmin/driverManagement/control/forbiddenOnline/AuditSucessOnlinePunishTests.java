@@ -51,7 +51,11 @@ public class AuditSucessOnlinePunishTests {
                 .node("code").isEqualTo(1);
         TestCaseHelpful.assertThatJson(responseBody)
                 .node("message").isEqualTo("成功");
-
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
 
     }
