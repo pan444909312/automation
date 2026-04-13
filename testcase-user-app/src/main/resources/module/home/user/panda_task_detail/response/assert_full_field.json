@@ -1,0 +1,16 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"shortName": "地推活动测试",
+		"taskStatusText": "进行中",
+		"taskStatus": 2,
+		"taskDescription": "<p>地推活动测试正文</p>",
+		"taskPlainTextDescription": "地推活动测试正文",
+		"cityName": "九江市",
+		"taskTime": "04月10日 00:00~05月31日 00:00",
+		"policySn": "LAW3820260128165502"
+	},
+	"success": true
+}

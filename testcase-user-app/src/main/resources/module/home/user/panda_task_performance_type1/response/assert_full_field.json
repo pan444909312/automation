@@ -1,0 +1,21 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"tipText": "以下仅做参考，以工作人员数据为准",
+		"appFirstLoginUsers": {
+			"summary": {
+				"totalCount": 1
+			},
+			"details": [
+				{
+					"phoneNumberMask": "177****0123",
+					"actionTime": "2026-04-11 17:37:51"
+				}
+			]
+		},
+		"firstOrderUsers": null
+	},
+	"success": true
+}

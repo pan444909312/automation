@@ -1,0 +1,32 @@
+{
+  "resultCode": 1000,
+  "error": "成功",
+  "reason": "成功",
+  "result": {
+    "canPromote": true,
+    "disableReason": null,
+    "promoCode": "1GVMHR",
+    "taskList": [
+      {
+        "taskId": 60,
+        "shortName": "地推活动测试",
+        "taskTime": "04月10日 00:00~05月31日 00:00",
+        "cityName": "九江市",
+        "taskStatus": 2,
+        "taskStatusDesc": "进行中",
+        "taskDescription": "<p>地推活动测试正文</p>",
+        "taskPlainTextDescription": "地推活动测试正文",
+        "startTime": 1775750400000,
+        "endTime": 1811692800000
+      }
+    ],
+    "total": 1,
+    "pageNum": 1,
+    "pageSize": 10
+  },
+  "success": true,
+  "queryList": {
+    "1": "hp_master: SELECT * FROM hp_ground_promo_promoter WHERE is_del = 0 AND user_id = 1398724538 LIMIT 1",
+    "2": "hp_master: SELECT task_id FROM hp_ground_promo_task_promoter WHERE is_del = 0 AND promoter_id = 86",
+    "3": "hp_master: SELECT * FROM hp_ground_promo_task WHERE is_del = 0 AND biz_type = 1 AND id IN ( 60 )"
+  }}

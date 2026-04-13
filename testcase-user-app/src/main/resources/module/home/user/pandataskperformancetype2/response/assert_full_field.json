@@ -1,0 +1,16 @@
+{
+	"resultCode": 1000,
+	"error": "成功",
+	"reason": "成功",
+	"result": {
+		"tipText": "以下仅做参考，以工作人员数据为准",
+		"appFirstLoginUsers": null,
+		"firstOrderUsers": {
+			"summary": {
+				"totalCount": 0
+			},
+			"details": []
+		}
+	},
+	"success": true
+}

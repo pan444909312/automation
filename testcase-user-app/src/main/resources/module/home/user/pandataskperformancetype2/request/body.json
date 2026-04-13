@@ -1,0 +1,32 @@
+{
+  "pm": "POST",
+  "ph": {
+    "brand": "",
+    "model": "",
+    "countryCode": "GB",
+    "version": "8.80.0",
+    "appVersion": "8.80.0",
+    "longitude": "115.9541",
+    "latitude": "29.6605799",
+    "platform": "WEB_ANDROID",
+    "appTypeId": "1",
+    "uniquetoken": "0cf49693fdfe499f8b6d4ac4ccf00d5c",
+    "uniqueToken": "0cf49693fdfe499f8b6d4ac4ccf00d5c",
+    "locale": "CN",
+    "lang": "CN",
+    "authorization": "83c8fca73efdcfe7f8a779ddddb66883",
+    "language": "CN",
+    "i18n-language": "CN",
+    "i18n-translate-status": 0
+  },
+  "pd": {
+    "taskId": 60,
+    "dataType": 2,
+    "pageNum": 1,
+    "pageSize": 20
+  },
+  "nv": "2",
+  "nt": "1775900304441",
+  "nn": "BtX7V3FAeD67enrMpGOShso1A",
+  "nd": "a0d903eb198bb71"
+}
