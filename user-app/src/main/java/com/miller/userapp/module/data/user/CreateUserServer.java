@@ -31,7 +31,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import java.util.*;
 
 public class CreateUserServer {
-    private static final String[] prefixTels = {"165", "167", "170", "171", "187", "190", "192", "139", "159", "195", "137","132"};
+    private static final String[] prefixTels = {"165", "167", "170", "171", "187", "190", "192", "139", "159", "195", "137","132","191"};
     private String saveOrUpdateUrl = BusinessConstant.DOMAIN + "/api/app/user/v1/address/edit";
     private SqlSession sqlSession;
     private AccountSql accountSql;
@@ -140,7 +140,7 @@ public class CreateUserServer {
             }
             Optional<String> prefixTel = Arrays.stream(prefixTels).filter(tel::startsWith).findAny();
             if (!prefixTel.isPresent()) {
-                return "请输入{165,167,170,171,187,190,192,139,159,195,137,132}开头手机号！";
+                return "请输入{165,167,170,171,187,190,192,139,159,195,137,132,191}开头手机号！";
             }
             if (checkUser(tel)) {
                 return createUserData(tel) + "";
