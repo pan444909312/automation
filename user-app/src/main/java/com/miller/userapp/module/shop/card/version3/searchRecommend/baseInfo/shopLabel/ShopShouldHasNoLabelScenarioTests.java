@@ -31,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  * @since 2024/06/25 21:17:39
  */
+
 @Scenario(scenarioID = "01KJ6V2PCWMV9036PKPMBHNJMA",
         scenarioName = "搜索推荐列表商卡-SKYX01_基础信息_店铺角标_搜索列表-商卡二期:店铺角标 - 不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)

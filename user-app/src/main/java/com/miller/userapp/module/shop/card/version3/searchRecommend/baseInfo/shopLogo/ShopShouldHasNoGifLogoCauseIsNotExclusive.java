@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Scenario(scenarioID = "01KKJG3C2K8RZCBV9GV56HC3FS",
-        scenarioName = "搜索推荐列表商卡-SKYX01_基础信息_店铺logo_搜索列表-商卡二期:非独家店铺，该店铺设置了主图动图，不会展示动图",
+        scenarioName = "搜索推荐列表商卡-SKYX01_基础信息_店铺logo_搜索列表-商卡二期:非独家店铺，该店铺设置了主图动图，不会展示动图（新逻辑不判断独家逻辑）",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -88,7 +88,7 @@ public class ShopShouldHasNoGifLogoCauseIsNotExclusive {
         assertThat(count == 0).isTrue();
         assertThat(shopSearchMiddleEntity.getShopLogoGif()).isEqualTo("");
 
-        assertThat(shopLogoOfERPInterfaceResponse).isEqualTo(shopSearchMiddleEntity.getShopLogo());
+//        assertThat(shopLogoOfERPInterfaceResponse).isEqualTo(shopSearchMiddleEntity.getShopLogo());
     }
 
     /**

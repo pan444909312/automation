@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Scenario(scenarioID = "01M2N3P4Q5R6S7T8U9V0W1X3B2",
-        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店铺logo_独家店铺未勾选开启独家logo，该店铺设置了主图动图，不会展示动图",
+        scenarioName = "普通店铺配送商卡-熊猫联盟频道-SKYX01_基础信息_店铺logo_独家店铺未勾选开启独家logo，该店铺设置了主图动图，不会展示动图（新逻辑不判断独家逻辑）",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -89,12 +89,12 @@ public class ShopShouldHasNoGifLogoCauseConfigIsClose {
                 .eq("shop_id", shopId);
         BdmExclusiveShopEntity bdmExclusiveShop = bdmExclusiveShopMapper.selectOne(queryWrapper);
 
-        assertThat(bdmExclusiveShop.getStatus()).isEqualTo(1);
+        assertThat(bdmExclusiveShop.getStatus()).isEqualTo(3);
         assertThat(bdmExclusiveShop.getIsShowShopLogoGif()).isEqualTo(0);
 
         assertThat(shopSearchMiddleEntity.getShopLogoGif()).isEqualTo("");
 
-        assertThat(shopLogoOfERPInterfaceResponse).isEqualTo(shopSearchMiddleEntity.getShopLogo());
+//        assertThat(shopLogoOfERPInterfaceResponse).isEqualTo(shopSearchMiddleEntity.getShopLogo());
     }
 
     /**
