@@ -29,8 +29,6 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//todo 动图逻辑修改 待调整
-
 @Scenario(scenarioID = "01KJ6V2PCWMV9036PKPMBHNJM7",
         scenarioName = "搜索推荐列表商卡-SKYX01_基础信息_店铺角标_搜索列表-商卡二期:独家店铺开启独家角标,会展示独家角标",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
