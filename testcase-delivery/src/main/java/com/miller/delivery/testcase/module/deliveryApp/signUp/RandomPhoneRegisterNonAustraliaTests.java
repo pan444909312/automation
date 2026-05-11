@@ -313,7 +313,7 @@ public class RandomPhoneRegisterNonAustraliaTests {
                 "\"jpHealthInsuranceDate\":\"2035-11-29\",\"jpTrafficInsuranceDate\":\"2036-01-31\"," +
                 "\"extraitKibsPhotoUrl\":\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/1747830596842235e4e95921b4f91a80779682196ee28.jpg\"," +
                 "\"drivingLicensePhotoBackUrl\":\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/17478306218264ddc2ab951a24099b02eb6a58bddeaad.jpg\"," +
-                "\"irdNumber\":\"9909877677\",\"cbtUrl\":\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/174826237604174f2feb1089d44498aef17d6d619975f.jpg\"," +
+                "\"irdNumber\":\"9909877677\",\"nationalInsuranceNumber\": \"AB123456C\",\"cbtUrl\":\"http://panda-auth.oss-eu-central-1.aliyuncs.com/delivery-app/174826237604174f2feb1089d44498aef17d6d619975f.jpg\"," +
                 "\"isRegGst\":\"1\",\"socialInsuranceNumber\":\"888899\",\"caWorkPermitType\":\"0\"," +
                 "\"cbtExpirationDate\":\"2035-07-26\",\"landingPermitNumber\":\"1234567890123\",\"landingPermitType\":\"4\"," +
                 "\"residentialArea\":\"163\",\"residenceCardType\":\"3\"," +
