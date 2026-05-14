@@ -19,28 +19,53 @@ public class ShopListFlow {
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/v2/index/shopList";
 
+    private static final String DEFAULT_VERSION = "8.73.5";
+
     /**
      * 流程_获取首页店铺流
      */
     public static ShopListResponseDTO getShopList(ShopListRequestDTO shopListRequestDTO) {
+        return getShopList(shopListRequestDTO, DEFAULT_VERSION);
+    }
+
+    /**
+     * 流程_获取首页店铺流（指定版本号）
+     *
+     * @param shopListRequestDTO 请求参数
+     * @param version            版本号，默认 8.73.5
+     */
+    public static ShopListResponseDTO getShopList(ShopListRequestDTO shopListRequestDTO, String version) {
         // 更改请求头中的Content-Type参数。不要重新调用 RequestUtils.setHeaders(header)，因为请求头中已经包含了token
         RequestUtils.getHeaders().put("Content-Type", "application/json");
         String testGroupNew = BusinessConstant.testGroup.replace("SKYX02", "SKYX01");
         RequestUtils.getHeaders().put("testGroup", testGroupNew);
         // au英文版 请求头 i18n-language=EN && language=CN
         RequestUtils.getHeaders().put("i18n-language", "EN");
+        RequestUtils.getHeaders().put("version", version);
         return HttpUtils.sendPostRequestReturnJavaObject(uri, null, RequestUtils.getHeaders(),
                 RequestUtils.putBodyOfJson(shopListRequestDTO), null, ShopListResponseDTO.class);
     }
 
     /**
-     * 根据店铺ID获取店铺列表
+     * 根据店铺ID获取店铺列表（默认版本 8.73.5）
      *
      * @param shopListRequestDTO 请求参数
      * @param shopId             目标店铺ID
      * @return 包含目标店铺的响应对象
      */
     public static ShopListResponseDTO getShopListByShopId(ShopListRequestDTO shopListRequestDTO, Long shopId) {
+        return getShopListByShopId(shopListRequestDTO, shopId, DEFAULT_VERSION);
+    }
+
+    /**
+     * 根据店铺ID获取店铺列表（指定版本号）
+     *
+     * @param shopListRequestDTO 请求参数
+     * @param shopId             目标店铺ID
+     * @param version            版本号，默认 8.73.5
+     * @return 包含目标店铺的响应对象
+     */
+    public static ShopListResponseDTO getShopListByShopId(ShopListRequestDTO shopListRequestDTO, Long shopId, String version) {
         try {
             // 设置请求头
             RequestUtils.getHeaders().put("Content-Type", "application/json");
@@ -50,6 +75,7 @@ public class ShopListFlow {
             RequestUtils.getHeaders().put("i18n-language", "EN");
             int pageNo = 1;
             RequestUtils.getHeaders().put("pageNo", pageNo);
+            RequestUtils.getHeaders().put("version", version);
             // 发送请求获取数据
             ShopListResponseDTO shopListResponse = HttpUtils.sendPostRequestReturnJavaObject(
                     uri,
