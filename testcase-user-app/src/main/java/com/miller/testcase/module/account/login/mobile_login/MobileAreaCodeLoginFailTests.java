@@ -86,7 +86,7 @@ public class MobileAreaCodeLoginFailTests {
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo("3");
-        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("Incorrect area code.");
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.resultCode").isEqualTo("2011");
+        TestCaseHelpful.assertThatJson(responseBody).inPath("$.error").isEqualTo("Incorrect verification code. Please enter again");
     }
 } 

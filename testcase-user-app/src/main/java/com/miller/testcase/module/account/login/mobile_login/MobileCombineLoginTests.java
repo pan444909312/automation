@@ -73,7 +73,7 @@ public class MobileCombineLoginTests {
 
         // 步骤2: 设置请求体。基本固定写法，不需要修改
         var requestBody = TestCaseHelpful.getJsonRequestBody(body);
-        var verification=TestCaseHelpful.getVerificationCode("16888800077");
+        var verification=TestCaseHelpful.getVerificationCode("15151990629");
         System.out.println("获取到的验证码"+verification);
         requestBody = TestCaseHelpful.updateJsonValue(requestBody, "$.pd.verification",verification);
         // 如果请求有参数，则设置参数。基本固定写法，不需要修改
@@ -85,6 +85,6 @@ public class MobileCombineLoginTests {
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         // 方式二：全匹配，断言 实际结果 包含 预期结果,排除掉额外字段。固定写法，不需要修改
         TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.accessToken").isNotNull();
-        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.userId").isEqualTo("1398719271");
+        TestCaseHelpful.assertThatJson(responseBody).when(Option.IGNORING_EXTRA_FIELDS).inPath("$.result.userId").isEqualTo("1398716816");
     }
 } 

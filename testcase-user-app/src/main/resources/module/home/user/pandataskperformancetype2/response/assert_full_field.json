@@ -7,9 +7,14 @@
 		"appFirstLoginUsers": null,
 		"firstOrderUsers": {
 			"summary": {
-				"totalCount": 0
+				"totalCount": 1
 			},
-			"details": []
+			"details": [
+				{
+					"phoneNumberMask": "159****3135",
+					"actionTime": "2026-04-30 14:44:00"
+				}
+			]
 		}
 	},
 	"success": true

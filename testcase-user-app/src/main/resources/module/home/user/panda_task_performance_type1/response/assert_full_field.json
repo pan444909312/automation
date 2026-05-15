@@ -6,9 +6,13 @@
 		"tipText": "以下仅做参考，以工作人员数据为准",
 		"appFirstLoginUsers": {
 			"summary": {
-				"totalCount": 1
+				"totalCount": 2
 			},
 			"details": [
+				{
+					"phoneNumberMask": "159****3135",
+					"actionTime": "2026-04-26 19:27:02"
+				},
 				{
 					"phoneNumberMask": "177****0123",
 					"actionTime": "2026-04-11 17:37:51"
