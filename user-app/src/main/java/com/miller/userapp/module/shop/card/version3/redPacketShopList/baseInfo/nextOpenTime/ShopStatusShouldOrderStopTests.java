@@ -26,7 +26,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01KE9JG2QNGFPC88E6BRHRK6FJ",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_下次营业时间_品类频道页-商卡二期：下次营业时间-暂停接单不可预约",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_下次营业时间_红包适用商家列表-商卡二期：下次营业时间-暂停接单不可预约",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -71,9 +71,9 @@ public class ShopStatusShouldOrderStopTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_下次营业时间_品类频道页-商卡二期：下次营业时间-暂停接单不可预约")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_下次营业时间_红包适用商家列表-商卡二期：下次营业时间-暂停接单不可预约")
     void OrderStop(ShopListRequestDTO shopListRequestDTO) {
-//        请求品类频道页店铺数据
+//        请求红包适用商家列表店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
 
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()

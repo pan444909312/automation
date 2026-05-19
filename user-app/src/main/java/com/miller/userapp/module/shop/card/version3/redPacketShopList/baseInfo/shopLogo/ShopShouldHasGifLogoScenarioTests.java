@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01KE9JG2QNGFPC88E6BRHRK6FW",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺logo_品类频道页-商卡二期:店铺logo-独家商铺开启独家logo，展示动图（新逻辑不判断独家逻辑）",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺logo_红包适用商家列表-商卡二期:店铺logo-独家商铺开启独家logo，展示动图（新逻辑不判断独家逻辑）",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -56,7 +56,7 @@ public class ShopShouldHasGifLogoScenarioTests {
 
     @MethodSource("staticLogoDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺logo_品类频道页-商卡二期:店铺logo-独家商铺开启独家logo，展示动图")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺logo_红包适用商家列表-商卡二期:店铺logo-独家商铺开启独家logo，展示动图")
     void shouldExistStaticLogo(ShopListRequestDTO shopListRequestDTO) {
         // Given
 

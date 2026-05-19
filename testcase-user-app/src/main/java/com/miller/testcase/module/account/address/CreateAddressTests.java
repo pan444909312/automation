@@ -51,7 +51,7 @@ public class CreateAddressTests {
         // 步骤3: 发起请求,并获取响应结果。基本固定写法，不需要修改
         var responseBody = TestCaseHelpful.sendRequest(method, uri, requestParams, requestHeaders, requestBody);
 
-        Integer addressId = TestCaseHelpful.extractValue(responseBody, "$.result.addressId");
+        String addressId = TestCaseHelpful.extractValue(responseBody, "$.result.addressId").toString();
 
         // 步骤4: 断言响应结果，直接拷贝抓包响应结果作为断言。基本固定写法，不需要修改
         var expectedStr = TestCaseHelpful.getFileContent(assert1);

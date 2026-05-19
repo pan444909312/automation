@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 @Scenario(scenarioID = "01K4WBVC42FE11FJN88FCVARM3",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店前标签：VIP标签_品类频道页-商卡二期：VIP标签 - 不返回",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店前标签：VIP标签_红包适用商家列表-商卡二期：VIP标签 - 不返回",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 10)
 
 @EnvTag.Test
@@ -59,7 +59,7 @@ public class ShopShouldHasNoMemberTag {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店前标签：VIP标签_品类频道页-商卡二期：VIP标签 - 不返回")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店前标签：VIP标签_红包适用商家列表-商卡二期：VIP标签 - 不返回")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
         RequestUtils.getHeaders().put("latitude","41.80478");

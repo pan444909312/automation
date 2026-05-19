@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 
 @Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4E",
-        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_品类频道-商卡二期：会员权益32-店铺联盟券",
+        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_红包适用商家列表-商卡二期：会员权益32-店铺联盟券",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5 + 30, manualTestTime = 15)
 
 @EnvTag.Test
@@ -49,13 +49,13 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_品类频道-商卡二期：会员权益32-店铺联盟券")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_红包适用商家列表-商卡二期：会员权益32-店铺联盟券")
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
         RequestUtils.getHeaders().put("latitude", "41.80478");
         RequestUtils.getHeaders().put("longitude", "123.43297");
 
-//        请求品类频道店铺数据
+//        请求红包适用商家列表店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
@@ -74,8 +74,8 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setCityName("九江市");
-        shopListRequestDTO.setShopCategoryIds("[3896,3914,5486]");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setCityName("沈阳市");
+        shopListRequestDTO.setShopCategoryIds("[10394]");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

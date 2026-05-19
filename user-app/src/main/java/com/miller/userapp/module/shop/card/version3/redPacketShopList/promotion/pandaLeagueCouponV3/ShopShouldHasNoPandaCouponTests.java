@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-//@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4M", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_品类频道-商卡二期-SKYX实验组：熊猫联盟券40 - 折扣红包 - 不展示：对照组",
+//@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4M", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_红包适用商家列表-商卡二期-SKYX实验组：熊猫联盟券40 - 折扣红包 - 不展示：对照组",
 //        author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -66,7 +66,7 @@ public class ShopShouldHasNoPandaCouponTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_品类频道-商卡二期-SKYX实验组：熊猫联盟券40 - 折扣红包 - 不展示：对照组")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_红包适用商家列表-商卡二期-SKYX实验组：熊猫联盟券40 - 折扣红包 - 不展示：对照组")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()

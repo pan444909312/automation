@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C49", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_品类频道-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺未加码",
+@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C49", scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_神券_红包适用商家列表-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺未加码",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -63,7 +63,7 @@ public class ShopShouldHasGodCouponExpandedTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_品类频道-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺未加码")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_神券_红包适用商家列表-商卡二期-SKYX实验组：神券标签41-已膨胀至X｜店铺未加码")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
           ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
           

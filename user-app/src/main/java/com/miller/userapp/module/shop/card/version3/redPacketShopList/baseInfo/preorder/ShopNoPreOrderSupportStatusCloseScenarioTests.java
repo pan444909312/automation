@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01KE9JG2QNGFPC88E6BRHRK6FK", scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺可预约状态_品类频道页-商卡二期：店铺可预约状态 - 打烊不可预约"
+@Scenario(scenarioID = "01KE9JG2QNGFPC88E6BRHRK6FK", scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺可预约状态_红包适用商家列表-商卡二期：店铺可预约状态 - 打烊不可预约"
         , author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -40,7 +40,7 @@ public class ShopNoPreOrderSupportStatusCloseScenarioTests {
 
     @MethodSource("shopStatusDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺可预约状态_品类频道页-商卡二期：店铺可预约状态 - 打烊不可预约")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺可预约状态_红包适用商家列表-商卡二期：店铺可预约状态 - 打烊不可预约")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 

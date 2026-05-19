@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C55", scenarioName = "用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-品类频道-商卡二期：人均 - 人均展示开关关闭"
+@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C55", scenarioName = "用户-红包适用商家列表店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-红包适用商家列表-商卡二期：人均 - 人均展示开关关闭"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-品类频道-商卡二期：人均 - 人均展示开关关闭")
+@DisplayName("用户-红包适用商家列表店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-红包适用商家列表-商卡二期：人均 - 人均展示开关关闭")
 public class ShopShouldNotHasAveragePurchaseScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.shopId"));
@@ -49,7 +49,7 @@ public class ShopShouldNotHasAveragePurchaseScenarioTests {
         Thread.sleep(120000);
 
     }
-    @DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-品类频道-商卡二期：人均 - 人均展示开关关闭")
+    @DisplayName("用户-红包适用商家列表店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-人均-红包适用商家列表-商卡二期：人均 - 人均展示开关关闭")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasAveragePurchaseInfo(ShopListRequestDTO ShopListRequestdto){

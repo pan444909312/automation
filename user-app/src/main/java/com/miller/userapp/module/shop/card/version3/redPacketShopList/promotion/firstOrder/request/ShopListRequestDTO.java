@@ -3,10 +3,10 @@ package com.miller.userapp.module.shop.card.version3.redPacketShopList.promotion
 import com.hungrypanda.app.server.api.req.shop.ShopListReq;
 
 /**
- * 请求品类频道店铺流入参对象
+ * 请求红包适用商家列表店铺流入参对象
  */
 public class ShopListRequestDTO extends ShopListReq {
     /*
-     * 品类频道店铺流入参对象
+     * 红包适用商家列表店铺流入参对象
      */
 }

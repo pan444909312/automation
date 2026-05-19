@@ -8,12 +8,12 @@ import com.miller.userapp.util.RequestUtils;
 
 public class ShopListFlowControlGroup {
     /**
-     * 接口_品类频道店铺流
+     * 接口_红包适用商家列表店铺流
      */
     private static final String uri = BusinessConstant.DOMAIN + "/api/user/v2/index/shopList";
 
     /**
-     * 流程_获取品类频道店铺流
+     * 流程_获取红包适用商家列表店铺流
      */
     public static ShopListResponseDTO getShopList(ShopListRequestDTO shopListRequestDTO) {
         // 这里将新人价实验组(默认)改为对照组,需要改两个实验

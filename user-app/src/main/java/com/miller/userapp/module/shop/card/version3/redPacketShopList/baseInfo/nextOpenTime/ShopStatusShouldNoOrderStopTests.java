@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01KE9JG2QNGFPC88E6BRHRK6FH",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_下次营业时间_品类频道页-商卡二期：下次营业时间-无数据",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_下次营业时间_红包适用商家列表-商卡二期：下次营业时间-无数据",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 5, manualTestTime = 3)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -53,9 +53,9 @@ public class ShopStatusShouldNoOrderStopTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_下次营业时间_品类频道页-商卡二期：下次营业时间-无数据")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_下次营业时间_红包适用商家列表-商卡二期：下次营业时间-无数据")
     void OrderStop(ShopListRequestDTO shopListRequestDTO) {
-//        请求品类频道页店铺数据
+//        请求红包适用商家列表店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();

@@ -21,7 +21,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 @Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4G",
-        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_新会员优惠标签_品类频道-商卡二期：新会员优惠标签37",
+        scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_新会员优惠标签_红包适用商家列表-商卡二期：新会员优惠标签37",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10 + 30, manualTestTime = 20)
 
 @EnvTag.Test
@@ -47,7 +47,7 @@ public class ShopShouldHasNewMemberDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_新会员优惠标签_品类频道-商卡二期：新会员优惠标签37")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_新会员优惠标签_红包适用商家列表-商卡二期：新会员优惠标签37")
     void memberBenefitDeliveryDiscount(ShopListRequestDTO shopListRequestDTO) {
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()

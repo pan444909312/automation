@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Scenario(scenarioID = "01KE9JG2QNGFPC88E6BRHRK6FR",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺角标_独家店铺开启独家角标,会展示独家角标",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺角标_独家店铺开启独家角标,会展示独家角标",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -54,7 +54,7 @@ public class ShopShouldHasExclusiveLabelScenarioTests {
 
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺角标_独家店铺开启独家角标,会展示独家角标")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺角标_独家店铺开启独家角标,会展示独家角标")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 

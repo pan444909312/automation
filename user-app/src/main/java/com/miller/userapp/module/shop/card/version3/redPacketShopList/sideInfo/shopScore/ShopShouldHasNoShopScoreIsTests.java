@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 @Scenario(scenarioID = "01KE9JG2QY1NG81ECGPA99PN0F",
-        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_品类频道-商卡二期：店铺评分-无数据",
+        scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_红包适用商家列表-商卡二期：店铺评分-无数据",
         author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -44,7 +44,7 @@ public class ShopShouldHasNoShopScoreIsTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_品类频道-商卡二期：店铺评分-无数据")
+    @DisplayName("商卡(中文)_普通店铺配送商卡-SKYX01_辅助信息_店铺评分_红包适用商家列表-商卡二期：店铺评分-无数据")
     void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()

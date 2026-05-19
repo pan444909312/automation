@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 @Scenario(scenarioID = "01K4WBV0JBBJXT2KTQN5B4RQAW",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店前标签：百万补贴_品类频道页-商卡二期：百万补贴",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店前标签：百万补贴_红包适用商家列表-商卡二期：百万补贴",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
 @EnvTag.Test
@@ -54,7 +54,7 @@ public class ShopShouldHasSubsidyTag {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店前标签：百万补贴_品类频道页-商卡二期：百万补贴")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店前标签：百万补贴_红包适用商家列表-商卡二期：百万补贴")
     void memberBenefitDeliveryDsicount(ShopListRequestDTO shopListRequestDTO) {
 
         // 经纬度为沈阳

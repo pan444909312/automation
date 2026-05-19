@@ -27,9 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @EnvTag.Test
 
 @TestFramework
-@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C5F", scenarioName = "用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-品类频道-商卡二期：配送价格 - 运费减免优惠"
+@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C5F", scenarioName = "用户-红包适用商家列表店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-红包适用商家列表-商卡二期：配送价格 - 运费减免优惠"
         , author = "yancancan@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
-@DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-品类频道-商卡二期：配送价格 - 运费减免优惠")
+@DisplayName("用户-红包适用商家列表店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-红包适用商家列表-商卡二期：配送价格 - 运费减免优惠")
 public class ShopShouldHasSendMoneyCDeliveryOffScenarioTests {
     //    测试店铺
     private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(),"user.app.for.test.shop.card.version2.04.shopId"));
@@ -44,7 +44,7 @@ public class ShopShouldHasSendMoneyCDeliveryOffScenarioTests {
         );
 
     }
-    @DisplayName("用户-品类频道店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-品类频道-商卡二期：配送价格 - 运费减免优惠")
+    @DisplayName("用户-红包适用商家列表店铺流-商卡(中文)-普通店铺配送商卡-SKYX01-辅助信息-配送价格-红包适用商家列表-商卡二期：配送价格 - 运费减免优惠")
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
     void hasSendMoneyInfo(ShopListRequestDTO ShopListRequestdto){

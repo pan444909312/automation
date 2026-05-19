@@ -30,7 +30,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
  * @author panjuxiang
  * @since 2024/7/31 14:00
  */
-@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4S", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_门店新客_品类频道-商卡二期：门店新客24",
+@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4S", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_门店新客_红包适用商家列表-商卡二期：门店新客24",
         author = "yancancan@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -52,7 +52,7 @@ public class ShopShouldHasShopFirstDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_门店新客_品类频道-商卡二期：门店新客24")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_门店新客_红包适用商家列表-商卡二期：门店新客24")
     void shouldExistShopFirstDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

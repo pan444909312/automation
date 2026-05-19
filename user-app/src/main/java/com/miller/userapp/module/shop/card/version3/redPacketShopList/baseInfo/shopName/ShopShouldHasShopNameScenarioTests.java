@@ -23,14 +23,14 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺名称_品类频道页-商卡二期:店铺名称
+ * 普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺名称_红包适用商家列表-商卡二期:店铺名称
  *
  * @author Miller Shan
  * @version 1.0
  * @since 2024/07/28 12:17:39
  */
 @Scenario(scenarioID = "01KE9JG2QNGFPC88E6BRHRK6FY",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺名称_品类频道页-商卡二期:店铺名称",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺名称_红包适用商家列表-商卡二期:店铺名称",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 30)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -48,7 +48,7 @@ public class ShopShouldHasShopNameScenarioTests {
 
     @MethodSource("shopNameDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺名称_品类频道页-商卡二期:店铺名称")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺名称_红包适用商家列表-商卡二期:店铺名称")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 

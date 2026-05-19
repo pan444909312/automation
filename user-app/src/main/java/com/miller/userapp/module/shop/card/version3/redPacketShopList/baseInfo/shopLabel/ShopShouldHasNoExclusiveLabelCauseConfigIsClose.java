@@ -29,8 +29,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Scenario(scenarioID = "01K4WBS78XCB1NTS23PZRZ6PJ6",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺角标_非独家店铺，配置了独家角标也不展示该角标",
+@Scenario(scenarioID = "01KRZM6FHVHH7P02M5NYRH3EWK",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺角标_非独家店铺，配置了独家角标也不展示该角标",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 20, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -53,7 +53,7 @@ public class ShopShouldHasNoExclusiveLabelCauseConfigIsClose {
 
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺角标_非独家店铺，配置了独家角标也不展示该角标")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺角标_非独家店铺，配置了独家角标也不展示该角标")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 

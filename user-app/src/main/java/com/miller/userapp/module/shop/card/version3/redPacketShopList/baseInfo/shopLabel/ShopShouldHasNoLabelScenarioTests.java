@@ -24,14 +24,14 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺角标_品类频道页-商卡二期:店铺角标 - 不展示
+ * 普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺角标_红包适用商家列表-商卡二期:店铺角标 - 不展示
  *
  * @author Miller Shan
  * @version 1.0
  * @since 2024/06/25 21:17:39
  */
 @Scenario(scenarioID = "01KE9JG2QNGFPC88E6BRHRK6FV",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺角标_品类频道页-商卡二期:店铺角标 - 不展示",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺角标_红包适用商家列表-商卡二期:店铺角标 - 不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -48,7 +48,7 @@ public class ShopShouldHasNoLabelScenarioTests {
 
     @MethodSource("showLabelDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺角标_品类频道页-商卡二期:店铺角标 - 不展示")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺角标_红包适用商家列表-商卡二期:店铺角标 - 不展示")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 

@@ -24,7 +24,7 @@ import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
 
 @Scenario(scenarioID = "01K0V433PSNAFB4GT8FC1RXQ7J",
-        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_品类频道-商卡二期：会员权益41-会员神券",
+        scenarioName = "普通店铺配送商卡_优惠标签_会员权益_红包适用商家列表-商卡二期：会员权益41-会员神券",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
 @EnvTag.Test
@@ -50,11 +50,11 @@ public class ShopShouldHasMemberBenefitSuperCoupon {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_品类频道-商卡二期：会员权益41-会员神券")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_会员权益_红包适用商家列表-商卡二期：会员权益41-会员神券")
     void shouldSuccess(ShopListRequestDTO shopListRequestDTO) {
 
 
-//        请求品类频道店铺数据
+//        请求红包适用商家列表店铺数据
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
                 .filter(item -> item.getShopId().equals(shopId)).findFirst().get();

@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01KE9JG2QPPC9TX67MZTJYXW95", scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺营业状态_品类频道页-商卡二期:店铺营业状态-暂停接单"
+@Scenario(scenarioID = "01KE9JG2QPPC9TX67MZTJYXW95", scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺营业状态_红包适用商家列表-商卡二期:店铺营业状态-暂停接单"
         , author = "panjuxiang@hungrypandagroup.com", developmentTime = 10, maintenanceTime = 30, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -68,7 +68,7 @@ public class ShopStatusShouldStopOrderScenarioTests {
 
     @MethodSource("shopStatusDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_基础信息_店铺营业状态_品类频道页-商卡二期:店铺营业状态-暂停接单")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店铺营业状态_红包适用商家列表-商卡二期:店铺营业状态-暂停接单")
     void showLabel(ShopListRequestDTO shopListRequestDTO) {
         // Given
 

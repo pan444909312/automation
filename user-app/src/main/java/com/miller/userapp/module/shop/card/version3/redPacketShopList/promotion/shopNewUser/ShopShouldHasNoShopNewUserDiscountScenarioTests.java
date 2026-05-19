@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * @author panjuxiang
  * @since 2024/7/30 13:43
  */
-@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4T", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_新客爆品_品类频道-商卡二期：新客爆品25-不展示",
+@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4T", scenarioName = "商卡(中文)_普通店铺配送商卡-SKYX01_优惠标签_新客爆品_红包适用商家列表-商卡二期：新客爆品25-不展示",
         author = "yancancan@hungrypandagroup.com", developmentTime = 40, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -35,7 +35,7 @@ public class ShopShouldHasNoShopNewUserDiscountScenarioTests {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_新客爆品_品类频道-商卡二期：新客爆品25-不展示")
+    @DisplayName("普通店铺配送商卡-SKYX01_优惠标签_新客爆品_红包适用商家列表-商卡二期：新客爆品25-不展示")
     void shouldNotExistShopNewUserDiscount(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

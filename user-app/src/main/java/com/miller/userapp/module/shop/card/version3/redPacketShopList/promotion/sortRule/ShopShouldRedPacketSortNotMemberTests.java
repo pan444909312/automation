@@ -34,10 +34,10 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4Z", scenarioName = "品类频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）",
+@Scenario(scenarioID = "01KE9JG2QWDYJ9ERQ4HSYH8C4Z", scenarioName = "红包适用商家列表-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 @EnvTag.Test
-@DisplayName("品类频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
+@DisplayName("红包适用商家列表-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
 public class ShopShouldRedPacketSortNotMemberTests {
      private final Long shopId = Long.parseLong(new PropertiesUtils().getProperty(this.getClass(), "user.app.for.test.shop.card.version3.increase.shopId"));
     UserLoginRequestDTO userLoginRequestDTO;
@@ -78,7 +78,7 @@ public class ShopShouldRedPacketSortNotMemberTests {
      }
      @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("品类频道-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
+    @DisplayName("红包适用商家列表-商卡二期-SKYX实验组：红包类型标签-优先级（非会员默认排序）")
      void couponGodDsicount(ShopListRequestDTO shopListRequestDTO) {
          RequestUtils.getHeaders().put("uniqueToken", distinctId);
          ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
