@@ -90,7 +90,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/24 16:34
  */
 @Scenario(scenarioID = "01K4WCJ4TSNRQDQ2Z4W36NC6MF",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_排序_当商家满足当前所有标签时，检查顺序",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_排序_当商家满足当前所有标签时，检查顺序",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 0, manualTestTime = 30)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -124,7 +124,7 @@ public class ShopFeatureDefaultSort {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_排序_当商家满足当前所有标签时，检查顺序")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_排序_当商家满足当前所有标签时，检查顺序")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);

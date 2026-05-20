@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/23 9:24
  */
 @Scenario(scenarioID = "01K4WCHR0TNCFEE6HVEJAQ84D1",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_回头客_红包适用商家列表-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 60, maintenanceTime = 15, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -70,7 +70,7 @@ public class ShopShouldHasNoReturnedVisitorFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_回头客_红包适用商家列表-商卡二期：回头客 - 回头客展示开关禁用(有服务器本地缓存不会立即生效)")
     void shouldNotExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/19 21:10
  */
 @Scenario(scenarioID = "01K4WC8EBWH9CPW51TV61QNWKZ",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客，不满足最低限制，不展示",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_回头客_红包适用商家列表-商卡二期：回头客，不满足最低限制，不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -51,7 +51,7 @@ public class ShopShouldHasNoReturnedVisitorFeatureCauseLimit {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_回头客_品类频道页-商卡二期：回头客，不满足最低限制，不展示")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_回头客_红包适用商家列表-商卡二期：回头客，不满足最低限制，不展示")
     void shouldExistReturnedVisitorFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);

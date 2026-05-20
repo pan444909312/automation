@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/28 17:54
  */
 @Scenario(scenarioID = "01K4WC5P0M8Y3K88JD0RR00A65",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_首单优先送_品类频道页-商卡二期：首单优先送",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_首单优先送_红包适用商家列表-商卡二期：首单优先送",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -58,7 +58,7 @@ public class ShopShouldHasFirstOrderDeliveryFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_首单优先送_品类频道页-商卡二期：首单优先送")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_首单优先送_红包适用商家列表-商卡二期：首单优先送")
     void shouldExistFirstOrderDeliveryFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

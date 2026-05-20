@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2024/8/24 16:34
  */
 @Scenario(scenarioID = "01K0V7PH8ZT17GZDKXCQGMNKBS",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_人工营销标签_品类频道页-商卡二期：营销文案",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_人工营销标签_红包适用商家列表-商卡二期：营销文案",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -51,7 +51,7 @@ public class ShopShouldHasEvaluationFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_人工营销标签_品类频道页-商卡二期：营销文案")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_人工营销标签_红包适用商家列表-商卡二期：营销文案")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);

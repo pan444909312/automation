@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01K4WC7Z5N4WMHJPG3J9AGBHTA",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_下单人数标签_不满足下单人数，不返回下单人数标签",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_下单人数标签_不满足下单人数，不返回下单人数标签",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -46,7 +46,7 @@ public class ShopShouldHasNoLastOrderNumFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_人下单人数标签_不满足下单人数，不返回下单人数标签")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_人下单人数标签_不满足下单人数，不返回下单人数标签")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);

@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Scenario(scenarioID = "01K4WC3MJYP40SQVMQSY9AFQ2Y",
-        scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_收藏店铺人数_收藏人数不满足配置，不展示",
+        scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_收藏店铺人数_收藏人数不满足配置，不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
 @DisplayName("商卡(中文)")
@@ -44,7 +44,7 @@ public class ShopShouldHasNoCollectFeature {
 
     @MethodSource("staticDataProvider")
     @ParameterizedTest
-    @DisplayName("普通店铺配送商卡-品类频道页-SKYX01_营销标_收藏店铺人数_收藏人数不满足配置，不展示")
+    @DisplayName("普通店铺配送商卡-红包适用商家列表-SKYX01_营销标_收藏店铺人数_收藏人数不满足配置，不展示")
     void shouldExistEvaluationFeature(ShopListRequestDTO shopListRequestDTO) {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO,shopId);
