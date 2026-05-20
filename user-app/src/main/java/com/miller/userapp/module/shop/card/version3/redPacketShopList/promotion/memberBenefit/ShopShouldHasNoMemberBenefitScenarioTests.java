@@ -77,8 +77,8 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
     void memberBenefitShopAllianCoupon(ShopListRequestDTO shopListRequestDTO) {
 
         // 使用城市 烟台
-        RequestUtils.getHeaders().put("latitude", "37.46353");
-        RequestUtils.getHeaders().put("longitude", "121.44801");
+        RequestUtils.getHeaders().put("latitude", "37.4456");
+        RequestUtils.getHeaders().put("longitude", "121.4205");
 //        获取红包适用商家列表店铺列表数据
         ShopListResponseDTO shopList = ShopListFlow.getShopList(shopListRequestDTO);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().get(0);
@@ -97,8 +97,8 @@ public class ShopShouldHasNoMemberBenefitScenarioTests {
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setCityName("沈阳市");
-        shopListRequestDTO.setShopCategoryIds("[10394]");
+        shopListRequestDTO.setCityName("烟台市");
+        shopListRequestDTO.setShopCategoryIds("[19571]");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }
