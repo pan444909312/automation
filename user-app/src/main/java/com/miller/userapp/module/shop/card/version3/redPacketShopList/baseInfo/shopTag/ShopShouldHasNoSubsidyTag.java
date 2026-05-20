@@ -80,8 +80,8 @@ public class ShopShouldHasNoSubsidyTag {
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setCityName("九江市");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        shopListRequestDTO.setShopCategoryIds("[3896,3914,5486]");
+        shopListRequestDTO.setCityName("沈阳市");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setShopCategoryIds("[19571]");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

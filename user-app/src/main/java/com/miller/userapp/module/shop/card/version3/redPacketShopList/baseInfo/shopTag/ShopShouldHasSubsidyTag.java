@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4WBV0JBBJXT2KTQN5B4RQAW",
+@Scenario(scenarioID = "01KS1K51T1T4Q0CGA4AFT62P2F",
         scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店前标签：百万补贴_红包适用商家列表-商卡二期：百万补贴",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 0, manualTestTime = 15)
 
@@ -82,8 +82,8 @@ public class ShopShouldHasSubsidyTag {
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setCityName("九江市");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        shopListRequestDTO.setShopCategoryIds("[3896,3914,5486]");
+        shopListRequestDTO.setCityName("沈阳市");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setShopCategoryIds("[19571]");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

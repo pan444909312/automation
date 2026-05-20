@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 
 import static com.miller.service.framework.util.JsonUnitUtils.assertThat;
 
-@Scenario(scenarioID = "01K4WBVC42FE11FJN88FCVARM3",
+@Scenario(scenarioID = "01KS1KESPMS7GN6HA9FFFQQ9GN",
         scenarioName = "普通店铺配送商卡-红包适用商家列表-SKYX01_基础信息_店前标签：VIP标签_红包适用商家列表-商卡二期：VIP标签 - 不返回",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 15, maintenanceTime = 0, manualTestTime = 10)
 
@@ -86,8 +86,8 @@ public class ShopShouldHasNoMemberTag {
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setCityName("九江市");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        shopListRequestDTO.setShopCategoryIds("[3896,3914,5486]");
+        shopListRequestDTO.setCityName("沈阳市");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setShopCategoryIds("[19571]");
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 }

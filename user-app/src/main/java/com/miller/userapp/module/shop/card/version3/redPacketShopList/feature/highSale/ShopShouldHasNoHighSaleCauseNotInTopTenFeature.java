@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Scenario(scenarioID = "01K4WC5JPRFCHZ113K2V2ZF40A",
+@Scenario(scenarioID = "01KS1JJ4X6WE3F9RYM7Y8NX65F",
         scenarioName = "普通店铺配送商卡-品类频道页-SKYX01_营销标_人气销量标签_不属于前10店铺，不展示",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 10, manualTestTime = 10)
 @EnvTag.Test
@@ -53,7 +53,7 @@ public class ShopShouldHasNoHighSaleCauseNotInTopTenFeature {
 
         ShopListResponseDTO shopList = ShopListFlow.getShopListByShopId(shopListRequestDTO, shopId);
         ShopIndexVO shopIndexVO = shopList.getResult().getShopList().stream()
-                .filter(item -> item.getShopId().equals(shopId)).findFirst().get();
+                .filter(item -> item.getShopId().equals(shopId)).findFirst().orElse(null);
 
         ShopFeatureVO shopFeatureVO = shopIndexVO.getShopFeatureList().stream().
                 filter(item -> item.getType().equals(ShopFeatureEnum.POPULAR_STORE.getType())).findFirst().orElse(null);
@@ -75,8 +75,8 @@ public class ShopShouldHasNoHighSaleCauseNotInTopTenFeature {
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setCityName("九江市");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
-        shopListRequestDTO.setShopCategoryIds("[3896,3914,5486]");
+        shopListRequestDTO.setCityName("温州市");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setShopCategoryIds("[9168]");
 
         return Stream.of(Arguments.of(shopListRequestDTO));
     }

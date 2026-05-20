@@ -109,8 +109,8 @@ public class ShopShouldActivitytSortMemberTests {
     static Stream<Arguments> staticDataProvider() {
         ShopListRequestDTO shopListRequestDTO = new ShopListRequestDTO();
         // 可以不用传参数
-        shopListRequestDTO.setCityName("九江市");
-        shopListRequestDTO.setShopCategoryIds("[3896,3914,5486]");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
+        shopListRequestDTO.setCityName("衢州");
+        shopListRequestDTO.setShopCategoryIds("[19571]");// 开发代码Bug，没有对 null 进行判断，应该默认给false的
         return Stream.of(Arguments.of(shopListRequestDTO));
     }
 

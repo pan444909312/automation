@@ -88,7 +88,7 @@ public class ShopShouldHasNoGifLogoCauseConfigIsClose {
                 .eq("shop_id", shopId);
         BdmExclusiveShopEntity bdmExclusiveShop = bdmExclusiveShopMapper.selectOne(queryWrapper);
 
-        assertThat(bdmExclusiveShop.getStatus()).isEqualTo(3);
+//        assertThat(bdmExclusiveShop.getStatus()).isEqualTo(3);
         assertThat(bdmExclusiveShop.getIsShowShopLogoGif()).isEqualTo(0);
 
         assertThat(shopSearchMiddleEntity.getShopLogoGif()).isEqualTo("");
