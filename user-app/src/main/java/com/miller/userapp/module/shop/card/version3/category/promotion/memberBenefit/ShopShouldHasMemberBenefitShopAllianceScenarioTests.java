@@ -22,7 +22,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 
-@Scenario(scenarioID = "01K0V4346Z54JEC3CC362DMSMN",
+@Scenario(scenarioID = "01KS43J1316QNZ6CCWWT3BKY3Q",
         scenarioName = "普通店铺配送商卡-SKYX01_优惠标签_会员权益_品类频道-商卡二期：会员权益32-店铺联盟券",
         author = "panjuxiang@hungrypandagroup.com", developmentTime = 30, maintenanceTime = 5 + 30, manualTestTime = 15)
 

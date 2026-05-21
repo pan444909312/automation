@@ -64,6 +64,8 @@ public class ShopShouldHasMemberBenefitShopAllianceScenarioTests {
         ShopPromoteVO memberPacket = shopIndexVO.getShopPromoteList().stream().
                 filter(item -> item.getType() == ShopPromoteEnum.INDEX_MEMBER_PACKET.getType()).findFirst().get();
         assert memberPacket.getType().equals(ShopPromoteEnum.INDEX_MEMBER_PACKET.getType());
+        assert memberPacket.getShowContent().contains("红包");
+
 
     }
 
