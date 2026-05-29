@@ -7,6 +7,6 @@
     "type": 0,
     "url": "hptakeout://module=webview&action=openPage&params=eyJ1cmwiOiIifQ**&callback=CALLBACK_NAME&code=f95a296058acf09"
   },
-  "currency": "",
+  "currency": "¥",
   "success": true
 }

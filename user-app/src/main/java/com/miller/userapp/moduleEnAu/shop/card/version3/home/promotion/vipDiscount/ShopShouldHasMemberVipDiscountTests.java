@@ -68,7 +68,7 @@ public class ShopShouldHasMemberVipDiscountTests {
         // tagtype=2, tagTypeSort=0
         assertThat(vipDiscount.getTagType()).isEqualTo(2);
         assertThat(vipDiscount.getTagTypeSort()).isEqualTo(0);
-//        assertThat(vipDiscount.getmemberLevel()).isEqualTo(0);
+//        assertThat(vipDiscount.).isEqualTo(0);
         // content 校验
         assertThat(vipDiscount.getShowContent()).isEqualTo("会员3折");
     }
