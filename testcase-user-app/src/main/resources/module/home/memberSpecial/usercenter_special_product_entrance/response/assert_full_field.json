@@ -1,0 +1,12 @@
+{
+	"resultCode": 1000,
+	"result": {
+		"userMemberBenefitDescList": [
+			{
+				"title": "会员特价菜",
+				"subTitle": "优惠叠加享",
+				"benefitType": 17
+			}
+		]
+	}
+}

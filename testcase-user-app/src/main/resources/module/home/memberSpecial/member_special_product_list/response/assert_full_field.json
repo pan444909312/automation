@@ -1,0 +1,57 @@
+{
+  "resultCode": 1000,
+  "result": {
+    "totalNumber": 3,
+    "list": [
+      {
+        "productId": 82458992,
+        "shopId": 221864167,
+        "city": "九江市",
+        "productSkuId": 1734599197946,
+        "productSkuPrice": 1100,
+        "discountPrice": 330,
+        "discountType": 2,
+        "discountValue": 30,
+        "discountLimit": -1,
+        "isCombine": 0,
+        "productName": "奶茶2斤装",
+        "showMemberDiscountTag": 1,
+        "priceTip": "3折",
+        "priceTipType": 1
+      },
+      {
+        "productId": 82651733,
+        "shopId": 855828829,
+        "city": "九江市",
+        "productSkuId": 1734599675105,
+        "productSkuPrice": 1000,
+        "discountPrice": 500,
+        "discountType": 2,
+        "discountValue": 50,
+        "discountLimit": -1,
+        "isCombine": 0,
+        "productName": "李子",
+        "showMemberDiscountTag": 1,
+        "priceTip": "5折",
+        "priceTipType": 1
+      },
+      {
+        "productId": 82651734,
+        "shopId": 855828829,
+        "city": "九江市",
+        "productSkuId": 1734599675106,
+        "productSkuPrice": 900,
+        "discountPrice": 450,
+        "discountType": 2,
+        "discountValue": 50,
+        "discountLimit": -1,
+        "isCombine": 0,
+        "productName": "西瓜",
+        "showMemberDiscountTag": 0,
+        "priceTip": "5折",
+        "priceTipType": 1
+      }
+    ]
+  },
+  "success": true
+}

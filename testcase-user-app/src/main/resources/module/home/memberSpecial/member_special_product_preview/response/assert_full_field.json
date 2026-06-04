@@ -1,0 +1,22 @@
+{
+  "resultCode": 1000,
+  "result": [
+    {
+      "productId": 82458992,
+      "shopId": 221864167,
+      "city": "九江市",
+      "productSkuId": 1734599197946,
+      "productSkuPrice": 1100,
+      "discountPrice": 220,
+      "discountType": 2,
+      "discountValue": 20,
+      "discountLimit": -1,
+      "isCombine": 0,
+      "productName": "奶茶2斤装",
+      "showMemberDiscountTag": 1,
+      "priceTip": "2折",
+      "priceTipType": 1
+    }
+  ],
+  "success": true
+}
