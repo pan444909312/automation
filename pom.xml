@@ -35,18 +35,13 @@
         <module>mapper</module>
         <module>entity</module>
         <module>common</module>
-        <module>demo</module>
         <module>data-center</module>
         <module>user-app</module>
         <module>merchant</module>
-        <module>delivery-app</module>
         <module>erp</module>
         <module>takeaway</module>
         <module>market</module>
-        <module>bdm</module>
-        <module>pos</module>
         <module>testcase-user-app</module>
-        <module>testcase-merchant</module>
         <module>testcase-delivery</module>
         <module>testcase-pandafresh</module>
     </modules>
