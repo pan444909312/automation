@@ -32,10 +32,6 @@
         <!-- 添加测试用例集依赖，这样打包的时候才能被打到lib包里 -->
         <dependency>
             <groupId>com.miller</groupId>
-            <artifactId>demo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.miller</groupId>
             <artifactId>takeaway</artifactId>
         </dependency>
 
@@ -43,29 +39,7 @@
             <groupId>com.miller</groupId>
             <artifactId>merchant</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.miller</groupId>
-            <artifactId>pos</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>com.miller</groupId>
-            <artifactId>market</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>shiro-core</artifactId>
-                    <groupId>org.apache.shiro</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>shiro-web</artifactId>
-                    <groupId>org.apache.shiro</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>shiro-spring</artifactId>
-                    <groupId>org.apache.shiro</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
         <!-- 扫描测试用例 -->
         <dependency>
