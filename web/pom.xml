@@ -29,11 +29,6 @@
             <artifactId>service</artifactId>
         </dependency>
 
-        <!-- 添加测试用例集依赖，这样打包的时候才能被打到lib包里 -->
-        <dependency>
-            <groupId>com.miller</groupId>
-            <artifactId>takeaway</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.miller</groupId>

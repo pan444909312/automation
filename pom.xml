@@ -37,10 +37,7 @@
         <module>common</module>
         <module>data-center</module>
         <module>user-app</module>
-        <module>merchant</module>
         <module>erp</module>
-        <module>takeaway</module>
-        <module>market</module>
         <module>testcase-user-app</module>
         <module>testcase-delivery</module>
         <module>testcase-pandafresh</module>
