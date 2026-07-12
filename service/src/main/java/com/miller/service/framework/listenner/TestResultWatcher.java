@@ -108,17 +108,6 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         // 记录成功的方法
         context.getTestMethod().ifPresent(method -> successfulTestMethods.add(method.getName()));
 
-        // 执行成功则更新 ApiDoc 平台的状态
-        if (yApiEnabled) {
-            // 获取测试类上的ApiDoc注解中的值
-            getAnnotationValueOfApiDoc(context);
-
-            // 更新 YAPI 平台的状态
-            for (String element : apiDocsValues) {
-                String yApiId = YApiUtils.getYApiId(element);
-                YApiUtils.updateYApiData(element);
-            }
-        }
         // 新增执行人DevOps判断
         if (!Objects.equals(executor, "DevOps")) {
 //            if (isSendNotification)
@@ -223,26 +212,6 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
     }
 
     /**
-     * 获取 {@link  ApiDoc @ApiDoc} 注解的值
-     */
-    private void getAnnotationValueOfApiDoc(ExtensionContext context) {
-        // 处理方法上的注解
-        // ApiDoc apiDocAnnotation = context.getTestMethod().get().getDeclaredAnnotation(ApiDoc.class);
-        // 处理类上的注解
-        ApiDoc apiDocAnnotation = context.getTestClass().get().getDeclaredAnnotation(ApiDoc.class);
-        if (Objects.nonNull(apiDocAnnotation)) {
-            apiDocsValues.add(apiDocAnnotation.value());
-        }
-        ApiDocs apiDocsAnnotation = context.getTestClass().get().getDeclaredAnnotation(ApiDocs.class);
-        if (Objects.nonNull(apiDocsAnnotation)) {
-            ApiDoc[] apiDocs = apiDocsAnnotation.value();
-            for (ApiDoc apiDoc : apiDocs) {
-                apiDocsValues.add(apiDoc.value());
-            }
-        }
-    }
-
-    /**
      * 生成钉钉消息
      *
      * @param context
@@ -334,32 +303,6 @@ public class TestResultWatcher implements TestWatcher, ExecutionCondition {
         DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", notificationContentHandler(context, testResult));
     }
 
-
-    /**
-     * 发送自动化测试执行消息-成功消息
-     *
-     * @param context
-     * @param testResult
-     */
-    private void sendExecuteNotificationOnlySuccess(ExtensionContext context, String testResult) {
-
-        DingTalkUtils.sendMarkdownMessage("自动化执行通知", notificationContentHandler(context, testResult));
-
-    }
-
-    /**
-     * 发送自动化测试执行消息-非成功的消息
-     *
-     * @param context
-     * @param testResult
-     */
-    private void sendExecuteNotificationExceptSuccess(ExtensionContext context, String testResult) {
-
-        //todo 测试用例执行失败或异常 excel输出结果汇总
-
-        DingTalkUtils.sendMarkdownMessageTest("自动化执行通知", notificationContentHandler(context, testResult));
-
-    }
 
     private void updateAutoExecutionRecordTestResult(ExtensionContext context, String result) {
         Scenario scenario = context.getRequiredTestClass().getDeclaredAnnotation(Scenario.class);

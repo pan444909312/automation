@@ -120,6 +120,7 @@ public class LifecycleCallback implements BeforeAllCallback, BeforeEachCallback,
 
     /**
      * 在 @Test 方法执行之前调用此方法
+     * 目前该@MethodInvoked 注解都无使用，所以该方法仅记录日志使用
      */
     @Override
     public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
